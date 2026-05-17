@@ -1,0 +1,12 @@
+*
+
+!.gitignore
+!AGENTS.md
+
+!.codex/
+!.codex/**
+
+!analysis-reports/
+!analysis-reports/**
+
+**/.DS_Store
