@@ -1,12 +1,6 @@
-*
-
-!.gitignore
-!AGENTS.md
-
-!.codex/
-!.codex/**
-
-!analysis-reports/
-!analysis-reports/**
-
+repos/
+.obsidian
 **/.DS_Store
+.trash 
+.env.example
+artifacts
