@@ -1,7 +1,7 @@
 ---
 title: graphify CLI Reference
 created: 2026-06-10
-updated: 2026-06-10
+updated: 2026-06-15
 type: concept
 tags: [graphify, knowledge-graph, developer-tools, tooling, workflow, evidence]
 sources:
@@ -10,7 +10,7 @@ sources:
   - repos/graphify/graphify/skill.md
   - repos/graphify/graphify/querylog.py
   - repos/graphify/graphify/benchmark.py
-  - actual command: python3 -m graphify --help
+  - actual command: uv run python -m graphify --help
 confidence: high
 ---
 
@@ -29,7 +29,7 @@ query/analyze  → query, path, explain, affected로 graph 탐색
 export/auto    → HTML, tree, wiki, Obsidian, hook, watch, benchmark
 ```
 
-즉 CLI는 단순 실행 wrapper가 아니라, `graph.json`을 만들고 유지하고 질문하는 운영 인터페이스다. `GRAPH_REPORT.md`가 넓은 architecture summary라면, `query/path/explain/affected`는 특정 질문에 맞는 작은 subgraph를 꺼내는 인터페이스다. Agent가 이 CLI를 skill/always-on instruction으로 사용하는 방식은 [[graphify-agent-skill-integration]], `extract`와 `query`의 backend 없는 동작은 [[graphify-extract-query-mechanics]]에 정리했다.
+즉 CLI는 단순 실행 wrapper가 아니라, `graph.json`을 만들고 유지하고 질문하는 운영 인터페이스다. `GRAPH_REPORT.md`가 넓은 architecture summary라면, `query/path/explain/affected`는 특정 질문에 맞는 작은 subgraph를 꺼내는 인터페이스다. Agent가 이 CLI를 skill/always-on instruction으로 사용하는 방식은 [[graphify-agent-skill-integration]], `extract`와 `query`의 backend 없는 동작은 [[graphify-extract-query-mechanics]], 코딩 작업에서 한국어/추상 의도를 graph vocabulary query로 바꾸는 실전 규칙은 [[graphify-query-practices-for-coding]]에 정리했다.
 
 ## `/graphify`와 `graphify` 구분
 
@@ -93,7 +93,7 @@ graphify cluster-only .
 | `graphify explain "X"` | 특정 node와 neighbor를 설명 | “이 class/function이 graph에서 무슨 역할인가?” |
 | `graphify affected "X"` | incoming relation을 역방향 BFS로 따라 영향 범위 탐색 | “이 node를 바꾸면 어디가 영향받나?” |
 
-`query`는 기본 budget이 2000 token이며 `--budget N`, `--context C`, `--graph <path>`를 지원한다. `affected`는 `--depth N`, repeatable `--relation R`, `--graph <path>`를 지원한다.
+`query`는 기본 budget이 2000 token이며 `--budget N`, `--context C`, `--graph <path>`를 지원한다. 현재 CLI routing은 `__main__.py`에서 `query` depth를 2로 호출한다. 한국어/추상 질문을 그대로 넣으면 lexical match가 실패할 수 있으므로, 코딩 작업에서는 [[graphify-query-practices-for-coding]]처럼 실제 node label/source_file vocabulary로 query 문자열을 확장한 뒤 실행한다. `affected`는 `--depth N`, repeatable `--relation R`, `--graph <path>`를 지원한다.
 
 실전에서는 전체 repo를 다시 읽기 전에 다음을 먼저 실행한다.
 
@@ -187,6 +187,7 @@ graphify cluster-only .
 - [[graphify-agent-skill-integration]]
 - [[graphify-knowledge-graph-pipeline]]
 - [[graphify-extract-query-mechanics]]
+- [[graphify-query-practices-for-coding]]
 - [[graphify-graph-analysis]]
 - [[graphify-report-generation]]
 - [[graphify-export-and-visualization]]
