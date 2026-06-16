@@ -1,7 +1,7 @@
 ---
 title: graphify Extract and Query Mechanics
 created: 2026-06-10
-updated: 2026-06-10
+updated: 2026-06-15
 type: concept
 tags: [graphify, knowledge-graph, developer-tools, tooling, workflow, evidence]
 sources:
@@ -143,7 +143,7 @@ CLI가 자연어 답변을 생성해서가 아니라, 질문 문장을 lexical s
 → seed 주변 subgraph 반환
 ```
 
-따라서 직접 CLI 결과는 “관련 graph context”이고, Claude/Codex/Hermes 같은 agent가 이 출력을 읽으면 그 agent LLM이 자연어 설명으로 바꾼다. Agent skill 기반의 query-first 정책은 [[graphify-agent-skill-integration]], 이 구분과 “LLM을 쓰는 단계”는 [[graphify-llm-semantic-extraction]]에 정리되어 있다.
+따라서 직접 CLI 결과는 “관련 graph context”이고, Claude/Codex/Hermes 같은 agent가 이 출력을 읽으면 그 agent LLM이 자연어 설명으로 바꾼다. Agent skill 기반의 query-first 정책은 [[graphify-agent-skill-integration]], 이 구분과 “LLM을 쓰는 단계”는 [[graphify-llm-semantic-extraction]]에 정리되어 있다. 코딩 작업에서 사용자의 한국어/추상 의도를 실제 node label/source_file vocabulary query로 바꾸는 절차는 [[graphify-query-practices-for-coding]]에 따로 정리했다.
 
 ## 실무적 사용 팁
 
@@ -157,6 +157,7 @@ CLI가 자연어 답변을 생성해서가 아니라, 질문 문장을 lexical s
 
 - [[graphify]]
 - [[graphify-cli-reference]]
+- [[graphify-query-practices-for-coding]]
 - [[graphify-knowledge-graph-pipeline]]
 - [[graphify-llm-semantic-extraction]]
 - [[graphify-graph-analysis]]

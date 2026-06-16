@@ -1,7 +1,7 @@
 ---
 title: graphify
 created: 2026-06-10
-updated: 2026-06-10
+updated: 2026-06-15
 type: project
 tags: [open-source, project, architecture, knowledge-graph, graphify, developer-tools, tooling, evidence]
 sources:
@@ -29,7 +29,7 @@ confidence: high
 
 ## 핵심 파이프라인
 
-자세한 단계별 구조는 [[graphify-knowledge-graph-pipeline]]에 정리되어 있고, 실제 운영 CLI는 [[graphify-cli-reference]], `extract`/`query` 세부 동작은 [[graphify-extract-query-mechanics]], Codex/Claude Code 같은 agent skill 통합은 [[graphify-agent-skill-integration]]에 정리되어 있다.
+자세한 단계별 구조는 [[graphify-knowledge-graph-pipeline]]에 정리되어 있고, 실제 운영 CLI는 [[graphify-cli-reference]], `extract`/`query` 세부 동작은 [[graphify-extract-query-mechanics]], 코딩 작업에서 query 문자열을 만드는 실전 규칙은 [[graphify-query-practices-for-coding]], Codex/Claude Code 같은 agent skill 통합은 [[graphify-agent-skill-integration]]에 정리되어 있다.
 
 ```text
 detect → extract → build → dedup → cluster → analyze → report/export
@@ -89,6 +89,7 @@ graphify cluster-only .
 - [[graphify-cli-reference]]
 - [[graphify-agent-skill-integration]]
 - [[graphify-extract-query-mechanics]]
+- [[graphify-query-practices-for-coding]]
 - [[graphify-export-and-visualization]]
 - [[graphify-graph-analysis]]
 - [[graphify-report-generation]]
