@@ -10,7 +10,7 @@ source_toc: artifacts/claude-code-history-viewer/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/claude-code-history-viewer/1-overview|1 Overview]]
   - [[1.1-installation-and-setup|1.1 Installation and Setup]]
   - [[1.2-key-features|1.2 Key Features]]
 - [[2-architecture-overview|2 Architecture Overview]]

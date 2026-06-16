@@ -10,7 +10,7 @@ source_toc: artifacts/pi/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/pi/1-overview|1 Overview]]
   - [[1.1-getting-started|1.1 Getting Started]]
   - [[1.2-monorepo-structure-and-build-system|1.2 Monorepo Structure and Build System]]
 - [[2-core-architecture|2 Core Architecture]]
