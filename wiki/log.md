@@ -183,3 +183,23 @@
 - Recorded the agreed exclusions from default wiki sections: `Quality Signals`, `First Meaningful Success`, `Prompt / Intent Review`, and a separate `Taste Rubric` file.
 - Updated `index.md` to list 36 indexed pages.
 - Verified wiki health with `python3 scripts/wiki-lint.py`: 0 issues, 0 warnings, 36 indexed pages.
+
+## [2026-06-14] update | career-ops project structure and setup
+- Added [[career-ops]] based on DeepWiki overview/setup/config/examples pages and source verification against `repos/career-ops` at commit `57b34c07e01cd106528936398507e1b4552ca295`.
+- Source-verified setup and architecture claims against `repos/career-ops/README.md`, `repos/career-ops/AGENTS.md`, `repos/career-ops/DATA_CONTRACT.md`, `repos/career-ops/package.json`, `repos/career-ops/doctor.mjs`, `repos/career-ops/scaffolder/bin/cli.mjs`, `repos/career-ops/config/profile.example.yml`, `repos/career-ops/templates/portals.example.yml`, `repos/career-ops/modes/_shared.md`, `repos/career-ops/modes/auto-pipeline.md`, `repos/career-ops/modes/oferta.md`, `repos/career-ops/scan.mjs`, `repos/career-ops/generate-pdf.mjs`, `repos/career-ops/generate-latex.mjs`, `repos/career-ops/merge-tracker.mjs`, and `repos/career-ops/dashboard/main.go`.
+- Verified current cold-start signal with `node doctor.mjs --json`: onboarding needed in the analysis checkout because `cv.md`, `config/profile.yml`, `modes/_profile.md`, and `portals.yml` are absent; Playwright MCP warning is reported.
+- Updated `index.md` to list 37 indexed pages.
+
+## [2026-06-15] update | graphify coding query practices
+- Added [[graphify-query-practices-for-coding]] based on source verification against `repos/graphify/graphify/serve.py`, `repos/graphify/graphify/__main__.py`, `repos/graphify/graphify/querylog.py`, `repos/graphify/graphify/skill.md`, `repos/graphify/tools/skillgen/fragments/references/query/cli.md`, and installed Codex skill files under `/Users/kkh/.codex/skills/graphify/`.
+- Recorded the current CLI behavior verified with `uv run python -m graphify --help` at `repos/graphify` commit `8a04560`: `query` is lexical seed selection plus BFS/DFS traversal, while coding-work prompts should ask the AI to expand Korean/abstract intent into actual graph node label/source_file vocabulary before running `graphify query`.
+- Updated [[graphify]], [[graphify-cli-reference]], and [[graphify-extract-query-mechanics]] with cross-links to the focused query-practices page.
+- Updated `index.md` to list 38 indexed pages.
+
+
+## [2026-06-15] update | Understand-Anything source-verified analysis
+- Added [[Understand-Anything]] based on Gemini baseline artifacts and source verification against `repos/Understand-Anything` at commit `7a3b7511b26a1816be3b6cc5683b34779e0abce9`.
+- Wrote reports: `reports/Understand-Anything/overview.md`, `architecture.md`, `pipeline.md`, `core.md`, `dashboard.md`, and `gemini-baseline-comparison.md`.
+- Source-verified pipeline/core/dashboard claims against `understand-anything-plugin/skills/*`, `agents/*`, `hooks/*`, `packages/core/src/*`, and `packages/dashboard/*`.
+- Verified commands after `pnpm install --frozen-lockfile`: core build/test, skill build, dashboard build, root tests, and lint all succeeded; dashboard build emitted a large ELK chunk warning.
+- Updated `index.md` to list 39 indexed pages.
