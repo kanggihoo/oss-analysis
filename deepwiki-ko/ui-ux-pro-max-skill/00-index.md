@@ -10,7 +10,7 @@ source_toc: artifacts/ui-ux-pro-max-skill/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/ui-ux-pro-max-skill/1-overview|1 Overview]]
   - [[1.1-getting-started|1.1 Getting Started]]
   - [[1.2-system-architecture|1.2 System Architecture]]
 - [[2-uipro-cli-tool|2 uipro-cli Tool]]

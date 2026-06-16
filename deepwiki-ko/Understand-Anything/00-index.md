@@ -10,7 +10,7 @@ source_toc: artifacts/Understand-Anything/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/Understand-Anything/1-overview|1 Overview]]
   - [[1.1-getting-started-and-installation|1.1 Getting Started & Installation]]
   - [[1.2-repository-structure-and-monorepo-layout|1.2 Repository Structure & Monorepo Layout]]
   - [[1.3-skills-reference|1.3 Skills Reference]]

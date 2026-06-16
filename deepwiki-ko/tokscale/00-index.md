@@ -10,7 +10,7 @@ source_toc: artifacts/tokscale/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/tokscale/1-overview|1 Overview]]
 - [[2-architecture|2 Architecture]]
   - [[2.1-monorepo-structure|2.1 Monorepo Structure]]
   - [[2.2-data-flow-pipeline|2.2 Data Flow Pipeline]]

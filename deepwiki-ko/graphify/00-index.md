@@ -10,7 +10,7 @@ source_toc: artifacts/graphify/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/graphify/1-overview|1 Overview]]
   - [[1.1-getting-started-and-installation|1.1 Getting Started & Installation]]
   - [[1.2-changelog-and-version-history|1.2 Changelog & Version History]]
 - [[2-core-architecture|2 Core Architecture]]

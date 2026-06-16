@@ -10,7 +10,7 @@ source_toc: artifacts/langfuse/deepwiki/toc.json
 
 ## TOC
 
-- [[1-overview|1 Overview]]
+- [[deepwiki-ko/langfuse/1-overview|1 Overview]]
   - [[1.1-system-architecture|1.1 System Architecture]]
   - [[1.2-monorepo-structure|1.2 Monorepo Structure]]
   - [[1.3-technology-stack|1.3 Technology Stack]]
