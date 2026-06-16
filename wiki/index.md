@@ -2,13 +2,15 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-06-11 | Total pages: 36
+> Last updated: 2026-06-15 | Total pages: 39
 
 ## Projects
 
+- [[career-ops]] — Source-verified project structure and initial setup model for the CLI-agnostic AI job-search automation workspace.
 - [[claude-code-history-viewer]] — Tauri/React/Rust desktop and optional WebUI tool for browsing multi-provider AI coding assistant conversation history.
 - [[codeburn]] — Source-verified architecture notes for the AI coding token/cost observability pipeline from provider logs to TUI, menubar JSON, and MCP surfaces.
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
+- [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
 - [[tokscale]] — Source-verified architecture notes for the Rust CLI/core plus Next.js social platform that tracks AI coding assistant token usage.
 
@@ -33,6 +35,7 @@
 - [[graphify-graph-analysis]] — How graphify turns NetworkX graphs into god nodes, surprises, affected nodes, questions, diffs, and import-cycle findings.
 - [[graphify-knowledge-graph-pipeline]] — Source-verified pipeline from file detection through graph report/export.
 - [[graphify-llm-semantic-extraction]] — When graphify uses LLM backends, how to configure them, and which providers are supported.
+- [[graphify-query-practices-for-coding]] — Source-verified practices for turning Korean/abstract coding intents into graph vocabulary queries using query/explain/path/affected.
 - [[graphify-report-generation]] — How graphify formats graph analysis outputs into GRAPH_REPORT.md sections and audit guidance.
 - [[llm-wiki-operating-model]] — How this wiki is structured and maintained by the agent, including the judgment accumulation layer.
 - [[open-source-analysis-judgment-model]] — Shared lens for turning source-verified repo analysis into Taste Notes, reusable patterns, and comparison hooks.
