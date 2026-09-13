@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Folo Shared Packages",
+    "output": "packages.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/RSSNext/folo",
+      "revision": "44f0e5df06eba774afe1f1aea30d90a742da5dec"
+    },
+    "views": [
+      {
+        "id": "data-track",
+        "label": "Data track",
+        "focus": [
+          "shared",
+          "models",
+          "database",
+          "store"
+        ],
+        "note": "models -> database -> store is the persistence/state side of the shared stack."
+      },
+      {
+        "id": "ui-track",
+        "label": "UI track",
+        "focus": [
+          "shared",
+          "hooks",
+          "components"
+        ],
+        "note": "hooks -> components is the UI-building-block side; components also reads models directly."
+      },
+      {
+        "id": "boundary",
+        "label": "External boundary",
+        "focus": [
+          "client_sdk",
+          "backend_api"
+        ],
+        "note": "Everything here still only reaches the real backend through client-sdk."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "foundation",
+      "type": "backend",
+      "label": "Foundation",
+      "sublabel": "types · utils · configs",
+      "pos": [
+        40,
+        170
+      ],
+      "size": [
+        150,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/types/package.json"
+        }
+      ]
+    },
+    {
+      "id": "shared",
+      "type": "backend",
+      "label": "shared",
+      "sublabel": "@follow/shared",
+      "pos": [
+        260,
+        170
+      ],
+      "size": [
+        150,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/shared/package.json"
+        }
+      ]
+    },
+    {
+      "id": "client_sdk",
+      "type": "external",
+      "label": "client-sdk",
+      "sublabel": "@follow-app/client-sdk (npm)",
+      "pos": [
+        245,
+        290
+      ],
+      "size": [
+        180,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/shared/package.json"
+        }
+      ]
+    },
+    {
+      "id": "backend_api",
+      "type": "external",
+      "label": "Backend API",
+      "sublabel": "not in this repo",
+      "pos": [
+        495,
+        290
+      ],
+      "size": [
+        170,
+        52
+      ],
+      "sources": [
+        {
+          "path": "apps/desktop/layer/renderer/src/lib/api-client.ts"
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "type": "backend",
+      "label": "models",
+      "sublabel": "@follow/models",
+      "pos": [
+        480,
+        170
+      ],
+      "size": [
+        140,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/models/package.json"
+        }
+      ]
+    },
+    {
+      "id": "hooks",
+      "type": "backend",
+      "label": "hooks",
+      "sublabel": "@follow/hooks",
+      "pos": [
+        480,
+        50
+      ],
+      "size": [
+        140,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/hooks/package.json"
+        }
+      ]
+    },
+    {
+      "id": "database",
+      "type": "database",
+      "label": "database",
+      "sublabel": "@follow/database (local DB)",
+      "pos": [
+        700,
+        170
+      ],
+      "size": [
+        150,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/database/package.json"
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "type": "frontend",
+      "label": "components",
+      "sublabel": "@follow/components (UI)",
+      "pos": [
+        700,
+        50
+      ],
+      "size": [
+        150,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/components/package.json"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "store",
+      "sublabel": "@follow/store (state)",
+      "pos": [
+        920,
+        170
+      ],
+      "size": [
+        150,
+        52
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/store/package.json"
+        }
+      ]
+    },
+    {
+      "id": "apps",
+      "type": "frontend",
+      "label": "desktop · mobile · ssr",
+      "sublabel": "consume store + components",
+      "pos": [
+        905,
+        290
+      ],
+      "size": [
+        180,
+        56
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "packages/internal (this repo)",
+      "wraps": [
+        "foundation",
+        "shared",
+        "models",
+        "hooks",
+        "database",
+        "components",
+        "store"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "foundation-shared",
+      "from": "foundation",
+      "to": "shared",
+      "label": "types/utils",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "sdk-shared",
+      "from": "client_sdk",
+      "to": "shared",
+      "label": "typed client",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "sdk-backend",
+      "from": "client_sdk",
+      "to": "backend_api",
+      "label": "HTTP calls",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "shared-models",
+      "from": "shared",
+      "to": "models",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "shared-hooks",
+      "from": "shared",
+      "to": "hooks",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "models-database",
+      "from": "models",
+      "to": "database",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "hooks-components",
+      "from": "hooks",
+      "to": "components",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "models-components",
+      "from": "models",
+      "to": "components",
+      "label": "data types",
+      "variant": "dashed"
+    },
+    {
+      "id": "database-store",
+      "from": "database",
+      "to": "store",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "store-apps",
+      "from": "store",
+      "to": "apps",
+      "label": "state + local DB",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        995,
+        236
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Two tracks from one root",
+      "items": [
+        "shared forks into a data track (models -> database -> store) and a UI track (hooks -> components)"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Where the boundary sits",
+      "items": [
+        "Only shared talks to client-sdk directly — everything downstream inherits that typed access indirectly"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Simplified from the monorepo map",
+      "items": [
+        "components also feeds apps directly (edge omitted); desktop/mobile/ssr collapsed into one node here — see structure.html"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/folo
+name=folo
+date=2026-09-13T15:31:53Z
+commit=44f0e5df06eba774afe1f1aea30d90a742da5dec
+origin=https://github.com/RSSNext/folo
+worktree=clean

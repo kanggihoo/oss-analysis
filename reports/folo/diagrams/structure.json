@@ -1,0 +1,405 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Folo Monorepo Structure",
+    "subtitle": "apps/* + packages/* dependency map (commit 44f0e5df)",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/RSSNext/folo",
+      "revision": "44f0e5df06eba774afe1f1aea30d90a742da5dec"
+    },
+    "views": [
+      {
+        "id": "client-only",
+        "label": "Client-only architecture",
+        "focus": [
+          "client_sdk",
+          "backend_api",
+          "domain"
+        ],
+        "note": "The actual backend (feed crawling, AI, DB) lives outside this repo; clients only talk to it through a published API client package."
+      },
+      {
+        "id": "shared-core",
+        "label": "Shared core -> 3 apps",
+        "focus": [
+          "foundation",
+          "domain",
+          "data",
+          "desktop_renderer",
+          "mobile",
+          "ssr"
+        ],
+        "note": "One dependency stack (foundation -> domain -> data) is reused by desktop, mobile, and ssr."
+      },
+      {
+        "id": "standalone",
+        "label": "Standalone apps",
+        "focus": [
+          "landing",
+          "ota"
+        ],
+        "note": "landing and ota have zero internal @follow/* package dependencies."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "foundation",
+      "type": "backend",
+      "label": "Foundation packages",
+      "sublabel": "types · configs · utils · logger",
+      "pos": [
+        200,
+        30
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/types/package.json"
+        },
+        {
+          "path": "packages/internal/utils/package.json"
+        }
+      ]
+    },
+    {
+      "id": "domain",
+      "type": "backend",
+      "label": "Domain packages",
+      "sublabel": "shared · models · hooks · UI",
+      "pos": [
+        200,
+        130
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/models/package.json"
+        },
+        {
+          "path": "packages/internal/components/package.json"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "type": "database",
+      "label": "Data layer",
+      "sublabel": "database (local DB) + store (state)",
+      "pos": [
+        200,
+        230
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/database/package.json"
+        },
+        {
+          "path": "packages/internal/store/package.json"
+        }
+      ]
+    },
+    {
+      "id": "client_sdk",
+      "type": "external",
+      "label": "client-sdk",
+      "sublabel": "@follow-app/client-sdk (npm)",
+      "pos": [
+        460,
+        30
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "sources": [
+        {
+          "path": "packages/internal/shared/package.json"
+        }
+      ]
+    },
+    {
+      "id": "backend_api",
+      "type": "external",
+      "label": "Backend API",
+      "sublabel": "not in this repo (VITE_API_URL)",
+      "pos": [
+        470,
+        130
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "apps/desktop/layer/renderer/src/lib/api-client.ts"
+        }
+      ]
+    },
+    {
+      "id": "desktop_main",
+      "type": "backend",
+      "label": "desktop: main",
+      "sublabel": "Electron main process",
+      "pos": [
+        40,
+        350
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "sources": [
+        {
+          "path": "apps/desktop/layer/main/package.json"
+        }
+      ]
+    },
+    {
+      "id": "desktop_renderer",
+      "type": "frontend",
+      "label": "desktop: renderer",
+      "sublabel": "Electron UI (React)",
+      "pos": [
+        250,
+        350
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "sources": [
+        {
+          "path": "apps/desktop/layer/renderer/package.json"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "type": "frontend",
+      "label": "mobile",
+      "sublabel": "React Native app",
+      "pos": [
+        490,
+        350
+      ],
+      "size": [
+        150,
+        56
+      ],
+      "sources": [
+        {
+          "path": "apps/mobile/package.json"
+        }
+      ]
+    },
+    {
+      "id": "ssr",
+      "type": "frontend",
+      "label": "ssr",
+      "sublabel": "SSR service",
+      "pos": [
+        700,
+        350
+      ],
+      "size": [
+        130,
+        56
+      ],
+      "sources": [
+        {
+          "path": "apps/ssr/package.json"
+        }
+      ]
+    },
+    {
+      "id": "landing",
+      "type": "frontend",
+      "label": "landing",
+      "sublabel": "standalone marketing site",
+      "pos": [
+        820,
+        30
+      ],
+      "size": [
+        150,
+        56
+      ],
+      "sources": [
+        {
+          "path": "apps/landing/package.json"
+        }
+      ]
+    },
+    {
+      "id": "ota",
+      "type": "backend",
+      "label": "ota",
+      "sublabel": "standalone update-check server",
+      "pos": [
+        820,
+        130
+      ],
+      "size": [
+        150,
+        56
+      ],
+      "sources": [
+        {
+          "path": "apps/ota/package.json"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "folo monorepo (this repo)",
+      "wraps": [
+        "foundation",
+        "domain",
+        "data",
+        "client_sdk",
+        "desktop_main",
+        "desktop_renderer",
+        "mobile",
+        "ssr",
+        "landing",
+        "ota"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "foundation-domain",
+      "from": "foundation",
+      "to": "domain",
+      "label": "types/utils",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        295,
+        104
+      ]
+    },
+    {
+      "id": "domain-data",
+      "from": "domain",
+      "to": "data",
+      "label": "models",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        295,
+        204
+      ]
+    },
+    {
+      "id": "sdk-backend",
+      "from": "client_sdk",
+      "to": "backend_api",
+      "label": "HTTP calls",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [555, 104]
+    },
+    {
+      "id": "sdk-domain",
+      "from": "client_sdk",
+      "to": "domain",
+      "label": "typed client",
+      "fromSide": "left",
+      "toSide": "right"
+    },
+    {
+      "id": "data-renderer",
+      "from": "data",
+      "to": "desktop_renderer",
+      "label": "state + local DB",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        230,
+        310
+      ]
+    },
+    {
+      "id": "data-mobile",
+      "from": "data",
+      "to": "mobile",
+      "label": "state + local DB",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        420,
+        310
+      ]
+    },
+    {
+      "id": "data-ssr",
+      "from": "data",
+      "to": "ssr",
+      "label": "state",
+      "fromSide": "right",
+      "toSide": "top"
+    },
+    {
+      "id": "main-renderer",
+      "from": "desktop_main",
+      "to": "desktop_renderer",
+      "label": "IPC bridge types",
+      "variant": "dashed",
+      "fromSide": "right",
+      "toSide": "left",
+      "labelAt": [
+        220,
+        424
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Client-only repo",
+      "items": [
+        "Real backend (crawling/AI/DB) isn't here — apps reach it only via published client-sdk"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "One stack, 3 apps",
+      "items": [
+        "foundation -> domain -> data reused by desktop, mobile, and ssr alike"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Electron split",
+      "items": [
+        "desktop = main (Electron process) + renderer (UI), linked by IPC types"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Standalone",
+      "items": [
+        "landing and ota have zero @follow/* deps — independent deploys"
+      ]
+    }
+  ]
+}
