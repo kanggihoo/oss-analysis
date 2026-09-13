@@ -1,0 +1,39 @@
+# langfuse/langfuse repo metadata
+
+Captured: 2026-06-11T13:07:51.533703+00:00
+GitHub: https://github.com/langfuse/langfuse
+Local path: /Users/kkh/Desktop/oss-analysis/repos/langfuse
+
+## remote
+```
+origin	https://github.com/langfuse/langfuse.git (fetch)
+origin	https://github.com/langfuse/langfuse.git (push)
+```
+
+## branch
+```
+main
+```
+
+## sha
+```
+c8860d15526e2c84edbf8729884d453f5c858ecd
+```
+
+## short
+```
+c8860d155
+```
+
+## last_commit
+```
+c8860d15526e2c84edbf8729884d453f5c858ecd
+Hassieb Pakzad <68423100+hassiebp@users.noreply.github.com>
+2026-06-11T14:37:48+02:00
+fix(media): drop media link foreign keys (#14170)
+```
+
+## status
+```
+(empty)
+```

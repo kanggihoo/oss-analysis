@@ -1,0 +1,18 @@
+{
+  "order": 64,
+  "title": "Annotation Queues",
+  "url": "https://deepwiki.com/langfuse/langfuse/10.6-annotation-queues",
+  "path": "/langfuse/langfuse/10.6-annotation-queues",
+  "slug": "10.6-annotation-queues",
+  "section": "10.6",
+  "depth": 1,
+  "parent_section": "10",
+  "matched_chunk_sha256": "1d92f14f744d56be361a1f7f3bee6c7facca45d879f2b622c5c3d3ff2da90954",
+  "markdown_length": 17251,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

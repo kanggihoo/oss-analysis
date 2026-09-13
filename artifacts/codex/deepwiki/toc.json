@@ -1,0 +1,802 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/openai/codex/1-overview",
+    "path": "/openai/codex/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Installation and Setup",
+    "url": "https://deepwiki.com/openai/codex/1.1-installation-and-setup",
+    "path": "/openai/codex/1.1-installation-and-setup",
+    "slug": "1.1-installation-and-setup",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Repository Structure",
+    "url": "https://deepwiki.com/openai/codex/1.2-repository-structure",
+    "path": "/openai/codex/1.2-repository-structure",
+    "slug": "1.2-repository-structure",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Architecture Overview",
+    "url": "https://deepwiki.com/openai/codex/1.3-architecture-overview",
+    "path": "/openai/codex/1.3-architecture-overview",
+    "slug": "1.3-architecture-overview",
+    "section": "1.3",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 5,
+    "title": "Core Concepts",
+    "url": "https://deepwiki.com/openai/codex/2-core-concepts",
+    "path": "/openai/codex/2-core-concepts",
+    "slug": "2-core-concepts",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 6,
+    "title": "Protocol Layer (Submission/Event System)",
+    "url": "https://deepwiki.com/openai/codex/2.1-protocol-layer-(submissionevent-system)",
+    "path": "/openai/codex/2.1-protocol-layer-(submissionevent-system)",
+    "slug": "2.1-protocol-layer-(submissionevent-system)",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Configuration System",
+    "url": "https://deepwiki.com/openai/codex/2.2-configuration-system",
+    "path": "/openai/codex/2.2-configuration-system",
+    "slug": "2.2-configuration-system",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Feature Flags",
+    "url": "https://deepwiki.com/openai/codex/2.3-feature-flags",
+    "path": "/openai/codex/2.3-feature-flags",
+    "slug": "2.3-feature-flags",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "Sandbox and Approval Policies",
+    "url": "https://deepwiki.com/openai/codex/2.4-sandbox-and-approval-policies",
+    "path": "/openai/codex/2.4-sandbox-and-approval-policies",
+    "slug": "2.4-sandbox-and-approval-policies",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 10,
+    "title": "Core Agent System (codex-core)",
+    "url": "https://deepwiki.com/openai/codex/3-core-agent-system-(codex-core)",
+    "path": "/openai/codex/3-core-agent-system-(codex-core)",
+    "slug": "3-core-agent-system-(codex-core)",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 11,
+    "title": "Codex Interface and Session Lifecycle",
+    "url": "https://deepwiki.com/openai/codex/3.1-codex-interface-and-session-lifecycle",
+    "path": "/openai/codex/3.1-codex-interface-and-session-lifecycle",
+    "slug": "3.1-codex-interface-and-session-lifecycle",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Model Client and API Communication",
+    "url": "https://deepwiki.com/openai/codex/3.2-model-client-and-api-communication",
+    "path": "/openai/codex/3.2-model-client-and-api-communication",
+    "slug": "3.2-model-client-and-api-communication",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Turn Execution and Prompt Construction",
+    "url": "https://deepwiki.com/openai/codex/3.3-turn-execution-and-prompt-construction",
+    "path": "/openai/codex/3.3-turn-execution-and-prompt-construction",
+    "slug": "3.3-turn-execution-and-prompt-construction",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 14,
+    "title": "Event Processing and State Management",
+    "url": "https://deepwiki.com/openai/codex/3.4-event-processing-and-state-management",
+    "path": "/openai/codex/3.4-event-processing-and-state-management",
+    "slug": "3.4-event-processing-and-state-management",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 15,
+    "title": "Conversation History Management",
+    "url": "https://deepwiki.com/openai/codex/3.5-conversation-history-management",
+    "path": "/openai/codex/3.5-conversation-history-management",
+    "slug": "3.5-conversation-history-management",
+    "section": "3.5",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 16,
+    "title": "History Compaction System",
+    "url": "https://deepwiki.com/openai/codex/3.5.1-history-compaction-system",
+    "path": "/openai/codex/3.5.1-history-compaction-system",
+    "slug": "3.5.1-history-compaction-system",
+    "section": "3.5.1",
+    "depth": 2,
+    "parent_section": "3.5"
+  },
+  {
+    "order": 17,
+    "title": "Rollout Persistence and Replay",
+    "url": "https://deepwiki.com/openai/codex/3.5.2-rollout-persistence-and-replay",
+    "path": "/openai/codex/3.5.2-rollout-persistence-and-replay",
+    "slug": "3.5.2-rollout-persistence-and-replay",
+    "section": "3.5.2",
+    "depth": 2,
+    "parent_section": "3.5"
+  },
+  {
+    "order": 18,
+    "title": "Thread Management and Multi-Agent",
+    "url": "https://deepwiki.com/openai/codex/3.6-thread-management-and-multi-agent",
+    "path": "/openai/codex/3.6-thread-management-and-multi-agent",
+    "slug": "3.6-thread-management-and-multi-agent",
+    "section": "3.6",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 19,
+    "title": "Session Tasks and Turn State",
+    "url": "https://deepwiki.com/openai/codex/3.7-session-tasks-and-turn-state",
+    "path": "/openai/codex/3.7-session-tasks-and-turn-state",
+    "slug": "3.7-session-tasks-and-turn-state",
+    "section": "3.7",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 20,
+    "title": "Models Manager",
+    "url": "https://deepwiki.com/openai/codex/3.8-models-manager",
+    "path": "/openai/codex/3.8-models-manager",
+    "slug": "3.8-models-manager",
+    "section": "3.8",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 21,
+    "title": "Memories System",
+    "url": "https://deepwiki.com/openai/codex/3.9-memories-system",
+    "path": "/openai/codex/3.9-memories-system",
+    "slug": "3.9-memories-system",
+    "section": "3.9",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 22,
+    "title": "Realtime Conversation",
+    "url": "https://deepwiki.com/openai/codex/3.10-realtime-conversation",
+    "path": "/openai/codex/3.10-realtime-conversation",
+    "slug": "3.10-realtime-conversation",
+    "section": "3.10",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 23,
+    "title": "Hooks System",
+    "url": "https://deepwiki.com/openai/codex/3.11-hooks-system",
+    "path": "/openai/codex/3.11-hooks-system",
+    "slug": "3.11-hooks-system",
+    "section": "3.11",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 24,
+    "title": "Network Proxy",
+    "url": "https://deepwiki.com/openai/codex/3.12-network-proxy",
+    "path": "/openai/codex/3.12-network-proxy",
+    "slug": "3.12-network-proxy",
+    "section": "3.12",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 25,
+    "title": "Goal Extension and State Runtime",
+    "url": "https://deepwiki.com/openai/codex/3.13-goal-extension-and-state-runtime",
+    "path": "/openai/codex/3.13-goal-extension-and-state-runtime",
+    "slug": "3.13-goal-extension-and-state-runtime",
+    "section": "3.13",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 26,
+    "title": "User Interfaces",
+    "url": "https://deepwiki.com/openai/codex/4-user-interfaces",
+    "path": "/openai/codex/4-user-interfaces",
+    "slug": "4-user-interfaces",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 27,
+    "title": "Terminal User Interface (TUI)",
+    "url": "https://deepwiki.com/openai/codex/4.1-terminal-user-interface-(tui)",
+    "path": "/openai/codex/4.1-terminal-user-interface-(tui)",
+    "slug": "4.1-terminal-user-interface-(tui)",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 28,
+    "title": "App Event Loop and Initialization",
+    "url": "https://deepwiki.com/openai/codex/4.1.1-app-event-loop-and-initialization",
+    "path": "/openai/codex/4.1.1-app-event-loop-and-initialization",
+    "slug": "4.1.1-app-event-loop-and-initialization",
+    "section": "4.1.1",
+    "depth": 2,
+    "parent_section": "4.1"
+  },
+  {
+    "order": 29,
+    "title": "ChatWidget and Conversation Display",
+    "url": "https://deepwiki.com/openai/codex/4.1.2-chatwidget-and-conversation-display",
+    "path": "/openai/codex/4.1.2-chatwidget-and-conversation-display",
+    "slug": "4.1.2-chatwidget-and-conversation-display",
+    "section": "4.1.2",
+    "depth": 2,
+    "parent_section": "4.1"
+  },
+  {
+    "order": 30,
+    "title": "BottomPane and Input System",
+    "url": "https://deepwiki.com/openai/codex/4.1.3-bottompane-and-input-system",
+    "path": "/openai/codex/4.1.3-bottompane-and-input-system",
+    "slug": "4.1.3-bottompane-and-input-system",
+    "section": "4.1.3",
+    "depth": 2,
+    "parent_section": "4.1"
+  },
+  {
+    "order": 31,
+    "title": "Status Line and Footer Rendering",
+    "url": "https://deepwiki.com/openai/codex/4.1.4-status-line-and-footer-rendering",
+    "path": "/openai/codex/4.1.4-status-line-and-footer-rendering",
+    "slug": "4.1.4-status-line-and-footer-rendering",
+    "section": "4.1.4",
+    "depth": 2,
+    "parent_section": "4.1"
+  },
+  {
+    "order": 32,
+    "title": "Interactive Overlays and Popups",
+    "url": "https://deepwiki.com/openai/codex/4.1.5-interactive-overlays-and-popups",
+    "path": "/openai/codex/4.1.5-interactive-overlays-and-popups",
+    "slug": "4.1.5-interactive-overlays-and-popups",
+    "section": "4.1.5",
+    "depth": 2,
+    "parent_section": "4.1"
+  },
+  {
+    "order": 33,
+    "title": "Headless Execution Mode (codex exec)",
+    "url": "https://deepwiki.com/openai/codex/4.2-headless-execution-mode-(codex-exec)",
+    "path": "/openai/codex/4.2-headless-execution-mode-(codex-exec)",
+    "slug": "4.2-headless-execution-mode-(codex-exec)",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 34,
+    "title": "Exec Mode Event Processing",
+    "url": "https://deepwiki.com/openai/codex/4.2.1-exec-mode-event-processing",
+    "path": "/openai/codex/4.2.1-exec-mode-event-processing",
+    "slug": "4.2.1-exec-mode-event-processing",
+    "section": "4.2.1",
+    "depth": 2,
+    "parent_section": "4.2"
+  },
+  {
+    "order": 35,
+    "title": "Resume and Review Commands",
+    "url": "https://deepwiki.com/openai/codex/4.2.2-resume-and-review-commands",
+    "path": "/openai/codex/4.2.2-resume-and-review-commands",
+    "slug": "4.2.2-resume-and-review-commands",
+    "section": "4.2.2",
+    "depth": 2,
+    "parent_section": "4.2"
+  },
+  {
+    "order": 36,
+    "title": "CLI Entry Points and Multitool Dispatch",
+    "url": "https://deepwiki.com/openai/codex/4.3-cli-entry-points-and-multitool-dispatch",
+    "path": "/openai/codex/4.3-cli-entry-points-and-multitool-dispatch",
+    "slug": "4.3-cli-entry-points-and-multitool-dispatch",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 37,
+    "title": "Session Resumption and Forking",
+    "url": "https://deepwiki.com/openai/codex/4.4-session-resumption-and-forking",
+    "path": "/openai/codex/4.4-session-resumption-and-forking",
+    "slug": "4.4-session-resumption-and-forking",
+    "section": "4.4",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 38,
+    "title": "App Server and IDE Integration",
+    "url": "https://deepwiki.com/openai/codex/4.5-app-server-and-ide-integration",
+    "path": "/openai/codex/4.5-app-server-and-ide-integration",
+    "slug": "4.5-app-server-and-ide-integration",
+    "section": "4.5",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 39,
+    "title": "CodexMessageProcessor and Request Handling",
+    "url": "https://deepwiki.com/openai/codex/4.5.1-codexmessageprocessor-and-request-handling",
+    "path": "/openai/codex/4.5.1-codexmessageprocessor-and-request-handling",
+    "slug": "4.5.1-codexmessageprocessor-and-request-handling",
+    "section": "4.5.1",
+    "depth": 2,
+    "parent_section": "4.5"
+  },
+  {
+    "order": 40,
+    "title": "Thread and Turn Management API",
+    "url": "https://deepwiki.com/openai/codex/4.5.2-thread-and-turn-management-api",
+    "path": "/openai/codex/4.5.2-thread-and-turn-management-api",
+    "slug": "4.5.2-thread-and-turn-management-api",
+    "section": "4.5.2",
+    "depth": 2,
+    "parent_section": "4.5"
+  },
+  {
+    "order": 41,
+    "title": "Event Translation and Streaming",
+    "url": "https://deepwiki.com/openai/codex/4.5.3-event-translation-and-streaming",
+    "path": "/openai/codex/4.5.3-event-translation-and-streaming",
+    "slug": "4.5.3-event-translation-and-streaming",
+    "section": "4.5.3",
+    "depth": 2,
+    "parent_section": "4.5"
+  },
+  {
+    "order": 42,
+    "title": "Config API and Layer System",
+    "url": "https://deepwiki.com/openai/codex/4.5.4-config-api-and-layer-system",
+    "path": "/openai/codex/4.5.4-config-api-and-layer-system",
+    "slug": "4.5.4-config-api-and-layer-system",
+    "section": "4.5.4",
+    "depth": 2,
+    "parent_section": "4.5"
+  },
+  {
+    "order": 43,
+    "title": "Authentication Modes and Account Management",
+    "url": "https://deepwiki.com/openai/codex/4.5.5-authentication-modes-and-account-management",
+    "path": "/openai/codex/4.5.5-authentication-modes-and-account-management",
+    "slug": "4.5.5-authentication-modes-and-account-management",
+    "section": "4.5.5",
+    "depth": 2,
+    "parent_section": "4.5"
+  },
+  {
+    "order": 44,
+    "title": "Cloud Tasks (codex cloud)",
+    "url": "https://deepwiki.com/openai/codex/4.6-cloud-tasks-(codex-cloud)",
+    "path": "/openai/codex/4.6-cloud-tasks-(codex-cloud)",
+    "slug": "4.6-cloud-tasks-(codex-cloud)",
+    "section": "4.6",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 45,
+    "title": "Exec Server",
+    "url": "https://deepwiki.com/openai/codex/4.7-exec-server",
+    "path": "/openai/codex/4.7-exec-server",
+    "slug": "4.7-exec-server",
+    "section": "4.7",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 46,
+    "title": "Tool System",
+    "url": "https://deepwiki.com/openai/codex/5-tool-system",
+    "path": "/openai/codex/5-tool-system",
+    "slug": "5-tool-system",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 47,
+    "title": "Tool Registry and Configuration",
+    "url": "https://deepwiki.com/openai/codex/5.1-tool-registry-and-configuration",
+    "path": "/openai/codex/5.1-tool-registry-and-configuration",
+    "slug": "5.1-tool-registry-and-configuration",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 48,
+    "title": "Shell Execution Tools",
+    "url": "https://deepwiki.com/openai/codex/5.2-shell-execution-tools",
+    "path": "/openai/codex/5.2-shell-execution-tools",
+    "slug": "5.2-shell-execution-tools",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 49,
+    "title": "Unified Exec Process Management",
+    "url": "https://deepwiki.com/openai/codex/5.3-unified-exec-process-management",
+    "path": "/openai/codex/5.3-unified-exec-process-management",
+    "slug": "5.3-unified-exec-process-management",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 50,
+    "title": "Apply Patch System",
+    "url": "https://deepwiki.com/openai/codex/5.4-apply-patch-system",
+    "path": "/openai/codex/5.4-apply-patch-system",
+    "slug": "5.4-apply-patch-system",
+    "section": "5.4",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 51,
+    "title": "Tool Orchestration and Approval",
+    "url": "https://deepwiki.com/openai/codex/5.5-tool-orchestration-and-approval",
+    "path": "/openai/codex/5.5-tool-orchestration-and-approval",
+    "slug": "5.5-tool-orchestration-and-approval",
+    "section": "5.5",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 52,
+    "title": "Sandboxing Implementation",
+    "url": "https://deepwiki.com/openai/codex/5.6-sandboxing-implementation",
+    "path": "/openai/codex/5.6-sandboxing-implementation",
+    "slug": "5.6-sandboxing-implementation",
+    "section": "5.6",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 53,
+    "title": "Tool Event Emission and Output",
+    "url": "https://deepwiki.com/openai/codex/5.7-tool-event-emission-and-output",
+    "path": "/openai/codex/5.7-tool-event-emission-and-output",
+    "slug": "5.7-tool-event-emission-and-output",
+    "section": "5.7",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 54,
+    "title": "Code Mode and JavaScript REPL",
+    "url": "https://deepwiki.com/openai/codex/5.8-code-mode-and-javascript-repl",
+    "path": "/openai/codex/5.8-code-mode-and-javascript-repl",
+    "slug": "5.8-code-mode-and-javascript-repl",
+    "section": "5.8",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 55,
+    "title": "Skills System",
+    "url": "https://deepwiki.com/openai/codex/5.9-skills-system",
+    "path": "/openai/codex/5.9-skills-system",
+    "slug": "5.9-skills-system",
+    "section": "5.9",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 56,
+    "title": "Permission Request System",
+    "url": "https://deepwiki.com/openai/codex/5.10-permission-request-system",
+    "path": "/openai/codex/5.10-permission-request-system",
+    "slug": "5.10-permission-request-system",
+    "section": "5.10",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 57,
+    "title": "Plugins System",
+    "url": "https://deepwiki.com/openai/codex/5.11-plugins-system",
+    "path": "/openai/codex/5.11-plugins-system",
+    "slug": "5.11-plugins-system",
+    "section": "5.11",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 58,
+    "title": "Model Context Protocol (MCP)",
+    "url": "https://deepwiki.com/openai/codex/6-model-context-protocol-(mcp)",
+    "path": "/openai/codex/6-model-context-protocol-(mcp)",
+    "slug": "6-model-context-protocol-(mcp)",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 59,
+    "title": "MCP Server Configuration",
+    "url": "https://deepwiki.com/openai/codex/6.1-mcp-server-configuration",
+    "path": "/openai/codex/6.1-mcp-server-configuration",
+    "slug": "6.1-mcp-server-configuration",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 60,
+    "title": "MCP Connection Manager",
+    "url": "https://deepwiki.com/openai/codex/6.2-mcp-connection-manager",
+    "path": "/openai/codex/6.2-mcp-connection-manager",
+    "slug": "6.2-mcp-connection-manager",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 61,
+    "title": "MCP CLI Commands",
+    "url": "https://deepwiki.com/openai/codex/6.3-mcp-cli-commands",
+    "path": "/openai/codex/6.3-mcp-cli-commands",
+    "slug": "6.3-mcp-cli-commands",
+    "section": "6.3",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 62,
+    "title": "MCP Server Implementation (codex-mcp-server)",
+    "url": "https://deepwiki.com/openai/codex/6.4-mcp-server-implementation-(codex-mcp-server)",
+    "path": "/openai/codex/6.4-mcp-server-implementation-(codex-mcp-server)",
+    "slug": "6.4-mcp-server-implementation-(codex-mcp-server)",
+    "section": "6.4",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 63,
+    "title": "OAuth Authentication for MCP",
+    "url": "https://deepwiki.com/openai/codex/6.5-oauth-authentication-for-mcp",
+    "path": "/openai/codex/6.5-oauth-authentication-for-mcp",
+    "slug": "6.5-oauth-authentication-for-mcp",
+    "section": "6.5",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 64,
+    "title": "Sandbox State Synchronization",
+    "url": "https://deepwiki.com/openai/codex/6.6-sandbox-state-synchronization",
+    "path": "/openai/codex/6.6-sandbox-state-synchronization",
+    "slug": "6.6-sandbox-state-synchronization",
+    "section": "6.6",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 65,
+    "title": "SDKs and External Integrations",
+    "url": "https://deepwiki.com/openai/codex/7-sdks-and-external-integrations",
+    "path": "/openai/codex/7-sdks-and-external-integrations",
+    "slug": "7-sdks-and-external-integrations",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 66,
+    "title": "TypeScript SDK",
+    "url": "https://deepwiki.com/openai/codex/7.1-typescript-sdk",
+    "path": "/openai/codex/7.1-typescript-sdk",
+    "slug": "7.1-typescript-sdk",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 67,
+    "title": "Python SDK",
+    "url": "https://deepwiki.com/openai/codex/7.2-python-sdk",
+    "path": "/openai/codex/7.2-python-sdk",
+    "slug": "7.2-python-sdk",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 68,
+    "title": "Shell Tool MCP Package",
+    "url": "https://deepwiki.com/openai/codex/7.3-shell-tool-mcp-package",
+    "path": "/openai/codex/7.3-shell-tool-mcp-package",
+    "slug": "7.3-shell-tool-mcp-package",
+    "section": "7.3",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 69,
+    "title": "Build and Distribution",
+    "url": "https://deepwiki.com/openai/codex/8-build-and-distribution",
+    "path": "/openai/codex/8-build-and-distribution",
+    "slug": "8-build-and-distribution",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 70,
+    "title": "Cargo Workspace Structure",
+    "url": "https://deepwiki.com/openai/codex/8.1-cargo-workspace-structure",
+    "path": "/openai/codex/8.1-cargo-workspace-structure",
+    "slug": "8.1-cargo-workspace-structure",
+    "section": "8.1",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 71,
+    "title": "CI Pipeline",
+    "url": "https://deepwiki.com/openai/codex/8.2-ci-pipeline",
+    "path": "/openai/codex/8.2-ci-pipeline",
+    "slug": "8.2-ci-pipeline",
+    "section": "8.2",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 72,
+    "title": "Release Pipeline",
+    "url": "https://deepwiki.com/openai/codex/8.3-release-pipeline",
+    "path": "/openai/codex/8.3-release-pipeline",
+    "slug": "8.3-release-pipeline",
+    "section": "8.3",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 73,
+    "title": "Distribution Channels",
+    "url": "https://deepwiki.com/openai/codex/8.4-distribution-channels",
+    "path": "/openai/codex/8.4-distribution-channels",
+    "slug": "8.4-distribution-channels",
+    "section": "8.4",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 74,
+    "title": "Shell Tool MCP Build System",
+    "url": "https://deepwiki.com/openai/codex/8.5-shell-tool-mcp-build-system",
+    "path": "/openai/codex/8.5-shell-tool-mcp-build-system",
+    "slug": "8.5-shell-tool-mcp-build-system",
+    "section": "8.5",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 75,
+    "title": "Development and Testing",
+    "url": "https://deepwiki.com/openai/codex/9-development-and-testing",
+    "path": "/openai/codex/9-development-and-testing",
+    "slug": "9-development-and-testing",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 76,
+    "title": "Development Setup",
+    "url": "https://deepwiki.com/openai/codex/9.1-development-setup",
+    "path": "/openai/codex/9.1-development-setup",
+    "slug": "9.1-development-setup",
+    "section": "9.1",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 77,
+    "title": "Testing Infrastructure",
+    "url": "https://deepwiki.com/openai/codex/9.2-testing-infrastructure",
+    "path": "/openai/codex/9.2-testing-infrastructure",
+    "slug": "9.2-testing-infrastructure",
+    "section": "9.2",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 78,
+    "title": "Code Organization Patterns",
+    "url": "https://deepwiki.com/openai/codex/9.3-code-organization-patterns",
+    "path": "/openai/codex/9.3-code-organization-patterns",
+    "slug": "9.3-code-organization-patterns",
+    "section": "9.3",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 79,
+    "title": "Observability and Telemetry",
+    "url": "https://deepwiki.com/openai/codex/9.4-observability-and-telemetry",
+    "path": "/openai/codex/9.4-observability-and-telemetry",
+    "slug": "9.4-observability-and-telemetry",
+    "section": "9.4",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 80,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/openai/codex/10-glossary",
+    "path": "/openai/codex/10-glossary",
+    "slug": "10-glossary",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  }
+]

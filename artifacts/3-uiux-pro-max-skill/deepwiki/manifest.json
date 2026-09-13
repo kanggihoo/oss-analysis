@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "ui-ux-pro-max-skill",
+  "repo": "3-uiux-pro-max-skill",
+  "deepwiki_url": "https://deepwiki.com/ui-ux-pro-max-skill/3-uiux-pro-max-skill",
+  "generated_at": "2026-06-11T02:43:15.893454+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/ui-ux-pro-max-skill/3-uiux-pro-max-skill",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 35038,
+    "sha256": "7a2f145664594b2bd713e9715bd0ba3abf547214eae9dd6c403cf40929e46955",
+    "fetched_at": "2026-06-11T02:43:15.889160+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 0,
+  "markdown_chunks_count": 0,
+  "matched_pages_count": 0,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/3-uiux-pro-max-skill/deepwiki"
+}

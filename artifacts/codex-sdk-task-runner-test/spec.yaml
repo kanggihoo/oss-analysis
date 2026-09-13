@@ -1,0 +1,16 @@
+version: 1
+run:
+  name: codex-sdk-task-runner-smoke
+  workspace: /Users/kkh/Desktop/oss-analysis
+  output_dir: artifacts/codex-sdk-task-runner-test/output
+  log_path: artifacts/codex-sdk-task-runner-test/smoke.jsonl
+  variables:
+    repo: smoke
+validation:
+  require_non_empty: true
+  min_chars: 10
+tasks:
+  - id: agents-summary
+    source: AGENTS.md
+    output: agents-summary.md
+    instructions: "Summarize the workspace instructions."

@@ -1,0 +1,97 @@
+{
+  "model_requested": "gpt-5.4-mini",
+  "effort_requested": "ReasoningEffort.medium",
+  "workspace": "/Users/kkh/Desktop/oss-analysis/artifacts/codex-sdk-python-test",
+  "new_thread_at_context_ratio": 0.8,
+  "visible_model_sample": [
+    "gpt-5.5",
+    "gpt-5.4",
+    "gpt-5.4-mini",
+    "gpt-5.3-codex-spark",
+    "codex-auto-review"
+  ],
+  "model_visible_exact_match": true,
+  "records": [
+    {
+      "index": 1,
+      "input_file": "inputs/sample_01.txt",
+      "output_file": "outputs/sample_01.ko.txt",
+      "thread_id": "019eacec-8c8c-7233-9d5a-792ba123fbc7",
+      "turn_id": "019eacec-8d1e-7712-8bba-1cbb1c05d2c6",
+      "status": "TurnStatus.completed",
+      "usage": {
+        "model_context_window": 258400,
+        "last": {
+          "input_tokens": 15869,
+          "cached_input_tokens": 3456,
+          "output_tokens": 91,
+          "reasoning_output_tokens": 18,
+          "total_tokens": 15960
+        },
+        "total": {
+          "input_tokens": 15869,
+          "cached_input_tokens": 3456,
+          "output_tokens": 91,
+          "reasoning_output_tokens": 18,
+          "total_tokens": 15960
+        },
+        "context_ratio": 0.061764705882352944
+      },
+      "translation_preview": "이 오픈소스 프로젝트는 의존성 매니페스트를 분석하는 작은 명령줄 도구를 제공합니다. 패키지 메타데이터를 읽고, 직접 및 전이적 의존성의 그래프를 구성한 뒤, 유지보수자를 위한 간결한 요약을 출력합니다."
+    },
+    {
+      "index": 2,
+      "input_file": "inputs/sample_02.txt",
+      "output_file": "outputs/sample_02.ko.txt",
+      "thread_id": "019eacec-8c8c-7233-9d5a-792ba123fbc7",
+      "turn_id": "019eacec-99cc-7e42-8d60-aca098f6bc2f",
+      "status": "TurnStatus.completed",
+      "usage": {
+        "model_context_window": 258400,
+        "last": {
+          "input_tokens": 16001,
+          "cached_input_tokens": 15744,
+          "output_tokens": 54,
+          "reasoning_output_tokens": 13,
+          "total_tokens": 16055
+        },
+        "total": {
+          "input_tokens": 31870,
+          "cached_input_tokens": 19200,
+          "output_tokens": 145,
+          "reasoning_output_tokens": 31,
+          "total_tokens": 32015
+        },
+        "context_ratio": 0.12389705882352942
+      },
+      "translation_preview": "분석기는 원시 출력물을 artifacts 디렉터리에 저장하고, 중요한 주장이 실제 소스 파일로 검증된 뒤 사람을 위한 보고서를 작성합니다."
+    },
+    {
+      "index": 3,
+      "input_file": "inputs/sample_03.txt",
+      "output_file": "outputs/sample_03.ko.txt",
+      "thread_id": "019eacec-8c8c-7233-9d5a-792ba123fbc7",
+      "turn_id": "019eacec-b035-7c22-abf9-4679382ef075",
+      "status": "TurnStatus.completed",
+      "usage": {
+        "model_context_window": 258400,
+        "last": {
+          "input_tokens": 16100,
+          "cached_input_tokens": 15744,
+          "output_tokens": 45,
+          "reasoning_output_tokens": 0,
+          "total_tokens": 16145
+        },
+        "total": {
+          "input_tokens": 47970,
+          "cached_input_tokens": 34944,
+          "output_tokens": 190,
+          "reasoning_output_tokens": 31,
+          "total_tokens": 48160
+        },
+        "context_ratio": 0.18637770897832817
+      },
+      "translation_preview": "개발자는 로컬 지식 그래프를 보조 의견으로 활용할 수 있지만, 최종 문서는 구체적인 파일 경로와 검증된 동작을 인용해야 합니다."
+    }
+  ]
+}

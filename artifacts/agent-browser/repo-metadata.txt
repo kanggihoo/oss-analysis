@@ -1,0 +1,14 @@
+repo: vercel-labs/agent-browser
+github_url: https://github.com/vercel-labs/agent-browser
+local_path: /Users/kkh/Desktop/oss-analysis/repos/agent-browser
+captured_at: 2026-06-16T09:28:37Z
+branch: main
+head_sha: 2c7991c9eccca1c9db6eee1a26a713414778de5a
+describe: v0.27.3
+remote_url: https://github.com/vercel-labs/agent-browser.git
+status_short:
+latest_commit:
+2c7991c9eccca1c9db6eee1a26a713414778de5a
+Chris Tate <chris@ctate.dev>
+2026-06-12T18:00:50-05:00
+Prepare v0.27.3 release (#1446)

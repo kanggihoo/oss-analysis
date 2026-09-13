@@ -1,0 +1,32 @@
+{
+  "order": 14,
+  "title": "Configuration System",
+  "url": "https://deepwiki.com/alibaba/open-code-review/5-configuration-system",
+  "path": "/alibaba/open-code-review/5-configuration-system",
+  "slug": "5-configuration-system",
+  "section": "5",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "ffcfab7bd484d9e332ef3fe9b9cf2f808e931016da9ca284aaea1822dfec747a",
+  "markdown_length": 6571,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "internal/config/allowlist/supported_file_types.json:1-69",
+    "internal/config/rules/system_rules.json:2",
+    "internal/config/rules/system_rules.json:3-17",
+    "internal/config/template/template.go:12-21",
+    "internal/config/template/template.go:12-22",
+    "internal/config/template/template.go:16-20",
+    "internal/config/template/template.go:27-34",
+    "internal/config/template/template.go:54-61",
+    "internal/config/template/template.go:63-74",
+    "internal/config/template/template.go:77-86",
+    "internal/config/toolsconfig/toolsconfig.go:12-17",
+    "internal/config/toolsconfig/toolsconfig.go:24-40",
+    "internal/config/toolsconfig/toolsconfig.go:45-54"
+  ]
+}

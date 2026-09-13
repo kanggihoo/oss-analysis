@@ -1,0 +1,24 @@
+{
+  "order": 27,
+  "title": "Testing and Security",
+  "url": "https://deepwiki.com/getagentseal/codeburn/7-testing-and-security",
+  "path": "/getagentseal/codeburn/7-testing-and-security",
+  "slug": "7-testing-and-security",
+  "section": "7",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "4fd624054571d938c49e37d4bb799105f1f28d5aa24cb65cac95b7d4e452f3f7",
+  "markdown_length": 5734,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".github/workflows/block-claude-coauthor.yml:1-44",
+    ".github/workflows/ci.yml:1-28",
+    ".github/workflows/ci.yml:17-27",
+    ".github/workflows/firstlook.yml:1-24",
+    ".semgrep/rules/no-bracket-assign-hot-paths.yml:1-23"
+  ]
+}

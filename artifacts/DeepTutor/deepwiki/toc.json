@@ -1,0 +1,582 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/1-overview",
+    "path": "/HKUDS/DeepTutor/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/2-getting-started",
+    "path": "/HKUDS/DeepTutor/2-getting-started",
+    "slug": "2-getting-started",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 3,
+    "title": "Docker Deployment",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/2.1-docker-deployment",
+    "path": "/HKUDS/DeepTutor/2.1-docker-deployment",
+    "slug": "2.1-docker-deployment",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 4,
+    "title": "Configuration Guide",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/2.2-configuration-guide",
+    "path": "/HKUDS/DeepTutor/2.2-configuration-guide",
+    "slug": "2.2-configuration-guide",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 5,
+    "title": "System Architecture",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/3-system-architecture",
+    "path": "/HKUDS/DeepTutor/3-system-architecture",
+    "slug": "3-system-architecture",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 6,
+    "title": "Frontend Architecture",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/3.1-frontend-architecture",
+    "path": "/HKUDS/DeepTutor/3.1-frontend-architecture",
+    "slug": "3.1-frontend-architecture",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 7,
+    "title": "Data Flow and Storage",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/3.3-data-flow-and-storage",
+    "path": "/HKUDS/DeepTutor/3.3-data-flow-and-storage",
+    "slug": "3.3-data-flow-and-storage",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 8,
+    "title": "Runtime and Orchestration",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/3.4-runtime-and-orchestration",
+    "path": "/HKUDS/DeepTutor/3.4-runtime-and-orchestration",
+    "slug": "3.4-runtime-and-orchestration",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 9,
+    "title": "Intelligent Agent Modules",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4-intelligent-agent-modules",
+    "path": "/HKUDS/DeepTutor/4-intelligent-agent-modules",
+    "slug": "4-intelligent-agent-modules",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 10,
+    "title": "Smart Solver",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.1-smart-solver",
+    "path": "/HKUDS/DeepTutor/4.1-smart-solver",
+    "slug": "4.1-smart-solver",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 11,
+    "title": "Deep Research",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.2-deep-research",
+    "path": "/HKUDS/DeepTutor/4.2-deep-research",
+    "slug": "4.2-deep-research",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 12,
+    "title": "Quiz Generation",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.3-quiz-generation",
+    "path": "/HKUDS/DeepTutor/4.3-quiz-generation",
+    "slug": "4.3-quiz-generation",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 13,
+    "title": "Book Engine",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.4-book-engine",
+    "path": "/HKUDS/DeepTutor/4.4-book-engine",
+    "slug": "4.4-book-engine",
+    "section": "4.4",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 14,
+    "title": "Idea Generation and Co-Writer",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.5-idea-generation-and-co-writer",
+    "path": "/HKUDS/DeepTutor/4.5-idea-generation-and-co-writer",
+    "slug": "4.5-idea-generation-and-co-writer",
+    "section": "4.5",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 15,
+    "title": "Vision Solver and Math Animator",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.6-vision-solver-and-math-animator",
+    "path": "/HKUDS/DeepTutor/4.6-vision-solver-and-math-animator",
+    "slug": "4.6-vision-solver-and-math-animator",
+    "section": "4.6",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "Visualization Agent",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.7-visualization-agent",
+    "path": "/HKUDS/DeepTutor/4.7-visualization-agent",
+    "slug": "4.7-visualization-agent",
+    "section": "4.7",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 17,
+    "title": "Auto Mode",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.8-auto-mode",
+    "path": "/HKUDS/DeepTutor/4.8-auto-mode",
+    "slug": "4.8-auto-mode",
+    "section": "4.8",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 18,
+    "title": "Mastery Path Learning Engine",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.9-mastery-path-learning-engine",
+    "path": "/HKUDS/DeepTutor/4.9-mastery-path-learning-engine",
+    "slug": "4.9-mastery-path-learning-engine",
+    "section": "4.9",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 19,
+    "title": "Learning Models and Spaced Repetition",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.9.1-learning-models-and-spaced-repetition",
+    "path": "/HKUDS/DeepTutor/4.9.1-learning-models-and-spaced-repetition",
+    "slug": "4.9.1-learning-models-and-spaced-repetition",
+    "section": "4.9.1",
+    "depth": 2,
+    "parent_section": "4.9"
+  },
+  {
+    "order": 20,
+    "title": "Learning Service and Grading Pipeline",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/4.9.2-learning-service-and-grading-pipeline",
+    "path": "/HKUDS/DeepTutor/4.9.2-learning-service-and-grading-pipeline",
+    "slug": "4.9.2-learning-service-and-grading-pipeline",
+    "section": "4.9.2",
+    "depth": 2,
+    "parent_section": "4.9"
+  },
+  {
+    "order": 21,
+    "title": "Core Services",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/5-core-services",
+    "path": "/HKUDS/DeepTutor/5-core-services",
+    "slug": "5-core-services",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 22,
+    "title": "LLM Service and Provider Factory",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/5.1-llm-service-and-provider-factory",
+    "path": "/HKUDS/DeepTutor/5.1-llm-service-and-provider-factory",
+    "slug": "5.1-llm-service-and-provider-factory",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 23,
+    "title": "Search Service",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/5.2-search-service",
+    "path": "/HKUDS/DeepTutor/5.2-search-service",
+    "slug": "5.2-search-service",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 24,
+    "title": "Prompt Management",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/5.3-prompt-management",
+    "path": "/HKUDS/DeepTutor/5.3-prompt-management",
+    "slug": "5.3-prompt-management",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 25,
+    "title": "Embedding Service",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/5.4-embedding-service",
+    "path": "/HKUDS/DeepTutor/5.4-embedding-service",
+    "slug": "5.4-embedding-service",
+    "section": "5.4",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 26,
+    "title": "Session and Memory Management",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/5.5-session-and-memory-management",
+    "path": "/HKUDS/DeepTutor/5.5-session-and-memory-management",
+    "slug": "5.5-session-and-memory-management",
+    "section": "5.5",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 27,
+    "title": "Knowledge and RAG System",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/6-knowledge-and-rag-system",
+    "path": "/HKUDS/DeepTutor/6-knowledge-and-rag-system",
+    "slug": "6-knowledge-and-rag-system",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 28,
+    "title": "RAG System",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/6.1-rag-system",
+    "path": "/HKUDS/DeepTutor/6.1-rag-system",
+    "slug": "6.1-rag-system",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 29,
+    "title": "Knowledge Base Management",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/6.2-knowledge-base-management",
+    "path": "/HKUDS/DeepTutor/6.2-knowledge-base-management",
+    "slug": "6.2-knowledge-base-management",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 30,
+    "title": "Web Search and Other Tools",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/6.3-web-search-and-other-tools",
+    "path": "/HKUDS/DeepTutor/6.3-web-search-and-other-tools",
+    "slug": "6.3-web-search-and-other-tools",
+    "section": "6.3",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 31,
+    "title": "Frontend Components",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/7-frontend-components",
+    "path": "/HKUDS/DeepTutor/7-frontend-components",
+    "slug": "7-frontend-components",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 32,
+    "title": "Page Components",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/7.1-page-components",
+    "path": "/HKUDS/DeepTutor/7.1-page-components",
+    "slug": "7.1-page-components",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 33,
+    "title": "Global State Management",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/7.2-global-state-management",
+    "path": "/HKUDS/DeepTutor/7.2-global-state-management",
+    "slug": "7.2-global-state-management",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 34,
+    "title": "Theme System",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/7.3-theme-system",
+    "path": "/HKUDS/DeepTutor/7.3-theme-system",
+    "slug": "7.3-theme-system",
+    "section": "7.3",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 35,
+    "title": "Markdown Rendering and Export",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/7.4-markdown-rendering-and-export",
+    "path": "/HKUDS/DeepTutor/7.4-markdown-rendering-and-export",
+    "slug": "7.4-markdown-rendering-and-export",
+    "section": "7.4",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 36,
+    "title": "Internationalization",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/7.5-internationalization",
+    "path": "/HKUDS/DeepTutor/7.5-internationalization",
+    "slug": "7.5-internationalization",
+    "section": "7.5",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 37,
+    "title": "TutorBot System",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/8-tutorbot-system",
+    "path": "/HKUDS/DeepTutor/8-tutorbot-system",
+    "slug": "8-tutorbot-system",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 38,
+    "title": "TutorBot Agent Loop",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/8.1-tutorbot-agent-loop",
+    "path": "/HKUDS/DeepTutor/8.1-tutorbot-agent-loop",
+    "slug": "8.1-tutorbot-agent-loop",
+    "section": "8.1",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 39,
+    "title": "Messaging Channels and Skills",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/8.2-messaging-channels-and-skills",
+    "path": "/HKUDS/DeepTutor/8.2-messaging-channels-and-skills",
+    "slug": "8.2-messaging-channels-and-skills",
+    "section": "8.2",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 40,
+    "title": "CLI Reference",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/9-cli-reference",
+    "path": "/HKUDS/DeepTutor/9-cli-reference",
+    "slug": "9-cli-reference",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 41,
+    "title": "Core CLI Commands",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/9.1-core-cli-commands",
+    "path": "/HKUDS/DeepTutor/9.1-core-cli-commands",
+    "slug": "9.1-core-cli-commands",
+    "section": "9.1",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 42,
+    "title": "Knowledge Base and Session Commands",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/9.2-knowledge-base-and-session-commands",
+    "path": "/HKUDS/DeepTutor/9.2-knowledge-base-and-session-commands",
+    "slug": "9.2-knowledge-base-and-session-commands",
+    "section": "9.2",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 43,
+    "title": "Development Guide",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/10-development-guide",
+    "path": "/HKUDS/DeepTutor/10-development-guide",
+    "slug": "10-development-guide",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 44,
+    "title": "Contributing Guidelines",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/10.1-contributing-guidelines",
+    "path": "/HKUDS/DeepTutor/10.1-contributing-guidelines",
+    "slug": "10.1-contributing-guidelines",
+    "section": "10.1",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 45,
+    "title": "Code Quality Tools",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/10.2-code-quality-tools",
+    "path": "/HKUDS/DeepTutor/10.2-code-quality-tools",
+    "slug": "10.2-code-quality-tools",
+    "section": "10.2",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 46,
+    "title": "Testing and CI/CD",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/10.3-testing-and-cicd",
+    "path": "/HKUDS/DeepTutor/10.3-testing-and-cicd",
+    "slug": "10.3-testing-and-cicd",
+    "section": "10.3",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 47,
+    "title": "Utilities and Helpers",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/11-utilities-and-helpers",
+    "path": "/HKUDS/DeepTutor/11-utilities-and-helpers",
+    "slug": "11-utilities-and-helpers",
+    "section": "11",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 48,
+    "title": "JSON Utilities",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/11.1-json-utilities",
+    "path": "/HKUDS/DeepTutor/11.1-json-utilities",
+    "slug": "11.1-json-utilities",
+    "section": "11.1",
+    "depth": 1,
+    "parent_section": "11"
+  },
+  {
+    "order": 49,
+    "title": "URL Sanitization and Server Detection",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/11.2-url-sanitization-and-server-detection",
+    "path": "/HKUDS/DeepTutor/11.2-url-sanitization-and-server-detection",
+    "slug": "11.2-url-sanitization-and-server-detection",
+    "section": "11.2",
+    "depth": 1,
+    "parent_section": "11"
+  },
+  {
+    "order": 50,
+    "title": "Logging Infrastructure",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/11.3-logging-infrastructure",
+    "path": "/HKUDS/DeepTutor/11.3-logging-infrastructure",
+    "slug": "11.3-logging-infrastructure",
+    "section": "11.3",
+    "depth": 1,
+    "parent_section": "11"
+  },
+  {
+    "order": 51,
+    "title": "API Layer",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/12-api-layer",
+    "path": "/HKUDS/DeepTutor/12-api-layer",
+    "slug": "12-api-layer",
+    "section": "12",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 52,
+    "title": "Settings API",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/12.1-settings-api",
+    "path": "/HKUDS/DeepTutor/12.1-settings-api",
+    "slug": "12.1-settings-api",
+    "section": "12.1",
+    "depth": 1,
+    "parent_section": "12"
+  },
+  {
+    "order": 53,
+    "title": "Unified WebSocket and Session API",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/12.2-unified-websocket-and-session-api",
+    "path": "/HKUDS/DeepTutor/12.2-unified-websocket-and-session-api",
+    "slug": "12.2-unified-websocket-and-session-api",
+    "section": "12.2",
+    "depth": 1,
+    "parent_section": "12"
+  },
+  {
+    "order": 54,
+    "title": "Deployment and Operations",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/13-deployment-and-operations",
+    "path": "/HKUDS/DeepTutor/13-deployment-and-operations",
+    "slug": "13-deployment-and-operations",
+    "section": "13",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 55,
+    "title": "Environment Variables Reference",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/13.1-environment-variables-reference",
+    "path": "/HKUDS/DeepTutor/13.1-environment-variables-reference",
+    "slug": "13.1-environment-variables-reference",
+    "section": "13.1",
+    "depth": 1,
+    "parent_section": "13"
+  },
+  {
+    "order": 56,
+    "title": "Multi-User Mode and Administration",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/13.2-multi-user-mode-and-administration",
+    "path": "/HKUDS/DeepTutor/13.2-multi-user-mode-and-administration",
+    "slug": "13.2-multi-user-mode-and-administration",
+    "section": "13.2",
+    "depth": 1,
+    "parent_section": "13"
+  },
+  {
+    "order": 57,
+    "title": "Data Persistence and Backups",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/13.3-data-persistence-and-backups",
+    "path": "/HKUDS/DeepTutor/13.3-data-persistence-and-backups",
+    "slug": "13.3-data-persistence-and-backups",
+    "section": "13.3",
+    "depth": 1,
+    "parent_section": "13"
+  },
+  {
+    "order": 58,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/HKUDS/DeepTutor/14-glossary",
+    "path": "/HKUDS/DeepTutor/14-glossary",
+    "slug": "14-glossary",
+    "section": "14",
+    "depth": 0,
+    "parent_section": null
+  }
+]

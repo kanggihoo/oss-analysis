@@ -1,0 +1,18 @@
+{
+  "order": 38,
+  "title": "Background Services",
+  "url": "https://deepwiki.com/langfuse/langfuse/7.5-background-services",
+  "path": "/langfuse/langfuse/7.5-background-services",
+  "slug": "7.5-background-services",
+  "section": "7.5",
+  "depth": 1,
+  "parent_section": "7",
+  "matched_chunk_sha256": "4da89471bf51daf71e0f68787120ed2f68354f380b9849d28270bd500231f36a",
+  "markdown_length": 15437,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

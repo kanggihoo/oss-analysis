@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "jhlee0409",
+  "repo": "claude-code-history-viewer",
+  "deepwiki_url": "https://deepwiki.com/jhlee0409/claude-code-history-viewer",
+  "generated_at": "2026-06-10T09:40:03.880331+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/jhlee0409/claude-code-history-viewer",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 766812,
+    "sha256": "3aadcb416016bacc5b76aabd0adcd44ea5bce6621fc5249321f6122bb539f799",
+    "fetched_at": "2026-06-10T09:40:03.707319+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 51,
+  "markdown_chunks_count": 51,
+  "matched_pages_count": 51,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/claude-code-history-viewer/deepwiki"
+}

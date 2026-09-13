@@ -1,0 +1,1 @@
+understand-anything not found in Hermes tool shell PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Users/kkh/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin

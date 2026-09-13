@@ -1,0 +1,18 @@
+{
+  "order": 72,
+  "title": "Release Pipeline",
+  "url": "https://deepwiki.com/openai/codex/8.3-release-pipeline",
+  "path": "/openai/codex/8.3-release-pipeline",
+  "slug": "8.3-release-pipeline",
+  "section": "8.3",
+  "depth": 1,
+  "parent_section": "8",
+  "matched_chunk_sha256": "7c4fc4c9381d7e471567d7d65c36f439cd80376a7fa444e5f2e063404e15ddce",
+  "markdown_length": 12431,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

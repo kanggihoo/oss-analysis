@@ -1,0 +1,32 @@
+{
+  "order": 1,
+  "title": "Overview",
+  "url": "https://deepwiki.com/junhoyeo/tokscale/1-overview",
+  "path": "/junhoyeo/tokscale/1-overview",
+  "slug": "1-overview",
+  "section": "1",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "9df681477e9e0820c062c4618a541868e9c6653b27b386316aa1d294d4d1cb52",
+  "markdown_length": 7162,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:13",
+    "README.md:145-150",
+    "README.md:54-78",
+    "README.md:58-78",
+    "README.md:9-10",
+    "crates/tokscale-cli/src/antigravity.rs:147-155",
+    "crates/tokscale-cli/src/antigravity.rs:147-160",
+    "crates/tokscale-cli/src/antigravity.rs:30-35",
+    "crates/tokscale-cli/src/lib.rs:1-10",
+    "crates/tokscale-cli/src/paths.rs:23-35",
+    "packages/cli/package.json:2-10",
+    "packages/cli/package.json:32-39",
+    "packages/tokscale/package.json:2-10"
+  ]
+}

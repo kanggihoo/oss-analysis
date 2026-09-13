@@ -1,0 +1,16 @@
+repo: fivetaku/insane-search
+remote:
+origin	https://github.com/fivetaku/insane-search.git (fetch)
+origin	https://github.com/fivetaku/insane-search.git (push)
+branch:
+main
+head:
+a16f7c1c40aeb7480c44dfb5e6ee108063ec8f8f
+describe:
+v0.9.0
+latest_commit:
+a16f7c1c40aeb7480c44dfb5e6ee108063ec8f8f
+fivetaku <fivetaku@naver.com>
+2026-06-28T13:54:55+09:00
+chore: release v0.9.0 — content-safety envelope + calibrated risk scoring
+status:

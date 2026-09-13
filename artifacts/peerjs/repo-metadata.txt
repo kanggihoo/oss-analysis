@@ -1,0 +1,18 @@
+repo: peers/peerjs
+url: https://github.com/peers/peerjs
+local_path: repos/peerjs
+remote:
+origin	https://github.com/peers/peerjs.git (fetch)
+origin	https://github.com/peers/peerjs.git (push)
+branch:
+master
+head:
+125f450c547887982ddecc86a6719f22e0f8f952
+describe:
+v1.5.5-3-g125f450
+latest_commit:
+125f450c547887982ddecc86a6719f22e0f8f952
+renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>
+2025-07-18T03:51:13Z
+chore(deps): update swc monorepo (#1344)
+status:

@@ -1,0 +1,33 @@
+{
+  "order": 4,
+  "title": "Core Components",
+  "url": "https://deepwiki.com/bytebase/dbhub/2-core-components",
+  "path": "/bytebase/dbhub/2-core-components",
+  "slug": "2-core-components",
+  "section": "2",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "ab7713fd160066d585bbcdedb52791982fad8165c9fa1814d913f96907dfa701",
+  "markdown_length": 11194,
+  "has_mermaid": true,
+  "mermaid_blocks": 8,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/config/env.ts:10-193",
+    "src/config/env.ts:124-142",
+    "src/connectors/interface.ts:5-200",
+    "src/index.ts:11-20",
+    "src/index.ts:17-20",
+    "src/index.ts:3-11",
+    "src/server.ts:1-15",
+    "src/server.ts:103-153",
+    "src/server.ts:11",
+    "src/server.ts:13-15",
+    "src/server.ts:29-158",
+    "src/server.ts:50-158",
+    "src/server.ts:77-101",
+    "src/server.ts:84-87"
+  ]
+}

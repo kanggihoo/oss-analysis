@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "openai",
+  "repo": "codex",
+  "deepwiki_url": "https://deepwiki.com/openai/codex",
+  "generated_at": "2026-06-13T20:55:31.672317+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/openai/codex",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 1299530,
+    "sha256": "dafc68ba76b1fde17d690779d0fb062b4162180425cf0fdbfa1fead8beac36fb",
+    "fetched_at": "2026-06-13T20:55:31.389803+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 80,
+  "markdown_chunks_count": 80,
+  "matched_pages_count": 80,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/codex/deepwiki"
+}

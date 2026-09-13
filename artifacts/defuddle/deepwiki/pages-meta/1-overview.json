@@ -1,0 +1,33 @@
+{
+  "order": 1,
+  "title": "Overview",
+  "url": "https://deepwiki.com/kepano/defuddle/1-overview",
+  "path": "/kepano/defuddle/1-overview",
+  "slug": "1-overview",
+  "section": "1",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "d672e2c3a7e7ebb2273c24e6c4ae5d5d049b7e7e138be578a9ff0d66b15e4e85",
+  "markdown_length": 9966,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:1-20",
+    "README.md:10-20",
+    "package.json:1-10",
+    "package.json:24-38",
+    "src/constants.ts:1-100",
+    "src/defuddle.ts:1-30",
+    "src/defuddle.ts:461-651",
+    "src/defuddle.ts:51-1672",
+    "src/defuddle.ts:88-184",
+    "src/defuddle.ts:95-118",
+    "webpack.config.js:48-99",
+    "webpack.config.js:52-55",
+    "webpack.config.js:69-72",
+    "webpack.config.js:94-97"
+  ]
+}

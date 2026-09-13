@@ -1,0 +1,28 @@
+{
+  "order": 14,
+  "title": "Utilities and Support",
+  "url": "https://deepwiki.com/peers/peerjs/4-utilities-and-support",
+  "path": "/peers/peerjs/4-utilities-and-support",
+  "slug": "4-utilities-and-support",
+  "section": "4",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "b1571fe9070c9008a88c27cff4e24ae99f23f2d3c82aefa4caa1b3b28fe95847",
+  "markdown_length": 10356,
+  "has_mermaid": true,
+  "mermaid_blocks": 7,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "lib/supports.ts:14-16",
+    "lib/supports.ts:7-84",
+    "lib/util.ts:125-157",
+    "lib/util.ts:129-154",
+    "lib/util.ts:38-51",
+    "lib/util.ts:53-158",
+    "lib/util.ts:54-67",
+    "lib/util.ts:7-36",
+    "lib/util.ts:78-123"
+  ]
+}

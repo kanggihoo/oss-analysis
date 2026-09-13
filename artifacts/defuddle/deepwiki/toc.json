@@ -1,0 +1,362 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/kepano/defuddle/1-overview",
+    "path": "/kepano/defuddle/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/kepano/defuddle/2-getting-started",
+    "path": "/kepano/defuddle/2-getting-started",
+    "slug": "2-getting-started",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 3,
+    "title": "Architecture",
+    "url": "https://deepwiki.com/kepano/defuddle/3-architecture",
+    "path": "/kepano/defuddle/3-architecture",
+    "slug": "3-architecture",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 4,
+    "title": "Core Extraction Pipeline",
+    "url": "https://deepwiki.com/kepano/defuddle/3.1-core-extraction-pipeline",
+    "path": "/kepano/defuddle/3.1-core-extraction-pipeline",
+    "slug": "3.1-core-extraction-pipeline",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 5,
+    "title": "Build and Distribution System",
+    "url": "https://deepwiki.com/kepano/defuddle/3.2-build-and-distribution-system",
+    "path": "/kepano/defuddle/3.2-build-and-distribution-system",
+    "slug": "3.2-build-and-distribution-system",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 6,
+    "title": "Constants and Selectors",
+    "url": "https://deepwiki.com/kepano/defuddle/3.3-constants-and-selectors",
+    "path": "/kepano/defuddle/3.3-constants-and-selectors",
+    "slug": "3.3-constants-and-selectors",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 7,
+    "title": "Content Extraction",
+    "url": "https://deepwiki.com/kepano/defuddle/4-content-extraction",
+    "path": "/kepano/defuddle/4-content-extraction",
+    "slug": "4-content-extraction",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 8,
+    "title": "Content Identification and Scoring",
+    "url": "https://deepwiki.com/kepano/defuddle/4.1-content-identification-and-scoring",
+    "path": "/kepano/defuddle/4.1-content-identification-and-scoring",
+    "slug": "4.1-content-identification-and-scoring",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 9,
+    "title": "Metadata Extraction",
+    "url": "https://deepwiki.com/kepano/defuddle/4.2-metadata-extraction",
+    "path": "/kepano/defuddle/4.2-metadata-extraction",
+    "slug": "4.2-metadata-extraction",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 10,
+    "title": "Clutter Removal Pipeline",
+    "url": "https://deepwiki.com/kepano/defuddle/4.3-clutter-removal-pipeline",
+    "path": "/kepano/defuddle/4.3-clutter-removal-pipeline",
+    "slug": "4.3-clutter-removal-pipeline",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 11,
+    "title": "Content Standardization",
+    "url": "https://deepwiki.com/kepano/defuddle/5-content-standardization",
+    "path": "/kepano/defuddle/5-content-standardization",
+    "slug": "5-content-standardization",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 12,
+    "title": "Overall Standardization Process",
+    "url": "https://deepwiki.com/kepano/defuddle/5.1-overall-standardization-process",
+    "path": "/kepano/defuddle/5.1-overall-standardization-process",
+    "slug": "5.1-overall-standardization-process",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 13,
+    "title": "Image Standardization",
+    "url": "https://deepwiki.com/kepano/defuddle/5.2-image-standardization",
+    "path": "/kepano/defuddle/5.2-image-standardization",
+    "slug": "5.2-image-standardization",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 14,
+    "title": "Code Block Standardization",
+    "url": "https://deepwiki.com/kepano/defuddle/5.3-code-block-standardization",
+    "path": "/kepano/defuddle/5.3-code-block-standardization",
+    "slug": "5.3-code-block-standardization",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 15,
+    "title": "Math Content Standardization",
+    "url": "https://deepwiki.com/kepano/defuddle/5.4-math-content-standardization",
+    "path": "/kepano/defuddle/5.4-math-content-standardization",
+    "slug": "5.4-math-content-standardization",
+    "section": "5.4",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 16,
+    "title": "Footnote Standardization",
+    "url": "https://deepwiki.com/kepano/defuddle/5.5-footnote-standardization",
+    "path": "/kepano/defuddle/5.5-footnote-standardization",
+    "slug": "5.5-footnote-standardization",
+    "section": "5.5",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 17,
+    "title": "Platform-Specific Extractors",
+    "url": "https://deepwiki.com/kepano/defuddle/6-platform-specific-extractors",
+    "path": "/kepano/defuddle/6-platform-specific-extractors",
+    "slug": "6-platform-specific-extractors",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 18,
+    "title": "Extractor Registry",
+    "url": "https://deepwiki.com/kepano/defuddle/6.1-extractor-registry",
+    "path": "/kepano/defuddle/6.1-extractor-registry",
+    "slug": "6.1-extractor-registry",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 19,
+    "title": "YouTube Extractor",
+    "url": "https://deepwiki.com/kepano/defuddle/6.2-youtube-extractor",
+    "path": "/kepano/defuddle/6.2-youtube-extractor",
+    "slug": "6.2-youtube-extractor",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 20,
+    "title": "Social Media Extractors",
+    "url": "https://deepwiki.com/kepano/defuddle/6.3-social-media-extractors",
+    "path": "/kepano/defuddle/6.3-social-media-extractors",
+    "slug": "6.3-social-media-extractors",
+    "section": "6.3",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 21,
+    "title": "AI Chat Extractors",
+    "url": "https://deepwiki.com/kepano/defuddle/6.4-ai-chat-extractors",
+    "path": "/kepano/defuddle/6.4-ai-chat-extractors",
+    "slug": "6.4-ai-chat-extractors",
+    "section": "6.4",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 22,
+    "title": "Code Repository Extractors",
+    "url": "https://deepwiki.com/kepano/defuddle/6.5-code-repository-extractors",
+    "path": "/kepano/defuddle/6.5-code-repository-extractors",
+    "slug": "6.5-code-repository-extractors",
+    "section": "6.5",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 23,
+    "title": "Markdown Conversion",
+    "url": "https://deepwiki.com/kepano/defuddle/7-markdown-conversion",
+    "path": "/kepano/defuddle/7-markdown-conversion",
+    "slug": "7-markdown-conversion",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 24,
+    "title": "Web Service",
+    "url": "https://deepwiki.com/kepano/defuddle/8-web-service",
+    "path": "/kepano/defuddle/8-web-service",
+    "slug": "8-web-service",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "Cloudflare Worker Architecture",
+    "url": "https://deepwiki.com/kepano/defuddle/8.1-cloudflare-worker-architecture",
+    "path": "/kepano/defuddle/8.1-cloudflare-worker-architecture",
+    "slug": "8.1-cloudflare-worker-architecture",
+    "section": "8.1",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 26,
+    "title": "API Endpoints",
+    "url": "https://deepwiki.com/kepano/defuddle/8.2-api-endpoints",
+    "path": "/kepano/defuddle/8.2-api-endpoints",
+    "slug": "8.2-api-endpoints",
+    "section": "8.2",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 27,
+    "title": "Website and Playground",
+    "url": "https://deepwiki.com/kepano/defuddle/8.3-website-and-playground",
+    "path": "/kepano/defuddle/8.3-website-and-playground",
+    "slug": "8.3-website-and-playground",
+    "section": "8.3",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 28,
+    "title": "API Key Management",
+    "url": "https://deepwiki.com/kepano/defuddle/8.4-api-key-management",
+    "path": "/kepano/defuddle/8.4-api-key-management",
+    "slug": "8.4-api-key-management",
+    "section": "8.4",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 29,
+    "title": "Usage and Integration",
+    "url": "https://deepwiki.com/kepano/defuddle/9-usage-and-integration",
+    "path": "/kepano/defuddle/9-usage-and-integration",
+    "slug": "9-usage-and-integration",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 30,
+    "title": "Browser Usage",
+    "url": "https://deepwiki.com/kepano/defuddle/9.1-browser-usage",
+    "path": "/kepano/defuddle/9.1-browser-usage",
+    "slug": "9.1-browser-usage",
+    "section": "9.1",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 31,
+    "title": "Node.js Integration",
+    "url": "https://deepwiki.com/kepano/defuddle/9.2-node.js-integration",
+    "path": "/kepano/defuddle/9.2-node.js-integration",
+    "slug": "9.2-node.js-integration",
+    "section": "9.2",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 32,
+    "title": "Command Line Interface",
+    "url": "https://deepwiki.com/kepano/defuddle/9.3-command-line-interface",
+    "path": "/kepano/defuddle/9.3-command-line-interface",
+    "slug": "9.3-command-line-interface",
+    "section": "9.3",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 33,
+    "title": "Configuration and Options",
+    "url": "https://deepwiki.com/kepano/defuddle/10-configuration-and-options",
+    "path": "/kepano/defuddle/10-configuration-and-options",
+    "slug": "10-configuration-and-options",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 34,
+    "title": "Development",
+    "url": "https://deepwiki.com/kepano/defuddle/11-development",
+    "path": "/kepano/defuddle/11-development",
+    "slug": "11-development",
+    "section": "11",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 35,
+    "title": "Debugging Features",
+    "url": "https://deepwiki.com/kepano/defuddle/11.1-debugging-features",
+    "path": "/kepano/defuddle/11.1-debugging-features",
+    "slug": "11.1-debugging-features",
+    "section": "11.1",
+    "depth": 1,
+    "parent_section": "11"
+  },
+  {
+    "order": 36,
+    "title": "Testing Framework",
+    "url": "https://deepwiki.com/kepano/defuddle/11.2-testing-framework",
+    "path": "/kepano/defuddle/11.2-testing-framework",
+    "slug": "11.2-testing-framework",
+    "section": "11.2",
+    "depth": 1,
+    "parent_section": "11"
+  }
+]

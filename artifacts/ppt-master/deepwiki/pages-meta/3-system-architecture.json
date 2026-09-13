@@ -1,0 +1,18 @@
+{
+  "order": 3,
+  "title": "System Architecture",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/3-system-architecture",
+  "path": "/hugohe3/ppt-master/3-system-architecture",
+  "slug": "3-system-architecture",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "632ea1e97f75cb2e453c1486b5fa9664185f934b62bb8218ef82e513bf5e0db3",
+  "markdown_length": 11305,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

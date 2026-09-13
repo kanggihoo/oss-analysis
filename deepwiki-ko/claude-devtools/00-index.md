@@ -1,0 +1,66 @@
+---
+type: deepwiki-translation-index
+repo: claude-devtools
+source_toc: artifacts/claude-devtools/deepwiki/toc.json
+---
+
+# DeepWiki Translation: claude-devtools
+
+> 이 문서는 DeepWiki 산출물의 한국어 번역입니다. 코드 검증이 완료된 최종 분석 보고서가 아닙니다.
+
+## TOC
+
+- [[1-overview|1 Overview]]
+- [[2-getting-started|2 Getting Started]]
+- [[3-architecture|3 Architecture]]
+  - [[3.1-electron-process-model|3.1 Electron Process Model]]
+  - [[3.2-multi-context-system|3.2 Multi-Context System]]
+  - [[3.3-ipc-communication-layer|3.3 IPC Communication Layer]]
+  - [[3.4-state-management|3.4 State Management]]
+- [[4-session-discovery-and-parsing|4 Session Discovery & Parsing]]
+  - [[4.1-project-scanner|4.1 Project Scanner]]
+  - [[4.2-path-encoding-and-project-ids|4.2 Path Encoding & Project IDs]]
+  - [[4.3-jsonl-parsing|4.3 JSONL Parsing]]
+  - [[4.4-caching-strategy|4.4 Caching Strategy]]
+- [[5-ssh-remote-access|5 SSH Remote Access]]
+  - [[5.1-ssh-connection-manager|5.1 SSH Connection Manager]]
+  - [[5.2-ssh-configuration|5.2 SSH Configuration]]
+  - [[5.3-remote-file-operations|5.3 Remote File Operations]]
+- [[6-notification-system|6 Notification System]]
+  - [[6.1-notification-manager|6.1 Notification Manager]]
+  - [[6.2-trigger-system|6.2 Trigger System]]
+  - [[6.3-filtering-and-throttling|6.3 Filtering & Throttling]]
+- [[7-configuration-management|7 Configuration Management]]
+  - [[7.1-config-ipc-handlers|7.1 Config IPC Handlers]]
+  - [[7.2-claude-root-detection|7.2 Claude Root Detection]]
+- [[8-http-sidecar-server|8 HTTP Sidecar Server]]
+- [[9-user-interface|9 User Interface]]
+  - [[9.1-application-shell|9.1 Application Shell]]
+  - [[9.2-session-views|9.2 Session Views]]
+  - [[9.3-command-palette|9.3 Command Palette]]
+  - [[9.4-settings-interface|9.4 Settings Interface]]
+  - [[9.5-real-time-updates|9.5 Real-Time Updates]]
+- [[10-build-system|10 Build System]]
+  - [[10.1-electron-vite-configuration|10.1 Electron-Vite Configuration]]
+  - [[10.2-native-module-handling|10.2 Native Module Handling]]
+  - [[10.3-dependency-management|10.3 Dependency Management]]
+- [[11-testing|11 Testing]]
+  - [[11.1-unit-tests|11.1 Unit Tests]]
+  - [[11.2-ci-pipeline|11.2 CI Pipeline]]
+- [[12-release-and-distribution|12 Release & Distribution]]
+  - [[12.1-release-workflow|12.1 Release Workflow]]
+  - [[12.2-code-signing-and-notarization|12.2 Code Signing & Notarization]]
+  - [[12.3-auto-updates|12.3 Auto-Updates]]
+- [[13-session-analysis-and-reporting|13 Session Analysis & Reporting]]
+  - [[13.1-session-analyzer|13.1 Session Analyzer]]
+  - [[13.2-cost-and-pricing|13.2 Cost & Pricing]]
+- [[14-api-reference|14 API Reference]]
+  - [[14.1-electronapi-interface|14.1 ElectronAPI Interface]]
+  - [[14.2-ipc-handler-reference|14.2 IPC Handler Reference]]
+  - [[14.3-service-context-api|14.3 Service Context API]]
+  - [[14.4-path-utilities|14.4 Path Utilities]]
+- [[15-contributing|15 Contributing]]
+  - [[15.1-development-setup|15.1 Development Setup]]
+  - [[15.2-adding-ipc-methods|15.2 Adding IPC Methods]]
+  - [[15.3-code-style-and-quality|15.3 Code Style & Quality]]
+- [[16-glossary|16 Glossary]]

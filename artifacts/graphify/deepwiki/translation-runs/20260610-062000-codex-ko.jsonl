@@ -1,0 +1,6 @@
+{"dry_run": true, "effort": "medium", "event": "run_start", "model": "gpt-5.4-mini", "repo": "graphify", "rotate_at": 0.7, "ts": "2026-06-09T21:20:00+00:00", "workspace": "/Users/kkh/Desktop/oss-analysis"}
+{"count": 37, "event": "toc_loaded", "toc_json": "artifacts/graphify/deepwiki/toc.json", "toc_md": "artifacts/graphify/deepwiki/toc.md", "toc_md_sha256": "0cfa27b50a993f29465b17d381f2334d999e86070011af50cedfefa05620dda6", "ts": "2026-06-09T21:20:00+00:00"}
+{"event": "index_written", "links": 37, "path": "deepwiki-ko/graphify/00-index.md", "ts": "2026-06-09T21:20:00+00:00"}
+{"event": "file_mapped", "order": 1, "slug": "1-overview", "source": "artifacts/graphify/deepwiki/pages-md/1-overview.md", "source_bytes": 6113, "source_exists": true, "target": "deepwiki-ko/graphify/1-overview.md", "ts": "2026-06-09T21:20:00+00:00"}
+{"event": "file_mapped", "order": 2, "slug": "1.1-getting-started-and-installation", "source": "artifacts/graphify/deepwiki/pages-md/1.1-getting-started-and-installation.md", "source_bytes": 7844, "source_exists": true, "target": "deepwiki-ko/graphify/1.1-getting-started-and-installation.md", "ts": "2026-06-09T21:20:00+00:00"}
+{"completed": 0, "dry_run": true, "event": "run_done", "failed": 0, "repo": "graphify", "skipped": 0, "ts": "2026-06-09T21:20:00+00:00"}

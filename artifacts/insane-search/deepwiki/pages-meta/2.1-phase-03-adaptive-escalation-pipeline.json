@@ -1,0 +1,33 @@
+{
+  "order": 6,
+  "title": "Phase 0→3 Adaptive Escalation Pipeline",
+  "url": "https://deepwiki.com/fivetaku/insane-search/2.1-phase-03-adaptive-escalation-pipeline",
+  "path": "/fivetaku/insane-search/2.1-phase-03-adaptive-escalation-pipeline",
+  "slug": "2.1-phase-03-adaptive-escalation-pipeline",
+  "section": "2.1",
+  "depth": 1,
+  "parent_section": "2",
+  "matched_chunk_sha256": "99ee2490c0daf28953750aff2090119e3459388950b5f6c2f30429d73aaedfde",
+  "markdown_length": 7873,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "CHANGELOG.md:5-9",
+    "CHANGELOG.md:52-60",
+    "skills/insane-search/SKILL.md:105-125",
+    "skills/insane-search/SKILL.md:51-60",
+    "skills/insane-search/engine/executor.py:1-30",
+    "skills/insane-search/engine/executor.py:50-100",
+    "skills/insane-search/engine/fetch_chain.py:1-20",
+    "skills/insane-search/engine/fetch_chain.py:120-160",
+    "skills/insane-search/engine/phase0.py:1-15",
+    "skills/insane-search/engine/phase0.py:10-45",
+    "skills/insane-search/engine/url_transforms.py:1-20",
+    "skills/insane-search/engine/validators.py:10-60",
+    "skills/insane-search/references/fallback.md:106-120",
+    "skills/insane-search/references/fallback.md:48-62"
+  ]
+}

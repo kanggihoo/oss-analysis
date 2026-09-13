@@ -1,0 +1,31 @@
+{
+  "order": 18,
+  "title": "Demo Database",
+  "url": "https://deepwiki.com/bytebase/dbhub/5.2-demo-database",
+  "path": "/bytebase/dbhub/5.2-demo-database",
+  "slug": "5.2-demo-database",
+  "section": "5.2",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "6a8913d53d481bdb33e640866194bc8f28bd8b42b3261321f5e5017ad80919fb",
+  "markdown_length": 10726,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 14,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "resources/employee-sqlite/employee.sql:39-47",
+    "resources/employee-sqlite/employee.sql:39-92",
+    "resources/employee-sqlite/employee.sql:49-54",
+    "resources/employee-sqlite/employee.sql:56-64",
+    "resources/employee-sqlite/employee.sql:66-74",
+    "resources/employee-sqlite/employee.sql:76-92",
+    "resources/employee-sqlite/employee.sql:94-104",
+    "resources/employee-sqlite/load_department.sql:1-9",
+    "src/config/demo-loader.ts:1-6",
+    "src/config/demo-loader.ts:1-77",
+    "src/config/demo-loader.ts:52-54",
+    "tsup.config.ts:11-29"
+  ]
+}

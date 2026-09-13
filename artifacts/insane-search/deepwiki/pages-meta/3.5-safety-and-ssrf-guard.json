@@ -1,0 +1,30 @@
+{
+  "order": 15,
+  "title": "Safety & SSRF Guard",
+  "url": "https://deepwiki.com/fivetaku/insane-search/3.5-safety-and-ssrf-guard",
+  "path": "/fivetaku/insane-search/3.5-safety-and-ssrf-guard",
+  "slug": "3.5-safety-and-ssrf-guard",
+  "section": "3.5",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "e06f058d71b85c3ba67e2c5e93d803888399f791cea0ee4ff5a4097f8a3213df",
+  "markdown_length": 5643,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "skills/insane-search/engine/safety.py:20-20",
+    "skills/insane-search/engine/safety.py:20-71",
+    "skills/insane-search/engine/safety.py:24-25",
+    "skills/insane-search/engine/safety.py:28-34",
+    "skills/insane-search/engine/safety.py:37-71",
+    "skills/insane-search/engine/safety.py:49-50",
+    "skills/insane-search/engine/safety.py:53-55",
+    "skills/insane-search/engine/safety.py:60-70",
+    "skills/insane-search/engine/safety.py:74-80",
+    "skills/insane-search/engine/safety.py:83-87",
+    "skills/insane-search/engine/safety.py:90-91"
+  ]
+}

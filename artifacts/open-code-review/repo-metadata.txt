@@ -1,0 +1,5 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/open-code-review
+name=open-code-review
+date=2026-06-21T23:36:19Z
+commit=57273a9ea28548b94b3d67c247ff13a63c01fc47
+origin=https://github.com/alibaba/open-code-review

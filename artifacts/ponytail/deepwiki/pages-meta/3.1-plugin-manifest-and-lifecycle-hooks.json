@@ -1,0 +1,18 @@
+{
+  "order": 11,
+  "title": "Plugin Manifest & Lifecycle Hooks",
+  "url": "https://deepwiki.com/DietrichGebert/ponytail/3.1-plugin-manifest-and-lifecycle-hooks",
+  "path": "/DietrichGebert/ponytail/3.1-plugin-manifest-and-lifecycle-hooks",
+  "slug": "3.1-plugin-manifest-and-lifecycle-hooks",
+  "section": "3.1",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "450019b7dff455830a407fb3389194aa53abc2c1b15472c3a499edde5f785310",
+  "markdown_length": 7648,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

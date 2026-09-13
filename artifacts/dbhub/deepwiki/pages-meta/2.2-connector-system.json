@@ -1,0 +1,32 @@
+{
+  "order": 6,
+  "title": "Connector System",
+  "url": "https://deepwiki.com/bytebase/dbhub/2.2-connector-system",
+  "path": "/bytebase/dbhub/2.2-connector-system",
+  "slug": "2.2-connector-system",
+  "section": "2.2",
+  "depth": 1,
+  "parent_section": "2",
+  "matched_chunk_sha256": "146bef1bb5bac6b2cdb30e6f27d192cf87dbaa18592304e3ffb6e3569df8fff9",
+  "markdown_length": 12952,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/connectors/interface.ts:1-200",
+    "src/connectors/interface.ts:135-138",
+    "src/connectors/interface.ts:144-200",
+    "src/connectors/interface.ts:165-172",
+    "src/connectors/interface.ts:37-57",
+    "src/connectors/interface.ts:38-46",
+    "src/connectors/interface.ts:5-139",
+    "src/connectors/manager.ts:1-109",
+    "src/connectors/manager.ts:103-108",
+    "src/connectors/manager.ts:22-35",
+    "src/connectors/manager.ts:9-109",
+    "src/index.ts:1-20",
+    "src/index.ts:3-8"
+  ]
+}

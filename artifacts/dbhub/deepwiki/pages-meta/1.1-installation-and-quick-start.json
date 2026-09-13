@@ -1,0 +1,29 @@
+{
+  "order": 2,
+  "title": "Installation and Quick Start",
+  "url": "https://deepwiki.com/bytebase/dbhub/1.1-installation-and-quick-start",
+  "path": "/bytebase/dbhub/1.1-installation-and-quick-start",
+  "slug": "1.1-installation-and-quick-start",
+  "section": "1.1",
+  "depth": 1,
+  "parent_section": "1",
+  "matched_chunk_sha256": "2effa19e115e3a0890b2a6ca3cfb9edbc59eae7a8b02136730b158f04b04dfae",
+  "markdown_length": 9847,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 10,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:102-151",
+    "README.md:154-196",
+    "README.md:205-216",
+    "README.md:218-226",
+    "README.md:227-227",
+    "README.md:229-247",
+    "README.md:249-269",
+    "README.md:62-100",
+    "README.md:9-27",
+    "package.json:15-20"
+  ]
+}

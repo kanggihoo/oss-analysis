@@ -1,0 +1,18 @@
+{
+  "order": 17,
+  "title": "Rollout Persistence and Replay",
+  "url": "https://deepwiki.com/openai/codex/3.5.2-rollout-persistence-and-replay",
+  "path": "/openai/codex/3.5.2-rollout-persistence-and-replay",
+  "slug": "3.5.2-rollout-persistence-and-replay",
+  "section": "3.5.2",
+  "depth": 2,
+  "parent_section": "3.5",
+  "matched_chunk_sha256": "30c6f523b2b0c38499fed101033435685632447f84dfd38a7794f7e1c8e6ec92",
+  "markdown_length": 12852,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

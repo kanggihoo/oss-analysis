@@ -1,0 +1,33 @@
+{
+  "order": 3,
+  "title": "Architecture",
+  "url": "https://deepwiki.com/kepano/defuddle/3-architecture",
+  "path": "/kepano/defuddle/3-architecture",
+  "slug": "3-architecture",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "5e6098cdf4d04bda40ecba24eeed286050c8d4e42829b328834e5f9b28043759",
+  "markdown_length": 20637,
+  "has_mermaid": true,
+  "mermaid_blocks": 9,
+  "fenced_code_blocks": 9,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/defuddle.ts:1-14",
+    "src/defuddle.ts:122-164",
+    "src/defuddle.ts:155",
+    "src/defuddle.ts:163",
+    "src/defuddle.ts:21-35",
+    "src/defuddle.ts:40-186",
+    "src/defuddle.ts:40-59",
+    "src/defuddle.ts:603-607",
+    "src/defuddle.ts:64-164",
+    "src/defuddle.ts:64-175",
+    "src/defuddle.ts:64-186",
+    "src/defuddle.ts:654",
+    "src/defuddle.ts:97-118",
+    "src/types.ts:1-83"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "order": 22,
+  "title": "Cache & Archive Fallbacks",
+  "url": "https://deepwiki.com/fivetaku/insane-search/4.5-cache-and-archive-fallbacks",
+  "path": "/fivetaku/insane-search/4.5-cache-and-archive-fallbacks",
+  "slug": "4.5-cache-and-archive-fallbacks",
+  "section": "4.5",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "90d452c043dc7b194e27dd5b0494ac2d4eed0c8720e1094477cad43aadd77a23",
+  "markdown_length": 5485,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "skills/insane-search/references/cache-archive.md:10-12",
+    "skills/insane-search/references/cache-archive.md:18-28",
+    "skills/insane-search/references/cache-archive.md:33-36",
+    "skills/insane-search/references/cache-archive.md:42-50",
+    "skills/insane-search/references/cache-archive.md:56-60",
+    "skills/insane-search/references/cache-archive.md:60-66",
+    "skills/insane-search/references/cache-archive.md:72-74",
+    "skills/insane-search/references/cache-archive.md:77-83",
+    "skills/insane-search/references/cache-archive.md:79-83"
+  ]
+}

@@ -203,3 +203,36 @@
 - Source-verified pipeline/core/dashboard claims against `understand-anything-plugin/skills/*`, `agents/*`, `hooks/*`, `packages/core/src/*`, and `packages/dashboard/*`.
 - Verified commands after `pnpm install --frozen-lockfile`: core build/test, skill build, dashboard build, root tests, and lint all succeeded; dashboard build emitted a large ELK chunk warning.
 - Updated `index.md` to list 39 indexed pages.
+
+## [2026-06-17] update | claude-devtools 1차 core wiki ingestion
+- Added [[claude-devtools]], [[claude-devtools-electron-process-and-ipc]], [[claude-devtools-session-discovery-and-jsonl-parsing]], and [[claude-devtools-context-token-and-session-analysis]].
+- Wrote follow-up plan: `reports/claude-devtools/wiki-ingestion-plan.md` with 0차 status, 1차 completed scope, and 2차~5차 goal roadmap.
+- Source-verified against `repos/claude-devtools` at commit `16cc3c87c1e4d0e08ee101fb52dad1b85dbbe48a` / `v0.5.0`; key paths included `src/main/index.ts`, `src/main/ipc/sessions.ts`, `src/main/services/infrastructure/ServiceContext.ts`, `ServiceContextRegistry.ts`, `DataCache.ts`, `src/main/services/discovery/ProjectScanner.ts`, `SubagentResolver.ts`, `src/main/services/parsing/SessionParser.ts`, `MessageClassifier.ts`, `src/main/services/analysis/ChunkBuilder.ts`, `ConversationGroupBuilder.ts`, `src/main/utils/jsonl.ts`, `pathDecoder.ts`, `src/preload/index.ts`, `src/shared/types/api.ts`, `src/renderer/store/index.ts`, `src/renderer/types/contextInjection.ts`, and `src/renderer/utils/contextTracker.ts`.
+- Recorded current-source corrections: no standalone `SessionAnalyzer.ts`, cost metrics do not currently compute actual USD pricing, encoded path decode is lossy and prefers `cwd`, session detail IPC strips raw messages, and `DataCache` is in-memory LRU/TTL with fingerprint invalidation.
+- Updated `index.md` to list 43 indexed pages.
+
+## [2026-06-20] update | DeepTutor intelligent learning-agent modules
+- Added [[deeptutor]] based on the provided `deepwiki-ko/DeepTutor/4*` module pages and source verification against `repos/DeepTutor` at commit `88c2565389dd6b8bdee228b50f8c76d8c990d6b6`.
+- Added [[stealable-pattern-learning-ai-agent-modules]] to preserve reusable learning-AI design patterns: explicit prompt context sections, Explore→Plan→Generate, educational IRs, label/tool action grammar, evidence compression, local validation/repair, streamable artifacts, and deterministic mastery gates.
+- Source-verified important module claims against current paths including `deeptutor/runtime/bootstrap/builtin_capabilities.py`, `deeptutor/agents/chat/agentic_pipeline.py`, `deeptutor/capabilities/solve/*`, `deeptutor/agents/research/pipeline.py`, `deeptutor/agents/question/pipeline.py`, `deeptutor/book/*`, `deeptutor/co_writer/*`, `deeptutor/agents/vision_solver/vision_solver_agent.py`, `deeptutor/agents/visualize/*`, `deeptutor/agents/math_animator/*`, `deeptutor/capabilities/mastery/*`, and `deeptutor/learning/*`.
+- Recorded current-source corrections: DeepWiki's separate Auto Mode capability is not registered in current source; Smart Solver is a chat-loop extension rather than a standalone solve pipeline; several older `deeptutor/capabilities/deep_*.py` paths have moved.
+- Updated `index.md` to list 45 indexed pages.
+
+## [2026-06-20] update | DeepTutor mode workflow details
+- Added [[deeptutor-mode-workflows]] as a source-verified per-mode runtime map for `chat`, `deep_solve`, `deep_research`, `deep_question`, `book`, `co_writer`, `visualize`, `math_animator`, `geogebra_analysis`/Vision Solver, and `mastery_path`.
+- Recorded each mode/service's entrypoint, LLM prompt/context construction, tool or validator usage, streaming/result shape, and persistence location, verified against `repos/DeepTutor` at commit `88c2565389dd6b8bdee228b50f8c76d8c990d6b6`.
+- Updated [[deeptutor]] with a cross-link to the detailed mode workflow page and updated `index.md` to list 46 indexed pages.
+
+## [2026-06-21] update | ponytail project overview
+- Added [[ponytail]] based on `deepwiki-ko/ponytail/1-overview.md`, `1.1-the-ponytail-philosophy.md`, and `1.2-agent-portability-and-supported-hosts.md`.
+- Source-verified ladder philosophy, safety boundaries, adapter model, runtime mode state, OpenCode/Pi injection surfaces, MCP prompt/tool surface, and test/CI status against `repos/ponytail` at commit `6da37bfa7d0282522c7785759f4d2f1544015354`.
+- Updated `index.md` to list 47 indexed pages.
+
+## [2026-09-11] update | workspace operating model and templates
+- Overhauled `AGENTS.md` and `OSS_ANALYSIS_WORKFLOW.md` around the core flow: **archify로 파악 → 질문 → 코드 검증 → reports 기록 → wiki 축적**.
+- Established strict distinction between `reports/` (detailed question investigations, evidence paths, diagrams, and `next.md`) and `wiki/` (durable, reusable synthesized knowledge).
+- Added standardized workspace templates under `templates/`: `request-template.md`, `overview-template.md`, `question-template.md`, and `next-template.md`.
+- Updated `scripts/analyze-repo.sh` to initialize the updated report structure (`diagrams/`, `questions/`, `overview.md`, and `next.md`).
+- Aligned `wiki/SCHEMA.md` workspace boundary and Git ignore policy (`/repos/` ignored, tracking reports/wiki/diagrams/templates).
+
+

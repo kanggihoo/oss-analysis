@@ -1,0 +1,18 @@
+{
+  "order": 57,
+  "title": "Plugins System",
+  "url": "https://deepwiki.com/openai/codex/5.11-plugins-system",
+  "path": "/openai/codex/5.11-plugins-system",
+  "slug": "5.11-plugins-system",
+  "section": "5.11",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "3afe9cf22303ef7dbff15875abfdf272a0cb4bfb97e983b03c2dea580107da41",
+  "markdown_length": 13026,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "vercel-labs",
+  "repo": "agent-browser",
+  "deepwiki_url": "https://deepwiki.com/vercel-labs/agent-browser",
+  "generated_at": "2026-06-16T09:27:53.557370+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/vercel-labs/agent-browser",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 582787,
+    "sha256": "9c2532a9949328fd1d1503e1a30953caeef0e62d42d9a53fdf360ce787e6774e",
+    "fetched_at": "2026-06-16T09:27:53.423541+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 41,
+  "markdown_chunks_count": 41,
+  "matched_pages_count": 41,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/agent-browser/deepwiki"
+}

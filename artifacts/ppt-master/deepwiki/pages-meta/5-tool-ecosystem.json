@@ -1,0 +1,26 @@
+{
+  "order": 11,
+  "title": "Tool Ecosystem",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/5-tool-ecosystem",
+  "path": "/hugohe3/ppt-master/5-tool-ecosystem",
+  "slug": "5-tool-ecosystem",
+  "section": "5",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "25279c0675a154a1748970eb0cbbdec903aea08e7601006010564981c40d4d1f",
+  "markdown_length": 7972,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".github/ISSUE_TEMPLATE/bug_report.yml:10-22",
+    ".github/ISSUE_TEMPLATE/bug_report.yml:15-17",
+    ".github/ISSUE_TEMPLATE/bug_report.yml:15-18",
+    ".github/ISSUE_TEMPLATE/bug_report.yml:16-18",
+    ".github/ISSUE_TEMPLATE/bug_report.yml:17-17",
+    ".github/ISSUE_TEMPLATE/feature_request.yml:21-35",
+    ".github/ISSUE_TEMPLATE/feature_request.yml:26-31"
+  ]
+}

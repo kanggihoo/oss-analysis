@@ -1,0 +1,23 @@
+{
+  "toc_count": 26,
+  "pages_md_count": 26,
+  "pages_meta_count": 26,
+  "manifest_missing_pages_count": 0,
+  "missing_md": [],
+  "missing_meta": [],
+  "extra_md": [],
+  "extra_meta": [],
+  "manual_reconstructed_pages": [
+    {
+      "slug": "4.1-okf-specification",
+      "page_md": "pages-md/4.1-okf-specification.md",
+      "page_meta": "pages-meta/4.1-okf-specification.json",
+      "reconstruction_source": "raw/pages/4.1-okf-specification.html self.__next_f.push payload",
+      "matched_chunk_title": "4.1. OKF Specification",
+      "matched_chunk_sha256": "7c48352336bb183ac4beffe56a85860518b912d100870464b2944e74ac5ec545",
+      "manual_markdown_sha256": "e7ca666cdfa8a1cd8b5e782f4d553d35c487ac7c5d0780bcefe37e6d39404517",
+      "updated_at": "2026-06-28T05:08:42.879089+00:00"
+    }
+  ],
+  "checked_at": "2026-06-28T05:08:42.879998+00:00"
+}

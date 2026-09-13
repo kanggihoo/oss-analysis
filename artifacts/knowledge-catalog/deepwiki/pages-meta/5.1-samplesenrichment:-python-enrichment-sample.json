@@ -1,0 +1,30 @@
+{
+  "order": 22,
+  "title": "samples/enrichment: Python Enrichment Sample",
+  "url": "https://deepwiki.com/GoogleCloudPlatform/knowledge-catalog/5.1-samplesenrichment:-python-enrichment-sample",
+  "path": "/GoogleCloudPlatform/knowledge-catalog/5.1-samplesenrichment:-python-enrichment-sample",
+  "slug": "5.1-samplesenrichment:-python-enrichment-sample",
+  "section": "5.1",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "c91d46c172159a5a76a0900224c3b4b5c9033e398d509ecafc8ebb76678b48d4",
+  "markdown_length": 5771,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "samples/enrichment/README.md:1-90",
+    "samples/enrichment/README.md:20-55",
+    "samples/enrichment/README.md:3-12",
+    "samples/enrichment/README.md:31-39",
+    "samples/enrichment/README.md:41-45",
+    "samples/enrichment/README.md:47-55",
+    "samples/enrichment/README.md:60-66",
+    "samples/enrichment/README.md:60-89",
+    "samples/enrichment/README.md:68-75",
+    "samples/enrichment/README.md:77-82",
+    "samples/enrichment/README.md:84-89"
+  ]
+}

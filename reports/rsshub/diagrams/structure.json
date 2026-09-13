@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "RSSHub Structure",
+    "subtitle": "Module map and one request flow (commit 0a4ecdb0)",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/diygod/rsshub",
+      "revision": "0a4ecdb02390fb047bb675a1764e1dedbf5cf9bc"
+    },
+    "views": [
+      { "id": "request-path", "label": "Primary request path", "focus": ["client", "entry", "app_bootstrap", "registry", "routes", "template"], "note": "Follow one feed request from client to rendered RSS output." },
+      { "id": "route-plugin", "label": "Route plugin fetch", "focus": ["registry", "routes", "target_site", "template"], "note": "Each site folder under lib/routes is an independent plugin that fetches and parses its own target site." }
+    ]
+  },
+  "components": [
+    { "id": "client", "type": "external", "label": "Client", "sublabel": "RSS reader / browser", "pos": [40, 40], "size": [130, 56] },
+    { "id": "entry", "type": "backend", "label": "Entrypoint", "sublabel": "index.ts or worker.ts", "pos": [270, 40], "size": [150, 56], "sources": [{ "path": "lib/index.ts" }, { "path": "lib/worker.ts" }] },
+    { "id": "app_bootstrap", "type": "backend", "label": "app-bootstrap.tsx", "sublabel": "Hono middleware chain", "pos": [520, 40], "size": [170, 60], "sources": [{ "path": "lib/app-bootstrap.tsx" }] },
+    { "id": "registry", "type": "backend", "label": "registry.ts", "sublabel": "matches namespace + route", "pos": [790, 40], "size": [150, 56], "sources": [{ "path": "lib/registry.ts" }] },
+    { "id": "routes", "type": "backend", "label": "routes/<site>/*.ts", "sublabel": "1,902 sites · 3,964 routes", "pos": [770, 220], "size": [190, 68], "sources": [{ "path": "lib/routes/github/activity.ts" }] },
+    { "id": "target_site", "type": "external", "label": "Target Website", "sublabel": "source site being scraped", "pos": [610, 340], "size": [160, 56] },
+    { "id": "template", "type": "backend", "label": "template middleware", "sublabel": "renders RSS / Atom / JSON", "pos": [850, 340], "size": [170, 60], "sources": [{ "path": "lib/middleware/template.tsx" }] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "RSSHub server process (Hono app)", "wraps": ["entry", "app_bootstrap", "registry", "routes", "template"] }
+  ],
+  "connections": [
+    { "id": "client-entry", "from": "client", "to": "entry", "label": "HTTP request", "variant": "emphasis" },
+    { "id": "entry-bootstrap", "from": "entry", "to": "app_bootstrap", "label": "app.fetch" },
+    { "id": "bootstrap-registry", "from": "app_bootstrap", "to": "registry", "label": "app.route('/', registry)", "labelAt": [740, 114] },
+    { "id": "registry-routes", "from": "registry", "to": "routes", "label": "match namespace/route", "fromSide": "bottom", "toSide": "top", "labelAt": [865, 110] },
+    { "id": "routes-target", "from": "routes", "to": "target_site", "label": "fetch + parse (ofetch)", "fromSide": "bottom", "toSide": "top", "labelAt": [690, 300] },
+    { "id": "routes-template", "from": "routes", "to": "template", "label": "return RSS item[]", "fromSide": "bottom", "toSide": "top", "labelAt": [930, 300] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Entry → middleware", "items": ["index.ts (Node) or worker.ts (Workers) both bootstrap app-bootstrap.tsx", "Middleware chain also wires cache, access-control, and app.onError/notFound (not diagrammed)"] },
+    { "dot": "amber", "title": "Route plugins", "items": ["registry.ts matches namespace/route into lib/routes/<site>/*.ts", "Each Route.handler fetches + parses its target site, returns RSS items to the template middleware, which renders and returns the feed to the client"] },
+    { "dot": "rose", "title": "Simplified / unconfirmed", "items": ["Cache backend, errors/, and /api metadata endpoints omitted from this first map — see reports/rsshub/overview.md", "Exact cache selection logic and /api response shape not traced yet"] }
+  ]
+}

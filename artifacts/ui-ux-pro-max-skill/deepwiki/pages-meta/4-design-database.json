@@ -1,0 +1,30 @@
+{
+  "order": 13,
+  "title": "Design Database",
+  "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/4-design-database",
+  "path": "/nextlevelbuilder/ui-ux-pro-max-skill/4-design-database",
+  "slug": "4-design-database",
+  "section": "4",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "fdb8da740c319b51edfefdef1a2bce0e0fb5b36f4d45e0ee01b73663176e00bf",
+  "markdown_length": 14868,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/ui-ux-pro-max/data/stacks/shadcn.csv:5-17",
+    "src/ui-ux-pro-max/data/ux-guidelines.csv:2-23",
+    "src/ui-ux-pro-max/scripts/core.py:104-156",
+    "src/ui-ux-pro-max/scripts/core.py:104-188",
+    "src/ui-ux-pro-max/scripts/core.py:14",
+    "src/ui-ux-pro-max/scripts/core.py:159-188",
+    "src/ui-ux-pro-max/scripts/core.py:17-73",
+    "src/ui-ux-pro-max/scripts/core.py:17-92",
+    "src/ui-ux-pro-max/scripts/core.py:18-22",
+    "src/ui-ux-pro-max/scripts/core.py:75-92",
+    "src/ui-ux-pro-max/scripts/core.py:95-98"
+  ]
+}

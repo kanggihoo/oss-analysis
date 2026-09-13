@@ -1,0 +1,30 @@
+{
+  "order": 22,
+  "title": "Code Repository Extractors",
+  "url": "https://deepwiki.com/kepano/defuddle/6.5-code-repository-extractors",
+  "path": "/kepano/defuddle/6.5-code-repository-extractors",
+  "slug": "6.5-code-repository-extractors",
+  "section": "6.5",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "eee2070c45fcaef382c21e5715a45f635fe31c968ffd33d56b53c698ba692dcf",
+  "markdown_length": 11245,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/extractors/github.ts:1-184",
+    "src/extractors/github.ts:105-121",
+    "src/extractors/github.ts:123-141",
+    "src/extractors/github.ts:143-148",
+    "src/extractors/github.ts:29-121",
+    "src/extractors/github.ts:5-23",
+    "tests/expected/github.com-issue-56.md:1-71",
+    "tests/expected/github.com-issue-56.md:1-8",
+    "tests/fixtures.test.ts:82-112",
+    "tests/fixtures/github.com-issue-56.html:1-290",
+    "tests/fixtures/github.com-issue-56.html:116"
+  ]
+}

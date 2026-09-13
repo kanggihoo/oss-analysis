@@ -1,0 +1,18 @@
+{
+  "order": 35,
+  "title": "Contribution Gate and Community Workflow",
+  "url": "https://deepwiki.com/earendil-works/pi/10.2-contribution-gate-and-community-workflow",
+  "path": "/earendil-works/pi/10.2-contribution-gate-and-community-workflow",
+  "slug": "10.2-contribution-gate-and-community-workflow",
+  "section": "10.2",
+  "depth": 1,
+  "parent_section": "10",
+  "matched_chunk_sha256": "24d292aa11de790058132a8802ce45c324fb81c655a86540fc72646afda0b75c",
+  "markdown_length": 10859,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

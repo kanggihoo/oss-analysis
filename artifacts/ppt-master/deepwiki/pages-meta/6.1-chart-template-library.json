@@ -1,0 +1,33 @@
+{
+  "order": 20,
+  "title": "Chart Template Library",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/6.1-chart-template-library",
+  "path": "/hugohe3/ppt-master/6.1-chart-template-library",
+  "slug": "6.1-chart-template-library",
+  "section": "6.1",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "3a99196a86ef6f2ba0fdb520f163a41602b4cc4cbb08cd53a4b430ab2b0da1bd",
+  "markdown_length": 8372,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "docs/templates-architecture.md:109-111",
+    "docs/templates-architecture.md:15-20",
+    "docs/templates-architecture.md:24-27",
+    "docs/templates-architecture.md:60-65",
+    "docs/templates-architecture.md:62-65",
+    "docs/templates-architecture.md:67-76",
+    "docs/templates-architecture.md:68-71",
+    "docs/templates-architecture.md:89-93",
+    "docs/templates-guide.md:29-34",
+    "docs/templates-guide.md:31-33",
+    "docs/templates-guide.md:31-34",
+    "docs/templates-guide.md:34-34",
+    "docs/templates-guide.md:7-13",
+    "docs/templates-guide.md:86-86"
+  ]
+}

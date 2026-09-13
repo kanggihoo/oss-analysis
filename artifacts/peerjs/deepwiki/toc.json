@@ -1,0 +1,192 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/peers/peerjs/1-overview",
+    "path": "/peers/peerjs/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Installation and Usage",
+    "url": "https://deepwiki.com/peers/peerjs/1.1-installation-and-usage",
+    "path": "/peers/peerjs/1.1-installation-and-usage",
+    "slug": "1.1-installation-and-usage",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "API Reference",
+    "url": "https://deepwiki.com/peers/peerjs/1.2-api-reference",
+    "path": "/peers/peerjs/1.2-api-reference",
+    "slug": "1.2-api-reference",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Architecture",
+    "url": "https://deepwiki.com/peers/peerjs/2-architecture",
+    "path": "/peers/peerjs/2-architecture",
+    "slug": "2-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "Core Components",
+    "url": "https://deepwiki.com/peers/peerjs/2.1-core-components",
+    "path": "/peers/peerjs/2.1-core-components",
+    "slug": "2.1-core-components",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "Connection Flow",
+    "url": "https://deepwiki.com/peers/peerjs/2.2-connection-flow",
+    "path": "/peers/peerjs/2.2-connection-flow",
+    "slug": "2.2-connection-flow",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Data Serialization",
+    "url": "https://deepwiki.com/peers/peerjs/2.3-data-serialization",
+    "path": "/peers/peerjs/2.3-data-serialization",
+    "slug": "2.3-data-serialization",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Core Classes",
+    "url": "https://deepwiki.com/peers/peerjs/3-core-classes",
+    "path": "/peers/peerjs/3-core-classes",
+    "slug": "3-core-classes",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 9,
+    "title": "Peer",
+    "url": "https://deepwiki.com/peers/peerjs/3.1-peer",
+    "path": "/peers/peerjs/3.1-peer",
+    "slug": "3.1-peer",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 10,
+    "title": "DataConnection",
+    "url": "https://deepwiki.com/peers/peerjs/3.2-dataconnection",
+    "path": "/peers/peerjs/3.2-dataconnection",
+    "slug": "3.2-dataconnection",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "MediaConnection",
+    "url": "https://deepwiki.com/peers/peerjs/3.3-mediaconnection",
+    "path": "/peers/peerjs/3.3-mediaconnection",
+    "slug": "3.3-mediaconnection",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Negotiator",
+    "url": "https://deepwiki.com/peers/peerjs/3.4-negotiator",
+    "path": "/peers/peerjs/3.4-negotiator",
+    "slug": "3.4-negotiator",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Socket and API",
+    "url": "https://deepwiki.com/peers/peerjs/3.5-socket-and-api",
+    "path": "/peers/peerjs/3.5-socket-and-api",
+    "slug": "3.5-socket-and-api",
+    "section": "3.5",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 14,
+    "title": "Utilities and Support",
+    "url": "https://deepwiki.com/peers/peerjs/4-utilities-and-support",
+    "path": "/peers/peerjs/4-utilities-and-support",
+    "slug": "4-utilities-and-support",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 15,
+    "title": "Utility Functions",
+    "url": "https://deepwiki.com/peers/peerjs/4.1-utility-functions",
+    "path": "/peers/peerjs/4.1-utility-functions",
+    "slug": "4.1-utility-functions",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "Browser Support",
+    "url": "https://deepwiki.com/peers/peerjs/4.2-browser-support",
+    "path": "/peers/peerjs/4.2-browser-support",
+    "slug": "4.2-browser-support",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 17,
+    "title": "Error Handling",
+    "url": "https://deepwiki.com/peers/peerjs/4.3-error-handling",
+    "path": "/peers/peerjs/4.3-error-handling",
+    "slug": "4.3-error-handling",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 18,
+    "title": "Development",
+    "url": "https://deepwiki.com/peers/peerjs/5-development",
+    "path": "/peers/peerjs/5-development",
+    "slug": "5-development",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 19,
+    "title": "Building and Testing",
+    "url": "https://deepwiki.com/peers/peerjs/5.1-building-and-testing",
+    "path": "/peers/peerjs/5.1-building-and-testing",
+    "slug": "5.1-building-and-testing",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  }
+]

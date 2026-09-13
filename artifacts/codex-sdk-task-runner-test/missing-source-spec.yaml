@@ -1,0 +1,13 @@
+name: codex-sdk-task-runner-missing-source-smoke
+output_dir: artifacts/codex-sdk-task-runner-test/missing-output
+log_path: artifacts/codex-sdk-task-runner-test/missing-source-smoke.jsonl
+
+tasks:
+  - id: missing-file
+    input: DOES_NOT_EXIST_FOR_CODEX_TASK_RUNNER.md
+    output: missing.md
+    ask: "Summarize it."
+  - id: missing-glob
+    input: no-such-dir/*.md
+    output: missing-glob.md
+    ask: "Summarize files."

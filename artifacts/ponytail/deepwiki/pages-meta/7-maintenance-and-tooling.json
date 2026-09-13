@@ -1,0 +1,26 @@
+{
+  "order": 26,
+  "title": "Maintenance & Tooling",
+  "url": "https://deepwiki.com/DietrichGebert/ponytail/7-maintenance-and-tooling",
+  "path": "/DietrichGebert/ponytail/7-maintenance-and-tooling",
+  "slug": "7-maintenance-and-tooling",
+  "section": "7",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "f2f32e043b6a03760d8a90759688153bd45fa9d456ac1eed8002d42191782fc9",
+  "markdown_length": 6475,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".agents/rules/ponytail.md:1-25",
+    ".github/workflows/test.yml:1-30",
+    ".kiro/steering/ponytail.md:1-30",
+    "package.json:1-15",
+    "scripts/check-rule-copies.js:1-75",
+    "scripts/check-rule-copies.js:38-42",
+    "scripts/check-rule-copies.js:58-60"
+  ]
+}

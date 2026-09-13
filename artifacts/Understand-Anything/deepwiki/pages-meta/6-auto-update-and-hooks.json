@@ -1,0 +1,18 @@
+{
+  "order": 26,
+  "title": "Auto-Update & Hooks",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/6-auto-update-and-hooks",
+  "path": "/Egonex-AI/Understand-Anything/6-auto-update-and-hooks",
+  "slug": "6-auto-update-and-hooks",
+  "section": "6",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "8b24c616347905ebc404fdea32043ea71443743f0591d8e1ca809a5ab99aa903",
+  "markdown_length": 18261,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 6,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

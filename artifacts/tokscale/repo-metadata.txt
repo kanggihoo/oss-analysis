@@ -1,0 +1,5 @@
+repo=https://github.com/junhoyeo/tokscale
+commit=aebe4ea8b9a80d84cb2ff0e3b3472db9ac34051d
+branch=main
+remote=https://github.com/junhoyeo/tokscale
+captured_at=2026-06-10T09:30:20Z

@@ -1,0 +1,25 @@
+{
+  "order": 23,
+  "title": "UI Components & Panels",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/4.5-ui-components-and-panels",
+  "path": "/Egonex-AI/Understand-Anything/4.5-ui-components-and-panels",
+  "slug": "4.5-ui-components-and-panels",
+  "section": "4.5",
+  "depth": 1,
+  "parent_section": "4",
+  "manual_reconstruction": true,
+  "reconstruction_source": "user-provided DeepWiki clipping plus saved raw HTML fallback",
+  "manual_markdown_sha256": "55347a1699f689e312911a19ad9cf965531cbdb8e67e3aabf094a7b714edaa3a",
+  "markdown_length": 24319,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "understand-anything-plugin/packages/dashboard/src/components/CustomNode.tsx:1-191",
+    "understand-anything-plugin/packages/dashboard/src/components/CodeViewer.tsx:1-194",
+    "understand-anything-plugin/packages/dashboard/src/components/ExportMenu.tsx:1-180",
+    "understand-anything-plugin/packages/dashboard/src/components/OnboardingOverlay.tsx:1-130"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "order": 11,
+  "title": "SQLite Connector",
+  "url": "https://deepwiki.com/bytebase/dbhub/3.4-sqlite-connector",
+  "path": "/bytebase/dbhub/3.4-sqlite-connector",
+  "slug": "3.4-sqlite-connector",
+  "section": "3.4",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "0c419477b2c3aba17a37834639f83e29f8090f34b259852115a319f1b126dca4",
+  "markdown_length": 9600,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/config/demo-loader.ts:1-77",
+    "src/connectors/interface.ts:59-139",
+    "src/connectors/sqlite/index.ts:118-128",
+    "src/connectors/sqlite/index.ts:130-255",
+    "src/connectors/sqlite/index.ts:20-65",
+    "src/connectors/sqlite/index.ts:257-287",
+    "src/connectors/sqlite/index.ts:289-318",
+    "src/connectors/sqlite/index.ts:321-323",
+    "src/connectors/sqlite/index.ts:79-319",
+    "src/connectors/sqlite/index.ts:87-116",
+    "tsup.config.ts:11-29"
+  ]
+}

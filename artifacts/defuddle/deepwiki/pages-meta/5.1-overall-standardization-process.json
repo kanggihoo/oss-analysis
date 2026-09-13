@@ -1,0 +1,29 @@
+{
+  "order": 12,
+  "title": "Overall Standardization Process",
+  "url": "https://deepwiki.com/kepano/defuddle/5.1-overall-standardization-process",
+  "path": "/kepano/defuddle/5.1-overall-standardization-process",
+  "slug": "5.1-overall-standardization-process",
+  "section": "5.1",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "4bae616022e8e2b33f715e7141284f9b51be3f8d45eff7c9829fed3419f08570",
+  "markdown_length": 9820,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/standardize.ts:1-187",
+    "src/standardize.ts:143-187",
+    "src/standardize.ts:159-186",
+    "src/standardize.ts:18-141",
+    "src/standardize.ts:189-227",
+    "src/standardize.ts:337-447",
+    "src/standardize.ts:449-506",
+    "src/standardize.ts:508-641",
+    "src/standardize.ts:643-679",
+    "src/standardize.ts:681-977"
+  ]
+}

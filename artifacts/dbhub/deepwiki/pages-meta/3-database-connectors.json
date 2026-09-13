@@ -1,0 +1,30 @@
+{
+  "order": 7,
+  "title": "Database Connectors",
+  "url": "https://deepwiki.com/bytebase/dbhub/3-database-connectors",
+  "path": "/bytebase/dbhub/3-database-connectors",
+  "slug": "3-database-connectors",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "3a38fbeea7808fe6693c9bd57df03b630548f78a4aa6d8e90d0ce6b00cf5dbf4",
+  "markdown_length": 11787,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:189-196",
+    "README.md:37-47",
+    "README.md:50-53",
+    "src/connectors/interface.ts:144-200",
+    "src/connectors/interface.ts:37-139",
+    "src/connectors/interface.ts:37-57",
+    "src/connectors/interface.ts:5-139",
+    "src/connectors/interface.ts:5-31",
+    "src/connectors/interface.ts:59-139",
+    "src/connectors/manager.ts:22-36",
+    "src/connectors/manager.ts:9-109"
+  ]
+}

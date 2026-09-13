@@ -1,0 +1,1 @@
+This open-source project provides a small command-line tool for analyzing dependency manifests. It reads package metadata, builds a graph of direct and transitive dependencies, and prints a concise summary for maintainers.

@@ -1,0 +1,9 @@
+branch=master
+head=b4ce00530ef7a343ed921cb72a5a351b51e7118f
+describe=2.4.0-37-gb4ce0053
+remote=https://github.com/louislam/uptime-kuma.git
+status=(clean)
+commit=b4ce00530ef7a343ed921cb72a5a351b51e7118f
+Jacob Masse <60854020+jacob-masse@users.noreply.github.com>
+2026-06-28T05:08:26-04:00
+feat: add Flowtriq DDoS detection notification provider (#7546)

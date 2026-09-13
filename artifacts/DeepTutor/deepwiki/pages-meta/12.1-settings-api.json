@@ -1,0 +1,18 @@
+{
+  "order": 52,
+  "title": "Settings API",
+  "url": "https://deepwiki.com/HKUDS/DeepTutor/12.1-settings-api",
+  "path": "/HKUDS/DeepTutor/12.1-settings-api",
+  "slug": "12.1-settings-api",
+  "section": "12.1",
+  "depth": 1,
+  "parent_section": "12",
+  "matched_chunk_sha256": "95f182d1f2384614a516dec1a6941b8ff5dbdb9f9467dac15288c6ed69545c2d",
+  "markdown_length": 9635,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

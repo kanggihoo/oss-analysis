@@ -1,0 +1,6 @@
+repo_url=https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+local_path=/Users/kkh/Desktop/oss-analysis/repos/ui-ux-pro-max-skill
+remote=https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+branch=main
+commit=b7e3af80f6e331f6fb456667b82b12cade7c9d35
+captured_at=2026-06-11T02:54:00Z

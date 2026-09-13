@@ -1,0 +1,18 @@
+{
+  "order": 19,
+  "title": "Dashboard Server & Data API",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/4.1-dashboard-server-and-data-api",
+  "path": "/Egonex-AI/Understand-Anything/4.1-dashboard-server-and-data-api",
+  "slug": "4.1-dashboard-server-and-data-api",
+  "section": "4.1",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "d3059cf5e217292401b5ab6159138011b02814f8a6898cb08b14b99058b2c526",
+  "markdown_length": 18490,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

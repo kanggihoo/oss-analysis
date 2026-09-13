@@ -1,0 +1,30 @@
+{
+  "order": 34,
+  "title": "Mixed Corpus Benchmark (multi-modal)",
+  "url": "https://deepwiki.com/safishamsi/graphify/7.4-mixed-corpus-benchmark-(multi-modal)",
+  "path": "/safishamsi/graphify/7.4-mixed-corpus-benchmark-(multi-modal)",
+  "slug": "7.4-mixed-corpus-benchmark-(multi-modal)",
+  "section": "7.4",
+  "depth": 1,
+  "parent_section": "7",
+  "matched_chunk_sha256": "74c6e1b39bf269b6a685725c5a9b3810e87040619fbc98a066719e5844eedd46",
+  "markdown_length": 7113,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "worked/mixed-corpus/README.md:1-21",
+    "worked/mixed-corpus/README.md:15-15",
+    "worked/mixed-corpus/README.md:31-32",
+    "worked/mixed-corpus/README.md:36-36",
+    "worked/mixed-corpus/README.md:36-40",
+    "worked/mixed-corpus/README.md:36-43",
+    "worked/mixed-corpus/README.md:37-38",
+    "worked/mixed-corpus/README.md:39-39",
+    "worked/mixed-corpus/README.md:39-40",
+    "worked/mixed-corpus/README.md:9-11",
+    "worked/mixed-corpus/README.md:9-15"
+  ]
+}

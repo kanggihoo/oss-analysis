@@ -1,0 +1,20 @@
+{
+  "order": 31,
+  "title": "User Profile API",
+  "url": "https://deepwiki.com/junhoyeo/tokscale/5.3-user-profile-api",
+  "path": "/junhoyeo/tokscale/5.3-user-profile-api",
+  "slug": "5.3-user-profile-api",
+  "section": "5.3",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "08d2dc7b1b1f287278e6d23a3ba66325b62aa3e884d8ca6a37286f9773e7d286",
+  "markdown_length": 10325,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "packages/frontend/src/lib/db/schema.ts:45-47"
+  ]
+}

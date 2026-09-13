@@ -1,0 +1,29 @@
+{
+  "order": 14,
+  "title": "Pi Agent & OpenCode Extensions",
+  "url": "https://deepwiki.com/DietrichGebert/ponytail/4-pi-agent-and-opencode-extensions",
+  "path": "/DietrichGebert/ponytail/4-pi-agent-and-opencode-extensions",
+  "slug": "4-pi-agent-and-opencode-extensions",
+  "section": "4",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "a451679c402b11c63224fdea010f93677446cf02dd01b2c33fc10a3bc1f6a140",
+  "markdown_length": 5912,
+  "has_mermaid": true,
+  "mermaid_blocks": 1,
+  "fenced_code_blocks": 1,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".opencode/plugins/ponytail.mjs:43-79",
+    ".opencode/plugins/ponytail.mjs:51-78",
+    "hooks/ponytail-config.js:1-15",
+    "hooks/ponytail-instructions.js:1-20",
+    "opencode.json:1-4",
+    "pi-extension/index.js:13-14",
+    "pi-extension/index.js:56-157",
+    "pi-extension/index.js:82-157",
+    "pi-extension/test/extension.test.js:57-113",
+    "tests/opencode-plugin.test.js:32-55"
+  ]
+}

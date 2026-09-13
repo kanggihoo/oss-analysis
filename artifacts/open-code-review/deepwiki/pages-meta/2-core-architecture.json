@@ -1,0 +1,33 @@
+{
+  "order": 4,
+  "title": "Core Architecture",
+  "url": "https://deepwiki.com/alibaba/open-code-review/2-core-architecture",
+  "path": "/alibaba/open-code-review/2-core-architecture",
+  "slug": "2-core-architecture",
+  "section": "2",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "14ab75ec95e0681e933b5c43e9145e58b60556c97ddd46225b8e3bb28225ff60",
+  "markdown_length": 6895,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "cmd/opencodereview/review_cmd.go:105-124",
+    "cmd/opencodereview/review_cmd.go:141-145",
+    "cmd/opencodereview/review_cmd.go:148-149",
+    "cmd/opencodereview/review_cmd.go:148-155",
+    "cmd/opencodereview/review_cmd.go:70-71",
+    "internal/agent/agent.go:131-135",
+    "internal/agent/agent.go:131-156",
+    "internal/agent/agent.go:158-174",
+    "internal/agent/agent.go:159-174",
+    "internal/agent/agent.go:176-181",
+    "internal/agent/agent.go:52-61",
+    "internal/agent/agent.go:86-95",
+    "internal/agent/agent.go:97-98",
+    "internal/agent/preview.go:74-77"
+  ]
+}

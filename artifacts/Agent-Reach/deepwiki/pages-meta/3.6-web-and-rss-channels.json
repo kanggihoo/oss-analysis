@@ -1,0 +1,33 @@
+{
+  "order": 16,
+  "title": "Web and RSS Channels",
+  "url": "https://deepwiki.com/Panniantong/Agent-Reach/3.6-web-and-rss-channels",
+  "path": "/Panniantong/Agent-Reach/3.6-web-and-rss-channels",
+  "slug": "3.6-web-and-rss-channels",
+  "section": "3.6",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "1ee046b25e71ac824f8e4fb4c47d63d37a29ade2d930514ecdeca7b8c7b4df62",
+  "markdown_length": 5576,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "agent_reach/channels/base.py:18-37",
+    "agent_reach/channels/base.py:21-24",
+    "agent_reach/channels/bilibili.py:43",
+    "agent_reach/channels/reddit.py:26",
+    "agent_reach/channels/rss.py:1-22",
+    "agent_reach/channels/rss.py:13-14",
+    "agent_reach/channels/rss.py:16-21",
+    "agent_reach/channels/rss.py:7",
+    "agent_reach/channels/web.py:1-18",
+    "agent_reach/channels/web.py:10",
+    "agent_reach/channels/web.py:13-14",
+    "agent_reach/channels/web.py:16-17",
+    "agent_reach/channels/web.py:7",
+    "agent_reach/channels/web.py:7-17"
+  ]
+}

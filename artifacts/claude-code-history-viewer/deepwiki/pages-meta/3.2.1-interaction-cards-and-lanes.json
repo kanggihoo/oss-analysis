@@ -1,0 +1,18 @@
+{
+  "order": 14,
+  "title": "Interaction Cards and Lanes",
+  "url": "https://deepwiki.com/jhlee0409/claude-code-history-viewer/3.2.1-interaction-cards-and-lanes",
+  "path": "/jhlee0409/claude-code-history-viewer/3.2.1-interaction-cards-and-lanes",
+  "slug": "3.2.1-interaction-cards-and-lanes",
+  "section": "3.2.1",
+  "depth": 2,
+  "parent_section": "3.2",
+  "matched_chunk_sha256": "feafab0f739457b360cb2073717cb9e32caf68e56d45e31195c8c5a57d7eb13b",
+  "markdown_length": 15108,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

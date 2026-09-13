@@ -1,0 +1,18 @@
+{
+  "order": 20,
+  "title": "Graph Visualization Engine",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/4.2-graph-visualization-engine",
+  "path": "/Egonex-AI/Understand-Anything/4.2-graph-visualization-engine",
+  "slug": "4.2-graph-visualization-engine",
+  "section": "4.2",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "68ba118ab19859f1f80dbed997f82f5e5eb8f45db8465214fc0d48966b70f79a",
+  "markdown_length": 24066,
+  "has_mermaid": true,
+  "mermaid_blocks": 10,
+  "fenced_code_blocks": 10,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

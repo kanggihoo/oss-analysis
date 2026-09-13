@@ -1,0 +1,29 @@
+{
+  "order": 43,
+  "title": "Type Generation",
+  "url": "https://deepwiki.com/jhlee0409/claude-code-history-viewer/7.2-type-generation",
+  "path": "/jhlee0409/claude-code-history-viewer/7.2-type-generation",
+  "slug": "7.2-type-generation",
+  "section": "7.2",
+  "depth": 1,
+  "parent_section": "7",
+  "matched_chunk_sha256": "8dab0fc320d34ffd2a869c5d1dcb39d14f6e2966905f93486df05c4d73978802",
+  "markdown_length": 8999,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/i18n/types.generated.ts:1-11",
+    "src/i18n/types.generated.ts:13-28",
+    "src/i18n/types.generated.ts:16-28",
+    "src/i18n/types.generated.ts:205-208",
+    "src/i18n/types.generated.ts:206-207",
+    "src/i18n/types.generated.ts:208-233",
+    "src/i18n/types.generated.ts:29-40",
+    "src/i18n/types.generated.ts:43-46",
+    "src/i18n/types.generated.ts:44-45",
+    "src/i18n/types.generated.ts:46-202"
+  ]
+}

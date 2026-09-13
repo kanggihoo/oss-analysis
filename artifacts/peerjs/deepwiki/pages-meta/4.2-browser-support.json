@@ -1,0 +1,30 @@
+{
+  "order": 16,
+  "title": "Browser Support",
+  "url": "https://deepwiki.com/peers/peerjs/4.2-browser-support",
+  "path": "/peers/peerjs/4.2-browser-support",
+  "slug": "4.2-browser-support",
+  "section": "4.2",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "23931e89ca87f9628927906c7b337403871061d31eb04330c4590c9101158975",
+  "markdown_length": 7948,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 6,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "lib/supports.ts:12-16",
+    "lib/supports.ts:18-44",
+    "lib/supports.ts:46-73",
+    "lib/supports.ts:7-84",
+    "lib/supports.ts:75-83",
+    "lib/supports.ts:8-11",
+    "lib/util.ts:107",
+    "lib/util.ts:60-63",
+    "lib/util.ts:65-66",
+    "lib/util.ts:7-36",
+    "lib/util.ts:78-123"
+  ]
+}

@@ -1,0 +1,312 @@
+[
+  {
+    "order": 1,
+    "title": "OpenCodeReview Overview",
+    "url": "https://deepwiki.com/alibaba/open-code-review/1-opencodereview-overview",
+    "path": "/alibaba/open-code-review/1-opencodereview-overview",
+    "slug": "1-opencodereview-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/alibaba/open-code-review/1.1-getting-started",
+    "path": "/alibaba/open-code-review/1.1-getting-started",
+    "slug": "1.1-getting-started",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "CLI Command Reference",
+    "url": "https://deepwiki.com/alibaba/open-code-review/1.2-cli-command-reference",
+    "path": "/alibaba/open-code-review/1.2-cli-command-reference",
+    "slug": "1.2-cli-command-reference",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Core Architecture",
+    "url": "https://deepwiki.com/alibaba/open-code-review/2-core-architecture",
+    "path": "/alibaba/open-code-review/2-core-architecture",
+    "slug": "2-core-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "Review Agent",
+    "url": "https://deepwiki.com/alibaba/open-code-review/2.1-review-agent",
+    "path": "/alibaba/open-code-review/2.1-review-agent",
+    "slug": "2.1-review-agent",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "Memory Compression and Context Management",
+    "url": "https://deepwiki.com/alibaba/open-code-review/2.2-memory-compression-and-context-management",
+    "path": "/alibaba/open-code-review/2.2-memory-compression-and-context-management",
+    "slug": "2.2-memory-compression-and-context-management",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Git Diff Processing",
+    "url": "https://deepwiki.com/alibaba/open-code-review/2.3-git-diff-processing",
+    "path": "/alibaba/open-code-review/2.3-git-diff-processing",
+    "slug": "2.3-git-diff-processing",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Agent Tool System",
+    "url": "https://deepwiki.com/alibaba/open-code-review/3-agent-tool-system",
+    "path": "/alibaba/open-code-review/3-agent-tool-system",
+    "slug": "3-agent-tool-system",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 9,
+    "title": "File and Code Tools",
+    "url": "https://deepwiki.com/alibaba/open-code-review/3.1-file-and-code-tools",
+    "path": "/alibaba/open-code-review/3.1-file-and-code-tools",
+    "slug": "3.1-file-and-code-tools",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 10,
+    "title": "Comment Collection and code_comment Tool",
+    "url": "https://deepwiki.com/alibaba/open-code-review/3.2-comment-collection-and-code_comment-tool",
+    "path": "/alibaba/open-code-review/3.2-comment-collection-and-code_comment-tool",
+    "slug": "3.2-comment-collection-and-code_comment-tool",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "LLM Client Layer",
+    "url": "https://deepwiki.com/alibaba/open-code-review/4-llm-client-layer",
+    "path": "/alibaba/open-code-review/4-llm-client-layer",
+    "slug": "4-llm-client-layer",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 12,
+    "title": "Endpoint Resolution and Protocol Selection",
+    "url": "https://deepwiki.com/alibaba/open-code-review/4.1-endpoint-resolution-and-protocol-selection",
+    "path": "/alibaba/open-code-review/4.1-endpoint-resolution-and-protocol-selection",
+    "slug": "4.1-endpoint-resolution-and-protocol-selection",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 13,
+    "title": "HTTP Client, Streaming, and Token Counting",
+    "url": "https://deepwiki.com/alibaba/open-code-review/4.2-http-client-streaming-and-token-counting",
+    "path": "/alibaba/open-code-review/4.2-http-client-streaming-and-token-counting",
+    "slug": "4.2-http-client-streaming-and-token-counting",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 14,
+    "title": "Configuration System",
+    "url": "https://deepwiki.com/alibaba/open-code-review/5-configuration-system",
+    "path": "/alibaba/open-code-review/5-configuration-system",
+    "slug": "5-configuration-system",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 15,
+    "title": "System Review Rules",
+    "url": "https://deepwiki.com/alibaba/open-code-review/5.1-system-review-rules",
+    "path": "/alibaba/open-code-review/5.1-system-review-rules",
+    "slug": "5.1-system-review-rules",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 16,
+    "title": "Prompt Templates and Task Configuration",
+    "url": "https://deepwiki.com/alibaba/open-code-review/5.2-prompt-templates-and-task-configuration",
+    "path": "/alibaba/open-code-review/5.2-prompt-templates-and-task-configuration",
+    "slug": "5.2-prompt-templates-and-task-configuration",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 17,
+    "title": "Tool Definitions Config and File Allowlist",
+    "url": "https://deepwiki.com/alibaba/open-code-review/5.3-tool-definitions-config-and-file-allowlist",
+    "path": "/alibaba/open-code-review/5.3-tool-definitions-config-and-file-allowlist",
+    "slug": "5.3-tool-definitions-config-and-file-allowlist",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 18,
+    "title": "Session Persistence and WebUI Viewer",
+    "url": "https://deepwiki.com/alibaba/open-code-review/6-session-persistence-and-webui-viewer",
+    "path": "/alibaba/open-code-review/6-session-persistence-and-webui-viewer",
+    "slug": "6-session-persistence-and-webui-viewer",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 19,
+    "title": "Session Persistence (JSONL Format)",
+    "url": "https://deepwiki.com/alibaba/open-code-review/6.1-session-persistence-(jsonl-format)",
+    "path": "/alibaba/open-code-review/6.1-session-persistence-(jsonl-format)",
+    "slug": "6.1-session-persistence-(jsonl-format)",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 20,
+    "title": "WebUI Session Viewer",
+    "url": "https://deepwiki.com/alibaba/open-code-review/6.2-webui-session-viewer",
+    "path": "/alibaba/open-code-review/6.2-webui-session-viewer",
+    "slug": "6.2-webui-session-viewer",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 21,
+    "title": "Telemetry and Observability",
+    "url": "https://deepwiki.com/alibaba/open-code-review/7-telemetry-and-observability",
+    "path": "/alibaba/open-code-review/7-telemetry-and-observability",
+    "slug": "7-telemetry-and-observability",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 22,
+    "title": "OpenTelemetry Setup and Exporters",
+    "url": "https://deepwiki.com/alibaba/open-code-review/7.1-opentelemetry-setup-and-exporters",
+    "path": "/alibaba/open-code-review/7.1-opentelemetry-setup-and-exporters",
+    "slug": "7.1-opentelemetry-setup-and-exporters",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 23,
+    "title": "Spans, Metrics, and Content Logging",
+    "url": "https://deepwiki.com/alibaba/open-code-review/7.2-spans-metrics-and-content-logging",
+    "path": "/alibaba/open-code-review/7.2-spans-metrics-and-content-logging",
+    "slug": "7.2-spans-metrics-and-content-logging",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 24,
+    "title": "Project Website (pages/)",
+    "url": "https://deepwiki.com/alibaba/open-code-review/8-project-website-(pages)",
+    "path": "/alibaba/open-code-review/8-project-website-(pages)",
+    "slug": "8-project-website-(pages)",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "Landing Page Components",
+    "url": "https://deepwiki.com/alibaba/open-code-review/8.1-landing-page-components",
+    "path": "/alibaba/open-code-review/8.1-landing-page-components",
+    "slug": "8.1-landing-page-components",
+    "section": "8.1",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 26,
+    "title": "Internationalization (i18n)",
+    "url": "https://deepwiki.com/alibaba/open-code-review/8.2-internationalization-(i18n)",
+    "path": "/alibaba/open-code-review/8.2-internationalization-(i18n)",
+    "slug": "8.2-internationalization-(i18n)",
+    "section": "8.2",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 27,
+    "title": "Build, Release, and Distribution",
+    "url": "https://deepwiki.com/alibaba/open-code-review/9-build-release-and-distribution",
+    "path": "/alibaba/open-code-review/9-build-release-and-distribution",
+    "slug": "9-build-release-and-distribution",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 28,
+    "title": "Makefile and Local Build",
+    "url": "https://deepwiki.com/alibaba/open-code-review/9.1-makefile-and-local-build",
+    "path": "/alibaba/open-code-review/9.1-makefile-and-local-build",
+    "slug": "9.1-makefile-and-local-build",
+    "section": "9.1",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 29,
+    "title": "CI/CD Workflows and npm Publishing",
+    "url": "https://deepwiki.com/alibaba/open-code-review/9.2-cicd-workflows-and-npm-publishing",
+    "path": "/alibaba/open-code-review/9.2-cicd-workflows-and-npm-publishing",
+    "slug": "9.2-cicd-workflows-and-npm-publishing",
+    "section": "9.2",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 30,
+    "title": "CI/CD Integration Examples",
+    "url": "https://deepwiki.com/alibaba/open-code-review/9.3-cicd-integration-examples",
+    "path": "/alibaba/open-code-review/9.3-cicd-integration-examples",
+    "slug": "9.3-cicd-integration-examples",
+    "section": "9.3",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 31,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/alibaba/open-code-review/10-glossary",
+    "path": "/alibaba/open-code-review/10-glossary",
+    "slug": "10-glossary",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  }
+]

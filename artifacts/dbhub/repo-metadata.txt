@@ -1,0 +1,8 @@
+repo: dbhub
+github_url: https://github.com/bytebase/dbhub
+branch: main
+head_sha: 08e522ced0503a8d234472f07b0b318e386dbb94
+describe: 08e522c
+latest_commit: 08e522ced0503a8d234472f07b0b318e386dbb94|Tianzhou|2026-06-30 16:38:43 +0800|fix: enforce read-only mode at the engine level for SQL Server (#350)
+remote_url: https://github.com/bytebase/dbhub.git
+clean_worktree: true

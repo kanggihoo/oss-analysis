@@ -1,0 +1,32 @@
+{
+  "order": 5,
+  "title": "Architecture Overview",
+  "url": "https://deepwiki.com/fivetaku/insane-search/2-architecture-overview",
+  "path": "/fivetaku/insane-search/2-architecture-overview",
+  "slug": "2-architecture-overview",
+  "section": "2",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "5cdbb29e4ec55e690c20769e29fd07af0193b6f16d3bfa0e320617328378100a",
+  "markdown_length": 6697,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "CHANGELOG.md:15-19",
+    "CHANGELOG.md:42-42",
+    "CHANGELOG.md:52-54",
+    "CHANGELOG.md:52-56",
+    "engine/__main__.py:1-50",
+    "engine/fetch_chain.py:10-50",
+    "engine/fetch_chain.py:50-100",
+    "engine/transport.py:20-80",
+    "engine/validators.py:10-60",
+    "skills/insane-search/SKILL.md:47-48",
+    "skills/insane-search/SKILL.md:49-50",
+    "skills/insane-search/SKILL.md:53-59",
+    "skills/insane-search/SKILL.md:95-125"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "order": 21,
+  "title": "AI Chat Extractors",
+  "url": "https://deepwiki.com/kepano/defuddle/6.4-ai-chat-extractors",
+  "path": "/kepano/defuddle/6.4-ai-chat-extractors",
+  "slug": "6.4-ai-chat-extractors",
+  "section": "6.4",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "b20befa5b8f29274cd777020a726664b17e8d75d12537e3238d4aaf3f7e6a131",
+  "markdown_length": 7999,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/extractors/chatgpt.ts:1-155",
+    "src/extractors/chatgpt.ts:1-4",
+    "src/extractors/chatgpt.ts:138-154",
+    "src/extractors/chatgpt.ts:20-119",
+    "src/extractors/chatgpt.ts:54-102",
+    "src/extractors/gemini.ts:1-130",
+    "src/extractors/gemini.ts:1-4",
+    "src/extractors/gemini.ts:110-128",
+    "src/extractors/gemini.ts:19-70",
+    "src/extractors/gemini.ts:72-92"
+  ]
+}

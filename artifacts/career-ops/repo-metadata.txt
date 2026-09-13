@@ -1,0 +1,8 @@
+repo_url=https://github.com/santifer/career-ops.git
+local_path=/Users/kkh/Desktop/oss-analysis/repos/career-ops
+branch=main
+head_sha=57b34c07e01cd106528936398507e1b4552ca295
+describe=career-ops-v1.10.0-18-g57b34c0
+remote_url=https://github.com/santifer/career-ops.git
+status=0 changed files
+latest_commit=57b34c07e01cd106528936398507e1b4552ca295	Narash25	2026-06-13T02:56:42+08:00	feat(tracker): map tracker columns by header name (#954)

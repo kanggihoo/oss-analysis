@@ -1,0 +1,29 @@
+{
+  "order": 14,
+  "title": "Tools",
+  "url": "https://deepwiki.com/bytebase/dbhub/4.2-tools",
+  "path": "/bytebase/dbhub/4.2-tools",
+  "slug": "4.2-tools",
+  "section": "4.2",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "998e99a05e38745dee1f9feaa90ff3652ecd46bf7c3baea36ff0899e749f8fb1",
+  "markdown_length": 9347,
+  "has_mermaid": true,
+  "mermaid_blocks": 5,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:50-53",
+    "src/tools/index.ts:1-24",
+    "src/tools/list-connectors.ts:1-3",
+    "src/tools/list-connectors.ts:10-47",
+    "src/tools/list-connectors.ts:12-22",
+    "src/tools/list-connectors.ts:31-47",
+    "src/tools/run-query.ts:10-44",
+    "src/tools/run-query.ts:15",
+    "src/tools/run-query.ts:22-43",
+    "src/tools/run-query.ts:5-8"
+  ]
+}

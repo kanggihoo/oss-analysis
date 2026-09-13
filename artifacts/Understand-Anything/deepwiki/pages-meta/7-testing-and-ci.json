@@ -1,0 +1,18 @@
+{
+  "order": 27,
+  "title": "Testing & CI",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/7-testing-and-ci",
+  "path": "/Egonex-AI/Understand-Anything/7-testing-and-ci",
+  "slug": "7-testing-and-ci",
+  "section": "7",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "be3691ac78a5a7e6334422909260bf2308201cb866ebe6084ce8921160e755cb",
+  "markdown_length": 11162,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

@@ -1,0 +1,31 @@
+{
+  "order": 17,
+  "title": "Platform-Specific Extractors",
+  "url": "https://deepwiki.com/kepano/defuddle/6-platform-specific-extractors",
+  "path": "/kepano/defuddle/6-platform-specific-extractors",
+  "slug": "6-platform-specific-extractors",
+  "section": "6",
+  "depth": 0,
+  "parent_section": null,
+  "manual_reconstruction": true,
+  "reconstruction_source": "raw/pages/6-platform-specific-extractors.html Next.js payload chunk with H1 \"Site-Specific Extractors\"",
+  "matched_chunk_title": "Site-Specific Extractors",
+  "matched_chunk_sha256": "bb603c568ffb50c0fc44fbc998dd1c8aeb47b98d9d2fdd5227033b5284bd0ebd",
+  "manual_markdown_sha256": "864e0f09cd5a371a212ca62e2f871530690df811d8d8b6ab36d097ce7ff7b630",
+  "markdown_length": 9706,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/extractor-registry.ts:1-145",
+    "src/extractor-registry.ts:103-137",
+    "src/extractor-registry.ts:107-111",
+    "src/extractor-registry.ts:25-97",
+    "src/extractors/grok.ts:1-163",
+    "src/extractors/grok.ts:1-4",
+    "src/extractors/grok.ts:120-162",
+    "src/extractors/grok.ts:22-78"
+  ]
+}

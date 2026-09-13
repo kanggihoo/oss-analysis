@@ -1,0 +1,542 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/1-overview",
+    "path": "/matt1398/claude-devtools/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/2-getting-started",
+    "path": "/matt1398/claude-devtools/2-getting-started",
+    "slug": "2-getting-started",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 3,
+    "title": "Architecture",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/3-architecture",
+    "path": "/matt1398/claude-devtools/3-architecture",
+    "slug": "3-architecture",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 4,
+    "title": "Electron Process Model",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/3.1-electron-process-model",
+    "path": "/matt1398/claude-devtools/3.1-electron-process-model",
+    "slug": "3.1-electron-process-model",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 5,
+    "title": "Multi-Context System",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/3.2-multi-context-system",
+    "path": "/matt1398/claude-devtools/3.2-multi-context-system",
+    "slug": "3.2-multi-context-system",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 6,
+    "title": "IPC Communication Layer",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/3.3-ipc-communication-layer",
+    "path": "/matt1398/claude-devtools/3.3-ipc-communication-layer",
+    "slug": "3.3-ipc-communication-layer",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 7,
+    "title": "State Management",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/3.4-state-management",
+    "path": "/matt1398/claude-devtools/3.4-state-management",
+    "slug": "3.4-state-management",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 8,
+    "title": "Session Discovery & Parsing",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/4-session-discovery-and-parsing",
+    "path": "/matt1398/claude-devtools/4-session-discovery-and-parsing",
+    "slug": "4-session-discovery-and-parsing",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 9,
+    "title": "Project Scanner",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/4.1-project-scanner",
+    "path": "/matt1398/claude-devtools/4.1-project-scanner",
+    "slug": "4.1-project-scanner",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 10,
+    "title": "Path Encoding & Project IDs",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/4.2-path-encoding-and-project-ids",
+    "path": "/matt1398/claude-devtools/4.2-path-encoding-and-project-ids",
+    "slug": "4.2-path-encoding-and-project-ids",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 11,
+    "title": "JSONL Parsing",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/4.3-jsonl-parsing",
+    "path": "/matt1398/claude-devtools/4.3-jsonl-parsing",
+    "slug": "4.3-jsonl-parsing",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 12,
+    "title": "Caching Strategy",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/4.4-caching-strategy",
+    "path": "/matt1398/claude-devtools/4.4-caching-strategy",
+    "slug": "4.4-caching-strategy",
+    "section": "4.4",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 13,
+    "title": "SSH Remote Access",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/5-ssh-remote-access",
+    "path": "/matt1398/claude-devtools/5-ssh-remote-access",
+    "slug": "5-ssh-remote-access",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 14,
+    "title": "SSH Connection Manager",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/5.1-ssh-connection-manager",
+    "path": "/matt1398/claude-devtools/5.1-ssh-connection-manager",
+    "slug": "5.1-ssh-connection-manager",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 15,
+    "title": "SSH Configuration",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/5.2-ssh-configuration",
+    "path": "/matt1398/claude-devtools/5.2-ssh-configuration",
+    "slug": "5.2-ssh-configuration",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 16,
+    "title": "Remote File Operations",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/5.3-remote-file-operations",
+    "path": "/matt1398/claude-devtools/5.3-remote-file-operations",
+    "slug": "5.3-remote-file-operations",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 17,
+    "title": "Notification System",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/6-notification-system",
+    "path": "/matt1398/claude-devtools/6-notification-system",
+    "slug": "6-notification-system",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 18,
+    "title": "Notification Manager",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/6.1-notification-manager",
+    "path": "/matt1398/claude-devtools/6.1-notification-manager",
+    "slug": "6.1-notification-manager",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 19,
+    "title": "Trigger System",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/6.2-trigger-system",
+    "path": "/matt1398/claude-devtools/6.2-trigger-system",
+    "slug": "6.2-trigger-system",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 20,
+    "title": "Filtering & Throttling",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/6.3-filtering-and-throttling",
+    "path": "/matt1398/claude-devtools/6.3-filtering-and-throttling",
+    "slug": "6.3-filtering-and-throttling",
+    "section": "6.3",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 21,
+    "title": "Configuration Management",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/7-configuration-management",
+    "path": "/matt1398/claude-devtools/7-configuration-management",
+    "slug": "7-configuration-management",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 22,
+    "title": "Config IPC Handlers",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/7.1-config-ipc-handlers",
+    "path": "/matt1398/claude-devtools/7.1-config-ipc-handlers",
+    "slug": "7.1-config-ipc-handlers",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 23,
+    "title": "Claude Root Detection",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/7.2-claude-root-detection",
+    "path": "/matt1398/claude-devtools/7.2-claude-root-detection",
+    "slug": "7.2-claude-root-detection",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 24,
+    "title": "HTTP Sidecar Server",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/8-http-sidecar-server",
+    "path": "/matt1398/claude-devtools/8-http-sidecar-server",
+    "slug": "8-http-sidecar-server",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "User Interface",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/9-user-interface",
+    "path": "/matt1398/claude-devtools/9-user-interface",
+    "slug": "9-user-interface",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 26,
+    "title": "Application Shell",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/9.1-application-shell",
+    "path": "/matt1398/claude-devtools/9.1-application-shell",
+    "slug": "9.1-application-shell",
+    "section": "9.1",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 27,
+    "title": "Session Views",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/9.2-session-views",
+    "path": "/matt1398/claude-devtools/9.2-session-views",
+    "slug": "9.2-session-views",
+    "section": "9.2",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 28,
+    "title": "Command Palette",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/9.3-command-palette",
+    "path": "/matt1398/claude-devtools/9.3-command-palette",
+    "slug": "9.3-command-palette",
+    "section": "9.3",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 29,
+    "title": "Settings Interface",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/9.4-settings-interface",
+    "path": "/matt1398/claude-devtools/9.4-settings-interface",
+    "slug": "9.4-settings-interface",
+    "section": "9.4",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 30,
+    "title": "Real-Time Updates",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/9.5-real-time-updates",
+    "path": "/matt1398/claude-devtools/9.5-real-time-updates",
+    "slug": "9.5-real-time-updates",
+    "section": "9.5",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 31,
+    "title": "Build System",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/10-build-system",
+    "path": "/matt1398/claude-devtools/10-build-system",
+    "slug": "10-build-system",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 32,
+    "title": "Electron-Vite Configuration",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/10.1-electron-vite-configuration",
+    "path": "/matt1398/claude-devtools/10.1-electron-vite-configuration",
+    "slug": "10.1-electron-vite-configuration",
+    "section": "10.1",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 33,
+    "title": "Native Module Handling",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/10.2-native-module-handling",
+    "path": "/matt1398/claude-devtools/10.2-native-module-handling",
+    "slug": "10.2-native-module-handling",
+    "section": "10.2",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 34,
+    "title": "Dependency Management",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/10.3-dependency-management",
+    "path": "/matt1398/claude-devtools/10.3-dependency-management",
+    "slug": "10.3-dependency-management",
+    "section": "10.3",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 35,
+    "title": "Testing",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/11-testing",
+    "path": "/matt1398/claude-devtools/11-testing",
+    "slug": "11-testing",
+    "section": "11",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 36,
+    "title": "Unit Tests",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/11.1-unit-tests",
+    "path": "/matt1398/claude-devtools/11.1-unit-tests",
+    "slug": "11.1-unit-tests",
+    "section": "11.1",
+    "depth": 1,
+    "parent_section": "11"
+  },
+  {
+    "order": 37,
+    "title": "CI Pipeline",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/11.2-ci-pipeline",
+    "path": "/matt1398/claude-devtools/11.2-ci-pipeline",
+    "slug": "11.2-ci-pipeline",
+    "section": "11.2",
+    "depth": 1,
+    "parent_section": "11"
+  },
+  {
+    "order": 38,
+    "title": "Release & Distribution",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/12-release-and-distribution",
+    "path": "/matt1398/claude-devtools/12-release-and-distribution",
+    "slug": "12-release-and-distribution",
+    "section": "12",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 39,
+    "title": "Release Workflow",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/12.1-release-workflow",
+    "path": "/matt1398/claude-devtools/12.1-release-workflow",
+    "slug": "12.1-release-workflow",
+    "section": "12.1",
+    "depth": 1,
+    "parent_section": "12"
+  },
+  {
+    "order": 40,
+    "title": "Code Signing & Notarization",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/12.2-code-signing-and-notarization",
+    "path": "/matt1398/claude-devtools/12.2-code-signing-and-notarization",
+    "slug": "12.2-code-signing-and-notarization",
+    "section": "12.2",
+    "depth": 1,
+    "parent_section": "12"
+  },
+  {
+    "order": 41,
+    "title": "Auto-Updates",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/12.3-auto-updates",
+    "path": "/matt1398/claude-devtools/12.3-auto-updates",
+    "slug": "12.3-auto-updates",
+    "section": "12.3",
+    "depth": 1,
+    "parent_section": "12"
+  },
+  {
+    "order": 42,
+    "title": "Session Analysis & Reporting",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/13-session-analysis-and-reporting",
+    "path": "/matt1398/claude-devtools/13-session-analysis-and-reporting",
+    "slug": "13-session-analysis-and-reporting",
+    "section": "13",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 43,
+    "title": "Session Analyzer",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/13.1-session-analyzer",
+    "path": "/matt1398/claude-devtools/13.1-session-analyzer",
+    "slug": "13.1-session-analyzer",
+    "section": "13.1",
+    "depth": 1,
+    "parent_section": "13"
+  },
+  {
+    "order": 44,
+    "title": "Cost & Pricing",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/13.2-cost-and-pricing",
+    "path": "/matt1398/claude-devtools/13.2-cost-and-pricing",
+    "slug": "13.2-cost-and-pricing",
+    "section": "13.2",
+    "depth": 1,
+    "parent_section": "13"
+  },
+  {
+    "order": 45,
+    "title": "API Reference",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/14-api-reference",
+    "path": "/matt1398/claude-devtools/14-api-reference",
+    "slug": "14-api-reference",
+    "section": "14",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 46,
+    "title": "ElectronAPI Interface",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/14.1-electronapi-interface",
+    "path": "/matt1398/claude-devtools/14.1-electronapi-interface",
+    "slug": "14.1-electronapi-interface",
+    "section": "14.1",
+    "depth": 1,
+    "parent_section": "14"
+  },
+  {
+    "order": 47,
+    "title": "IPC Handler Reference",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/14.2-ipc-handler-reference",
+    "path": "/matt1398/claude-devtools/14.2-ipc-handler-reference",
+    "slug": "14.2-ipc-handler-reference",
+    "section": "14.2",
+    "depth": 1,
+    "parent_section": "14"
+  },
+  {
+    "order": 48,
+    "title": "Service Context API",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/14.3-service-context-api",
+    "path": "/matt1398/claude-devtools/14.3-service-context-api",
+    "slug": "14.3-service-context-api",
+    "section": "14.3",
+    "depth": 1,
+    "parent_section": "14"
+  },
+  {
+    "order": 49,
+    "title": "Path Utilities",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/14.4-path-utilities",
+    "path": "/matt1398/claude-devtools/14.4-path-utilities",
+    "slug": "14.4-path-utilities",
+    "section": "14.4",
+    "depth": 1,
+    "parent_section": "14"
+  },
+  {
+    "order": 50,
+    "title": "Contributing",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/15-contributing",
+    "path": "/matt1398/claude-devtools/15-contributing",
+    "slug": "15-contributing",
+    "section": "15",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 51,
+    "title": "Development Setup",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/15.1-development-setup",
+    "path": "/matt1398/claude-devtools/15.1-development-setup",
+    "slug": "15.1-development-setup",
+    "section": "15.1",
+    "depth": 1,
+    "parent_section": "15"
+  },
+  {
+    "order": 52,
+    "title": "Adding IPC Methods",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/15.2-adding-ipc-methods",
+    "path": "/matt1398/claude-devtools/15.2-adding-ipc-methods",
+    "slug": "15.2-adding-ipc-methods",
+    "section": "15.2",
+    "depth": 1,
+    "parent_section": "15"
+  },
+  {
+    "order": 53,
+    "title": "Code Style & Quality",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/15.3-code-style-and-quality",
+    "path": "/matt1398/claude-devtools/15.3-code-style-and-quality",
+    "slug": "15.3-code-style-and-quality",
+    "section": "15.3",
+    "depth": 1,
+    "parent_section": "15"
+  },
+  {
+    "order": 54,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/matt1398/claude-devtools/16-glossary",
+    "path": "/matt1398/claude-devtools/16-glossary",
+    "slug": "16-glossary",
+    "section": "16",
+    "depth": 0,
+    "parent_section": null
+  }
+]

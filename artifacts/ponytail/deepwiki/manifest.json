@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "DietrichGebert",
+  "repo": "ponytail",
+  "deepwiki_url": "https://deepwiki.com/DietrichGebert/ponytail",
+  "generated_at": "2026-06-21T06:41:56.389148+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/DietrichGebert/ponytail",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 364607,
+    "sha256": "31d4ee02ccf318b59e096bd32c632c24e81a90ef6d5f448abec91abd9eb661ab",
+    "fetched_at": "2026-06-21T06:41:56.297260+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 31,
+  "markdown_chunks_count": 31,
+  "matched_pages_count": 31,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/ponytail/deepwiki"
+}

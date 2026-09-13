@@ -1,0 +1,18 @@
+{
+  "order": 43,
+  "title": "Session Analyzer",
+  "url": "https://deepwiki.com/matt1398/claude-devtools/13.1-session-analyzer",
+  "path": "/matt1398/claude-devtools/13.1-session-analyzer",
+  "slug": "13.1-session-analyzer",
+  "section": "13.1",
+  "depth": 1,
+  "parent_section": "13",
+  "matched_chunk_sha256": "ae903359e9bcf4a1755866202a964dcb47fda07b3055945aa69113ad4cf4e0b2",
+  "markdown_length": 7009,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

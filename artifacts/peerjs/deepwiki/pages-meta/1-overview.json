@@ -1,0 +1,30 @@
+{
+  "order": 1,
+  "title": "Overview",
+  "url": "https://deepwiki.com/peers/peerjs/1-overview",
+  "path": "/peers/peerjs/1-overview",
+  "slug": "1-overview",
+  "section": "1",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "0647bd7e96363a267d461a5559db70510cca584a6a3ca329c1600d5639082fb3",
+  "markdown_length": 11431,
+  "has_mermaid": true,
+  "mermaid_blocks": 5,
+  "fenced_code_blocks": 5,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:120-132",
+    "README.md:143-143",
+    "README.md:40-73",
+    "README.md:51-69",
+    "README.md:52-73",
+    "README.md:7-13",
+    "README.md:7-7",
+    "README.md:80-112",
+    "package.json:10-10",
+    "package.json:138-160",
+    "package.json:206-211"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "order": 26,
+  "title": "Internationalization (i18n)",
+  "url": "https://deepwiki.com/alibaba/open-code-review/8.2-internationalization-(i18n)",
+  "path": "/alibaba/open-code-review/8.2-internationalization-(i18n)",
+  "slug": "8.2-internationalization-(i18n)",
+  "section": "8.2",
+  "depth": 1,
+  "parent_section": "8",
+  "matched_chunk_sha256": "5c09f0e32d6de5092c88ef589e44f058ec80f994138018b4481bf60267bda5e5",
+  "markdown_length": 5670,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "pages/src/i18n/context.tsx:1-43",
+    "pages/src/i18n/context.tsx:16-24",
+    "pages/src/i18n/context.tsx:26-43",
+    "pages/src/i18n/context.tsx:34-36",
+    "pages/src/i18n/context.tsx:45-49",
+    "pages/src/i18n/context.tsx:6-14",
+    "pages/src/i18n/en.ts:1-3",
+    "pages/src/i18n/en.ts:4-167",
+    "pages/src/i18n/index.ts:1-2",
+    "pages/src/i18n/types.ts:1-1",
+    "pages/src/i18n/types.ts:1-4",
+    "pages/src/i18n/types.ts:3-3",
+    "pages/src/i18n/zh.ts:4-167"
+  ]
+}

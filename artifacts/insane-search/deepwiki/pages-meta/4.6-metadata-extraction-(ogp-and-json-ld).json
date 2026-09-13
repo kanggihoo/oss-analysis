@@ -1,0 +1,32 @@
+{
+  "order": 23,
+  "title": "Metadata Extraction (OGP & JSON-LD)",
+  "url": "https://deepwiki.com/fivetaku/insane-search/4.6-metadata-extraction-(ogp-and-json-ld)",
+  "path": "/fivetaku/insane-search/4.6-metadata-extraction-(ogp-and-json-ld)",
+  "slug": "4.6-metadata-extraction-(ogp-and-json-ld)",
+  "section": "4.6",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "0bc5c82bc7c56ae1a435d88f32cf6bbef68cb6d8e13088fcd314103b7bda80c4",
+  "markdown_length": 5918,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "skills/insane-search/references/metadata.md:1-117",
+    "skills/insane-search/references/metadata.md:10-12",
+    "skills/insane-search/references/metadata.md:10-24",
+    "skills/insane-search/references/metadata.md:107-117",
+    "skills/insane-search/references/metadata.md:109-115",
+    "skills/insane-search/references/metadata.md:14-24",
+    "skills/insane-search/references/metadata.md:26-43",
+    "skills/insane-search/references/metadata.md:30-43",
+    "skills/insane-search/references/metadata.md:47-65",
+    "skills/insane-search/references/metadata.md:67-77",
+    "skills/insane-search/references/metadata.md:79-88",
+    "skills/insane-search/references/metadata.md:92-94",
+    "skills/insane-search/references/metadata.md:95-105"
+  ]
+}

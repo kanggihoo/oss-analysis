@@ -1,0 +1,28 @@
+{
+  "order": 26,
+  "title": "Workflows and Usage Guides",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/8-workflows-and-usage-guides",
+  "path": "/hugohe3/ppt-master/8-workflows-and-usage-guides",
+  "slug": "8-workflows-and-usage-guides",
+  "section": "8",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "ce68810d00fe09b5e316ab3004bf82b8fe862e33e48fa9aa50bead7746418bec",
+  "markdown_length": 9409,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "docs/README.md:29-31",
+    "docs/faq.md:11-16",
+    "docs/faq.md:17-29",
+    "docs/faq.md:39-43",
+    "docs/faq.md:66-72",
+    "docs/faq.md:66-77",
+    "docs/faq.md:7-10",
+    "docs/faq.md:7-15",
+    "docs/faq.md:78-83"
+  ]
+}

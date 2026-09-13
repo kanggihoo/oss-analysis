@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "santifer",
+  "repo": "career-ops",
+  "deepwiki_url": "https://deepwiki.com/santifer/career-ops",
+  "generated_at": "2026-06-13T20:54:58.270688+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/santifer/career-ops",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 457008,
+    "sha256": "00e3d7dbb4d124265e98280e6d23509d81bb7028d586766a92c6ba1f5bff6c64",
+    "fetched_at": "2026-06-13T20:54:58.165613+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 35,
+  "markdown_chunks_count": 35,
+  "matched_pages_count": 35,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/career-ops/deepwiki"
+}

@@ -1,0 +1,28 @@
+{
+  "order": 28,
+  "title": "Agent Routing Layer (AGENTS.md, CLAUDE.md, GEMINI.md, Qwen)",
+  "url": "https://deepwiki.com/santifer/career-ops/8.1-agent-routing-layer-(agents.md-claude.md-gemini.md-qwen)",
+  "path": "/santifer/career-ops/8.1-agent-routing-layer-(agents.md-claude.md-gemini.md-qwen)",
+  "slug": "8.1-agent-routing-layer-(agents.md-claude.md-gemini.md-qwen)",
+  "section": "8.1",
+  "depth": 1,
+  "parent_section": "8",
+  "matched_chunk_sha256": "5a784773fc77defa4423dfaf112750b757c637bd7a3d83544b94ee477231d482",
+  "markdown_length": 7494,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".claude-plugin/plugin.json:10-17",
+    ".claude/skills/career-ops/SKILL.md:12-39",
+    ".claude/skills/career-ops/SKILL.md:36-38",
+    ".claude/skills/career-ops/SKILL.md:73-98",
+    ".claude/skills/career-ops/SKILL.md:77-80",
+    "AGENTS.md:11-44",
+    "AGENTS.md:72-106",
+    "modes/tr/README.md:1-49",
+    "modes/tr/is-ilani.md:1-150"
+  ]
+}

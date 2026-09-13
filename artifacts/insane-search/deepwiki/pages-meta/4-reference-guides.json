@@ -1,0 +1,25 @@
+{
+  "order": 17,
+  "title": "Reference Guides",
+  "url": "https://deepwiki.com/fivetaku/insane-search/4-reference-guides",
+  "path": "/fivetaku/insane-search/4-reference-guides",
+  "slug": "4-reference-guides",
+  "section": "4",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "0d0d3063ae9d9833d013fc6a2d4901fb6c07345ca759b2e45599c38fdf7a3724",
+  "markdown_length": 7249,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "PLATFORMS.md:11-40",
+    "skills/insane-search/references/fallback.md:1-160",
+    "skills/insane-search/references/fallback.md:15-106",
+    "skills/insane-search/references/fallback.md:15-121",
+    "skills/insane-search/references/tls-impersonate.md:1-5",
+    "skills/insane-search/references/tls-impersonate.md:1-56"
+  ]
+}

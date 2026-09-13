@@ -1,0 +1,30 @@
+{
+  "order": 23,
+  "title": "samples/discovery: Knowledge Catalog Discovery Agent",
+  "url": "https://deepwiki.com/GoogleCloudPlatform/knowledge-catalog/5.2-samplesdiscovery:-knowledge-catalog-discovery-agent",
+  "path": "/GoogleCloudPlatform/knowledge-catalog/5.2-samplesdiscovery:-knowledge-catalog-discovery-agent",
+  "slug": "5.2-samplesdiscovery:-knowledge-catalog-discovery-agent",
+  "section": "5.2",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "4428c7bb68528b2e7de2a672f69e4c83a82f71cf6897617bfd31f8de03e44df8",
+  "markdown_length": 6164,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:3-5",
+    "samples/README.md:1-15",
+    "samples/README.md:11-14",
+    "samples/README.md:8-9",
+    "toolbox/README.md:3-7",
+    "toolbox/README.md:5-12",
+    "toolbox/README.md:5-7",
+    "toolbox/README.md:9-12",
+    "toolbox/mdcode/src/libts/gcp/context.ts:10-13",
+    "toolbox/mdcode/src/libts/gcp/context.ts:11-12",
+    "toolbox/mdcode/src/libts/gcp/context.ts:6-23"
+  ]
+}

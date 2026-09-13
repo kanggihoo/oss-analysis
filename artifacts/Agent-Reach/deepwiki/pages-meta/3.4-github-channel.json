@@ -1,0 +1,29 @@
+{
+  "order": 14,
+  "title": "GitHub Channel",
+  "url": "https://deepwiki.com/Panniantong/Agent-Reach/3.4-github-channel",
+  "path": "/Panniantong/Agent-Reach/3.4-github-channel",
+  "slug": "3.4-github-channel",
+  "section": "3.4",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "dcb205aaed733b17eb7e7101ccc3ca851db1ca17628ebb73ce9d5a8c24cd59f6",
+  "markdown_length": 5789,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "agent_reach/channels/douyin.py:12-13",
+    "agent_reach/channels/github.py:12-13",
+    "agent_reach/channels/github.py:15-17",
+    "agent_reach/channels/github.py:19-33",
+    "agent_reach/channels/github.py:20-22",
+    "agent_reach/channels/github.py:22-22",
+    "agent_reach/channels/github.py:28-29",
+    "agent_reach/channels/github.py:28-30",
+    "agent_reach/channels/github.py:9-13",
+    "agent_reach/channels/youtube.py:12-13"
+  ]
+}

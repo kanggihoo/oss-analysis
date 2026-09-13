@@ -1,0 +1,18 @@
+{
+  "order": 33,
+  "title": "Settings and Data Management API",
+  "url": "https://deepwiki.com/junhoyeo/tokscale/5.5-settings-and-data-management-api",
+  "path": "/junhoyeo/tokscale/5.5-settings-and-data-management-api",
+  "slug": "5.5-settings-and-data-management-api",
+  "section": "5.5",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "51ccd1d5e6c81bf9e5be337b8180929457623e1ea27f47cd89438b7c8aee3052",
+  "markdown_length": 8428,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

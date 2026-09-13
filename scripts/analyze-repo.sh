@@ -11,6 +11,7 @@ ROOT="${OSS_LAB_ROOT:-/Users/kkh/Desktop/oss-analysis}"
 REPOS="${OSS_REPOS_PATH:-$ROOT/repos}"
 ARTIFACTS_ROOT="${OSS_ARTIFACTS_PATH:-$ROOT/artifacts}"
 REPORTS_ROOT="${OSS_REPORTS_PATH:-$ROOT/reports}"
+TEMPLATES_ROOT="${OSS_TEMPLATES_PATH:-$ROOT/templates}"
 
 mkdir -p "$REPOS" "$ARTIFACTS_ROOT" "$REPORTS_ROOT"
 
@@ -24,7 +25,7 @@ REPO_DIR="$REPOS/$NAME"
 ARTIFACTS="$ARTIFACTS_ROOT/$NAME"
 REPORTS="$REPORTS_ROOT/$NAME"
 
-mkdir -p "$ARTIFACTS/static-analysis" "$ARTIFACTS/deepwiki" "$REPORTS"
+mkdir -p "$ARTIFACTS/static-analysis" "$ARTIFACTS/deepwiki" "$REPORTS/diagrams" "$REPORTS/questions"
 
 if [[ "$INPUT" == http://* || "$INPUT" == https://* || "$INPUT" == git@* ]]; then
   if [ ! -d "$REPO_DIR/.git" ]; then
@@ -38,21 +39,32 @@ else
   NAME="$(basename "$REPO_DIR")"
   ARTIFACTS="$ARTIFACTS_ROOT/$NAME"
   REPORTS="$REPORTS_ROOT/$NAME"
-  mkdir -p "$ARTIFACTS/static-analysis" "$ARTIFACTS/deepwiki" "$REPORTS"
+  mkdir -p "$ARTIFACTS/static-analysis" "$ARTIFACTS/deepwiki" "$REPORTS/diagrams" "$REPORTS/questions"
 fi
 
 cd "$REPO_DIR"
+
+COMMIT_SHA="$(git rev-parse HEAD 2>/dev/null || echo "unknown")"
+ORIGIN_URL="$(git remote get-url origin 2>/dev/null || echo "$INPUT")"
+if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+  WORKTREE_STATUS="dirty"
+else
+  WORKTREE_STATUS="clean"
+fi
 
 {
   echo "repo_dir=$REPO_DIR"
   echo "name=$NAME"
   echo "date=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  git rev-parse HEAD 2>/dev/null | sed 's/^/commit=/' || true
-  git remote get-url origin 2>/dev/null | sed 's/^/origin=/' || true
+  echo "commit=$COMMIT_SHA"
+  echo "origin=$ORIGIN_URL"
+  echo "worktree=$WORKTREE_STATUS"
 } > "$ARTIFACTS/repo-metadata.txt"
 
 if command -v pygount >/dev/null 2>&1; then
-  pygount --format=summary     --folders-to-skip=".git,node_modules,venv,.venv,__pycache__,dist,build,.next,.tox,vendor,third_party,target"     . > "$ARTIFACTS/static-analysis/pygount.txt" 2>&1 || true
+  pygount --format=summary \
+    --folders-to-skip=".git,node_modules,venv,.venv,__pycache__,dist,build,.next,.tox,vendor,third_party,target" \
+    . > "$ARTIFACTS/static-analysis/pygount.txt" 2>&1 || true
 else
   echo "pygount not found" > "$ARTIFACTS/static-analysis/pygount.txt"
 fi
@@ -64,39 +76,36 @@ else
 fi
 
 if command -v gh >/dev/null 2>&1; then
-  gh repo view --json name,owner,description,url,stargazerCount,forkCount,licenseInfo,defaultBranchRef,pushedAt     > "$ARTIFACTS/static-analysis/github-repo-view.json" 2> "$ARTIFACTS/static-analysis/github-repo-view.err" || true
+  gh repo view --json name,owner,description,url,stargazerCount,forkCount,licenseInfo,defaultBranchRef,pushedAt \
+    > "$ARTIFACTS/static-analysis/github-repo-view.json" 2> "$ARTIFACTS/static-analysis/github-repo-view.err" || true
 fi
 
-if command -v graphify >/dev/null 2>&1; then
-  graphify . --wiki > "$ARTIFACTS/static-analysis/graphify-run.log" 2>&1 || true
-  if [ -d graphify-out ]; then
-    mkdir -p "$ARTIFACTS/graphify"
-    rsync -a --delete graphify-out/ "$ARTIFACTS/graphify/" || cp -R graphify-out/. "$ARTIFACTS/graphify/"
-  fi
-else
-  echo "graphify not found" > "$ARTIFACTS/static-analysis/graphify-run.log"
+# Initial overview.md if not exists
+if [ ! -f "$REPORTS/overview.md" ] && [ -f "$TEMPLATES_ROOT/overview-template.md" ]; then
+  sed -e "s|<Repo Name>|$NAME|g" \
+      -e "s|<URL>|$ORIGIN_URL|g" \
+      -e "s|<commit-sha>|$COMMIT_SHA|g" \
+      -e "s|YYYY-MM-DD|$(date +%Y-%m-%d)|g" \
+      -e "s|Clean / Modified (diff 보관 여부)|$WORKTREE_STATUS|g" \
+      "$TEMPLATES_ROOT/overview-template.md" > "$REPORTS/overview.md"
 fi
 
-if [ -d .understand-anything ]; then
-  mkdir -p "$ARTIFACTS/understand-anything"
-  rsync -a --delete .understand-anything/ "$ARTIFACTS/understand-anything/" || cp -R .understand-anything/. "$ARTIFACTS/understand-anything/"
+# Initial next.md if not exists
+if [ ! -f "$REPORTS/next.md" ] && [ -f "$TEMPLATES_ROOT/next-template.md" ]; then
+  sed -e "s|<Repo Name>|$NAME|g" \
+      -e "s|<commit-sha>|$COMMIT_SHA|g" \
+      -e "s|YYYY-MM-DD|$(date +%Y-%m-%d)|g" \
+      "$TEMPLATES_ROOT/next-template.md" > "$REPORTS/next.md"
 fi
 
-cat > "$REPORTS/README.md" <<EOF
-# $NAME analysis reports
-
-Generated artifact directory: \`$ARTIFACTS\`
-
-Recommended next step for Hermes:
-
-1. Read \`$ARTIFACTS/repo-metadata.txt\`.
-2. Read static analysis outputs under \`$ARTIFACTS/static-analysis/\`.
-3. If present, read \`$ARTIFACTS/graphify/GRAPH_REPORT.md\` and \`$ARTIFACTS/graphify/wiki/index.md\`.
-4. Check DeepWiki manually: \`https://deepwiki.com/<owner>/$NAME\`.
-5. Verify claims against local source files in \`$REPO_DIR\`.
-6. Write overview, architecture, code-map, dependency-analysis, and risk-report.
-EOF
-
-echo "Repo: $REPO_DIR"
-echo "Artifacts: $ARTIFACTS"
-echo "Reports: $REPORTS"
+echo "=================================================="
+echo "Repo:       $REPO_DIR"
+echo "Commit:     $COMMIT_SHA ($WORKTREE_STATUS)"
+echo "Artifacts:  $ARTIFACTS"
+echo "Reports:    $REPORTS"
+echo "Next steps:"
+echo " 1. archify로 주요 구조도 및 대표 실행 흐름 생성 -> reports/$NAME/diagrams/"
+echo " 2. 질문 도출 및 소스 검증 -> reports/$NAME/questions/"
+echo " 3. 재사용 핵심 지식 요약 -> wiki/projects/$NAME.md"
+echo " 4. 세션 마무리 시 reports/$NAME/next.md 및 wiki/log.md 갱신"
+echo "=================================================="

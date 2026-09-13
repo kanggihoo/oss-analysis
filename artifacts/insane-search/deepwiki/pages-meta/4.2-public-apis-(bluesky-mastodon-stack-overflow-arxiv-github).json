@@ -1,0 +1,33 @@
+{
+  "order": 19,
+  "title": "Public APIs (Bluesky, Mastodon, Stack Overflow, arXiv, GitHub)",
+  "url": "https://deepwiki.com/fivetaku/insane-search/4.2-public-apis-(bluesky-mastodon-stack-overflow-arxiv-github)",
+  "path": "/fivetaku/insane-search/4.2-public-apis-(bluesky-mastodon-stack-overflow-arxiv-github)",
+  "slug": "4.2-public-apis-(bluesky-mastodon-stack-overflow-arxiv-github)",
+  "section": "4.2",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "39ddef579984ab26076352477e8db9c796dabf3b37740d4fd35038685b432f71",
+  "markdown_length": 6895,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "skills/insane-search/references/media.md:1-26",
+    "skills/insane-search/references/media.md:1-5",
+    "skills/insane-search/references/media.md:18-26",
+    "skills/insane-search/references/media.md:27-35",
+    "skills/insane-search/references/media.md:52-59",
+    "skills/insane-search/references/media.md:93-105",
+    "skills/insane-search/references/public-api.md:1-5",
+    "skills/insane-search/references/public-api.md:108-120",
+    "skills/insane-search/references/public-api.md:21-34",
+    "skills/insane-search/references/public-api.md:36-50",
+    "skills/insane-search/references/public-api.md:51-82",
+    "skills/insane-search/references/public-api.md:6-20",
+    "skills/insane-search/references/public-api.md:83-91",
+    "skills/insane-search/references/public-api.md:93-106"
+  ]
+}

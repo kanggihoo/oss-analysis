@@ -1,0 +1,11 @@
+repo: GoogleCloudPlatform/knowledge-catalog
+remote: https://github.com/GoogleCloudPlatform/knowledge-catalog.git
+branch: main
+head: d44368c15e38e7c92481c5992e4f9b5b421a801d
+describe: d44368c
+status: 0 dirty entries
+latest_commit:
+d44368c15e38e7c92481c5992e4f9b5b421a801d
+amir.hormati <ahhormati@gmail.com>
+2026-06-20T17:49:59-07:00
+okf: refocus README title and intro on the format (#130)

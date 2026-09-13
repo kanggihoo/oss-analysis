@@ -1,0 +1,33 @@
+{
+  "order": 25,
+  "title": "Store Architecture",
+  "url": "https://deepwiki.com/jhlee0409/claude-code-history-viewer/4.1-store-architecture",
+  "path": "/jhlee0409/claude-code-history-viewer/4.1-store-architecture",
+  "slug": "4.1-store-architecture",
+  "section": "4.1",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "62ec47cd59e80d0e5106b1fd38dbb8ce4c972bc9fb912ab4a87de6e9c2536755",
+  "markdown_length": 9039,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/App.tsx:163-177",
+    "src/App.tsx:185",
+    "src/App.tsx:185-199",
+    "src/App.tsx:220",
+    "src/App.tsx:227",
+    "src/App.tsx:24-68",
+    "src/store/slices/metadataSlice.ts:103-108",
+    "src/store/slices/metadataSlice.ts:25-86",
+    "src/store/useAppStore.ts:1-6",
+    "src/store/useAppStore.ts:10-68",
+    "src/store/useAppStore.ts:101-117",
+    "src/store/useAppStore.ts:71-75",
+    "src/store/useAppStore.ts:81-95",
+    "src/test/ProjectTree.worktree.test.tsx:17-37"
+  ]
+}

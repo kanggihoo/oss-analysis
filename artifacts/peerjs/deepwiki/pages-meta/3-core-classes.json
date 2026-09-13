@@ -1,0 +1,31 @@
+{
+  "order": 8,
+  "title": "Core Classes",
+  "url": "https://deepwiki.com/peers/peerjs/3-core-classes",
+  "path": "/peers/peerjs/3-core-classes",
+  "slug": "3-core-classes",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "4ecae0877b1fe4078e999bf3d084f427fb6c01f63a2d1ddce267d48b2e60fbfe",
+  "markdown_length": 10378,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "lib/baseconnection.ts:32-91",
+    "lib/baseconnection.ts:9-31",
+    "lib/enums.ts:1-98",
+    "lib/exports.ts:1-28",
+    "lib/exports.ts:14-15",
+    "lib/peer.ts:113-744",
+    "lib/peer.ts:272-309",
+    "lib/peer.ts:349-457",
+    "lib/peer.ts:402-405",
+    "lib/peer.ts:490-516",
+    "lib/peer.ts:549-554",
+    "lib/peer.ts:738-743"
+  ]
+}

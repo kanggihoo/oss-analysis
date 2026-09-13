@@ -1,0 +1,32 @@
+{
+  "order": 10,
+  "title": "Channels",
+  "url": "https://deepwiki.com/Panniantong/Agent-Reach/3-channels",
+  "path": "/Panniantong/Agent-Reach/3-channels",
+  "slug": "3-channels",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "4dbb5880d65f0fae75ee0f5c06e9a75586e84ab88a26d17d816d01452a63d18e",
+  "markdown_length": 6755,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "agent_reach/channels/__init__.py:29-46",
+    "agent_reach/channels/__init__.py:49-54",
+    "agent_reach/channels/__init__.py:7-25",
+    "agent_reach/channels/base.py:1-20",
+    "agent_reach/channels/v2ex.py:20-24",
+    "agent_reach/channels/v2ex.py:24",
+    "agent_reach/channels/weibo.py:13",
+    "agent_reach/channels/weibo.py:9-13",
+    "agent_reach/channels/xueqiu.py:51-55",
+    "agent_reach/channels/xueqiu.py:55",
+    "tests/test_channel_contracts.py:108-128",
+    "tests/test_channel_contracts.py:14-19",
+    "tests/test_channels.py:16-30"
+  ]
+}

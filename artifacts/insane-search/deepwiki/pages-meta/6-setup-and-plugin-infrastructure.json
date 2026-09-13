@@ -1,0 +1,18 @@
+{
+  "order": 27,
+  "title": "Setup & Plugin Infrastructure",
+  "url": "https://deepwiki.com/fivetaku/insane-search/6-setup-and-plugin-infrastructure",
+  "path": "/fivetaku/insane-search/6-setup-and-plugin-infrastructure",
+  "slug": "6-setup-and-plugin-infrastructure",
+  "section": "6",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "cbb85478d04b2a6459e64d44d21cdbe49f24cbe0c33b5f0b3284639fb9963539",
+  "markdown_length": 5504,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

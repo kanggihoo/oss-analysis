@@ -1,0 +1,372 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/earendil-works/pi/1-overview",
+    "path": "/earendil-works/pi/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/earendil-works/pi/1.1-getting-started",
+    "path": "/earendil-works/pi/1.1-getting-started",
+    "slug": "1.1-getting-started",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Monorepo Structure and Build System",
+    "url": "https://deepwiki.com/earendil-works/pi/1.2-monorepo-structure-and-build-system",
+    "path": "/earendil-works/pi/1.2-monorepo-structure-and-build-system",
+    "slug": "1.2-monorepo-structure-and-build-system",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Core Architecture",
+    "url": "https://deepwiki.com/earendil-works/pi/2-core-architecture",
+    "path": "/earendil-works/pi/2-core-architecture",
+    "slug": "2-core-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "Agent Loop (pi-agent-core)",
+    "url": "https://deepwiki.com/earendil-works/pi/2.1-agent-loop-(pi-agent-core)",
+    "path": "/earendil-works/pi/2.1-agent-loop-(pi-agent-core)",
+    "slug": "2.1-agent-loop-(pi-agent-core)",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "AgentSession and Session Lifecycle",
+    "url": "https://deepwiki.com/earendil-works/pi/2.2-agentsession-and-session-lifecycle",
+    "path": "/earendil-works/pi/2.2-agentsession-and-session-lifecycle",
+    "slug": "2.2-agentsession-and-session-lifecycle",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Session Management and Compaction",
+    "url": "https://deepwiki.com/earendil-works/pi/2.3-session-management-and-compaction",
+    "path": "/earendil-works/pi/2.3-session-management-and-compaction",
+    "slug": "2.3-session-management-and-compaction",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Built-in Tools",
+    "url": "https://deepwiki.com/earendil-works/pi/2.4-built-in-tools",
+    "path": "/earendil-works/pi/2.4-built-in-tools",
+    "slug": "2.4-built-in-tools",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "LLM Provider Abstraction (pi-ai)",
+    "url": "https://deepwiki.com/earendil-works/pi/3-llm-provider-abstraction-(pi-ai)",
+    "path": "/earendil-works/pi/3-llm-provider-abstraction-(pi-ai)",
+    "slug": "3-llm-provider-abstraction-(pi-ai)",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 10,
+    "title": "Streaming API and Provider Implementations",
+    "url": "https://deepwiki.com/earendil-works/pi/3.1-streaming-api-and-provider-implementations",
+    "path": "/earendil-works/pi/3.1-streaming-api-and-provider-implementations",
+    "slug": "3.1-streaming-api-and-provider-implementations",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "Model Registry and Credential Resolution",
+    "url": "https://deepwiki.com/earendil-works/pi/3.2-model-registry-and-credential-resolution",
+    "path": "/earendil-works/pi/3.2-model-registry-and-credential-resolution",
+    "slug": "3.2-model-registry-and-credential-resolution",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Prompt Caching, Thinking, and Cross-Provider Handoff",
+    "url": "https://deepwiki.com/earendil-works/pi/3.3-prompt-caching-thinking-and-cross-provider-handoff",
+    "path": "/earendil-works/pi/3.3-prompt-caching-thinking-and-cross-provider-handoff",
+    "slug": "3.3-prompt-caching-thinking-and-cross-provider-handoff",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Terminal UI (pi-tui)",
+    "url": "https://deepwiki.com/earendil-works/pi/4-terminal-ui-(pi-tui)",
+    "path": "/earendil-works/pi/4-terminal-ui-(pi-tui)",
+    "slug": "4-terminal-ui-(pi-tui)",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 14,
+    "title": "TUI Core: Rendering and Terminal Abstraction",
+    "url": "https://deepwiki.com/earendil-works/pi/4.1-tui-core:-rendering-and-terminal-abstraction",
+    "path": "/earendil-works/pi/4.1-tui-core:-rendering-and-terminal-abstraction",
+    "slug": "4.1-tui-core:-rendering-and-terminal-abstraction",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 15,
+    "title": "Editor, Input, and Keybindings",
+    "url": "https://deepwiki.com/earendil-works/pi/4.2-editor-input-and-keybindings",
+    "path": "/earendil-works/pi/4.2-editor-input-and-keybindings",
+    "slug": "4.2-editor-input-and-keybindings",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "TUI Components Library",
+    "url": "https://deepwiki.com/earendil-works/pi/4.3-tui-components-library",
+    "path": "/earendil-works/pi/4.3-tui-components-library",
+    "slug": "4.3-tui-components-library",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 17,
+    "title": "Interactive Mode (CLI)",
+    "url": "https://deepwiki.com/earendil-works/pi/5-interactive-mode-(cli)",
+    "path": "/earendil-works/pi/5-interactive-mode-(cli)",
+    "slug": "5-interactive-mode-(cli)",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 18,
+    "title": "Interactive Mode Components",
+    "url": "https://deepwiki.com/earendil-works/pi/5.1-interactive-mode-components",
+    "path": "/earendil-works/pi/5.1-interactive-mode-components",
+    "slug": "5.1-interactive-mode-components",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 19,
+    "title": "Settings, Themes, and Keybindings",
+    "url": "https://deepwiki.com/earendil-works/pi/5.2-settings-themes-and-keybindings",
+    "path": "/earendil-works/pi/5.2-settings-themes-and-keybindings",
+    "slug": "5.2-settings-themes-and-keybindings",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 20,
+    "title": "Slash Commands and Prompt Templates",
+    "url": "https://deepwiki.com/earendil-works/pi/5.3-slash-commands-and-prompt-templates",
+    "path": "/earendil-works/pi/5.3-slash-commands-and-prompt-templates",
+    "slug": "5.3-slash-commands-and-prompt-templates",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 21,
+    "title": "Alternative Execution Modes: Print and RPC",
+    "url": "https://deepwiki.com/earendil-works/pi/5.4-alternative-execution-modes:-print-and-rpc",
+    "path": "/earendil-works/pi/5.4-alternative-execution-modes:-print-and-rpc",
+    "slug": "5.4-alternative-execution-modes:-print-and-rpc",
+    "section": "5.4",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 22,
+    "title": "Extension System",
+    "url": "https://deepwiki.com/earendil-works/pi/6-extension-system",
+    "path": "/earendil-works/pi/6-extension-system",
+    "slug": "6-extension-system",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 23,
+    "title": "Extension API and Lifecycle Events",
+    "url": "https://deepwiki.com/earendil-works/pi/6.1-extension-api-and-lifecycle-events",
+    "path": "/earendil-works/pi/6.1-extension-api-and-lifecycle-events",
+    "slug": "6.1-extension-api-and-lifecycle-events",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 24,
+    "title": "Extension Loading and Discovery",
+    "url": "https://deepwiki.com/earendil-works/pi/6.2-extension-loading-and-discovery",
+    "path": "/earendil-works/pi/6.2-extension-loading-and-discovery",
+    "slug": "6.2-extension-loading-and-discovery",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 25,
+    "title": "Extension Examples and Patterns",
+    "url": "https://deepwiki.com/earendil-works/pi/6.3-extension-examples-and-patterns",
+    "path": "/earendil-works/pi/6.3-extension-examples-and-patterns",
+    "slug": "6.3-extension-examples-and-patterns",
+    "section": "6.3",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 26,
+    "title": "SDK and Programmatic Usage",
+    "url": "https://deepwiki.com/earendil-works/pi/7-sdk-and-programmatic-usage",
+    "path": "/earendil-works/pi/7-sdk-and-programmatic-usage",
+    "slug": "7-sdk-and-programmatic-usage",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 27,
+    "title": "pi-coding-agent SDK",
+    "url": "https://deepwiki.com/earendil-works/pi/7.1-pi-coding-agent-sdk",
+    "path": "/earendil-works/pi/7.1-pi-coding-agent-sdk",
+    "slug": "7.1-pi-coding-agent-sdk",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 28,
+    "title": "Web UI Package (pi-web-ui)",
+    "url": "https://deepwiki.com/earendil-works/pi/7.2-web-ui-package-(pi-web-ui)",
+    "path": "/earendil-works/pi/7.2-web-ui-package-(pi-web-ui)",
+    "slug": "7.2-web-ui-package-(pi-web-ui)",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 29,
+    "title": "Skills, Prompt Templates, and Context Files",
+    "url": "https://deepwiki.com/earendil-works/pi/8-skills-prompt-templates-and-context-files",
+    "path": "/earendil-works/pi/8-skills-prompt-templates-and-context-files",
+    "slug": "8-skills-prompt-templates-and-context-files",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 30,
+    "title": "Session Export and HTML Rendering",
+    "url": "https://deepwiki.com/earendil-works/pi/9-session-export-and-html-rendering",
+    "path": "/earendil-works/pi/9-session-export-and-html-rendering",
+    "slug": "9-session-export-and-html-rendering",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 31,
+    "title": "Export HTML Architecture",
+    "url": "https://deepwiki.com/earendil-works/pi/9.1-export-html-architecture",
+    "path": "/earendil-works/pi/9.1-export-html-architecture",
+    "slug": "9.1-export-html-architecture",
+    "section": "9.1",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 32,
+    "title": "Image Processing and Clipboard",
+    "url": "https://deepwiki.com/earendil-works/pi/9.2-image-processing-and-clipboard",
+    "path": "/earendil-works/pi/9.2-image-processing-and-clipboard",
+    "slug": "9.2-image-processing-and-clipboard",
+    "section": "9.2",
+    "depth": 1,
+    "parent_section": "9"
+  },
+  {
+    "order": 33,
+    "title": "Infrastructure and Development",
+    "url": "https://deepwiki.com/earendil-works/pi/10-infrastructure-and-development",
+    "path": "/earendil-works/pi/10-infrastructure-and-development",
+    "slug": "10-infrastructure-and-development",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 34,
+    "title": "CI/CD and Binary Distribution",
+    "url": "https://deepwiki.com/earendil-works/pi/10.1-cicd-and-binary-distribution",
+    "path": "/earendil-works/pi/10.1-cicd-and-binary-distribution",
+    "slug": "10.1-cicd-and-binary-distribution",
+    "section": "10.1",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 35,
+    "title": "Contribution Gate and Community Workflow",
+    "url": "https://deepwiki.com/earendil-works/pi/10.2-contribution-gate-and-community-workflow",
+    "path": "/earendil-works/pi/10.2-contribution-gate-and-community-workflow",
+    "slug": "10.2-contribution-gate-and-community-workflow",
+    "section": "10.2",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 36,
+    "title": "Testing Infrastructure",
+    "url": "https://deepwiki.com/earendil-works/pi/10.3-testing-infrastructure",
+    "path": "/earendil-works/pi/10.3-testing-infrastructure",
+    "slug": "10.3-testing-infrastructure",
+    "section": "10.3",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 37,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/earendil-works/pi/11-glossary",
+    "path": "/earendil-works/pi/11-glossary",
+    "slug": "11-glossary",
+    "section": "11",
+    "depth": 0,
+    "parent_section": null
+  }
+]

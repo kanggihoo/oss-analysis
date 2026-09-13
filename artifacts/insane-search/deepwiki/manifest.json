@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "fivetaku",
+  "repo": "insane-search",
+  "deepwiki_url": "https://deepwiki.com/fivetaku/insane-search",
+  "generated_at": "2026-06-28T05:55:50.108837+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/fivetaku/insane-search",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 356896,
+    "sha256": "049d598f1a825f89c1028704d3b1de5ac973b897477790acffea25a142e38597",
+    "fetched_at": "2026-06-28T05:55:50.037701+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 33,
+  "markdown_chunks_count": 33,
+  "matched_pages_count": 33,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/insane-search/deepwiki"
+}

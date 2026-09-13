@@ -1,0 +1,33 @@
+{
+  "order": 12,
+  "title": "Enrichment Agents",
+  "url": "https://deepwiki.com/GoogleCloudPlatform/knowledge-catalog/3-enrichment-agents",
+  "path": "/GoogleCloudPlatform/knowledge-catalog/3-enrichment-agents",
+  "slug": "3-enrichment-agents",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "3855e78ae7d1b4a60ac59366642743575d4e598fb1c8c5ec90ef7e6af9701d92",
+  "markdown_length": 6452,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "agents/enrichment/README.md:16-19",
+    "agents/enrichment/README.md:21-55",
+    "agents/enrichment/README.md:58-80",
+    "agents/enrichment/README.md:9-20",
+    "agents/enrichment/src/agent_runner.py:65-79",
+    "toolbox/enrichment/README.md:116-126",
+    "toolbox/enrichment/README.md:18-27",
+    "toolbox/enrichment/README.md:3-12",
+    "toolbox/enrichment/package.json:23-27",
+    "toolbox/enrichment/src/agent/enrich/agent.ts:89-108",
+    "toolbox/enrichment/src/agent/enrich/command.ts:16-113",
+    "toolbox/enrichment/src/agent/enrich/command.ts:39-40",
+    "toolbox/enrichment/src/agent/enrich/command.ts:5-8",
+    "toolbox/enrichment/src/agent/tools.ts:16-92"
+  ]
+}

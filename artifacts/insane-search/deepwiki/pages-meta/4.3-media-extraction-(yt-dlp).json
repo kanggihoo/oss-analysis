@@ -1,0 +1,30 @@
+{
+  "order": 20,
+  "title": "Media Extraction (yt-dlp)",
+  "url": "https://deepwiki.com/fivetaku/insane-search/4.3-media-extraction-(yt-dlp)",
+  "path": "/fivetaku/insane-search/4.3-media-extraction-(yt-dlp)",
+  "slug": "4.3-media-extraction-(yt-dlp)",
+  "section": "4.3",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "e63f564b27c519a03782ad49e5cf9a2a02be9f0aa475300faa2d6c516925a92d",
+  "markdown_length": 6408,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "skills/insane-search/engine/phase0.py:165-188",
+    "skills/insane-search/engine/phase0.py:165-195",
+    "skills/insane-search/engine/phase0.py:173-178",
+    "skills/insane-search/engine/phase0.py:186-191",
+    "skills/insane-search/engine/phase0.py:59-69",
+    "skills/insane-search/engine/phase0.py:67-69",
+    "skills/insane-search/references/media.md:1-4",
+    "skills/insane-search/references/media.md:18-22",
+    "skills/insane-search/references/media.md:27-35",
+    "skills/insane-search/references/media.md:52-66",
+    "skills/insane-search/references/media.md:70-104"
+  ]
+}

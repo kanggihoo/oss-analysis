@@ -1,0 +1,332 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/1-overview",
+    "path": "/obsidianmd/obsidian-clipper/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Project Structure",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/1.1-project-structure",
+    "path": "/obsidianmd/obsidian-clipper/1.1-project-structure",
+    "slug": "1.1-project-structure",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Architecture",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/2-architecture",
+    "path": "/obsidianmd/obsidian-clipper/2-architecture",
+    "slug": "2-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 4,
+    "title": "Extension Architecture",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/2.1-extension-architecture",
+    "path": "/obsidianmd/obsidian-clipper/2.1-extension-architecture",
+    "slug": "2.1-extension-architecture",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 5,
+    "title": "Communication Flow",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/2.2-communication-flow",
+    "path": "/obsidianmd/obsidian-clipper/2.2-communication-flow",
+    "slug": "2.2-communication-flow",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "CLI and Programmatic API",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/2.3-cli-and-programmatic-api",
+    "path": "/obsidianmd/obsidian-clipper/2.3-cli-and-programmatic-api",
+    "slug": "2.3-cli-and-programmatic-api",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "User Interface",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/3-user-interface",
+    "path": "/obsidianmd/obsidian-clipper/3-user-interface",
+    "slug": "3-user-interface",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 8,
+    "title": "Popup Interface",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/3.1-popup-interface",
+    "path": "/obsidianmd/obsidian-clipper/3.1-popup-interface",
+    "slug": "3.1-popup-interface",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 9,
+    "title": "Settings Interface",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/3.2-settings-interface",
+    "path": "/obsidianmd/obsidian-clipper/3.2-settings-interface",
+    "slug": "3.2-settings-interface",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 10,
+    "title": "Styling and Responsive Design",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/3.3-styling-and-responsive-design",
+    "path": "/obsidianmd/obsidian-clipper/3.3-styling-and-responsive-design",
+    "slug": "3.3-styling-and-responsive-design",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "Content Processing",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/4-content-processing",
+    "path": "/obsidianmd/obsidian-clipper/4-content-processing",
+    "slug": "4-content-processing",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 12,
+    "title": "Content Extraction",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/4.1-content-extraction",
+    "path": "/obsidianmd/obsidian-clipper/4.1-content-extraction",
+    "slug": "4.1-content-extraction",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 13,
+    "title": "Markdown Conversion",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/4.2-markdown-conversion",
+    "path": "/obsidianmd/obsidian-clipper/4.2-markdown-conversion",
+    "slug": "4.2-markdown-conversion",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 14,
+    "title": "Reader Mode",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/4.3-reader-mode",
+    "path": "/obsidianmd/obsidian-clipper/4.3-reader-mode",
+    "slug": "4.3-reader-mode",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 15,
+    "title": "Highlighter System",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/4.4-highlighter-system",
+    "path": "/obsidianmd/obsidian-clipper/4.4-highlighter-system",
+    "slug": "4.4-highlighter-system",
+    "section": "4.4",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "Templates and Filters",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/5-templates-and-filters",
+    "path": "/obsidianmd/obsidian-clipper/5-templates-and-filters",
+    "slug": "5-templates-and-filters",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 17,
+    "title": "Template System",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/5.1-template-system",
+    "path": "/obsidianmd/obsidian-clipper/5.1-template-system",
+    "slug": "5.1-template-system",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 18,
+    "title": "Filter System",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/5.2-filter-system",
+    "path": "/obsidianmd/obsidian-clipper/5.2-filter-system",
+    "slug": "5.2-filter-system",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 19,
+    "title": "Variables System",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/5.3-variables-system",
+    "path": "/obsidianmd/obsidian-clipper/5.3-variables-system",
+    "slug": "5.3-variables-system",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 20,
+    "title": "Template Parser and Renderer",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/5.4-template-parser-and-renderer",
+    "path": "/obsidianmd/obsidian-clipper/5.4-template-parser-and-renderer",
+    "slug": "5.4-template-parser-and-renderer",
+    "section": "5.4",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 21,
+    "title": "AI Integration",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/6-ai-integration",
+    "path": "/obsidianmd/obsidian-clipper/6-ai-integration",
+    "slug": "6-ai-integration",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 22,
+    "title": "LLM Interpreter",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/6.1-llm-interpreter",
+    "path": "/obsidianmd/obsidian-clipper/6.1-llm-interpreter",
+    "slug": "6.1-llm-interpreter",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 23,
+    "title": "Provider Configuration",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/6.2-provider-configuration",
+    "path": "/obsidianmd/obsidian-clipper/6.2-provider-configuration",
+    "slug": "6.2-provider-configuration",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 24,
+    "title": "Obsidian Integration",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/7-obsidian-integration",
+    "path": "/obsidianmd/obsidian-clipper/7-obsidian-integration",
+    "slug": "7-obsidian-integration",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "Data Management",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/8-data-management",
+    "path": "/obsidianmd/obsidian-clipper/8-data-management",
+    "slug": "8-data-management",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 26,
+    "title": "Storage System",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/8.1-storage-system",
+    "path": "/obsidianmd/obsidian-clipper/8.1-storage-system",
+    "slug": "8.1-storage-system",
+    "section": "8.1",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 27,
+    "title": "Import and Export",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/8.2-import-and-export",
+    "path": "/obsidianmd/obsidian-clipper/8.2-import-and-export",
+    "slug": "8.2-import-and-export",
+    "section": "8.2",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 28,
+    "title": "Internationalization",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/9-internationalization",
+    "path": "/obsidianmd/obsidian-clipper/9-internationalization",
+    "slug": "9-internationalization",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 29,
+    "title": "Development Guide",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/10-development-guide",
+    "path": "/obsidianmd/obsidian-clipper/10-development-guide",
+    "slug": "10-development-guide",
+    "section": "10",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 30,
+    "title": "Build System",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/10.1-build-system",
+    "path": "/obsidianmd/obsidian-clipper/10.1-build-system",
+    "slug": "10.1-build-system",
+    "section": "10.1",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 31,
+    "title": "Code Quality and Setup",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/10.2-code-quality-and-setup",
+    "path": "/obsidianmd/obsidian-clipper/10.2-code-quality-and-setup",
+    "slug": "10.2-code-quality-and-setup",
+    "section": "10.2",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 32,
+    "title": "UI Component Development",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/10.3-ui-component-development",
+    "path": "/obsidianmd/obsidian-clipper/10.3-ui-component-development",
+    "slug": "10.3-ui-component-development",
+    "section": "10.3",
+    "depth": 1,
+    "parent_section": "10"
+  },
+  {
+    "order": 33,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper/11-glossary",
+    "path": "/obsidianmd/obsidian-clipper/11-glossary",
+    "slug": "11-glossary",
+    "section": "11",
+    "depth": 0,
+    "parent_section": null
+  }
+]

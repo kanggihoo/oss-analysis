@@ -1,0 +1,32 @@
+{
+  "order": 28,
+  "title": "Web UI Package (pi-web-ui)",
+  "url": "https://deepwiki.com/earendil-works/pi/7.2-web-ui-package-(pi-web-ui)",
+  "path": "/earendil-works/pi/7.2-web-ui-package-(pi-web-ui)",
+  "slug": "7.2-web-ui-package-(pi-web-ui)",
+  "section": "7.2",
+  "depth": 1,
+  "parent_section": "7",
+  "matched_chunk_sha256": "0a942560a348173857e3db90b8bababd73cb41a753acabda99b4820e1b18631f",
+  "markdown_length": 10960,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "package-lock.json:48-67",
+    "packages/agent/package.json:2-10",
+    "packages/ai/package.json:2-10",
+    "packages/ai/package.json:69-74",
+    "packages/coding-agent/docs/sdk.md:19-29",
+    "packages/coding-agent/docs/sdk.md:26-26",
+    "packages/coding-agent/docs/sdk.md:31-35",
+    "packages/coding-agent/docs/sdk.md:65-65",
+    "packages/coding-agent/package.json:15-15",
+    "packages/coding-agent/package.json:2-4",
+    "packages/coding-agent/package.json:39-41",
+    "packages/coding-agent/src/modes/rpc/rpc-types.ts:11-11",
+    "packages/coding-agent/src/modes/rpc/rpc-types.ts:11-12"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "order": 14,
+  "title": "Code Block Standardization",
+  "url": "https://deepwiki.com/kepano/defuddle/5.3-code-block-standardization",
+  "path": "/kepano/defuddle/5.3-code-block-standardization",
+  "slug": "5.3-code-block-standardization",
+  "section": "5.3",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "753c56acf9877efdf6a6eb0e231898d7c0f13e766fee611f8cac74e501e5e2c0",
+  "markdown_length": 8124,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 5,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/elements/code.ts:124-318",
+    "src/elements/code.ts:126-138",
+    "src/elements/code.ts:148-184",
+    "src/elements/code.ts:19-120",
+    "src/elements/code.ts:203-237",
+    "src/elements/code.ts:240-282",
+    "src/elements/code.ts:255-275",
+    "src/elements/code.ts:295-317",
+    "src/elements/code.ts:4-16"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "order": 5,
+  "title": "CLI Tool",
+  "url": "https://deepwiki.com/junhoyeo/tokscale/3-cli-tool",
+  "path": "/junhoyeo/tokscale/3-cli-tool",
+  "slug": "3-cli-tool",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "d4bd6254b8706cd83c62fcf3407d54940b126bea5738bae27c3c41648d46e856",
+  "markdown_length": 7408,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "crates/tokscale-cli/src/commands/wrapped.rs:100-103",
+    "crates/tokscale-cli/src/main.rs:19-87",
+    "crates/tokscale-cli/src/main.rs:26-27",
+    "crates/tokscale-cli/src/main.rs:26-30",
+    "crates/tokscale-cli/src/main.rs:29-30",
+    "crates/tokscale-cli/src/main.rs:90-230",
+    "crates/tokscale-cli/src/tui/data/mod.rs:137-149",
+    "crates/tokscale-cli/src/tui/data/mod.rs:151-156",
+    "crates/tokscale-core/src/lib.rs:171-175",
+    "crates/tokscale-core/src/lib.rs:205-216",
+    "crates/tokscale-core/src/lib.rs:99-106",
+    "crates/tokscale-core/src/scanner.rs:1-8",
+    "crates/tokscale-core/src/scanner.rs:25-48",
+    "crates/tokscale-core/src/scanner.rs:59-77"
+  ]
+}

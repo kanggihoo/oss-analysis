@@ -1,0 +1,282 @@
+[
+  {
+    "order": 1,
+    "title": "MinerU Overview",
+    "url": "https://deepwiki.com/opendatalab/MinerU/1-mineru-overview",
+    "path": "/opendatalab/MinerU/1-mineru-overview",
+    "slug": "1-mineru-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started & Installation",
+    "url": "https://deepwiki.com/opendatalab/MinerU/1.1-getting-started-and-installation",
+    "path": "/opendatalab/MinerU/1.1-getting-started-and-installation",
+    "slug": "1.1-getting-started-and-installation",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Configuration Reference",
+    "url": "https://deepwiki.com/opendatalab/MinerU/1.2-configuration-reference",
+    "path": "/opendatalab/MinerU/1.2-configuration-reference",
+    "slug": "1.2-configuration-reference",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Core Architecture",
+    "url": "https://deepwiki.com/opendatalab/MinerU/2-core-architecture",
+    "path": "/opendatalab/MinerU/2-core-architecture",
+    "slug": "2-core-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "Pipeline Backend",
+    "url": "https://deepwiki.com/opendatalab/MinerU/2.1-pipeline-backend",
+    "path": "/opendatalab/MinerU/2.1-pipeline-backend",
+    "slug": "2.1-pipeline-backend",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "VLM Backend",
+    "url": "https://deepwiki.com/opendatalab/MinerU/2.2-vlm-backend",
+    "path": "/opendatalab/MinerU/2.2-vlm-backend",
+    "slug": "2.2-vlm-backend",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Hybrid Backend",
+    "url": "https://deepwiki.com/opendatalab/MinerU/2.3-hybrid-backend",
+    "path": "/opendatalab/MinerU/2.3-hybrid-backend",
+    "slug": "2.3-hybrid-backend",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "middle_json Format & Content Generation",
+    "url": "https://deepwiki.com/opendatalab/MinerU/2.4-middle_json-format-and-content-generation",
+    "path": "/opendatalab/MinerU/2.4-middle_json-format-and-content-generation",
+    "slug": "2.4-middle_json-format-and-content-generation",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "Model Subsystems",
+    "url": "https://deepwiki.com/opendatalab/MinerU/3-model-subsystems",
+    "path": "/opendatalab/MinerU/3-model-subsystems",
+    "slug": "3-model-subsystems",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 10,
+    "title": "Layout Detection & Reading Order",
+    "url": "https://deepwiki.com/opendatalab/MinerU/3.1-layout-detection-and-reading-order",
+    "path": "/opendatalab/MinerU/3.1-layout-detection-and-reading-order",
+    "slug": "3.1-layout-detection-and-reading-order",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "Table Recognition",
+    "url": "https://deepwiki.com/opendatalab/MinerU/3.2-table-recognition",
+    "path": "/opendatalab/MinerU/3.2-table-recognition",
+    "slug": "3.2-table-recognition",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "OCR Engine",
+    "url": "https://deepwiki.com/opendatalab/MinerU/3.3-ocr-engine",
+    "path": "/opendatalab/MinerU/3.3-ocr-engine",
+    "slug": "3.3-ocr-engine",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Formula Recognition (MFD/MFR)",
+    "url": "https://deepwiki.com/opendatalab/MinerU/3.4-formula-recognition-(mfdmfr)",
+    "path": "/opendatalab/MinerU/3.4-formula-recognition-(mfdmfr)",
+    "slug": "3.4-formula-recognition-(mfdmfr)",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 14,
+    "title": "CLI & API Interfaces",
+    "url": "https://deepwiki.com/opendatalab/MinerU/4-cli-and-api-interfaces",
+    "path": "/opendatalab/MinerU/4-cli-and-api-interfaces",
+    "slug": "4-cli-and-api-interfaces",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 15,
+    "title": "Command-Line Interface (mineru CLI)",
+    "url": "https://deepwiki.com/opendatalab/MinerU/4.1-command-line-interface-(mineru-cli)",
+    "path": "/opendatalab/MinerU/4.1-command-line-interface-(mineru-cli)",
+    "slug": "4.1-command-line-interface-(mineru-cli)",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "FastAPI & Gradio Web Interfaces",
+    "url": "https://deepwiki.com/opendatalab/MinerU/4.2-fastapi-and-gradio-web-interfaces",
+    "path": "/opendatalab/MinerU/4.2-fastapi-and-gradio-web-interfaces",
+    "slug": "4.2-fastapi-and-gradio-web-interfaces",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 17,
+    "title": "Programmatic Python API",
+    "url": "https://deepwiki.com/opendatalab/MinerU/4.3-programmatic-python-api",
+    "path": "/opendatalab/MinerU/4.3-programmatic-python-api",
+    "slug": "4.3-programmatic-python-api",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 18,
+    "title": "Deployment & Infrastructure",
+    "url": "https://deepwiki.com/opendatalab/MinerU/5-deployment-and-infrastructure",
+    "path": "/opendatalab/MinerU/5-deployment-and-infrastructure",
+    "slug": "5-deployment-and-infrastructure",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 19,
+    "title": "Docker Deployment",
+    "url": "https://deepwiki.com/opendatalab/MinerU/5.1-docker-deployment",
+    "path": "/opendatalab/MinerU/5.1-docker-deployment",
+    "slug": "5.1-docker-deployment",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 20,
+    "title": "Hardware Acceleration",
+    "url": "https://deepwiki.com/opendatalab/MinerU/5.2-hardware-acceleration",
+    "path": "/opendatalab/MinerU/5.2-hardware-acceleration",
+    "slug": "5.2-hardware-acceleration",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 21,
+    "title": "Multi-GPU & Enterprise Deployments",
+    "url": "https://deepwiki.com/opendatalab/MinerU/5.3-multi-gpu-and-enterprise-deployments",
+    "path": "/opendatalab/MinerU/5.3-multi-gpu-and-enterprise-deployments",
+    "slug": "5.3-multi-gpu-and-enterprise-deployments",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 22,
+    "title": "Testing & CI/CD",
+    "url": "https://deepwiki.com/opendatalab/MinerU/6-testing-and-cicd",
+    "path": "/opendatalab/MinerU/6-testing-and-cicd",
+    "slug": "6-testing-and-cicd",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 23,
+    "title": "Test Suite",
+    "url": "https://deepwiki.com/opendatalab/MinerU/6.1-test-suite",
+    "path": "/opendatalab/MinerU/6.1-test-suite",
+    "slug": "6.1-test-suite",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 24,
+    "title": "Release Pipeline & Versioning",
+    "url": "https://deepwiki.com/opendatalab/MinerU/6.2-release-pipeline-and-versioning",
+    "path": "/opendatalab/MinerU/6.2-release-pipeline-and-versioning",
+    "slug": "6.2-release-pipeline-and-versioning",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 25,
+    "title": "Ecosystem & Integrations",
+    "url": "https://deepwiki.com/opendatalab/MinerU/7-ecosystem-and-integrations",
+    "path": "/opendatalab/MinerU/7-ecosystem-and-integrations",
+    "slug": "7-ecosystem-and-integrations",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 26,
+    "title": "Office Document Support (DOCX & PPTX)",
+    "url": "https://deepwiki.com/opendatalab/MinerU/7.1-office-document-support-(docx-and-pptx)",
+    "path": "/opendatalab/MinerU/7.1-office-document-support-(docx-and-pptx)",
+    "slug": "7.1-office-document-support-(docx-and-pptx)",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 27,
+    "title": "RAG & Plugin Integrations",
+    "url": "https://deepwiki.com/opendatalab/MinerU/7.2-rag-and-plugin-integrations",
+    "path": "/opendatalab/MinerU/7.2-rag-and-plugin-integrations",
+    "slug": "7.2-rag-and-plugin-integrations",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 28,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/opendatalab/MinerU/8-glossary",
+    "path": "/opendatalab/MinerU/8-glossary",
+    "slug": "8-glossary",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  }
+]

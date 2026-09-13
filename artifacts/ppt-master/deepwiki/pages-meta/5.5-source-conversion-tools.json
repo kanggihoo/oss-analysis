@@ -1,0 +1,28 @@
+{
+  "order": 16,
+  "title": "Source Conversion Tools",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/5.5-source-conversion-tools",
+  "path": "/hugohe3/ppt-master/5.5-source-conversion-tools",
+  "slug": "5.5-source-conversion-tools",
+  "section": "5.5",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "8ad3bc3b56bacd8ba16a75bf8a4e9aadaf0e9b7a8b46c34679367e8b350edf88",
+  "markdown_length": 7651,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "docs/technical-design.md:59-62",
+    "docs/technical-design.md:59-71",
+    "docs/technical-design.md:61",
+    "docs/technical-design.md:61-77",
+    "docs/technical-design.md:64",
+    "docs/technical-design.md:66",
+    "docs/technical-design.md:68",
+    "docs/technical-design.md:68-69",
+    "docs/technical-design.md:69-70"
+  ]
+}

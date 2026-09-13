@@ -1,0 +1,33 @@
+{
+  "order": 8,
+  "title": "SQL Server Connector",
+  "url": "https://deepwiki.com/bytebase/dbhub/3.1-sql-server-connector",
+  "path": "/bytebase/dbhub/3.1-sql-server-connector",
+  "slug": "3.1-sql-server-connector",
+  "section": "3.1",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "e0383933a99458711647437d2765d97224fb42afcc94d96b9dec70af217db997",
+  "markdown_length": 10232,
+  "has_mermaid": true,
+  "mermaid_blocks": 5,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/connectors/interface.ts:59-139",
+    "src/connectors/sqlserver/index.ts:105-117",
+    "src/connectors/sqlserver/index.ts:119-124",
+    "src/connectors/sqlserver/index.ts:126-309",
+    "src/connectors/sqlserver/index.ts:25-38",
+    "src/connectors/sqlserver/index.ts:311-424",
+    "src/connectors/sqlserver/index.ts:41-53",
+    "src/connectors/sqlserver/index.ts:426-450",
+    "src/connectors/sqlserver/index.ts:452-462",
+    "src/connectors/sqlserver/index.ts:465-467",
+    "src/connectors/sqlserver/index.ts:48-50",
+    "src/connectors/sqlserver/index.ts:56-75",
+    "src/connectors/sqlserver/index.ts:9-92",
+    "src/connectors/sqlserver/index.ts:97-463"
+  ]
+}

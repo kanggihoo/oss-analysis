@@ -1,0 +1,29 @@
+{
+  "order": 1,
+  "title": "Overview",
+  "url": "https://deepwiki.com/fivetaku/insane-search/1-overview",
+  "path": "/fivetaku/insane-search/1-overview",
+  "slug": "1-overview",
+  "section": "1",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "2a4cbdd90b191c2ab25142592ffc79f063c87036913e24521e01e7ba2f5c5b34",
+  "markdown_length": 5686,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".claude-plugin/plugin.json:1-4",
+    ".claude-plugin/plugin.json:1-42",
+    "PLATFORMS.md:11-48",
+    "PLATFORMS.md:4-10",
+    "PLATFORMS.md:73-89",
+    "PLATFORMS.md:90-96",
+    "README.md:46-48",
+    "README.md:50-68",
+    "README.md:79-95",
+    "README.md:97-104"
+  ]
+}

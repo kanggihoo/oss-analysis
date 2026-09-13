@@ -1,0 +1,18 @@
+{
+  "order": 6,
+  "title": "Project Scanner & File Discovery",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/2.1-project-scanner-and-file-discovery",
+  "path": "/Egonex-AI/Understand-Anything/2.1-project-scanner-and-file-discovery",
+  "slug": "2.1-project-scanner-and-file-discovery",
+  "section": "2.1",
+  "depth": 1,
+  "parent_section": "2",
+  "matched_chunk_sha256": "2e2befba706c0a5c6b2c2bfcd6d7010431e2b12c7e14b29a1237a6a2d70d9ca1",
+  "markdown_length": 16244,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

@@ -1,0 +1,14 @@
+{
+  "repo": "opendatalab/MinerU",
+  "translation_date": "2026-07-12T02:23:55+09:00",
+  "source_directory": "artifacts/MinerU/deepwiki/pages-md",
+  "target_directory": "deepwiki-ko/MinerU",
+  "total_files_translated": 28,
+  "status": "success",
+  "subagents_used": [
+    "16726b01-71e1-4691-a07f-c0c386102d09",
+    "e3be002f-2dfd-4153-b373-7f8024e9ad02",
+    "d52b35eb-507e-42b1-9d7b-ab45e1f81342",
+    "98441e8b-512b-4c25-bfe1-9340e41816eb"
+  ]
+}

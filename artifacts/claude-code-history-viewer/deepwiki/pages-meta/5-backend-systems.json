@@ -1,0 +1,31 @@
+{
+  "order": 28,
+  "title": "Backend Systems",
+  "url": "https://deepwiki.com/jhlee0409/claude-code-history-viewer/5-backend-systems",
+  "path": "/jhlee0409/claude-code-history-viewer/5-backend-systems",
+  "slug": "5-backend-systems",
+  "section": "5",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "b07e209b2f5647d48b01498aaa04ed12261f0f8a4d694e56c5c2cb138e5cdb28",
+  "markdown_length": 11637,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src-tauri/src/commands/mod.rs:1-14",
+    "src-tauri/src/commands/multi_provider.rs:31-33",
+    "src-tauri/src/commands/project.rs:35-38",
+    "src-tauri/src/lib.rs:1-9",
+    "src-tauri/src/lib.rs:102-109",
+    "src-tauri/src/lib.rs:117-193",
+    "src-tauri/src/lib.rs:13-55",
+    "src-tauri/src/lib.rs:31-38",
+    "src-tauri/src/lib.rs:58-116",
+    "src-tauri/src/lib.rs:60-67",
+    "src-tauri/src/lib.rs:7-9",
+    "src-tauri/src/models.rs:1-20"
+  ]
+}

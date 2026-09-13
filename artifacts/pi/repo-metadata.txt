@@ -1,0 +1,11 @@
+repo: https://github.com/earendil-works/pi
+local_path: /Users/kkh/Desktop/oss-analysis/repos/pi
+captured_at: 2026-06-11T13:38:40Z
+branch: main
+commit: 406a2214aa1dce746a1902605daf04e6727349dc
+remote: https://github.com/earendil-works/pi.git
+
+406a2214aa1dce746a1902605daf04e6727349dc
+Vegard Stikbakke <vegard.stikbakke@gmail.com>
+2026-06-10T19:46:59+02:00
+fix(coding-agent): refine setup copy

@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "HKUDS",
+  "repo": "DeepTutor",
+  "deepwiki_url": "https://deepwiki.com/HKUDS/DeepTutor",
+  "generated_at": "2026-06-19T10:13:26.253437+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/HKUDS/DeepTutor",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 781280,
+    "sha256": "338ad96c7eaf9b3875c02bd0f239d8ac31d1c5ad08a7bac6955c4d086a32f945",
+    "fetched_at": "2026-06-19T10:13:26.088695+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 58,
+  "markdown_chunks_count": 58,
+  "matched_pages_count": 58,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/DeepTutor/deepwiki"
+}

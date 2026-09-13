@@ -1,0 +1,332 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/fivetaku/insane-search/1-overview",
+    "path": "/fivetaku/insane-search/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started & Installation",
+    "url": "https://deepwiki.com/fivetaku/insane-search/1.1-getting-started-and-installation",
+    "path": "/fivetaku/insane-search/1.1-getting-started-and-installation",
+    "slug": "1.1-getting-started-and-installation",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Supported Platforms & Reference Index",
+    "url": "https://deepwiki.com/fivetaku/insane-search/1.2-supported-platforms-and-reference-index",
+    "path": "/fivetaku/insane-search/1.2-supported-platforms-and-reference-index",
+    "slug": "1.2-supported-platforms-and-reference-index",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Legal, Disclaimer & License",
+    "url": "https://deepwiki.com/fivetaku/insane-search/1.3-legal-disclaimer-and-license",
+    "path": "/fivetaku/insane-search/1.3-legal-disclaimer-and-license",
+    "slug": "1.3-legal-disclaimer-and-license",
+    "section": "1.3",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 5,
+    "title": "Architecture Overview",
+    "url": "https://deepwiki.com/fivetaku/insane-search/2-architecture-overview",
+    "path": "/fivetaku/insane-search/2-architecture-overview",
+    "slug": "2-architecture-overview",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 6,
+    "title": "Phase 0→3 Adaptive Escalation Pipeline",
+    "url": "https://deepwiki.com/fivetaku/insane-search/2.1-phase-03-adaptive-escalation-pipeline",
+    "path": "/fivetaku/insane-search/2.1-phase-03-adaptive-escalation-pipeline",
+    "slug": "2.1-phase-03-adaptive-escalation-pipeline",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "The Fetch Chain & Diversity Grid",
+    "url": "https://deepwiki.com/fivetaku/insane-search/2.2-the-fetch-chain-and-diversity-grid",
+    "path": "/fivetaku/insane-search/2.2-the-fetch-chain-and-diversity-grid",
+    "slug": "2.2-the-fetch-chain-and-diversity-grid",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Phase 0: Platform-Specific Official Routes",
+    "url": "https://deepwiki.com/fivetaku/insane-search/2.3-phase-0:-platform-specific-official-routes",
+    "path": "/fivetaku/insane-search/2.3-phase-0:-platform-specific-official-routes",
+    "slug": "2.3-phase-0:-platform-specific-official-routes",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "Response Validation & WAF Detection",
+    "url": "https://deepwiki.com/fivetaku/insane-search/2.4-response-validation-and-waf-detection",
+    "path": "/fivetaku/insane-search/2.4-response-validation-and-waf-detection",
+    "slug": "2.4-response-validation-and-waf-detection",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 10,
+    "title": "Core Engine Modules",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3-core-engine-modules",
+    "path": "/fivetaku/insane-search/3-core-engine-modules",
+    "slug": "3-core-engine-modules",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 11,
+    "title": "Transport Layer & Session Pool",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3.1-transport-layer-and-session-pool",
+    "path": "/fivetaku/insane-search/3.1-transport-layer-and-session-pool",
+    "slug": "3.1-transport-layer-and-session-pool",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "TLS Impersonation & URL Transforms",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3.2-tls-impersonation-and-url-transforms",
+    "path": "/fivetaku/insane-search/3.2-tls-impersonation-and-url-transforms",
+    "slug": "3.2-tls-impersonation-and-url-transforms",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Playwright Executor & Browser Templates",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3.3-playwright-executor-and-browser-templates",
+    "path": "/fivetaku/insane-search/3.3-playwright-executor-and-browser-templates",
+    "slug": "3.3-playwright-executor-and-browser-templates",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 14,
+    "title": "Self-Learning Store",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3.4-self-learning-store",
+    "path": "/fivetaku/insane-search/3.4-self-learning-store",
+    "slug": "3.4-self-learning-store",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 15,
+    "title": "Safety & SSRF Guard",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3.5-safety-and-ssrf-guard",
+    "path": "/fivetaku/insane-search/3.5-safety-and-ssrf-guard",
+    "slug": "3.5-safety-and-ssrf-guard",
+    "section": "3.5",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 16,
+    "title": "Bias Check & No-Site-Name Rule",
+    "url": "https://deepwiki.com/fivetaku/insane-search/3.6-bias-check-and-no-site-name-rule",
+    "path": "/fivetaku/insane-search/3.6-bias-check-and-no-site-name-rule",
+    "slug": "3.6-bias-check-and-no-site-name-rule",
+    "section": "3.6",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 17,
+    "title": "Reference Guides",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4-reference-guides",
+    "path": "/fivetaku/insane-search/4-reference-guides",
+    "slug": "4-reference-guides",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 18,
+    "title": "JSON APIs & RSS Feeds",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4.1-json-apis-and-rss-feeds",
+    "path": "/fivetaku/insane-search/4.1-json-apis-and-rss-feeds",
+    "slug": "4.1-json-apis-and-rss-feeds",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 19,
+    "title": "Public APIs (Bluesky, Mastodon, Stack Overflow, arXiv, GitHub)",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4.2-public-apis-(bluesky-mastodon-stack-overflow-arxiv-github)",
+    "path": "/fivetaku/insane-search/4.2-public-apis-(bluesky-mastodon-stack-overflow-arxiv-github)",
+    "slug": "4.2-public-apis-(bluesky-mastodon-stack-overflow-arxiv-github)",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 20,
+    "title": "Media Extraction (yt-dlp)",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4.3-media-extraction-(yt-dlp)",
+    "path": "/fivetaku/insane-search/4.3-media-extraction-(yt-dlp)",
+    "slug": "4.3-media-extraction-(yt-dlp)",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 21,
+    "title": "Jina Reader Integration",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4.4-jina-reader-integration",
+    "path": "/fivetaku/insane-search/4.4-jina-reader-integration",
+    "slug": "4.4-jina-reader-integration",
+    "section": "4.4",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 22,
+    "title": "Cache & Archive Fallbacks",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4.5-cache-and-archive-fallbacks",
+    "path": "/fivetaku/insane-search/4.5-cache-and-archive-fallbacks",
+    "slug": "4.5-cache-and-archive-fallbacks",
+    "section": "4.5",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 23,
+    "title": "Metadata Extraction (OGP & JSON-LD)",
+    "url": "https://deepwiki.com/fivetaku/insane-search/4.6-metadata-extraction-(ogp-and-json-ld)",
+    "path": "/fivetaku/insane-search/4.6-metadata-extraction-(ogp-and-json-ld)",
+    "slug": "4.6-metadata-extraction-(ogp-and-json-ld)",
+    "section": "4.6",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 24,
+    "title": "WAF Profiles & Detection",
+    "url": "https://deepwiki.com/fivetaku/insane-search/5-waf-profiles-and-detection",
+    "path": "/fivetaku/insane-search/5-waf-profiles-and-detection",
+    "slug": "5-waf-profiles-and-detection",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "WAF Profile Schema & Configuration",
+    "url": "https://deepwiki.com/fivetaku/insane-search/5.1-waf-profile-schema-and-configuration",
+    "path": "/fivetaku/insane-search/5.1-waf-profile-schema-and-configuration",
+    "slug": "5.1-waf-profile-schema-and-configuration",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 26,
+    "title": "WAF Vendor Profiles: Akamai, Cloudflare, DataDome, PerimeterX",
+    "url": "https://deepwiki.com/fivetaku/insane-search/5.2-waf-vendor-profiles:-akamai-cloudflare-datadome-perimeterx",
+    "path": "/fivetaku/insane-search/5.2-waf-vendor-profiles:-akamai-cloudflare-datadome-perimeterx",
+    "slug": "5.2-waf-vendor-profiles:-akamai-cloudflare-datadome-perimeterx",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 27,
+    "title": "Setup & Plugin Infrastructure",
+    "url": "https://deepwiki.com/fivetaku/insane-search/6-setup-and-plugin-infrastructure",
+    "path": "/fivetaku/insane-search/6-setup-and-plugin-infrastructure",
+    "slug": "6-setup-and-plugin-infrastructure",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 28,
+    "title": "First-Run Setup Script",
+    "url": "https://deepwiki.com/fivetaku/insane-search/6.1-first-run-setup-script",
+    "path": "/fivetaku/insane-search/6.1-first-run-setup-script",
+    "slug": "6.1-first-run-setup-script",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 29,
+    "title": "Update Notifier Hook",
+    "url": "https://deepwiki.com/fivetaku/insane-search/6.2-update-notifier-hook",
+    "path": "/fivetaku/insane-search/6.2-update-notifier-hook",
+    "slug": "6.2-update-notifier-hook",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 30,
+    "title": "Testing",
+    "url": "https://deepwiki.com/fivetaku/insane-search/7-testing",
+    "path": "/fivetaku/insane-search/7-testing",
+    "slug": "7-testing",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 31,
+    "title": "Unit Tests",
+    "url": "https://deepwiki.com/fivetaku/insane-search/7.1-unit-tests",
+    "path": "/fivetaku/insane-search/7.1-unit-tests",
+    "slug": "7.1-unit-tests",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 32,
+    "title": "Coverage Battery & Integration Tests",
+    "url": "https://deepwiki.com/fivetaku/insane-search/7.2-coverage-battery-and-integration-tests",
+    "path": "/fivetaku/insane-search/7.2-coverage-battery-and-integration-tests",
+    "slug": "7.2-coverage-battery-and-integration-tests",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 33,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/fivetaku/insane-search/8-glossary",
+    "path": "/fivetaku/insane-search/8-glossary",
+    "slug": "8-glossary",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  }
+]

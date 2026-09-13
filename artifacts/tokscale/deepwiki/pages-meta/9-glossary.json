@@ -1,0 +1,32 @@
+{
+  "order": 44,
+  "title": "Glossary",
+  "url": "https://deepwiki.com/junhoyeo/tokscale/9-glossary",
+  "path": "/junhoyeo/tokscale/9-glossary",
+  "slug": "9-glossary",
+  "section": "9",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "98747a61be42c6f5a1c24c637d34614af72eb24b4fde18aac1b05522a303547d",
+  "markdown_length": 8657,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:9-14",
+    "crates/tokscale-cli/src/main.rs:198-203",
+    "crates/tokscale-cli/src/main.rs:205-215",
+    "crates/tokscale-cli/src/tui/data/mod.rs:151-156",
+    "crates/tokscale-cli/src/tui/data/mod.rs:161-176",
+    "crates/tokscale-core/src/lib.rs:100-106",
+    "crates/tokscale-core/src/lib.rs:138-144",
+    "crates/tokscale-core/src/lib.rs:15",
+    "crates/tokscale-core/src/lib.rs:205-215",
+    "crates/tokscale-core/src/pricing/lookup.rs:172-215",
+    "crates/tokscale-core/src/scanner.rs:37-39",
+    "crates/tokscale-core/src/scanner.rs:59-77",
+    "crates/tokscale-core/src/sessions/mod.rs:33-52"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "order": 21,
+  "title": "Icon Library",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/6.2-icon-library",
+  "path": "/hugohe3/ppt-master/6.2-icon-library",
+  "slug": "6.2-icon-library",
+  "section": "6.2",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "f38696dadd80d9bdfaa648b73589bd4bc207f3cef334238b43e23b24a9b36a54",
+  "markdown_length": 8855,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 5,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "docs/technical-design.md:105-106",
+    "docs/technical-design.md:15-17",
+    "docs/technical-design.md:34-34",
+    "docs/technical-design.md:80-80",
+    "docs/technical-design.md:81-86",
+    "docs/technical-design.md:83-86",
+    "docs/templates-architecture.md:105-107",
+    "docs/templates-architecture.md:109-111",
+    "docs/templates-architecture.md:17-18",
+    "docs/templates-architecture.md:22-22",
+    "docs/templates-architecture.md:26-26",
+    "docs/templates-architecture.md:95-96"
+  ]
+}

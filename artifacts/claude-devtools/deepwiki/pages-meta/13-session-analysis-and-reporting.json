@@ -1,0 +1,21 @@
+{
+  "order": 42,
+  "title": "Session Analysis & Reporting",
+  "url": "https://deepwiki.com/matt1398/claude-devtools/13-session-analysis-and-reporting",
+  "path": "/matt1398/claude-devtools/13-session-analysis-and-reporting",
+  "slug": "13-session-analysis-and-reporting",
+  "section": "13",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "bee043512ba1efc99155d5eefc12d9890128d8a3027808f2008ca9fd4f20ca93",
+  "markdown_length": 3685,
+  "has_mermaid": true,
+  "mermaid_blocks": 1,
+  "fenced_code_blocks": 1,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "CONTRIBUTING.md:11-12",
+    "CONTRIBUTING.md:7-13"
+  ]
+}

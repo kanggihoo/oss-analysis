@@ -1,0 +1,332 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/1-overview",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/1.1-getting-started",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/1.1-getting-started",
+    "slug": "1.1-getting-started",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "System Architecture",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/1.2-system-architecture",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/1.2-system-architecture",
+    "slug": "1.2-system-architecture",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "uipro-cli Tool",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/2-uipro-cli-tool",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/2-uipro-cli-tool",
+    "slug": "2-uipro-cli-tool",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "CLI Commands",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/2.1-cli-commands",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/2.1-cli-commands",
+    "slug": "2.1-cli-commands",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "Installation Flow",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/2.2-installation-flow",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/2.2-installation-flow",
+    "slug": "2.2-installation-flow",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Platform Detection",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/2.3-platform-detection",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/2.3-platform-detection",
+    "slug": "2.3-platform-detection",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Template Generation",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/2.4-template-generation",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/2.4-template-generation",
+    "slug": "2.4-template-generation",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "UI/UX Pro Max Skill",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/3-uiux-pro-max-skill",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/3-uiux-pro-max-skill",
+    "slug": "3-uiux-pro-max-skill",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 10,
+    "title": "Skill Workflow",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/3.1-skill-workflow",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/3.1-skill-workflow",
+    "slug": "3.1-skill-workflow",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "Search Domains and Stacks",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/3.2-search-domains-and-stacks",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/3.2-search-domains-and-stacks",
+    "slug": "3.2-search-domains-and-stacks",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Pre-Delivery Checklist",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/3.3-pre-delivery-checklist",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/3.3-pre-delivery-checklist",
+    "slug": "3.3-pre-delivery-checklist",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Design Database",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/4-design-database",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/4-design-database",
+    "slug": "4-design-database",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 14,
+    "title": "CSV Data Structure",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/4.1-csv-data-structure",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/4.1-csv-data-structure",
+    "slug": "4.1-csv-data-structure",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 15,
+    "title": "Reasoning Rules",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/4.2-reasoning-rules",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/4.2-reasoning-rules",
+    "slug": "4.2-reasoning-rules",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "Stack-Specific Guidelines",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/4.3-stack-specific-guidelines",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/4.3-stack-specific-guidelines",
+    "slug": "4.3-stack-specific-guidelines",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 17,
+    "title": "Search Engine",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/5-search-engine",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/5-search-engine",
+    "slug": "5-search-engine",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 18,
+    "title": "BM25 Algorithm Implementation",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/5.1-bm25-algorithm-implementation",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/5.1-bm25-algorithm-implementation",
+    "slug": "5.1-bm25-algorithm-implementation",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 19,
+    "title": "search.py CLI Interface",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/5.2-search.py-cli-interface",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/5.2-search.py-cli-interface",
+    "slug": "5.2-search.py-cli-interface",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 20,
+    "title": "Domain Detection and Configuration",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/5.3-domain-detection-and-configuration",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/5.3-domain-detection-and-configuration",
+    "slug": "5.3-domain-detection-and-configuration",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 21,
+    "title": "Design System Generator",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/6-design-system-generator",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/6-design-system-generator",
+    "slug": "6-design-system-generator",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 22,
+    "title": "Generation Pipeline",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/6.1-generation-pipeline",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/6.1-generation-pipeline",
+    "slug": "6.1-generation-pipeline",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 23,
+    "title": "Master + Overrides Pattern",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/6.2-master-+-overrides-pattern",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/6.2-master-+-overrides-pattern",
+    "slug": "6.2-master-+-overrides-pattern",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 24,
+    "title": "Persistence and File Structure",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/6.3-persistence-and-file-structure",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/6.3-persistence-and-file-structure",
+    "slug": "6.3-persistence-and-file-structure",
+    "section": "6.3",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 25,
+    "title": "Platform Integration",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/7-platform-integration",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/7-platform-integration",
+    "slug": "7-platform-integration",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 26,
+    "title": "Platform Configuration System",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/7.1-platform-configuration-system",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/7.1-platform-configuration-system",
+    "slug": "7.1-platform-configuration-system",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 27,
+    "title": "Skill vs Workflow Modes",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/7.2-skill-vs-workflow-modes",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/7.2-skill-vs-workflow-modes",
+    "slug": "7.2-skill-vs-workflow-modes",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 28,
+    "title": "Claude Marketplace Integration",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/7.3-claude-marketplace-integration",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/7.3-claude-marketplace-integration",
+    "slug": "7.3-claude-marketplace-integration",
+    "section": "7.3",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 29,
+    "title": "Development Guide",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/8-development-guide",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/8-development-guide",
+    "slug": "8-development-guide",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 30,
+    "title": "Source of Truth and Sync Rules",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/8.1-source-of-truth-and-sync-rules",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/8.1-source-of-truth-and-sync-rules",
+    "slug": "8.1-source-of-truth-and-sync-rules",
+    "section": "8.1",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 31,
+    "title": "Adding New Platforms",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/8.2-adding-new-platforms",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/8.2-adding-new-platforms",
+    "slug": "8.2-adding-new-platforms",
+    "section": "8.2",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 32,
+    "title": "Testing and Contributing",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/8.3-testing-and-contributing",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/8.3-testing-and-contributing",
+    "slug": "8.3-testing-and-contributing",
+    "section": "8.3",
+    "depth": 1,
+    "parent_section": "8"
+  },
+  {
+    "order": 33,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/9-glossary",
+    "path": "/nextlevelbuilder/ui-ux-pro-max-skill/9-glossary",
+    "slug": "9-glossary",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  }
+]

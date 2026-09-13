@@ -1,0 +1,33 @@
+{
+  "order": 21,
+  "title": "Design System Generator",
+  "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/6-design-system-generator",
+  "path": "/nextlevelbuilder/ui-ux-pro-max-skill/6-design-system-generator",
+  "slug": "6-design-system-generator",
+  "section": "6",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "4a623ad1e5d7a7949293094a7d71356bed3bad44150da89691602edc7dfcacba",
+  "markdown_length": 8429,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "cli/assets/scripts/core.py:89-150",
+    "cli/assets/scripts/design_system.py:37-237",
+    "src/ui-ux-pro-max/scripts/design_system.py:1-14",
+    "src/ui-ux-pro-max/scripts/design_system.py:163-236",
+    "src/ui-ux-pro-max/scripts/design_system.py:24-33",
+    "src/ui-ux-pro-max/scripts/design_system.py:27-33",
+    "src/ui-ux-pro-max/scripts/design_system.py:37-163",
+    "src/ui-ux-pro-max/scripts/design_system.py:37-236",
+    "src/ui-ux-pro-max/scripts/design_system.py:37-237",
+    "src/ui-ux-pro-max/scripts/design_system.py:491-539",
+    "src/ui-ux-pro-max/scripts/design_system.py:542-802",
+    "src/ui-ux-pro-max/scripts/design_system.py:805-911",
+    "src/ui-ux-pro-max/scripts/design_system.py:914-1017",
+    "src/ui-ux-pro-max/scripts/design_system.py:914-1052"
+  ]
+}

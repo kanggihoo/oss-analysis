@@ -1,0 +1,29 @@
+{
+  "order": 2,
+  "title": "Installation and Usage",
+  "url": "https://deepwiki.com/peers/peerjs/1.1-installation-and-usage",
+  "path": "/peers/peerjs/1.1-installation-and-usage",
+  "slug": "1.1-installation-and-usage",
+  "section": "1.1",
+  "depth": 1,
+  "parent_section": "1",
+  "matched_chunk_sha256": "56fef3c752708b13573fe53eaee9a28be9dbc77349b63d458d83e4226900107a",
+  "markdown_length": 11046,
+  "has_mermaid": true,
+  "mermaid_blocks": 5,
+  "fenced_code_blocks": 18,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:121-132",
+    "README.md:142-143",
+    "README.md:30-114",
+    "README.md:33-42",
+    "README.md:44-49",
+    "README.md:51-73",
+    "README.md:76-112",
+    "package.json:138-160",
+    "package.json:206-210",
+    "package.json:207-210"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "order": 24,
+  "title": "Release Pipeline & Versioning",
+  "url": "https://deepwiki.com/opendatalab/MinerU/6.2-release-pipeline-and-versioning",
+  "path": "/opendatalab/MinerU/6.2-release-pipeline-and-versioning",
+  "slug": "6.2-release-pipeline-and-versioning",
+  "section": "6.2",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "e8772e871ac96537e1d0f7a33107a3ddf2df94b158861df7475e589e30e790d3",
+  "markdown_length": 9660,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

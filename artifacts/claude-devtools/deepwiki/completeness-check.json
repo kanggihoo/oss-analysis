@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-06-16T22:14:46.302528+00:00",
+  "repo": "matt1398/claude-devtools",
+  "deepwiki_dir": "/Users/kkh/Desktop/oss-analysis/artifacts/claude-devtools/deepwiki",
+  "manifest_toc_count": 54,
+  "manifest_missing_pages_count": 0,
+  "manifest_missing_pages": [],
+  "filesystem_toc_count": 54,
+  "filesystem_pages_md_count": 54,
+  "filesystem_pages_meta_count": 54,
+  "filesystem_missing_md_count": 0,
+  "filesystem_missing_md": [],
+  "filesystem_missing_meta_count": 0,
+  "filesystem_missing_meta": [],
+  "complete": true
+}

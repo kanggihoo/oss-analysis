@@ -1,0 +1,12 @@
+repo_url: https://github.com/DietrichGebert/ponytail
+local_path: /Users/kkh/Desktop/oss-analysis/repos/ponytail
+branch: main
+head_sha: 6da37bfa7d0282522c7785759f4d2f1544015354
+describe: v4.7.0-43-g6da37bf
+remote_url: https://github.com/DietrichGebert/ponytail.git
+status: 0 dirty entries
+latest_commit:
+  6da37bfa7d0282522c7785759f4d2f1544015354
+  Rajaul Uddin <110954532+uddin-rajaul@users.noreply.github.com>
+  2026-06-21T06:08:17+05:45
+  fix: bump @modelcontextprotocol/sdk to ^1.26.0 (CVE-2026-25536) (#208)

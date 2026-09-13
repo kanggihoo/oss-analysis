@@ -1,0 +1,33 @@
+{
+  "order": 39,
+  "title": "Build Pipeline and Native Module Compilation",
+  "url": "https://deepwiki.com/junhoyeo/tokscale/7.2-build-pipeline-and-native-module-compilation",
+  "path": "/junhoyeo/tokscale/7.2-build-pipeline-and-native-module-compilation",
+  "slug": "7.2-build-pipeline-and-native-module-compilation",
+  "section": "7.2",
+  "depth": 1,
+  "parent_section": "7",
+  "matched_chunk_sha256": "b796b8ce75ce5a8346aa4c8ba039bf57318e8ee435fe8ce8e35ae5e3da8fce19",
+  "markdown_length": 8605,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".../.github/workflows/publish-cli.yml:159-223",
+    ".../.github/workflows/publish-cli.yml:65-115",
+    ".github/workflows/build-native.yml:24-63",
+    ".github/workflows/build-native.yml:84-95",
+    ".github/workflows/publish-cli.yml:225-349",
+    ".github/workflows/publish-cli.yml:34-139",
+    ".github/workflows/publish-cli.yml:66-74",
+    ".github/workflows/test_coverage.yml:50-51",
+    "Cargo.toml:1-6",
+    "Cargo.toml:88-93",
+    "packages/cli-linux-arm64-gnu/package.json:2-15",
+    "packages/cli/bin.js:1-12",
+    "packages/tokscale/bin.js:1-16",
+    "scripts/check-version-coherence.sh:1-10"
+  ]
+}

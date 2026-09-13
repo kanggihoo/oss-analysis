@@ -1,0 +1,212 @@
+[
+  {
+    "order": 1,
+    "title": "DBHub Overview",
+    "url": "https://deepwiki.com/bytebase/dbhub/1-dbhub-overview",
+    "path": "/bytebase/dbhub/1-dbhub-overview",
+    "slug": "1-dbhub-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Installation and Quick Start",
+    "url": "https://deepwiki.com/bytebase/dbhub/1.1-installation-and-quick-start",
+    "path": "/bytebase/dbhub/1.1-installation-and-quick-start",
+    "slug": "1.1-installation-and-quick-start",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Architecture Overview",
+    "url": "https://deepwiki.com/bytebase/dbhub/1.2-architecture-overview",
+    "path": "/bytebase/dbhub/1.2-architecture-overview",
+    "slug": "1.2-architecture-overview",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Core Components",
+    "url": "https://deepwiki.com/bytebase/dbhub/2-core-components",
+    "path": "/bytebase/dbhub/2-core-components",
+    "slug": "2-core-components",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "Server Implementation",
+    "url": "https://deepwiki.com/bytebase/dbhub/2.1-server-implementation",
+    "path": "/bytebase/dbhub/2.1-server-implementation",
+    "slug": "2.1-server-implementation",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "Connector System",
+    "url": "https://deepwiki.com/bytebase/dbhub/2.2-connector-system",
+    "path": "/bytebase/dbhub/2.2-connector-system",
+    "slug": "2.2-connector-system",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Database Connectors",
+    "url": "https://deepwiki.com/bytebase/dbhub/3-database-connectors",
+    "path": "/bytebase/dbhub/3-database-connectors",
+    "slug": "3-database-connectors",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 8,
+    "title": "SQL Server Connector",
+    "url": "https://deepwiki.com/bytebase/dbhub/3.1-sql-server-connector",
+    "path": "/bytebase/dbhub/3.1-sql-server-connector",
+    "slug": "3.1-sql-server-connector",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 9,
+    "title": "MySQL and MariaDB Connectors",
+    "url": "https://deepwiki.com/bytebase/dbhub/3.2-mysql-and-mariadb-connectors",
+    "path": "/bytebase/dbhub/3.2-mysql-and-mariadb-connectors",
+    "slug": "3.2-mysql-and-mariadb-connectors",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 10,
+    "title": "PostgreSQL Connector",
+    "url": "https://deepwiki.com/bytebase/dbhub/3.3-postgresql-connector",
+    "path": "/bytebase/dbhub/3.3-postgresql-connector",
+    "slug": "3.3-postgresql-connector",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "SQLite Connector",
+    "url": "https://deepwiki.com/bytebase/dbhub/3.4-sqlite-connector",
+    "path": "/bytebase/dbhub/3.4-sqlite-connector",
+    "slug": "3.4-sqlite-connector",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Server Features",
+    "url": "https://deepwiki.com/bytebase/dbhub/4-server-features",
+    "path": "/bytebase/dbhub/4-server-features",
+    "slug": "4-server-features",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 13,
+    "title": "Resource Endpoints",
+    "url": "https://deepwiki.com/bytebase/dbhub/4.1-resource-endpoints",
+    "path": "/bytebase/dbhub/4.1-resource-endpoints",
+    "slug": "4.1-resource-endpoints",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 14,
+    "title": "Tools",
+    "url": "https://deepwiki.com/bytebase/dbhub/4.2-tools",
+    "path": "/bytebase/dbhub/4.2-tools",
+    "slug": "4.2-tools",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 15,
+    "title": "Prompts and AI Features",
+    "url": "https://deepwiki.com/bytebase/dbhub/4.3-prompts-and-ai-features",
+    "path": "/bytebase/dbhub/4.3-prompts-and-ai-features",
+    "slug": "4.3-prompts-and-ai-features",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 16,
+    "title": "Configuration and Demo Mode",
+    "url": "https://deepwiki.com/bytebase/dbhub/5-configuration-and-demo-mode",
+    "path": "/bytebase/dbhub/5-configuration-and-demo-mode",
+    "slug": "5-configuration-and-demo-mode",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 17,
+    "title": "Environment Configuration",
+    "url": "https://deepwiki.com/bytebase/dbhub/5.1-environment-configuration",
+    "path": "/bytebase/dbhub/5.1-environment-configuration",
+    "slug": "5.1-environment-configuration",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 18,
+    "title": "Demo Database",
+    "url": "https://deepwiki.com/bytebase/dbhub/5.2-demo-database",
+    "path": "/bytebase/dbhub/5.2-demo-database",
+    "slug": "5.2-demo-database",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 19,
+    "title": "Deployment",
+    "url": "https://deepwiki.com/bytebase/dbhub/6-deployment",
+    "path": "/bytebase/dbhub/6-deployment",
+    "slug": "6-deployment",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 20,
+    "title": "Docker Deployment",
+    "url": "https://deepwiki.com/bytebase/dbhub/6.1-docker-deployment",
+    "path": "/bytebase/dbhub/6.1-docker-deployment",
+    "slug": "6.1-docker-deployment",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 21,
+    "title": "NPM Packaging",
+    "url": "https://deepwiki.com/bytebase/dbhub/6.2-npm-packaging",
+    "path": "/bytebase/dbhub/6.2-npm-packaging",
+    "slug": "6.2-npm-packaging",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  }
+]

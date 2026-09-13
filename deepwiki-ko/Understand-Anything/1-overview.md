@@ -186,3 +186,18 @@ Understand Anything은 코드베이스와 생성된 지식 그래프와 상호�
 모든 사용자 대상 슬래시 명령, 인자, 플래그, 예상 출력에 대한 전체 참조는 [스킬 참조](#1.3)를 참조하세요.
 
 출처: [README.md:116](), [README.md:140](), [README.md:144-160]()
+
+
+
+요청하신 디렉토리 경로 수정(`details/` 하위가 아닌 `/Users/kkh/Desktop/ssafy-A502/analize/graphify/` 하위에 직접 생성)과 **`index.md` 통합 가이드 문서 생성 지침**을 추가하여 최종 프롬프트를 완성했습니다.
+
+### 🔄 추가된 사항:
+1. **출력 저장 위치 변경**: 분석 파일들이 `/Users/kkh/Desktop/ssafy-A502/analize/graphify/` 경로 바로 밑에 생성되도록 명시했습니다.
+2. **`index.md` 생성 지침 추가**:
+   - **전체 요약**: 14개 이상의 `.py` 파일들의 전체 구조와 흐름 요약
+   - **모듈 간 상호 관계**: Mermaid 다이어그램을 활용한 실제 소스 코드 파일 간의 상호작용 및 데이터 흐름 가시화
+   - **읽기 가이드**: 개별 `.md` 분석 리포트를 유기적으로 읽어 나갈 수 있는 추천 읽기 순서 및 로드맵 가이드 제공
+
+아래의 최신 프롬프트를 복사하여 `/goal` 명령과 함께 사용해 주시면 됩니다. 아티팩트 파일 [graphify_analysis_goal_prompt.md](file:///Users/kkh/.gemini/antigravity-cli/brain/d888623d-f388-47b2-88f3-5e60529b30b0/graphify_analysis_goal_prompt.md)도 이 내용으로 최종 수정되었습니다.
+
+---

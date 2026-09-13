@@ -1,0 +1,1 @@
+The analyzer stores raw outputs in an artifacts directory and writes a human-facing report after important claims are verified against the actual source files.

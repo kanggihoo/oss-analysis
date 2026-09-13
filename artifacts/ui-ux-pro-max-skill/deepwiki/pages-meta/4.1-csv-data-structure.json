@@ -1,0 +1,32 @@
+{
+  "order": 14,
+  "title": "CSV Data Structure",
+  "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/4.1-csv-data-structure",
+  "path": "/nextlevelbuilder/ui-ux-pro-max-skill/4.1-csv-data-structure",
+  "slug": "4.1-csv-data-structure",
+  "section": "4.1",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "9e1335cfbc079adbe3a8207153f80ed4b9cb419d0c2dbc3e917e2a6d8a31db1f",
+  "markdown_length": 10813,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 6,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/ui-ux-pro-max/data/stacks/shadcn.csv:1-5",
+    "src/ui-ux-pro-max/scripts/core.py:1-92",
+    "src/ui-ux-pro-max/scripts/core.py:14",
+    "src/ui-ux-pro-max/scripts/core.py:17-73",
+    "src/ui-ux-pro-max/scripts/core.py:17-98",
+    "src/ui-ux-pro-max/scripts/core.py:18-22",
+    "src/ui-ux-pro-max/scripts/core.py:239",
+    "src/ui-ux-pro-max/scripts/core.py:63-67",
+    "src/ui-ux-pro-max/scripts/core.py:75-92",
+    "src/ui-ux-pro-max/scripts/core.py:75-98",
+    "src/ui-ux-pro-max/scripts/core.py:95-98",
+    "src/ui-ux-pro-max/scripts/search.py:108-114",
+    "src/ui-ux-pro-max/scripts/search.py:30-53"
+  ]
+}

@@ -12,13 +12,14 @@ Current canonical workspace boundary:
 
 ```text
 /Users/kkh/Desktop/oss-analysis/
-├── AGENTS.md
-├── OSS_ANALYSIS_WORKFLOW.md
-├── scripts/
-├── repos/       # local source checkouts; primary evidence
-├── artifacts/   # raw analyzer/external-baseline outputs; evidence candidates
-├── reports/     # human-facing repo reports; currently may be empty until new analysis
-└── wiki/        # this LLM Wiki; durable synthesis and cross-links
+├── AGENTS.md                    # AI의 필수 작업 규칙
+├── OSS_ANALYSIS_WORKFLOW.md      # 분석·기록 절차
+├── templates/                   # 요청·보고서 템플릿
+├── scripts/                     # 분석·검증 보조 도구
+├── repos/                       # local source checkouts; primary evidence
+├── artifacts/                   # raw analyzer/external-baseline outputs; evidence candidates
+├── reports/                     # 레포별 상세 분석 (overview, next, diagrams, questions)
+└── wiki/                        # this LLM Wiki; durable synthesis and cross-links
 ```
 
 ## Directory layout
@@ -49,8 +50,8 @@ wiki/
 `raw/` stores immutable source captures only when a source must be preserved inside the wiki. In this workspace, repo checkouts and analyzer outputs already have canonical homes outside the wiki:
 
 - Source code: `repos/<repo>/`
-- DeepWiki/static/graphify/Understand-Anything outputs: `artifacts/<repo>/`
-- Human reports: `reports/<repo>/`
+- DeepWiki/static-analysis outputs: `artifacts/<repo>/`
+- Detailed reports: `reports/<repo>/`
 
 Therefore, do not duplicate large repo or artifact trees into `wiki/raw/` by default. Prefer source references in frontmatter and only create raw snapshots for small web articles, pasted notes, or source documents that do not already have a stable workspace path.
 
@@ -77,7 +78,7 @@ Therefore, do not duplicate large repo or artifact trees into `wiki/raw/` by def
 - Tags must come from the taxonomy below. Add a tag here before using it.
 - Keep pages scannable. Split pages that exceed roughly 200 lines.
 - Do not create pages for transient task progress; use the session transcript for that.
-- DeepWiki, graphify, and Understand-Anything are second opinions, not authorities.
+- DeepWiki and analyzer outputs are second opinions, not authorities.
 - Important claims must be verified against `repos/<repo>/` source files before being treated as facts.
 - If a page is based on an analyzer artifact only, set `confidence: low` or `medium` and state what has not been verified.
 
@@ -192,8 +193,7 @@ Primary evidence:
 Secondary evidence:
 
 - `artifacts/<repo>/deepwiki/`.
-- `artifacts/<repo>/graphify/`.
-- `artifacts/<repo>/understand-anything/`.
+- `artifacts/<repo>/static-analysis/`.
 - Existing report drafts.
 
 Rules:

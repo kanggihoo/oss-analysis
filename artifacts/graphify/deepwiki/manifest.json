@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "safishamsi",
+  "repo": "graphify",
+  "deepwiki_url": "https://deepwiki.com/safishamsi/graphify",
+  "generated_at": "2026-06-09T13:50:54.109150+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/safishamsi/graphify",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 464725,
+    "sha256": "21504cbe354cda5a54f1084287f8ef392c7318eee97c9e556684f0e884c3aa77",
+    "fetched_at": "2026-06-09T13:50:54.047767+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 37,
+  "markdown_chunks_count": 37,
+  "matched_pages_count": 37,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/graphify/deepwiki"
+}

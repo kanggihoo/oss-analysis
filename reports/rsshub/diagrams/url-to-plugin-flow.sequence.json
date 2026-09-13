@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RSSHub URL → Plugin Dispatch",
+    "subtitle": "GET /github/activity/DIYgod",
+    "output": "url-to-plugin-flow.html",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [820, 480],
+    "views": [
+      { "id": "matching", "label": "Namespace + path matching", "focus": ["client", "registry", "plugin"], "note": "Two-level match: namespace decides the basePath, route path decides the handler inside it." },
+      { "id": "fetch-render", "label": "Fetch and render", "focus": ["plugin", "github", "template"], "note": "The plugin itself decides how to fetch (HTTP or browser); template renders the common output." }
+    ]
+  },
+  "participants": [
+    { "id": "client", "type": "external", "label": "Client", "sublabel": "RSS reader" },
+    { "id": "registry", "type": "backend", "label": "registry.ts", "sublabel": "URL router" },
+    { "id": "plugin", "type": "backend", "label": "activity.ts", "sublabel": "routes/github plugin" },
+    { "id": "github", "type": "external", "label": "github.com", "sublabel": "target site" },
+    { "id": "template", "type": "backend", "label": "template mw", "sublabel": "renders feed" }
+  ],
+  "segments": [
+    { "from": 165, "to": 210, "label": "URL → plugin match" },
+    { "from": 230, "to": 350, "label": "Fetch + render" }
+  ],
+  "messages": [
+    { "id": "req", "from": "client", "to": "registry", "y": 185, "label": "GET /github/activity/DIYgod", "variant": "emphasis", "note": "namespace = first path segment ('github')" },
+    { "id": "dispatch", "from": "registry", "to": "plugin", "y": 225, "label": "match '/github'+'/activity/:user' → dispatch", "variant": "default", "note": "lazy import via routeData.module() if unloaded" },
+    { "id": "fetch", "from": "plugin", "to": "github", "y": 265, "label": "GET DIYgod.atom (ofetch)", "variant": "emphasis" },
+    { "id": "atom", "from": "github", "to": "plugin", "y": 300, "label": "Atom XML", "variant": "return" },
+    { "id": "items", "from": "plugin", "to": "template", "y": 330, "label": "{ title, item[] }", "variant": "default" },
+    { "id": "resp", "from": "template", "to": "client", "y": 360, "label": "200 RSS / Atom / JSON", "variant": "return" }
+  ],
+  "activations": [
+    { "participant": "registry", "from": 180, "to": 230, "type": "backend" },
+    { "participant": "plugin", "from": 220, "to": 335, "type": "backend" },
+    { "participant": "github", "from": 260, "to": 305, "type": "external" },
+    { "participant": "template", "from": 325, "to": 365, "type": "backend" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "URL shape", "items": ["/<namespace>/<route-path>: namespace = lib/routes folder, route-path = pattern in its file"] },
+    { "dot": "amber", "title": "\"Plugin\"", "items": ["Each routes/<site>/*.ts self-declares its path+handler; registry.ts only mounts them"] },
+    { "dot": "rose", "title": "Not shown", "items": ["cache/parameter middleware; browser vs ofetch is the plugin's own choice"] }
+  ]
+}

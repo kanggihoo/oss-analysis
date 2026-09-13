@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "bytebase",
+  "repo": "dbhub",
+  "deepwiki_url": "https://deepwiki.com/bytebase/dbhub",
+  "generated_at": "2026-07-03T10:30:43.885563+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/bytebase/dbhub",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 387907,
+    "sha256": "59c2a0f0eaf15dff54ee56752b667aa58de4fd2e759e760d36ab4ed1ac39326b",
+    "fetched_at": "2026-07-03T10:30:43.798320+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 21,
+  "markdown_chunks_count": 21,
+  "matched_pages_count": 21,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/dbhub/deepwiki"
+}

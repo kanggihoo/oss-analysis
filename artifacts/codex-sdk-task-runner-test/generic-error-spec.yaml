@@ -1,0 +1,9 @@
+name: codex-sdk-task-runner-generic-error-smoke
+output_dir: artifacts/codex-sdk-task-runner-test/error-output
+log_path: artifacts/codex-sdk-task-runner-test/generic-error-smoke.jsonl
+validation: invalid-string
+tasks:
+  - id: ok
+    input: AGENTS.md
+    output: ok.md
+    ask: "Summarize."

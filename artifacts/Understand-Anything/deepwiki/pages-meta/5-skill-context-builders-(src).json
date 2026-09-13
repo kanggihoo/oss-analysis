@@ -1,0 +1,18 @@
+{
+  "order": 25,
+  "title": "Skill Context Builders (src/)",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/5-skill-context-builders-(src)",
+  "path": "/Egonex-AI/Understand-Anything/5-skill-context-builders-(src)",
+  "slug": "5-skill-context-builders-(src)",
+  "section": "5",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "32e08bdafc67f472730748eeafa2b7e4d4dc849e150b08b3b19863611b116386",
+  "markdown_length": 20952,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

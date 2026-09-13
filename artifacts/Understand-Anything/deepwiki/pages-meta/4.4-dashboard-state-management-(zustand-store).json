@@ -1,0 +1,18 @@
+{
+  "order": 22,
+  "title": "Dashboard State Management (Zustand Store)",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/4.4-dashboard-state-management-(zustand-store)",
+  "path": "/Egonex-AI/Understand-Anything/4.4-dashboard-state-management-(zustand-store)",
+  "slug": "4.4-dashboard-state-management-(zustand-store)",
+  "section": "4.4",
+  "depth": 1,
+  "parent_section": "4",
+  "matched_chunk_sha256": "be1de195298b4e31602fb5d2e9d48294cbf97cb05d7c3c0fcddfb730c82d6dfd",
+  "markdown_length": 15141,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

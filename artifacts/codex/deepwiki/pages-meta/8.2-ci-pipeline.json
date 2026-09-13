@@ -1,0 +1,18 @@
+{
+  "order": 71,
+  "title": "CI Pipeline",
+  "url": "https://deepwiki.com/openai/codex/8.2-ci-pipeline",
+  "path": "/openai/codex/8.2-ci-pipeline",
+  "slug": "8.2-ci-pipeline",
+  "section": "8.2",
+  "depth": 1,
+  "parent_section": "8",
+  "matched_chunk_sha256": "93d70c942812ab362aab1499e00345517eda3b4583c2cec90e403939159ff9f5",
+  "markdown_length": 12309,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

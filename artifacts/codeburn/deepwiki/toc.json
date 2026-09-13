@@ -1,0 +1,302 @@
+[
+  {
+    "order": 1,
+    "title": "CodeBurn Overview",
+    "url": "https://deepwiki.com/getagentseal/codeburn/1-codeburn-overview",
+    "path": "/getagentseal/codeburn/1-codeburn-overview",
+    "slug": "1-codeburn-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started",
+    "url": "https://deepwiki.com/getagentseal/codeburn/1.1-getting-started",
+    "path": "/getagentseal/codeburn/1.1-getting-started",
+    "slug": "1.1-getting-started",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Key Concepts and Terminology",
+    "url": "https://deepwiki.com/getagentseal/codeburn/1.2-key-concepts-and-terminology",
+    "path": "/getagentseal/codeburn/1.2-key-concepts-and-terminology",
+    "slug": "1.2-key-concepts-and-terminology",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Core Architecture",
+    "url": "https://deepwiki.com/getagentseal/codeburn/2-core-architecture",
+    "path": "/getagentseal/codeburn/2-core-architecture",
+    "slug": "2-core-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "Data Ingestion and Parsing Pipeline",
+    "url": "https://deepwiki.com/getagentseal/codeburn/2.1-data-ingestion-and-parsing-pipeline",
+    "path": "/getagentseal/codeburn/2.1-data-ingestion-and-parsing-pipeline",
+    "slug": "2.1-data-ingestion-and-parsing-pipeline",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "Turn Classification Engine",
+    "url": "https://deepwiki.com/getagentseal/codeburn/2.2-turn-classification-engine",
+    "path": "/getagentseal/codeburn/2.2-turn-classification-engine",
+    "slug": "2.2-turn-classification-engine",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Pricing and Cost Calculation",
+    "url": "https://deepwiki.com/getagentseal/codeburn/2.3-pricing-and-cost-calculation",
+    "path": "/getagentseal/codeburn/2.3-pricing-and-cost-calculation",
+    "slug": "2.3-pricing-and-cost-calculation",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Day Aggregation and Caching",
+    "url": "https://deepwiki.com/getagentseal/codeburn/2.4-day-aggregation-and-caching",
+    "path": "/getagentseal/codeburn/2.4-day-aggregation-and-caching",
+    "slug": "2.4-day-aggregation-and-caching",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "CLI Reference",
+    "url": "https://deepwiki.com/getagentseal/codeburn/3-cli-reference",
+    "path": "/getagentseal/codeburn/3-cli-reference",
+    "slug": "3-cli-reference",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 10,
+    "title": "Interactive Dashboard (TUI)",
+    "url": "https://deepwiki.com/getagentseal/codeburn/3.1-interactive-dashboard-(tui)",
+    "path": "/getagentseal/codeburn/3.1-interactive-dashboard-(tui)",
+    "slug": "3.1-interactive-dashboard-(tui)",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 11,
+    "title": "Report, Status, and Export Commands",
+    "url": "https://deepwiki.com/getagentseal/codeburn/3.2-report-status-and-export-commands",
+    "path": "/getagentseal/codeburn/3.2-report-status-and-export-commands",
+    "slug": "3.2-report-status-and-export-commands",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Optimization Engine (codeburn optimize)",
+    "url": "https://deepwiki.com/getagentseal/codeburn/3.3-optimization-engine-(codeburn-optimize)",
+    "path": "/getagentseal/codeburn/3.3-optimization-engine-(codeburn-optimize)",
+    "slug": "3.3-optimization-engine-(codeburn-optimize)",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Model Comparison (codeburn compare)",
+    "url": "https://deepwiki.com/getagentseal/codeburn/3.4-model-comparison-(codeburn-compare)",
+    "path": "/getagentseal/codeburn/3.4-model-comparison-(codeburn-compare)",
+    "slug": "3.4-model-comparison-(codeburn-compare)",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 14,
+    "title": "Subscription Plans and Currency",
+    "url": "https://deepwiki.com/getagentseal/codeburn/3.5-subscription-plans-and-currency",
+    "path": "/getagentseal/codeburn/3.5-subscription-plans-and-currency",
+    "slug": "3.5-subscription-plans-and-currency",
+    "section": "3.5",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 15,
+    "title": "Provider Plugin System",
+    "url": "https://deepwiki.com/getagentseal/codeburn/4-provider-plugin-system",
+    "path": "/getagentseal/codeburn/4-provider-plugin-system",
+    "slug": "4-provider-plugin-system",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 16,
+    "title": "Claude Provider",
+    "url": "https://deepwiki.com/getagentseal/codeburn/4.1-claude-provider",
+    "path": "/getagentseal/codeburn/4.1-claude-provider",
+    "slug": "4.1-claude-provider",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 17,
+    "title": "Cursor Provider",
+    "url": "https://deepwiki.com/getagentseal/codeburn/4.2-cursor-provider",
+    "path": "/getagentseal/codeburn/4.2-cursor-provider",
+    "slug": "4.2-cursor-provider",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 18,
+    "title": "Other Providers (Codex, Copilot, OpenCode, Pi/OMP, and more)",
+    "url": "https://deepwiki.com/getagentseal/codeburn/4.3-other-providers-(codex-copilot-opencode-piomp-and-more)",
+    "path": "/getagentseal/codeburn/4.3-other-providers-(codex-copilot-opencode-piomp-and-more)",
+    "slug": "4.3-other-providers-(codex-copilot-opencode-piomp-and-more)",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 19,
+    "title": "macOS Menubar Application",
+    "url": "https://deepwiki.com/getagentseal/codeburn/5-macos-menubar-application",
+    "path": "/getagentseal/codeburn/5-macos-menubar-application",
+    "slug": "5-macos-menubar-application",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 20,
+    "title": "App Lifecycle and State Management",
+    "url": "https://deepwiki.com/getagentseal/codeburn/5.1-app-lifecycle-and-state-management",
+    "path": "/getagentseal/codeburn/5.1-app-lifecycle-and-state-management",
+    "slug": "5.1-app-lifecycle-and-state-management",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 21,
+    "title": "Menubar UI Views",
+    "url": "https://deepwiki.com/getagentseal/codeburn/5.2-menubar-ui-views",
+    "path": "/getagentseal/codeburn/5.2-menubar-ui-views",
+    "slug": "5.2-menubar-ui-views",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 22,
+    "title": "Data Layer and Subscription Integration",
+    "url": "https://deepwiki.com/getagentseal/codeburn/5.3-data-layer-and-subscription-integration",
+    "path": "/getagentseal/codeburn/5.3-data-layer-and-subscription-integration",
+    "slug": "5.3-data-layer-and-subscription-integration",
+    "section": "5.3",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 23,
+    "title": "Installation and Updates",
+    "url": "https://deepwiki.com/getagentseal/codeburn/5.4-installation-and-updates",
+    "path": "/getagentseal/codeburn/5.4-installation-and-updates",
+    "slug": "5.4-installation-and-updates",
+    "section": "5.4",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 24,
+    "title": "GNOME Shell Extension",
+    "url": "https://deepwiki.com/getagentseal/codeburn/6-gnome-shell-extension",
+    "path": "/getagentseal/codeburn/6-gnome-shell-extension",
+    "slug": "6-gnome-shell-extension",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "Extension Architecture and Indicator UI",
+    "url": "https://deepwiki.com/getagentseal/codeburn/6.1-extension-architecture-and-indicator-ui",
+    "path": "/getagentseal/codeburn/6.1-extension-architecture-and-indicator-ui",
+    "slug": "6.1-extension-architecture-and-indicator-ui",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 26,
+    "title": "GNOME Data Client and Configuration",
+    "url": "https://deepwiki.com/getagentseal/codeburn/6.2-gnome-data-client-and-configuration",
+    "path": "/getagentseal/codeburn/6.2-gnome-data-client-and-configuration",
+    "slug": "6.2-gnome-data-client-and-configuration",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 27,
+    "title": "Testing and Security",
+    "url": "https://deepwiki.com/getagentseal/codeburn/7-testing-and-security",
+    "path": "/getagentseal/codeburn/7-testing-and-security",
+    "slug": "7-testing-and-security",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 28,
+    "title": "Test Infrastructure and Patterns",
+    "url": "https://deepwiki.com/getagentseal/codeburn/7.1-test-infrastructure-and-patterns",
+    "path": "/getagentseal/codeburn/7.1-test-infrastructure-and-patterns",
+    "slug": "7.1-test-infrastructure-and-patterns",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 29,
+    "title": "Security Hardening",
+    "url": "https://deepwiki.com/getagentseal/codeburn/7.2-security-hardening",
+    "path": "/getagentseal/codeburn/7.2-security-hardening",
+    "slug": "7.2-security-hardening",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 30,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/getagentseal/codeburn/8-glossary",
+    "path": "/getagentseal/codeburn/8-glossary",
+    "slug": "8-glossary",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  }
+]

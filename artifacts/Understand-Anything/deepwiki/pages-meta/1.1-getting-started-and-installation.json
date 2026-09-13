@@ -1,0 +1,18 @@
+{
+  "order": 2,
+  "title": "Getting Started & Installation",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/1.1-getting-started-and-installation",
+  "path": "/Egonex-AI/Understand-Anything/1.1-getting-started-and-installation",
+  "slug": "1.1-getting-started-and-installation",
+  "section": "1.1",
+  "depth": 1,
+  "parent_section": "1",
+  "matched_chunk_sha256": "8bbe11484e7e6738afc3182c81544f47a2124d64ca0cd5961be9f82daff83251",
+  "markdown_length": 12253,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 9,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

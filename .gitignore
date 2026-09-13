@@ -1,6 +1,17 @@
-repos/
-.obsidian
+# 1. Local repositories (managed by their own origin git)
+/repos/
+
+# 2. Artifacts: exclude heavy dumps, logs, and temporary caches
+artifacts/**/static-analysis/
+artifacts/**/*.log
+artifacts/**/raw/
+artifacts/**/cache/
+
+# 3. System and Environment
 **/.DS_Store
-.trash 
-.env.example
-artifacts
+.obsidian/
+.trash/
+.env
+.env.local
+.venv/
+__pycache__/

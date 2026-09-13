@@ -1,0 +1,27 @@
+{
+  "order": 12,
+  "title": "Server Features",
+  "url": "https://deepwiki.com/bytebase/dbhub/4-server-features",
+  "path": "/bytebase/dbhub/4-server-features",
+  "slug": "4-server-features",
+  "section": "4",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "d3846a8aee56a80a7e8a9e58fcd694371df8f0cd0f291b3b922ae10d3ce0b76c",
+  "markdown_length": 11486,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 6,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "README.md:35-60",
+    "README.md:37-47",
+    "README.md:48-53",
+    "README.md:55-60",
+    "README.md:9-27",
+    "src/resources/index.ts:1-60",
+    "src/resources/index.ts:18-60",
+    "src/tools/index.ts:1-24"
+  ]
+}

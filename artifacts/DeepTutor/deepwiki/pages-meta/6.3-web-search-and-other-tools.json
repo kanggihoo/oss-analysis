@@ -1,0 +1,18 @@
+{
+  "order": 30,
+  "title": "Web Search and Other Tools",
+  "url": "https://deepwiki.com/HKUDS/DeepTutor/6.3-web-search-and-other-tools",
+  "path": "/HKUDS/DeepTutor/6.3-web-search-and-other-tools",
+  "slug": "6.3-web-search-and-other-tools",
+  "section": "6.3",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "210250e6a8e8e95cd6883d4bbcb6b510a5ea7cadad17ff539ae2385bc4473c5b",
+  "markdown_length": 9710,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

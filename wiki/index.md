@@ -2,20 +2,26 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-06-15 | Total pages: 39
+> Last updated: 2026-06-21 | Total pages: 47
 
 ## Projects
 
 - [[career-ops]] — Source-verified project structure and initial setup model for the CLI-agnostic AI job-search automation workspace.
 - [[claude-code-history-viewer]] — Tauri/React/Rust desktop and optional WebUI tool for browsing multi-provider AI coding assistant conversation history.
+- [[claude-devtools]] — Source-verified 1차 core architecture and data pipeline for an Electron app that inspects Claude Code session logs.
 - [[codeburn]] — Source-verified architecture notes for the AI coding token/cost observability pipeline from provider logs to TUI, menubar JSON, and MCP surfaces.
+- [[deeptutor]] — Source-verified analysis of DeepTutor's intelligent learning-agent modules, prompt/context contracts, educational IRs, validation loops, and mastery engine.
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
 - [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
+- [[ponytail]] — Source-verified overview of the lazy-senior-dev agent skill, its ladder philosophy, safety boundaries, and thin multi-host adapter model.
 - [[tokscale]] — Source-verified architecture notes for the Rust CLI/core plus Next.js social platform that tracks AI coding assistant token usage.
 
 ## Concepts
 
+- [[claude-devtools-context-token-and-session-analysis]] — Source-verified model for token metrics, chunks/conversation groups, subagents, and renderer-side context visibility.
+- [[claude-devtools-electron-process-and-ipc]] — Source-verified Electron main/preload/renderer boundary, ServiceContext registry, IPC surface, and renderer state boundary.
+- [[claude-devtools-session-discovery-and-jsonl-parsing]] — Source-verified `.claude/projects` discovery, encoded path handling, JSONL parsing, and session detail cache/fingerprint boundary.
 - [[codeburn-codex-provider]] — Source-verified Codex provider deep dive: `~/.codex` rollout discovery, large JSONL streaming, token/cost normalization, fork deduplication, Codex-specific result cache, and test-backed drift from DeepWiki.
 - [[codeburn-data-ingestion-and-caching]] — Source-verified explanation of how CodeBurn discovers provider sources, reads JSONL/files by size strategy, parses turns, and caches compact session/daily data.
 - [[codeburn-day-aggregation-and-caching]] — Source-verified explanation of how CodeBurn folds parsed sessions into daily entries and maintains `daily-cache.json` for period queries.
@@ -27,6 +33,7 @@
 - [[codeburn-subscription-plans-and-currency]] — Source-verified explanation of subscription plan USD budgets, provider-scoped plan usage, median-daily projection, FX conversion, rounding boundaries, and proxy-covered cost attribution.
 - [[codeburn-turn-classification-engine]] — Source-verified explanation of CodeBurn's deterministic turn classifier: tool pattern matching, keyword refinement, bash command breakdown, retry detection, and category aggregation.
 - [[deepwiki-first-baseline]] — How DeepWiki is captured as an external baseline before local graph analysis.
+- [[deeptutor-mode-workflows]] — Source-verified per-mode runtime flows for DeepTutor: entrypoints, prompt/context, tools, validators, streaming, and persistence.
 - [[evidence-backed-analysis]] — Verification policy for turning analyzer/report claims into trusted knowledge.
 - [[graphify-agent-skill-integration]] — How graphify installs as Codex/Claude-style agent skills, how AGENTS.md query-first policy works, and why Codex hooks are currently no-op compatibility.
 - [[graphify-cli-reference]] — Source-verified graphify CLI lifecycle: install, extract, update, cluster-only, query, path, explain, affected, export, hooks, and benchmark.
@@ -39,6 +46,7 @@
 - [[graphify-report-generation]] — How graphify formats graph analysis outputs into GRAPH_REPORT.md sections and audit guidance.
 - [[llm-wiki-operating-model]] — How this wiki is structured and maintained by the agent, including the judgment accumulation layer.
 - [[open-source-analysis-judgment-model]] — Shared lens for turning source-verified repo analysis into Taste Notes, reusable patterns, and comparison hooks.
+- [[stealable-pattern-learning-ai-agent-modules]] — Reusable learning-AI architecture patterns extracted from DeepTutor: prompt sections, IRs, validation, evidence compression, and deterministic mastery gates.
 - [[tokscale-cli-terminal-commands]] — Source-verified terminal command reference for installing/running Tokscale, report flags, client/date filters, and group-by semantics.
 - [[tokscale-operational-cli-commands]] — Source-verified operational command reference for Tokscale graph/wrapped/time-metrics, pricing lookup, auth/submit, provider integrations, and headless capture.
 - [[tokscale-data-flow-pipeline]] — Source-verified Tokscale local-first ETL path: client scan, parser normalization, pricing, aggregation, TUI/report output, and social submit merge.

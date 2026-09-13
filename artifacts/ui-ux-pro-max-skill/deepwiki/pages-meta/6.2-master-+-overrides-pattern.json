@@ -1,0 +1,27 @@
+{
+  "order": 23,
+  "title": "Master + Overrides Pattern",
+  "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/6.2-master-+-overrides-pattern",
+  "path": "/nextlevelbuilder/ui-ux-pro-max-skill/6.2-master-+-overrides-pattern",
+  "slug": "6.2-master-+-overrides-pattern",
+  "section": "6.2",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "c90437aea533efa2630efcb10979532d9ca92b674776b65011109d91879b7e6d",
+  "markdown_length": 7216,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".claude/skills/ui-ux-pro-max/scripts/core.py:17-47",
+    ".claude/skills/ui-ux-pro-max/scripts/design_system.py:1020-1052",
+    ".claude/skills/ui-ux-pro-max/scripts/design_system.py:491-539",
+    ".claude/skills/ui-ux-pro-max/scripts/design_system.py:542-802",
+    ".claude/skills/ui-ux-pro-max/scripts/design_system.py:559-561",
+    ".claude/skills/ui-ux-pro-max/scripts/search.py:68-98",
+    ".claude/skills/ui-ux-pro-max/scripts/search.py:87-98",
+    ".claude/skills/ui-ux-pro-max/scripts/search.py:96-98"
+  ]
+}

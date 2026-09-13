@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "obsidianmd",
+  "repo": "obsidian-clipper",
+  "deepwiki_url": "https://deepwiki.com/obsidianmd/obsidian-clipper",
+  "generated_at": "2026-06-12T03:20:39.214273+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/obsidianmd/obsidian-clipper",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 501796,
+    "sha256": "2286faaacb5cb6c6f9b948ade32c00d96d292f10d0d094e13ad61c0f3779d482",
+    "fetched_at": "2026-06-12T03:20:39.105637+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 33,
+  "markdown_chunks_count": 33,
+  "matched_pages_count": 33,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/obsidian-clipper/deepwiki"
+}

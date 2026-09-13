@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "langfuse",
+  "repo": "langfuse",
+  "deepwiki_url": "https://deepwiki.com/langfuse/langfuse",
+  "generated_at": "2026-06-11T13:13:30.868013+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/langfuse/langfuse",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 1264527,
+    "sha256": "d408bb5b23037d6551fd1055f6985f9c29776f3c2c9c6e33811070070fcb1d85",
+    "fetched_at": "2026-06-11T13:13:30.590460+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 73,
+  "markdown_chunks_count": 73,
+  "matched_pages_count": 73,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/langfuse/deepwiki"
+}

@@ -1,0 +1,44 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "GoogleCloudPlatform",
+  "repo": "knowledge-catalog",
+  "deepwiki_url": "https://deepwiki.com/GoogleCloudPlatform/knowledge-catalog",
+  "generated_at": "2026-06-28T05:07:17.032212+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/GoogleCloudPlatform/knowledge-catalog",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 340500,
+    "sha256": "e93fc2133e484994c85bf47430752cbcffba294e8b4c7c9ad62be80ea2539184",
+    "fetched_at": "2026-06-28T05:07:15.721437+00:00"
+  },
+  "page_fetches": [
+    {
+      "url": "https://deepwiki.com/GoogleCloudPlatform/knowledge-catalog/4.1-okf-specification",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 348702,
+      "sha256": "70799c02e65bf4e4e2e72b2fdaf5bb88dedbb3bdbc3e61d7a32a4f644e3dd785",
+      "fetched_at": "2026-06-28T05:07:16.962912+00:00"
+    }
+  ],
+  "toc_count": 26,
+  "markdown_chunks_count": 26,
+  "matched_pages_count": 26,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/knowledge-catalog/deepwiki",
+  "manual_reconstructed_pages": [
+    {
+      "slug": "4.1-okf-specification",
+      "page_md": "pages-md/4.1-okf-specification.md",
+      "page_meta": "pages-meta/4.1-okf-specification.json",
+      "reconstruction_source": "raw/pages/4.1-okf-specification.html self.__next_f.push payload",
+      "matched_chunk_title": "4.1. OKF Specification",
+      "matched_chunk_sha256": "7c48352336bb183ac4beffe56a85860518b912d100870464b2944e74ac5ec545",
+      "manual_markdown_sha256": "e7ca666cdfa8a1cd8b5e782f4d553d35c487ac7c5d0780bcefe37e6d39404517",
+      "updated_at": "2026-06-28T05:08:42.879089+00:00"
+    }
+  ]
+}

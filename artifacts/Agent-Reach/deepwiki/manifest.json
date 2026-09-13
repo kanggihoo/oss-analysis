@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "Panniantong",
+  "repo": "Agent-Reach",
+  "deepwiki_url": "https://deepwiki.com/Panniantong/Agent-Reach",
+  "generated_at": "2026-06-26T10:15:54.520236+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/Panniantong/Agent-Reach",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 413825,
+    "sha256": "efe628c11ba5adb1ed73982295b55a5fe0fb250051161c5fce3dc4922b1b958b",
+    "fetched_at": "2026-06-26T10:15:54.430414+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 30,
+  "markdown_chunks_count": 30,
+  "matched_pages_count": 30,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/Agent-Reach/deepwiki"
+}

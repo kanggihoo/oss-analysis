@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "peers",
+  "repo": "peerjs",
+  "deepwiki_url": "https://deepwiki.com/peers/peerjs",
+  "generated_at": "2026-06-30T22:35:52.496593+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/peers/peerjs",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 342532,
+    "sha256": "a59f1a8e37f0c57e9f6fcec114a2d3e7c1c6792ee384a0b9759739e36aba43b5",
+    "fetched_at": "2026-06-30T22:35:52.422173+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 19,
+  "markdown_chunks_count": 19,
+  "matched_pages_count": 19,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/peerjs/deepwiki"
+}

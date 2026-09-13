@@ -1,0 +1,33 @@
+{
+  "order": 36,
+  "title": "Testing Framework",
+  "url": "https://deepwiki.com/kepano/defuddle/11.2-testing-framework",
+  "path": "/kepano/defuddle/11.2-testing-framework",
+  "slug": "11.2-testing-framework",
+  "section": "11.2",
+  "depth": 1,
+  "parent_section": "11",
+  "matched_chunk_sha256": "3f5af95191f6f4fe0ee9d45d36c8ddb4c1acdc870502f32b7edb5fff11e5c397",
+  "markdown_length": 11364,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 7,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "tests/fixtures.test.ts:1-113",
+    "tests/fixtures.test.ts:102-106",
+    "tests/fixtures.test.ts:24-32",
+    "tests/fixtures.test.ts:29-32",
+    "tests/fixtures.test.ts:35-46",
+    "tests/fixtures.test.ts:36-46",
+    "tests/fixtures.test.ts:38",
+    "tests/fixtures.test.ts:41",
+    "tests/fixtures.test.ts:48-69",
+    "tests/fixtures.test.ts:49-51",
+    "tests/fixtures.test.ts:53-60",
+    "tests/fixtures.test.ts:62-69",
+    "tests/fixtures.test.ts:71-80",
+    "tests/fixtures.test.ts:89-111"
+  ]
+}

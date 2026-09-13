@@ -1,0 +1,33 @@
+{
+  "order": 15,
+  "title": "Reddit Channel",
+  "url": "https://deepwiki.com/Panniantong/Agent-Reach/3.5-reddit-channel",
+  "path": "/Panniantong/Agent-Reach/3.5-reddit-channel",
+  "slug": "3.5-reddit-channel",
+  "section": "3.5",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "1a91dd65698e5b81e2c6e38d50bf80befb1a5f575bdb833105459051d4537102",
+  "markdown_length": 6572,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "agent_reach/channels/reddit.py:12-20",
+    "agent_reach/channels/reddit.py:24-27",
+    "agent_reach/channels/reddit.py:26",
+    "agent_reach/channels/reddit.py:29-33",
+    "agent_reach/channels/reddit.py:34-45",
+    "agent_reach/channels/reddit.py:35",
+    "agent_reach/channels/reddit.py:35-44",
+    "agent_reach/channels/reddit.py:37-40",
+    "agent_reach/channels/reddit.py:41-44",
+    "agent_reach/channels/reddit.py:8-15",
+    "agent_reach/channels/reddit.py:8-45",
+    "agent_reach/guides/setup-reddit.md:28-30",
+    "agent_reach/guides/setup-reddit.md:3-6",
+    "agent_reach/guides/setup-reddit.md:6"
+  ]
+}

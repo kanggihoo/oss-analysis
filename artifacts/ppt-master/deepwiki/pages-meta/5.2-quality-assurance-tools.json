@@ -1,0 +1,30 @@
+{
+  "order": 13,
+  "title": "Quality Assurance Tools",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/5.2-quality-assurance-tools",
+  "path": "/hugohe3/ppt-master/5.2-quality-assurance-tools",
+  "slug": "5.2-quality-assurance-tools",
+  "section": "5.2",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "f83007606ad543f055da8e8c98fd701431aec0be74322a4be38c3b810d287fd8",
+  "markdown_length": 7883,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "docs/rules/README.md:7-8",
+    "docs/rules/code-style.md:20-25",
+    "docs/technical-design.md:13-26",
+    "docs/technical-design.md:34-35",
+    "docs/technical-design.md:34-36",
+    "docs/technical-design.md:34-38",
+    "docs/technical-design.md:35-35",
+    "docs/technical-design.md:7-16",
+    "docs/technical-design.md:83-86",
+    "docs/technical-design.md:86-86",
+    "docs/technical-design.md:91-95"
+  ]
+}

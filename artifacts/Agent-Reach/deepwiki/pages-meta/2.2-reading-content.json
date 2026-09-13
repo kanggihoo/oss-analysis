@@ -1,0 +1,30 @@
+{
+  "order": 6,
+  "title": "Reading Content",
+  "url": "https://deepwiki.com/Panniantong/Agent-Reach/2.2-reading-content",
+  "path": "/Panniantong/Agent-Reach/2.2-reading-content",
+  "slug": "2.2-reading-content",
+  "section": "2.2",
+  "depth": 1,
+  "parent_section": "2",
+  "matched_chunk_sha256": "e9efb8e40bfb3532e7771687ce2e60e786a11d88018e974210d10dd68cbb9c01",
+  "markdown_length": 6849,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 6,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "agent_reach/channels/__init__.py:29-46",
+    "agent_reach/channels/base.py:7-20",
+    "agent_reach/channels/v2ex.py:30-33",
+    "agent_reach/cli.py:103-105",
+    "agent_reach/cli.py:118-122",
+    "agent_reach/cli.py:120-147",
+    "agent_reach/cli.py:128-145",
+    "agent_reach/cli.py:50-56",
+    "agent_reach/core.py:31-46",
+    "agent_reach/core.py:41-42",
+    "agent_reach/core.py:44-45"
+  ]
+}

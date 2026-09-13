@@ -1,0 +1,636 @@
+[
+  {
+    "index": 1,
+    "script_index": 39,
+    "sha256": "d20d7e6a4c47ab31e3625f4ea433b662e1dda8555e3f83402938bc8061fbd7c5",
+    "title": "DBHub Overview",
+    "length": 11147,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 4,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:102-151",
+        "README.md:11-26",
+        "README.md:177-197",
+        "README.md:205-217",
+        "README.md:219-226",
+        "README.md:35-61",
+        "README.md:62-98",
+        "README.md:9-27",
+        "package.json:1-15",
+        "src/index.ts:1-20"
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "script_index": 41,
+    "sha256": "2effa19e115e3a0890b2a6ca3cfb9edbc59eae7a8b02136730b158f04b04dfae",
+    "title": "Installation and Quick Start",
+    "length": 9847,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 2,
+      "fenced_code_blocks": 10,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:102-151",
+        "README.md:154-196",
+        "README.md:205-216",
+        "README.md:218-226",
+        "README.md:227-227",
+        "README.md:229-247",
+        "README.md:249-269",
+        "README.md:62-100",
+        "README.md:9-27",
+        "package.json:15-20"
+      ]
+    }
+  },
+  {
+    "index": 3,
+    "script_index": 43,
+    "sha256": "fd9e8285538f44672964f1a00581b4acf1deeb6348d15177fe61b0137b2f2cf0",
+    "title": "Architecture Overview",
+    "length": 15315,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 8,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:102-151",
+        "README.md:185-196",
+        "README.md:37-47",
+        "README.md:37-60",
+        "README.md:61-100",
+        "README.md:9-27",
+        "src/config/env.ts:10-36",
+        "src/config/env.ts:124-142",
+        "src/config/env.ts:151-169",
+        "src/config/env.ts:87-118",
+        "src/index.ts:1-20",
+        "src/index.ts:3-8",
+        "src/server.ts:1-27",
+        "src/server.ts:104-153",
+        "src/server.ts:112-153",
+        "src/server.ts:50-153",
+        "src/server.ts:78-101",
+        "src/server.ts:78-87",
+        "src/server.ts:85-87",
+        "src/server.ts:89-101"
+      ]
+    }
+  },
+  {
+    "index": 4,
+    "script_index": 45,
+    "sha256": "ab7713fd160066d585bbcdedb52791982fad8165c9fa1814d913f96907dfa701",
+    "title": "Core Components",
+    "length": 11194,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 8,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/config/env.ts:10-193",
+        "src/config/env.ts:124-142",
+        "src/connectors/interface.ts:5-200",
+        "src/index.ts:11-20",
+        "src/index.ts:17-20",
+        "src/index.ts:3-11",
+        "src/server.ts:1-15",
+        "src/server.ts:103-153",
+        "src/server.ts:11",
+        "src/server.ts:13-15",
+        "src/server.ts:29-158",
+        "src/server.ts:50-158",
+        "src/server.ts:77-101",
+        "src/server.ts:84-87"
+      ]
+    }
+  },
+  {
+    "index": 5,
+    "script_index": 47,
+    "sha256": "a7dbc17161194d728a2e3332365800619db6299c9f505f3dda7e0315932a6a49",
+    "title": "Server Implementation",
+    "length": 11832,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 7,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/config/env.ts:124-142",
+        "src/config/env.ts:151-169",
+        "src/config/env.ts:42-72",
+        "src/config/env.ts:87-118",
+        "src/config/env.ts:92-98",
+        "src/server.ts:1-3",
+        "src/server.ts:1-4",
+        "src/server.ts:109",
+        "src/server.ts:112-140",
+        "src/server.ts:112-153",
+        "src/server.ts:123-125",
+        "src/server.ts:141-153",
+        "src/server.ts:147-152",
+        "src/server.ts:154-157",
+        "src/server.ts:26-45",
+        "src/server.ts:50-157",
+        "src/server.ts:55-76",
+        "src/server.ts:79-87",
+        "src/server.ts:85-87",
+        "src/server.ts:9-15",
+        "src/server.ts:90-101",
+        "src/server.ts:95-98"
+      ]
+    }
+  },
+  {
+    "index": 6,
+    "script_index": 49,
+    "sha256": "146bef1bb5bac6b2cdb30e6f27d192cf87dbaa18592304e3ffb6e3569df8fff9",
+    "title": "Connector System",
+    "length": 12952,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/connectors/interface.ts:1-200",
+        "src/connectors/interface.ts:135-138",
+        "src/connectors/interface.ts:144-200",
+        "src/connectors/interface.ts:165-172",
+        "src/connectors/interface.ts:37-57",
+        "src/connectors/interface.ts:38-46",
+        "src/connectors/interface.ts:5-139",
+        "src/connectors/manager.ts:1-109",
+        "src/connectors/manager.ts:103-108",
+        "src/connectors/manager.ts:22-35",
+        "src/connectors/manager.ts:9-109",
+        "src/index.ts:1-20",
+        "src/index.ts:3-8"
+      ]
+    }
+  },
+  {
+    "index": 7,
+    "script_index": 51,
+    "sha256": "3a38fbeea7808fe6693c9bd57df03b630548f78a4aa6d8e90d0ce6b00cf5dbf4",
+    "title": "Database Connectors",
+    "length": 11787,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 4,
+      "fenced_code_blocks": 4,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:189-196",
+        "README.md:37-47",
+        "README.md:50-53",
+        "src/connectors/interface.ts:144-200",
+        "src/connectors/interface.ts:37-139",
+        "src/connectors/interface.ts:37-57",
+        "src/connectors/interface.ts:5-139",
+        "src/connectors/interface.ts:5-31",
+        "src/connectors/interface.ts:59-139",
+        "src/connectors/manager.ts:22-36",
+        "src/connectors/manager.ts:9-109"
+      ]
+    }
+  },
+  {
+    "index": 8,
+    "script_index": 53,
+    "sha256": "e0383933a99458711647437d2765d97224fb42afcc94d96b9dec70af217db997",
+    "title": "SQL Server Connector",
+    "length": 10232,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 5,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/connectors/interface.ts:59-139",
+        "src/connectors/sqlserver/index.ts:105-117",
+        "src/connectors/sqlserver/index.ts:119-124",
+        "src/connectors/sqlserver/index.ts:126-309",
+        "src/connectors/sqlserver/index.ts:25-38",
+        "src/connectors/sqlserver/index.ts:311-424",
+        "src/connectors/sqlserver/index.ts:41-53",
+        "src/connectors/sqlserver/index.ts:426-450",
+        "src/connectors/sqlserver/index.ts:452-462",
+        "src/connectors/sqlserver/index.ts:465-467",
+        "src/connectors/sqlserver/index.ts:48-50",
+        "src/connectors/sqlserver/index.ts:56-75",
+        "src/connectors/sqlserver/index.ts:9-92",
+        "src/connectors/sqlserver/index.ts:97-463"
+      ]
+    }
+  },
+  {
+    "index": 9,
+    "script_index": 55,
+    "sha256": "6e7bf75ee84ff88ca857946db7c551ddfa2c5ab2d8b12ea6d163093438aa888e",
+    "title": "MySQL and MariaDB Connectors",
+    "length": 12637,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 5,
+      "fenced_code_blocks": 6,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/connectors/interface.ts:144-199",
+        "src/connectors/interface.ts:5-139",
+        "src/connectors/interface.ts:59-139",
+        "src/connectors/mariadb/index.ts:1-1",
+        "src/connectors/mariadb/index.ts:102-103",
+        "src/connectors/mariadb/index.ts:132-134",
+        "src/connectors/mariadb/index.ts:40-42",
+        "src/connectors/mariadb/index.ts:424-453",
+        "src/connectors/mariadb/index.ts:457-458",
+        "src/connectors/mariadb/index.ts:57-453",
+        "src/connectors/mariadb/index.ts:64-84",
+        "src/connectors/mariadb/index.ts:8-52",
+        "src/connectors/mariadb/index.ts:87-422",
+        "src/connectors/mysql/index.ts:1-1",
+        "src/connectors/mysql/index.ts:100-101",
+        "src/connectors/mysql/index.ts:130-132",
+        "src/connectors/mysql/index.ts:40-42",
+        "src/connectors/mysql/index.ts:422-452",
+        "src/connectors/mysql/index.ts:455-456",
+        "src/connectors/mysql/index.ts:57-452",
+        "src/connectors/mysql/index.ts:64-83",
+        "src/connectors/mysql/index.ts:8-52",
+        "src/connectors/mysql/index.ts:85-422",
+        "src/resources/indexes.ts:1-72"
+      ]
+    }
+  },
+  {
+    "index": 10,
+    "script_index": 57,
+    "sha256": "e1f721527684c5ef7c35b3a1fee881ebd677071e1ea469783f172072fa3003cb",
+    "title": "PostgreSQL Connector",
+    "length": 10272,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 7,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/connectors/interface.ts:144-189",
+        "src/connectors/interface.ts:59-139",
+        "src/connectors/postgres/index.ts:238-347",
+        "src/connectors/postgres/index.ts:349-377",
+        "src/connectors/postgres/index.ts:353-357",
+        "src/connectors/postgres/index.ts:367-377",
+        "src/connectors/postgres/index.ts:381-382",
+        "src/connectors/postgres/index.ts:60-378",
+        "src/connectors/postgres/index.ts:60-66",
+        "src/connectors/postgres/index.ts:61-65",
+        "src/connectors/postgres/index.ts:67-80",
+        "src/connectors/postgres/index.ts:67-87",
+        "src/connectors/postgres/index.ts:89-107",
+        "src/connectors/postgres/index.ts:89-236",
+        "src/connectors/postgres/index.ts:9-55"
+      ]
+    }
+  },
+  {
+    "index": 11,
+    "script_index": 59,
+    "sha256": "0c419477b2c3aba17a37834639f83e29f8090f34b259852115a319f1b126dca4",
+    "title": "SQLite Connector",
+    "length": 9600,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 4,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/config/demo-loader.ts:1-77",
+        "src/connectors/interface.ts:59-139",
+        "src/connectors/sqlite/index.ts:118-128",
+        "src/connectors/sqlite/index.ts:130-255",
+        "src/connectors/sqlite/index.ts:20-65",
+        "src/connectors/sqlite/index.ts:257-287",
+        "src/connectors/sqlite/index.ts:289-318",
+        "src/connectors/sqlite/index.ts:321-323",
+        "src/connectors/sqlite/index.ts:79-319",
+        "src/connectors/sqlite/index.ts:87-116",
+        "tsup.config.ts:11-29"
+      ]
+    }
+  },
+  {
+    "index": 12,
+    "script_index": 61,
+    "sha256": "d3846a8aee56a80a7e8a9e58fcd694371df8f0cd0f291b3b922ae10d3ce0b76c",
+    "title": "Server Features",
+    "length": 11486,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 6,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:35-60",
+        "README.md:37-47",
+        "README.md:48-53",
+        "README.md:55-60",
+        "README.md:9-27",
+        "src/resources/index.ts:1-60",
+        "src/resources/index.ts:18-60",
+        "src/tools/index.ts:1-24"
+      ]
+    }
+  },
+  {
+    "index": 13,
+    "script_index": 63,
+    "sha256": "4d6ab1060ab6ae8cd6e2267bcfe24be0041c8957353d35695a0ee0c2e48e10a8",
+    "title": "Resource Endpoints",
+    "length": 11551,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 4,
+      "fenced_code_blocks": 9,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "src/resources/index.ts:15-60",
+        "src/resources/index.ts:18-60",
+        "src/resources/procedures.ts:1-113",
+        "src/resources/procedures.ts:19-27",
+        "src/resources/procedures.ts:68-74",
+        "src/resources/procedures.ts:8-113",
+        "src/resources/schema.ts:1-75",
+        "src/resources/schema.ts:26-44",
+        "src/resources/schema.ts:49-73",
+        "src/resources/schema.ts:9-75",
+        "src/resources/schemas.ts:1-29",
+        "src/resources/schemas.ts:20-27",
+        "src/resources/schemas.ts:8-29",
+        "src/resources/tables.ts:1-49",
+        "src/resources/tables.ts:20-26",
+        "src/resources/tables.ts:39-47",
+        "src/resources/tables.ts:8-49"
+      ]
+    }
+  },
+  {
+    "index": 14,
+    "script_index": 65,
+    "sha256": "998e99a05e38745dee1f9feaa90ff3652ecd46bf7c3baea36ff0899e749f8fb1",
+    "title": "Tools",
+    "length": 9347,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 5,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:50-53",
+        "src/tools/index.ts:1-24",
+        "src/tools/list-connectors.ts:1-3",
+        "src/tools/list-connectors.ts:10-47",
+        "src/tools/list-connectors.ts:12-22",
+        "src/tools/list-connectors.ts:31-47",
+        "src/tools/run-query.ts:10-44",
+        "src/tools/run-query.ts:15",
+        "src/tools/run-query.ts:22-43",
+        "src/tools/run-query.ts:5-8"
+      ]
+    }
+  },
+  {
+    "index": 15,
+    "script_index": 67,
+    "sha256": "f239ee8afe4ef17613716195f6bd520842b55c33addb66aacc48137b5b63cd32",
+    "title": "Prompts and AI Features",
+    "length": 11159,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 9,
+      "fenced_code_blocks": 13,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:56-61",
+        "src/prompts/db-explainer.ts:1-344",
+        "src/prompts/db-explainer.ts:15-187",
+        "src/prompts/db-explainer.ts:192-344",
+        "src/prompts/db-explainer.ts:54-80",
+        "src/prompts/db-explainer.ts:6-9",
+        "src/prompts/index.ts:1-24",
+        "src/prompts/sql-generator.ts:1-205",
+        "src/prompts/sql-generator.ts:149-151",
+        "src/prompts/sql-generator.ts:154-185",
+        "src/prompts/sql-generator.ts:16-205",
+        "src/prompts/sql-generator.ts:24-41",
+        "src/prompts/sql-generator.ts:54-193",
+        "src/prompts/sql-generator.ts:7-10",
+        "src/types/sql.ts:1-5",
+        "src/utils/response-formatter.ts:91-149"
+      ]
+    }
+  },
+  {
+    "index": 16,
+    "script_index": 69,
+    "sha256": "7f5c54b808ab360d38bdd9e8b42214a3261ac849407dba09574a00ecc3255828",
+    "title": "Configuration and Demo Mode",
+    "length": 9343,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 8,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:154-182",
+        "README.md:161-182",
+        "README.md:187-195",
+        "README.md:206-217",
+        "README.md:219-226",
+        "README.md:227",
+        "README.md:67-75",
+        "README.md:78-85",
+        "README.md:91-93",
+        "README.md:96-98",
+        "src/config/demo-loader.ts:1-77",
+        "src/config/demo-loader.ts:11-39",
+        "src/config/demo-loader.ts:17-39",
+        "tsup.config.ts:11-29",
+        "tsup.config.ts:12-28"
+      ]
+    }
+  },
+  {
+    "index": 17,
+    "script_index": 71,
+    "sha256": "53580eedbb7ae40fdebc5744169d229da5925aade5722d075f929d72ccb71c68",
+    "title": "Environment Configuration",
+    "length": 10962,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 11,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "README.md:188-195",
+        "README.md:218-226",
+        "README.md:66-76",
+        "src/config/env.ts:10-193",
+        "src/config/env.ts:10-36",
+        "src/config/env.ts:124-142",
+        "src/config/env.ts:151-169",
+        "src/config/env.ts:42-72",
+        "src/config/env.ts:78-81",
+        "src/config/env.ts:87-118",
+        "src/config/env.ts:92-99",
+        "src/server.ts:104-146",
+        "src/server.ts:11-153",
+        "src/server.ts:133-136",
+        "src/server.ts:50-157",
+        "src/server.ts:52-76",
+        "src/server.ts:94-101"
+      ]
+    }
+  },
+  {
+    "index": 18,
+    "script_index": 73,
+    "sha256": "6a8913d53d481bdb33e640866194bc8f28bd8b42b3261321f5e5017ad80919fb",
+    "title": "Demo Database",
+    "length": 10726,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 2,
+      "fenced_code_blocks": 14,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        "resources/employee-sqlite/employee.sql:39-47",
+        "resources/employee-sqlite/employee.sql:39-92",
+        "resources/employee-sqlite/employee.sql:49-54",
+        "resources/employee-sqlite/employee.sql:56-64",
+        "resources/employee-sqlite/employee.sql:66-74",
+        "resources/employee-sqlite/employee.sql:76-92",
+        "resources/employee-sqlite/employee.sql:94-104",
+        "resources/employee-sqlite/load_department.sql:1-9",
+        "src/config/demo-loader.ts:1-6",
+        "src/config/demo-loader.ts:1-77",
+        "src/config/demo-loader.ts:52-54",
+        "tsup.config.ts:11-29"
+      ]
+    }
+  },
+  {
+    "index": 19,
+    "script_index": 75,
+    "sha256": "66d799e06921aac522a8f98436bbeecc72090ab048edd0b06888aecc45d6184e",
+    "title": "Deployment",
+    "length": 10694,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 4,
+      "fenced_code_blocks": 11,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        ".github/workflows/docker-publish.yml:1-86",
+        ".github/workflows/npm-publish.yml:1-155",
+        "Dockerfile:1-43",
+        "README.md:1-27",
+        "README.md:102-143",
+        "README.md:146-151",
+        "README.md:154-196",
+        "README.md:184-186",
+        "README.md:205-216",
+        "README.md:219-226",
+        "README.md:62-87",
+        "README.md:64-86",
+        "README.md:88-100",
+        "package.json:1-60"
+      ]
+    }
+  },
+  {
+    "index": 20,
+    "script_index": 77,
+    "sha256": "56a6829b52490d1ae99538db0782aa9d6253e6b6585452bfdf63751fb3b89873",
+    "title": "Docker Deployment",
+    "length": 7383,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 6,
+      "fenced_code_blocks": 12,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        ".dockerignore:1-52",
+        ".github/workflows/docker-publish.yml:1-86",
+        "Dockerfile:1-44",
+        "README.md:108-143",
+        "README.md:184-186",
+        "README.md:206-216",
+        "README.md:219-226",
+        "README.md:64-86"
+      ]
+    }
+  },
+  {
+    "index": 21,
+    "script_index": 79,
+    "sha256": "55dcf01d0a82e6bcd6ddc60844ac1457419839e43dd2bd8b744a084ed0c5ab33",
+    "title": "NPM Packaging",
+    "length": 9131,
+    "metadata": {
+      "has_mermaid": true,
+      "mermaid_blocks": 9,
+      "fenced_code_blocks": 11,
+      "markdown_images": [],
+      "html_images": [],
+      "source_refs": [
+        ".github/workflows/npm-publish.yml:118-119",
+        ".github/workflows/npm-publish.yml:122-124",
+        ".github/workflows/npm-publish.yml:127-129",
+        ".github/workflows/npm-publish.yml:15-34",
+        ".github/workflows/npm-publish.yml:36-149",
+        ".github/workflows/npm-publish.yml:66-102",
+        ".github/workflows/npm-publish.yml:90-101",
+        "README.md:102-144",
+        "README.md:219-226",
+        "README.md:88-98",
+        "README.md:91-98",
+        "package.json:1-14",
+        "package.json:10-14",
+        "package.json:15-19",
+        "package.json:24-34",
+        "package.json:3",
+        "package.json:7-9"
+      ]
+    }
+  }
+]

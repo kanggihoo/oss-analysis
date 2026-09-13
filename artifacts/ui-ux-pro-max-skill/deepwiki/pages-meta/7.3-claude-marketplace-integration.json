@@ -1,0 +1,30 @@
+{
+  "order": 28,
+  "title": "Claude Marketplace Integration",
+  "url": "https://deepwiki.com/nextlevelbuilder/ui-ux-pro-max-skill/7.3-claude-marketplace-integration",
+  "path": "/nextlevelbuilder/ui-ux-pro-max-skill/7.3-claude-marketplace-integration",
+  "slug": "7.3-claude-marketplace-integration",
+  "section": "7.3",
+  "depth": 1,
+  "parent_section": "7",
+  "matched_chunk_sha256": "242c1c8abf05a6864d4333449074452fbfa3489bc9f23ddd8d272df772b9b4b2",
+  "markdown_length": 8438,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".claude-plugin/marketplace.json:1-10",
+    ".claude-plugin/marketplace.json:1-35",
+    ".claude-plugin/marketplace.json:11-33",
+    ".claude-plugin/marketplace.json:31-32",
+    ".claude-plugin/marketplace.json:8-8",
+    ".claude-plugin/plugin.json:1-11",
+    ".claude-plugin/plugin.json:10-10",
+    ".claude-plugin/plugin.json:3-3",
+    "cli/assets/templates/platforms/droid.json:1-21",
+    "src/ui-ux-pro-max/templates/platforms/droid.json:1-21",
+    "src/ui-ux-pro-max/templates/platforms/droid.json:13-13"
+  ]
+}

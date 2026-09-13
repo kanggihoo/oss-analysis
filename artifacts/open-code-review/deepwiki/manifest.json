@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "alibaba",
+  "repo": "open-code-review",
+  "deepwiki_url": "https://deepwiki.com/alibaba/open-code-review",
+  "generated_at": "2026-06-21T23:36:29.608310+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/alibaba/open-code-review",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 362905,
+    "sha256": "9e22e1dc825faf8a072a0647e309ea21aef4c8b3378129e82c812c44536934df",
+    "fetched_at": "2026-06-21T23:36:29.561278+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 31,
+  "markdown_chunks_count": 31,
+  "matched_pages_count": 31,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/open-code-review/deepwiki"
+}

@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "matt1398",
+  "repo": "claude-devtools",
+  "deepwiki_url": "https://deepwiki.com/matt1398/claude-devtools",
+  "generated_at": "2026-06-16T22:13:50.859291+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/matt1398/claude-devtools",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 792207,
+    "sha256": "ce0936d45a2ca04a737a195b86c21568d22545c6a699d0f4f38a82b9eb2d1d6c",
+    "fetched_at": "2026-06-16T22:13:50.678497+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 54,
+  "markdown_chunks_count": 54,
+  "matched_pages_count": 54,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/claude-devtools/deepwiki"
+}

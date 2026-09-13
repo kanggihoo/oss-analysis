@@ -1,0 +1,70 @@
+# obsidianmd/obsidian-clipper repo metadata
+
+generated_at: 2026-06-12T03:26:56Z
+github_url: https://github.com/obsidianmd/obsidian-clipper
+local_path: repos/obsidian-clipper
+artifact_path: artifacts/obsidian-clipper
+
+## clone/update
+
+The repository was cloned with:
+
+```bash
+git clone https://github.com/obsidianmd/obsidian-clipper.git repos/obsidian-clipper
+```
+
+## git remote
+
+```text
+origin	https://github.com/obsidianmd/obsidian-clipper.git (fetch)
+origin	https://github.com/obsidianmd/obsidian-clipper.git (push)
+```
+
+## branch
+
+```text
+main
+```
+
+## HEAD
+
+```text
+372d420481745f0332a9deae4bea4f0046360b30
+```
+
+## describe
+
+```text
+1.6.3-2-g372d420
+```
+
+## latest commit
+
+```text
+372d420481745f0332a9deae4bea4f0046360b30
+Steph Ango <10565871+kepano@users.noreply.github.com>
+2026-05-26T09:43:12-07:00
+Update README.md
+```
+
+## working tree status
+
+```text
+(empty; clean at capture time)
+```
+
+## DeepWiki extraction
+
+```text
+artifacts/obsidian-clipper/deepwiki/manifest.json
+toc_count=33
+matched_pages_count=33
+missing_pages_count=0
+```
+
+## basic artifacts
+
+```text
+artifacts/obsidian-clipper/github-metadata.json
+artifacts/obsidian-clipper/static-analysis/language-summary.txt
+```

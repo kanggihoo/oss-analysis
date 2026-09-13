@@ -1,0 +1,27 @@
+{
+  "order": 12,
+  "title": "KnowledgeGraph Types & Schema",
+  "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/3.1-knowledgegraph-types-and-schema",
+  "path": "/Egonex-AI/Understand-Anything/3.1-knowledgegraph-types-and-schema",
+  "slug": "3.1-knowledgegraph-types-and-schema",
+  "section": "3.1",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "905bbb4e44e57f6e05ab6a944e3da2104da418721f2ff8683ed763147f0879aa",
+  "markdown_length": 24161,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 8,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "packages/core/src/__tests__/schema.test.ts:3-150",
+    "packages/core/src/__tests__/schema.test.ts:60-150",
+    "packages/core/src/persistence/index.ts:21-67",
+    "packages/core/src/schema.ts:148-330",
+    "packages/core/src/schema.ts:17-125",
+    "packages/core/src/schema.ts:17-146",
+    "packages/core/src/types.ts:1-100",
+    "schema.test.ts:11-58"
+  ]
+}

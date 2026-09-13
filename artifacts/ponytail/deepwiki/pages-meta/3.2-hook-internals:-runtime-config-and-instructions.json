@@ -1,0 +1,18 @@
+{
+  "order": 12,
+  "title": "Hook Internals: Runtime, Config & Instructions",
+  "url": "https://deepwiki.com/DietrichGebert/ponytail/3.2-hook-internals:-runtime-config-and-instructions",
+  "path": "/DietrichGebert/ponytail/3.2-hook-internals:-runtime-config-and-instructions",
+  "slug": "3.2-hook-internals:-runtime-config-and-instructions",
+  "section": "3.2",
+  "depth": 1,
+  "parent_section": "3",
+  "matched_chunk_sha256": "f32a9c33ebf1c52533aa60116d26afcac815118bd12e851ec0e3e65f8309f105",
+  "markdown_length": 7696,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

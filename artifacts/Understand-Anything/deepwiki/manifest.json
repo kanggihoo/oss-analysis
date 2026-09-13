@@ -1,0 +1,47 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "Egonex-AI",
+  "repo": "Understand-Anything",
+  "deepwiki_url": "https://deepwiki.com/Egonex-AI/Understand-Anything",
+  "generated_at": "2026-06-10T09:48:36.542218+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/Egonex-AI/Understand-Anything",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 758627,
+    "sha256": "d92871e7694045ab5c9647e97dc7ad707660b33e79e5b55ad3756a850bf90416",
+    "fetched_at": "2026-06-10T09:48:33.460690+00:00"
+  },
+  "page_fetches": [
+    {
+      "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/4.5-ui-components-and-panels",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 866383,
+      "sha256": "c454101c52ba3dd01555b03168851ae38fab76a185072d776ede4927588c82ad",
+      "fetched_at": "2026-06-10T09:48:36.455799+00:00"
+    }
+  ],
+  "toc_count": 32,
+  "markdown_chunks_count": 32,
+  "matched_pages_count": 32,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "manual_reconstructed_pages": [
+    {
+      "order": 23,
+      "title": "UI Components & Panels",
+      "url": "https://deepwiki.com/Egonex-AI/Understand-Anything/4.5-ui-components-and-panels",
+      "path": "/Egonex-AI/Understand-Anything/4.5-ui-components-and-panels",
+      "slug": "4.5-ui-components-and-panels",
+      "section": "4.5",
+      "depth": 1,
+      "parent_section": "4",
+      "markdown_path": "pages-md/4.5-ui-components-and-panels.md",
+      "metadata_path": "pages-meta/4.5-ui-components-and-panels.json",
+      "manual_markdown_sha256": "55347a1699f689e312911a19ad9cf965531cbdb8e67e3aabf094a7b714edaa3a"
+    }
+  ],
+  "output_dir": "artifacts/Understand-Anything/deepwiki"
+}

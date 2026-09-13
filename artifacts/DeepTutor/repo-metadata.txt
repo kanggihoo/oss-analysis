@@ -1,0 +1,15 @@
+repo: HKUDS/DeepTutor
+url: https://github.com/HKUDS/DeepTutor
+local_path: /Users/kkh/Desktop/oss-analysis/repos/DeepTutor
+
+branch: main
+head: 88c2565389dd6b8bdee228b50f8c76d8c990d6b6
+describe: v1.4.8
+remote_origin: https://github.com/HKUDS/DeepTutor.git
+status_short:
+
+latest_commit:
+88c2565389dd6b8bdee228b50f8c76d8c990d6b6
+Bingxi Zhao (Frank) <13051345080@163.com>
+2026-06-18T22:16:31+08:00
+release: v1.4.8

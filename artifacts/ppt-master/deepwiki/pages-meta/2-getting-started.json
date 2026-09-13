@@ -1,0 +1,18 @@
+{
+  "order": 2,
+  "title": "Getting Started",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/2-getting-started",
+  "path": "/hugohe3/ppt-master/2-getting-started",
+  "slug": "2-getting-started",
+  "section": "2",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "1c9a533565195e6b1892f751693488028a483e2f9e5490b9b279a12e9e8d2e00",
+  "markdown_length": 8381,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 5,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

@@ -1,0 +1,18 @@
+{
+  "order": 37,
+  "title": "CI/CD Pipeline",
+  "url": "https://deepwiki.com/vercel-labs/agent-browser/8.2-cicd-pipeline",
+  "path": "/vercel-labs/agent-browser/8.2-cicd-pipeline",
+  "slug": "8.2-cicd-pipeline",
+  "section": "8.2",
+  "depth": 1,
+  "parent_section": "8",
+  "matched_chunk_sha256": "cce7c9954e982abdebc4ae3f9a54ae0b80e8898710d3fcc679d70b6cf2c60ca2",
+  "markdown_length": 10768,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

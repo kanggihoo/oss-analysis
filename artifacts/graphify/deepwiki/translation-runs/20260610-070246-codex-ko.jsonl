@@ -1,0 +1,2 @@
+{"dry_run": true, "effort": "medium", "event": "run_start", "model": "gpt-5.5", "repo": "graphify", "rotate_at": 0.7, "ts": "2026-06-09T22:02:46+00:00", "workspace": "/Users/kkh/Desktop/oss-analysis"}
+{"count": 37, "event": "toc_loaded", "toc_json": "artifacts/graphify/deepwiki/toc.json", "toc_md": "artifacts/graphify/deepwiki/toc.md", "toc_md_sha256": "0cfa27b50a993f29465b17d381f2334d999e86070011af50cedfefa05620dda6", "ts": "2026-06-09T22:02:46+00:00"}

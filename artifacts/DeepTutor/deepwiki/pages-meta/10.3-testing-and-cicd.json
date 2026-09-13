@@ -1,0 +1,18 @@
+{
+  "order": 46,
+  "title": "Testing and CI/CD",
+  "url": "https://deepwiki.com/HKUDS/DeepTutor/10.3-testing-and-cicd",
+  "path": "/HKUDS/DeepTutor/10.3-testing-and-cicd",
+  "slug": "10.3-testing-and-cicd",
+  "section": "10.3",
+  "depth": 1,
+  "parent_section": "10",
+  "matched_chunk_sha256": "a5367392d644b0c7840d6dabd1f06efed2ff87612488cd6619fe0e141e3d8f6c",
+  "markdown_length": 8352,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

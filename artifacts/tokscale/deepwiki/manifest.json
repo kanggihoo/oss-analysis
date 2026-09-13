@@ -1,0 +1,23 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "junhoyeo",
+  "repo": "tokscale",
+  "deepwiki_url": "https://deepwiki.com/junhoyeo/tokscale",
+  "generated_at": "2026-06-10T09:29:24.910172+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/junhoyeo/tokscale",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 554811,
+    "sha256": "f7b834536bc3ad578124aa3cd0033f58f6d505d4d5966a4949b965b5a132750a",
+    "fetched_at": "2026-06-10T09:29:24.781821+00:00"
+  },
+  "page_fetches": [],
+  "toc_count": 44,
+  "markdown_chunks_count": 44,
+  "matched_pages_count": 44,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/tokscale/deepwiki"
+}

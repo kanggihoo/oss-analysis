@@ -1,0 +1,12 @@
+repo: Panniantong/Agent-Reach
+local_path: /Users/kkh/Desktop/oss-analysis/repos/Agent-Reach
+remote_url: https://github.com/Panniantong/Agent-Reach.git
+branch: main
+head_sha: a7c56eb474f915308f02c39b9fa0c20f1abff222
+describe: v1.5.0-11-ga7c56eb
+status: 0 dirty entries
+latest_commit:
+a7c56eb474f915308f02c39b9fa0c20f1abff222
+Pnant <73925474+Panniantong@users.noreply.github.com>
+2026-06-23T21:04:53+08:00
+Merge pull request #420 from Panniantong/codex/add-ark-sponsor

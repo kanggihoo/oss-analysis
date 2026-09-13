@@ -1,0 +1,42 @@
+{
+  "script": "deepwiki_extract.py",
+  "script_version": "1.1.0",
+  "owner": "kepano",
+  "repo": "defuddle",
+  "deepwiki_url": "https://deepwiki.com/kepano/defuddle",
+  "generated_at": "2026-06-12T03:37:42.504382+00:00",
+  "index_fetch": {
+    "url": "https://deepwiki.com/kepano/defuddle",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 763297,
+    "sha256": "57d35afaf6e3af92ff21aeb4e8ebc7d08e0638e07d994af98dd797cb757d280d",
+    "fetched_at": "2026-06-12T03:37:39.574637+00:00"
+  },
+  "page_fetches": [
+    {
+      "url": "https://deepwiki.com/kepano/defuddle/6-platform-specific-extractors",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 753030,
+      "sha256": "7e2fe39e8aa22065b885e604f82b9b86e89713dfad75817e6227538dbcd5c61d",
+      "fetched_at": "2026-06-12T03:37:42.348524+00:00"
+    }
+  ],
+  "toc_count": 36,
+  "markdown_chunks_count": 36,
+  "matched_pages_count": 36,
+  "missing_pages_count": 0,
+  "missing_pages": [],
+  "output_dir": "artifacts/defuddle/deepwiki",
+  "manual_reconstructed_pages": [
+    {
+      "slug": "6-platform-specific-extractors",
+      "markdown_path": "pages-md/6-platform-specific-extractors.md",
+      "meta_path": "pages-meta/6-platform-specific-extractors.json",
+      "manual_markdown_sha256": "864e0f09cd5a371a212ca62e2f871530690df811d8d8b6ab36d097ce7ff7b630",
+      "reconstructed_at": "2026-06-12T03:40:48.304500+00:00",
+      "reason": "TOC title/H1 drift: Platform-Specific Extractors vs Site-Specific Extractors"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "order": 29,
+  "title": "Upstream Sync",
+  "url": "https://deepwiki.com/Panniantong/Agent-Reach/6.3-upstream-sync",
+  "path": "/Panniantong/Agent-Reach/6.3-upstream-sync",
+  "slug": "6.3-upstream-sync",
+  "section": "6.3",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "4314775256b37fd2a6fb24844729473dfc9fe6e812c9baf4416560c6b7c9e25b",
+  "markdown_length": 7062,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "scripts/sync-upstream.sh:10-23",
+    "scripts/sync-upstream.sh:12-16",
+    "scripts/sync-upstream.sh:22-72",
+    "scripts/sync-upstream.sh:25-27",
+    "scripts/sync-upstream.sh:29-33",
+    "scripts/sync-upstream.sh:40-58",
+    "scripts/sync-upstream.sh:51-53",
+    "scripts/sync-upstream.sh:60-72",
+    "scripts/sync-upstream.sh:63-72"
+  ]
+}

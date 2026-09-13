@@ -1,0 +1,18 @@
+{
+  "order": 34,
+  "title": "CI/CD and Binary Distribution",
+  "url": "https://deepwiki.com/earendil-works/pi/10.1-cicd-and-binary-distribution",
+  "path": "/earendil-works/pi/10.1-cicd-and-binary-distribution",
+  "slug": "10.1-cicd-and-binary-distribution",
+  "section": "10.1",
+  "depth": 1,
+  "parent_section": "10",
+  "matched_chunk_sha256": "8a92e1cbe535e46fd75381f5e2af1fab28a7fd63e91ace9ccf73d6fc2d0a0a57",
+  "markdown_length": 12165,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

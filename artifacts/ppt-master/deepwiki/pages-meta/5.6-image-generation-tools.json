@@ -1,0 +1,18 @@
+{
+  "order": 17,
+  "title": "Image Generation Tools",
+  "url": "https://deepwiki.com/hugohe3/ppt-master/5.6-image-generation-tools",
+  "path": "/hugohe3/ppt-master/5.6-image-generation-tools",
+  "slug": "5.6-image-generation-tools",
+  "section": "5.6",
+  "depth": 1,
+  "parent_section": "5",
+  "matched_chunk_sha256": "85ed01058041cb70ee432e443ac88e88f3af76bc7f0384838d82af4ddb2d1bb7",
+  "markdown_length": 7970,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

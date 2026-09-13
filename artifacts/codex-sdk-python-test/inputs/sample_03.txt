@@ -1,0 +1,1 @@
+Developers can use the local knowledge graph as a second opinion, but final documentation should cite concrete file paths and verified behavior.

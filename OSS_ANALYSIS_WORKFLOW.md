@@ -1,292 +1,154 @@
 # OSS Analysis Workflow
 
 Created: 2026-06-09
-Updated: 2026-06-09
+Updated: 2026-09-11
 Workspace: `/Users/kkh/Desktop/oss-analysis`
-Hermes profile: `oss-analyst`
 
-이 문서는 `oss-analyst` profile이 `/Users/kkh/Desktop/oss-analysis`에서 오픈소스 코드베이스 분석을 반복 가능하게 수행하기 위한 기준 문서다.
+**이 레포는 원본 코드를 보관하는 곳이 아니라, AI와 함께 오픈소스를 탐색하고 검증한 지식을 축적하는 작업 공간으로 운영합니다.**  
+기본 흐름은 **archify로 파악 → 질문 → 코드 검증 → reports 기록 → wiki 축적**입니다.
 
-## 1. 목표
+---
 
-이 workspace는 open-source analysis lab처럼 운영한다.
-
-```text
-repo clone/update
-→ external/local analyzer output capture
-→ Hermes가 실제 코드로 핵심 claim 검증
-→ reports 작성
-→ wiki에 durable knowledge 누적
-→ 다음 repo 분석/비교에 재사용
-```
-
-핵심 원칙은 단순 요약이 아니라 **증거 기반 분석**이다. DeepWiki, graphify, Understand-Anything 결과는 분석 후보/second opinion이며, 중요한 결론은 실제 local checkout의 source path로 검증한다.
-
-## 2. 현재 디렉토리 구조
+## 1. 디렉터리 구조
 
 ```text
-/Users/kkh/Desktop/oss-analysis/
-├── AGENTS.md
-├── OSS_ANALYSIS_WORKFLOW.md
-├── .env.example
-├── scripts/
-│   ├── analyze-repo.sh
-│   └── wiki-lint.py
-├── repos/
+oss-analysis/
+├── AGENTS.md                    # AI의 필수 작업 규칙
+├── OSS_ANALYSIS_WORKFLOW.md      # 분석·기록 절차
+├── templates/                   # 요청·보고서 템플릿
+├── scripts/                     # 분석·검증 보조 도구
+│
+├── repos/                       # 분석 대상의 독립적인 clone
 │   └── <repo>/
-├── artifacts/
+│
+├── artifacts/                   # 분석기 출력·외부 자료·실행 로그
 │   └── <repo>/
-│       ├── repo-metadata.txt
-│       ├── static-analysis/
-│       ├── deepwiki/
-│       ├── graphify/
-│       └── understand-anything/
-├── reports/
+│
+├── reports/                     # 레포별 상세 분석
 │   └── <repo>/
-│       ├── overview.md
-│       ├── architecture.md
-│       ├── code-map.md
-│       ├── dependency-analysis.md
-│       ├── test-ci-analysis.md
-│       ├── risk-report.md
-│       ├── deepwiki-comparison.md
-│       ├── graphify-findings.md
-│       └── understand-anything-findings.md
-└── wiki/
-    ├── SCHEMA.md
-    ├── index.md
-    ├── log.md
-    ├── projects/
-    ├── concepts/
-    ├── comparisons/
-    ├── queries/
-    ├── raw/
-    └── _meta/
+│       ├── overview.md          # 개요·그림·질문 목록의 입구
+│       ├── next.md              # 다음 세션에서 이어갈 내용
+│       ├── diagrams/            # archify 원본 JSON과 HTML
+│       └── questions/           # 질문별 답변과 코드 근거
+│
+└── wiki/                        # 다시 꺼내 쓸 핵심 지식
+    ├── projects/                # 프로젝트별 핵심 요약
+    ├── concepts/                # 재사용 가능한 개념·설계 패턴
+    ├── comparisons/            # 프로젝트·구현 방식 비교
+    ├── queries/                # 재사용 가치가 큰 종합 답변
+    ├── index.md                 # 지식 목록
+    └── log.md                   # 지식 갱신 이력
 ```
 
-## 3. 루트 디렉토리 역할
+---
 
-| 경로 | 역할 | 신뢰도/취급 |
+## 2. 분석 6단계 절차
+
+분석은 다음 순서로 진행합니다.
+
+### 1단계: 대상과 목적을 정합니다
+- 레포 URL과 분석 목적(학습 / 설계 참고 / 도입 검토 등)을 지정합니다.
+- 기존 보고서(`reports/<repo>/`)와 위키(`wiki/projects/<repo>.md`)를 먼저 찾아 중복 분석을 줄입니다.
+
+### 2단계: 코드 기준을 기록합니다
+- `repos/<repo>/`에 clone(또는 fetch/pull)합니다.
+- 원본 URL, commit SHA, 분석일, 작업트리 변경 여부(clean/dirty)를 `artifacts/<repo>/repo-metadata.txt` 및 `reports/<repo>/overview.md`에 기록합니다.
+
+### 3단계: archify로 첫 지도를 만듭니다
+- 주요 모듈 중심의 구조도와 대표 동작 하나의 실행 흐름을 작성합니다.
+- 실제 코드로 관계를 확인하고, 미확인 영역을 명확히 표시합니다.
+- **주의**: 처음부터 모든 파일을 그림에 넣지 않습니다.
+- archify 결과는 원본 JSON과 standalone HTML을 `reports/<repo>/diagrams/`에 함께 보관합니다.
+- archify 스킬의 검증 절차를 따르고, 산출물 검증·브라우저 확인·시각적 검토 결과를 구분합니다.
+
+### 4단계: 그림을 보고 궁금한 부분을 질문합니다
+- 사용자와 AI는 생성된 지도를 바탕으로 핵심 질문을 던집니다.
+  - 예: *“이 모듈은 왜 분리됐어?”*, *“실패하면 어떻게 처리해?”*, *“기능을 추가하려면 어디를 바꿔?”*
+- AI는 관련 코드 경로를 추적하고, 필요할 때 상세 다이어그램을 추가합니다.
+
+### 5단계: 답변을 저장하고 지식을 갱신합니다
+- 상세 답변은 `reports/<repo>/questions/<question>.md`에 남깁니다.
+- 기존 이해가 바뀌면 `overview.md`와 다이어그램을 수정하고, 다시 활용할 내용은 `wiki/`에 요약합니다.
+
+### 6단계: 다음 시작점을 남깁니다
+- 세션 마무리 시 `reports/<repo>/next.md`에 확인한 범위, 남은 질문, 다음에 볼 파일·함수, 분석 SHA를 기록합니다.
+- `wiki/index.md`와 `wiki/log.md`를 업데이트합니다.
+
+---
+
+## 3. reports와 wiki의 역할 구분
+
+reports와 wiki는 **상세 조사**와 **재사용 지식**으로 구분합니다.
+
+| 구분 | reports (`reports/<repo>/`) | wiki (`wiki/`) |
 |---|---|---|
-| `repos/<repo>/` | 분석 대상 repo의 local checkout | primary evidence. architecture/runtime/dependency claim은 여기서 검증한다. |
-| `artifacts/<repo>/` | analyzer와 external baseline의 raw output | evidence candidate. 그대로 결론으로 쓰지 않는다. |
-| `reports/<repo>/` | 사람에게 보여줄 repo별 분석 보고서 | 검증된 결론과 source path를 포함한다. |
-| `wiki/` | LLM Wiki 장기 지식 저장소 | 반복 사용 가능한 project/concept/comparison/query synthesis를 보관한다. |
-| `scripts/` | workspace helper script | repo 분석 자동화, wiki health check 등 보조 도구를 둔다. |
+| **목적** | 특정 질문의 답과 근거를 보존 | 핵심 이해를 빠르게 재사용 |
+| **내용** | 호출 경로, 코드 위치, 상세 그림, 실행 결과 | 프로젝트 요약, 설계 원리, 적용 조건, 비교 |
+| **예시** | “이 레포의 플러그인 등록 과정” | “플러그인 등록 방식별 장단점” |
+| **연결** | 소스·로그·그림을 참조 | 상세 보고서를 참조 (링크 활용) |
 
-## 4. 도구별 역할
+- `wiki/projects/<repo>.md`에는 해당 레포의 핵심 요약도 남깁니다. (wiki가 반드시 여러 레포에 공통인 내용만 담는 것은 아닙니다.)
+- **원칙**: 애매하면 `reports/`에 먼저 저장하고, 다음에도 필요할 내용만 `wiki/`로 요약합니다. 그림과 상세 설명은 복제하지 않고 링크합니다. 짧은 확인 질문은 기존 문서에 합쳐도 됩니다.
 
-| 도구 | 역할 | 저장 위치 |
-|---|---|---|
-| Hermes `oss-analyst` | 전체 orchestration, 검증, synthesis, report/wiki 작성 | profile + workspace |
-| DeepWiki | 외부 baseline / second opinion | `artifacts/<repo>/deepwiki/` |
-| graphify | repo-local knowledge graph / graph report | `artifacts/<repo>/graphify/` |
-| Understand-Anything | dashboard, guided tour, diff impact, wiki graph 탐색 | `artifacts/<repo>/understand-anything/` |
-| pygount/tokei | LOC/language/file composition | `artifacts/<repo>/static-analysis/` |
-| semgrep/ast-grep | 정적 분석, pattern search | `artifacts/<repo>/static-analysis/` |
-| llm-wiki | 장기 지식 저장소 | `wiki/` |
+---
 
-## 5. repo 분석 요청 형태
+## 4. 근거 및 검증 수준 기준
 
-분석 요청은 가능하면 다음 형태가 좋다.
+모든 중요한 답변에는 반드시 구체적인 근거를 남깁니다.
 
-```text
-Analyze https://github.com/owner/repo at depth=standard.
-Focus on architecture, extension points, runtime flow, risks.
-Use DeepWiki and graphify if available.
-Update reports and wiki.
-```
+### 질문 문서(`reports/<repo>/questions/*.md`)의 필수 항목
+1. **질문과 짧은 결론**
+2. **동작 설명과 관련 그림** (필요시 archify 다이어그램 포함)
+3. **근거 코드**: commit SHA, 파일 경로, 함수·클래스명
+4. **검증 수준**: 아래 4단계 중 하나를 명시
+   - `코드 확인`: 실제 소스 코드 구현부를 직접 읽고 검증 완료
+   - `실행 확인`: 실제 실행, 테스트 실행, 로깅 등으로 검증 완료
+   - `추론`: 코드/구조에 기반한 합리적 추론이나 공식 문서 미확인
+   - `미확인`: 확인되지 않은 외부 자료의 주장 또는 가설
+5. **실행한 명령과 결과** (테스트, 빌드, 정적 분석 등)
+6. **남은 질문**
 
-Depth 기준:
+> [!IMPORTANT]
+> DeepWiki와 분석기 출력은 참고 자료로 사용합니다. 중요한 동작은 실제 코드로 검증하고, 개발자의 의도는 공식 근거가 없으면 **추론**으로 표시합니다.
 
-| depth | 범위 |
+---
+
+## 5. Git 관리 방침
+
+이 워크스페이스의 Git은 **분석 결과와 작업 규칙**을 관리합니다.
+
+| 대상 | 관리 방식 |
 |---|---|
-| `quick` | clone/update, README/docs, metadata, basic static summary, minimal overview |
-| `standard` | quick + DeepWiki baseline, graphify, architecture/code-map reports, wiki update |
-| `deep` | standard + dependency/security/test/CI/risk deep dive, Understand-Anything if available, comparisons |
+| `repos/` | 우리 Git에서 제외 (`.gitignore`). 각 clone의 원본 Git으로 관리 |
+| `reports/`, `wiki/` | 우리 Git으로 관리 |
+| archify JSON·HTML | 우리 Git으로 관리 (`reports/<repo>/diagrams/`) |
+| 규칙·템플릿·스크립트 | 우리 Git으로 관리 (`AGENTS.md`, `templates/`, `scripts/`) |
+| `artifacts/` | 작은 검증 근거는 포함, 대용량 출력·캐시는 제외 |
 
-## 6. 표준 분석 절차
+- 기본 `.gitignore`에는 `/repos/`를 추가하여 관리합니다. (처음부터 submodule을 도입할 필요는 없습니다.)
+- 보고서에는 분석 당시 commit SHA를 남겨 해당 코드를 언제든 다시 확인할 수 있게 합니다.
+- 실험을 위해 코드를 수정했다면 diff와 실행 조건도 보관합니다.
+- 이후 레포가 업데이트되면 이전 SHA와의 변경점을 확인하고, 영향을 받은 설명과 그림부터 재검증합니다.
 
-### 6.1 Intake
+---
 
-확인할 것:
+## 6. AI 첫 분석 요청 템플릿
 
-- GitHub URL 또는 local repo path
-- 분석 깊이: `quick`, `standard`, `deep`
-- focus: architecture, runtime flow, extension points, dependency, security, tests/CI, risks, project health, comparison
-- 사용할 analyzer: DeepWiki, graphify, Understand-Anything, static analysis
-
-### 6.2 Clone/update
-
-가능하면 helper를 사용한다.
-
-```bash
-cd /Users/kkh/Desktop/oss-analysis
-./scripts/analyze-repo.sh https://github.com/owner/repo
-```
-
-기대 저장 위치:
+AI에게 첫 분석을 요청할 때는 다음 템플릿을 사용합니다:
 
 ```text
-repos/<repo>/
-artifacts/<repo>/repo-metadata.txt
-artifacts/<repo>/static-analysis/
-reports/<repo>/README.md 또는 overview.md
+대상: <repo URL>
+목적: <학습 / 설계 참고 / 도입 검토>
+
+AGENTS.md와 OSS_ANALYSIS_WORKFLOW.md를 따르고,
+기존 reports와 wiki를 먼저 확인해.
+
+1. 분석 commit SHA와 작업트리 상태를 기록해.
+2. archify로 주요 구조도와 대표 실행 흐름을 만들어.
+3. 핵심 관계는 코드로 확인하고 미확인 범위를 표시해.
+4. JSON·HTML과 overview.md를 reports/<repo>/에 저장해.
+5. 그림을 읽는 순서와 후속 질문 3~5개를 제안해.
+6. 이후 질문의 상세 답변은 reports에 기록하고,
+   재사용할 핵심 지식은 wiki에 반영해.
+7. 마무리할 때 next.md와 wiki 목록·로그를 갱신해.
 ```
-
-### 6.3 Metadata/docs/manifest 확인
-
-최소 확인 대상:
-
-- README, docs, examples
-- package manifests: `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml`, etc.
-- lockfiles
-- CI: `.github/workflows/`, project-specific CI config
-- test directories and scripts
-- license and contribution docs when relevant
-
-### 6.4 DeepWiki baseline
-
-GitHub repo라면 다음 위치를 확인한다.
-
-```text
-https://deepwiki.com/<owner>/<repo>
-```
-
-유용한 내용이 있으면 raw capture와 parsed pages를 다음 위치에 저장한다.
-
-```text
-artifacts/<repo>/deepwiki/
-├── raw/
-├── toc.md
-├── toc.json
-├── pages-md/
-├── pages-meta/ 또는 pages-json/
-└── translated-ko/        # 필요한 경우
-```
-
-DeepWiki 결과는 다음 항목으로 분리해서 다룬다.
-
-- DeepWiki가 주장한 내용
-- local source로 검증된 내용
-- local source에서 확인되지 않은 내용
-- DeepWiki가 놓친 내용
-- 최종 synthesis
-
-### 6.5 graphify
-
-graphify는 local graph analyzer / second opinion으로 사용한다.
-
-일반적인 저장 위치:
-
-```text
-artifacts/<repo>/graphify/
-├── GRAPH_REPORT.md
-├── graph.json
-├── graph.html
-├── manifest.json
-└── wiki/
-```
-
-graphify output에서 얻은 call graph, module cluster, generated wiki는 source 검증 전까지 hypothesis로 취급한다.
-
-### 6.6 Understand-Anything
-
-사용 가능한 환경에서는 repo root에서 guided tour, dashboard, diff impact, knowledge graph 탐색에 사용한다.
-
-산출물은 다음 위치로 복사한다.
-
-```text
-artifacts/<repo>/understand-anything/
-```
-
-Understand-Anything 결과도 source verification 전까지 exploration aid로 취급한다.
-
-### 6.7 Hermes source verification
-
-Hermes는 외부 도구 결과를 그대로 믿지 않는다.
-
-검증 규칙:
-
-1. Architecture claim → 실제 file/module path를 확인한다.
-2. Runtime flow claim → entrypoint와 call/data path를 확인한다.
-3. Dependency/security claim → manifest, lockfile, CI, advisory를 확인한다.
-4. Test/CI claim → test directory와 CI workflow를 확인한다.
-5. Project health claim → GitHub metadata, release, issue/PR, commit history를 확인한다.
-6. 검증 불가 claim은 `unverified` 또는 낮은 confidence로 표시한다.
-
-## 7. reports 작성 기준
-
-repo별 report는 가능하면 다음 파일로 나눈다.
-
-```text
-reports/<repo>/overview.md
-reports/<repo>/architecture.md
-reports/<repo>/code-map.md
-reports/<repo>/dependency-analysis.md
-reports/<repo>/test-ci-analysis.md
-reports/<repo>/risk-report.md
-reports/<repo>/deepwiki-comparison.md
-reports/<repo>/graphify-findings.md
-reports/<repo>/understand-anything-findings.md
-```
-
-보고서에는 다음을 포함한다.
-
-- 분석 대상 repo URL과 local path
-- 분석 commit SHA
-- 사용한 artifacts 경로
-- 핵심 claim별 source path evidence
-- 검증된 내용과 미검증 내용을 분리한 결론
-
-## 8. wiki 반영 기준
-
-`wiki/`는 Hermes가 전담 관리하는 장기 지식 저장소다. 단순 작업 로그나 raw dump가 아니다.
-
-반영 위치:
-
-```text
-wiki/projects/<repo>.md          # repo별 durable summary
-wiki/concepts/<concept>.md       # 반복 출현하는 기술/패턴/분석 개념
-wiki/comparisons/<topic>.md      # cross-repo 또는 tool 비교
-wiki/queries/<query>.md          # 재사용 가치가 큰 질의 결과
-wiki/index.md                    # catalog
-wiki/log.md                      # append-only action log
-```
-
-운영 규칙:
-
-1. wiki 편집 전 `wiki/SCHEMA.md`, `wiki/index.md`, 최근 `wiki/log.md`를 읽는다.
-2. 기존 page를 검색한 뒤 새 page를 만들지 결정한다.
-3. `repos/`, `artifacts/`, `reports/`의 안정적인 path를 frontmatter `sources:`에 기록한다.
-4. raw output 전체를 wiki에 복사하지 않는다.
-5. 모든 새/수정 page는 `index.md`와 `log.md`에 반영한다.
-6. 큰 변경 후 `python3 scripts/wiki-lint.py`를 실행한다.
-
-## 9. Wiki health check
-
-wiki 기본 검증:
-
-```bash
-cd /Users/kkh/Desktop/oss-analysis
-python3 scripts/wiki-lint.py
-```
-
-검사 항목:
-
-- required wiki directories
-- frontmatter required fields
-- tags defined in `SCHEMA.md`
-- broken wikilinks
-- pages missing from `index.md`
-- pages over recommended size
-
-## 10. 최종 응답 기준
-
-분석 작업을 완료한 뒤 사용자에게 보고할 때는 다음을 포함한다.
-
-- 생성/수정한 `artifacts/`, `reports/`, `wiki/` 파일 경로
-- 실제 실행한 analyzer 또는 명령 결과 요약
-- 검증한 source path
-- 검증하지 못한 claim과 이유
-- 다음에 이어서 볼 수 있는 구체적 후속 작업

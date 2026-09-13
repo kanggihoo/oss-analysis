@@ -1,0 +1,81 @@
+# kepano/defuddle repo metadata
+
+generated_at: 2026-06-12T03:38:24Z
+github_url: https://github.com/kepano/defuddle
+local_path: repos/defuddle
+artifact_path: artifacts/defuddle
+
+## clone/update
+
+The repository was cloned with:
+
+```bash
+git clone https://github.com/kepano/defuddle.git repos/defuddle
+```
+
+## git remote
+
+```text
+origin	https://github.com/kepano/defuddle.git (fetch)
+origin	https://github.com/kepano/defuddle.git (push)
+```
+
+## branch
+
+```text
+main
+```
+
+## HEAD
+
+```text
+9db72600a0cfc568eafb31e85ef68ba16add072e
+```
+
+## describe
+
+```text
+0.18.1-26-g9db7260
+```
+
+## latest commit
+
+```text
+9db72600a0cfc568eafb31e85ef68ba16add072e
+Steph Ango <10565871+kepano@users.noreply.github.com>
+2026-06-06T11:11:21-07:00
+markdown: hoist MathML node-name sets to module scope
+```
+
+## working tree status
+
+```text
+(empty; clean at capture time)
+```
+
+## DeepWiki extraction
+
+Initial extractor result:
+
+```text
+toc_count=36
+matched_pages_count=35
+missing_pages_count=1
+missing page: 6-platform-specific-extractors
+```
+
+Repair performed:
+
+```text
+The saved raw HTML contained a Next.js Markdown payload chunk titled "Site-Specific Extractors" for the TOC item "Platform-Specific Extractors".
+Copied that payload to pages-md/6-platform-specific-extractors.md and recorded the title drift in pages-meta/6-platform-specific-extractors.json.
+manifest after repair: matched_pages_count=36, missing_pages_count=0
+manual_markdown_sha256=864e0f09cd5a371a212ca62e2f871530690df811d8d8b6ab36d097ce7ff7b630
+```
+
+## basic artifacts
+
+```text
+artifacts/defuddle/github-metadata.json
+artifacts/defuddle/static-analysis/language-summary.txt
+```

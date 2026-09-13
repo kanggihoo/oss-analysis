@@ -1,0 +1,372 @@
+[
+  {
+    "order": 1,
+    "title": "Overview",
+    "url": "https://deepwiki.com/safishamsi/graphify/1-overview",
+    "path": "/safishamsi/graphify/1-overview",
+    "slug": "1-overview",
+    "section": "1",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 2,
+    "title": "Getting Started & Installation",
+    "url": "https://deepwiki.com/safishamsi/graphify/1.1-getting-started-and-installation",
+    "path": "/safishamsi/graphify/1.1-getting-started-and-installation",
+    "slug": "1.1-getting-started-and-installation",
+    "section": "1.1",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 3,
+    "title": "Changelog & Version History",
+    "url": "https://deepwiki.com/safishamsi/graphify/1.2-changelog-and-version-history",
+    "path": "/safishamsi/graphify/1.2-changelog-and-version-history",
+    "slug": "1.2-changelog-and-version-history",
+    "section": "1.2",
+    "depth": 1,
+    "parent_section": "1"
+  },
+  {
+    "order": 4,
+    "title": "Core Architecture",
+    "url": "https://deepwiki.com/safishamsi/graphify/2-core-architecture",
+    "path": "/safishamsi/graphify/2-core-architecture",
+    "slug": "2-core-architecture",
+    "section": "2",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 5,
+    "title": "File Detection & Classification",
+    "url": "https://deepwiki.com/safishamsi/graphify/2.1-file-detection-and-classification",
+    "path": "/safishamsi/graphify/2.1-file-detection-and-classification",
+    "slug": "2.1-file-detection-and-classification",
+    "section": "2.1",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 6,
+    "title": "Extraction Engine",
+    "url": "https://deepwiki.com/safishamsi/graphify/2.2-extraction-engine",
+    "path": "/safishamsi/graphify/2.2-extraction-engine",
+    "slug": "2.2-extraction-engine",
+    "section": "2.2",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 7,
+    "title": "Graph Assembly, Deduplication & Clustering",
+    "url": "https://deepwiki.com/safishamsi/graphify/2.3-graph-assembly-deduplication-and-clustering",
+    "path": "/safishamsi/graphify/2.3-graph-assembly-deduplication-and-clustering",
+    "slug": "2.3-graph-assembly-deduplication-and-clustering",
+    "section": "2.3",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 8,
+    "title": "Graph Analysis",
+    "url": "https://deepwiki.com/safishamsi/graphify/2.4-graph-analysis",
+    "path": "/safishamsi/graphify/2.4-graph-analysis",
+    "slug": "2.4-graph-analysis",
+    "section": "2.4",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 9,
+    "title": "Report Generation",
+    "url": "https://deepwiki.com/safishamsi/graphify/2.5-report-generation",
+    "path": "/safishamsi/graphify/2.5-report-generation",
+    "slug": "2.5-report-generation",
+    "section": "2.5",
+    "depth": 1,
+    "parent_section": "2"
+  },
+  {
+    "order": 10,
+    "title": "Export & Visualization",
+    "url": "https://deepwiki.com/safishamsi/graphify/3-export-and-visualization",
+    "path": "/safishamsi/graphify/3-export-and-visualization",
+    "slug": "3-export-and-visualization",
+    "section": "3",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 11,
+    "title": "HTML & SVG Visualization",
+    "url": "https://deepwiki.com/safishamsi/graphify/3.1-html-and-svg-visualization",
+    "path": "/safishamsi/graphify/3.1-html-and-svg-visualization",
+    "slug": "3.1-html-and-svg-visualization",
+    "section": "3.1",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 12,
+    "title": "Obsidian Vault & Canvas Export",
+    "url": "https://deepwiki.com/safishamsi/graphify/3.2-obsidian-vault-and-canvas-export",
+    "path": "/safishamsi/graphify/3.2-obsidian-vault-and-canvas-export",
+    "slug": "3.2-obsidian-vault-and-canvas-export",
+    "section": "3.2",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 13,
+    "title": "Wiki Export",
+    "url": "https://deepwiki.com/safishamsi/graphify/3.3-wiki-export",
+    "path": "/safishamsi/graphify/3.3-wiki-export",
+    "slug": "3.3-wiki-export",
+    "section": "3.3",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 14,
+    "title": "Neo4j, GraphML & JSON Export",
+    "url": "https://deepwiki.com/safishamsi/graphify/3.4-neo4j-graphml-and-json-export",
+    "path": "/safishamsi/graphify/3.4-neo4j-graphml-and-json-export",
+    "slug": "3.4-neo4j-graphml-and-json-export",
+    "section": "3.4",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 15,
+    "title": "Callflow HTML Export",
+    "url": "https://deepwiki.com/safishamsi/graphify/3.5-callflow-html-export",
+    "path": "/safishamsi/graphify/3.5-callflow-html-export",
+    "slug": "3.5-callflow-html-export",
+    "section": "3.5",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 16,
+    "title": "Tree HTML Export",
+    "url": "https://deepwiki.com/safishamsi/graphify/3.6-tree-html-export",
+    "path": "/safishamsi/graphify/3.6-tree-html-export",
+    "slug": "3.6-tree-html-export",
+    "section": "3.6",
+    "depth": 1,
+    "parent_section": "3"
+  },
+  {
+    "order": 17,
+    "title": "Interfaces & Integration",
+    "url": "https://deepwiki.com/safishamsi/graphify/4-interfaces-and-integration",
+    "path": "/safishamsi/graphify/4-interfaces-and-integration",
+    "slug": "4-interfaces-and-integration",
+    "section": "4",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 18,
+    "title": "CLI Reference",
+    "url": "https://deepwiki.com/safishamsi/graphify/4.1-cli-reference",
+    "path": "/safishamsi/graphify/4.1-cli-reference",
+    "slug": "4.1-cli-reference",
+    "section": "4.1",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 19,
+    "title": "MCP Server (serve.py)",
+    "url": "https://deepwiki.com/safishamsi/graphify/4.2-mcp-server-(serve.py)",
+    "path": "/safishamsi/graphify/4.2-mcp-server-(serve.py)",
+    "slug": "4.2-mcp-server-(serve.py)",
+    "section": "4.2",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 20,
+    "title": "File Watcher (watch.py)",
+    "url": "https://deepwiki.com/safishamsi/graphify/4.3-file-watcher-(watch.py)",
+    "path": "/safishamsi/graphify/4.3-file-watcher-(watch.py)",
+    "slug": "4.3-file-watcher-(watch.py)",
+    "section": "4.3",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 21,
+    "title": "Claude Code Skill Integration",
+    "url": "https://deepwiki.com/safishamsi/graphify/4.4-claude-code-skill-integration",
+    "path": "/safishamsi/graphify/4.4-claude-code-skill-integration",
+    "slug": "4.4-claude-code-skill-integration",
+    "section": "4.4",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 22,
+    "title": "Git Hooks Integration",
+    "url": "https://deepwiki.com/safishamsi/graphify/4.5-git-hooks-integration",
+    "path": "/safishamsi/graphify/4.5-git-hooks-integration",
+    "slug": "4.5-git-hooks-integration",
+    "section": "4.5",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 23,
+    "title": "PR Dashboard & Global Graph",
+    "url": "https://deepwiki.com/safishamsi/graphify/4.6-pr-dashboard-and-global-graph",
+    "path": "/safishamsi/graphify/4.6-pr-dashboard-and-global-graph",
+    "slug": "4.6-pr-dashboard-and-global-graph",
+    "section": "4.6",
+    "depth": 1,
+    "parent_section": "4"
+  },
+  {
+    "order": 24,
+    "title": "Security Model",
+    "url": "https://deepwiki.com/safishamsi/graphify/5-security-model",
+    "path": "/safishamsi/graphify/5-security-model",
+    "slug": "5-security-model",
+    "section": "5",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 25,
+    "title": "URL Validation & Safe Fetch",
+    "url": "https://deepwiki.com/safishamsi/graphify/5.1-url-validation-and-safe-fetch",
+    "path": "/safishamsi/graphify/5.1-url-validation-and-safe-fetch",
+    "slug": "5.1-url-validation-and-safe-fetch",
+    "section": "5.1",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 26,
+    "title": "Path Traversal & Label Sanitization",
+    "url": "https://deepwiki.com/safishamsi/graphify/5.2-path-traversal-and-label-sanitization",
+    "path": "/safishamsi/graphify/5.2-path-traversal-and-label-sanitization",
+    "slug": "5.2-path-traversal-and-label-sanitization",
+    "section": "5.2",
+    "depth": 1,
+    "parent_section": "5"
+  },
+  {
+    "order": 27,
+    "title": "Testing",
+    "url": "https://deepwiki.com/safishamsi/graphify/6-testing",
+    "path": "/safishamsi/graphify/6-testing",
+    "slug": "6-testing",
+    "section": "6",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 28,
+    "title": "End-to-End Pipeline Test",
+    "url": "https://deepwiki.com/safishamsi/graphify/6.1-end-to-end-pipeline-test",
+    "path": "/safishamsi/graphify/6.1-end-to-end-pipeline-test",
+    "slug": "6.1-end-to-end-pipeline-test",
+    "section": "6.1",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 29,
+    "title": "Unit Tests & Fixtures",
+    "url": "https://deepwiki.com/safishamsi/graphify/6.2-unit-tests-and-fixtures",
+    "path": "/safishamsi/graphify/6.2-unit-tests-and-fixtures",
+    "slug": "6.2-unit-tests-and-fixtures",
+    "section": "6.2",
+    "depth": 1,
+    "parent_section": "6"
+  },
+  {
+    "order": 30,
+    "title": "Worked Examples & Benchmarks",
+    "url": "https://deepwiki.com/safishamsi/graphify/7-worked-examples-and-benchmarks",
+    "path": "/safishamsi/graphify/7-worked-examples-and-benchmarks",
+    "slug": "7-worked-examples-and-benchmarks",
+    "section": "7",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 31,
+    "title": "Simple Example (document pipeline)",
+    "url": "https://deepwiki.com/safishamsi/graphify/7.1-simple-example-(document-pipeline)",
+    "path": "/safishamsi/graphify/7.1-simple-example-(document-pipeline)",
+    "slug": "7.1-simple-example-(document-pipeline)",
+    "section": "7.1",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 32,
+    "title": "httpx Benchmark (library codebase)",
+    "url": "https://deepwiki.com/safishamsi/graphify/7.2-httpx-benchmark-(library-codebase)",
+    "path": "/safishamsi/graphify/7.2-httpx-benchmark-(library-codebase)",
+    "slug": "7.2-httpx-benchmark-(library-codebase)",
+    "section": "7.2",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 33,
+    "title": "Karpathy Repos Benchmark (71.5x token reduction)",
+    "url": "https://deepwiki.com/safishamsi/graphify/7.3-karpathy-repos-benchmark-(71.5x-token-reduction)",
+    "path": "/safishamsi/graphify/7.3-karpathy-repos-benchmark-(71.5x-token-reduction)",
+    "slug": "7.3-karpathy-repos-benchmark-(71.5x-token-reduction)",
+    "section": "7.3",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 34,
+    "title": "Mixed Corpus Benchmark (multi-modal)",
+    "url": "https://deepwiki.com/safishamsi/graphify/7.4-mixed-corpus-benchmark-(multi-modal)",
+    "path": "/safishamsi/graphify/7.4-mixed-corpus-benchmark-(multi-modal)",
+    "slug": "7.4-mixed-corpus-benchmark-(multi-modal)",
+    "section": "7.4",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 35,
+    "title": "rsl-siege-manager Case Study (full-stack monorepo)",
+    "url": "https://deepwiki.com/safishamsi/graphify/7.5-rsl-siege-manager-case-study-(full-stack-monorepo)",
+    "path": "/safishamsi/graphify/7.5-rsl-siege-manager-case-study-(full-stack-monorepo)",
+    "slug": "7.5-rsl-siege-manager-case-study-(full-stack-monorepo)",
+    "section": "7.5",
+    "depth": 1,
+    "parent_section": "7"
+  },
+  {
+    "order": 36,
+    "title": "Token Reduction Benchmark",
+    "url": "https://deepwiki.com/safishamsi/graphify/8-token-reduction-benchmark",
+    "path": "/safishamsi/graphify/8-token-reduction-benchmark",
+    "slug": "8-token-reduction-benchmark",
+    "section": "8",
+    "depth": 0,
+    "parent_section": null
+  },
+  {
+    "order": 37,
+    "title": "Glossary",
+    "url": "https://deepwiki.com/safishamsi/graphify/9-glossary",
+    "path": "/safishamsi/graphify/9-glossary",
+    "slug": "9-glossary",
+    "section": "9",
+    "depth": 0,
+    "parent_section": null
+  }
+]

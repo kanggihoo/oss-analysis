@@ -1,0 +1,33 @@
+{
+  "order": 27,
+  "title": "Multi-Agent & Tool Integration",
+  "url": "https://deepwiki.com/santifer/career-ops/8-multi-agent-and-tool-integration",
+  "path": "/santifer/career-ops/8-multi-agent-and-tool-integration",
+  "slug": "8-multi-agent-and-tool-integration",
+  "section": "8",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "537e9ffddb25c36c61e0422ff992da293ef4b8ea78162e4a8e354e545935bed0",
+  "markdown_length": 6299,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    " .claude/skills/career-ops/SKILL.md:12-36",
+    ".claude-plugin/plugin.json:1-18",
+    ".claude-plugin/plugin.json:10-17",
+    ".claude/skills/career-ops/SKILL.md:6-6",
+    ".claude/skills/career-ops/SKILL.md:9-37",
+    "AGENTS.md:1-10",
+    "AGENTS.md:11-23",
+    "AGENTS.md:25-44",
+    "AGENTS.md:27-44",
+    "AGENTS.md:29-34",
+    "AGENTS.md:36-36",
+    "AGENTS.md:43-43",
+    "AGENTS.md:45-48",
+    "GEMINI.md:1-3"
+  ]
+}

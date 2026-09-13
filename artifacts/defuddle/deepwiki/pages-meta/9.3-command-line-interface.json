@@ -1,0 +1,35 @@
+{
+  "order": 32,
+  "title": "Command Line Interface",
+  "url": "https://deepwiki.com/kepano/defuddle/9.3-command-line-interface",
+  "path": "/kepano/defuddle/9.3-command-line-interface",
+  "slug": "9.3-command-line-interface",
+  "section": "9.3",
+  "depth": 1,
+  "parent_section": "9",
+  "matched_chunk_sha256": "10d534dba4d350adf5166a286cb9342f15acbc9ca5a37bd6b66ae47f55e06158",
+  "markdown_length": 15248,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 27,
+  "markdown_images": [
+    "image.jpg"
+  ],
+  "html_images": [
+    "image.jpg"
+  ],
+  "source_refs": [
+    "README.md:260-295",
+    "README.md:54-64",
+    "README.md:68-134",
+    "README.md:68-91",
+    "README.md:78-91",
+    "README.md:93-102",
+    "package.json:6-8",
+    "package.json:75-83",
+    "src/types.ts:22-32",
+    "src/types.ts:34-41",
+    "tsconfig.node.json:1-18",
+    "tsconfig.node.json:16"
+  ]
+}

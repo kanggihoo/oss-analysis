@@ -1,0 +1,33 @@
+{
+  "order": 8,
+  "title": "Agent Tool System",
+  "url": "https://deepwiki.com/alibaba/open-code-review/3-agent-tool-system",
+  "path": "/alibaba/open-code-review/3-agent-tool-system",
+  "slug": "3-agent-tool-system",
+  "section": "3",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "2c212609fd77aad8936b09feda5478900d1319d59578eb98b11c538551720afc",
+  "markdown_length": 6213,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 2,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "internal/tool/definitions.go:10-18",
+    "internal/tool/definitions.go:49-54",
+    "internal/tool/definitions.go:49-76",
+    "internal/tool/definitions.go:57-67",
+    "internal/tool/definitions.go:57-76",
+    "internal/tool/definitions.go:6-8",
+    "internal/tool/definitions.go:82-83",
+    "internal/tool/response_message.go:10-20",
+    "internal/tool/response_message.go:23-24",
+    "internal/tool/response_message.go:4-8",
+    "internal/tool/stub.go:13-15",
+    "internal/tool/stub.go:18-21",
+    "internal/tool/stub.go:5-28",
+    "internal/tool/stub.go:5-7"
+  ]
+}

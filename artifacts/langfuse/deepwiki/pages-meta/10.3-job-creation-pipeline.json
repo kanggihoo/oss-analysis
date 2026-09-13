@@ -1,0 +1,18 @@
+{
+  "order": 61,
+  "title": "Job Creation Pipeline",
+  "url": "https://deepwiki.com/langfuse/langfuse/10.3-job-creation-pipeline",
+  "path": "/langfuse/langfuse/10.3-job-creation-pipeline",
+  "slug": "10.3-job-creation-pipeline",
+  "section": "10.3",
+  "depth": 1,
+  "parent_section": "10",
+  "matched_chunk_sha256": "ede2d3f07b8e194159e950331f72a036ce59b5a30b3fb6739405bc225ff748fa",
+  "markdown_length": 16932,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 4,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": []
+}

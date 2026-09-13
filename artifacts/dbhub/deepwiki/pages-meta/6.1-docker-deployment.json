@@ -1,0 +1,27 @@
+{
+  "order": 20,
+  "title": "Docker Deployment",
+  "url": "https://deepwiki.com/bytebase/dbhub/6.1-docker-deployment",
+  "path": "/bytebase/dbhub/6.1-docker-deployment",
+  "slug": "6.1-docker-deployment",
+  "section": "6.1",
+  "depth": 1,
+  "parent_section": "6",
+  "matched_chunk_sha256": "56a6829b52490d1ae99538db0782aa9d6253e6b6585452bfdf63751fb3b89873",
+  "markdown_length": 7383,
+  "has_mermaid": true,
+  "mermaid_blocks": 6,
+  "fenced_code_blocks": 12,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".dockerignore:1-52",
+    ".github/workflows/docker-publish.yml:1-86",
+    "Dockerfile:1-44",
+    "README.md:108-143",
+    "README.md:184-186",
+    "README.md:206-216",
+    "README.md:219-226",
+    "README.md:64-86"
+  ]
+}

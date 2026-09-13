@@ -1,0 +1,33 @@
+{
+  "order": 19,
+  "title": "Deployment",
+  "url": "https://deepwiki.com/bytebase/dbhub/6-deployment",
+  "path": "/bytebase/dbhub/6-deployment",
+  "slug": "6-deployment",
+  "section": "6",
+  "depth": 0,
+  "parent_section": null,
+  "matched_chunk_sha256": "66d799e06921aac522a8f98436bbeecc72090ab048edd0b06888aecc45d6184e",
+  "markdown_length": 10694,
+  "has_mermaid": true,
+  "mermaid_blocks": 4,
+  "fenced_code_blocks": 11,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    ".github/workflows/docker-publish.yml:1-86",
+    ".github/workflows/npm-publish.yml:1-155",
+    "Dockerfile:1-43",
+    "README.md:1-27",
+    "README.md:102-143",
+    "README.md:146-151",
+    "README.md:154-196",
+    "README.md:184-186",
+    "README.md:205-216",
+    "README.md:219-226",
+    "README.md:62-87",
+    "README.md:64-86",
+    "README.md:88-100",
+    "package.json:1-60"
+  ]
+}

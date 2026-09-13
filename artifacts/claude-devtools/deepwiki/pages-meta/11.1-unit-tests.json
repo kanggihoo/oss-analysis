@@ -1,0 +1,33 @@
+{
+  "order": 36,
+  "title": "Unit Tests",
+  "url": "https://deepwiki.com/matt1398/claude-devtools/11.1-unit-tests",
+  "path": "/matt1398/claude-devtools/11.1-unit-tests",
+  "slug": "11.1-unit-tests",
+  "section": "11.1",
+  "depth": 1,
+  "parent_section": "11",
+  "matched_chunk_sha256": "c99a55d9990645755840f98b2bb0d16d5e53bcc59cad9416e6fa07b1444cdc5b",
+  "markdown_length": 7180,
+  "has_mermaid": true,
+  "mermaid_blocks": 2,
+  "fenced_code_blocks": 3,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "src/main/utils/jsonl.ts:1-484",
+    "src/renderer/components/chat/items/linkedTool/renderHelpers.tsx:131-171",
+    "src/renderer/utils/displayItemBuilder.ts:94-206",
+    "test/main/utils/jsonl.test.ts:1-187",
+    "test/main/utils/jsonl.test.ts:10-24",
+    "test/main/utils/jsonl.test.ts:141-183",
+    "test/main/utils/jsonl.test.ts:175-181",
+    "test/main/utils/jsonl.test.ts:27-137",
+    "test/renderer/utils/displayItemBuilder.test.ts:21-99",
+    "test/renderer/utils/displayItemBuilder.test.ts:8-19",
+    "test/renderer/utils/renderHelpers.test.ts:6-58",
+    "vitest.config.ts:1-25",
+    "vitest.config.ts:11-16",
+    "vitest.config.ts:5-24"
+  ]
+}

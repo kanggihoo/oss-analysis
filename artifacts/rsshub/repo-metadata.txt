@@ -1,0 +1,6 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/rsshub
+name=rsshub
+date=2026-09-11T14:15:04Z
+commit=0a4ecdb02390fb047bb675a1764e1dedbf5cf9bc
+origin=https://github.com/diygod/rsshub
+worktree=clean

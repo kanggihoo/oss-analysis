@@ -1,0 +1,32 @@
+{
+  "order": 7,
+  "title": "Data Serialization",
+  "url": "https://deepwiki.com/peers/peerjs/2.3-data-serialization",
+  "path": "/peers/peerjs/2.3-data-serialization",
+  "slug": "2.3-data-serialization",
+  "section": "2.3",
+  "depth": 1,
+  "parent_section": "2",
+  "matched_chunk_sha256": "17cc44b1d6e89f9e4e43ed24741d93f591afa93fb4dc825b5eff3b0aa4b2cf6a",
+  "markdown_length": 9896,
+  "has_mermaid": true,
+  "mermaid_blocks": 3,
+  "fenced_code_blocks": 5,
+  "markdown_images": [],
+  "html_images": [],
+  "source_refs": [
+    "e2e/datachannel/serialization.js:61-72",
+    "lib/dataconnection/BufferedConnection/BinaryPack.ts:1-7",
+    "lib/dataconnection/BufferedConnection/BinaryPack.ts:27-75",
+    "lib/dataconnection/BufferedConnection/BinaryPack.ts:30-48",
+    "lib/dataconnection/BufferedConnection/BinaryPack.ts:50-108",
+    "lib/dataconnection/BufferedConnection/BinaryPack.ts:8-109",
+    "lib/dataconnection/BufferedConnection/Json.ts:1-5",
+    "lib/dataconnection/BufferedConnection/Json.ts:13-25",
+    "lib/dataconnection/BufferedConnection/Json.ts:5-38",
+    "lib/dataconnection/DataConnection.ts:126-139",
+    "lib/dataconnection/DataConnection.ts:31-161",
+    "lib/msgPackPeer.ts:1-12",
+    "lib/peerError.ts:1-44"
+  ]
+}
