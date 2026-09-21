@@ -1,0 +1,42 @@
+# Codenotch — Repo Metadata (Code Baseline)
+
+Repo URL        : https://github.com/vinzdg/codenotch
+Clone path      : repos/codenotch
+Clone mode      : git clone --depth 50 (shallow)
+Analysis date   : 2026-09-21
+Commit SHA      : 414ceaf6173d9988c01ed76d8e924cf0118e3755
+Commit date     : 2026-09-20 16:46:06 +0700
+Commit subject  : Codenotch 1.16.0 appcast
+Worktree state  : clean (git status --porcelain -> empty)
+Latest tag seen : v1.9.0 (shallow clone; appcast says 1.16.0)
+License         : MIT (c) 2026 Vinz
+
+Language (main) : Swift 5 / SwiftUI + AppKit, macOS 15+ (badge says macOS 26+)
+Build system    : XcodeGen (project.yml) + Makefile; `make run` / `make test`
+Language (port) : Rust + Tauri 2 under windows/ (30 .rs files)
+
+Source size     : Sources/ 187 .swift files, 38,444 lines
+Test size       : Tests/  93 .swift files, 27,949 lines (test:source ratio ~0.73)
+Providers       : Sources/Providers/ 77 files, 15,446 lines (largest module)
+
+## Module line counts (find <dir> -name "*.swift" | xargs cat | wc -l)
+Sources/Providers    15446
+Sources/Settings      5638
+Sources/Notch         4281
+Sources/Sessions      4045
+Sources/Model         2610
+Sources/Features      2592
+Sources/App           1853
+Sources/PhoneLink     1679
+Sources/DesignSystem   185
+Sources/Vendor/zstd    (C, vendored decode-only Zstandard, BSD-3-Clause)
+
+Purpose         : 학습 / 설계 참고 — 다중 외부 서비스 어댑터 정규화, 폴링/백오프,
+                  실패의 정직한 표면화(Fidelity/Status), macOS 데스크톱 UI 구조
+
+## Verification commands run
+git log -1 --format="%H %ad %s"        -> 414ceaf 2026-09-20 "Codenotch 1.16.0 appcast"
+git status --porcelain                 -> (empty, clean)
+find Sources -name "*.swift" | wc -l   -> 187
+find Tests   -name "*.swift" | wc -l   -> 93
+find windows -name "*.rs"    | wc -l   -> 30

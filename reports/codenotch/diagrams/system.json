@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Codenotch — 사용량을 어떻게 가져오는가",
+    "output": "system.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/vinzdg/codenotch",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "414ceaf6173d9988c01ed76d8e924cf0118e3755"
+    },
+    "views": [
+      {
+        "id": "sources",
+        "label": "자격증명 원천",
+        "focus": [
+          "cli",
+          "keychain",
+          "localdata",
+          "daemons",
+          "webview"
+        ],
+        "note": "다섯 가지 방식으로 '이미 Mac에 있는' 세션을 빌린다. 자체 로그인은 WKWebView 하나뿐."
+      },
+      {
+        "id": "discovery",
+        "label": "자동 인식",
+        "focus": [
+          "discovery",
+          "adapters"
+        ],
+        "note": "디렉터리 규약 + 자격증명 존재를 2중으로 판정해 계정당 어댑터를 만든다."
+      },
+      {
+        "id": "polling",
+        "label": "폴링과 표시",
+        "focus": [
+          "adapters",
+          "vendors",
+          "store",
+          "notch"
+        ],
+        "note": "어댑터가 벤더를 부르고, 스토어가 주기를 정하고, 노치가 그린다."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "cli",
+      "type": "external",
+      "label": "CLI 서브프로세스",
+      "sublabel": "claude --print /usage",
+      "tag": "20s 타임아웃 · 5분 스로틀",
+      "pos": [
+        40,
+        36
+      ],
+      "size": [
+        190,
+        58
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/ClaudeUsageCLI.swift",
+          "line": 54,
+          "label": "arguments"
+        }
+      ]
+    },
+    {
+      "id": "keychain",
+      "type": "security",
+      "label": "로그인 키체인",
+      "sublabel": "Claude Code-credentials",
+      "tag": "회전마다 새 항목",
+      "pos": [
+        40,
+        122
+      ],
+      "size": [
+        190,
+        58
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/ClaudeProfile.swift",
+          "line": 247,
+          "label": "keychain service"
+        }
+      ]
+    },
+    {
+      "id": "localdata",
+      "type": "database",
+      "label": "파일 · SQLite · HTTP 캐시",
+      "sublabel": "auth.json · state.vscdb",
+      "tag": "읽기 전용",
+      "pos": [
+        40,
+        208
+      ],
+      "size": [
+        190,
+        58
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/CursorCredentials.swift",
+          "line": 26,
+          "label": "Cursor store"
+        }
+      ]
+    },
+    {
+      "id": "daemons",
+      "type": "external",
+      "label": "로컬 데몬 · 언어서버",
+      "sublabel": "Antigravity LS · Ollama",
+      "tag": "포트 탐색 후 호출",
+      "pos": [
+        40,
+        294
+      ],
+      "size": [
+        190,
+        58
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/AntigravityBridge.swift",
+          "line": 18,
+          "label": "bridge"
+        }
+      ]
+    },
+    {
+      "id": "webview",
+      "type": "frontend",
+      "label": "자체 WKWebView 세션",
+      "sublabel": "DeepSeek · QianwenAI",
+      "tag": "유일한 자체 로그인",
+      "pos": [
+        40,
+        380
+      ],
+      "size": [
+        190,
+        58
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/WebSessionProvider.swift",
+          "label": "web session"
+        }
+      ]
+    },
+    {
+      "id": "discovery",
+      "type": "backend",
+      "label": "프로필 자동 탐색",
+      "sublabel": "launch 시 1회",
+      "tag": "~/.claude-<slug>",
+      "pos": [
+        320,
+        36
+      ],
+      "size": [
+        190,
+        58
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/ClaudeProfile.swift",
+          "line": 55,
+          "label": "discover()"
+        }
+      ]
+    },
+    {
+      "id": "adapters",
+      "type": "backend",
+      "label": "UsageProvider 어댑터",
+      "sublabel": "계정당 actor 하나",
+      "tag": "20여 종",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        190,
+        108
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/UsageProvider.swift",
+          "line": 10,
+          "label": "protocol"
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "type": "cloud",
+      "label": "벤더 내부 엔드포인트",
+      "sublabel": "공개 API 아님",
+      "tag": "wham/usage · oauth/usage",
+      "pos": [
+        590,
+        92
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/CodexLocalProvider.swift",
+          "line": 50,
+          "label": "wham/usage"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "backend",
+      "label": "UsageStore",
+      "sublabel": "폴링 주기 · 백오프",
+      "tag": "60s / 5분 유휴",
+      "pos": [
+        590,
+        290
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "Sources/Model/UsageStore.swift",
+          "line": 331,
+          "label": "shouldRefresh"
+        }
+      ]
+    },
+    {
+      "id": "notch",
+      "type": "frontend",
+      "label": "노치 링",
+      "sublabel": "provider별 셀",
+      "pos": [
+        830,
+        290
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "Sources/Notch/NotchFleet.swift",
+          "label": "fleet"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-in",
+      "from": "cli",
+      "to": "adapters"
+    },
+    {
+      "id": "keychain-in",
+      "from": "keychain",
+      "to": "adapters",
+      "variant": "security"
+    },
+    {
+      "id": "localdata-in",
+      "from": "localdata",
+      "to": "adapters"
+    },
+    {
+      "id": "daemons-in",
+      "from": "daemons",
+      "to": "adapters"
+    },
+    {
+      "id": "webview-in",
+      "from": "webview",
+      "to": "adapters"
+    },
+    {
+      "id": "makes",
+      "from": "discovery",
+      "to": "adapters",
+      "label": "계정당 어댑터 생성",
+      "labelDy": 24
+    },
+    {
+      "id": "call",
+      "from": "adapters",
+      "to": "vendors",
+      "label": "빌린 토큰으로 HTTPS",
+      "variant": "security"
+    },
+    {
+      "id": "emit",
+      "from": "adapters",
+      "to": "store",
+      "label": "ProviderSnapshot",
+      "variant": "emphasis",
+      "labelDy": 31,
+      "labelDx": -45
+    },
+    {
+      "id": "draw",
+      "from": "store",
+      "to": "notch",
+      "label": "링 갱신",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "벤더 공개 API는 없다",
+      "items": [
+        "README가 직접 인정한다 — \"한도 N% 사용\" API를 내는 벤더가 없다",
+        "소유 앱이 읽는 경로를 그대로 읽는다: 내부 엔드포인트 · CLI 출력 · SQLite · 언어서버 RPC · HTTP 캐시",
+        "그래서 Fidelity가 official / derived / manual로 갈리고, official이 아니면 ~가 붙는다"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "폴링이지만 고정 주기가 아니다",
+      "items": [
+        "세션이 도는 중 60초, 유휴 5분, 로컬 런타임 1초",
+        "resetsAt이 직전 시도와 지금 사이를 지나면 주기를 무시하고 즉시 1회",
+        "429는 60초에서 2배씩 15분 상한. deadline이 디스크에 남아 재실행해도 지켜진다"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "자동 인식은 규약 + 자격증명 2중 판정",
+      "items": [
+        "Finder 실행이라 셸 변수가 안 온다 — 디렉터리 규약으로 찾는다",
+        "~/.claude-<slug>가 있어도 그 이름의 키체인 항목이 없으면 계정이 아니다",
+        "로컬 런타임은 포트 응답으로 판정, 없으면 링을 안 만든다 (isVisibleWhenAbsent = false)"
+      ]
+    }
+  ]
+}

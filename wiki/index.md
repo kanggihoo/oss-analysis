@@ -2,7 +2,7 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-06-21 | Total pages: 47
+> Last updated: 2026-09-21 | Total pages: 49
 
 ## Projects
 
@@ -10,7 +10,9 @@
 - [[claude-code-history-viewer]] — Tauri/React/Rust desktop and optional WebUI tool for browsing multi-provider AI coding assistant conversation history.
 - [[claude-devtools]] — Source-verified 1차 core architecture and data pipeline for an Electron app that inspects Claude Code session logs.
 - [[codeburn]] — Source-verified architecture notes for the AI coding token/cost observability pipeline from provider logs to TUI, menubar JSON, and MCP surfaces.
+- [[codenotch]] — Source-verified notes for the macOS notch app that reads 20+ coding tools' usage limits: the five acquisition mechanisms behind the absent vendor API, convention-plus-credential account discovery, the situational polling schedule with persisted 429 back-off, and the Fidelity/ProviderStatus honesty model.
 - [[deeptutor]] — Source-verified analysis of DeepTutor's intelligent learning-agent modules, prompt/context contracts, educational IRs, validation loops, and mastery engine.
+- [[graft]] — Source-verified design notes for the local, regenerable markdown context graph that feeds coding agents; two-tier tree-sitter/LLM pipeline and refresh-on-query.
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
 - [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.

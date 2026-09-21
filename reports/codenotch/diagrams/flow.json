@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Codenotch — One Usage Refresh Pass",
+    "output": "flow.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1060,
+      540
+    ],
+    "column_fit": "spread",
+    "views": [
+      {
+        "id": "decide",
+        "label": "Deciding to poll",
+        "focus": [
+          "timer",
+          "store",
+          "activity"
+        ],
+        "note": "A tick only becomes a request when something is busy, a window rolled over, or the idle interval elapsed."
+      },
+      {
+        "id": "fetch",
+        "label": "Fetching a provider",
+        "focus": [
+          "store",
+          "provider",
+          "vendor"
+        ],
+        "note": "Each adapter is an actor; failures come back as typed UsageProviderError values."
+      },
+      {
+        "id": "degrade",
+        "label": "Deadline and degradation",
+        "focus": [
+          "store",
+          "provider",
+          "archive",
+          "notch"
+        ],
+        "note": "The pass is abandoned rather than cancelled; a late answer is discarded by generation."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "timer",
+      "type": "messagebus",
+      "label": "Timer",
+      "sublabel": "60s"
+    },
+    {
+      "id": "activity",
+      "type": "backend",
+      "label": "Activity",
+      "sublabel": "isBusy()"
+    },
+    {
+      "id": "store",
+      "type": "backend",
+      "label": "UsageStore",
+      "sublabel": "@MainActor"
+    },
+    {
+      "id": "provider",
+      "type": "backend",
+      "label": "UsageProvider",
+      "sublabel": "actor"
+    },
+    {
+      "id": "vendor",
+      "type": "external",
+      "label": "Vendor source",
+      "sublabel": "keychain · CLI"
+    },
+    {
+      "id": "archive",
+      "type": "database",
+      "label": "UsageArchive",
+      "sublabel": "lastGood"
+    },
+    {
+      "id": "notch",
+      "type": "frontend",
+      "label": "NotchFleet",
+      "sublabel": "rings"
+    }
+  ],
+  "segments": [
+    {
+      "from": 155,
+      "to": 232,
+      "label": "Decide"
+    },
+    {
+      "from": 240,
+      "to": 372,
+      "label": "Fetch"
+    },
+    {
+      "from": 380,
+      "to": 460,
+      "label": "Publish · degrade"
+    }
+  ],
+  "messages": [
+    {
+      "id": "tick",
+      "from": "timer",
+      "to": "store",
+      "y": 165,
+      "label": "tick()",
+      "variant": "default"
+    },
+    {
+      "id": "ask-busy",
+      "from": "store",
+      "to": "activity",
+      "y": 193,
+      "label": "isBusy()",
+      "variant": "default"
+    },
+    {
+      "id": "busy-answer",
+      "from": "activity",
+      "to": "store",
+      "y": 221,
+      "label": "busy / quiet → shouldRefresh()",
+      "variant": "return",
+      "note": "Pure function of busy, time since last attempt, and a window having rolled over. A quiet afternoon waits out the 5-minute idle interval."
+    },
+    {
+      "id": "fetch",
+      "from": "store",
+      "to": "provider",
+      "y": 249,
+      "label": "fetchSnapshot()",
+      "variant": "emphasis",
+      "note": "refreshNow() sets isRefreshing synchronously and arms the deadline before the Task exists."
+    },
+    {
+      "id": "read",
+      "from": "provider",
+      "to": "vendor",
+      "y": 277,
+      "label": "borrowed credential · CLI · endpoint",
+      "variant": "security"
+    },
+    {
+      "id": "answer",
+      "from": "vendor",
+      "to": "provider",
+      "y": 305,
+      "label": "raw response",
+      "variant": "return"
+    },
+    {
+      "id": "snapshot",
+      "from": "provider",
+      "to": "store",
+      "y": 333,
+      "label": "ProviderSnapshot(fidelity, windows)",
+      "variant": "return"
+    },
+    {
+      "id": "error",
+      "from": "provider",
+      "to": "store",
+      "y": 361,
+      "label": "or UsageProviderError",
+      "variant": "dashed",
+      "note": "needsAuth, accessDenied, signedOutByOwner, rateLimited, timedOut…"
+    },
+    {
+      "id": "deadline",
+      "from": "timer",
+      "to": "store",
+      "y": 389,
+      "label": "deadline fires — store abandons the pass",
+      "variant": "dashed",
+      "note": "Not a cancellation: a blocked SecItemCopyMatching cannot be interrupted. Only the store stops waiting."
+    },
+    {
+      "id": "persist",
+      "from": "store",
+      "to": "archive",
+      "y": 417,
+      "label": "save(lastGood) · set ProviderStatus",
+      "variant": "emphasis",
+      "note": "stale / needsAuth / accessDenied / error — never an invented percentage."
+    },
+    {
+      "id": "publish",
+      "from": "store",
+      "to": "notch",
+      "y": 445,
+      "label": "notchSnapshots",
+      "variant": "emphasis"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "store",
+      "from": 160,
+      "to": 450,
+      "type": "backend"
+    },
+    {
+      "participant": "activity",
+      "from": 188,
+      "to": 226,
+      "type": "backend"
+    },
+    {
+      "participant": "provider",
+      "from": 244,
+      "to": 366,
+      "type": "backend"
+    },
+    {
+      "participant": "vendor",
+      "from": 272,
+      "to": 310,
+      "type": "external"
+    },
+    {
+      "participant": "archive",
+      "from": 412,
+      "to": 423,
+      "type": "database"
+    },
+    {
+      "participant": "notch",
+      "from": 440,
+      "to": 451,
+      "type": "frontend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "The tick is not the request",
+      "items": [
+        "shouldRefresh is a pure function of busy, elapsed, and reset-due",
+        "Idle polling drops to every 5 minutes to spare the rate limit",
+        "A window rolling over forces a pass so the alert is not late"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Deadline, not cancellation",
+      "items": [
+        "A keychain read blocks a thread that Task.cancel() cannot reach",
+        "The store abandons the pass so the next tick can run",
+        "A per-provider generation counter discards a late answer"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Failure stays visible",
+      "items": [
+        "Errors become typed ProviderStatus values, not guessed numbers",
+        "The last good reading survives and ages visibly",
+        "signedOutByOwner is kept distinct from needsAuth on purpose"
+      ]
+    }
+  ]
+}

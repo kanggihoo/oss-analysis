@@ -1,0 +1,449 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Graft — Full System Architecture (SHA f9e6539)",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/trailhq/Graft",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "f9e65396e638e517aecae0d731017f53084d70ed"
+    },
+    "views": [
+      {
+        "id": "free-path",
+        "label": "Key-free path",
+        "focus": [
+          "agents",
+          "cli",
+          "core",
+          "store",
+          "ask"
+        ],
+        "note": "The whole default loop: no API key, no network, no daemon."
+      },
+      {
+        "id": "network-egress",
+        "label": "Network egress",
+        "focus": [
+          "deep",
+          "llm",
+          "brainc",
+          "trail",
+          "github"
+        ],
+        "note": "Every place Graft can leave the machine, and what triggers each."
+      },
+      {
+        "id": "server-runtime",
+        "label": "GitHub App runtime",
+        "focus": [
+          "ghapp",
+          "github",
+          "core"
+        ],
+        "note": "A separate deployment that forks the same engine to review PRs."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "deep",
+      "type": "backend",
+      "label": "Deep Pass",
+      "sublabel": "src/ai",
+      "tag": "--deep only",
+      "pos": [
+        540,
+        140
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/ai/summarize.ts"
+        },
+        {
+          "path": "src/ai/llm/factory.ts"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "LLM Provider",
+      "sublabel": "your GRAFT_API_KEY",
+      "tag": "vendor-neutral",
+      "pos": [
+        790,
+        140
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/ai/providers.ts"
+        }
+      ]
+    },
+    {
+      "id": "agents",
+      "type": "external",
+      "label": "Coding Agents",
+      "sublabel": "Claude · Cursor · Codex",
+      "pos": [
+        40,
+        340
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/hosts/registry.ts"
+        },
+        {
+          "path": "src/claude/hooks.ts"
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "graft CLI + MCP",
+      "sublabel": "cli.ts · mcp/server.ts",
+      "tag": "24 commands",
+      "pos": [
+        290,
+        340
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/cli.ts"
+        },
+        {
+          "path": "src/mcp/server.ts",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "Graph Core",
+      "sublabel": "src/graph · tree-sitter",
+      "pos": [
+        540,
+        340
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/graph/build.ts"
+        },
+        {
+          "path": "src/graph/extract.ts",
+          "line": 387
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "graft/ cache",
+      "sublabel": "*.md + wiring.json",
+      "tag": "gitignored",
+      "pos": [
+        790,
+        340
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/graph/write.ts"
+        },
+        {
+          "path": "src/context/node-file.ts"
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "type": "backend",
+      "label": "Retrieval",
+      "sublabel": "ask · grep · blast",
+      "pos": [
+        1040,
+        340
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/ask/ask.ts"
+        },
+        {
+          "path": "src/search/grep.ts"
+        }
+      ]
+    },
+    {
+      "id": "viz",
+      "type": "frontend",
+      "label": "Viz Server",
+      "sublabel": "viz/serve.ts + viewer",
+      "tag": "localhost",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/viz/serve.ts",
+          "line": 57
+        },
+        {
+          "path": "src/viz/assemble.ts"
+        }
+      ]
+    },
+    {
+      "id": "ghapp",
+      "type": "backend",
+      "label": "GitHub App",
+      "sublabel": "src/app · fork workers",
+      "pos": [
+        540,
+        540
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/app/server.ts",
+          "line": 73
+        },
+        {
+          "path": "src/app/review-process.ts",
+          "line": 179
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "type": "external",
+      "label": "GitHub API",
+      "sublabel": "api.github.com",
+      "pos": [
+        290,
+        540
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/app/identity.ts",
+          "line": 115
+        }
+      ]
+    },
+    {
+      "id": "brainc",
+      "type": "backend",
+      "label": "Brain Client",
+      "sublabel": "src/brain",
+      "tag": "opt-in",
+      "pos": [
+        790,
+        540
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/brain/link.ts",
+          "line": 133
+        },
+        {
+          "path": "src/brain/attach.ts",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "id": "trail",
+      "type": "cloud",
+      "label": "Trail Brain",
+      "sublabel": "/api/public/brains",
+      "pos": [
+        1040,
+        540
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/brain/push.ts"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Deterministic — no model, no network",
+      "wraps": [
+        "core",
+        "store",
+        "ask"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "GitHub App runtime — separate deployment",
+      "wraps": [
+        "ghapp",
+        "github"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "agents-cli",
+      "from": "agents",
+      "to": "cli",
+      "label": "hooks",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-core",
+      "from": "cli",
+      "to": "core",
+      "label": "build",
+      "variant": "emphasis"
+    },
+    {
+      "id": "core-store",
+      "from": "core",
+      "to": "store",
+      "label": "write"
+    },
+    {
+      "id": "store-ask",
+      "from": "store",
+      "to": "ask",
+      "label": "read"
+    },
+    {
+      "id": "core-deep",
+      "from": "core",
+      "to": "deep",
+      "label": "--deep",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -30
+    },
+    {
+      "id": "deep-llm",
+      "from": "deep",
+      "to": "llm",
+      "label": "chat"
+    },
+    {
+      "id": "cli-viz",
+      "from": "cli",
+      "to": "viz",
+      "label": "graft viz",
+      "variant": "dashed"
+    },
+    {
+      "id": "ghapp-core",
+      "from": "ghapp",
+      "to": "core",
+      "label": "same engine",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -30
+    },
+    {
+      "id": "ghapp-github",
+      "from": "ghapp",
+      "to": "github",
+      "label": "PR review"
+    },
+    {
+      "id": "ask-brain",
+      "from": "ask",
+      "to": "brainc",
+      "label": "rules",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "brain-trail",
+      "from": "brainc",
+      "to": "trail",
+      "label": "rules API"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "기본 경로는 전부 로컬",
+      "items": [
+        "agents → cli → core → store → ask 전 구간이 tree-sitter + 파일 I/O. 키·네트워크·데몬 없음",
+        "graft/ 는 .gitignore에 자동 등록되는 재생성 캐시 — 팀이 공유하는 건 .claude/ 배선뿐"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "네트워크로 나가는 지점은 넷",
+      "items": [
+        "--deep (내 키로 LLM) · Brain Client (opt-in, Trail 규칙) · GitHub App (별도 배포) · 텔레메트리",
+        "텔레메트리(src/telemetry → events.nanonets.com)는 기본 on, DO_NOT_TRACK=1로 차단"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "같은 엔진, 다른 런타임",
+      "items": [
+        "src/app 은 webhook 서버 + 큐 + fork된 자식 워커로 PR을 리뷰하는 별도 배포물",
+        "CLI를 거치지 않고 같은 Graph Core를 재사용한다 (app/brain-build-process.ts, review-process.ts)"
+      ]
+    }
+  ]
+}

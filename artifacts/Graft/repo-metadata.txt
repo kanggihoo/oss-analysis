@@ -1,0 +1,20 @@
+# Graft — Repo Metadata (Code Baseline)
+
+Repo URL        : https://github.com/trailhq/Graft
+npm package     : @nanonets/graft
+package version : 0.18.0
+Clone path      : repos/Graft
+Clone mode      : git clone --depth 50 (shallow)
+Analysis date   : 2026-09-15
+Commit SHA      : f9e65396e638e517aecae0d731017f53084d70ed
+Commit date     : 2026-09-10 23:39:29 +0530
+Commit subject  : fix(brain): let the digest finish sending before the child disconnects
+Worktree state  : clean (git status --porcelain -> empty)
+Language        : TypeScript (strict, ESM, Node >= 20)
+Source size     : 139 .ts files under src/
+Purpose         : 학습 / 설계 참고 (코드 컨텍스트 그래프 파이프라인 및 에이전트 통합 방식)
+
+## Verification commands run
+git log -1 --format="%H %ad %s"   -> f9e6539 (above)
+git status --porcelain            -> (empty, clean)
+find src -type f -name "*.ts" | wc -l -> 139

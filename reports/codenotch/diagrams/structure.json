@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Codenotch — Sources/ Module Map",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/vinzdg/codenotch",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "414ceaf6173d9988c01ed76d8e924cf0118e3755"
+    },
+    "views": [
+      {
+        "id": "reading-path",
+        "label": "Reading path",
+        "focus": [
+          "agents",
+          "providers",
+          "store",
+          "notch",
+          "features"
+        ],
+        "note": "How a borrowed credential becomes a ring on screen."
+      },
+      {
+        "id": "activity-path",
+        "label": "Activity path",
+        "focus": [
+          "agents",
+          "sessions",
+          "store"
+        ],
+        "note": "Session monitors decide the polling cadence, not the numbers."
+      },
+      {
+        "id": "wiring",
+        "label": "Wiring and state",
+        "focus": [
+          "appdelegate",
+          "store",
+          "archive",
+          "settings",
+          "phonelink"
+        ],
+        "note": "AppDelegate constructs everything; preferences and the archive outlive a launch."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "zstd",
+      "type": "external",
+      "label": "Vendor/zstd",
+      "sublabel": "decode-only Zstandard",
+      "tag": "BSD-3-Clause",
+      "pos": [
+        280,
+        310
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/Vendor/zstd/CodenotchZstd.h",
+          "label": "vendored decoder"
+        }
+      ]
+    },
+    {
+      "id": "appdelegate",
+      "type": "backend",
+      "label": "App / AppDelegate",
+      "sublabel": "constructs & wires",
+      "pos": [
+        530,
+        36
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/App/AppDelegate.swift",
+          "line": 79,
+          "label": "applicationDidFinishLaunching"
+        }
+      ]
+    },
+    {
+      "id": "phonelink",
+      "type": "security",
+      "label": "PhoneLink",
+      "sublabel": "paired LAN server",
+      "tag": "isAvailable = false",
+      "pos": [
+        810,
+        36
+      ],
+      "size": [
+        160,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/PhoneLink/PhoneLinkServer.swift",
+          "line": 12,
+          "label": "feature flag"
+        }
+      ]
+    },
+    {
+      "id": "agents",
+      "type": "external",
+      "label": "Coding tools on the Mac",
+      "sublabel": "CLIs, editors, daemons",
+      "pos": [
+        40,
+        170
+      ],
+      "size": [
+        160,
+        68
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "backend",
+      "label": "Providers",
+      "sublabel": "UsageProvider actors",
+      "tag": "official / derived / manual",
+      "pos": [
+        280,
+        170
+      ],
+      "size": [
+        170,
+        68
+      ],
+      "sources": [
+        {
+          "path": "Sources/Providers/UsageProvider.swift",
+          "line": 10,
+          "label": "protocol"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "backend",
+      "label": "Model / UsageStore",
+      "sublabel": "polls · publishes · degrades",
+      "pos": [
+        530,
+        170
+      ],
+      "size": [
+        170,
+        68
+      ],
+      "sources": [
+        {
+          "path": "Sources/Model/UsageStore.swift",
+          "line": 8,
+          "label": "@MainActor store"
+        }
+      ]
+    },
+    {
+      "id": "notch",
+      "type": "frontend",
+      "label": "Notch / NotchFleet",
+      "sublabel": "one panel per screen",
+      "pos": [
+        780,
+        170
+      ],
+      "size": [
+        170,
+        68
+      ],
+      "sources": [
+        {
+          "path": "Sources/Notch/NotchFleet.swift",
+          "label": "panel fleet"
+        }
+      ]
+    },
+    {
+      "id": "features",
+      "type": "frontend",
+      "label": "Features",
+      "sublabel": "rings · tooltip · pace",
+      "pos": [
+        780,
+        310
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/Features/ProviderRing.swift",
+          "label": "ring view"
+        }
+      ]
+    },
+    {
+      "id": "sessions",
+      "type": "backend",
+      "label": "Sessions",
+      "sublabel": "activity monitors",
+      "pos": [
+        280,
+        420
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/Sessions/ActivityCoordinator.swift",
+          "line": 7,
+          "label": "monitor lifetimes"
+        }
+      ]
+    },
+    {
+      "id": "archive",
+      "type": "database",
+      "label": "UsageArchive",
+      "sublabel": "last good reading",
+      "pos": [
+        530,
+        310
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/Model/UsageArchive.swift",
+          "label": "on-disk cache"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "type": "frontend",
+      "label": "Settings / Preferences",
+      "sublabel": "order · connected",
+      "pos": [
+        40,
+        36
+      ],
+      "size": [
+        170,
+        56
+      ],
+      "sources": [
+        {
+          "path": "Sources/Settings/Preferences.swift",
+          "label": "stored choices"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "borrow-credentials",
+      "from": "agents",
+      "to": "providers",
+      "label": "borrowed credentials · logs · local ports",
+      "variant": "security",
+      "labelDy": -50
+    },
+    {
+      "id": "snapshot-in",
+      "from": "providers",
+      "to": "store",
+      "label": "ProviderSnapshot",
+      "variant": "emphasis",
+      "labelDy": 64,
+      "labelDx": -63
+    },
+    {
+      "id": "snapshot-out",
+      "from": "store",
+      "to": "notch",
+      "label": "notchSnapshots",
+      "variant": "emphasis",
+      "labelDy": -50
+    },
+    {
+      "id": "draw",
+      "from": "notch",
+      "to": "features",
+      "label": "draws",
+      "labelDy": 24
+    },
+    {
+      "id": "zstd-decode",
+      "from": "zstd",
+      "to": "providers",
+      "label": "zstd decode",
+      "variant": "dashed"
+    },
+    {
+      "id": "wires-store",
+      "from": "appdelegate",
+      "to": "store",
+      "label": "constructs",
+      "labelDy": 24
+    },
+    {
+      "id": "builds-phone-snapshot",
+      "from": "appdelegate",
+      "to": "phonelink",
+      "label": "serves snapshot",
+      "variant": "dashed"
+    },
+    {
+      "id": "persist",
+      "from": "store",
+      "to": "archive",
+      "label": "keeps last good",
+      "labelDy": 24
+    },
+    {
+      "id": "watch-sessions",
+      "from": "agents",
+      "to": "sessions",
+      "label": "transcripts · pids",
+      "labelDy": -32
+    },
+    {
+      "id": "busy-cadence",
+      "from": "sessions",
+      "to": "store",
+      "label": "isBusy → poll cadence",
+      "labelDy": -32
+    },
+    {
+      "id": "user-choices",
+      "from": "settings",
+      "to": "store",
+      "label": "order · disconnected"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Adapters own the mess",
+      "items": [
+        "Every vendor read lives behind one UsageProvider actor",
+        "Each adapter declares Fidelity so a guess is never shown as official",
+        "Sources/Providers is 40% of the app by line count"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "One store, two consumers",
+      "items": [
+        "UsageStore is the only owner of snapshots and order",
+        "Notch and Settings read the same ordered list so they cannot disagree",
+        "UsageArchive keeps the last good reading across launches"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Activity is separate from usage",
+      "items": [
+        "Session monitors answer \"is it still working?\", not \"how much is left?\"",
+        "Their only input to the store is isBusy, which sets polling cadence",
+        "PhoneLink is built but switched off at the source (isAvailable = false)"
+      ]
+    }
+  ]
+}
