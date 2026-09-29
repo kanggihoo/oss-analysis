@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "AgentSession: run 이후 재시도·compaction 루프",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "session", "label": "실행 (_runAgentPrompt)" },
+    { "id": "judge", "label": "복구 판정 (_handlePostAgentRun)" },
+    { "id": "retry", "label": "자동 재시도 · 재개" },
+    { "id": "exit", "label": "종료", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "p-run", "label": "run", "fromCol": 0, "toCol": 0 },
+    { "id": "p-judge", "label": "실패 복구", "fromCol": 1, "toCol": 3, "variant": "emphasis" },
+    { "id": "p-settle", "label": "마무리", "fromCol": 4, "toCol": 5 }
+  ],
+  "mainPath": ["run", "post", "compact", "queue", "settle", "end"],
+  "nodes": [
+    { "id": "run", "lane": "session", "col": 0, "type": "frontend", "label": "agent.prompt()", "sublabel": "_runAgentPrompt", "width": 150 },
+    { "id": "post", "lane": "judge", "col": 1, "type": "backend", "label": "_handlePostAgentRun", "sublabel": "마지막 assistant 판정", "width": 160 },
+    { "id": "retry", "lane": "retry", "col": 2, "type": "security", "label": "_prepareRetry", "sublabel": "최대 3회 · 2s/4s/8s", "width": 150 },
+    { "id": "compact", "lane": "judge", "col": 3, "type": "database", "label": "_checkCompaction", "sublabel": "overflow·length → 1회", "width": 150 },
+    { "id": "queue", "lane": "judge", "col": 4, "type": "backend", "label": "큐 확인", "sublabel": "hasQueuedMessages()", "width": 150 },
+    { "id": "cont", "lane": "retry", "col": 3, "type": "cloud", "label": "agent.continue()", "sublabel": "같은 context로 재요청", "width": 150 },
+    { "id": "settle", "lane": "session", "col": 5, "type": "messagebus", "label": "_runBeforeSettleBoundary", "sublabel": "agent_before_settle", "width": 170 },
+    { "id": "end", "lane": "exit", "col": 5, "type": "frontend", "label": "_emitAgentSettled", "sublabel": "finally", "width": 150 }
+  ],
+  "edges": [
+    { "id": "e-run-post", "from": "run", "to": "post", "label": "run 종료" },
+    { "id": "e-post-compact", "from": "post", "to": "compact", "label": "재시도 대상 아님" },
+    { "id": "e-post-retry", "from": "post", "to": "retry", "label": "retryable error", "role": "branch" },
+    { "id": "e-retry-cont", "from": "retry", "to": "cont", "label": "sleep 후 _failedResponse", "role": "branch", "variant": "emphasis" },
+    { "id": "e-retry-compact", "from": "retry", "to": "compact", "label": "초과 · auto_retry_end", "role": "error", "variant": "security" },
+    { "id": "e-compact-queue", "from": "compact", "to": "queue", "label": "compact 없음" },
+    { "id": "e-compact-cont", "from": "compact", "to": "cont", "label": "overflow 복구", "role": "branch", "variant": "emphasis" },
+    { "id": "e-queue-settle", "from": "queue", "to": "settle", "label": "큐 비어 있음" },
+    { "id": "e-queue-cont", "from": "queue", "to": "cont", "label": "대기 메시지", "role": "branch" },
+    { "id": "e-settle-end", "from": "settle", "to": "end", "label": "continue 없음" },
+    { "id": "e-cont-post", "from": "cont", "to": "post", "label": "다시 판정", "role": "branch", "variant": "emphasis", "route": "bottom-channel" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "재시도 규칙",
+      "items": [
+        "context overflow는 재시도 대상이 아님 → compaction이 처리",
+        "isRetryableAssistantError: 과부하·rate limit·서버 오류",
+        "실패한 시도는 _omitRecoveryAttempt로 projection에서 숨김",
+        "성공 응답이 오면 _retryAttempt를 0으로 초기화"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "compaction과 종료",
+      "items": [
+        "overflow 복구는 1회만: 두 번째 실패 시 compaction_end에 오류",
+        "정상 완료 응답의 overflow는 compact만 하고 재요청 안 함",
+        "agent_before_settle hook이 continue를 주면 한 번 더 continue()",
+        "abort 요청 시 어느 지점에서든 루프 탈출"
+      ]
+    }
+  ]
+}

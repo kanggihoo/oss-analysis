@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Understand-Anything 구조도",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": { "url": "https://github.com/Egonex-AI/Understand-Anything", "revision": "b05cc3b20990afca537b4fc0a49b4d7fbdc65bb0" }
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "사용자", "sublabel": "Claude Code", "pos": [40, 90], "size": [160, 64] },
+    { "id": "skill", "type": "backend", "label": "/understand 스킬", "sublabel": "SKILL.md Phase 0~7", "pos": [260, 90], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/skills/understand/SKILL.md", "line": 43 }] },
+    { "id": "scripts", "type": "backend", "label": "결정적 스크립트", "sublabel": "scan · batch · extract (.mjs)", "pos": [490, 90], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/skills/understand/scan-project.mjs" }] },
+    { "id": "agents", "type": "cloud", "label": "LLM 에이전트", "sublabel": "agents/*.md 10종", "pos": [720, 90], "size": [160, 64], "tag": "동시 5개" },
+    { "id": "merge", "type": "backend", "label": "그래프 병합", "sublabel": "merge-batch-graphs.py", "pos": [940, 90], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/skills/understand/merge-batch-graphs.py" }] },
+    { "id": "hooks", "type": "backend", "label": "자동 갱신 훅", "sublabel": "post-tool-use-auto-update", "pos": [260, 300], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/hooks/post-tool-use-auto-update.mjs" }] },
+    { "id": "core", "type": "backend", "label": "packages/core", "sublabel": "tree-sitter · classifier · schema", "pos": [490, 300], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/packages/core/src/change-classifier.ts", "line": 5 }] },
+    { "id": "kg", "type": "database", "label": "knowledge-graph.json", "sublabel": ".ua/ (또는 레거시 dir)", "pos": [940, 300], "size": [170, 64] },
+    { "id": "cmds", "type": "backend", "label": "질의 빌더 src/", "sublabel": "chat · diff · explain · onboard", "pos": [720, 500], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/src/index.ts" }] },
+    { "id": "dash", "type": "frontend", "label": "React 대시보드", "sublabel": "packages/dashboard (Vite)", "pos": [940, 500], "size": [170, 64], "sources": [{ "path": "understand-anything-plugin/packages/dashboard/vite.config.ts", "line": 272 }] }
+  ],
+  "connections": [
+    { "id": "u-s", "from": "user", "to": "skill", "label": "/understand", "variant": "emphasis" },
+    { "id": "s-sc", "from": "skill", "to": "scripts", "label": "Phase 0~1.5" },
+    { "id": "sc-a", "from": "scripts", "to": "agents", "label": "배치 분석" },
+    { "id": "a-m", "from": "agents", "to": "merge", "label": "배치 JSON" },
+    { "id": "m-kg", "from": "merge", "to": "kg", "label": "Phase 7 저장", "variant": "emphasis", "labelDy": 24 },
+    { "id": "sc-core", "from": "scripts", "to": "core", "label": "import dist", "variant": "dashed", "labelDy": 24, "fromSide": "bottom", "toSide": "top" },
+    { "id": "h-s", "from": "hooks", "to": "skill", "label": "커밋 후 갱신", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "kg-d", "from": "kg", "to": "dash", "label": "토큰 인증 로드", "variant": "security", "labelDy": 24, "fromSide": "bottom", "toSide": "top" },
+    { "id": "kg-c", "from": "kg", "to": "cmds", "label": "그래프 소비", "variant": "dashed", "fromSide": "left", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "생성", "items": ["오케스트레이션은 SKILL.md 절차", "스캔·구조추출은 스크립트, 분석은 에이전트", "병합은 Python"] },
+    { "dot": "emerald", "title": "소비", "items": ["대시보드는 core의 types/schema/search만 사용", "질의 빌더가 프롬프트 생성"] },
+    { "dot": "amber", "title": "미확인", "items": ["에이전트별 호출 Phase", "질의 빌더와 스킬 SKILL.md의 연결 상세"] }
+  ]
+}

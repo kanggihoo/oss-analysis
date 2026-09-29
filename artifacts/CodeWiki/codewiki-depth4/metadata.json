@@ -1,0 +1,37 @@
+{
+    "generation_info": {
+        "timestamp": "2026-09-29T16:03:52.252703+00:00",
+        "main_model": "claude-sonnet-5-5",
+        "generator_version": "2.0.0",
+        "repo_path": "/Users/kkh/Desktop/oss-analysis/repos/CodeWiki",
+        "commit_id": "3e3d848698c7bf1a0ce2e0b49e66841acd0248aa"
+    },
+    "statistics": {
+        "total_components": 1055,
+        "leaf_nodes": 103,
+        "max_depth": 4
+    },
+    "files_generated": [
+        "overview.md",
+        "module_tree.json",
+        "first_module_tree.json",
+        "incremental_updater.md",
+        "documentation_generation_pipeline.md",
+        "documentation_generation_core.md",
+        "artifact_analysis.md",
+        "agent_backends_and_tools.md",
+        "c_family_analyzers.md",
+        "mcp_server.md",
+        "cli_generation_and_utils.md",
+        "source_code_analysis_engine.md",
+        "web_language_analyzers.md",
+        "jvm_language_analyzers.md",
+        "scripting_language_analyzers.md",
+        "web_frontend.md",
+        "build_ci_and_deployment.md",
+        "cli_config_and_models.md",
+        "language_analyzers.md",
+        "user_interfaces_and_entry_points.md",
+        "dependency_analysis_engine.md"
+    ]
+}

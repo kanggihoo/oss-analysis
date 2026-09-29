@@ -1,0 +1,6 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/Understand-Anything
+name=Understand-Anything
+date=2026-09-29T15:15:24Z
+commit=b05cc3b20990afca537b4fc0a49b4d7fbdc65bb0
+origin=https://github.com/Egonex-AI/Understand-Anything.git
+worktree=clean

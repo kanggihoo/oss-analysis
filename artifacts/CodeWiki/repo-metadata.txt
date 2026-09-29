@@ -1,0 +1,8 @@
+repo: CodeWiki
+url: https://github.com/FSoft-AI4Code/CodeWiki
+local_path: repos/CodeWiki
+commit: 3e3d848698c7bf1a0ce2e0b49e66841acd0248aa
+branch: main
+analysis_date: 2026-09-30
+worktree: clean
+purpose: 학습 / 분석 도구 도입 검토 (claude-code 구독 모드)

@@ -1,0 +1,460 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "claude-devtools 전체 아키텍처",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/matt1398/claude-devtools",
+      "revision": "1486f2042c87bb547a4e34808ab54ab34a33f132"
+    },
+    "viewBox": [
+      1320,
+      550
+    ],
+    "views": [
+      {
+        "id": "pull-path",
+        "label": "세션 조회 경로",
+        "focus": [
+          "ui",
+          "api",
+          "preload",
+          "ipc",
+          "registry",
+          "pipeline",
+          "cache",
+          "fs",
+          "claude"
+        ],
+        "note": "UI → api adapter → preload → IPC → 활성 ServiceContext → 파싱·chunk → 파일시스템."
+      },
+      {
+        "id": "push-path",
+        "label": "실시간 변경 push",
+        "focus": [
+          "watcher",
+          "claude",
+          "preload",
+          "notif",
+          "ui"
+        ],
+        "note": "FileWatcher가 JSONL 변경을 감지해 renderer로 file-change를 보내고 에러는 NotificationManager로 넘긴다."
+      },
+      {
+        "id": "browser-mode",
+        "label": "브라우저 / standalone 모드",
+        "focus": [
+          "ui",
+          "api",
+          "http",
+          "registry"
+        ],
+        "note": "window.electronAPI가 없으면 같은 인터페이스의 HttpAPIClient가 Fastify REST+SSE로 붙는다."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Renderer UI",
+      "sublabel": "React · Zustand 16 slices",
+      "pos": [
+        370,
+        50
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/renderer/App.tsx"
+        },
+        {
+          "path": "src/renderer/store/index.ts",
+          "label": "store"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "frontend",
+      "label": "api adapter",
+      "sublabel": "electronAPI | HttpAPIClient",
+      "pos": [
+        700,
+        50
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/renderer/api/index.ts",
+          "label": "Proxy"
+        },
+        {
+          "path": "src/renderer/api/httpClient.ts"
+        }
+      ]
+    },
+    {
+      "id": "preload",
+      "type": "security",
+      "label": "preload bridge",
+      "sublabel": "contextBridge · window.electronAPI",
+      "pos": [
+        370,
+        180
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/preload/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "http",
+      "type": "backend",
+      "label": "HttpServer",
+      "sublabel": "Fastify REST · SSE /api/events",
+      "tag": "standalone / Docker",
+      "pos": [
+        1030,
+        180
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/HttpServer.ts"
+        },
+        {
+          "path": "src/main/http/events.ts",
+          "label": "SSE"
+        },
+        {
+          "path": "src/main/standalone.ts"
+        }
+      ]
+    },
+    {
+      "id": "ipc",
+      "type": "backend",
+      "label": "IPC handlers",
+      "sublabel": "src/main/ipc/*",
+      "pos": [
+        370,
+        310
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/ipc/handlers.ts"
+        },
+        {
+          "path": "src/main/ipc/sessions.ts",
+          "label": "session detail"
+        }
+      ]
+    },
+    {
+      "id": "registry",
+      "type": "backend",
+      "label": "ServiceContextRegistry",
+      "sublabel": "active context: local | ssh",
+      "pos": [
+        700,
+        310
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/ServiceContextRegistry.ts"
+        },
+        {
+          "path": "src/main/index.ts",
+          "line": 251,
+          "end_line": 290,
+          "label": "wiring"
+        }
+      ]
+    },
+    {
+      "id": "watcher",
+      "type": "messagebus",
+      "label": "FileWatcher",
+      "sublabel": "file-change · todo-change",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/FileWatcher.ts"
+        },
+        {
+          "path": "src/main/index.ts",
+          "line": 114,
+          "end_line": 156,
+          "label": "event wiring"
+        }
+      ]
+    },
+    {
+      "id": "pipeline",
+      "type": "backend",
+      "label": "Session pipeline",
+      "sublabel": "Scanner → Parser → Subagent → Chunk",
+      "tag": "ServiceContext",
+      "pos": [
+        700,
+        440
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/ServiceContext.ts"
+        },
+        {
+          "path": "src/main/services/parsing/SessionParser.ts"
+        },
+        {
+          "path": "src/main/services/analysis/ChunkBuilder.ts"
+        }
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "database",
+      "label": "DataCache",
+      "sublabel": "mtime/size fingerprint",
+      "pos": [
+        1030,
+        310
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/DataCache.ts"
+        }
+      ]
+    },
+    {
+      "id": "notif",
+      "type": "backend",
+      "label": "NotificationManager",
+      "sublabel": "ErrorDetector · triggers",
+      "pos": [
+        40,
+        50
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/NotificationManager.ts"
+        },
+        {
+          "path": "src/main/services/error/ErrorDetector.ts"
+        }
+      ]
+    },
+    {
+      "id": "fs",
+      "type": "backend",
+      "label": "FileSystemProvider",
+      "sublabel": "Local fs | ssh2 SFTP",
+      "pos": [
+        370,
+        440
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/infrastructure/FileSystemProvider.ts"
+        },
+        {
+          "path": "src/main/services/infrastructure/SshFileSystemProvider.ts"
+        }
+      ]
+    },
+    {
+      "id": "claude",
+      "type": "external",
+      "label": "~/.claude/projects",
+      "sublabel": "Claude Code JSONL logs",
+      "pos": [
+        40,
+        440
+      ],
+      "size": [
+        240,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main/services/discovery/ProjectScanner.ts"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Renderer process",
+      "wraps": [
+        "ui",
+        "api"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "ui-api",
+      "from": "ui",
+      "to": "api",
+      "label": "api.*"
+    },
+    {
+      "id": "api-preload",
+      "from": "api",
+      "to": "preload",
+      "label": "Electron",
+      "variant": "emphasis"
+    },
+    {
+      "id": "api-http",
+      "from": "api",
+      "to": "http",
+      "label": "HTTP + SSE",
+      "variant": "dashed"
+    },
+    {
+      "id": "preload-ipc",
+      "from": "preload",
+      "to": "ipc",
+      "label": "invoke",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "ipc-registry",
+      "from": "ipc",
+      "to": "registry",
+      "label": "getActive()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "http-registry",
+      "from": "http",
+      "to": "registry",
+      "label": "same services"
+    },
+    {
+      "id": "registry-pipeline",
+      "from": "registry",
+      "to": "pipeline",
+      "label": "ServiceContext",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "pipeline-cache",
+      "from": "pipeline",
+      "to": "cache",
+      "label": "result cache"
+    },
+    {
+      "id": "pipeline-fs",
+      "from": "pipeline",
+      "to": "fs",
+      "label": "read",
+      "variant": "emphasis"
+    },
+    {
+      "id": "fs-claude",
+      "from": "fs",
+      "to": "claude",
+      "label": "JSONL",
+      "variant": "emphasis"
+    },
+    {
+      "id": "watcher-claude",
+      "from": "watcher",
+      "to": "claude",
+      "label": "watch",
+      "labelDy": 24
+    },
+    {
+      "id": "watcher-notif",
+      "from": "watcher",
+      "to": "notif",
+      "label": "errors"
+    },
+    {
+      "id": "watcher-preload",
+      "from": "watcher",
+      "to": "preload",
+      "label": "file-change",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "조회 경로",
+      "items": [
+        "UI → preload → IPC → 활성 ServiceContext",
+        "캐시 miss 시 parse → subagent → chunk"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "두 실행 형태",
+      "items": [
+        "Electron: preload IPC",
+        "browser/Docker: HttpAPIClient → Fastify"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "생략 / 미확인",
+      "items": [
+        "SSH·Config·Updater 서비스 생략",
+        "Renderer 내부 구조 미확인"
+      ]
+    }
+  ]
+}

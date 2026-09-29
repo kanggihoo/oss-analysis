@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "pi-ai streamSimple 호출 시퀀스 (Anthropic 예시)",
+    "output": "reports/pi/diagrams/ai-stream-sequence.html",
+    "viewBox": [
+      1080,
+      510
+    ],
+    "column_fit": "spread",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "caller",
+      "type": "frontend",
+      "label": "caller",
+      "sublabel": "agent loop / coding-agent"
+    },
+    {
+      "id": "models",
+      "type": "backend",
+      "label": "Models",
+      "sublabel": "models.ts"
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "resolveProviderAuth",
+      "sublabel": "CredentialStore · OAuth"
+    },
+    {
+      "id": "provider",
+      "type": "backend",
+      "label": "Provider",
+      "sublabel": "createProvider(anthropic)"
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "anthropic-messages",
+      "sublabel": "api module (lazy)"
+    },
+    {
+      "id": "vendor",
+      "type": "external",
+      "label": "Anthropic API",
+      "sublabel": "HTTP SSE"
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 212,
+      "label": "동기 반환"
+    },
+    {
+      "from": 224,
+      "to": 280,
+      "label": "인증 해석"
+    },
+    {
+      "from": 290,
+      "to": 346,
+      "label": "dispatch + lazy import"
+    },
+    {
+      "from": 354,
+      "to": 440,
+      "label": "스트리밍"
+    }
+  ],
+  "messages": [
+    {
+      "id": "call",
+      "from": "caller",
+      "to": "models",
+      "y": 170,
+      "label": "streamSimple(model, context)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "sync-stream",
+      "from": "models",
+      "to": "caller",
+      "y": 201,
+      "label": "EventStream 즉시 반환",
+      "variant": "return"
+    },
+    {
+      "id": "get-auth",
+      "from": "models",
+      "to": "auth",
+      "y": 236,
+      "label": "applyAuth → getAuth",
+      "variant": "security",
+      "note": "credential 조회, 만료 5분 전이면 OAuth refresh"
+    },
+    {
+      "id": "auth-result",
+      "from": "auth",
+      "to": "models",
+      "y": 267,
+      "label": "apiKey / headers",
+      "variant": "return"
+    },
+    {
+      "id": "dispatch",
+      "from": "models",
+      "to": "provider",
+      "y": 302,
+      "label": "provider.streamSimple",
+      "variant": "default"
+    },
+    {
+      "id": "lazy-import",
+      "from": "provider",
+      "to": "api",
+      "y": 333,
+      "label": "import() 후 streamSimple",
+      "variant": "dashed",
+      "note": "reasoning → effort / budget 변환 후 stream()"
+    },
+    {
+      "id": "http",
+      "from": "api",
+      "to": "vendor",
+      "y": 364,
+      "label": "beta.messages.create (SSE)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "sse",
+      "from": "vendor",
+      "to": "api",
+      "y": 395,
+      "label": "SSE events",
+      "variant": "return"
+    },
+    {
+      "id": "push",
+      "from": "api",
+      "to": "caller",
+      "y": 424,
+      "label": "start · text_delta · toolcall_* … done / error",
+      "variant": "return",
+      "note": "caller는 for await 또는 .result()로 소비"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "caller",
+      "from": 164,
+      "to": 432,
+      "type": "frontend"
+    },
+    {
+      "participant": "models",
+      "from": 170,
+      "to": 308,
+      "type": "backend"
+    },
+    {
+      "participant": "auth",
+      "from": 231,
+      "to": 272,
+      "type": "security"
+    },
+    {
+      "participant": "provider",
+      "from": 297,
+      "to": 339,
+      "type": "backend"
+    },
+    {
+      "participant": "api",
+      "from": 328,
+      "to": 430,
+      "type": "backend"
+    },
+    {
+      "participant": "vendor",
+      "from": 359,
+      "to": 400,
+      "type": "external"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "동기 반환, 비동기 setup",
+      "items": [
+        "lazyStream이 스트림을 먼저 돌려주고 인증·import를 뒤에서 수행 (api/lazy.ts)",
+        "setup 실패도 throw 대신 error 이벤트로 끝남"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "인증 우선순위",
+      "items": [
+        "요청 apiKey → 저장 credential → 환경변수 (auth/resolve.ts:33)",
+        "OAuth는 만료 5분 전 lock 후 1회 refresh"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "에러 계약",
+      "items": [
+        "provider 실패는 stopReason=error|aborted로 스트림에 기록 (anthropic-messages.ts:825)",
+        "caller는 이벤트 순회 또는 .result()로 최종 AssistantMessage 수신"
+      ]
+    }
+  ]
+}

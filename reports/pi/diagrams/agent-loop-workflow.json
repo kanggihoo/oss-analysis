@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "agent-loop: runLoop 제어 흐름",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "loop", "label": "턴 준비·판정 (runLoop)" },
+    { "id": "llm", "label": "LLM 응답 (streamAssistantResponse)" },
+    { "id": "tools", "label": "도구 실행" },
+    { "id": "exit", "label": "종료", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "p-start", "label": "시작", "fromCol": 0, "toCol": 0 },
+    { "id": "p-prep", "label": "요청 준비", "fromCol": 1, "toCol": 2 },
+    { "id": "p-llm", "label": "LLM 호출", "fromCol": 3, "toCol": 3, "variant": "emphasis" },
+    { "id": "p-finish", "label": "턴 마무리", "fromCol": 4, "toCol": 5 }
+  ],
+  "mainPath": ["start", "inject", "prepare", "stream", "exec", "finish", "next", "end"],
+  "nodes": [
+    { "id": "start", "lane": "loop", "col": 0, "type": "frontend", "label": "agent_start", "sublabel": "turn_start · prompt emit", "width": 150 },
+    { "id": "inject", "lane": "loop", "col": 1, "type": "backend", "label": "pending 메시지 주입", "sublabel": "prepareNextTurn · steering", "width": 150 },
+    { "id": "prepare", "lane": "loop", "col": 2, "type": "backend", "label": "prepareRequest", "sublabel": "context·model·thinking 교체", "width": 150 },
+    { "id": "stream", "lane": "llm", "col": 3, "type": "cloud", "label": "streamAssistantResponse", "sublabel": "convertToLlm → streamFn", "width": 160 },
+    { "id": "exec", "lane": "tools", "col": 4, "type": "messagebus", "label": "executeToolCalls", "sublabel": "length면 실행 없이 error 결과", "width": 160 },
+    { "id": "finish", "lane": "loop", "col": 4, "type": "security", "label": "finishTurn", "sublabel": "decision · turn_end emit", "width": 150 },
+    { "id": "next", "lane": "loop", "col": 5, "type": "backend", "label": "다음 턴 판정", "sublabel": "steering · followUp · continue", "width": 150 },
+    { "id": "hard", "lane": "exit", "col": 3, "type": "security", "label": "hard exit", "sublabel": "finishTurn → turn_end", "width": 150 },
+    { "id": "end", "lane": "exit", "col": 5, "type": "frontend", "label": "agent_end", "sublabel": "newMessages 반환", "width": 150 }
+  ],
+  "edges": [
+    { "id": "e-start-inject", "from": "start", "to": "inject" },
+    { "id": "e-inject-prepare", "from": "inject", "to": "prepare" },
+    { "id": "e-prepare-stream", "from": "prepare", "to": "stream", "label": "streamFn" },
+    { "id": "e-stream-exec", "from": "stream", "to": "exec", "label": "toolCall 있음" },
+    { "id": "e-stream-finish", "from": "stream", "to": "finish", "label": "toolCall 없음", "role": "branch" },
+    { "id": "e-exec-finish", "from": "exec", "to": "finish", "label": "toolResults" },
+    { "id": "e-finish-next", "from": "finish", "to": "next" },
+    { "id": "e-next-inject", "from": "next", "to": "inject", "label": "다음 턴", "role": "branch", "variant": "emphasis", "route": "up-channel" },
+    { "id": "e-next-end", "from": "next", "to": "end", "label": "대기 메시지 없음" },
+    { "id": "e-stream-hard", "from": "stream", "to": "hard", "label": "error | aborted", "role": "error", "variant": "security" },
+    { "id": "e-hard-end", "from": "hard", "to": "end", "role": "error", "variant": "security" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "루프 두 겹",
+      "items": [
+        "내부 루프: toolResults가 있거나 steering 메시지가 있으면 계속",
+        "외부 루프: 멈추려 할 때 getFollowUpMessages가 있으면 재진입",
+        "finishTurn의 continue는 추가 요청 없으면 1턴 더"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "종료 규칙",
+      "items": [
+        "error·aborted는 hook 결과와 무관하게 즉시 종료",
+        "finishTurn { action: end }도 큐를 보지 않고 종료",
+        "도구 배치는 모든 결과가 terminate:true일 때만 루프 중단"
+      ]
+    }
+  ]
+}

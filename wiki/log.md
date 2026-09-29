@@ -236,3 +236,37 @@
 - Aligned `wiki/SCHEMA.md` workspace boundary and Git ignore policy (`/repos/` ignored, tracking reports/wiki/diagrams/templates).
 
 
+
+## [2026-09-14] add | rsshub and folo project pages
+- Added [[rsshub]] — source-verified layered architecture (entrypoint / middleware / registry / route plugins), request-coalescing cache, HTTP-vs-browser collection split, and static catalog stats (1,906 sites, 3,462 routes, 3.0% browser-based, 58.2% Chinese-language) at commit `0a4ecdb02390fb047bb675a1764e1dedbf5cf9bc`.
+- Added [[folo]] — source-verified client-only monorepo: public `@follow-app/client-sdk` boundary to a closed backend (`api.folo.is`), one React codebase for web + Electron desktop, and one drizzle schema over two SQLite engines (wa-sqlite WASM / expo-sqlite) at commit `44f0e5df06eba774afe1f1aea30d90a742da5dec`.
+- Recorded the complementary relationship between the two: RSSHub generates feeds (fully open, self-hostable), Folo reads them (client open, backend closed).
+- Updated `index.md` to list 50 indexed pages.
+
+## [2026-09-20] update | rsshub as an endpoint catalog, not a dependency
+- Added [reports/rsshub/questions/q3-vps-info-adoption.md](../reports/rsshub/questions/q3-vps-info-adoption.md): how far to adopt RSSHub in the scheduler-based `vps-info` (signal-archive) collector, and which providers to pull.
+- Verified at commit `0a4ecdb02390fb047bb675a1764e1dedbf5cf9bc` that **RSSHub has no persistence layer at all** — zero DB dependencies in `package.json`, state limited to TTL caches (`routeExpire` 300s / `contentExpire` 3600s, `lib/config.ts:795-796`). It is a request-time transformer, not an archive, so the only overlap with a collect-and-store project is the single "site → normalized item list" step.
+- Concluded the practical use is as an **endpoint catalog**: read `lib/routes/<site>/*.ts` for the URL each site is actually called with, and implement directly — the real cost of adding a provider is endpoint discovery, which RSSHub has already done for 1,906 sites.
+- Recorded that `DataItem` is not worth adopting as a common format (half of it is feed-rendering-only; it has no dedup/first-seen/run-history concepts), that some routes proxy official feeds (`theverge`, `openai`), and that `/hackernews/*` is HTML scraping — a downgrade from the Firebase official API.
+- Updated [[rsshub]] with a "소비하는 쪽에서 쓸 때" section and refreshed `reports/rsshub/next.md`.
+
+## [2026-09-24] update | rsshub re-verified against the vps-info TypeScript redesign
+- Added [reports/rsshub/questions/q4-vps-info-typescript-redesign.md](../reports/rsshub/questions/q4-vps-info-typescript-redesign.md): what to adopt from RSSHub now that `vps-info` is a TypeScript (Fastify + Drizzle) resident collector with a DB-owned schedule.
+- Re-verified the main [[rsshub]] claims at commit `0a4ecdb02390fb047bb675a1764e1dedbf5cf9bc`, and newly recorded `Data.allowEmpty` + the empty-route exception (`lib/middleware/parameter.ts:71`), the shared `ofetch` client's retry status codes (including 400/409) with `timeout` commented out (`lib/utils/ofetch.ts`), and the typed error-to-status mapping (`lib/errors/`).
+- Kept the endpoint-catalog conclusion; added that TypeScript consumers can reuse the MIT libraries (`ofetch`, `rss-parser`, `cheerio`) but must not copy AGPL route code, and that directory-scan registration only pays off at thousands of plugins.
+- Marked the Python-era parts of Q3 as superseded, linked Q4 from `overview.md`, and refreshed `reports/rsshub/next.md`.
+
+## [2026-09-29] setup | claude-devtools re-baselined for a new analysis round
+- Fast-forwarded `repos/claude-devtools` from `16cc3c8` (v0.5.0) to `1486f2042c87bb547a4e34808ab54ab34a33f132` (8 commits, 13 files, small UI/deploy changes); kept the old metadata as `artifacts/claude-devtools/repo-metadata.2026-05-deepwiki-baseline.txt`.
+- Created [reports/claude-devtools/overview.md](../reports/claude-devtools/overview.md) and [next.md](../reports/claude-devtools/next.md) in the current template format. No change to [[claude-devtools]] content yet.
+- Re-cloned `repos/claude-devtools` fresh (same HEAD `1486f20`) and added the archify architecture map [reports/claude-devtools/diagrams/structure.html](../reports/claude-devtools/diagrams/structure.html) (showcase 9/9, visual-check pass).
+
+
+## [2026-09-30] analysis | Understand-Anything CodeWiki baseline
+- Re-pointed `repos/Understand-Anything` origin to Egonex-AI and fast-forwarded to `b05cc3b20990afca537b4fc0a49b4d7fbdc65bb0`; generated CodeWiki output in `artifacts/Understand-Anything/codewiki/`.
+- Verified key claims against source and wrote [reports/Understand-Anything/overview.md](../reports/Understand-Anything/overview.md), and `next.md`; existing [[Understand-Anything]] wiki page (2026-06) left unchanged, not yet reconciled. archify structure map added at reports/Understand-Anything/diagrams/structure.html and /understand flow diagram at diagrams/flow.html; agent-to-Phase mapping verified in overview.
+
+## [2026-09-30] analysis | CodeWiki cloned, run on itself, and fact-checked
+- Cloned `repos/CodeWiki` at `3e3d848698c7bf1a0ce2e0b49e66841acd0248aa`; installed into `repos/CodeWiki/.venv` (uv, Python 3.12) and set the claude-code subscription provider (`claude-sonnet-5-5`). Usage notes added to the root `AGENTS.md`.
+- Generated Korean self-docs twice (`artifacts/CodeWiki/codewiki/` with depth 2, `codewiki-depth4/` with depth 4) and fact-checked samples against source, including the upstream 1.0.1 `docs/`: [reports/CodeWiki/questions/q1-output-quality.md](../reports/CodeWiki/questions/q1-output-quality.md).
+- Added [reports/CodeWiki/overview.md](../reports/CodeWiki/overview.md), [next.md](../reports/CodeWiki/next.md), the archify map [diagrams/structure.html](../reports/CodeWiki/diagrams/structure.html) (showcase 9/9, visual-check pass), and [[codewiki]].

@@ -1,0 +1,49 @@
+{
+    "generation_info": {
+        "timestamp": "2026-09-29T15:40:07.996540+00:00",
+        "main_model": "claude-sonnet-5-5",
+        "generator_version": "2.0.0",
+        "repo_path": "/Users/kkh/Desktop/oss-analysis/repos/Understand-Anything",
+        "commit_id": "b05cc3b20990afca537b4fc0a49b4d7fbdc65bb0"
+    },
+    "statistics": {
+        "total_components": 890,
+        "leaf_nodes": 280,
+        "max_depth": 2
+    },
+    "files_generated": [
+        "overview.md",
+        "module_tree.json",
+        "first_module_tree.json",
+        "mobile_extractors.md",
+        "build_ci_and_workspace_config.md",
+        "dashboard_state_and_app_services.md",
+        "c_family_extractors.md",
+        "core_graph_analysis.md",
+        "dashboard_graph_utils.md",
+        "source_code_parsing_plugins.md",
+        "core_package_config.md",
+        "typescript_extractor.md",
+        "core_file_parsers.md",
+        "dashboard_components.md",
+        "jvm_extractors.md",
+        "core_search_persistence_staleness.md",
+        "workspace_build_and_delivery.md",
+        "homepage.md",
+        "skill_graph_merge_scripts.md",
+        "go_extractor.md",
+        "core_language_extractors.md",
+        "skill_command_sources.md",
+        "rust_extractor.md",
+        "python_extractor.md",
+        "extractor_base.md",
+        "knowledge_graph_core_engine.md",
+        "scripting_extractors.md",
+        "core_language_registries.md",
+        "core_figma.md",
+        "core_plugin_system.md",
+        "skill_commands_and_graph_assembly.md",
+        "dashboard_build_config.md",
+        "interactive_dashboard_ui.md"
+    ]
+}

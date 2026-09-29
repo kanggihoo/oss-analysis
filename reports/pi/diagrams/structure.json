@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "pi monorepo 패키지 구조",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/earendil-works/pi",
+      "revision": "4259686d9290c0d73ae7192b796aee3e530a9779"
+    },
+    "viewBox": [
+      1320,
+      760
+    ],
+    "views": [
+      {
+        "id": "llm-path",
+        "label": "LLM 호출 경로",
+        "focus": [
+          "cli",
+          "agent",
+          "ai",
+          "providers"
+        ],
+        "note": "CLI → agent loop → 통합 LLM API → 각 provider SDK로 내려가는 핵심 경로."
+      },
+      {
+        "id": "tool-ext",
+        "label": "도구 확장",
+        "focus": [
+          "cli",
+          "codemode",
+          "mcp"
+        ],
+        "note": "coding-agent extension이 codemode sandbox와 MCP client를 도구로 붙인다."
+      },
+      {
+        "id": "runtime-infra",
+        "label": "런타임 기반",
+        "focus": [
+          "agent",
+          "chord",
+          "remote",
+          "durable",
+          "sqlite",
+          "telemetry"
+        ],
+        "note": "chord 조합 런타임 위에 원격 세션·durable·세션 저장소가 올라간다."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "pi-coding-agent",
+      "sublabel": "pi CLI · SDK · modes",
+      "tag": "bin: pi",
+      "pos": [
+        540,
+        90
+      ],
+      "size": [
+        200,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/main.ts",
+          "label": "CLI entry"
+        },
+        {
+          "path": "packages/coding-agent/src/core/agent-session.ts",
+          "label": "AgentSession"
+        }
+      ]
+    },
+    {
+      "id": "tui",
+      "type": "frontend",
+      "label": "pi-tui",
+      "sublabel": "differential rendering",
+      "pos": [
+        60,
+        270
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/tui/package.json"
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "pi-agent-core",
+      "sublabel": "agent loop · session",
+      "pos": [
+        330,
+        270
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/agent/src/agent-loop.ts",
+          "label": "agent loop"
+        },
+        {
+          "path": "packages/agent/src/agent.ts",
+          "label": "Agent"
+        }
+      ]
+    },
+    {
+      "id": "codemode",
+      "type": "security",
+      "label": "pi-codemode",
+      "sublabel": "QuickJS sandbox",
+      "pos": [
+        600,
+        270
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/extensions/codemode/tool.ts",
+          "label": "consumer"
+        }
+      ]
+    },
+    {
+      "id": "mcp",
+      "type": "backend",
+      "label": "pi-mcp",
+      "sublabel": "MCP client",
+      "pos": [
+        850,
+        270
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/extensions/mcp/runtime.ts",
+          "label": "consumer"
+        }
+      ]
+    },
+    {
+      "id": "remote",
+      "type": "backend",
+      "label": "remote session",
+      "sublabel": "server · client · protocol",
+      "tag": "experimental",
+      "pos": [
+        1090,
+        270
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/experimental/server.ts",
+          "label": "consumer"
+        },
+        {
+          "path": "packages/protocol/package.json",
+          "label": "CBOR protocol"
+        }
+      ]
+    },
+    {
+      "id": "sqlite",
+      "type": "database",
+      "label": "sqlite-node backend",
+      "sublabel": "session storage",
+      "pos": [
+        60,
+        450
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/session-backends/sqlite-node/package.json"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "type": "backend",
+      "label": "pi-ai",
+      "sublabel": "unified LLM API",
+      "tag": "bin: pi-ai",
+      "pos": [
+        330,
+        450
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/index.ts"
+        },
+        {
+          "path": "packages/ai/src/models.ts",
+          "label": "models"
+        }
+      ]
+    },
+    {
+      "id": "chord",
+      "type": "messagebus",
+      "label": "chord",
+      "sublabel": "composition runtime",
+      "pos": [
+        720,
+        450
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/chord/package.json"
+        }
+      ]
+    },
+    {
+      "id": "durable",
+      "type": "database",
+      "label": "pi-durable",
+      "sublabel": "durable runtime",
+      "tag": "no in-repo consumer",
+      "pos": [
+        1090,
+        450
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/durable/package.json"
+        }
+      ]
+    },
+    {
+      "id": "telemetry",
+      "type": "cloud",
+      "label": "pi-telemetry",
+      "sublabel": "telemetry contracts",
+      "pos": [
+        60,
+        630
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/telemetry/package.json"
+        }
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "external",
+      "label": "LLM provider APIs",
+      "sublabel": "Anthropic · OpenAI · Google · Bedrock",
+      "pos": [
+        330,
+        630
+      ],
+      "size": [
+        230,
+        64
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-tui",
+      "from": "cli",
+      "to": "tui",
+      "label": "interactive UI"
+    },
+    {
+      "id": "cli-agent",
+      "from": "cli",
+      "to": "agent",
+      "label": "AgentSession",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-codemode",
+      "from": "cli",
+      "to": "codemode",
+      "label": "code tool",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "cli-mcp",
+      "from": "cli",
+      "to": "mcp",
+      "label": "MCP tools"
+    },
+    {
+      "id": "cli-remote",
+      "from": "cli",
+      "to": "remote",
+      "label": "devDep",
+      "variant": "dashed"
+    },
+    {
+      "id": "agent-ai",
+      "from": "agent",
+      "to": "ai",
+      "label": "stream",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "ai-providers",
+      "from": "ai",
+      "to": "providers",
+      "label": "vendor SDK",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "sqlite-agent",
+      "from": "sqlite",
+      "to": "agent",
+      "label": "backend"
+    },
+    {
+      "id": "agent-chord",
+      "from": "agent",
+      "to": "chord"
+    },
+    {
+      "id": "remote-chord",
+      "from": "remote",
+      "to": "chord"
+    },
+    {
+      "id": "durable-chord",
+      "from": "durable",
+      "to": "chord"
+    },
+    {
+      "id": "ai-telemetry",
+      "from": "ai",
+      "to": "telemetry",
+      "label": "events"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "핵심 경로",
+      "items": [
+        "pi CLI → pi-agent-core → pi-ai → provider SDK",
+        "coding-agent가 pi-ai(94)·pi-tui(87)·agent-core(70)을 가장 많이 import"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "기반 런타임",
+      "items": [
+        "chord: agent·protocol·client·server·durable·coding-agent가 의존",
+        "pi-durable은 레포 내 소비자 없음"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "범위 밖 / 미확인",
+      "items": [
+        "evals(테스트 전용) 생략",
+        "원격 3종은 한 노드로 묶음",
+        "화살표 = package 의존, 런타임 호출 미검증"
+      ]
+    }
+  ]
+}

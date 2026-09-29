@@ -37,7 +37,7 @@ archify로 도출한 주요 구조도 및 대표 실행 흐름 다이어그램�
 
 ## 4. 핵심 질문 및 세부 답변 목록 (Questions)
 
-*(아직 없음 — 그림을 보고 궁금한 부분이 생기면 이 표에 추가)*
+- [Q1: "숨겨진 SDK 기반 멀티플랫폼 대시보드"인가? 그리고 웹이 있는데 왜 Electron인가](./questions/q1-client-architecture-and-electron.md) - *SDK는 공개 npm 패키지(숨겨진 건 백엔드 구현)이고, 각 플랫폼이 로컬 SQLite를 굴리는 offline-first 구조라 대시보드보다 무겁다. Electron은 웹 중복 구현이 아니라 같은 `@follow/web` 코드베이스를 감싸 트레이/파일시스템/프록시/쿠키/CLI세션/핫업데이트 같은 OS 권한을 얻는 껍데기.*
 
 ---
 

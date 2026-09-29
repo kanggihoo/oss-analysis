@@ -1,0 +1,247 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "pi-ai Models.streamSimple 처리 단계",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "caller",
+      "label": "호출자 (agent / coding-agent)"
+    },
+    {
+      "id": "models",
+      "label": "Models · Provider (models.ts)"
+    },
+    {
+      "id": "api",
+      "label": "api 모듈 (api/anthropic-messages.ts 예)"
+    },
+    {
+      "id": "fail",
+      "label": "실패 수렴",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "sync",
+      "label": "동기 호출",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "setup",
+      "label": "비동기 setup (lazyStream)",
+      "fromCol": 1,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "gen",
+      "label": "생성·스트리밍",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "call",
+    "lazy",
+    "require",
+    "auth",
+    "dispatch",
+    "load",
+    "simple",
+    "sse",
+    "consume"
+  ],
+  "nodes": [
+    {
+      "id": "call",
+      "lane": "caller",
+      "col": 0,
+      "type": "frontend",
+      "label": "Models.streamSimple()",
+      "sublabel": "normalizeContext(context)",
+      "tag": "transcript.ts:30",
+      "width": 150
+    },
+    {
+      "id": "consume",
+      "lane": "caller",
+      "col": 5,
+      "type": "frontend",
+      "label": "이벤트 소비",
+      "sublabel": "for await · .result()",
+      "width": 150
+    },
+    {
+      "id": "lazy",
+      "lane": "models",
+      "col": 0,
+      "type": "backend",
+      "label": "lazyStream()",
+      "sublabel": "stream 즉시 반환",
+      "tag": "api/lazy.ts",
+      "width": 150
+    },
+    {
+      "id": "require",
+      "lane": "models",
+      "col": 1,
+      "type": "backend",
+      "label": "requireChatProvider",
+      "sublabel": "model.provider 조회",
+      "width": 150
+    },
+    {
+      "id": "auth",
+      "lane": "models",
+      "col": 2,
+      "type": "security",
+      "label": "applyAuth",
+      "sublabel": "getAuth → resolveProviderAuth",
+      "width": 150
+    },
+    {
+      "id": "dispatch",
+      "lane": "models",
+      "col": 3,
+      "type": "backend",
+      "label": "provider.streamSimple",
+      "sublabel": "apiFor(model.api)",
+      "tag": "impl 없음 → error",
+      "width": 150
+    },
+    {
+      "id": "load",
+      "lane": "api",
+      "col": 3,
+      "type": "messagebus",
+      "label": "lazyApi import()",
+      "sublabel": "첫 호출 시 모듈 로드",
+      "width": 150
+    },
+    {
+      "id": "simple",
+      "lane": "api",
+      "col": 4,
+      "type": "backend",
+      "label": "api streamSimple",
+      "sublabel": "reasoning → effort/budget",
+      "tag": ":866",
+      "width": 150
+    },
+    {
+      "id": "sse",
+      "lane": "api",
+      "col": 5,
+      "type": "cloud",
+      "label": "stream()",
+      "sublabel": "SDK 호출 · SSE → 이벤트",
+      "tag": ":511",
+      "width": 150
+    },
+    {
+      "id": "error",
+      "lane": "fail",
+      "col": 2,
+      "type": "security",
+      "label": "error 이벤트로 종료",
+      "sublabel": "createSetupErrorMessage",
+      "tag": "throw 안 함",
+      "width": 150
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-call-lazy",
+      "from": "call",
+      "to": "lazy"
+    },
+    {
+      "id": "e-lazy-require",
+      "from": "lazy",
+      "to": "require",
+      "label": "setup()"
+    },
+    {
+      "id": "e-require-auth",
+      "from": "require",
+      "to": "auth"
+    },
+    {
+      "id": "e-auth-dispatch",
+      "from": "auth",
+      "to": "dispatch",
+      "label": "apiKey·headers"
+    },
+    {
+      "id": "e-dispatch-load",
+      "from": "dispatch",
+      "to": "load"
+    },
+    {
+      "id": "e-load-simple",
+      "from": "load",
+      "to": "simple"
+    },
+    {
+      "id": "e-simple-sse",
+      "from": "simple",
+      "to": "sse"
+    },
+    {
+      "id": "e-sse-consume",
+      "from": "sse",
+      "to": "consume",
+      "label": "done | error",
+      "variant": "emphasis",
+      "role": "return"
+    },
+    {
+      "id": "f-require",
+      "from": "require",
+      "to": "error",
+      "label": "Unknown provider",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "f-auth",
+      "from": "auth",
+      "to": "error",
+      "label": "ModelsError(auth)",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "f-load",
+      "from": "load",
+      "to": "error",
+      "label": "load 실패",
+      "variant": "security",
+      "role": "error"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "정상 경로",
+      "items": [
+        "stream 객체는 동기로 먼저 반환, setup은 뒤에서 비동기 실행",
+        "api 모듈은 첫 호출 때만 import() (lazy loading)"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "에러 계약",
+      "items": [
+        "setup 실패는 lazyStream catch에서 error 이벤트로 변환",
+        "생성 중 실패는 stream()이 stopReason=error|aborted로 push"
+      ]
+    }
+  ]
+}

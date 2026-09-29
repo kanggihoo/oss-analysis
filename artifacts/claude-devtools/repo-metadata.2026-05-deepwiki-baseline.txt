@@ -1,0 +1,12 @@
+repo: matt1398/claude-devtools
+local_path: /Users/kkh/Desktop/oss-analysis/repos/claude-devtools
+remote_url: https://github.com/matt1398/claude-devtools.git
+branch: main
+head_sha: 16cc3c87c1e4d0e08ee101fb52dad1b85dbbe48a
+describe: v0.5.0
+status: 0 dirty entries
+latest_commit:
+16cc3c87c1e4d0e08ee101fb52dad1b85dbbe48a
+matt <matthewkim20122012@gmail.com>
+2026-05-13T17:37:57+09:00
+Merge pull request #198 from matt1398/feat/memory-viewer

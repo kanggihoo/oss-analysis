@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "pi-ai 패키지 구조",
+    "output": "ai-architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/earendil-works/pi",
+      "revision": "4259686d9290c0d73ae7192b796aee3e530a9779"
+    },
+    "viewBox": [
+      1320,
+      800
+    ]
+  },
+  "components": [
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "pi-coding-agent",
+      "sublabel": "Models 런타임 연결",
+      "tag": "consumer",
+      "pos": [
+        360,
+        80
+      ],
+      "size": [
+        220,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/model-runtime.ts",
+          "line": 210,
+          "label": "createModels"
+        },
+        {
+          "path": "packages/coding-agent/src/core/sdk.ts",
+          "line": 40,
+          "label": "setDefaultStreamFn"
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "frontend",
+      "label": "pi-agent-core",
+      "sublabel": "주입된 streamFn만 호출",
+      "tag": "consumer",
+      "pos": [
+        760,
+        80
+      ],
+      "size": [
+        220,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/agent/src/stream-fn.ts",
+          "label": "default streamFn"
+        },
+        {
+          "path": "packages/agent/src/agent-loop.ts",
+          "line": 124,
+          "label": "runLoop"
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "type": "backend",
+      "label": "Models",
+      "sublabel": "registry · stream · streamSimple",
+      "tag": "models.ts",
+      "pos": [
+        540,
+        270
+      ],
+      "size": [
+        240,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/models.ts",
+          "line": 865,
+          "end_line": 900,
+          "label": "stream entry"
+        },
+        {
+          "path": "packages/ai/src/models.ts",
+          "line": 979,
+          "label": "createModels"
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "auth",
+      "sublabel": "resolve · CredentialStore · oauth",
+      "pos": [
+        960,
+        270
+      ],
+      "size": [
+        250,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/auth/resolve.ts",
+          "line": 33,
+          "label": "resolveProviderAuth"
+        },
+        {
+          "path": "packages/ai/src/auth/credential-store.ts"
+        }
+      ]
+    },
+    {
+      "id": "catalog",
+      "type": "database",
+      "label": "model catalog",
+      "sublabel": "*.models.ts · data/*.json",
+      "tag": "generated",
+      "pos": [
+        110,
+        460
+      ],
+      "size": [
+        240,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/providers/anthropic.models.ts"
+        },
+        {
+          "path": "packages/ai/scripts/generate-models.ts",
+          "line": 1719,
+          "label": "models.dev fetch"
+        }
+      ]
+    },
+    {
+      "id": "provider",
+      "type": "backend",
+      "label": "Provider",
+      "sublabel": "baseUrl · auth · models · api",
+      "tag": "~42 providers",
+      "pos": [
+        540,
+        460
+      ],
+      "size": [
+        240,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/models.ts",
+          "line": 1028,
+          "label": "createProvider"
+        },
+        {
+          "path": "packages/ai/src/providers/anthropic.ts",
+          "label": "anthropicProvider"
+        }
+      ]
+    },
+    {
+      "id": "utils",
+      "type": "messagebus",
+      "label": "shared utils",
+      "sublabel": "event-stream · transform-messages",
+      "tag": "retry · overflow",
+      "pos": [
+        110,
+        650
+      ],
+      "size": [
+        240,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/utils/event-stream.ts",
+          "label": "EventStream"
+        },
+        {
+          "path": "packages/ai/src/api/transform-messages.ts",
+          "line": 64,
+          "label": "transformMessages"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "api wire 구현",
+      "sublabel": "src/api/* · lazy import",
+      "tag": "10 KnownApi",
+      "pos": [
+        540,
+        650
+      ],
+      "size": [
+        240,
+        70
+      ],
+      "sources": [
+        {
+          "path": "packages/ai/src/api/lazy.ts",
+          "label": "lazyApi"
+        },
+        {
+          "path": "packages/ai/src/api/anthropic-messages.ts",
+          "line": 511,
+          "label": "stream"
+        },
+        {
+          "path": "packages/ai/src/types.ts",
+          "line": 17,
+          "label": "KnownApi"
+        }
+      ]
+    },
+    {
+      "id": "vendor",
+      "type": "external",
+      "label": "LLM vendor APIs",
+      "sublabel": "Anthropic · OpenAI · Google · Bedrock",
+      "pos": [
+        960,
+        650
+      ],
+      "size": [
+        250,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-models",
+      "from": "cli",
+      "to": "models",
+      "label": "createModels",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "cli-agent",
+      "from": "cli",
+      "to": "agent",
+      "label": "streamFn 주입"
+    },
+    {
+      "id": "agent-models",
+      "from": "agent",
+      "to": "models",
+      "label": "streamSimple",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "models-auth",
+      "from": "models",
+      "to": "auth",
+      "label": "applyAuth"
+    },
+    {
+      "id": "models-provider",
+      "from": "models",
+      "to": "provider",
+      "label": "dispatch",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "catalog-provider",
+      "from": "catalog",
+      "to": "provider",
+      "label": "baseline models"
+    },
+    {
+      "id": "provider-api",
+      "from": "provider",
+      "to": "api",
+      "label": "by model.api",
+      "variant": "emphasis",
+      "labelDy": 24
+    },
+    {
+      "id": "api-utils",
+      "from": "api",
+      "to": "utils",
+      "label": "events"
+    },
+    {
+      "id": "api-vendor",
+      "from": "api",
+      "to": "vendor",
+      "label": "HTTP · SSE",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "호출 경로",
+      "items": [
+        "Models → Provider → api → vendor (굵은 선)",
+        "스트림은 즉시 반환, api 구현은 첫 호출 때 import()"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "api ≠ provider",
+      "items": [
+        "api = wire 프로토콜 10종, provider = 벤더 약 42개",
+        "groq·cerebras·deepseek 모두 openAICompletionsApi() 공유"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "경계",
+      "items": [
+        "agent-core는 provider 레지스트리를 모름 (점선 = 주입된 함수)",
+        "화살표 = 사용 방향, 모든 provider 매핑은 미확인"
+      ]
+    }
+  ]
+}

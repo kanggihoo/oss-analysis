@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "pi-coding-agent 내부 구조",
+    "output": "coding-agent-structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/earendil-works/pi",
+      "revision": "4259686d9290c0d73ae7192b796aee3e530a9779"
+    },
+    "viewBox": [
+      1320,
+      748
+    ],
+    "views": [
+      {
+        "id": "rpc-path",
+        "label": "RPC 연결 경로",
+        "focus": [
+          "cli",
+          "rpc",
+          "session",
+          "agentcore",
+          "piai"
+        ],
+        "note": "HarnessLens가 붙을 경로: stdin JSONL 명령 → AgentSession → agent loop → LLM."
+      },
+      {
+        "id": "harness-hooks",
+        "label": "Harness 관측·차단 지점",
+        "focus": [
+          "session",
+          "resources",
+          "extensions",
+          "tools"
+        ],
+        "note": "AGENTS.md 주입(ResourceLoader), tool_call 차단(Extensions), 실제 파일 작업(Tools)."
+      },
+      {
+        "id": "state",
+        "label": "상태와 모델",
+        "focus": [
+          "session",
+          "sessionfile",
+          "modelrt",
+          "piai"
+        ],
+        "note": "대화는 JSONL 파일로 저장되고, 모델·인증은 ModelRuntime이 pi-ai로 해석한다."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "cli.ts → main.ts",
+      "sublabel": "args · setup · mode 분기",
+      "tag": "bin: pi",
+      "pos": [
+        560,
+        56
+      ],
+      "size": [
+        200,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/cli.ts"
+        },
+        {
+          "path": "packages/coding-agent/src/main.ts",
+          "line": 67,
+          "label": "modes import"
+        }
+      ]
+    },
+    {
+      "id": "interactive",
+      "type": "frontend",
+      "label": "Interactive mode",
+      "sublabel": "TUI 화면 (pi-tui)",
+      "pos": [
+        240,
+        196
+      ],
+      "size": [
+        200,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/modes/interactive/interactive-mode.ts"
+        }
+      ]
+    },
+    {
+      "id": "print",
+      "type": "frontend",
+      "label": "Print / JSON mode",
+      "sublabel": "1회 실행 · 이벤트 출력",
+      "pos": [
+        560,
+        196
+      ],
+      "size": [
+        200,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/modes/print-mode.ts"
+        }
+      ]
+    },
+    {
+      "id": "rpc",
+      "type": "messagebus",
+      "label": "RPC mode",
+      "sublabel": "stdin/stdout JSONL",
+      "tag": "--mode rpc",
+      "pos": [
+        880,
+        196
+      ],
+      "size": [
+        200,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/modes/rpc/rpc-mode.ts",
+          "line": 355,
+          "label": "session.subscribe"
+        },
+        {
+          "path": "packages/coding-agent/src/modes/rpc/rpc-types.ts"
+        }
+      ]
+    },
+    {
+      "id": "session",
+      "type": "backend",
+      "label": "AgentSession",
+      "sublabel": "대화 1개의 조립·실행 중심",
+      "tag": "4.3k lines",
+      "pos": [
+        520,
+        346
+      ],
+      "size": [
+        280,
+        72
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/agent-session.ts"
+        },
+        {
+          "path": "packages/coding-agent/src/core/sdk.ts",
+          "line": 439,
+          "label": "new AgentSession"
+        }
+      ]
+    },
+    {
+      "id": "resources",
+      "type": "database",
+      "label": "ResourceLoader",
+      "sublabel": "AGENTS.md · skills · prompts",
+      "pos": [
+        100,
+        350
+      ],
+      "size": [
+        210,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/resource-loader.ts",
+          "line": 209,
+          "label": "loadProjectContextFiles"
+        },
+        {
+          "path": "packages/coding-agent/src/core/skills.ts"
+        }
+      ]
+    },
+    {
+      "id": "extensions",
+      "type": "security",
+      "label": "Extension runner",
+      "sublabel": "hooks · tool_call 차단",
+      "tag": "built-in: codemode·mcp",
+      "pos": [
+        1000,
+        350
+      ],
+      "size": [
+        210,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/extensions/runner.ts"
+        },
+        {
+          "path": "packages/coding-agent/src/extensions/index.ts",
+          "label": "builtInExtensions"
+        }
+      ]
+    },
+    {
+      "id": "sessionfile",
+      "type": "database",
+      "label": "SessionManager",
+      "sublabel": "세션 JSONL 파일",
+      "pos": [
+        100,
+        516
+      ],
+      "size": [
+        210,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/session-manager.ts",
+          "line": 1080,
+          "label": ".jsonl path"
+        }
+      ]
+    },
+    {
+      "id": "agentcore",
+      "type": "external",
+      "label": "pi-agent-core Agent",
+      "sublabel": "agent loop (별도 패키지)",
+      "pos": [
+        400,
+        516
+      ],
+      "size": [
+        220,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/sdk.ts",
+          "line": 389,
+          "label": "new Agent"
+        }
+      ]
+    },
+    {
+      "id": "modelrt",
+      "type": "backend",
+      "label": "ModelRuntime",
+      "sublabel": "모델 선택 · 인증",
+      "pos": [
+        700,
+        516
+      ],
+      "size": [
+        210,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/model-runtime.ts"
+        },
+        {
+          "path": "packages/coding-agent/src/core/auth-storage.ts"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "type": "backend",
+      "label": "Built-in tools",
+      "sublabel": "read · bash · edit · write · grep…",
+      "pos": [
+        1000,
+        516
+      ],
+      "size": [
+        210,
+        64
+      ],
+      "sources": [
+        {
+          "path": "packages/coding-agent/src/core/tools/index.ts"
+        },
+        {
+          "path": "packages/coding-agent/src/core/tools/edit.ts",
+          "line": 202,
+          "label": "unified patch"
+        }
+      ]
+    },
+    {
+      "id": "piai",
+      "type": "external",
+      "label": "pi-ai",
+      "sublabel": "LLM provider 통합 (별도 패키지)",
+      "pos": [
+        540,
+        666
+      ],
+      "size": [
+        240,
+        64
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-interactive",
+      "from": "cli",
+      "to": "interactive",
+      "label": "기본"
+    },
+    {
+      "id": "cli-print",
+      "from": "cli",
+      "to": "print",
+      "label": "-p",
+      "labelDy": 24
+    },
+    {
+      "id": "cli-rpc",
+      "from": "cli",
+      "to": "rpc",
+      "label": "--mode rpc",
+      "variant": "emphasis"
+    },
+    {
+      "id": "interactive-session",
+      "from": "interactive",
+      "to": "session"
+    },
+    {
+      "id": "print-session",
+      "from": "print",
+      "to": "session"
+    },
+    {
+      "id": "rpc-session",
+      "from": "rpc",
+      "to": "session",
+      "label": "명령 ↔ 이벤트",
+      "variant": "emphasis"
+    },
+    {
+      "id": "session-resources",
+      "from": "session",
+      "to": "resources",
+      "label": "context 주입"
+    },
+    {
+      "id": "session-extensions",
+      "from": "session",
+      "to": "extensions",
+      "label": "hook 호출"
+    },
+    {
+      "id": "extensions-tools",
+      "from": "extensions",
+      "to": "tools",
+      "label": "감싸기·차단",
+      "variant": "security",
+      "labelDy": 24
+    },
+    {
+      "id": "session-sessionfile",
+      "from": "session",
+      "to": "sessionfile",
+      "label": "append"
+    },
+    {
+      "id": "session-agentcore",
+      "from": "session",
+      "to": "agentcore",
+      "label": "loop 실행",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "session-modelrt",
+      "from": "session",
+      "to": "modelrt",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "agentcore-piai",
+      "from": "agentcore",
+      "to": "piai",
+      "label": "stream",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "modelrt-piai",
+      "from": "modelrt",
+      "to": "piai",
+      "label": "providers",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "진입점 3가지",
+      "items": [
+        "모든 모드가 같은 AgentSession을 쓴다",
+        "rpc-entry.ts = main(['--mode','rpc'])",
+        "SDK: index.ts의 createAgentSession()"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "HarnessLens 연결 지점",
+      "items": [
+        "관측: RPC 이벤트 스트림",
+        "차단: extension tool_call",
+        "주입 context: ResourceLoader"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "생략",
+      "items": [
+        "experimental/ (10.7k줄, 원격 세션)",
+        "compaction · export-html · settings",
+        "화살표 = import 기준 호출 방향"
+      ]
+    }
+  ]
+}

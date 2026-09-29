@@ -1,0 +1,205 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "/understand 실행 흐름 (전체 분석)",
+    "output": "flow.html",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "lanes": [
+    {
+      "id": "orch",
+      "label": "오케스트레이터 (SKILL.md)"
+    },
+    {
+      "id": "script",
+      "label": "결정적 스크립트"
+    },
+    {
+      "id": "agent",
+      "label": "LLM 에이전트"
+    }
+  ],
+  "mainPath": [
+    "pre",
+    "scan",
+    "batch",
+    "analyze",
+    "merge",
+    "assemble",
+    "arch",
+    "tour",
+    "save"
+  ],
+  "nodes": [
+    {
+      "id": "pre",
+      "lane": "orch",
+      "col": 0,
+      "type": "backend",
+      "label": "Phase 0",
+      "sublabel": "Pre-flight · ignore",
+      "width": 132
+    },
+    {
+      "id": "scan",
+      "lane": "agent",
+      "col": 1,
+      "type": "cloud",
+      "label": "Phase 1 SCAN",
+      "sublabel": "project-scanner",
+      "width": 132
+    },
+    {
+      "id": "batch",
+      "lane": "script",
+      "col": 2,
+      "type": "backend",
+      "label": "Phase 1.5 BATCH",
+      "sublabel": "compute-batches.mjs",
+      "width": 132
+    },
+    {
+      "id": "analyze",
+      "lane": "agent",
+      "col": 2,
+      "type": "cloud",
+      "label": "Phase 2 ANALYZE",
+      "sublabel": "file-analyzer",
+      "tag": "동시 5개",
+      "width": 132
+    },
+    {
+      "id": "merge",
+      "lane": "script",
+      "col": 3,
+      "type": "backend",
+      "label": "Phase 2 MERGE",
+      "sublabel": "merge-batch-graphs.py",
+      "width": 132
+    },
+    {
+      "id": "assemble",
+      "lane": "agent",
+      "col": 3,
+      "type": "cloud",
+      "label": "Phase 3 REVIEW",
+      "sublabel": "assemble-reviewer",
+      "width": 132
+    },
+    {
+      "id": "arch",
+      "lane": "agent",
+      "col": 4,
+      "type": "cloud",
+      "label": "Phase 4",
+      "sublabel": "architecture-analyzer",
+      "width": 132
+    },
+    {
+      "id": "tour",
+      "lane": "agent",
+      "col": 5,
+      "type": "cloud",
+      "label": "Phase 5",
+      "sublabel": "tour-builder",
+      "width": 132
+    },
+    {
+      "id": "save",
+      "lane": "orch",
+      "col": 5,
+      "type": "database",
+      "label": "Phase 6~7",
+      "sublabel": "검증 · 저장",
+      "tag": "graph-reviewer는 --review",
+      "width": 132
+    },
+    {
+      "id": "incr",
+      "lane": "orch",
+      "col": 1,
+      "type": "security",
+      "label": "증분 분류",
+      "sublabel": "prepare-incremental.mjs",
+      "width": 132
+    },
+    {
+      "id": "final",
+      "lane": "orch",
+      "col": 4,
+      "type": "security",
+      "label": "SKIP 종료",
+      "sublabel": "finalize-incremental.mjs",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "from": "pre",
+      "to": "scan",
+      "label": "full",
+      "variant": "emphasis"
+    },
+    {
+      "from": "scan",
+      "to": "batch"
+    },
+    {
+      "from": "batch",
+      "to": "analyze",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "analyze",
+      "to": "merge"
+    },
+    {
+      "from": "merge",
+      "to": "assemble",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "assemble",
+      "to": "arch"
+    },
+    {
+      "from": "arch",
+      "to": "tour"
+    },
+    {
+      "from": "tour",
+      "to": "save",
+      "variant": "emphasis"
+    },
+    {
+      "from": "pre",
+      "to": "incr",
+      "label": "기존 그래프",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "from": "incr",
+      "to": "final",
+      "label": "SKIP",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "from": "incr",
+      "to": "batch",
+      "label": "PARTIAL / ARCH",
+      "variant": "dashed",
+      "role": "branch",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ]
+}

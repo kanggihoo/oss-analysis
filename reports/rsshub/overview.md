@@ -40,6 +40,8 @@ archify로 도출한 주요 구조도 및 대표 실행 흐름 다이어그램�
 
 - [Q1: 계층 구조(Entrypoint → app-bootstrap → registry → routes → 데이터 수집)의 역할과 분리 이유](./questions/q1-layered-architecture.md) - *각 계층은 "무엇이 바뀌는 단위인가"로 분리됨(런타임/공통정책/라우팅/사이트별 로직); 브라우저 vs HTTP 수집은 별도 계층이 아니라 routes 계층 내부의 사이트별 선택*
 - [Q2: Worker 실행 모델 / bootstrap 개념 / registry-routes 관계 / site 문서화](./questions/q2-worker-model-and-plugin-dispatch.md) - *worker.ts는 Cloudflare의 V8 isolate 기반 서버리스 엣지 함수(요청당 CPU 과금이 증거); app-bootstrap은 프로세스/isolate당 1회만 실행되는 부팅; registry는 URL 첫 세그먼트(namespace)+path 패턴으로 자기 선언된 routes 플러그인을 매칭만 함; site 문서는 README 대신 코드 필드가 `/api/namespace/*`로 동적 노출됨*
+- [Q3: RSSHub를 vps-info(signal-archive)에 어디까지 가져올 것인가 + 어떤 provider를 가져올 것인가](./questions/q3-vps-info-adoption.md) - *RSSHub는 영속 계층이 전혀 없는 요청 시점 변환기라 vps-info(시계열 아카이브)와 겹치는 구간은 "사이트 → 정규화된 item 리스트" 한 단계뿐; 컨테이너도 코드 포팅도 아닌 **엔드포인트 카탈로그**로만 사용; 겹치는 8개 필드가 이미 1:1 매핑이고 나머지는 서로 목적이 달라 스키마 변경 불필요; 1순위 provider는 daily.dev*
+- [Q4: vps-info가 TypeScript 상주 수집기로 재설계된 뒤 RSSHub에서 가져올 구조](./questions/q4-vps-info-typescript-redesign.md) - *엔드포인트 카탈로그 결론은 유지; 같은 TypeScript라 MIT 라이브러리(`ofetch`/`rss-parser`/`cheerio`)는 그대로 쓰되 AGPL 라우트 코드는 복사하지 않음; 라우트 자기선언·`allowEmpty`·공통 HTTP 클라이언트는 가져오고, 디렉터리 스캔 등록과 4xx 재시도·꺼진 타임아웃은 반대로 감*
 
 ---
 

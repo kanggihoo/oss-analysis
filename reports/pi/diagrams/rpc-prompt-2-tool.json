@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RPC prompt ② tool 호출과 이벤트 반환",
+    "output": "rpc-prompt-2-tool.html",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1060,
+      680
+    ],
+    "views": [
+      {
+        "id": "gate",
+        "label": "Tool 호출과 차단",
+        "focus": [
+          "loop",
+          "ext",
+          "tool",
+          "session"
+        ],
+        "note": "tool_execution_start 뒤에 tool_call hook이 허용/차단을 정한다."
+      },
+      {
+        "id": "out",
+        "label": "종료와 이벤트 반환",
+        "focus": [
+          "loop",
+          "llm",
+          "session",
+          "rpc",
+          "client"
+        ],
+        "note": "toolCall 없는 답변이 오면 agent_end → agent_settled가 stdout으로 나간다."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "client",
+      "type": "external",
+      "label": "RPC client",
+      "sublabel": "HarnessLens 등"
+    },
+    {
+      "id": "rpc",
+      "type": "messagebus",
+      "label": "rpc-mode.ts",
+      "sublabel": "stdin/stdout JSONL"
+    },
+    {
+      "id": "session",
+      "type": "backend",
+      "label": "AgentSession",
+      "sublabel": "agent-session.ts"
+    },
+    {
+      "id": "ext",
+      "type": "security",
+      "label": "ExtensionRunner",
+      "sublabel": "hooks"
+    },
+    {
+      "id": "loop",
+      "type": "backend",
+      "label": "agent-loop",
+      "sublabel": "pi-agent-core"
+    },
+    {
+      "id": "tool",
+      "type": "backend",
+      "label": "Built-in tool",
+      "sublabel": "read · edit · bash"
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "pi-ai",
+      "sublabel": "LLM provider"
+    }
+  ],
+  "segments": [
+    {
+      "from": 170,
+      "to": 415,
+      "label": "Tool call"
+    },
+    {
+      "from": 425,
+      "to": 610,
+      "label": "다음 turn · 종료"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m-exec-start",
+      "from": "loop",
+      "to": "session",
+      "y": 190,
+      "label": "tool_execution_start",
+      "variant": "dashed"
+    },
+    {
+      "id": "m-tool-call-hook",
+      "from": "loop",
+      "to": "ext",
+      "y": 230,
+      "label": "beforeToolCall → tool_call",
+      "variant": "security"
+    },
+    {
+      "id": "m-hook-verdict",
+      "from": "ext",
+      "to": "loop",
+      "y": 270,
+      "label": "허용 또는 block",
+      "variant": "return"
+    },
+    {
+      "id": "m-execute",
+      "from": "loop",
+      "to": "tool",
+      "y": 310,
+      "label": "execute(args)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m-tool-result",
+      "from": "tool",
+      "to": "loop",
+      "y": 350,
+      "label": "result + details.patch",
+      "variant": "return"
+    },
+    {
+      "id": "m-exec-end",
+      "from": "loop",
+      "to": "session",
+      "y": 390,
+      "label": "tool_execution_end",
+      "variant": "dashed"
+    },
+    {
+      "id": "m-next-turn",
+      "from": "loop",
+      "to": "llm",
+      "y": 430,
+      "label": "tool result 넣고 재호출",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m-final",
+      "from": "llm",
+      "to": "loop",
+      "y": 470,
+      "label": "최종 답변 (toolCall 없음)",
+      "variant": "return"
+    },
+    {
+      "id": "m-agent-end",
+      "from": "loop",
+      "to": "session",
+      "y": 510,
+      "label": "agent_end",
+      "variant": "dashed"
+    },
+    {
+      "id": "m-settled",
+      "from": "session",
+      "to": "rpc",
+      "y": 550,
+      "label": "agent_settled",
+      "variant": "dashed"
+    },
+    {
+      "id": "m-settled-out",
+      "from": "rpc",
+      "to": "client",
+      "y": 590,
+      "label": "stdout JSONL",
+      "variant": "dashed"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "loop",
+      "from": 190,
+      "to": 510,
+      "type": "backend"
+    },
+    {
+      "participant": "ext",
+      "from": 226,
+      "to": 274,
+      "type": "security"
+    },
+    {
+      "participant": "tool",
+      "from": 306,
+      "to": 354,
+      "type": "backend"
+    },
+    {
+      "participant": "llm",
+      "from": 426,
+      "to": 474,
+      "type": "external"
+    },
+    {
+      "participant": "session",
+      "from": 190,
+      "to": 550,
+      "type": "backend"
+    },
+    {
+      "participant": "rpc",
+      "from": 550,
+      "to": 590,
+      "type": "messagebus"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "rose",
+      "title": "차단 동작",
+      "items": [
+        "start 이벤트가 hook보다 먼저 나감",
+        "block → error 결과, end 이벤트는 그대로"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "이벤트 경로",
+      "items": [
+        "모든 이벤트: loop → session.subscribe → stdout",
+        "생략: message_* · turn_* · tool_result hook"
+      ]
+    }
+  ]
+}

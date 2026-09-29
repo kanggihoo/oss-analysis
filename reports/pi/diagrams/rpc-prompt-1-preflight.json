@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "RPC prompt ① 접수와 LLM 호출",
+    "output": "rpc-prompt-1-preflight.html",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1060,
+      600
+    ],
+    "views": [
+      {
+        "id": "preflight",
+        "label": "Preflight와 응답",
+        "focus": [
+          "client",
+          "rpc",
+          "session",
+          "ext"
+        ],
+        "note": "response는 prompt 접수(preflight) 직후에 온다."
+      },
+      {
+        "id": "llm",
+        "label": "LLM 호출",
+        "focus": [
+          "session",
+          "loop",
+          "llm"
+        ],
+        "note": "AgentSession이 agent-loop를 돌리고, loop가 pi-ai streamSimple을 부른다."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "client",
+      "type": "external",
+      "label": "RPC client",
+      "sublabel": "HarnessLens 등"
+    },
+    {
+      "id": "rpc",
+      "type": "messagebus",
+      "label": "rpc-mode.ts",
+      "sublabel": "stdin/stdout JSONL"
+    },
+    {
+      "id": "session",
+      "type": "backend",
+      "label": "AgentSession",
+      "sublabel": "agent-session.ts"
+    },
+    {
+      "id": "ext",
+      "type": "security",
+      "label": "ExtensionRunner",
+      "sublabel": "hooks"
+    },
+    {
+      "id": "loop",
+      "type": "backend",
+      "label": "agent-loop",
+      "sublabel": "pi-agent-core"
+    },
+    {
+      "id": "tool",
+      "type": "backend",
+      "label": "Built-in tool",
+      "sublabel": "read · edit · bash"
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "pi-ai",
+      "sublabel": "LLM provider"
+    }
+  ],
+  "segments": [
+    {
+      "from": 170,
+      "to": 415,
+      "label": "Preflight"
+    },
+    {
+      "from": 425,
+      "to": 530,
+      "label": "LLM turn"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m-prompt",
+      "from": "client",
+      "to": "rpc",
+      "y": 190,
+      "label": "{type:\"prompt\"} stdin",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m-session-prompt",
+      "from": "rpc",
+      "to": "session",
+      "y": 230,
+      "label": "session.prompt()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m-input-hook",
+      "from": "session",
+      "to": "ext",
+      "y": 270,
+      "label": "input · before_agent_start",
+      "variant": "security"
+    },
+    {
+      "id": "m-hook-return",
+      "from": "ext",
+      "to": "session",
+      "y": 310,
+      "label": "prompt 변경 가능",
+      "variant": "return"
+    },
+    {
+      "id": "m-preflight",
+      "from": "session",
+      "to": "rpc",
+      "y": 350,
+      "label": "preflight: started",
+      "variant": "return"
+    },
+    {
+      "id": "m-response",
+      "from": "rpc",
+      "to": "client",
+      "y": 390,
+      "label": "response success",
+      "variant": "return"
+    },
+    {
+      "id": "m-agent-prompt",
+      "from": "session",
+      "to": "loop",
+      "y": 430,
+      "label": "agent.prompt()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m-stream",
+      "from": "loop",
+      "to": "llm",
+      "y": 470,
+      "label": "streamSimple()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m-toolcall",
+      "from": "llm",
+      "to": "loop",
+      "y": 510,
+      "label": "assistant + toolCall",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "rpc",
+      "from": 190,
+      "to": 400,
+      "type": "messagebus"
+    },
+    {
+      "participant": "session",
+      "from": 230,
+      "to": 450,
+      "type": "backend"
+    },
+    {
+      "participant": "ext",
+      "from": 266,
+      "to": 314,
+      "type": "security"
+    },
+    {
+      "participant": "loop",
+      "from": 430,
+      "to": 520,
+      "type": "backend"
+    },
+    {
+      "participant": "llm",
+      "from": 466,
+      "to": 514,
+      "type": "external"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "response의 의미",
+      "items": [
+        "prompt 접수 = preflight 성공",
+        "모델 작업 완료가 아님 → agent_settled 대기"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "preflight 순서",
+      "items": [
+        "/command → input hook → skill·template 펼치기",
+        "실행 중이면 steer/follow_up queue"
+      ]
+    }
+  ]
+}

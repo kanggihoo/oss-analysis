@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "agent-loop 1턴 시퀀스 (tool 호출 포함)",
+    "output": "reports/pi/diagrams/agent-loop-sequence.html",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "column_fit": "spread",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "agent",
+      "type": "frontend",
+      "label": "Agent",
+      "sublabel": "agent.ts · subscribers"
+    },
+    {
+      "id": "loop",
+      "type": "backend",
+      "label": "runLoop",
+      "sublabel": "agent-loop.ts"
+    },
+    {
+      "id": "hooks",
+      "type": "security",
+      "label": "AgentLoopConfig hooks",
+      "sublabel": "prepareRequest · before/afterToolCall"
+    },
+    {
+      "id": "stream",
+      "type": "external",
+      "label": "streamFn",
+      "sublabel": "pi-ai streamSimple"
+    },
+    {
+      "id": "tool",
+      "type": "backend",
+      "label": "AgentTool.execute",
+      "sublabel": "read · bash · edit …"
+    }
+  ],
+  "segments": [
+    {
+      "from": 160,
+      "to": 214,
+      "label": "요청 준비"
+    },
+    {
+      "from": 220,
+      "to": 302,
+      "label": "LLM 스트리밍"
+    },
+    {
+      "from": 308,
+      "to": 422,
+      "label": "tool 실행"
+    },
+    {
+      "from": 428,
+      "to": 480,
+      "label": "턴 마무리"
+    }
+  ],
+  "messages": [
+    {
+      "id": "prompt",
+      "from": "agent",
+      "to": "loop",
+      "y": 170,
+      "label": "prompt() → runAgentLoop",
+      "variant": "emphasis",
+      "note": "agent_start · turn_start · prompt message_start/end"
+    },
+    {
+      "id": "prep",
+      "from": "loop",
+      "to": "hooks",
+      "y": 200,
+      "label": "prepareRequest → convertToLlm",
+      "variant": "default",
+      "note": "AgentMessage[] → Message[] 변환"
+    },
+    {
+      "id": "llm",
+      "from": "loop",
+      "to": "stream",
+      "y": 230,
+      "label": "streamFn(model, llmContext)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "llm-ret",
+      "from": "stream",
+      "to": "loop",
+      "y": 260,
+      "label": "events … done(toolUse)",
+      "variant": "return"
+    },
+    {
+      "id": "msg-emit",
+      "from": "loop",
+      "to": "agent",
+      "y": 290,
+      "label": "message_start / update / end",
+      "variant": "dashed"
+    },
+    {
+      "id": "before",
+      "from": "loop",
+      "to": "hooks",
+      "y": 320,
+      "label": "validate → beforeToolCall",
+      "variant": "security",
+      "note": "block: true 이면 실행 없이 error toolResult"
+    },
+    {
+      "id": "exec",
+      "from": "loop",
+      "to": "tool",
+      "y": 350,
+      "label": "execute(id, args, signal, onUpdate)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "exec-ret",
+      "from": "tool",
+      "to": "loop",
+      "y": 380,
+      "label": "AgentToolResult",
+      "variant": "return",
+      "note": "onUpdate → tool_execution_update"
+    },
+    {
+      "id": "after",
+      "from": "loop",
+      "to": "hooks",
+      "y": 410,
+      "label": "afterToolCall → finishTurn",
+      "variant": "default",
+      "note": "content · isError · terminate 덮어쓰기 가능"
+    },
+    {
+      "id": "tool-emit",
+      "from": "loop",
+      "to": "agent",
+      "y": 440,
+      "label": "tool_execution_end · toolResult · turn_end",
+      "variant": "dashed"
+    },
+    {
+      "id": "end",
+      "from": "loop",
+      "to": "agent",
+      "y": 470,
+      "label": "steering 확인 → 다음 턴 … agent_end",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "agent",
+      "from": 164,
+      "to": 476,
+      "type": "frontend"
+    },
+    {
+      "participant": "loop",
+      "from": 170,
+      "to": 474,
+      "type": "backend"
+    },
+    {
+      "participant": "hooks",
+      "from": 195,
+      "to": 206,
+      "type": "security"
+    },
+    {
+      "participant": "stream",
+      "from": 225,
+      "to": 265,
+      "type": "external"
+    },
+    {
+      "participant": "hooks",
+      "from": 315,
+      "to": 326,
+      "type": "security"
+    },
+    {
+      "participant": "tool",
+      "from": 345,
+      "to": 385,
+      "type": "backend"
+    },
+    {
+      "participant": "hooks",
+      "from": 405,
+      "to": 416,
+      "type": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "턴 = 응답 1회 + tool 결과",
+      "items": [
+        "toolCall이 있으면 결과를 context에 넣고 다시 streamFn (agent-loop.ts:263)",
+        "tool이 없고 steering·follow-up도 없으면 agent_end"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "hook이 개입하는 자리",
+      "items": [
+        "beforeToolCall: 차단 · afterToolCall: 결과 덮어쓰기",
+        "finishTurn {action:\"end\"}: 즉시 종료 · getSteeringMessages: 중간 끼어들기"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "실패도 이벤트로",
+      "items": [
+        "stopReason error|aborted → turn_end · agent_end 후 종료 (:245)",
+        "length로 잘린 응답의 tool call은 실행하지 않고 error 결과 (:268)"
+      ]
+    }
+  ]
+}

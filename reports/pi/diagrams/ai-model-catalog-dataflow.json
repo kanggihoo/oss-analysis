@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "pi-ai 모델 카탈로그 데이터 흐름",
+    "output": "ai-model-catalog-dataflow.html",
+    "viewBox": [
+      1080,
+      620
+    ],
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    {
+      "label": "원격 소스"
+    },
+    {
+      "label": "빌드 시점 생성"
+    },
+    {
+      "label": "provider 조립"
+    },
+    {
+      "label": "Models 레지스트리"
+    },
+    {
+      "label": "소비자"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "modelsdev",
+      "type": "external",
+      "label": "models.dev",
+      "sublabel": "api.json",
+      "stage": 0,
+      "row": 0,
+      "tag": "주 소스"
+    },
+    {
+      "id": "aggregators",
+      "type": "external",
+      "label": "OpenRouter 등",
+      "sublabel": "/models 목록",
+      "stage": 0,
+      "row": 1
+    },
+    {
+      "id": "remote",
+      "type": "cloud",
+      "label": "원격 카탈로그",
+      "sublabel": "예: Radius gateway",
+      "stage": 0,
+      "row": 3,
+      "tag": "런타임"
+    },
+    {
+      "id": "generate",
+      "type": "backend",
+      "label": "generate-models.ts",
+      "sublabel": "빌드 스크립트",
+      "stage": 1,
+      "row": 0,
+      "tag": "tool_call만"
+    },
+    {
+      "id": "catalog",
+      "type": "database",
+      "label": "data/*.json",
+      "sublabel": "+ *.models.ts",
+      "stage": 1,
+      "row": 2,
+      "tag": "정적 카탈로그"
+    },
+    {
+      "id": "refresh",
+      "type": "backend",
+      "label": "refreshModels()",
+      "sublabel": "fetchModels 등",
+      "stage": 2,
+      "row": 3
+    },
+    {
+      "id": "provider",
+      "type": "backend",
+      "label": "createProvider()",
+      "sublabel": "currentModels() 병합",
+      "stage": 2,
+      "row": 1,
+      "tag": "provider별"
+    },
+    {
+      "id": "registry",
+      "type": "backend",
+      "label": "Models",
+      "sublabel": "createModels()",
+      "stage": 3,
+      "row": 1,
+      "tag": "레지스트리"
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "ModelsStore",
+      "sublabel": "캐시 + etag",
+      "stage": 3,
+      "row": 3,
+      "tag": "persist"
+    },
+    {
+      "id": "available",
+      "type": "security",
+      "label": "getAvailable()",
+      "sublabel": "인증된 provider만",
+      "stage": 4,
+      "row": 1,
+      "tag": "filterModels"
+    },
+    {
+      "id": "consumer",
+      "type": "frontend",
+      "label": "coding-agent",
+      "sublabel": "model-runtime",
+      "stage": 4,
+      "row": 3
+    }
+  ],
+  "flows": [
+    {
+      "from": "modelsdev",
+      "to": "generate",
+      "label": "모델 메타데이터",
+      "classification": "fetch",
+      "variant": "emphasis",
+      "route": "straight",
+      "labelDy": -20
+    },
+    {
+      "from": "aggregators",
+      "to": "generate",
+      "label": "provider별 목록",
+      "classification": "fetch"
+    },
+    {
+      "from": "generate",
+      "to": "catalog",
+      "label": "JSON + TS 기록",
+      "classification": "빌드 시점",
+      "variant": "emphasis",
+      "labelAt": [
+        315,
+        200
+      ]
+    },
+    {
+      "from": "catalog",
+      "to": "provider",
+      "label": "baseline models",
+      "classification": "import",
+      "variant": "emphasis"
+    },
+    {
+      "from": "remote",
+      "to": "refresh",
+      "label": "동적 목록",
+      "classification": "런타임 fetch",
+      "variant": "dashed"
+    },
+    {
+      "from": "refresh",
+      "to": "provider",
+      "label": "dynamicModels",
+      "classification": "같은 id 덮어씀",
+      "labelAt": [
+        530,
+        385
+      ]
+    },
+    {
+      "from": "refresh",
+      "to": "store",
+      "label": "persist",
+      "classification": "publish()"
+    },
+    {
+      "from": "provider",
+      "to": "registry",
+      "label": "setProvider",
+      "variant": "emphasis"
+    },
+    {
+      "from": "registry",
+      "to": "available",
+      "label": "getModels()",
+      "classification": "인증 확인",
+      "variant": "emphasis"
+    },
+    {
+      "from": "available",
+      "to": "consumer",
+      "label": "사용 가능 모델",
+      "variant": "emphasis",
+      "labelAt": [
+        960,
+        385
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "정적 카탈로그 (빌드 시점)",
+      "items": [
+        "npm run generate-models가 models.dev 등에서 받아 providers/data/*.json과 *.models.ts를 생성",
+        "chat 모델은 tool_call === true인 것만 포함",
+        "provider 파일은 이 목록을 baseline models로 import"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "동적 카탈로그 (런타임)",
+      "items": [
+        "Models.refresh()가 provider의 refreshModels()를 호출",
+        "먼저 ModelsStore 캐시로 복원한 뒤, 네트워크 허용 시 새로 fetch",
+        "publish()가 store에 persist하고 dynamicModels를 교체"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "노출 규칙",
+      "items": [
+        "getModels()는 baseline + dynamic 병합 결과 (같은 id는 dynamic 우선)",
+        "getAvailable()은 인증 가능한 provider의 모델만 반환",
+        "coding-agent는 FileModelsStore(models-store.json)를 주입"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "pi-ai AssistantMessage 스트림 상태",
+    "output": "ai-message-lifecycle.html",
+    "viewBox": [
+      980,
+      566
+    ],
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "main",
+      "label": "스트림 진행 (이벤트)"
+    },
+    {
+      "id": "waiting",
+      "label": "그 밖의 종료 (done reason · error 이벤트)"
+    }
+  ],
+  "states": [
+    {
+      "id": "pending",
+      "type": "start",
+      "label": "pending",
+      "sublabel": "output 객체 생성",
+      "lane": "main",
+      "col": 0,
+      "step": "01",
+      "tag": "stopReason"
+    },
+    {
+      "id": "started",
+      "type": "active",
+      "label": "start",
+      "sublabel": "첫 이벤트",
+      "lane": "main",
+      "col": 1,
+      "step": "02",
+      "tag": "event"
+    },
+    {
+      "id": "streaming",
+      "type": "active",
+      "label": "content 스트리밍",
+      "sublabel": "text/thinking/toolcall",
+      "lane": "main",
+      "col": 2,
+      "step": "03",
+      "tag": "_delta"
+    },
+    {
+      "id": "done",
+      "type": "decision",
+      "label": "done",
+      "sublabel": "reason 판정",
+      "lane": "main",
+      "col": 3,
+      "step": "04",
+      "tag": "event"
+    },
+    {
+      "id": "stop",
+      "type": "success",
+      "label": "stop",
+      "sublabel": "정상 종료",
+      "lane": "main",
+      "col": 4,
+      "step": "05",
+      "tag": "stopReason"
+    },
+    {
+      "id": "deferred",
+      "type": "waiting",
+      "label": "deferred",
+      "sublabel": "DeferredHandle 보관",
+      "lane": "waiting",
+      "col": 2,
+      "tag": "faux만 구현"
+    },
+    {
+      "id": "error",
+      "type": "failure",
+      "label": "error · aborted",
+      "sublabel": "signal.aborted면 aborted",
+      "lane": "waiting",
+      "col": 0,
+      "tag": "error 이벤트"
+    },
+    {
+      "id": "tooluse",
+      "type": "neutral",
+      "label": "toolUse · length",
+      "sublabel": "다음 행동은 agent가 결정",
+      "lane": "waiting",
+      "col": 1,
+      "tag": "terminal"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "t-start",
+      "from": "pending",
+      "to": "started",
+      "label": "start"
+    },
+    {
+      "id": "t-content",
+      "from": "started",
+      "to": "streaming"
+    },
+    {
+      "id": "t-done",
+      "from": "streaming",
+      "to": "done",
+      "label": "*_end"
+    },
+    {
+      "id": "t-stop",
+      "from": "done",
+      "to": "stop",
+      "variant": "emphasis"
+    },
+    {
+      "id": "t-tooluse",
+      "from": "done",
+      "to": "tooluse",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight"
+    },
+    {
+      "id": "t-deferred",
+      "from": "done",
+      "to": "deferred",
+      "variant": "dashed",
+      "route": "drop"
+    },
+    {
+      "id": "t-resume",
+      "from": "deferred",
+      "to": "started",
+      "label": "fetchDeferred",
+      "variant": "dashed",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          830,
+          307
+        ],
+        [
+          830,
+          80
+        ],
+        [
+          248,
+          80
+        ]
+      ]
+    },
+    {
+      "id": "t-error",
+      "from": "streaming",
+      "to": "error",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "route": "straight",
+      "label": "예외",
+      "labelDy": 24
+    },
+    {
+      "id": "t-retry",
+      "from": "error",
+      "to": "pending",
+      "label": "error만 · 상위가 새 요청",
+      "variant": "emphasis",
+      "fromSide": "left",
+      "toSide": "bottom",
+      "via": [
+        [
+          94,
+          307
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "정상 경로",
+      "items": [
+        "start 이전에는 어떤 update·done도 오지 않는다 (types.ts:750)",
+        "partial은 계속 자라는 공유 객체, _end가 확정값",
+        "done 이벤트의 reason = stop | length | toolUse | deferred"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "대기와 종료 reason",
+      "items": [
+        "deferred는 DeferredHandle만 남기고 끝남 → fetchDeferred가 새 스트림",
+        "이번 커밋에서 deferred 구현은 faux provider뿐",
+        "toolUse·length도 스트림으로선 종료, 다음 행동은 agent 몫"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "실패는 throw가 아니라 상태",
+      "items": [
+        "setup·provider 실패 모두 throw 대신 error 이벤트 (lazy.ts, anthropic-messages.ts:825)",
+        "signal이 abort됐으면 reason은 aborted",
+        "pi-ai는 재시도 안 함: isRetryableAssistantError 판정만 제공"
+      ]
+    }
+  ]
+}

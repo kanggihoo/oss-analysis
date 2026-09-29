@@ -1,0 +1,245 @@
+{
+    "token_budget": 200000,
+    "tokens_used": 14305,
+    "caps": {
+        "per_file_bytes": 16384,
+        "per_class_files": 40,
+        "per_file_units": 25
+    },
+    "with_prose": false,
+    "classes": {
+        "manifest": {
+            "files": [
+                {
+                    "path": "package.json",
+                    "bytes": 1898,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "benchmark:large-repo",
+                        "build",
+                        "dev:dashboard",
+                        "lint",
+                        "prepare",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "pnpm-workspace.yaml",
+                    "bytes": 507,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "tsconfig.json",
+                    "bytes": 364,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "homepage/package.json",
+                    "bytes": 282,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "astro",
+                        "build",
+                        "dev",
+                        "preview"
+                    ]
+                },
+                {
+                    "path": "homepage/tsconfig.json",
+                    "bytes": 109,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/package.json",
+                    "bytes": 1001,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "understand-anything-plugin/pnpm-workspace.yaml",
+                    "bytes": 418,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/tsconfig.json",
+                    "bytes": 430,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/core/package.json",
+                    "bytes": 1714,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "understand-anything-plugin/packages/core/tsconfig.json",
+                    "bytes": 430,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/dashboard/package.json",
+                    "bytes": 1218,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "build:demo",
+                        "dev",
+                        "preview",
+                        "test",
+                        "test:watch"
+                    ]
+                },
+                {
+                    "path": "understand-anything-plugin/packages/dashboard/tsconfig.app.json",
+                    "bytes": 628,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/dashboard/tsconfig.json",
+                    "bytes": 71,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/tree-sitter-dart-wasm/package.json",
+                    "bytes": 336,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/tree-sitter-swift-wasm/package.json",
+                    "bytes": 373,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/viewer/package.json",
+                    "bytes": 668,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "pack:release"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "build": {
+            "files": [
+                {
+                    "path": "understand-anything-plugin/packages/dashboard/vite.config.ts",
+                    "bytes": 15919,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "ci": {
+            "files": [
+                {
+                    "path": ".github/workflows/ci.yml",
+                    "bytes": 1829,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "ci"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/deploy-homepage.yml",
+                    "bytes": 1638,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "deploy"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "test_infra": {
+            "files": [
+                {
+                    "path": "vitest.config.ts",
+                    "bytes": 1069,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/vitest.config.ts",
+                    "bytes": 544,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "understand-anything-plugin/packages/core/vitest.config.ts",
+                    "bytes": 141,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "script": {
+            "files": [
+                {
+                    "path": "install.ps1",
+                    "bytes": 11223,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "install.sh",
+                    "bytes": 9549,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        }
+    },
+    "nodes": 49,
+    "edges": 31
+}

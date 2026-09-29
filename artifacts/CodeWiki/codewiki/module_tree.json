@@ -1,0 +1,349 @@
+{
+    "User_Interfaces_&_Access_Layer": {
+        "path": "codewiki",
+        "components": [
+            "codewiki/cli/adapters/doc_generator.py::CLIDocumentationGenerator",
+            "codewiki/cli/config_manager.py::ConfigManager",
+            "codewiki/cli/git_manager.py::GitManager",
+            "codewiki/cli/html_generator.py::HTMLGenerator",
+            "codewiki/cli/models/config.py::AgentInstructions",
+            "codewiki/cli/models/config.py::Configuration",
+            "codewiki/cli/models/job.py::DocumentationJob",
+            "codewiki/cli/models/job.py::GenerationOptions",
+            "codewiki/cli/models/job.py::JobStatistics",
+            "codewiki/cli/models/job.py::JobStatus",
+            "codewiki/cli/models/job.py::LLMConfig",
+            "codewiki/cli/utils/api_errors.py::APIErrorHandler",
+            "codewiki/cli/utils/errors.py::APIError",
+            "codewiki/cli/utils/errors.py::CodeWikiError",
+            "codewiki/cli/utils/errors.py::ConfigurationError",
+            "codewiki/cli/utils/errors.py::FileSystemError",
+            "codewiki/cli/utils/errors.py::IncompleteGenerationError",
+            "codewiki/cli/utils/errors.py::RepositoryError",
+            "codewiki/cli/utils/logging.py::CLILogger",
+            "codewiki/cli/utils/progress.py::ModuleProgressBar",
+            "codewiki/cli/utils/progress.py::ProgressTracker",
+            "codewiki/src/fe/background_worker.py::BackgroundWorker",
+            "codewiki/src/fe/cache_manager.py::CacheManager",
+            "codewiki/src/fe/config.py::WebAppConfig",
+            "codewiki/src/fe/github_processor.py::GitHubRepoProcessor",
+            "codewiki/src/fe/models.py::CacheEntry",
+            "codewiki/src/fe/models.py::JobStatus",
+            "codewiki/src/fe/models.py::JobStatusResponse",
+            "codewiki/src/fe/models.py::RepositorySubmission",
+            "codewiki/src/fe/routes.py::WebRoutes",
+            "codewiki/src/fe/template_utils.py::StringTemplateLoader",
+            "codewiki/mcp/session.py::SessionState",
+            "codewiki/mcp/session.py::SessionStore",
+            "codewiki/mcp/workspace.py::SessionWorkspace"
+        ],
+        "children": {
+            "cli_core": {
+                "path": "codewiki/cli",
+                "components": [
+                    "codewiki/cli/adapters/doc_generator.py::CLIDocumentationGenerator",
+                    "codewiki/cli/config_manager.py::ConfigManager",
+                    "codewiki/cli/git_manager.py::GitManager",
+                    "codewiki/cli/html_generator.py::HTMLGenerator",
+                    "codewiki/cli/models/config.py::AgentInstructions",
+                    "codewiki/cli/models/config.py::Configuration",
+                    "codewiki/cli/models/job.py::DocumentationJob",
+                    "codewiki/cli/models/job.py::GenerationOptions",
+                    "codewiki/cli/models/job.py::JobStatistics",
+                    "codewiki/cli/models/job.py::JobStatus",
+                    "codewiki/cli/models/job.py::LLMConfig"
+                ],
+                "children": {}
+            },
+            "cli_utils": {
+                "path": "codewiki/cli/utils",
+                "components": [
+                    "codewiki/cli/utils/api_errors.py::APIErrorHandler",
+                    "codewiki/cli/utils/errors.py::APIError",
+                    "codewiki/cli/utils/errors.py::CodeWikiError",
+                    "codewiki/cli/utils/errors.py::ConfigurationError",
+                    "codewiki/cli/utils/errors.py::FileSystemError",
+                    "codewiki/cli/utils/errors.py::IncompleteGenerationError",
+                    "codewiki/cli/utils/errors.py::RepositoryError",
+                    "codewiki/cli/utils/logging.py::CLILogger",
+                    "codewiki/cli/utils/progress.py::ModuleProgressBar",
+                    "codewiki/cli/utils/progress.py::ProgressTracker"
+                ],
+                "children": {}
+            },
+            "web_frontend": {
+                "path": "codewiki/src/fe",
+                "components": [
+                    "codewiki/src/fe/background_worker.py::BackgroundWorker",
+                    "codewiki/src/fe/cache_manager.py::CacheManager",
+                    "codewiki/src/fe/config.py::WebAppConfig",
+                    "codewiki/src/fe/github_processor.py::GitHubRepoProcessor",
+                    "codewiki/src/fe/models.py::CacheEntry",
+                    "codewiki/src/fe/models.py::JobStatus",
+                    "codewiki/src/fe/models.py::JobStatusResponse",
+                    "codewiki/src/fe/models.py::RepositorySubmission",
+                    "codewiki/src/fe/routes.py::WebRoutes",
+                    "codewiki/src/fe/template_utils.py::StringTemplateLoader"
+                ],
+                "children": {}
+            },
+            "mcp_sessions": {
+                "path": "codewiki/mcp",
+                "components": [
+                    "codewiki/mcp/session.py::SessionState",
+                    "codewiki/mcp/session.py::SessionStore",
+                    "codewiki/mcp/workspace.py::SessionWorkspace"
+                ],
+                "children": {}
+            }
+        }
+    },
+    "Code_Analysis_Pipeline": {
+        "path": "codewiki/src/be/dependency_analyzer",
+        "components": [
+            "codewiki/src/be/dependency_analyzer/analysis/analysis_service.py::AnalysisService",
+            "codewiki/src/be/dependency_analyzer/analysis/call_graph_analyzer.py::CallGraphAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analysis/call_graph_analyzer.py::TimeoutError",
+            "codewiki/src/be/dependency_analyzer/analysis/repo_analyzer.py::GitIgnoreFilter",
+            "codewiki/src/be/dependency_analyzer/analysis/repo_analyzer.py::RepoAnalyzer",
+            "codewiki/src/be/dependency_analyzer/ast_parser.py::DependencyParser",
+            "codewiki/src/be/dependency_analyzer/dependency_graphs_builder.py::DependencyGraphBuilder",
+            "codewiki/src/be/dependency_analyzer/models/analysis.py::AnalysisResult",
+            "codewiki/src/be/dependency_analyzer/models/analysis.py::NodeSelection",
+            "codewiki/src/be/dependency_analyzer/models/core.py::CallRelationship",
+            "codewiki/src/be/dependency_analyzer/models/core.py::Node",
+            "codewiki/src/be/dependency_analyzer/models/core.py::Repository",
+            "codewiki/src/be/dependency_analyzer/utils/logging_config.py::ColoredFormatter",
+            "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::ArtifactAnalysis",
+            "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::ArtifactOptions",
+            "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::_Resolver",
+            "codewiki/src/be/dependency_analyzer/analyzers/c.py::TreeSitterCAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/cpp.py::TreeSitterCppAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/csharp.py::TreeSitterCSharpAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/java.py::TreeSitterJavaAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/javascript.py::TreeSitterJSAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/kotlin.py::TreeSitterKotlinAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/php.py::NamespaceResolver",
+            "codewiki/src/be/dependency_analyzer/analyzers/php.py::TreeSitterPHPAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/python.py::PythonASTAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/ruby.py::TreeSitterRubyAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/scala.py::TreeSitterScalaAnalyzer",
+            "codewiki/src/be/dependency_analyzer/analyzers/typescript.py::TreeSitterTSAnalyzer"
+        ],
+        "children": {
+            "dependency_analysis_core": {
+                "path": "codewiki/src/be/dependency_analyzer",
+                "components": [
+                    "codewiki/src/be/dependency_analyzer/analysis/analysis_service.py::AnalysisService",
+                    "codewiki/src/be/dependency_analyzer/analysis/call_graph_analyzer.py::CallGraphAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analysis/call_graph_analyzer.py::TimeoutError",
+                    "codewiki/src/be/dependency_analyzer/analysis/repo_analyzer.py::GitIgnoreFilter",
+                    "codewiki/src/be/dependency_analyzer/analysis/repo_analyzer.py::RepoAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/ast_parser.py::DependencyParser",
+                    "codewiki/src/be/dependency_analyzer/dependency_graphs_builder.py::DependencyGraphBuilder",
+                    "codewiki/src/be/dependency_analyzer/models/analysis.py::AnalysisResult",
+                    "codewiki/src/be/dependency_analyzer/models/analysis.py::NodeSelection",
+                    "codewiki/src/be/dependency_analyzer/models/core.py::CallRelationship",
+                    "codewiki/src/be/dependency_analyzer/models/core.py::Node",
+                    "codewiki/src/be/dependency_analyzer/models/core.py::Repository",
+                    "codewiki/src/be/dependency_analyzer/utils/logging_config.py::ColoredFormatter"
+                ],
+                "children": {}
+            },
+            "language_analyzers": {
+                "path": "codewiki/src/be/dependency_analyzer/analyzers",
+                "components": [
+                    "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::ArtifactAnalysis",
+                    "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::ArtifactOptions",
+                    "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::_Resolver",
+                    "codewiki/src/be/dependency_analyzer/analyzers/c.py::TreeSitterCAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/cpp.py::TreeSitterCppAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/csharp.py::TreeSitterCSharpAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/java.py::TreeSitterJavaAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/javascript.py::TreeSitterJSAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/kotlin.py::TreeSitterKotlinAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/php.py::NamespaceResolver",
+                    "codewiki/src/be/dependency_analyzer/analyzers/php.py::TreeSitterPHPAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/python.py::PythonASTAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/ruby.py::TreeSitterRubyAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/scala.py::TreeSitterScalaAnalyzer",
+                    "codewiki/src/be/dependency_analyzer/analyzers/typescript.py::TreeSitterTSAnalyzer"
+                ],
+                "children": {
+                    "artifact_analysis": {
+                        "components": [
+                            "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::ArtifactAnalysis",
+                            "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::ArtifactOptions",
+                            "codewiki/src/be/dependency_analyzer/analyzers/artifact.py::_Resolver"
+                        ],
+                        "children": {}
+                    },
+                    "c_family_analyzers": {
+                        "components": [
+                            "codewiki/src/be/dependency_analyzer/analyzers/c.py::TreeSitterCAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/cpp.py::TreeSitterCppAnalyzer"
+                        ],
+                        "children": {}
+                    },
+                    "jvm_and_managed_analyzers": {
+                        "components": [
+                            "codewiki/src/be/dependency_analyzer/analyzers/java.py::TreeSitterJavaAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/kotlin.py::TreeSitterKotlinAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/scala.py::TreeSitterScalaAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/csharp.py::TreeSitterCSharpAnalyzer"
+                        ],
+                        "children": {}
+                    },
+                    "js_ts_analyzers": {
+                        "components": [
+                            "codewiki/src/be/dependency_analyzer/analyzers/javascript.py::TreeSitterJSAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/typescript.py::TreeSitterTSAnalyzer"
+                        ],
+                        "children": {}
+                    },
+                    "dynamic_language_analyzers": {
+                        "components": [
+                            "codewiki/src/be/dependency_analyzer/analyzers/python.py::PythonASTAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/ruby.py::TreeSitterRubyAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/php.py::TreeSitterPHPAnalyzer",
+                            "codewiki/src/be/dependency_analyzer/analyzers/php.py::NamespaceResolver"
+                        ],
+                        "children": {}
+                    }
+                }
+            }
+        }
+    },
+    "LLM_Documentation_Generation_Engine": {
+        "path": "codewiki/src/be",
+        "components": [
+            "codewiki/src/be/documentation_generator.py::DocumentationGenerator",
+            "codewiki/src/be/documentation_generator.py::IncompleteDocumentationError",
+            "codewiki/src/be/module_naming.py::SubModulePlan",
+            "codewiki/src/be/backend.py::AgentReply",
+            "codewiki/src/be/backend.py::LLMBackend",
+            "codewiki/src/be/caw_backend.py::CawBackend",
+            "codewiki/src/be/caw_toolkit.py::CawToolKit",
+            "codewiki/src/be/llm_services.py::CachingOpenAIModel",
+            "codewiki/src/be/llm_services.py::CompatibleOpenAIModel",
+            "codewiki/src/be/pydantic_ai_backend.py::PydanticAIBackend",
+            "codewiki/src/be/agent_tools/deps.py::CodeWikiDeps",
+            "codewiki/src/be/agent_tools/str_replace_editor.py::EditTool",
+            "codewiki/src/be/agent_tools/str_replace_editor.py::Filemap",
+            "codewiki/src/be/agent_tools/str_replace_editor.py::Flake8Error",
+            "codewiki/src/be/agent_tools/str_replace_editor.py::WindowExpander",
+            "codewiki/src/be/updater/change_report.py::LeafReport",
+            "codewiki/src/be/updater/graph_diff.py::ChangeRecord",
+            "codewiki/src/be/updater/graph_diff.py::GraphDiff",
+            "codewiki/src/be/updater/leaf_agent.py::LeafAgentRunner",
+            "codewiki/src/be/updater/options.py::UpdateOptions",
+            "codewiki/src/be/updater/orchestrator.py::IncrementalUpdater",
+            "codewiki/src/be/updater/orchestrator.py::_WholeRepoReport",
+            "codewiki/src/be/updater/ownership.py::Adoption",
+            "codewiki/src/be/updater/record.py::CallCost",
+            "codewiki/src/be/updater/record.py::PageVerdict",
+            "codewiki/src/be/updater/record.py::UpdateRecord",
+            "codewiki/src/be/updater/routing.py::RoutingAgent",
+            "codewiki/src/be/updater/stale_scan.py::StaleScanner",
+            "codewiki/src/be/updater/tree_repair.py::RepairResult",
+            "codewiki/src/be/updater/tree_repair.py::RoutingDecision"
+        ],
+        "children": {
+            "documentation_generation": {
+                "path": "codewiki/src/be/documentation_generator.py",
+                "components": [
+                    "codewiki/src/be/documentation_generator.py::DocumentationGenerator",
+                    "codewiki/src/be/documentation_generator.py::IncompleteDocumentationError",
+                    "codewiki/src/be/module_naming.py::SubModulePlan"
+                ],
+                "children": {}
+            },
+            "llm_backends": {
+                "path": "codewiki/src/be",
+                "components": [
+                    "codewiki/src/be/backend.py::AgentReply",
+                    "codewiki/src/be/backend.py::LLMBackend",
+                    "codewiki/src/be/caw_backend.py::CawBackend",
+                    "codewiki/src/be/caw_toolkit.py::CawToolKit",
+                    "codewiki/src/be/llm_services.py::CachingOpenAIModel",
+                    "codewiki/src/be/llm_services.py::CompatibleOpenAIModel",
+                    "codewiki/src/be/pydantic_ai_backend.py::PydanticAIBackend"
+                ],
+                "children": {}
+            },
+            "agent_tools": {
+                "path": "codewiki/src/be/agent_tools",
+                "components": [
+                    "codewiki/src/be/agent_tools/deps.py::CodeWikiDeps",
+                    "codewiki/src/be/agent_tools/str_replace_editor.py::EditTool",
+                    "codewiki/src/be/agent_tools/str_replace_editor.py::Filemap",
+                    "codewiki/src/be/agent_tools/str_replace_editor.py::Flake8Error",
+                    "codewiki/src/be/agent_tools/str_replace_editor.py::WindowExpander"
+                ],
+                "children": {}
+            },
+            "incremental_updater": {
+                "path": "codewiki/src/be/updater",
+                "components": [
+                    "codewiki/src/be/updater/change_report.py::LeafReport",
+                    "codewiki/src/be/updater/graph_diff.py::ChangeRecord",
+                    "codewiki/src/be/updater/graph_diff.py::GraphDiff",
+                    "codewiki/src/be/updater/leaf_agent.py::LeafAgentRunner",
+                    "codewiki/src/be/updater/options.py::UpdateOptions",
+                    "codewiki/src/be/updater/orchestrator.py::IncrementalUpdater",
+                    "codewiki/src/be/updater/orchestrator.py::_WholeRepoReport",
+                    "codewiki/src/be/updater/ownership.py::Adoption",
+                    "codewiki/src/be/updater/record.py::CallCost",
+                    "codewiki/src/be/updater/record.py::PageVerdict",
+                    "codewiki/src/be/updater/record.py::UpdateRecord",
+                    "codewiki/src/be/updater/routing.py::RoutingAgent",
+                    "codewiki/src/be/updater/stale_scan.py::StaleScanner",
+                    "codewiki/src/be/updater/tree_repair.py::RepairResult",
+                    "codewiki/src/be/updater/tree_repair.py::RoutingDecision"
+                ],
+                "children": {}
+            }
+        }
+    },
+    "Platform_Foundation_&_Delivery": {
+        "path": "",
+        "components": [
+            "codewiki/src/config.py::Config",
+            "codewiki/src/utils.py::FileManager",
+            ".github/workflows/ci.yml::ci.yml",
+            ".github/workflows/ci.yml::lint",
+            ".github/workflows/ci.yml::test",
+            "docker/Dockerfile::Dockerfile",
+            "docker/docker-compose.yml::codewiki",
+            "docker/docker-compose.yml::docker-compose.yml",
+            "pyproject.toml::codewiki",
+            "pyproject.toml::pyproject.toml",
+            "requirements.txt::requirements.txt"
+        ],
+        "children": {
+            "shared_config_utils": {
+                "path": "codewiki/src",
+                "components": [
+                    "codewiki/src/config.py::Config",
+                    "codewiki/src/utils.py::FileManager"
+                ],
+                "children": {}
+            },
+            "build_ci_deployment": {
+                "path": ".",
+                "components": [
+                    ".github/workflows/ci.yml::ci.yml",
+                    ".github/workflows/ci.yml::lint",
+                    ".github/workflows/ci.yml::test",
+                    "docker/Dockerfile::Dockerfile",
+                    "docker/docker-compose.yml::codewiki",
+                    "docker/docker-compose.yml::docker-compose.yml",
+                    "pyproject.toml::codewiki",
+                    "pyproject.toml::pyproject.toml",
+                    "requirements.txt::requirements.txt"
+                ],
+                "children": {}
+            }
+        }
+    }
+}

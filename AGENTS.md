@@ -57,6 +57,39 @@
 
 ---
 
+## CodeWiki (보조 분석기)
+
+CodeWiki는 dependency graph 기반으로 레포 문서를 자동 생성하는 도구다. 결과는 **분석 후보(second opinion)**이므로 `artifacts/`에 두고, 코드로 검증한 내용만 `reports/`·`wiki/`로 옮긴다.
+
+- 설치 위치: `repos/CodeWiki/.venv` (uv, Python 3.12, `uv pip install -e .`). 실행 파일: `repos/CodeWiki/.venv/bin/codewiki`
+  - 시스템 Python(3.14)에는 설치하지 않는다. 네이티브 의존성(PythonMonkey 등) 호환 문제.
+- 설정: `~/.codewiki/config.json` (전역). 현재 Claude Code 구독 모드, API 키 불필요 (`claude` CLI 로그인 필요).
+  ```bash
+  codewiki config set --provider claude-code \
+    --main-model claude-sonnet-5-5 --cluster-model claude-sonnet-5-5
+  codewiki config show
+  ```
+  - main model: 모듈별 페이지 작성 (긴 출력). cluster model: 컴포넌트를 모듈 트리로 묶음 (작은 JSON 출력).
+  - `config set`은 넘긴 키만 바꾸므로 모델 변경 시 두 모델을 함께 지정한다.
+  - `config validate`는 CLI 존재만 검사하고 모델명은 검증하지 않는다.
+- 생성: 분석 대상 레포 디렉터리에서 실행한다 (대상 = 현재 작업 디렉터리). 기본 출력 `./docs`는 대상 레포를 오염시키므로 **반드시 `-o`로 `artifacts/<repo>/codewiki`를 지정**한다.
+  ```bash
+  cd repos/<repo>
+  ../CodeWiki/.venv/bin/codewiki generate \
+    -o ../../artifacts/<repo>/codewiki --github-pages \
+    --instructions "모든 문서는 한국어로 작성하라. 코드 식별자, 파일 경로, 명령어, Mermaid 노드 ID는 원문 그대로 유지한다." \
+    > ../../artifacts/<repo>/codewiki-generate.log 2>&1
+  ```
+  - 언어 옵션이 없으므로 한국어는 `--instructions`로 지정한다 (모듈명/파일명은 영어로 나올 수 있음).
+  - 갱신: 같은 `-o` 경로로 `--update` (저장된 `temp/dependency_graphs/`와 비교).
+  - 범위 조절: `--include`, `--exclude`, `--focus "src/core,src/api"`.
+  - 세분화: `--max-depth`는 상한일 뿐이다. 모듈이 `--max-token-per-leaf-module`(기본 16000) 이상이어야 하위 모듈로 쪼개지므로 세분화는 이 값을 낮춘다. 같은 `-o`에 재실행하면 기존 `.md`를 건너뛰므로 새 폴더를 쓴다.
+  - 결과 신뢰도(`reports/CodeWiki/questions/q1-output-quality.md`): 식별자·상수는 신뢰, 호출 주체·CLI 사용법은 코드로 재검증.
+  - 실행 시간이 길고 구독 사용량을 소모하므로 백그라운드로 실행하고 로그를 남긴다. (CodeWiki 자체 기준 약 18분, CLI 표기 비용 약 $5.4)
+  - Mermaid 검증은 다이어그램을 외부 서비스 `mermaid.ink`로 전송한다. 비공개 코드는 `MERMAID_VALIDATE=0`으로 끈다. 이 서비스의 503 응답도 로그에 "syntax errors"로 찍히므로 오류 로그만 보고 문법 오류로 판단하지 않는다.
+- 출력: `overview.md`(시작점), 모듈별 `.md`, `module_tree.json`, `metadata.json`(모델·commit), `index.html`(`--github-pages`).
+- 전체 옵션: `repos/CodeWiki/guides/cli-reference.md`, provider: `repos/CodeWiki/guides/providers.md`
+
 ## 작업 시 참고 파일
 
 - 상세 절차 및 운영 가이드: `OSS_ANALYSIS_WORKFLOW.md`
