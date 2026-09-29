@@ -1,0 +1,210 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Graft — One `graft ask` Call (SHA f9e6539)",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "clean-path",
+        "label": "Clean tree",
+        "focus": [
+          "q",
+          "probe",
+          "gate",
+          "load",
+          "rank",
+          "result"
+        ],
+        "note": "Nothing moved: the fingerprint probe returns clean and retrieval starts immediately."
+      },
+      {
+        "id": "drift-path",
+        "label": "Drifted tree",
+        "focus": [
+          "gate",
+          "rebuild",
+          "load"
+        ],
+        "note": "Only the changed files are re-parsed before the same retrieval runs."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "surface",
+      "label": "CLI / Agent surface"
+    },
+    {
+      "id": "freshness",
+      "label": "Freshness + rebuild"
+    },
+    {
+      "id": "retrieval",
+      "label": "Retrieval"
+    }
+  ],
+  "mainPath": [
+    "q",
+    "probe",
+    "gate",
+    "load",
+    "rank",
+    "rules",
+    "result"
+  ],
+  "nodes": [
+    {
+      "id": "q",
+      "lane": "surface",
+      "col": 0,
+      "type": "external",
+      "label": "graft ask \"<query>\"",
+      "sublabel": "src/cli.ts",
+      "width": 150
+    },
+    {
+      "id": "result",
+      "lane": "surface",
+      "col": 5,
+      "type": "backend",
+      "label": "Context pack",
+      "sublabel": "nodes + file excerpts",
+      "tag": "savings reported",
+      "width": 150
+    },
+    {
+      "id": "probe",
+      "lane": "freshness",
+      "col": 1,
+      "type": "backend",
+      "label": "probeDrift()",
+      "sublabel": "graph/fingerprint.ts",
+      "tag": "~3ms stat",
+      "width": 150
+    },
+    {
+      "id": "gate",
+      "lane": "freshness",
+      "col": 2,
+      "type": "security",
+      "label": "Drift?",
+      "sublabel": "working-tree bytes",
+      "width": 160
+    },
+    {
+      "id": "rebuild",
+      "lane": "freshness",
+      "col": 3,
+      "type": "backend",
+      "label": "buildGraph()",
+      "sublabel": "graph/build.ts · extractFile",
+      "tag": "no LLM · $0",
+      "width": 160
+    },
+    {
+      "id": "load",
+      "lane": "retrieval",
+      "col": 3,
+      "type": "database",
+      "label": "loadGraphCached()",
+      "sublabel": "graph/load.ts + ask index",
+      "width": 160
+    },
+    {
+      "id": "rank",
+      "lane": "retrieval",
+      "col": 4,
+      "type": "backend",
+      "label": "ask() rank + fuse",
+      "sublabel": "index-file · graphrank · fuse",
+      "width": 160
+    },
+    {
+      "id": "rules",
+      "lane": "retrieval",
+      "col": 5,
+      "type": "messagebus",
+      "label": "Attach brain rules",
+      "sublabel": "brain/attach.ts",
+      "width": 150
+    }
+  ],
+  "edges": [
+    {
+      "id": "ask-probe",
+      "from": "q",
+      "to": "probe",
+      "label": "ensureFreshGraph()",
+      "role": "main"
+    },
+    {
+      "id": "probe-gate",
+      "from": "probe",
+      "to": "gate",
+      "role": "main"
+    },
+    {
+      "id": "gate-load",
+      "from": "gate",
+      "to": "load",
+      "label": "clean",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "gate-rebuild",
+      "from": "gate",
+      "to": "rebuild",
+      "label": "drifted",
+      "role": "branch",
+      "variant": "dashed"
+    },
+    {
+      "id": "rebuild-load",
+      "from": "rebuild",
+      "to": "load",
+      "label": "changed files only",
+      "role": "branch",
+      "variant": "dashed"
+    },
+    {
+      "id": "load-rank",
+      "from": "load",
+      "to": "rank",
+      "role": "main"
+    },
+    {
+      "id": "rank-rules",
+      "from": "rank",
+      "to": "rules",
+      "label": "selected files",
+      "role": "main"
+    },
+    {
+      "id": "rules-result",
+      "from": "rules",
+      "to": "result",
+      "role": "main",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Why this is cheap",
+      "items": [
+        "Whole path is tree-sitter + file I/O — no model call, no network, $0",
+        "Disable per command with --no-refresh, or globally with GRAFT_NO_REFRESH=1"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "What counts as fresh",
+      "items": [
+        "Git decides which files are visible; freshness compares working-tree bytes",
+        "Uncommitted, unstaged and staged edits all look identical to the probe"
+      ]
+    }
+  ]
+}

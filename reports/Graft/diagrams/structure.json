@@ -1,0 +1,443 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Graft — Module Structure (SHA f9e6539)",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/trailhq/Graft",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "f9e65396e638e517aecae0d731017f53084d70ed"
+    },
+    "views": [
+      {
+        "id": "build-path",
+        "label": "Build path",
+        "focus": [
+          "cli",
+          "engine",
+          "graphbuild",
+          "extract",
+          "store"
+        ],
+        "note": "How source files become the markdown node graph and wiring.json."
+      },
+      {
+        "id": "llm-path",
+        "label": "LLM deep pass",
+        "focus": [
+          "graphbuild",
+          "summarize",
+          "ai"
+        ],
+        "note": "The only part that needs a provider key: --deep summaries and node synthesis."
+      },
+      {
+        "id": "query-path",
+        "label": "Query path",
+        "focus": [
+          "ask",
+          "refresh",
+          "graphbuild",
+          "store",
+          "mcp"
+        ],
+        "note": "Every retrieval call refreshes the graph structurally before answering."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "mcp",
+      "type": "external",
+      "label": "MCP Server",
+      "sublabel": "mcp/server.ts",
+      "tag": "stdio JSON-RPC",
+      "pos": [
+        40,
+        140
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/mcp/server.ts",
+          "line": 71,
+          "label": "startMcpServer"
+        }
+      ]
+    },
+    {
+      "id": "extract",
+      "type": "backend",
+      "label": "tree-sitter Extract",
+      "sublabel": "graph/extract.ts",
+      "tag": "Tier 1 · no key",
+      "pos": [
+        820,
+        540
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/graph/extract.ts",
+          "line": 387,
+          "label": "extractFile"
+        }
+      ]
+    },
+    {
+      "id": "summarize",
+      "type": "backend",
+      "label": "Deep Pass",
+      "sublabel": "ai/summarize · crux",
+      "tag": "--deep only",
+      "pos": [
+        550,
+        140
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/ai/summarize.ts"
+        },
+        {
+          "path": "src/ai/synthesize.ts"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "type": "cloud",
+      "label": "LLM Providers",
+      "sublabel": "ai/llm/factory.ts",
+      "tag": "anthropic · openai · litellm",
+      "pos": [
+        820,
+        140
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/ai/llm/factory.ts"
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "graft CLI",
+      "sublabel": "src/cli.ts",
+      "tag": "24 commands",
+      "pos": [
+        40,
+        340
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/cli.ts",
+          "line": 322,
+          "label": "build command"
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "type": "backend",
+      "label": "Graft Engine",
+      "sublabel": "src/engine.ts",
+      "tag": "Graft class facade",
+      "pos": [
+        280,
+        340
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/engine.ts",
+          "line": 55,
+          "label": "class Graft"
+        }
+      ]
+    },
+    {
+      "id": "graphbuild",
+      "type": "backend",
+      "label": "Graph Build",
+      "sublabel": "graph/build.ts",
+      "tag": "contentHash cache",
+      "pos": [
+        550,
+        340
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/graph/build.ts",
+          "label": "buildGraph"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "graft/ graph cache",
+      "sublabel": "graft/*.md + wiring.json",
+      "tag": "gitignored, regenerable",
+      "pos": [
+        820,
+        340
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/graph/write.ts"
+        },
+        {
+          "path": "src/graph/cards.ts"
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "type": "backend",
+      "label": "Ask Retrieval",
+      "sublabel": "ask/ask.ts · graphrank",
+      "tag": "deterministic",
+      "pos": [
+        1090,
+        340
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/ask/ask.ts"
+        },
+        {
+          "path": "src/ask/graphrank.ts"
+        }
+      ]
+    },
+    {
+      "id": "hosts",
+      "type": "external",
+      "label": "Agent Wiring",
+      "sublabel": "hosts/registry · claude",
+      "tag": "graft init",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/hosts/registry.ts"
+        },
+        {
+          "path": "src/claude/hooks.ts"
+        }
+      ]
+    },
+    {
+      "id": "extras",
+      "type": "backend",
+      "label": "Side Commands",
+      "sublabel": "blast · viz · grep · brain",
+      "pos": [
+        280,
+        540
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/blast/blast.ts"
+        },
+        {
+          "path": "src/search/grep.ts"
+        }
+      ]
+    },
+    {
+      "id": "refresh",
+      "type": "backend",
+      "label": "Freshness Refresh",
+      "sublabel": "graph/refresh.ts",
+      "tag": "~3ms, $0",
+      "pos": [
+        550,
+        540
+      ],
+      "size": [
+        190,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/graph/refresh.ts",
+          "line": 150,
+          "label": "ensureFreshGraph"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Deterministic core — no model, no network",
+      "wraps": [
+        "extract",
+        "graphbuild",
+        "store",
+        "ask",
+        "refresh"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-mcp",
+      "from": "cli",
+      "to": "mcp",
+      "label": "graft mcp",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": 0
+    },
+    {
+      "id": "cli-engine",
+      "from": "cli",
+      "to": "engine",
+      "label": "facade",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-hosts",
+      "from": "cli",
+      "to": "hosts",
+      "label": "init",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "cli-extras",
+      "from": "cli",
+      "to": "extras",
+      "variant": "dashed"
+    },
+    {
+      "id": "engine-build",
+      "from": "engine",
+      "to": "graphbuild",
+      "label": "buildGraph()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "build-deep",
+      "from": "graphbuild",
+      "to": "summarize",
+      "label": "--deep",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": -24
+    },
+    {
+      "id": "deep-ai",
+      "from": "summarize",
+      "to": "ai",
+      "label": "chat call"
+    },
+    {
+      "id": "build-extract",
+      "from": "graphbuild",
+      "to": "extract",
+      "label": "parse",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "build-store",
+      "from": "graphbuild",
+      "to": "store",
+      "label": "write graph"
+    },
+    {
+      "id": "store-ask",
+      "from": "store",
+      "to": "ask",
+      "label": "load cached"
+    },
+    {
+      "id": "refresh-build",
+      "from": "refresh",
+      "to": "graphbuild",
+      "label": "on drift",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "labelDy": 0
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Entry surfaces",
+      "items": [
+        "src/cli.ts exposes 24 commands; mcp/tools.ts calls the engine and ask() directly",
+        "src/hosts + src/claude wire hooks and a statusline into Claude Code, Cursor, Codex"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Deterministic core",
+      "items": [
+        "tree-sitter extract → resolve → enrich → write graft/*.md + .graph/wiring.json",
+        "build / check / ask never call a model; refresh compares working-tree bytes, not git state"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "LLM boundary",
+      "items": [
+        "Only `graft build --deep` reaches ai/llm/factory.ts (anthropic / openai / litellm / orcarouter)",
+        "Concept nodes, per-symbol summaries and cruxes come from that pass"
+      ]
+    }
+  ]
+}

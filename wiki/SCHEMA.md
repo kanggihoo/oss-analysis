@@ -1,7 +1,7 @@
 # Wiki Schema
 
 Created: 2026-06-09
-Updated: 2026-06-11
+Updated: 2026-09-15
 Domain: open-source codebase analysis, repo architecture intelligence, analyzer evidence, and reusable cross-project knowledge for `/Users/kkh/Desktop/oss-analysis`.
 
 ## Purpose
@@ -134,6 +134,8 @@ Claim strength:
 - `agent-framework`
 - `knowledge-graph`
 - `graphify`
+- `graft`
+- `codenotch`
 - `understand-anything`
 - `deepwiki`
 - `llm-wiki`

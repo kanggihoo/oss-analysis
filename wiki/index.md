@@ -13,6 +13,9 @@
 - [[codewiki]] — Source-verified overview of the dependency-graph documentation generator: graph → LLM clustering → recursive module agents, subscription (claude/codex CLI) backend, and fact-checked output reliability.
 - [[deeptutor]] — Source-verified analysis of DeepTutor's intelligent learning-agent modules, prompt/context contracts, educational IRs, validation loops, and mastery engine.
 - [[folo]] — Source-verified client-only monorepo analysis for the multi-platform RSS reader: public SDK boundary, offline-first local SQLite, and the Electron-over-web shell pattern.
+- [[codenotch]] — Source-verified notes for the macOS notch app that reads 20+ coding tools' usage limits: the five acquisition mechanisms behind the absent vendor API, convention-plus-credential account discovery, the situational polling schedule with persisted 429 back-off, and the Fidelity/ProviderStatus honesty model.
+- [[deeptutor]] — Source-verified analysis of DeepTutor's intelligent learning-agent modules, prompt/context contracts, educational IRs, validation loops, and mastery engine.
+- [[graft]] — Source-verified design notes for the local, regenerable markdown context graph that feeds coding agents; two-tier tree-sitter/LLM pipeline and refresh-on-query.
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
 - [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
