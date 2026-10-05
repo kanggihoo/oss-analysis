@@ -1,0 +1,1042 @@
+{
+    "token_budget": 200000,
+    "tokens_used": 54240,
+    "caps": {
+        "per_file_bytes": 16384,
+        "per_class_files": 40,
+        "per_file_units": 25
+    },
+    "with_prose": false,
+    "classes": {
+        "manifest": {
+            "files": [
+                {
+                    "path": "pyproject.toml",
+                    "bytes": 3394,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "mem0-ts/package.json",
+                    "bytes": 8301,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "dev",
+                        "example",
+                        "format",
+                        "format:check",
+                        "start",
+                        "test",
+                        "test:ci",
+                        "test:integration",
+                        "test:ts",
+                        "test:unit",
+                        "test:watch"
+                    ]
+                },
+                {
+                    "path": "mem0-ts/pnpm-workspace.yaml",
+                    "bytes": 1457,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "mem0-ts/tsconfig.json",
+                    "bytes": 872,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "mem0-ts/tsconfig.test.json",
+                    "bytes": 231,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/requirements.txt",
+                    "bytes": 672,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "cli/node/package.json",
+                    "bytes": 1372,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "dev",
+                        "lint",
+                        "lint:fix",
+                        "test",
+                        "test:watch",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "cli/node/pnpm-workspace.yaml",
+                    "bytes": 255,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "cli/node/tsconfig.json",
+                    "bytes": 441,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "cli/python/pyproject.toml",
+                    "bytes": 1930,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "mem0"
+                    ]
+                },
+                {
+                    "path": "integrations/agent-plugin-core/requirements-dev.txt",
+                    "bytes": 52,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/deepseek-plugin/package.json",
+                    "bytes": 1473,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "test",
+                        "test:watch",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "integrations/deepseek-plugin/tsconfig.json",
+                    "bytes": 527,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/hermes-plugin-mem0/pyproject.toml",
+                    "bytes": 619,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/n8n-nodes-mem0/package.json",
+                    "bytes": 2087,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "dev",
+                        "format",
+                        "lint",
+                        "lintfix",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "integrations/n8n-nodes-mem0/tsconfig.json",
+                    "bytes": 747,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/openclaw/package.json",
+                    "bytes": 1884,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "integrations/openclaw/pnpm-workspace.yaml",
+                    "bytes": 685,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/openclaw/tsconfig.json",
+                    "bytes": 824,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/opencode-plugin/package.json",
+                    "bytes": 1563,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "dev",
+                        "postpack",
+                        "prepack",
+                        "test",
+                        "type-check"
+                    ]
+                },
+                {
+                    "path": "integrations/opencode-plugin/tsconfig.json",
+                    "bytes": 509,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/pi-agent-plugin/package.json",
+                    "bytes": 1949,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "test",
+                        "test:watch",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "integrations/pi-agent-plugin/pnpm-workspace.yaml",
+                    "bytes": 415,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/pi-agent-plugin/tsconfig.json",
+                    "bytes": 609,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/vercel-ai-sdk/package.json",
+                    "bytes": 2619,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "dev",
+                        "lint",
+                        "prettier-check",
+                        "test",
+                        "test:edge",
+                        "test:node",
+                        "type-check"
+                    ]
+                },
+                {
+                    "path": "integrations/vercel-ai-sdk/pnpm-workspace.yaml",
+                    "bytes": 545,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/vercel-ai-sdk/tsconfig.json",
+                    "bytes": 838,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/zapier-mem0/package.json",
+                    "bytes": 1612,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "test",
+                        "test:unit"
+                    ]
+                },
+                {
+                    "path": "integrations/zapier-mem0/pnpm-workspace.yaml",
+                    "bytes": 283,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/zapier-mem0/tsconfig.json",
+                    "bytes": 455,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "mem0/memory/setup.py",
+                    "bytes": 5320,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/dashboard/package.json",
+                    "bytes": 2629,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "dev",
+                        "format",
+                        "lint",
+                        "start",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "server/dashboard/pnpm-workspace.yaml",
+                    "bytes": 503,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/dashboard/tsconfig.json",
+                    "bytes": 633,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/agent-plugin-core/typescript/package.json",
+                    "bytes": 282,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "test",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "integrations/agent-plugin-core/typescript/tsconfig.json",
+                    "bytes": 247,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/mem0-strands/python/pyproject.toml",
+                    "bytes": 2299,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "mem0-ts/src/community/package.json",
+                    "bytes": 2142,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "dev",
+                        "format",
+                        "format:check",
+                        "prepublishOnly",
+                        "test",
+                        "test:ts",
+                        "test:watch"
+                    ]
+                },
+                {
+                    "path": "mem0-ts/src/community/tsconfig.json",
+                    "bytes": 530,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "mem0-ts/src/oss/package.json",
+                    "bytes": 1325,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "example",
+                        "prepare",
+                        "start",
+                        "test"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [
+                "mem0-ts/src/oss/tsconfig.json"
+            ],
+            "not_loaded_budget": []
+        },
+        "build": {
+            "files": [
+                {
+                    "path": "Makefile",
+                    "bytes": 1009,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "all",
+                        "build",
+                        "clean",
+                        "docs",
+                        "format",
+                        "install",
+                        "install_all",
+                        "lint",
+                        "publish",
+                        "sort",
+                        "test",
+                        "test-py-3.10",
+                        "test-py-3.11",
+                        "test-py-3.12"
+                    ]
+                },
+                {
+                    "path": "mem0-ts/tsup.config.ts",
+                    "bytes": 1413,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/Makefile",
+                    "bytes": 2219,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "bootstrap",
+                        "build",
+                        "clean",
+                        "down",
+                        "health",
+                        "logs",
+                        "prune-logs",
+                        "reset-admin-password",
+                        "run_local",
+                        "seed",
+                        "up",
+                        "wait-api",
+                        "wait-dashboard"
+                    ]
+                },
+                {
+                    "path": "cli/node/tsup.config.ts",
+                    "bytes": 348,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "cli/python/Makefile",
+                    "bytes": 884,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "dev",
+                        "format",
+                        "install",
+                        "lint",
+                        "publish",
+                        "publish-test",
+                        "shell",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "integrations/deepseek-plugin/tsup.config.ts",
+                    "bytes": 356,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/n8n-nodes-mem0/gulpfile.js",
+                    "bytes": 669,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/openclaw/Makefile",
+                    "bytes": 7426,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "check-deps",
+                        "clean",
+                        "configure",
+                        "help",
+                        "install",
+                        "logs",
+                        "restart",
+                        "status",
+                        "uninstall"
+                    ]
+                },
+                {
+                    "path": "integrations/openclaw/tsup.config.ts",
+                    "bytes": 470,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/pi-agent-plugin/tsup.config.ts",
+                    "bytes": 305,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/vercel-ai-sdk/tsup.config.ts",
+                    "bytes": 515,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "container": {
+            "files": [
+                {
+                    "path": "server/Dockerfile",
+                    "bytes": 240,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/docker-compose.yaml",
+                    "bytes": 1949,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "mem0",
+                        "mem0-dashboard",
+                        "postgres"
+                    ]
+                },
+                {
+                    "path": "server/dashboard/Dockerfile",
+                    "bytes": 1328,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "base",
+                        "builder",
+                        "deps",
+                        "runner"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "ci": {
+            "files": [
+                {
+                    "path": ".github/workflows/agent-plugins-python-checks.yml",
+                    "bytes": 3461,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/agent-plugins-typescript-checks.yml",
+                    "bytes": 1186,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/cd.yml",
+                    "bytes": 1815,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/ci-gate.yml",
+                    "bytes": 10316,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "agent-plugins-python",
+                        "agent-plugins-typescript",
+                        "changes",
+                        "cli-node",
+                        "cli-python",
+                        "deepseek-plugin",
+                        "docs-llms-txt",
+                        "gate",
+                        "github-scripts",
+                        "mem0-strands",
+                        "n8n-nodes-mem0",
+                        "openclaw",
+                        "opencode-plugin",
+                        "pi-agent-plugin",
+                        "python-sdk",
+                        "ts-sdk",
+                        "zapier-mem0"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/ci.yml",
+                    "bytes": 4370,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build_mem0",
+                        "changelog_check",
+                        "check_changes"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/cli-node-cd.yml",
+                    "bytes": 1706,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/cli-node-ci.yml",
+                    "bytes": 2350,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/cli-python-cd.yml",
+                    "bytes": 1332,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/cli-python-ci.yml",
+                    "bytes": 1881,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/deepseek-plugin-cd.yml",
+                    "bytes": 1786,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/deepseek-plugin-checks.yml",
+                    "bytes": 2399,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/docs-llms-txt-check.yml",
+                    "bytes": 1724,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "check-llms-txt"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/issue-labeler.yml",
+                    "bytes": 2191,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "label"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/mem0-strands-cd.yml",
+                    "bytes": 1597,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/mem0-strands-checks.yml",
+                    "bytes": 2198,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/n8n-nodes-mem0-cd.yml",
+                    "bytes": 1788,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/n8n-nodes-mem0-checks.yml",
+                    "bytes": 2640,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/openclaw-cd.yml",
+                    "bytes": 1747,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/openclaw-checks.yml",
+                    "bytes": 2619,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/opencode-plugin-cd.yml",
+                    "bytes": 1674,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/opencode-plugin-checks.yml",
+                    "bytes": 1039,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/pi-agent-plugin-cd.yml",
+                    "bytes": 1765,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/pi-agent-plugin-checks.yml",
+                    "bytes": 2399,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "lint",
+                        "test"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/pr-gate.yml",
+                    "bytes": 9114,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "gate",
+                        "reopen"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/pr-labeler.yml",
+                    "bytes": 2050,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "label"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/release.yml",
+                    "bytes": 2984,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "route"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/stale.yml",
+                    "bytes": 1694,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "stale"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/ts-sdk-cd.yml",
+                    "bytes": 1678,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/ts-sdk-ci.yml",
+                    "bytes": 4384,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build_ts_sdk",
+                        "changelog_check",
+                        "check_changes",
+                        "integration_ts_sdk"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/vercel-ai-cd.yml",
+                    "bytes": 1775,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-n-publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/vouch-check-pr.yml",
+                    "bytes": 2143,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "check"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/vouch-manage-by-issue.yml",
+                    "bytes": 1233,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "manage"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/zapier-mem0-cd.yml",
+                    "bytes": 1111,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "push"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/zapier-mem0-checks.yml",
+                    "bytes": 1464,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "validate"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "test_infra": {
+            "files": [
+                {
+                    "path": "mem0-ts/jest.config.js",
+                    "bytes": 723,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "cli/node/vitest.config.ts",
+                    "bytes": 525,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/n8n-nodes-mem0/jest.config.js",
+                    "bytes": 356,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/openclaw/vitest.config.ts",
+                    "bytes": 611,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/pi-agent-plugin/vitest.config.ts",
+                    "bytes": 115,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/vercel-ai-sdk/jest.config.js",
+                    "bytes": 113,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "schema": {
+            "files": [
+                {
+                    "path": "integrations/agent-plugin-core/build/schemas/mcp.schema.json",
+                    "bytes": 3116,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "integrations/agent-plugin-core/build/schemas/plugin.schema.json",
+                    "bytes": 1673,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "config": {
+            "files": [
+                {
+                    "path": ".pre-commit-config.yaml",
+                    "bytes": 314,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "marketplace.json",
+                    "bytes": 436,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/alembic.ini",
+                    "bytes": 603,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "script": {
+            "files": [
+                {
+                    "path": "scripts/oss-to-platform-migrate.sh",
+                    "bytes": 43609,
+                    "truncated": true,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/init-db.sh",
+                    "bytes": 362,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/dashboard/entrypoint.sh",
+                    "bytes": 671,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "server/scripts/seed.sh",
+                    "bytes": 3569,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        }
+    },
+    "nodes": 306,
+    "edges": 388
+}

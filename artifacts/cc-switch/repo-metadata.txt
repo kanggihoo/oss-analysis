@@ -1,0 +1,7 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/cc-switch
+name=cc-switch
+date=2026-10-02T18:35:25Z
+commit=bfaaba1679b8e8df6c8673d2b963d204fc1e521e
+origin=https://github.com/farion1231/cc-switch.git
+worktree=clean
+clone=shallow(--depth 1)

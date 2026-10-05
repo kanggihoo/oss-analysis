@@ -82,7 +82,9 @@ CodeWiki는 dependency graph 기반으로 레포 문서를 자동 생성하는 �
   ```
   - 언어 옵션이 없으므로 한국어는 `--instructions`로 지정한다 (모듈명/파일명은 영어로 나올 수 있음).
   - 갱신: 같은 `-o` 경로로 `--update` (저장된 `temp/dependency_graphs/`와 비교).
-  - 범위 조절: `--include`, `--exclude`, `--focus "src/core,src/api"`.
+  - 범위 조절: 파일을 거르는 것은 `--include`/`--exclude`뿐이다. `--focus`는 프롬프트에 "이 모듈을 더 자세히 써라"를 덧붙이는 힌트이며 범위를 제한하지 않는다(레포 전체가 분석됨, pi에서 확인).
+    - `--include`는 파일 단위 fnmatch이고 `*`가 `/`를 넘는다. 디렉터리 경로만 주면 0개가 잡히므로 확장자까지 쓴다: `--include "packages/ai/*.ts,packages/agent/*.ts"`. 지정하면 기본 include를 덮어쓰므로 필요한 확장자를 모두 적는다.
+    - 장시간 실행 전에 첫 로그/`temp/dependency_graphs/*.json`의 컴포넌트 경로 분포로 범위가 맞는지 확인한다.
   - 세분화: `--max-depth`는 상한일 뿐이다. 모듈이 `--max-token-per-leaf-module`(기본 16000) 이상이어야 하위 모듈로 쪼개지므로 세분화는 이 값을 낮춘다. 같은 `-o`에 재실행하면 기존 `.md`를 건너뛰므로 새 폴더를 쓴다.
   - 결과 신뢰도(`reports/CodeWiki/questions/q1-output-quality.md`): 식별자·상수는 신뢰, 호출 주체·CLI 사용법은 코드로 재검증.
   - 실행 시간이 길고 구독 사용량을 소모하므로 백그라운드로 실행하고 로그를 남긴다. (CodeWiki 자체 기준 약 18분, CLI 표기 비용 약 $5.4)

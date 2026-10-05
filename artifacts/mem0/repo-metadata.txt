@@ -1,0 +1,7 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/mem0
+name=mem0
+date=2026-10-02T18:21:19Z
+commit=abb81c88e1f738a8117d8293530fbc31a5ef8fd9
+origin=https://github.com/mem0ai/mem0.git
+worktree=clean
+clone=shallow(--depth 1)

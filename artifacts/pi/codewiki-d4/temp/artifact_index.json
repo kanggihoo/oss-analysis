@@ -1,0 +1,664 @@
+{
+    "token_budget": 200000,
+    "tokens_used": 37022,
+    "caps": {
+        "per_file_bytes": 16384,
+        "per_class_files": 40,
+        "per_file_units": 25
+    },
+    "with_prose": false,
+    "classes": {
+        "manifest": {
+            "files": [
+                {
+                    "path": "package.json",
+                    "bytes": 4958,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "build:native:darwin",
+                        "build:native:linux",
+                        "build:native:win32",
+                        "build:offline",
+                        "check",
+                        "check:browser-smoke",
+                        "check:entry-graphs",
+                        "check:install-lock:coding-agent",
+                        "check:model-catalog",
+                        "check:model-data",
+                        "check:package-install",
+                        "check:pinned-deps",
+                        "check:runtime-deps",
+                        "check:shrinkwrap",
+                        "check:ts-imports",
+                        "clean",
+                        "diff:model-catalog",
+                        "eval",
+                        "generate:model-catalog",
+                        "generate:models",
+                        "hydrate:model-data",
+                        "profile:tui",
+                        "publish",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "tsconfig.base.json",
+                    "bytes": 554,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "tsconfig.json",
+                    "bytes": 3418,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/agent/package.json",
+                    "bytes": 1033,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/agent/tsconfig.build.json",
+                    "bytes": 365,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/ai/package.json",
+                    "bytes": 2721,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "build:offline",
+                        "check:model-data",
+                        "clean",
+                        "generate-model-catalog",
+                        "generate-models",
+                        "hydrate-model-data",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/ai/tsconfig.build.json",
+                    "bytes": 266,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/chord/package.json",
+                    "bytes": 1571,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/chord/tsconfig.build.json",
+                    "bytes": 209,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/client/package.json",
+                    "bytes": 1194,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "packages/client/tsconfig.build.json",
+                    "bytes": 293,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/client/tsconfig.test.json",
+                    "bytes": 560,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/codemode/package.json",
+                    "bytes": 1391,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/codemode/tsconfig.build.json",
+                    "bytes": 209,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/coding-agent/package.json",
+                    "bytes": 4184,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "build:binary",
+                        "build:unbundled",
+                        "clean",
+                        "copy-assets",
+                        "copy-binary-assets",
+                        "prepublishOnly",
+                        "shrinkwrap",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/coding-agent/tsconfig.build.json",
+                    "bytes": 873,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/coding-agent/tsconfig.examples.json",
+                    "bytes": 484,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/durable/package.json",
+                    "bytes": 3188,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "bench:storage",
+                        "bench:storage:memory",
+                        "bench:tool-output",
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/durable/tsconfig.build.json",
+                    "bytes": 339,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/evals/package.json",
+                    "bytes": 657,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "clean",
+                        "eval",
+                        "eval:docs",
+                        "eval:host",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/evals/tsconfig.json",
+                    "bytes": 265,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/mcp/package.json",
+                    "bytes": 1316,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/mcp/tsconfig.build.json",
+                    "bytes": 209,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/protocol/package.json",
+                    "bytes": 959,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/protocol/tsconfig.build.json",
+                    "bytes": 209,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/protocol/tsconfig.test.json",
+                    "bytes": 220,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/server/package.json",
+                    "bytes": 1266,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "dev",
+                        "prepublishOnly",
+                        "test",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "packages/server/tsconfig.build.json",
+                    "bytes": 209,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/server/tsconfig.test.json",
+                    "bytes": 301,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/telemetry/package.json",
+                    "bytes": 995,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/telemetry/tsconfig.build.json",
+                    "bytes": 209,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/tui/package.json",
+                    "bytes": 1593,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "build:native:darwin",
+                        "build:native:linux",
+                        "build:native:win32",
+                        "clean",
+                        "prepublishOnly",
+                        "test"
+                    ]
+                },
+                {
+                    "path": "packages/tui/tsconfig.build.json",
+                    "bytes": 175,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/coding-agent/install-lock/package.json",
+                    "bytes": 317,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "container": {
+            "files": [
+                {
+                    "path": "packages/evals/docker/Dockerfile",
+                    "bytes": 1970,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "builder",
+                        "evaluator",
+                        "with_docs",
+                        "without-docs-install",
+                        "without_docs"
+                    ]
+                },
+                {
+                    "path": "packages/evals/docker/Dockerfile.dockerignore",
+                    "bytes": 68,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "ci": {
+            "files": [
+                {
+                    "path": ".github/workflows/approve-contributor.yml",
+                    "bytes": 9508,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "approve"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/build-binaries.yml",
+                    "bytes": 15296,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "announce-pi-dev-release",
+                        "build",
+                        "cleanup-draft-github-release",
+                        "publish-github-release",
+                        "publish-npm",
+                        "smoke-test-binaries",
+                        "stage-github-release"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/ci.yml",
+                    "bytes": 1639,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build-check-test",
+                        "mcp-conformance"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/issue-analysis.yml",
+                    "bytes": 27641,
+                    "truncated": true,
+                    "loaded": true,
+                    "units": [
+                        "analyze",
+                        "authorize"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/issue-gate.yml",
+                    "bytes": 5232,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "check-contributor"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/issue-triage-labels.yml",
+                    "bytes": 5506,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "update-labels"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/npm-audit.yml",
+                    "bytes": 754,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "audit"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/pr-gate.yml",
+                    "bytes": 5183,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "check-contributor"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/publish-model-catalog.yml",
+                    "bytes": 5107,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "generate",
+                        "publish"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/remove-inprogress-on-close.yml",
+                    "bytes": 881,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "remove-label"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "packaging": {
+            "files": [
+                {
+                    "path": "packages/coding-agent/scripts/migrate-sessions.sh",
+                    "bytes": 2241,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/tui/native/darwin/build.sh",
+                    "bytes": 1885,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/tui/native/linux/build.sh",
+                    "bytes": 1443,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "test_infra": {
+            "files": [
+                {
+                    "path": "packages/agent/vitest.config.ts",
+                    "bytes": 1077,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/ai/vitest.config.ts",
+                    "bytes": 530,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/client/vitest.config.ts",
+                    "bytes": 463,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/codemode/vitest.config.ts",
+                    "bytes": 298,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/coding-agent/vitest.config.ts",
+                    "bytes": 1183,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/durable/vitest.config.ts",
+                    "bytes": 604,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/mcp/vitest.config.ts",
+                    "bytes": 298,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/protocol/vitest.config.ts",
+                    "bytes": 298,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "packages/server/vitest.config.ts",
+                    "bytes": 1198,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "config": {
+            "files": [
+                {
+                    "path": "biome.json",
+                    "bytes": 993,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "script": {
+            "files": [
+                {
+                    "path": "pi-test.ps1",
+                    "bytes": 1805,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "pi-test.sh",
+                    "bytes": 1710,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "test.sh",
+                    "bytes": 2357,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "scripts/auto-pi.sh",
+                    "bytes": 2242,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "scripts/build-binaries.sh",
+                    "bytes": 6392,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "scripts/create-source-archive.sh",
+                    "bytes": 5271,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "scripts/update-source-imports-to-ts.sh",
+                    "bytes": 689,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        }
+    },
+    "nodes": 187,
+    "edges": 433
+}

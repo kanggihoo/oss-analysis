@@ -2,7 +2,7 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-09-30 | Total pages: 50
+> Last updated: 2026-10-06 | Total pages: 56
 
 ## Projects
 
@@ -19,6 +19,7 @@
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
 - [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
+- [[pi]] — Source-verified summary of the `ai` package (unified LLM API) of the TypeScript agent toolkit: call path, provider/api separation, event stream, auth, and where retry and compaction actually live; other packages not yet analyzed.
 - [[ponytail]] — Source-verified overview of the lazy-senior-dev agent skill, its ladder philosophy, safety boundaries, and thin multi-host adapter model.
 - [[rsshub]] — Source-verified layered architecture of the self-hostable feed-generation server: route plugin model, request coalescing, and the 3,462-route catalog.
 - [[tokscale]] — Source-verified architecture notes for the Rust CLI/core plus Next.js social platform that tracks AI coding assistant token usage.
@@ -61,6 +62,9 @@
 - [[tokscale-rust-core-processing-layer]] — Source-verified hierarchy of Tokscale's Rust core modules and the current npm wrapper/standalone-binary boundary versus stale NAPI claims.
 - [[tokscale-session-parsing-and-source-cache]] — Source-verified explanation of how Tokscale discovers agent/client logs, caches parsed source messages, incrementally parses Codex JSONL, and normalizes client-specific data into `UnifiedMessage`.
 - [[workspace-boundaries]] — Clear separation between `repos/`, `artifacts/`, `reports/`, and `wiki/`.
+- [[pi-ai-provider-api-separation]] — Source-verified pattern for separating wire protocol (api) from service (provider) with per-model compat data, shown with 26 providers sharing one OpenAI-compatible client.
+- [[stealable-pattern-async-event-stream-with-final-result]] — Reusable design of a push/for-await event stream whose `result()` never rejects, returned immediately while async setup finishes behind it.
+- [[stealable-pattern-stored-credential-owns-provider]] — Auth resolution rule where a stored login owns the provider (no silent env fallback) and token refresh is serialized with double-checked locking.
 
 ## Comparisons
 

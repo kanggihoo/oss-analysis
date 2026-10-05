@@ -1,0 +1,39 @@
+{
+    "generation_info": {
+        "timestamp": "2026-10-02T19:05:16.237860+00:00",
+        "main_model": "claude-sonnet-5-5",
+        "generator_version": "2.0.0",
+        "repo_path": "/Users/kkh/Desktop/oss-analysis/repos/claude-devtools",
+        "commit_id": "1486f2042c87bb547a4e34808ab54ab34a33f132"
+    },
+    "statistics": {
+        "total_components": 1454,
+        "leaf_nodes": 365,
+        "max_depth": 2
+    },
+    "files_generated": [
+        "overview.md",
+        "module_tree.json",
+        "first_module_tree.json",
+        "main_ipc_http.md",
+        "renderer_chat_ui.md",
+        "Renderer_User_Interface.md",
+        "Shared_Domain_Contracts.md",
+        "main_ssh.md",
+        "renderer_common_memory_ui.md",
+        "Renderer_State_and_Navigation.md",
+        "Platform_Infrastructure_and_Remote_Access.md",
+        "renderer_store.md",
+        "main_analysis_parsing.md",
+        "main_discovery_search.md",
+        "main_domain_types.md",
+        "renderer_context_tracking.md",
+        "main_error_detection.md",
+        "renderer_tabs_panes_navigation.md",
+        "Session_Parsing_and_Analysis_Pipeline.md",
+        "main_infrastructure.md",
+        "shared_api_utils.md",
+        "renderer_settings_ui.md",
+        "build_and_config.md"
+    ]
+}

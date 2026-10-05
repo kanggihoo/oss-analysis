@@ -1,0 +1,198 @@
+{
+    "token_budget": 200000,
+    "tokens_used": 15932,
+    "caps": {
+        "per_file_bytes": 16384,
+        "per_class_files": 40,
+        "per_file_units": 25
+    },
+    "with_prose": false,
+    "classes": {
+        "manifest": {
+            "files": [
+                {
+                    "path": "package.json",
+                    "bytes": 3049,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "build",
+                        "build:renderer",
+                        "dev",
+                        "dev:renderer",
+                        "format",
+                        "format:check",
+                        "tauri",
+                        "test:unit",
+                        "test:unit:watch",
+                        "typecheck"
+                    ]
+                },
+                {
+                    "path": "pnpm-workspace.yaml",
+                    "bytes": 109,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "tsconfig.json",
+                    "bytes": 642,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "tsconfig.node.json",
+                    "bytes": 384,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "src-tauri/Cargo.toml",
+                    "bytes": 3428,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "build": {
+            "files": [
+                {
+                    "path": "vite.config.ts",
+                    "bytes": 647,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "ci": {
+            "files": [
+                {
+                    "path": ".github/workflows/ci.yml",
+                    "bytes": 8855,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "backend",
+                        "backend-windows-wsl2",
+                        "changes",
+                        "frontend"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/claude.yml",
+                    "bytes": 4175,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "claude"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/labeler.yml",
+                    "bytes": 270,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "label"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/release.yml",
+                    "bytes": 30024,
+                    "truncated": true,
+                    "loaded": true,
+                    "units": [
+                        "release"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/stale.yml",
+                    "bytes": 1713,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "stale"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/sync-r2.yml",
+                    "bytes": 10123,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "sync-to-r2"
+                    ]
+                },
+                {
+                    "path": ".github/workflows/wsl2-nightly.yml",
+                    "bytes": 3593,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": [
+                        "backend-windows-wsl2-full"
+                    ]
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "test_infra": {
+            "files": [
+                {
+                    "path": "vitest.config.ts",
+                    "bytes": 508,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        },
+        "config": {
+            "files": [
+                {
+                    "path": "components.json",
+                    "bytes": 445,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "rust-toolchain.toml",
+                    "bytes": 84,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": ".github/dependabot.yml",
+                    "bytes": 741,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                },
+                {
+                    "path": "flatpak/com.ccswitch.desktop.yml",
+                    "bytes": 3255,
+                    "truncated": false,
+                    "loaded": true,
+                    "units": []
+                }
+            ],
+            "omitted_by_class_cap": [],
+            "not_loaded_budget": []
+        }
+    },
+    "nodes": 38,
+    "edges": 39
+}

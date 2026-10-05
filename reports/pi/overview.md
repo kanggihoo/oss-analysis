@@ -3,7 +3,7 @@
 ## 1. 기본 정보 (Code Baseline)
 
 - **Repo URL**: `https://github.com/earendil-works/pi.git`
-- **분석 Commit SHA**: `4259686d9290c0d73ae7192b796aee3e530a9779`
+- **분석 Commit SHA**: `4259686d9290c0d73ae7192b796aee3e530a9779` (구조도·Q1~Q8 기준). **`ai` 패키지 상세 분석은 최신 `3874b3e98983c70fa05fa193b675d42cfcb8b9f8`(2026-10-02) 기준** — [`ai/`](./ai/) 참고
 - **분석 일자**: `2026-09-29`
 - **작업트리 상태**: `clean`
 - **분석 목적**: `미정 (사용자 확인 필요)`
@@ -76,6 +76,23 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 
 ---
 
+## 3.4 ai 패키지 상세 문서 (최신 commit `3874b3e98` 기준)
+
+코드 흐름 순서로 번호를 붙인 13개 문서. 한 번의 `models.streamSimple(...)` 호출이 지나가는 길은 [06-call-flow](./ai/06-call-flow.md)에 종합되어 있다.
+
+| 문서 | 내용 |
+|---|---|
+| [00-role](./ai/00-role.md) | ai 패키지의 역할, 의존 관계, 현재 import 횟수 |
+| [01-types](./ai/01-types.md) | `Message`, `Context`, `Model`, `AssistantMessageEvent` 등 타입 카탈로그 |
+| [02-models-registry](./ai/02-models-registry.md) | `Models`, `Provider`, `createProvider`, 모델 데이터 생성 |
+| [03-0](./ai/03-0-event-stream.md) · [03-1](./ai/03-1-api-anthropic.md) · [03-2](./ai/03-2-api-openai-responses.md) · [03-3](./ai/03-3-api-openai-compare.md) · [03-4](./ai/03-4-api-openai-codex-legacy.md) | 이벤트 스트림, 통신 코드(Claude, OpenAI Responses, OpenAI 계열 비교, legacy Codex) |
+| [04-auth](./ai/04-auth.md) · [04-01](./ai/04-01-auth-env-and-storage.md) | 인증 해석 순서, OAuth, 환경변수 이름과 로그인 저장 위치 |
+| [05-utils](./ai/05-utils.md) | 재시도, 컨텍스트 초과 판정, 토큰 추정, JSON 복구, 오류 정리 |
+| [06-call-flow](./ai/06-call-flow.md) | 호출 경로 종합과 종단 실험, Q4와 달라진 점 |
+
+> [!WARNING]
+> 아래 Q4~Q8과 learning-guide는 이전 SHA(`4259686d9`) 기준이다. ai 관련 서술 중 달라진 점은 [06-call-flow §8](./ai/06-call-flow.md)에, agent 쪽(Q5~Q8)은 harness 삭제로 재검증이 필요하다. 요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md).
+
 ## 3.5 학습 가이드
 
 - [learning-guide.md](./learning-guide.md): Q1·Q4~Q8을 이어서 읽는 설명 글 (ai → agent-loop → Agent → AgentSession → 세션 파일)
@@ -98,4 +115,4 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/<repo>.md](../../wiki/projects/<repo>.md)
+- **축적된 위키 지식**: [wiki/projects/pi.md](../../wiki/projects/pi.md)

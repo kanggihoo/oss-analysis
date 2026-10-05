@@ -1,0 +1,19 @@
+{
+    "generation_info": {
+        "timestamp": "2026-10-02T19:37:32.483157+00:00",
+        "main_model": "claude-sonnet-5-5",
+        "generator_version": "2.0.0",
+        "repo_path": "/Users/kkh/Desktop/oss-analysis/repos/cc-switch",
+        "commit_id": "bfaaba1679b8e8df6c8673d2b963d204fc1e521e"
+    },
+    "statistics": {
+        "total_components": 1225,
+        "leaf_nodes": 348,
+        "max_depth": 2
+    },
+    "files_generated": [
+        "overview.md",
+        "module_tree.json",
+        "first_module_tree.json"
+    ]
+}
