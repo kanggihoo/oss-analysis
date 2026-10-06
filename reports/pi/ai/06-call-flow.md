@@ -4,6 +4,9 @@
 - **이 문서의 위치**: 00~05에서 따로 본 조각을 **한 번의 호출 순서**로 엮는 종합 문서다. 새 코드를 읽은 것은 `api/lazy.ts`의 `lazyStream`/`lazyApi` 줄 번호 확인뿐이고, 나머지는 앞 문서의 내용을 이어 붙였다.
 - **검증 수준**: 각 단계의 근거는 아래 표의 문서와 줄 번호에 있다(`코드 확인`). **종단 실험**(§4)은 실제 `Models`, `createProvider`, `lazyApi`, `lazyStream`, 인증, `EventStream` 코드를 그대로 쓰고 **서버와 통신하는 부분만 가짜**로 바꿔서 돌렸다(`실행 확인`). 실제 서버와 통신한 것은 없다.
 
+> [!NOTE]
+> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): `28dcce2ba` 기준으로 호출 경로의 뼈대는 그대로다. 달라진 것: ① OAuth 갱신의 취소 범위(04 §5.1), ② `samplingParams`가 `resolveSamplingParams`로 합쳐진다(03-2 §), ③ Anthropic 도구 변경 방식(03-1 §), ④ Azure provider id `azure`. §8 마지막 항목에도 정리했다.
+
 ## 0. 문서 지도
 | 문서 | 다룬 것 | 이 문서에서 쓰이는 곳 |
 |---|---|---|
@@ -22,19 +25,19 @@
 [호출한 쪽]  models.streamSimple(model, context, options)                          ← ②
    │ 즉시 스트림 C를 돌려받는다 (이 시점에 인증도 통신도 아직 끝나지 않았을 수 있다)
    ▼
-[Models]  (models.ts:895-902)
+[Models]  (models.ts:900-907)
    normalizeContext(context)  Context → TranscriptContext                         ← ② 동기
    lazyStream(model, setup)   빈 스트림 C 생성·반환, setup 은 뒤에서 비동기 실행
       setup:
-       ③ requireChatProvider(model)         model.provider 로 Provider 를 찾는다   (:832-835)
-       ③ applyAuth(model, options)          인증 확정 → requestModel, requestOptions (:837-869)
+       ③ requireChatProvider(model)         model.provider 로 Provider 를 찾는다   (:837-840)
+       ③ applyAuth(model, options)          인증 확정 → requestModel, requestOptions (:842-875)
               └ getAuth → resolveProviderAuth   호출 옵션 > 저장된 credential > 환경변수  (auth/resolve.ts:33-93)
-              └ OAuth 토큰이 곧 만료되면 modify 락 안에서 갱신                           (resolve.ts:102-162)
+              └ OAuth 토큰이 곧 만료되면 modify 락 안에서 갱신(`refreshStoredOAuthCredential`)                           (resolve.ts:102-162)
        ④ provider.streamSimple(requestModel, transcript, requestOptions)
    ▼
-[Provider]  (createProvider 가 만든 것, models.ts:1065-1076, 1116-1118)
+[Provider]  (createProvider 가 만든 것, models.ts:1070-1083, 1121-1124)
    dispatch: 모델의 api 값으로 통신 코드를 고른다. 없으면 error 스트림
-   ⑤ lazyApi 의 streamSimple → lazyStream (스트림 B), 통신 코드를 import() 로 불러온다  (api/lazy.ts:73~)
+   ⑤ lazyApi 의 streamSimple → lazyStream (스트림 B), 통신 코드를 import() 로 불러온다  (api/lazy.ts:73-79)
    ▼
 [통신 코드]  api/anthropic-messages.ts, openai-responses.ts 등
    ⑥ streamSimple: reasoning 을 서버 설정으로 변환, maxTokens 를 컨텍스트에 맞게 자름
@@ -49,23 +52,61 @@
 - 번호는 §4의 종단 실험 로그와 같은 번호다.
 - 스트림 A, B, C는 모두 `AssistantMessageEventStream` 객체(메모리 안의 대기열)이고 네트워크 연결이 아니다(03-0).
 
+### 1.1 단계별 "어느 파일의 어느 줄인가" (기준 `28dcce2ba`, 경로는 모두 `packages/ai/src/` 기준)
+통신 코드는 Claude(`api/anthropic-messages.ts`)를 예로 든다. OpenAI 계열은 파일명과 줄이 다르지만 뼈대는 같다(03-2, 03-3). **줄 번호는 현재 파일을 직접 `grep`/`sed`로 다시 확인한 것이다**(`코드 확인`). 이 문서의 아래 절에서 이전 줄 번호가 보이면 `models.ts`는 약 +5줄 어긋난 것이므로 이 표를 기준으로 본다.
+
+| 번호 | 하는 일 | 파일 : 줄 | 이름 |
+|---|---|---|---|
+| ② | 호출 입구 | `models.ts:900` | `Models.streamSimple` |
+| ② | `Context` → `TranscriptContext` (지침·도구를 맨 앞 system 메시지로) | `utils/transcript.ts:30` | `normalizeContext` |
+| ② | 빈 스트림 C를 만들어 즉시 반환, 준비는 뒤에서 | `models.ts:902` → `api/lazy.ts:46-60` | `lazyStream` |
+| ③ | Provider 찾기, 채팅 모델 확인 | `models.ts:837-840` | `requireChatProvider` |
+| ③ | 인증 확정 + 요청 옵션 합치기 | `models.ts:842-875` | `applyAuth` |
+| ③ | 인증 해석 진입 | `models.ts:742` | `Models.getAuth` |
+| ③ | 호출 옵션 > 저장 credential > 환경변수 | `auth/resolve.ts:33` | `resolveProviderAuth` |
+| ③ | OAuth 만료 임박이면 락 안에서 갱신 | `auth/resolve.ts:161` → `:119-158` | `resolveStoredOAuth` → `refreshStoredOAuthCredential` |
+| ④ | Provider의 `streamSimple` 호출 | `models.ts:905` | |
+| ④ | `model.api`로 통신 코드 선택(없으면 error 스트림) | `models.ts:1070-1083` | `createProvider`의 `dispatch` |
+| ④ | Provider 객체의 `streamSimple` 연결 | `models.ts:1122-1123` | (`createProvider`는 `:1039`) |
+| ⑤ | 통신 코드를 지연 로딩하는 래퍼, **스트림 B 생성** | `api/lazy.ts:73-79` | `lazyApi` |
+| ⑤ | 실제 `import()` 위치 | `api/anthropic-messages.lazy.ts:4` | `anthropicMessagesApi` |
+| ⑥ | reasoning → 서버 설정 변환, 공통 옵션 | `api/anthropic-messages.ts:928` → `api/simple-options.ts:36` | `streamSimple` → `buildBaseOptions` |
+| ⑥ | `maxTokens`를 컨텍스트 창에 맞게 자름 | `api/simple-options.ts:18` | `clampMaxTokensToContext` |
+| ⑥ | **스트림 A 생성**, 안쪽 비동기 함수 시작 | `api/anthropic-messages.ts:571`, `:576` | `stream` |
+| ⑥ | system 메시지 합치기(모델이 못 받으면) | `api/anthropic-messages.ts:577` | `resolveTranscript` |
+| ⑥ | 요청 본문 만들기 | `:639` → `:1124`, `:1308`, `:1576` | `buildParams`, `convertMessages`, `convertTools` |
+| ⑥ | 전송(1층 재시도 포함) | `:649` → `utils/provider-retry.ts:105` | `retryProviderRequest` |
+| ⑥ | `start` 이벤트 push | `api/anthropic-messages.ts:658` | |
+| ⑥ | 응답을 SSE로 읽어 Claude 이벤트로 | `:663` → `:530`, `:471` | `iterateAnthropicEvents`, `iterateSseMessages` |
+| ⑥ | **Claude 이벤트 → pi 이벤트 변환 후 push** | 글 `:737-744`, 도구 인자 `:769`, 종료 사유 `:820`(`mapStopReason :1613`) | `content_block_delta` 분기 등 |
+| ⑥ | 사용량·비용 계산 | `:688`, `:857` → `models.ts:1198` | `calculateCost` |
+| ⑥ | `done` push + `end()` | `api/anthropic-messages.ts:885-886` | |
+| ⑥ | 실패 시 `error` push + `end()` (`partialJson` 정리 포함) | `api/anthropic-messages.ts:889-897` | `catch` |
+| ⑥ | 스트림 객체 자체 | `utils/event-stream.ts:26`(`EventStream`), `push :43`, `result :86`, `AssistantMessageEventStream :91` | |
+| ⑦ | **A → B 복사** (`lazyApi` 안의 `lazyStream`) | `api/lazy.ts:31-39` (`forwardStream`), 호출 `:53`, 연결 `:78-79` | |
+| ⑦ | **B → C 복사** (`Models`의 `lazyStream`) | 같은 `forwardStream`, `models.ts:902` | |
+| ⑦ | 호출한 쪽이 C를 `for await`로 소비 | `packages/agent/src/agent-loop.ts:414` | `streamAssistantResponse` |
+| ⑧ | 최종 결과만 필요한 호출 | `models.ts:909-915` | `completeSimple` → `.result()` |
+
+**질문하신 "실제 호출 결과 → pi 이벤트 → 전달" 부분을 줄로 따라가면**: 서버 응답 읽기(`anthropic-messages.ts:663`) → 이벤트별 변환·`push`(`:737-:820`) → `done`+`end`(`:885-886`)가 스트림 A에서 일어나고, 이후 `api/lazy.ts:31-39`의 `forwardStream`이 같은 이벤트를 B, C로 옮긴다.
+
 ## 2. 단계별 정리
 
 ### ① 앱이 시작될 때: 레지스트리를 만든다
 | 하는 일 | 위치 | 문서 |
 |---|---|---|
-| `createModels({ credentials, modelsStore })`로 빈 `Models` 생성. 아무것도 안 주면 메모리 저장소 | `models.ts:985`, `:393-397` | 02 §4 |
+| `createModels({ credentials, modelsStore })`로 빈 `Models` 생성. 아무것도 안 주면 메모리 저장소 | `models.ts:990`, `:389-400` | 02 §4 |
 | provider 등록: 내장은 `builtinModels()`가 42개를 `setProvider` | `providers/all.ts:184-190` | 02 §1.1 |
-| provider는 `createProvider({ id, auth, models, api })`로 조립. `models`는 빌드 때 생성한 JSON에서, `api`는 `import()` 지연 로딩 래퍼 | `models.ts:1034`, `providers/anthropic.ts` | 02 §2~§3, §6 |
-| (선택) 동적 모델 목록은 `models.refresh()`로 저장소 복원 후 서버에서 갱신 | `models.ts:546-606` | 02 §5 |
+| provider는 `createProvider({ id, auth, models, api })`로 조립. `models`는 빌드 때 생성한 JSON에서, `api`는 `import()` 지연 로딩 래퍼 | `models.ts:1039`, `providers/anthropic.ts` | 02 §2~§3, §6 |
+| (선택) 동적 모델 목록은 `models.refresh()`로 저장소 복원 후 서버에서 갱신 | `models.ts:546-606`(이 구간은 `refresh`, 줄은 재확인 안 함) | 02 §5 |
 | `coding-agent`는 자기 `AuthStorage`(`auth.json`)와 `ModelsStore`를 넘긴다 | `core/model-runtime.ts:211` | 04-01 §2 |
 
 ### ② 호출한 쪽이 `Model`, `Context`, `options`를 만든다
-- `Model`: `models.getModel("anthropic", "claude-...")`로 메모리에서 꺼낸다(네트워크 없음, `models.ts:472`). 데이터이지 함수가 아니다(01 §2.5, 02 §1.1).
+- `Model`: `models.getModel("anthropic", "claude-...")`로 메모리에서 꺼낸다(네트워크 없음, `models.ts:477`). 데이터이지 함수가 아니다(01 §2.5, 02 §1.1).
 - `Context`: `{ systemPrompt, messages, tools }`. `messages`에는 `UserMessage`, `AssistantMessage`(글, 추론, 도구 호출 조각), `ToolResultMessage`가 들어간다(01 §2.1~§2.3).
 - `options`(`SimpleStreamOptions`): `reasoning`, `maxTokens`, `apiKey`, `signal`, `headers`, `cacheRetention`, `sessionId` 등(01 §2.4).
 
-### `Models.streamSimple`이 하는 동기 일과 비동기 일 (`models.ts:895-902`)
+### `Models.streamSimple`이 하는 동기 일과 비동기 일 (`models.ts:900-907`)
 ```ts
 streamSimple(model, context, options) {
     const transcript = normalizeContext(context);              // 동기: Context → TranscriptContext (utils/transcript.ts:30-34)
@@ -79,13 +120,13 @@ streamSimple(model, context, options) {
 - **`normalizeContext`**: `systemPrompt`와 `tools`를 맨 앞 `SystemMessage` 한 줄로 합친다. 이유는 회사마다 지침을 넣는 자리가 달라서 입력을 먼저 한 가지 모양으로 통일하기 위해서다(01 §2.3).
 - **`lazyStream`**: 인증 확정과 통신 코드 로딩이 시간이 걸리는 비동기 작업인데 `streamSimple`은 즉시 반환해야 해서, 빈 스트림(outer)을 먼저 돌려주고 나중에 생기는 진짜 스트림(inner)을 `forwardStream`으로 복사한다. 준비 중 실패는 던지지 않고 `error` 이벤트로 넣는다(03-0 §8.1).
 
-### ③ 인증을 확정한다 (`applyAuth`, `models.ts:837-869`)
+### ③ 인증을 확정한다 (`applyAuth`, `models.ts:842-875`)
 1. `getAuth(model, { apiKey, env, signal })` → `resolveProviderAuth`: **호출 옵션 `apiKey` > 저장된 credential > 환경변수** 순서(04 §4). 저장된 것이 있으면 환경변수는 보지 않고 갱신이 실패해도 환경변수로 넘어가지 않는다(04 §4.2).
 2. 저장된 OAuth 토큰이 5분 안에 만료되면 `credentials.modify` 락 안에서 한 번만 갱신한다(04 §5.1).
 3. 결과(`AuthResult`)를 호출 옵션과 합쳐 `requestOptions`를 만든다: 호출자가 직접 준 값이 우선, 헤더는 인증 결과 → 호출 옵션 → `transformHeaders` 순(04 §3.1, 02 §4.4).
 4. 설정이 없으면 `ModelsError("auth", "Provider is not configured: ...")`. 이것이 `error` 이벤트가 된다(§5).
 
-### ④⑤ Provider가 통신 코드를 고른다 (`createProvider`의 `dispatch`, `models.ts:1065-1076`)
+### ④⑤ Provider가 통신 코드를 고른다 (`createProvider`의 `dispatch`, `models.ts:1070-1083`)
 - `provider.streamSimple` → 모델의 `api` 값으로 통신 코드를 찾는다(통신 코드 하나이면 그것, 대응표이면 `model.api`로). 없으면 "no API implementation" 오류가 담긴 스트림(02 §3).
 - 통신 코드는 `lazyApi(() => import("./anthropic-messages.ts"))`로 감싸져 있어 **첫 호출 때 불러온다**(02 §2.3).
 
@@ -105,15 +146,15 @@ streamSimple(model, context, options) {
 - 이벤트는 A → B → C로 **두 번 복사**된다(`lazyStream`이 `lazyApi`와 `Models.stream` 두 곳에 있기 때문, 03-0 §8.1).
 - **`for await (const e of C)`**: 이벤트를 하나씩 받는다. 비어 있으면 열쇠를 맡기고 잠들고, 다른 코드가 실행된다(03-0 §6).
 - **`await C.result()`**: 최종 `AssistantMessage`. `done`/`error` 이벤트가 push되면 채워지고 **절대 reject하지 않는다**(03-0 §5.4).
-- **`models.completeSimple(...)`**: 이벤트를 꺼내지 않고 `.result()`만 기다리는 포장이다(`models.ts:904-910`).
+- **`models.completeSimple(...)`**: 이벤트를 꺼내지 않고 `.result()`만 기다리는 포장이다(`models.ts:909-915`).
 
 ## 3. 한 번의 호출에서 만들어지는 것들
 ### 3.1 스트림 세 개와 만드는 곳
 | 스트림 | 만드는 곳 | 소비하는 곳 |
 |---|---|---|
-| **A** | 통신 코드의 `stream()`(예: `anthropic-messages.ts:578`) | `lazyApi`의 `forwardStream`(`api/lazy.ts:35`) |
-| **B** | `lazyApi`가 만드는 `lazyStream`(`api/lazy.ts:73~`) | `Models.stream`의 `forwardStream`(`api/lazy.ts:35`) |
-| **C** | `Models.streamSimple`의 `lazyStream`(`models.ts:897`) | **호출한 쪽**(`agent-loop.ts:414`의 `for await`) |
+| **A** | 통신 코드의 `stream()`(예: `anthropic-messages.ts:571-576`) | `lazyApi`의 `forwardStream`(`api/lazy.ts:31-39`) |
+| **B** | `lazyApi`가 만드는 `lazyStream`(`api/lazy.ts:73-79`) | `Models.stream`의 `forwardStream`(`api/lazy.ts:31-39`) |
+| **C** | `Models.streamSimple`의 `lazyStream`(`models.ts:902`) | **호출한 쪽**(`agent-loop.ts:414`의 `for await`) |
 
 ### 3.2 데이터가 변해 가는 모양
 | 단계 | 모양 | 어디서 |
@@ -183,15 +224,15 @@ streamSimple(model, context, options) {
 | 일 | 누가 | 위치 |
 |---|---|---|
 | `Context`를 통일된 모양으로 | `normalizeContext` | `utils/transcript.ts:30` |
-| 어느 Provider인지 | `Models.requireChatProvider` (`model.provider`) | `models.ts:832` |
-| 키와 토큰 | `applyAuth` + `resolveProviderAuth` + `CredentialStore` | `models.ts:837`, `auth/resolve.ts` |
-| 어느 통신 코드인지 | `createProvider`의 `dispatch` (`model.api`) | `models.ts:1065` |
+| 어느 Provider인지 | `Models.requireChatProvider` (`model.provider`) | `models.ts:837` |
+| 키와 토큰 | `applyAuth` + `resolveProviderAuth` + `CredentialStore` | `models.ts:842`, `auth/resolve.ts:33` |
+| 어느 통신 코드인지 | `createProvider`의 `dispatch` (`model.api`) | `models.ts:1070` |
 | 통신 코드를 언제 불러올지 | `lazyApi` | `api/lazy.ts:73` |
 | 서버 말투로 요청 | 통신 코드(`buildParams`, `convertMessages`) | `api/*.ts` |
 | 서버 응답을 공용 이벤트로 | 통신 코드 / 공용 `processResponsesStream` | `api/*.ts`, `openai-responses-shared.ts` |
 | 이벤트 전달과 최종 결과 | `AssistantMessageEventStream` | `utils/event-stream.ts` |
 | 요청 단위 재시도 | `retryProviderRequest` | `utils/provider-retry.ts` |
-| 비용 계산 | `calculateCost`를 통신 코드가 부름 | `models.ts:1193` |
+| 비용 계산 | `calculateCost`를 통신 코드가 부름 | `models.ts:1198` |
 | **도구 실행, 응답 단위 재시도, 압축, 저장** | **ai가 아니라 `agent`, `coding-agent`** | 00 §4 |
 
 ## 7. 설계의 패턴 (코드에서 확인된 것)
@@ -213,6 +254,8 @@ streamSimple(model, context, options) {
 | "레포 안에서 런타임 카탈로그를 쓰는 provider는 `radius`뿐" | ai 안에서는 맞고, `coding-agent`에도 `refreshModels`를 쓰는 곳이 더 있다(02 §3.3) |
 | (언급 없음) | `openai` provider의 ChatGPT 구독 로그인이 새 경로이고 `openai-codex`는 legacy(03-2 §0) |
 | (언급 없음) | SSE 해석은 통신 코드마다 다르다: Claude는 pi가 직접, OpenAI Responses는 SDK, legacy Codex는 pi가 직접(03-2 §1.2) |
+
+- **(2026-10-06 추가) `3874b3e98` → `28dcce2ba`에서 달라진 것**: ① OAuth 갱신이 `refreshStoredOAuthCredential`로 분리되고 호출자 `signal`은 락 대기만 취소(04 §5.1) ② `samplingParams`는 모델 기본 + 추론 수준별(`samplingParamsByThinkingLevel`) + 호출 옵션 순으로 합쳐짐(`simple-options.ts:24-34`, 03-2) ③ Anthropic `tool_addition`이 이름 참조에서 **정의 값 포함 블록**으로 바뀌고 `defer_loading` 미리 선언이 사라짐(03-1) ④ provider `azure-openai-responses`가 `azure`로 바뀌고 `openai-completions` api도 가짐 ⑤ `retry.ts`에 `"pending stream has been canceled"` 추가 ⑥ ChatGPT 로그인 콜백 서버 실패 시 붙여 넣기 대신 오류(03-2 §7). 서버 쪽 동작은 코드만으로 `미확인`.
 
 ## 9. 아직 보지 않은 영역 (`미확인`)
 - **다른 통신 코드**: `google-generative-ai.ts`, `google-vertex.ts`, `bedrock-converse-stream.ts`, `mistral-conversations.ts`, `pi-messages.ts`(Radius), `azure-openai-responses.ts`. 뼈대는 같을 것으로 보이나 세 파일에서 확인한 것을 일반화한 `추론`이다.

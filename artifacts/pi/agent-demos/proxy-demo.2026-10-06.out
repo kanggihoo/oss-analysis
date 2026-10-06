@@ -1,0 +1,21 @@
+
+=== 1. 정상 (toolUse 로 끝, 마지막 줄 개행 없음) ===
+events: start,text_start,text_delta,text_delta,text_end,toolcall_start,toolcall_delta,toolcall_delta,toolcall_end,done
+방출된 partial 객체 개수(같은 객체면 1): 1
+toolcall_delta 때마다 arguments: {"path":"a."} -> {"path":"a.txt"}
+result: {"stopReason":"toolUse","content":[{"type":"text","text":"Hello"},{"type":"toolCall","id":"t1","name":"read","arguments":{"path":"a.txt"}}],"usage":3}
+요청 url/auth: /api/stream Bearer TOKEN
+요청 body 키: [ 'model', 'context', 'options' ] | options 키: [ 'reasoning', 'metadata' ]
+body 문자열에 SECRET 포함? false
+
+=== 2. 터미널 이벤트 없이 EOF ===
+events: start,text_start,text_delta,error | stopReason: error | Connection closed by proxy server before the response completed | content: [{"type":"text","text":"partial answer"}]
+
+=== 3. HTTP 500 + {error} ===
+events: error | stopReason: error | Proxy error: upstream down
+
+=== 4. toolcall_end 없이 끊김: partialJson 잔존? ===
+stopReason: error | content: [{"type":"toolCall","id":"t9","name":"read","arguments":{"path":"b"},"partialJson":"{\"path\": \"b"}]
+
+=== 5. 중단 ===
+events: start,text_start,text_delta,error | stopReason: aborted | Request aborted by user

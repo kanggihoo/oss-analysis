@@ -8,6 +8,9 @@
 - **읽은 파일**: `api/anthropic-messages.ts`(1646줄 전체), `api/simple-options.ts`, `api/transform-messages.ts`(235줄 전체), `utils/transcript.ts`(나머지 부분), `utils/event-stream.ts`, 비교용으로 `api/openai-responses.ts`(415줄 전체)와 `openai-responses-shared.ts`(함수 목록과 이벤트 분기). 줄 번호는 모두 이 commit 기준이다.
 - **검증 수준**: 코드 읽기는 `코드 확인`. 실제 서버와 통신해서 실행한 것은 없다. 모델 값은 02에서 `실행 확인`한 `data/anthropic.json`(2026-10-04 생성)을 인용했다. 읽지 않은 파일은 §9에 적었다.
 
+> [!NOTE]
+> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): § 도구 변경(`nativeToolChanges`)을 새 방식(정의 값 포함, `defer_loading` 미사용)으로 고치고 beta 이름을 바꿨다. 이 파일의 다른 줄 번호는 `anthropic-messages.ts` diff가 +30/−37뿐이라 대부분 ±수 줄 안이지만 **전수 재확인은 하지 않았다**(`미확인`). 인용한 `:1142-1146` 같은 번호가 어긋나 보이면 이 diff 기준으로 본다.
+
 ## 0. 이 문서의 질문
 02에서 `Provider.stream()`이 "`model.api`에 맞는 통신 코드를 호출한다"고 했다. 그 **통신 코드 안에서 실제로 무슨 일이 일어나는가**를 Claude(`anthropic-messages`) 하나로 끝까지 따라간다.
 
@@ -256,7 +259,7 @@ Anthropic Messages API의 요청 객체를 만든다. 순서대로 정리한다.
 - `strict`(스키마를 엄격하게 지키게 하는 옵션)는 `compat.supportsStrictTools`가 true일 때만 쓴다. Anthropic이 거부하는 스키마 키워드(`minimum`, `maxItems`, 일부 `format` 등)가 있으면 `strict`를 쓰지 않는다 (`:1548-1581`).
 - 마지막 도구에 캐시 표시를 붙인다(`compat.supportsCacheControlOnTools`가 true일 때).
 
-**도구 변경을 서버가 직접 지원하는 경우** (`nativeToolChanges`, `:1142-1146`, `:1206-1228`): 모델이 `supportsMidConvoSystemMessages`와 `supportsMidConvoToolChanges`를 모두 지원하고 처음부터 도구가 있으며 같은 이름의 도구를 다시 정의한 적이 없으면, 처음 도구만 활성으로 보내고 **나중에 추가되는 도구는 `defer_loading: true`로 미리 선언**해 둔다. 대화 중에 `tool_addition` 블록으로 켜는 방식이다. 주석에 따르면 이렇게 하면 도구가 바뀌어도 앞부분 캐시가 깨지지 않는다(요청 수준의 도구 목록은 늘어나기만 한다). 도구가 바뀔 때 캐시가 전부 무효화된 것을 측정했다는 주석도 있다(`:199-205`).
+**도구 변경을 서버가 직접 지원하는 경우** (`nativeToolChanges`, `:1141-1149`, `:1205-1220`): 모델이 `supportsMidConvoSystemMessages`와 `supportsMidConvoToolChanges`를 모두 지원하고 처음부터 도구가 있으면, **요청 수준의 도구 목록은 처음 도구 + 자리표시자(`DEFERRED_TOOL_PLACEHOLDER`)로 고정**하고 이후 도구 변경은 대화 안의 블록으로 보낸다: 추가는 `tool_addition`에 **도구 정의를 값으로 담은** `tool_definition` 블록, 제거는 `tool_removal`(같은 이름을 다시 정의하면 제거 블록은 생략, `convertMessages` 내부). 주석에 따르면 도구 목록이 바뀌지 않으므로 앞부분 캐시가 깨지지 않는다. 도구 변경 때 캐시가 전부 무효화된 것을 측정했다는 주석도 있다(`:198-210`). **이전 commit과 달라진 점**: 이전에는 나중 도구를 `defer_loading: true`로 요청 목록에 미리 선언하고 `tool_addition`은 이름만 참조했으며(`tool_reference`), 같은 이름을 다시 정의한 대화는 이 방식을 쓸 수 없었다(`hasToolRedefinitions`). 지금은 정의를 값으로 보내므로 **재정의 제약이 없어졌고** `hasToolRedefinitions`는 `@deprecated`이다(`utils/transcript.ts`).
 
 ### 4.7 추론(thinking) 설정 (`:1242-1273`)
 ```
@@ -282,7 +285,7 @@ Anthropic의 시험 기능은 요청의 `betas`로 켠다. 모델 설정에 `ant
 - 오래된 추론 모델이면 `interleaved-thinking-...`
 - `allowedFallbackModels`가 있으면 `server-side-fallback-...`
 - `supportsMidConvoEffort`이면 `mid-conversation-output-config-...`, `thinking-binding-controls-...`
-- `nativeToolChanges`이면 `mid-conversation-tool-changes-...`
+- `nativeToolChanges`이면 `inline-tools-2026-09-15`(`INLINE_TOOLS_BETA`, `:195`, `:1120`; 이전 이름은 `mid-conversation-tool-changes-2026-07-01`)
 
 ## 5. 응답 해석: Anthropic 이벤트를 pi 이벤트로 바꾼다
 

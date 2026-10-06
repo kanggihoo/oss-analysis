@@ -342,7 +342,7 @@ node scripts/generate-models.ts --strict --data-only        # npm run hydrate-mo
 - `node_modules` 없이도 실행되었다(스크립트가 Node 내장 모듈과 레포 안의 파일만 쓰기 때문, 종료 코드 0).
 - `src/providers/data/`에 JSON 42개와 `.manifest.json`이 생겼다. `generatedAt`은 `2026-10-04T14:12:07Z`다.
 - `data/`는 `.gitignore` 대상이라 `git status`는 그대로 clean이다. `.models.ts`와 `models.generated.ts`는 `--data-only`라서 바뀌지 않았다.
-- 실행 로그는 `artifacts/pi/hydrate-model-data.2026-10-04.log`에 보관했다. 로그에는 provider별 모델 수가 나온다(예: github-copilot 34, openrouter 400 + 이미지 59 + 분류 13, vercel-ai-gateway 253, openai-codex 9, azure-openai-responses 44).
+- 실행 로그는 `artifacts/pi/hydrate-model-data.2026-10-04.log`에 보관했다. 로그에는 provider별 모델 수가 나온다(예: github-copilot 34, openrouter 400 + 이미지 59 + 분류 13, vercel-ai-gateway 253, openai-codex 9, azure-openai-responses 44; 새 SHA에서는 provider id가 `azure`로 바뀜, 이 로그는 이전 id 기준).
 - **주의**: 이 데이터는 commit이 아니라 **실행한 시점의 외부 사이트(models.dev 등) 기준**이다. 같은 commit이라도 다른 날 실행하면 모델 수와 가격이 달라질 수 있다. 문서에 인용하는 값에는 이 시점이 붙는다.
 
 ### 6.7 실행 중에 최신 모델을 받는 방법과의 차이

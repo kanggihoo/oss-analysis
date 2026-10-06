@@ -4,6 +4,10 @@
 - **대상**: `packages/agent/src/agent-loop.ts` (940줄, 전체 읽음), `agent.ts` 일부, `types.ts` `AgentLoopConfig`/`AgentEvent`
 - **관련 그림**: [runLoop 제어 흐름](../diagrams/agent-loop-workflow.html) · [1턴 시퀀스](../diagrams/agent-loop-sequence.html)
 
+
+> [!NOTE]
+> **2026-10-06 재검증** (기준 `28dcce2ba`, `packages/agent/src`는 `4259686d9` 이후 harness 삭제 외 동일 구조): 본문은 현재 코드와 일치한다. 다만 `runLoop` 종료 우선순위, 중단 시 `toolResult` 누락, `agentLoop`의 reject 미처리 등은 [agent/02](../agent/02-agent-loop.md)와 [agent/05](../agent/05-call-flow.md)(실행 확인)에서 보강했다. 상세는 그쪽을 우선한다.
+
 ## 결론
 
 `agent-loop`은 **"LLM 응답 받기 → tool 실행 → 결과를 대화에 붙이기"를 tool 호출이 없을 때까지 반복하는 순수 함수 묶음**이다. 상태나 큐는 갖지 않고, 모든 정책은 `AgentLoopConfig`의 콜백(hook)으로 바깥에서 주입받는다. 상태(메시지 목록, steering/follow-up 큐, abort)는 `Agent` 클래스(`agent.ts`)가 갖는다. `코드 확인`

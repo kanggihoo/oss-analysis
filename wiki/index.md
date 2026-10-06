@@ -19,7 +19,7 @@
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
 - [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
-- [[pi]] — Source-verified summary of the `ai` package (unified LLM API) of the TypeScript agent toolkit: call path, provider/api separation, event stream, auth, and where retry and compaction actually live; other packages not yet analyzed.
+- [[pi]] — Source-verified summary of the `ai` (unified LLM API) and `agent` (agent loop, `Agent` wrapper, proxy stream) packages of the TypeScript agent toolkit, with run-verified loop behavior; coding-agent and other packages not yet analyzed.
 - [[ponytail]] — Source-verified overview of the lazy-senior-dev agent skill, its ladder philosophy, safety boundaries, and thin multi-host adapter model.
 - [[rsshub]] — Source-verified layered architecture of the self-hostable feed-generation server: route plugin model, request coalescing, and the 3,462-route catalog.
 - [[tokscale]] — Source-verified architecture notes for the Rust CLI/core plus Next.js social platform that tracks AI coding assistant token usage.
@@ -64,6 +64,8 @@
 - [[workspace-boundaries]] — Clear separation between `repos/`, `artifacts/`, `reports/`, and `wiki/`.
 - [[pi-ai-provider-api-separation]] — Source-verified pattern for separating wire protocol (api) from service (provider) with per-model compat data, shown with 26 providers sharing one OpenAI-compatible client.
 - [[stealable-pattern-async-event-stream-with-final-result]] — Reusable design of a push/for-await event stream whose `result()` never rejects, returned immediately while async setup finishes behind it.
+- [[stealable-pattern-hook-injected-loop-with-throw-contract]] — Hook-injected stateless agent loop where tool failures are absorbed into error results, other hooks must not throw, and the wrapper is the safety net.
+- [[pi-agent-turn-end-decision-priority]] — Seven-level priority among error/aborted, finishTurn end/continue, tool terminate, steering, and follow-up in pi's agent loop, run-verified.
 - [[stealable-pattern-stored-credential-owns-provider]] — Auth resolution rule where a stored login owns the provider (no silent env fallback) and token refresh is serialized with double-checked locking.
 
 ## Comparisons

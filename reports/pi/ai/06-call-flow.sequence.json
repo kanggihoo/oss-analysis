@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "models.streamSimple 한 번의 호출 경로",
+    "output": "06-call-flow.html",
+    "viewBox": [
+      1080,
+      640
+    ],
+    "column_fit": "spread",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "caller",
+      "type": "external",
+      "label": "호출한 쪽",
+      "sublabel": "agent-loop.ts:414"
+    },
+    {
+      "id": "models",
+      "type": "backend",
+      "label": "Models",
+      "sublabel": "models.ts:900"
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "applyAuth",
+      "sublabel": "models.ts:842 · resolve.ts:33"
+    },
+    {
+      "id": "provider",
+      "type": "backend",
+      "label": "Provider",
+      "sublabel": "models.ts:1070 · lazy.ts:73"
+    },
+    {
+      "id": "wire",
+      "type": "backend",
+      "label": "통신 코드",
+      "sublabel": "anthropic-messages.ts:571"
+    },
+    {
+      "id": "server",
+      "type": "cloud",
+      "label": "LLM 서버",
+      "sublabel": "Claude, OpenAI 등"
+    }
+  ],
+  "messages": [
+    {
+      "id": "call",
+      "from": "caller",
+      "to": "models",
+      "y": 165,
+      "label": "streamSimple (models.ts:900)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "return-c",
+      "from": "models",
+      "to": "caller",
+      "y": 193,
+      "label": "빈 스트림 C 즉시 반환 (lazy.ts:46)",
+      "variant": "return"
+    },
+    {
+      "id": "apply-auth",
+      "from": "models",
+      "to": "auth",
+      "y": 225,
+      "label": "applyAuth: 옵션 > 저장 > 환경변수 (models.ts:842)",
+      "variant": "security"
+    },
+    {
+      "id": "auth-result",
+      "from": "auth",
+      "to": "models",
+      "y": 253,
+      "label": "requestModel, requestOptions (:875)",
+      "variant": "return"
+    },
+    {
+      "id": "provider-call",
+      "from": "models",
+      "to": "provider",
+      "y": 285,
+      "label": "provider.streamSimple (models.ts:905)",
+      "variant": "default"
+    },
+    {
+      "id": "pick-wire",
+      "from": "provider",
+      "to": "wire",
+      "y": 313,
+      "label": "model.api 로 선택, import() (models.ts:1070, lazy.ts:73)",
+      "variant": "default"
+    },
+    {
+      "id": "send",
+      "from": "wire",
+      "to": "server",
+      "y": 365,
+      "label": "요청 전송 (anthropic-messages.ts:649)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chunks",
+      "from": "server",
+      "to": "wire",
+      "y": 393,
+      "label": "SSE 조각 (:663)",
+      "variant": "return"
+    },
+    {
+      "id": "push-a",
+      "from": "wire",
+      "to": "provider",
+      "y": 425,
+      "label": "pi 이벤트 push, 스트림 A (:737-886)",
+      "variant": "dashed"
+    },
+    {
+      "id": "forward-b",
+      "from": "provider",
+      "to": "models",
+      "y": 465,
+      "label": "forwardStream A → B (lazy.ts:31)",
+      "variant": "dashed"
+    },
+    {
+      "id": "forward-c",
+      "from": "models",
+      "to": "caller",
+      "y": 493,
+      "label": "forwardStream B → C, for await 수신 (models.ts:902)",
+      "variant": "return"
+    },
+    {
+      "id": "result",
+      "from": "models",
+      "to": "caller",
+      "y": 521,
+      "label": "C.result() (event-stream.ts:86)",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "models",
+      "from": 160,
+      "to": 528,
+      "type": "backend"
+    },
+    {
+      "participant": "auth",
+      "from": 220,
+      "to": 258,
+      "type": "security"
+    },
+    {
+      "participant": "provider",
+      "from": 280,
+      "to": 470,
+      "type": "backend"
+    },
+    {
+      "participant": "wire",
+      "from": 308,
+      "to": 430,
+      "type": "backend"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "즉시 반환",
+      "items": [
+        "streamSimple 은 인증과 통신 코드 로딩을 기다리지 않고 빈 스트림 C 를 돌려준다",
+        "인증 실패도 예외가 아니라 error 이벤트로 C 에 도착한다"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "스트림 세 개",
+      "items": [
+        "A, B, C 는 네트워크가 아니라 메모리 안의 AssistantMessageEventStream 이다",
+        "lazyStream 이 두 곳에 있어 이벤트가 두 번 복사된다"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "인증 순서",
+      "items": [
+        "호출 옵션 apiKey, 저장된 credential, 환경변수 순으로 정한다",
+        "저장된 OAuth 토큰이 곧 만료되면 락 안에서 한 번만 갱신한다"
+      ]
+    }
+  ]
+}

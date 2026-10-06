@@ -1,0 +1,79 @@
+
+=== A. 기본: prompt -> 도구 -> 답, 호출 순서와 streamFn 옵션 ===
+hook order : prepareRequest > transformContext > convertToLlm > getApiKey(fake) > beforeToolCall > execute > afterToolCall > finishTurn > prepareNextTurn > prepareRequest > transformContext > convertToLlm > getApiKey(fake) > finishTurn
+events     : agent_start | turn_start | message_start(user) | message_end(user) | message_start(assistant) | message_end(assistant) | tool_execution_start(read) | tool_execution_end(read) | message_start(toolResult:read) | message_end(toolResult:read) | turn_end(stop=toolUse, results=1) | turn_start | message_start(assistant) | message_end(assistant) | turn_end(stop=stop, results=0) | agent_end(messages=4)
+request[0] roles: [ 'system', 'user' ]  request[1] roles: [ 'system', 'user', 'assistant', 'toolResult' ]
+apiKey in opts : KEY-fake | opts has beforeToolCall fn: function
+state.messages roles: [ 'system', 'user', 'assistant', 'toolResult', 'assistant' ] | isStreaming: false
+
+=== B. 도구 3개 (A 느림, B 빠름, C 빠름) toolExecution=parallel ===
+(node:31436) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+tool_execution_start(A)
+tool_execution_start(B)
+tool_execution_start(C)
+tool_execution_end(B)
+tool_execution_end(C)
+tool_execution_end(A)
+message_start(toolResult:A)
+message_end(toolResult:A)
+message_start(toolResult:B)
+message_end(toolResult:B)
+message_start(toolResult:C)
+message_end(toolResult:C)
+
+=== B. 도구 3개 (A 느림, B 빠름, C 빠름) toolExecution=sequential ===
+tool_execution_start(A)
+tool_execution_end(A)
+message_start(toolResult:A)
+message_end(toolResult:A)
+tool_execution_start(B)
+tool_execution_end(B)
+message_start(toolResult:B)
+message_end(toolResult:B)
+tool_execution_start(C)
+tool_execution_end(C)
+message_start(toolResult:C)
+message_end(toolResult:C)
+
+=== B2. 도구 하나가 executionMode=sequential 이면 전체 순차 ===
+tool_execution_start(A) | tool_execution_end(A) | tool_execution_start(B) | tool_execution_end(B)
+
+=== C1. 모든 도구 terminate=true -> 다음 요청 없음 ===
+requests: 1
+
+=== C2. 도구 2개 중 1개만 terminate -> 계속 ===
+requests: 2
+
+=== C3. finishTurn=continue (도구 없음, 큐 없음) -> 요청 1회 추가 ===
+requests: 2
+
+=== C4. finishTurn=continue 인데 도구 호출이 있었다 -> 추가 요청 없음(이미 계속) ===
+requests: 2 (도구 턴 1 + 답 1 = 2 이면 중복 없음)
+
+=== C5. finishTurn=end -> 큐에 follow-up이 있어도 종료 ===
+requests: 1 | follow-up 남음: true
+
+=== C6. stopReason=error 이면 finishTurn(continue)도 무시 ===
+requests: 1 | finishTurn 호출: 1 | state.errorMessage: boom | turn_end(stop=error, results=0) | agent_end(messages=2)
+
+=== C7. stopReason=length 이면 도구를 실행하지 않고 에러 결과 ===
+execute 호출: 0 | isError: true | text: Tool call "N" was not executed: the response hit the output  | requests: 2
+
+=== D. steering one-at-a-time vs all ===
+one-at-a-time requests: 2 roles per request: ["system,user,user","system,user,user,assistant,toolResult,user"]
+all requests: 2 roles per request: ["system,user,user,user","system,user,user,user,assistant,toolResult"]
+
+=== E. convertToLlm 이 throw -> handleRunFailure ===
+events: agent_start | turn_start | message_start(user) | message_end(user) | message_start(assistant) | message_end(assistant) | turn_end(stop=error, results=0) | agent_end(messages=1)
+last message: assistant error convert failed | isStreaming: false
+
+=== F. 순차 실행 중 중단 -> 남은 도구 toolResult 누락? ===
+toolCall: 2 toolResult: 1 | roles: system,user,assistant,toolResult,assistant
+
+=== G. run 도중 state.model 변경 ===
+한 run 안에서 모델 id 순서: fake -> fake
+다음 run 모델 id: changed
+
+=== H1. agentLoop (스트림 반환판) + 기본 streamFn 없음 ===
+stream NOT ended after 300ms | unhandledRejection: No default stream function configured. Pass streamFn explicitly or call setDefaultStreamFn().

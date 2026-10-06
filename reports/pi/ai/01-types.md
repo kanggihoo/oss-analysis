@@ -6,6 +6,9 @@
 - **검증 수준**: 타입 정의는 `코드 확인`이다. 런타임 동작은 `미확인`이며 다음 단계에서 본다. `추론`은 따로 표시한다.
 - 이 파일은 타입만 정의한다. 로직은 `utils/transcript.ts`, `utils/event-stream.ts`, `api/*`에 있다.
 
+> [!NOTE]
+> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): `Model`에 `samplingParamsByThinkingLevel`, 타입 `SamplingParams`/`SamplingParamsByThinkingLevel`이 추가되었고 `KnownProvider`의 `azure-openai-responses`가 `azure`로 바뀌었다(`types.ts`). 그 밖의 줄 번호는 ±수 줄 어긋날 수 있다.
+
 ## 0. 이 파일은 무엇인가
 pi-ai는 Claude, GPT, Gemini 같은 여러 AI 회사의 서비스를 같은 방식으로 호출하게 해 주는 "통역사"다. `types.ts`는 그 통역사가 쓰는 **공용 서식 모음**이다.
 
@@ -101,7 +104,7 @@ ProviderRequestOptions (132)  ← 통신 공통
 | 타입 | 역할 | 주요 인자 |
 |---|---|---|
 | `ProviderRequestOptions` | 인증과 HTTP 설정 | `signal`(취소), `apiKey`, `fetch`, `env`, `headers`, `timeoutMs`, `maxRetries`, `maxRetryDelayMs`, `onPayload`, `onResponse` |
-| `StreamOptions` | 생성 방식 | `temperature`, `maxTokens`, `cacheRetention`, `sessionId`, `transport`, `samplingParams`, `metadata` |
+| `StreamOptions` | 생성 방식 | `temperature`, `maxTokens`, `cacheRetention`, `sessionId`, `transport`, `samplingParams`(타입 `SamplingParams`), `metadata` |
 | `SimpleStreamOptions` | 통일된 간편 옵션 | `reasoning`(추론 수준), `toolChoice`, `thinkingBudgets`, `deferred` |
 
 작은 타입: `ThinkingLevel`(85, `minimal`/`low`/`medium`/`high`/`xhigh`/`max`), `CacheRetention`(110, `none`/`short`/`long`), `Transport`(118, `sse`/`websocket`/`websocket-cached`/`auto`), `ToolChoice`(84, `auto`/`none`).
@@ -111,7 +114,7 @@ ProviderRequestOptions (132)  ← 통신 공통
 | 타입 | 역할 | 주요 인자 |
 |---|---|---|
 | `BaseModel` (1097) | 모든 모델의 공통 필드 | `id`, `name`, `api`, `provider`, `baseUrl`, `input`(text/image), `inputLimits`, `cost`, `headers` |
-| `Model` (1111) | 대화용 모델 | 공통 필드 + `reasoning`(추론 지원 여부), `thinkingLevelMap`, `promptCache`, `contextWindow`, `maxTokens`, `samplingParams`, `compat` |
+| `Model` (1111) | 대화용 모델 | 공통 필드 + `reasoning`(추론 지원 여부), `thinkingLevelMap`, `promptCache`, `contextWindow`, `maxTokens`, `samplingParams`, **`samplingParamsByThinkingLevel`**(추론 수준별 덮어쓰기, 새 필드), `compat` |
 | `ImageModel` (1145) | 이미지 생성 모델 | 공통 필드 + `output` |
 | `ClassifierModel` (1152) | 분류 모델 | 공통 필드 + `contextWindow` |
 | `ModelCost` (1068) | 가격 ($/백만 토큰) | `input`, `output`, `cacheRead`, `cacheWrite`, `tiers`(입력 토큰 구간별 가격) |

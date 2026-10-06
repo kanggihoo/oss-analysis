@@ -46,3 +46,6 @@ confidence: high
 - 환경변수만 쓰는 CI에서는 저장된 것이 없어 규칙 2가 영향을 주지 않는다.
 
 관련: [[pi]], [[pi-ai-provider-api-separation]], [[stealable-pattern-async-event-stream-with-final-result]].
+
+## 갱신 (2026-10-06, `28dcce2ba`)
+- 갱신은 `refreshStoredOAuthCredential`로 분리되었고 **호출자 `signal`은 락 대기만 취소**한다. 갱신이 시작되면 취소를 무시하고 15초 제한만 받는다. 서버가 리프레시 토큰을 이미 교체했을 수 있어 결과를 버리면 유일한 유효 토큰을 잃기 때문이다(`resolve.ts:102-158`, 주석). 가져다 쓸 때도 "락 안의 갱신은 취소하지 않는다"를 규칙에 넣는다. (코드 확인, 실행 확인은 하지 않음)

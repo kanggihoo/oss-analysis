@@ -3,6 +3,10 @@
 - **Commit**: `4259686d9290c0d73ae7192b796aee3e530a9779` · **작성일**: 2026-09-29 · **목적**: 학습 (Q5 후속)
 - **대상**: `packages/agent/src/agent.ts` (613줄, 핵심 구간 전부 읽음), `types.ts` `AgentState`
 
+
+> [!NOTE]
+> **2026-10-06 재검증**: 본문은 현재 코드와 일치한다(`processEvents`, `handleRunFailure`, `continue`, 큐). 새로 확인한 것(run 시작 시 config 스냅샷, 실패 run의 `agent_end.messages`, context 교체 훅과 `state.messages`)은 [agent/03](../agent/03-agent-class.md)과 [agent/05](../agent/05-call-flow.md)를 본다.
+
 ## 결론
 
 `Agent`는 상태가 없는 `runLoop` 위에 **상태·큐·실행 잠금·구독**을 얹은 래퍼다. 핵심은 세 가지다.

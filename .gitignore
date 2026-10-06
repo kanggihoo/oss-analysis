@@ -15,3 +15,4 @@ artifacts/**/cache/
 .env.local
 .venv/
 __pycache__/
+artifacts/**/node_modules/

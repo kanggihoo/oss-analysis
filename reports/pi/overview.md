@@ -91,7 +91,20 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 | [06-call-flow](./ai/06-call-flow.md) | 호출 경로 종합과 종단 실험, Q4와 달라진 점 |
 
 > [!WARNING]
-> 아래 Q4~Q8과 learning-guide는 이전 SHA(`4259686d9`) 기준이다. ai 관련 서술 중 달라진 점은 [06-call-flow §8](./ai/06-call-flow.md)에, agent 쪽(Q5~Q8)은 harness 삭제로 재검증이 필요하다. 요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md).
+> 아래 Q4~Q8과 learning-guide는 이전 SHA(`4259686d9`) 기준이다. ai 관련 서술 중 달라진 점은 [06-call-flow §8](./ai/06-call-flow.md)에, agent 쪽 Q5·Q6은 2026-10-06에 재검증을 마쳤고(일치, [agent/00 §6](./agent/00-role.md)), Q7·Q8(AgentSession, 세션 투영)은 coding-agent 단계에서 재검증한다. 요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md).
+
+## 3.45 agent 패키지 상세 문서 (commit `28dcce2ba` 기준, `packages/agent/src`는 `3874b3e98`과 동일)
+
+| 문서 | 내용 |
+|---|---|
+| [00-role](./agent/00-role.md) | 역할(AI 호출 → 도구 실행 → 재호출 반복), 6개 파일, 의존, harness 삭제, 이전 Q5~Q8 대조표 |
+| [01-types](./agent/01-types.md) | `types.ts`: 타입 4묶음, 훅 표, 이벤트 10종 |
+| [02-agent-loop](./agent/02-agent-loop.md) | `runLoop` 이중 루프, 턴 순서와 훅 호출 지점, 종료 7단계 우선순위, 병렬/순차 이벤트 순서, `declareToolChanges` |
+| [03-agent-class](./agent/03-agent-class.md) | `Agent`: 스냅샷 입력 + 이벤트 전용 상태 갱신, 큐, 실패 처리(`handleRunFailure`), run 시작 시 config 스냅샷 |
+| [04-proxy](./agent/04-proxy.md) | `streamProxy`: `partial`을 뺀 이벤트를 클라이언트가 복원, `setDefaultStreamFn` |
+| [05-call-flow](./agent/05-call-flow.md) | `agent.prompt()` 한 번의 경로 + 가짜 `streamFn`/로컬 SSE 서버 실행 확인(`artifacts/pi/agent-demos/`) |
+
+핵심 발견(요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md)): 훅으로 정책을 주입하는 상태 없는 루프, throw 정책의 비대칭(도구는 루프가 흡수, 나머지 훅은 호출자 책임, `Agent`가 안전망), 알려진 구멍(중단 시 `toolResult` 짝 불일치, 프록시 `partialJson` 잔존, `agentLoop`의 reject 미처리).
 
 ## 3.5 학습 가이드
 

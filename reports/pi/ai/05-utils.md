@@ -73,7 +73,7 @@ return RETRYABLE_PROVIDER_ERROR_PATTERN.test(errorMessage);                     
 |---|---|
 | **재시도 불가**(우선 검사) | `GoUsageLimitError`, `Monthly usage limit reached`, `insufficient_quota`, `out of budget`, `quota exceeded`, `billing`, `subscription_sharing_usage_limit_exceeded`(ChatGPT 구독 한도, "몇 초가 아니라 몇 시간 뒤에 풀림") |
 | **재시도 가능** | `overloaded`, `model is at capacity`, `rate limit`, `too many requests`, `429`/`500`/`502`/`503`/`504`, `service unavailable`, `server error`, 네트워크류(`fetch failed`, `connection refused`, `socket hang up`, `timeout`, `terminated`), WebSocket(`websocket closed`), **스트림이 중간에 끊긴 문구**(`ended without`, `stream ended before message_stop`, `stream ended before a terminal response event`), 서버가 "다시 시도하라"고 한 문구, ChatGPT 구독의 일시 오류(`subscription_sharing_usage_unavailable`) |
-- 패턴 목록에는 어떤 이슈에서 추가했는지가 주석으로 남아 있다(예: `#2264`, `#3317`, `#4433`, `#6019`). 03-1에서 본 "stream ended before message_stop" 오류가 여기서 **재시도 대상**으로 분류된다는 점이 연결된다.
+- 패턴 목록에는 어떤 이슈에서 추가했는지가 주석으로 남아 있다(예: `#2264`, `#3317`, `#4433`, `#6019`, 새로 추가된 `#10379`: Bedrock SDK의 5분 세션 만료 뒤 HTTP/2 스트림 취소 `"pending stream has been canceled"`가 **재시도 가능** 목록에 들어감, `retry.ts` +3줄). 03-1에서 본 "stream ended before message_stop" 오류가 여기서 **재시도 대상**으로 분류된다는 점이 연결된다.
 - **이 함수는 정책이 아니라 분류만 한다.** 주석: "컨텍스트 초과를 먼저 따로 처리한 뒤 호출자가 자기 재시도 예산과 대기를 적용한다."
 
 **(b) 재시도 정책과 대기 시간** (`:104-127`)

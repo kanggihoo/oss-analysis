@@ -4,7 +4,7 @@
 - **대상**: `repos/pi/packages/agent` (`@earendil-works/pi-agent-core` v1.0.0)
 - **선행 문서**: [ai/00-role](../ai/00-role.md)(ai 패키지의 역할), [ai/06-call-flow](../ai/06-call-flow.md)(호출 경로 종합, 특히 ⑦ `agent-loop.ts:414`)
 - **읽은 파일**: `src/types.ts`(529줄 전체), `src/stream-fn.ts`(20줄), `src/index.ts`(5줄), `package.json`, `README.md`(앞 80줄), `CHANGELOG.md`(앞 40줄), `src/agent.ts`와 `src/agent-loop.ts`는 **공개 선언(export, 클래스 필드, 메서드 이름)과 일부만**(`agent-loop.ts:385-455`는 ai 06에서), `src/proxy.ts`는 앞 35줄, `coding-agent/src/core/sdk.ts`(`:380-420`). 사용처는 `grep`으로 확인했다. 줄 번호는 모두 이 commit 기준이다.
-- **검증 수준**: 선언, 의존, 사용처는 `코드 확인`. **루프와 `Agent` 클래스의 내부 동작은 아직 읽지 않았다**(`미확인`, 다음 문서에서). 실행한 것은 없다.
+- **검증 수준**: 선언, 의존, 사용처는 `코드 확인`. 루프, `Agent`, `proxy`의 내부 동작은 이 문서에서는 읽지 않았고 **[02](./02-agent-loop.md), [03](./03-agent-class.md), [04](./04-proxy.md)에서 읽고 [05](./05-call-flow.md)에서 실행 확인**했다. 이 문서 자체에서 실행한 것은 없다. (2026-10-06 갱신: 기준 commit이 `28dcce2ba`로 올랐으나 `packages/agent/src`는 동일, `git diff`는 `CHANGELOG.md`/`package.json`뿐.)
 
 ## 0. 이 문서의 질문
 - `agent` 패키지는 무엇을 하고, 무엇을 하지 않는가? (ai 패키지 위, coding-agent 아래)
@@ -112,7 +112,7 @@ type StreamFn = (model, context: TranscriptContext, options?: SimpleStreamOption
 | **API 키를 호출마다 해석** | `getApiKey?(provider)` (`:254`) | 도구 실행이 길어지는 동안 만료되는 OAuth 토큰 대응(주석) |
 | **상태** | `AgentState` (`:382-421`): `model`, `thinkingLevel`, `tools`, `messages`, `isStreaming`, `streamingMessage`, `pendingToolCalls`, `errorMessage` | `Agent` 클래스가 관리 |
 | **이벤트로 알림** | `AgentEvent` 10종 (`:514-529`) | 아래 4.3 |
-| **LLM 호출 중계** | `streamProxy` (`proxy.ts`) | 브라우저 앱이 서버를 거쳐 호출할 때(`proxy.ts` 머리말) |
+| **LLM 호출 중계** | `streamProxy` (`proxy.ts`) | 앱이 서버를 거쳐 호출할 때(`proxy.ts` 머리말). **이 repo에서는 테스트, README, 브라우저 스모크만 쓰고 `coding-agent`는 안 쓴다**(04 §8) |
 
 ### 4.2 `AgentState`와 ai 패키지의 연결 (`types.ts:382-421`)
 - `systemPrompt`는 **읽기 전용**이고 "transcript의 시스템 메시지를 재생해서 얻는다." 바꾸려면 시스템 메시지를 추가한다.
@@ -160,19 +160,17 @@ type StreamFn = (model, context: TranscriptContext, options?: SimpleStreamOption
 | 이전 서술 | 이 commit에서 확인한 것 | 다음에 할 일 |
 |---|---|---|
 | Q4/Q7: 재시도(3회, 2·4·8초)와 overflow compaction은 루프 밖 `_runAgentPrompt`가 `agent.continue()`로 | `agent.continue()`는 `Agent`에 있다(`agent.ts:384`). 재시도는 `_handlePostAgentRun`→`_isRetryableError`→`_prepareRetry`(`agent-session.ts:1805-1822`, `:3660-3756`)로 보이고 `retryDelayMs(settings, 시도횟수)`를 쓴다(ai/05 §2.3). **함수 이름과 구조가 달라졌다** | `coding-agent` 단계에서 Q7 재검증 |
-| Q5: agent-loop는 "상태 없는 이중 루프" | 파일은 940줄이고 훅이 `finishTurn`, `prepareRequest`, `prepareNextTurn` 등 이전 서술에 없던 것이 보인다(`types.ts`). `0.87.0`에서 `shouldStopAfterTurn`이 `finishTurn`으로 대체됨 | `agent-loop.ts` 전체를 새로 읽기 |
-| Q6: `Agent` 클래스는 `processEvents`로만 상태 갱신, `handleRunFailure` | 같은 이름이 있다(`agent.ts:532`, `:565`). 내용은 확인 전 | `agent.ts` 전체를 새로 읽기 |
-| learning-guide의 agent 관련 서술 | 위와 같이 재검증 필요 | |
+| Q5: agent-loop는 "상태 없는 이중 루프" | 02에서 `agent-loop.ts` 940줄 전체를 읽고 05에서 실행 확인. **본문은 현재 코드와 일치**(훅 위치, 종료 조건, 병렬 순서, `length` 처리). 추가: 종료 7단계 우선순위, `declareToolChanges`, `agentLoop`의 reject 미처리 | **재검증 완료** (02, 05) |
+| Q6: `Agent` 클래스는 `processEvents`로만 상태 갱신, `handleRunFailure` | 03에서 `agent.ts` 613줄 전체 확인. **일치**. 추가: run 시작 시 config 스냅샷, 실패 run의 `agent_end.messages`는 `[failure]` 하나 | **재검증 완료** (03, 05) |
+| learning-guide의 agent 관련 서술 | Q5/Q6 부분은 위와 같이 유효. Q7/Q8 의존 부분은 coding-agent 단계에서 | Q7/Q8은 대기 |
 
-## 7. 읽지 않은 것 (`미확인`)
-- `agent-loop.ts`의 루프 본문(턴 구조, 도구 준비·실행·마무리, 병렬 실행의 이벤트 순서, 종료 조건)
-- `agent.ts`의 `Agent` 내부(`prompt`/`continue`, 큐, 구독자 순차 `await`, 실패 처리, `waitForIdle`)
-- `proxy.ts` 본문(서버가 보내는 이벤트에서 `partial`을 뺀 형식을 다시 조립하는 부분)
-- 테스트 4개 파일, `examples/mcp-codemode`
+## 7. 읽지 않은 것 (`미확인`) — 2026-10-06 갱신
+- ~~루프 본문, `Agent` 내부, `proxy.ts` 본문~~ → 02, 03, 04에서 읽음
+- 테스트 4개 파일 내용(05의 가짜 `streamFn` 실험이 일부를 대신함), `examples/mcp-codemode`
 - `coding-agent`가 `Agent`를 쓰는 나머지(`agent-session.ts`), 두 번째 `new Agent` 위치
 - `durable` 패키지가 이 패키지의 개념을 어떻게 이어받았는지
 
-## 8. 다음 문서 계획 (agent 시리즈)
+## 8. 다음 문서 계획 (agent 시리즈) — 01~05 모두 작성 완료 (2026-10-06)
 | 번호 | 내용 |
 |---|---|
 | **01-types** | 이미 읽은 `types.ts`의 `AgentMessage`, `AgentTool`, `AgentEvent`, `AgentLoopConfig`를 쉬운 말과 표로 정리 |

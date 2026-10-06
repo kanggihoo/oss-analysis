@@ -5,6 +5,9 @@
 - **읽은 파일**: `api/openai-completions.ts`(1726줄 전체), `api/openai-responses.ts`(415줄 전체), `api/openai-codex-responses.ts`(1697줄 전체), `api/openai-responses-shared.ts`(`processResponsesStream`과 `mapStopReason`, `:433-809`). 줄 번호는 모두 이 commit 기준이다.
 - **검증 수준**: 코드 읽기는 `코드 확인`. 자동 설정 감지(`detectCompat`)는 줄 범위 그대로 복사해서 돌렸다(`실행 확인`, §6). 모델 데이터는 02에서 `hydrate-model-data`로 만든 JSON(2026-10-04 생성)을 집계했다(`실행 확인`). **실제 서버와 통신해서 확인한 것은 없다**(`미확인`).
 
+> [!NOTE]
+> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): Azure provider가 `azure`(api 2개)로 바뀌었다. `api/azure-openai-responses.ts`는 351줄에서 줄었고(설정 분리 `azure-openai-config.ts` 신규) 이 문서의 provider 수(`openai-completions` 26개 등)는 **2026-10-04 생성 데이터 기준이라 새 SHA에서는 `azure`가 추가되어 달라졌을 수 있다**(`미확인`, 재생성 필요).
+
 ## 0. 한 줄 답
 세 파일은 모두 "OpenAI 쪽 서버와 통신하는 코드"이지만 **서버의 API 종류가 다르다.**
 
@@ -24,7 +27,7 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 | `openai-completions` | 26 | 716 | openrouter(385), huggingface(76), opencode(26), baseten(22), nvidia(21), qwen-token-plan-cn(20), qwen-token-plan(20), opencode-go(19), cloudflare-ai-gateway(18), cloudflare-workers-ai(18), together(17), … 그 외 15개 |
 | `openai-responses` | 7 | 131 | **openai(44)**, opencode(30), cloudflare-ai-gateway(24), github-copilot(18), opencode-go(6), meta(5), xai(4) |
 | `openai-codex-responses` | 1 | 9 | **openai-codex(9)** |
-| (참고) `azure-openai-responses` | 1 | 44 | azure-openai-responses(44). 별도 파일(`azure-openai-responses.ts`, 351줄)이며 공용 변환기를 쓴다(`:22`). 이 문서에서는 읽지 않았다. |
+| (참고) `azure-openai-responses` (api) | 이전 1 → 지금 **provider id는 `azure`로 바뀌어** `azure-openai-responses`와 `openai-completions` 두 api를 가진다(`providers/azure.ts:44-54`) | 44(2026-10-04 생성분, 새 SHA에서 재생성 안 함) | azure-openai-responses(44). 별도 파일(`azure-openai-responses.ts`, 351줄)이며 공용 변환기를 쓴다(`:22`). 이 문서에서는 읽지 않았다. |
 
 - **`openai`(OpenAI 본사)는 `openai-responses`다.** `completions`가 아니다.
 - `openai-completions`는 **26개 provider에 걸쳐 716개 모델**을 맡는다. 가장 많은 모델을 처리하는 통신 코드다.

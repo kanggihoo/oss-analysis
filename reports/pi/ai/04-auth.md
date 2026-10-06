@@ -6,6 +6,9 @@
 - **읽은 파일**: `auth/types.ts`(250줄 전체), `auth/resolve.ts`(188줄 전체), `auth/helpers.ts`, `auth/credential-store.ts`, `auth/context.ts`, `env-api-keys.ts`(195줄 전체), `auth/oauth/anthropic.ts`(298줄 전체), `auth/oauth/openai-codex.ts`(435줄 전체), `auth/oauth/callback-server.ts`(183줄 전체), `auth/oauth/pkce.ts`, `auth/oauth/load.ts`, `auth/oauth/openai-chatgpt.ts`(앞부분과 `toAuth`), `auth/oauth/device-code.ts`(앞부분), `providers/anthropic.ts`의 `anthropicApiKeyAuth`, `models.ts`의 `getAuth`, `login`, `applyAuth`(02에서 읽음). `coding-agent/src/core/auth-storage.ts`는 구조만 `grep`으로 봤다. 줄 번호는 모두 이 commit 기준이다.
 - **검증 수준**: 코드 읽기는 `코드 확인`. 인증 해석과 OAuth 갱신 락은 실제 코드를 불러서 가짜 provider로 돌려 확인했다(`실행 확인`, §7). **실제 로그인(브라우저 인증)과 실제 서버와의 토큰 교환은 하지 않았다**(`미확인`). 외부 서비스 접속과 계정 로그인이 필요해서 허락 없이 하지 않는다.
 
+> [!NOTE]
+> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): §5.1을 새 코드로 다시 썼다. OAuth 갱신이 `refreshStoredOAuthCredential`로 분리되었고 `signal`의 범위가 락 대기까지만으로 바뀌었다. Azure provider id가 `azure`로 바뀌었다(§ 환경변수 표). 나머지 줄 번호(`resolve.ts:33-93`, `:70` 등)는 이 diff가 앞부분을 건드리지 않아 유효하다.
+
 ## 0. 이 문서의 질문
 03에서 통신 코드는 `options.apiKey`와 `options.headers`를 받아서 서버에 보냈다(Claude는 API 키 또는 OAuth 토큰, Codex는 OAuth JWT). 그 값이 **어디서 오는가**를 본다.
 
@@ -135,7 +138,7 @@ await credentials.modify("anthropic", async (current) => {
 | 시점 | 동작 | 위치 |
 |---|---|---|
 | 호출 때 인증 해석 | `read` | `resolve.ts:70` (`readCredential`) |
-| 토큰이 곧 만료될 때 | `modify`로 갱신 후 저장 | `resolve.ts:126` |
+| 토큰이 곧 만료될 때 | `modify`로 갱신 후 저장 | `resolve.ts:132` (`refreshStoredOAuthCredential`) |
 | 로그인 | `modify`로 저장 | `models.ts:777` |
 | 로그아웃 | `delete` | `models.ts:817` |
 | 모델 목록 갱신 때 | `read`, `modify` | `models.ts:565`, `:618` |
@@ -225,20 +228,24 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 
 ## 5. 두 가지 인증 방식
 
-### 5.1 OAuth: 저장된 토큰이 곧 만료될 때의 갱신 (`auth/resolve.ts:102-162`)
-`resolveStoredOAuth`가 하는 일이다. 주석: "double-checked locking: 남은 유효 시간이 5분 미만인 토큰은 락을 걸고, 락 안에서 만료 여부를 다시 확인하고, 전체에서 한 번만 갱신하고, 바뀐 credential을 저장한 뒤 락을 푼다."
+### 5.1 OAuth: 저장된 토큰이 곧 만료될 때의 갱신 (`auth/resolve.ts:102-188`, 갱신 본체는 `refreshStoredOAuthCredential` `:119-158`)
+`resolveStoredOAuth`(`:161`)가 만료 임박을 판단하고, **갱신 자체는 export된 `refreshStoredOAuthCredential`이 한다**(새 commit에서 분리됨, `models.ts:625`의 모델 목록 갱신도 같은 함수를 쓴다). 주석: "double-checked locking: 남은 유효 시간이 5분 미만인 토큰은 락을 걸고, 락 안에서 만료 여부를 다시 확인하고, 전체에서 한 번만 갱신하고, 바뀐 credential을 저장한 뒤 락을 푼다."
 
 ```
-저장된 credential 의 expires 가 지금 + 5분 이하인가?                         (:119, :122)  ← 낙관적 확인
-  아니오 → 그대로 toAuth(credential)                                          (:157-158)
-  예    → credentials.modify(providerId, async (current) => {                 (:126-142)  ← 락 안에서
-              current 가 oauth 가 아니면 (그 사이 로그아웃) → 변경 없음           (:129)
-              current 가 이미 갱신되어 5분 넘게 남았으면 (다른 요청이 갱신함) → 변경 없음   (:130)  ← 권위 있는 확인
-              아니면 oauth.refresh(current, 신호) 실행. 15초 제한                (:131-136)
-              실패하면 ModelsError("oauth", "OAuth refresh failed for ...")     (:137-139)
-         })
+저장된 credential 의 expires 가 지금 + 5분 이하인가?                         (:169-173)  ← 낙관적 확인
+  아니오 → 그대로 toAuth(credential)
+  예    → refreshStoredOAuthCredential(credentials, providerId, oauth, expiresSoon, signal)   (:175)
+         └ credentials.modify(providerId, async (current) => {                 (:132)  ← 락 안에서
+              signal.throwIfAborted()                                           (:136)
+              current 가 oauth 가 아니면 (그 사이 로그아웃) → 변경 없음           (:137)
+              needsRefresh(current) 가 false (다른 요청이 갱신함) → 변경 없음      (:138)  ← 권위 있는 확인
+              아니면 oauth.refresh(current, AbortSignal.timeout(15초))            (:140)
+              실패하면 ModelsError("oauth", "OAuth refresh failed for ...")     (:142)
+           }, { signal: lockWait.signal })                                      ← 호출자 signal 은 "락 대기"만 취소
        갱신된 credential 로 toAuth(credential)
 ```
+- **신호의 범위가 바뀌었다 (이전 `3874b3e98`과 다른 점)**: 이전에는 호출자의 `signal`이 갱신 요청(`oauth.refresh`)까지 취소했다(`AbortSignal.any([signal, timeout])`). 지금은 **`signal`이 락을 기다리는 동안만 취소하고, 갱신이 일단 시작되면 `signal`을 무시하고 15초 제한만 받는다**(`:140`, 주석 `:105-118`). 이유(주석): 서버가 이미 리프레시 토큰을 교체했을 수 있는데 취소로 결과를 버리면 **유일하게 유효한 토큰을 잃는다**. 취소에 즉시 반응해야 하는 호출자는 이 프로미스와 자기 signal을 `race`한다. 아래 §4의 `raceWithAbortSignal`(`:33-44`)이 그 역할로 보이나 이 호출 경로 연결은 `미확인`.
+- 같은 이유로 모델 목록 갱신(`models.ts:620-632`)도 "시작된 갱신은 취소나 뒤따르는 갱신 때문에 버려지지 않는다"는 주석과 함께 이 함수로 바뀌었다(이전에는 `modify` + `oauth.refresh(current, signal)`을 직접 호출했다). 만료 판정은 여기서는 `Date.now() >= current.expires`(여유 5분 없음).
 - **5분 여유**(`DEFAULT_OAUTH_MINIMUM_VALIDITY_MS`, `:102`)를 두는 이유는 요청이 시작된 직후 토큰이 만료되는 일을 피하려는 것으로 보인다(`추론`). `OpenAI ChatGPT` 흐름은 자체로 3분 여유를 둔다(`openai-chatgpt.ts` `EXPIRY_MARGIN_MS`).
 - `modify`는 provider별로 직렬화되므로, 같은 토큰으로 요청 여러 개가 동시에 들어와도 **첫 번째만 갱신하고 나머지는 대기했다가 갱신된 값을 그대로 본다**(§7 실험).
 - 갱신이 실패하면 저장된 credential은 그대로 남는다(재시도 가능). `getAuth`의 주석: "토큰 갱신 실패는 코드 `oauth`, 재로그인으로 해결"(`models.ts:296-298`). 갱신 실패 후 환경변수 키로 **조용히 넘어가지 않는다**(`:24-28` 주석).
@@ -265,7 +272,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 | `openai` | `OPENAI_API_KEY` |
 | `google` | `GEMINI_API_KEY` |
 | `github-copilot` | `COPILOT_GITHUB_TOKEN` |
-| `azure-openai-responses` | `AZURE_OPENAI_API_KEY` |
+| `azure` (이전 id `azure-openai-responses`) | `AZURE_OPENAI_API_KEY` |
 | `openrouter` | `OPENROUTER_API_KEY` |
 | 그 외 약 30개 | 같은 방식 (위 파일의 `envMap`) |
 

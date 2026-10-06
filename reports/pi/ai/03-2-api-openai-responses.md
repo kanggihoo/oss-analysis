@@ -6,6 +6,9 @@
 - **읽은 파일**: `api/openai-responses.ts`(415줄 전체), `api/openai-responses-shared.ts`(`:1-809` 전체: 메시지 변환, 도구 변환, `processResponsesStream`, `mapStopReason`), `auth/oauth/openai-chatgpt.ts`(`:1-310` 거의 전체), `providers/openai.ts`. 줄 번호는 모두 이 commit 기준이다.
 - **검증 수준**: 코드 읽기는 `코드 확인`. 응답을 pi 이벤트로 바꾸는 `processResponsesStream`은 줄 범위 그대로 복사해서 가짜 이벤트로 돌렸다(`실행 확인`, §5.2). 웹 검색으로 OpenAI 공식 문서를 확인한 부분은 출처를 붙였다. **실제 서버와 통신하거나 실제 로그인을 해 본 것은 없다**(`미확인`).
 
+> [!NOTE]
+> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): 콜백 서버 실패 처리와 `samplingParams` 합성이 바뀌었다(아래 §7 단계 3, `samplingParams` 행, 맨 끝 부록). 이 파일의 다른 줄 번호는 diff가 작아 대체로 유효하나 전수 재확인은 하지 않았다.
+
 ## 0. 이 문서의 위치: 왜 이것이 "현재 경로"인가
 `openai` provider(OpenAI 본사 모델)는 이 통신 코드를 쓴다(`providers/openai.ts`).
 ```ts
@@ -170,7 +173,7 @@ Claude의 `streamSimple`(adaptive와 예산 두 갈래)보다 단순하다. `rea
 | `tools` | `convertResponsesTools(...)` | `:352-357` | 도구가 있을 때 (§4.6) |
 | `tool_choice` | 주어졌을 때만 | `:359-361` | |
 | `reasoning`, `include` | 아래 | `:363-379` | |
-| `samplingParams` | `model.samplingParams`와 `options.samplingParams`를 합쳐서 덮어씀 | `:382` | **마지막**에 적용되어 앞의 이름 있는 필드를 덮어쓴다. 모델 기본값보다 호출 옵션이 우선 |
+| `samplingParams` | `resolveSamplingParams(model, 추론수준, options.samplingParams)`의 결과를 덮어씀 | `:383-386`, 함수는 `simple-options.ts:24-34` | **마지막**에 적용되어 앞의 이름 있는 필드를 덮어쓴다. 우선순위는 `model.samplingParams` < **`model.samplingParamsByThinkingLevel[효과 추론수준]`** < 호출 옵션(`...` 스프레드 순서). 추론 수준은 `clampThinkingLevel`로 모델이 지원하는 값으로 맞춘 것. (이전 commit에는 추론 수준별 항목이 없었다) |
 
 **추론 설정** (`:363-379`)
 ```
@@ -299,13 +302,13 @@ pi 코드는 이것과 그대로 일치한다(`openai-chatgpt.ts:16`, `:21`, `:2
 1. 설치 ID 확인: options.getDeviceId() 가 UUID 가 아니면 "requires a device ID" 오류           (:237, :225-231)
      OpenAI가 이 설치를 구분하는 "agent host" ID 로 urn:uuid:<uuid> 를 쓴다
 2. PKCE verifier/challenge, 무작위 state, nonce 생성                                        (:238-240)
-3. 로컬 콜백 서버 시작 (127.0.0.1:1455 /auth/callback). 실패하면 붙여 넣기로 진행 안내       (:241-249, :85-132)
+3. 로컬 콜백 서버 시작 (127.0.0.1:1455 /auth/callback). 포트가 사용 중(EADDRINUSE)이면 **오류로 중단** (:243-249, :85-132)
 4. 로그인 주소를 사용자에게 알림 (auth_url 이벤트)                                           (:251-270)
      https://auth.openai.com/api/accounts/authorize
        ?client_id=dynamic_agent_client &agent_name_hint=Pi &ext_agent_host_id=urn:uuid:...
        &response_type=code &redirect_uri=... &resource=https://api.openai.com/v1
        &scope=... &state=... &code_challenge=...(S256) &nonce=...
-5. 브라우저 콜백 또는 붙여 넣기 중 먼저 오는 것을 기다림 (Promise.race)                      (:272-283)
+5. 브라우저 콜백 또는 붙여 넣기 중 먼저 오는 것을 기다림 (Promise.race)                      (:282)
      콜백에는 code, state 와 함께 OpenAI가 발급한 client_id 가 와야 한다                    (:59-61)
      붙여 넣기는 "전체 콜백 URL"이어야 하고 주소가 redirect_uri 와 같아야 한다                (:64-78)
 6. 받은 code 로 토큰 교환: POST https://auth.openai.com/api/accounts/oauth/token            (:183-206, :134-153)
@@ -318,7 +321,7 @@ pi 코드는 이것과 그대로 일치한다(`openai-chatgpt.ts:16`, `:21`, `:2
 - **로그인마다 클라이언트를 새로 등록한다**(`:15` 주석: "every login registers a new client with this ID; OpenAI returns the issued client ID in the callback"). 그래서 **발급된 `clientId`를 credential에 저장**하고, 갱신 때 그것을 쓴다.
 - `expires`는 실제 만료보다 **3분 일찍**으로 저장한다(`EXPIRY_MARGIN_MS`, `:29`). 04 §5.1의 5분 여유와 별개의 안전 마진이다.
 - 이 파일은 콜백 서버를 **자기 파일에 직접 구현**한다(`startCallbackServer`, `:85-132`). `CHANGELOG.md`는 "Anthropic, OpenAI Codex, OpenRouter, Radius의 브라우저 로그인 콜백 서버를 하나로 통합했다"고 적었는데, 이 목록에 이 파일은 없고 코드도 `auth/oauth/callback-server.ts`를 쓰지 않는다(`코드 확인`).
-- 마지막 `finally`에 `callback?.server.closeAllConnections()`(`:297`)가 있다. 주석: `close()`만으로는 브라우저가 미리 열어 둔 여분의 연결이 서버에 남아서, 같은 프로세스에서 다시 로그인할 때 새 콜백이 옛 서버로 가 "state mismatch"로 거부될 수 있다.
+- 마지막 `finally`에 `callback.server.closeAllConnections()`(`:296`)가 있다. 주석: `close()`만으로는 브라우저가 미리 열어 둔 여분의 연결이 서버에 남아서, 같은 프로세스에서 다시 로그인할 때 새 콜백이 옛 서버로 가 "state mismatch"로 거부될 수 있다.
 
 ### 7.3 갱신과 요청용 인증
 - **갱신** (`refreshAccessToken`, `:208-223`): 저장된 `clientId`가 없으면 "Stored OpenAI OAuth credential does not contain an issued client ID; reconnect ChatGPT"로 실패한다. 있으면 `grant_type=refresh_token`, `client_id`, `refresh_token`, `resource`를 같은 토큰 주소에 POST해서 새 토큰 쌍을 받는다. 갱신 시점과 락은 04-auth §5.1의 `resolveStoredOAuth`가 정한다.
@@ -346,3 +349,7 @@ pi 코드는 이것과 그대로 일치한다(`openai-chatgpt.ts:16`, `:21`, `:2
 
 ## 10. 다음
 05 utils: `retryProviderRequest`, `parseStreamingJson`, `estimateContextTokens`, `isContextOverflow`, `validation` 등 03에서 이름만 나온 것들. 06 호출 경로 종합.
+
+## 부록 (2026-10-06): 콜백 서버 실패 처리 변경
+- 이전(`3874b3e98`): 콜백 서버를 못 열면 "붙여 넣기로 진행하라"고 알리고 **계속**했다(`callback`이 `undefined`일 수 있음).
+- 지금(`28dcce2ba`, `openai-chatgpt.ts:241-249`): `EADDRINUSE`이면 `Port 1455 is in use, probably by an unfinished login in another pi session or by the Codex CLI. Cancel that login and try again.` 오류로 **중단**하고, 다른 오류는 그대로 던진다. 이유(주석): 서버 없이 진행하면 브라우저 콜백이 같은 포트를 잡은 다른 프로세스(다른 로그인이나 Codex CLI)로 가서 state mismatch로 거부된다. 그래서 `callback`은 항상 존재하고 `callback?.`가 `callback.`로 바뀌었다(`:282`, `:295-296`). (`코드 확인`, 실행 안 함)
