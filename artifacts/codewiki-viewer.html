@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeWiki 뷰어</title>
+<style>
+:root { --bg: #f6f7f9; --panel: #fff; --text: #1f2328; --muted: #656d76; --line: #d0d7de; --accent: #0969da; --hover: #eef2f6; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0d1117; --panel: #161b22; --text: #e6edf3; --muted: #8d96a0; --line: #30363d; --accent: #4493f8; --hover: #1f2630; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; }
+body { display: flex; flex-direction: column; background: var(--bg); color: var(--text); font: 14px/1.5 system-ui, "Segoe UI", "Malgun Gothic", sans-serif; }
+header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
+header strong { font-size: 15px; }
+select, button { font: inherit; color: inherit; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; max-width: 100%; }
+button { cursor: pointer; }
+button:hover { background: var(--hover); }
+.primary { background: var(--accent); border-color: var(--accent); color: #fff; padding: 8px 16px; }
+.primary:hover { background: var(--accent); filter: brightness(1.1); }
+#meta { color: var(--muted); font-size: 12px; }
+.spacer { flex: 1; }
+main { flex: 1; min-height: 0; }
+#home { height: 100%; overflow: auto; padding: 24px 16px; }
+.wrap { max-width: 960px; margin: 0 auto; }
+.note { color: var(--muted); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+h2 { font-size: 15px; margin: 24px 0 8px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.card { text-align: left; padding: 12px; border-radius: 8px; }
+.card b { display: block; color: var(--accent); }
+.card span { display: block; color: var(--muted); font-size: 12px; }
+iframe { display: block; width: 100%; height: 100%; border: 0; background: var(--bg); }
+</style>
+</head>
+<body>
+<header>
+  <strong>CodeWiki 뷰어</strong>
+  <select id="pick" hidden aria-label="CodeWiki 결과 선택"></select>
+  <span id="meta"></span>
+  <span class="spacer"></span>
+  <button id="list" hidden>목록</button>
+  <button id="root" hidden></button>
+</header>
+<main>
+  <div id="home"><div class="wrap" id="body"></div></div>
+  <iframe id="frame" hidden title="CodeWiki 문서"></iframe>
+</main>
+<script>
+// CodeWiki의 index.html은 .md를 fetch로 읽어서 file://로 열면 본문이 비어 있다.
+// 이 뷰어는 File System Access API로 고른 폴더에서 결과를 찾고, index.html을 srcdoc iframe에 넣은 뒤
+// 그 안의 fetch를 postMessage로 받아 폴더 핸들에서 직접 읽어 준다. 생성된 index.html은 고치지 않는다.
+const $ = id => document.getElementById(id);
+const SKIP = new Set(["repos", "node_modules", "temp"]);
+const MAX_DEPTH = 4;
+const ASSET = /\.(png|jpe?g|gif|svg|ico|webp)$/i;
+let root = null, sites = [], current = null, blobs = [];
+
+const esc = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+const fail = e => e.name !== "AbortError" && alert(e.message);
+
+// 한 번 고른 폴더는 IndexedDB에 기억한다. Chrome/Edge에서 "방문할 때마다 허용"을 고르면 다음부터 자동으로 열린다
+const idb = (mode, fn) => new Promise((ok, no) => {
+  const r = indexedDB.open("codewiki-viewer", 1);
+  r.onupgradeneeded = () => r.result.createObjectStore("kv");
+  r.onsuccess = () => { const t = r.result.transaction("kv", mode); const q = fn(t.objectStore("kv")); t.oncomplete = () => ok(q?.result); t.onerror = () => no(t.error); };
+  r.onerror = () => no(r.error);
+});
+const remember = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+const recall = k => { try { return localStorage.getItem(k); } catch { return null; } };
+
+async function file(dir, segs) {
+  for (const s of segs.slice(0, -1)) dir = await dir.getDirectoryHandle(s);
+  return (await dir.getFileHandle(segs.at(-1))).getFile();
+}
+
+// iframe 안의 상대경로("a.md", "./x/b.md?v=1")를 결과 폴더 기준 경로 조각으로 바꾼다. 결과 폴더 밖으로는 나가지 않는다
+function segments(path) {
+  const out = [];
+  for (const s of path.replace(/[?#].*$/, "").split("/")) {
+    if (!s || s === ".") continue;
+    if (s === "..") { out.pop(); continue; }
+    try { out.push(decodeURIComponent(s)); } catch { out.push(s); }
+  }
+  if (!out.length) throw new Error(`잘못된 경로: ${path}`);
+  return out;
+}
+
+// index.html과 module_tree.json이 함께 있는 폴더를 CodeWiki 결과로 본다
+async function scan(dir, path = [], depth = 0) {
+  const files = new Set(), dirs = [];
+  for await (const [name, e] of dir.entries()) {
+    if (e.kind === "file") files.add(name);
+    else if (!SKIP.has(name) && !name.startsWith(".")) dirs.push([name, e]);
+  }
+  if (files.has("index.html") && files.has("module_tree.json")) {
+    let meta = {};
+    if (files.has("metadata.json")) meta = await file(dir, ["metadata.json"]).then(f => f.text()).then(JSON.parse).catch(() => ({}));
+    return [{ dir, path, meta }];
+  }
+  if (depth >= MAX_DEPTH) return [];
+  return (await Promise.all(dirs.map(([n, e]) => scan(e, [...path, n], depth + 1)))).flat();
+}
+
+function describe({ path, meta }) {
+  const g = meta.generation_info || {}, st = meta.statistics || {};
+  return {
+    key: path.join("/") || ".",
+    group: path.slice(0, -1).join("/") || root.name,
+    name: path.at(-1) || root.name,
+    when: (g.timestamp || "").slice(0, 10),
+    info: [(g.timestamp || "").slice(0, 10), g.main_model, g.commit_id && g.commit_id.slice(0, 7)].filter(Boolean).join(" · "),
+    stats: st.total_components ? `컴포넌트 ${st.total_components} · 리프 ${st.leaf_nodes} · 깊이 ${st.max_depth}` : "",
+  };
+}
+
+function message(html) {
+  current = null;
+  $("frame").hidden = true;
+  $("home").hidden = false;
+  $("body").innerHTML = html;
+}
+
+function ask(saved, note = "") {
+  message(`<h1>CodeWiki 결과 열기</h1>
+    <p>${note || "처음 한 번만 <b>oss-analysis</b> 또는 <b>artifacts</b> 폴더를 고르세요. 그 아래에서 CodeWiki 결과를 찾아 목록으로 보여 줍니다."}</p>
+    <p class="note">권한 팝업에서 <b>방문할 때마다 허용</b>을 고르면 다음부터 바로 열립니다. Chrome이나 Edge에서만 동작합니다.</p>
+    <div class="actions">${saved ? `<button class="primary" id="again">📁 ${esc(saved.name)} 다시 열기</button>` : ""}
+    <button ${saved ? "" : 'class="primary"'} id="choose">📁 폴더 고르기</button></div>`);
+  $("choose").onclick = () => choose().catch(fail);
+  if (saved) $("again").onclick = async () => {
+    if ((await saved.requestPermission({ mode: "read" })) === "granted") await use(saved).catch(fail);
+    else ask(saved, "권한이 허용되지 않았습니다.");
+  };
+}
+
+async function choose() {
+  const h = await showDirectoryPicker({ id: "codewiki-viewer", mode: "read", startIn: "desktop" });
+  if (await use(h)) await idb("readwrite", s => s.put(h, "root")).catch(() => {});
+}
+
+async function use(h, restore = true) {
+  message(`<p class="note">${esc(h.name)} 안에서 CodeWiki 결과를 찾는 중…</p>`);
+  root = h;
+  sites = (await scan(h)).map(s => ({ ...s, ...describe(s) })).sort((a, b) => a.key.localeCompare(b.key));
+  if (!sites.length) {
+    ask(null, `<b>${esc(h.name)}</b> 안에서 CodeWiki 결과(index.html + module_tree.json)를 찾지 못했습니다. oss-analysis 또는 artifacts 폴더를 고르세요.`);
+    return false;
+  }
+  const groups = Map.groupBy(sites, s => s.group);
+  $("pick").innerHTML = `<option value="">결과 선택…</option>` + [...groups].map(([g, list]) =>
+    `<optgroup label="${esc(g)}">${list.map(s => `<option value="${esc(s.key)}">${esc(s.name)}${s.when ? ` (${s.when})` : ""}</option>`).join("")}</optgroup>`).join("");
+  $("pick").hidden = $("list").hidden = $("root").hidden = false;
+  $("root").textContent = `📁 ${h.name} (다른 폴더)`;
+
+  const want = restore && (decodeURIComponent(location.hash.slice(1)) || recall("codewiki-viewer:last"));
+  const site = want && sites.find(s => s.key === want);
+  site ? await open(site) : home();
+  return true;
+}
+
+function home() {
+  const groups = Map.groupBy(sites, s => s.group);
+  message(`<p class="note">${esc(root.name)} 아래 CodeWiki 결과 ${sites.length}개</p>` + [...groups].map(([g, list]) =>
+    `<h2>${esc(g)}</h2><div class="cards">${list.map(s =>
+      `<button class="card" data-key="${esc(s.key)}"><b>${esc(s.name)}</b><span>${esc(s.info)}</span><span>${esc(s.stats)}</span></button>`).join("")}</div>`).join(""));
+  for (const b of document.querySelectorAll(".card")) b.onclick = () => open(sites.find(s => s.key === b.dataset.key)).catch(fail);
+  $("pick").value = "";
+  $("meta").textContent = "";
+  document.title = "CodeWiki 뷰어";
+  history.replaceState(null, "", location.pathname);
+}
+
+// srcdoc 안에 넣는 코드. <base href="about:srcdoc">가 없으면 CodeWiki의 "#/..." 라우팅이 뷰어 파일 URL로 풀려서 iframe이 이 페이지로 이동해 버린다
+const SHIM = `<base href="about:srcdoc"><script>(() => {
+  const waiting = new Map(); let seq = 0;
+  addEventListener("message", e => {
+    const d = e.data;
+    if (e.source !== parent || !d || d.type !== "cwv-file" || !waiting.has(d.id)) return;
+    waiting.get(d.id)(new Response(d.body, { status: d.status, headers: { "Content-Type": "text/plain; charset=utf-8" } }));
+    waiting.delete(d.id);
+  });
+  window.fetch = input => new Promise(ok => {
+    const id = ++seq; waiting.set(id, ok);
+    parent.postMessage({ type: "cwv-fetch", id, path: String(input && input.url || input) }, "*");
+  });
+  // 외부 링크를 iframe 안에서 열면 뷰어를 벗어나므로 새 탭으로 연다
+  addEventListener("click", e => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (a && /^https?:/i.test(a.getAttribute("href"))) { e.preventDefault(); window.open(a.href, "_blank", "noopener"); }
+  }, true);
+})();<\/script>`;
+
+async function open(site) {
+  current = site;
+  blobs.forEach(URL.revokeObjectURL);
+  blobs = [];
+  let html = await (await file(site.dir, ["index.html"])).text();
+  // 아이콘 같은 상대경로 이미지는 srcdoc에서 풀리지 않으므로 blob URL로 바꿔 둔다
+  const urls = new Map();
+  for (const [, , ref] of html.matchAll(/\b(src|href)="([^"]+)"/g)) {
+    if (urls.has(ref) || !ASSET.test(ref) || /^([a-z][\w+.-]*:|\/\/|#)/i.test(ref)) continue;
+    const f = await file(site.dir, segments(ref)).catch(() => null);
+    if (f) { const u = URL.createObjectURL(f); blobs.push(u); urls.set(ref, u); }
+  }
+  html = html.replace(/\b(src|href)="([^"]+)"/g, (m, a, ref) => urls.has(ref) ? `${a}="${urls.get(ref)}"` : m);
+  html = html.replace(/<head[^>]*>/i, m => m + SHIM);
+  if (current !== site) return; // 읽는 사이 다른 결과를 골랐다
+
+  $("home").hidden = true;
+  $("frame").hidden = false;
+  $("frame").srcdoc = html;
+  $("pick").value = site.key;
+  $("meta").textContent = site.info;
+  document.title = `${site.key} · CodeWiki 뷰어`;
+  history.replaceState(null, "", "#" + encodeURIComponent(site.key).replace(/%2F/g, "/"));
+  remember("codewiki-viewer:last", site.key);
+}
+
+addEventListener("message", async e => {
+  const d = e.data, site = current;
+  if (!site || e.source !== $("frame").contentWindow || !d || d.type !== "cwv-fetch") return;
+  let status = 200, body;
+  try { body = await (await file(site.dir, segments(d.path))).text(); }
+  catch (err) { status = 404; body = `${d.path}: ${err.message}`; }
+  if (site === current) e.source.postMessage({ type: "cwv-file", id: d.id, status, body }, "*");
+});
+
+$("pick").onchange = () => {
+  const site = sites.find(s => s.key === $("pick").value);
+  site ? open(site).catch(fail) : home();
+};
+$("list").onclick = () => use(root, false).catch(fail);
+$("root").onclick = () => choose().catch(fail);
+
+async function start() {
+  if (!window.showDirectoryPicker) return message("<p>이 브라우저는 폴더에 접근할 수 없습니다. Chrome이나 Edge로 여세요.</p>");
+  const saved = await idb("readonly", s => s.get("root")).catch(() => null);
+  if (saved && (await saved.queryPermission({ mode: "read" })) === "granted") return use(saved);
+  ask(saved, saved ? `지난번에 고른 <b>${esc(saved.name)}</b> 폴더를 다시 열려면 권한을 허용해 주세요.` : "");
+}
+start().catch(fail);
+</script>
+</body>
+</html>

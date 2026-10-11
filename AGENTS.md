@@ -90,6 +90,7 @@ CodeWiki는 dependency graph 기반으로 레포 문서를 자동 생성하는 �
   - 실행 시간이 길고 구독 사용량을 소모하므로 백그라운드로 실행하고 로그를 남긴다. (CodeWiki 자체 기준 약 18분, CLI 표기 비용 약 $5.4)
   - Mermaid 검증은 다이어그램을 외부 서비스 `mermaid.ink`로 전송한다. 비공개 코드는 `MERMAID_VALIDATE=0`으로 끈다. 이 서비스의 503 응답도 로그에 "syntax errors"로 찍히므로 오류 로그만 보고 문법 오류로 판단하지 않는다.
 - 출력: `overview.md`(시작점), 모듈별 `.md`, `module_tree.json`, `metadata.json`(모델·commit), `index.html`(`--github-pages`).
+  - `index.html`은 `.md`를 `fetch`로 읽어 `file://`로는 본문이 안 뜬다. `artifacts/codewiki-viewer.html`(Chrome/Edge, 폴더 선택)로 열거나, 출력 폴더에서 `python -m http.server 8000 --bind 127.0.0.1` 후 `http://localhost:8000`으로 연다.
 - 전체 옵션: `repos/CodeWiki/guides/cli-reference.md`, provider: `repos/CodeWiki/guides/providers.md`
 
 ## 작업 시 참고 파일
