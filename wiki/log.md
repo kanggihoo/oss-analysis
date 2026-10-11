@@ -321,3 +321,9 @@
 - Read the `3874b3e98..28dcce2ba` diff for the `ai` files our docs cite (`auth/resolve.ts`, `auth/oauth/openai-chatgpt.ts`, `api/anthropic-messages.ts`, `api/simple-options.ts`, `api/openai-*.ts`, `models.ts`, `types.ts`, `utils/transcript.ts`, `utils/retry.ts`, `providers/azure*`) and patched `reports/pi/ai/01, 02, 03-1, 03-2, 03-3, 04, 05, 06` with dated NOTE blocks. Whole-repo diff is 280 files but the new work is `packages/env` and `durable`, outside what was analyzed; `packages/agent/src` is unchanged.
 - Behavior changes recorded: OAuth refresh now ignores the caller's signal once started (only the lock wait is cancellable); `samplingParamsByThinkingLevel`; Anthropic `tool_addition` carries the definition by value; provider `azure-openai-responses` became `azure`; ChatGPT login fails on a busy callback port instead of falling back to paste. Not re-run: model data counts and the 03-1 line numbers beyond the edited paragraph.
 - Updated [[pi]] and [[stealable-pattern-stored-credential-owns-provider]].
+
+## [2026-10-09] ingest | jev-ultrafast first pass
+- Analyzed `repos/jev-ultrafast` at `1231850a0bf1` with the `open-source-codebase-understanding` skill (registered via symlink `.claude/skills/open-source-codebase-understanding`). 40 tracked files, so analyzed directly without subagents.
+- Ran `uv run pytest`: 31 passed (offline). Live/paid scripts and `scripts/check_guards.py` (real Chrome) not run.
+- Wrote `reports/jev-ultrafast/overview.md`, `next.md`, archify diagrams `structure` (architecture) and `tick-flow` (sequence), both showcase-validated and visual-checked; metadata in `artifacts/jev-ultrafast/repo-metadata.txt`.
+- Added [[jev-ultrafast]]; updated `wiki/index.md` to 57 pages.

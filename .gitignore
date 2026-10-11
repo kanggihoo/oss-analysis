@@ -1,5 +1,6 @@
 # 1. Local repositories (managed by their own origin git)
 /repos/
+/trading/repos/
 
 # 2. Artifacts: exclude heavy dumps, logs, and temporary caches
 artifacts/**/static-analysis/

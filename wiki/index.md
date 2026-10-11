@@ -2,7 +2,7 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-10-06 | Total pages: 56
+> Last updated: 2026-10-09 | Total pages: 57
 
 ## Projects
 
@@ -18,6 +18,7 @@
 - [[graft]] — Source-verified design notes for the local, regenerable markdown context graph that feeds coding agents; two-tier tree-sitter/LLM pipeline and refresh-on-query.
 - [[graphify]] — Open-source knowledge graph tool overview and source-verified architecture notes.
 - [[Understand-Anything]] — Source-verified plugin architecture for multi-agent code/wiki graph generation, core schema, dashboard security, and Gemini baseline drift.
+- [[jev-ultrafast]] — Source-verified overview of the browser agent that chooses observed operation/target indices via one TypeSafe request, with a small LLM only for TYPE_TEXT; offline tests run.
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
 - [[pi]] — Source-verified summary of the `ai` (unified LLM API) and `agent` (agent loop, `Agent` wrapper, proxy stream) packages of the TypeScript agent toolkit, with run-verified loop behavior; coding-agent and other packages not yet analyzed.
 - [[ponytail]] — Source-verified overview of the lazy-senior-dev agent skill, its ladder philosophy, safety boundaries, and thin multi-host adapter model.
