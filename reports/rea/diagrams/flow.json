@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "analyze_javascript_application 실행 흐름 (MCP)",
+    "output": "flow.html",
+    "viewBox": [
+      900,
+      620
+    ],
+    "quality_profile": "showcase",
+    "column_fit": "spread"
+  },
+  "participants": [
+    {
+      "id": "agent",
+      "type": "external",
+      "label": "Agent",
+      "sublabel": "MCP client"
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "MCP tool 등록",
+      "sublabel": "registerElectronTools"
+    },
+    {
+      "id": "service",
+      "type": "backend",
+      "label": "JS App Service",
+      "sublabel": "analyzeJavaScript…"
+    },
+    {
+      "id": "recon",
+      "type": "cloud",
+      "label": "Reconstruction",
+      "sublabel": "reconstructJS…Artifact"
+    },
+    {
+      "id": "domain",
+      "type": "database",
+      "label": "domain/javascript",
+      "sublabel": "결과 스키마 검증"
+    }
+  ],
+  "messages": [
+    {
+      "id": "call",
+      "from": "agent",
+      "to": "server",
+      "y": 170,
+      "label": "analyze_javascript_application",
+      "variant": "emphasis"
+    },
+    {
+      "id": "handler",
+      "from": "server",
+      "to": "service",
+      "y": 220,
+      "label": "입력 parse 후 호출",
+      "variant": "default"
+    },
+    {
+      "id": "inventory",
+      "from": "service",
+      "to": "recon",
+      "y": 270,
+      "label": "inventory + parse",
+      "variant": "default"
+    },
+    {
+      "id": "graph",
+      "from": "recon",
+      "to": "service",
+      "y": 320,
+      "label": "graph + electron_summary",
+      "variant": "return"
+    },
+    {
+      "id": "validate",
+      "from": "service",
+      "to": "domain",
+      "y": 370,
+      "label": "parseOwned…Steps",
+      "variant": "default"
+    },
+    {
+      "id": "result",
+      "from": "domain",
+      "to": "service",
+      "y": 420,
+      "label": "result",
+      "variant": "return"
+    },
+    {
+      "id": "evidence",
+      "from": "service",
+      "to": "server",
+      "y": 470,
+      "label": "Evidence (해시)",
+      "variant": "return"
+    },
+    {
+      "id": "reply",
+      "from": "server",
+      "to": "agent",
+      "y": 520,
+      "label": "toolResult",
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "정상 경로",
+      "items": [
+        "입력은 zod strictObject로 검증",
+        "정적 분석만 수행, 대상 실행 안 함"
+      ]
+    },
+    {
+      "dot": "orange",
+      "title": "취소 처리",
+      "items": [
+        "취소 시 부분 결과를 Evidence로 보존해 오류에 첨부"
+      ]
+    }
+  ]
+}

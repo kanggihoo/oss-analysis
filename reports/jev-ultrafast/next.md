@@ -4,6 +4,8 @@
 - 확인한 범위: `jev_ultrafast/*.py`, `snapshot.js`, `demo.py`, `examples/`, `docs/design.md`, `docs/performance.md`, 테스트 목록. `uv run pytest` 31 passed.
 - 산출물: [overview.md](overview.md), [diagrams/structure.html](diagrams/structure.html), [diagrams/tick-flow.html](diagrams/tick-flow.html)
 
+- 질문 답변: [questions/q1-dynamic-choices-and-context.md](questions/q1-dynamic-choices-and-context.md) (동적 선택지·중복 버튼·context 예시)
+
 ## 남은 질문 (후보)
 
 1. TypeSafe `/v1/systemone`은 질문 head들을 어떻게 한 번에 답하나? (docs.typesafe.ai의 fan-out 패턴 문서 확인)
@@ -18,3 +20,5 @@
 - `jev_ultrafast/static/app.js` (Inspector가 decisions/raw_answers를 어떻게 보여주는지)
 - `tests/test_agent.py:230-280` (atomic read, stale 거부, select 중단)
 - 외부: `browser_harness.helpers.cdp`, `browser_harness.admin.ensure_daemon`
+
+6. 중복 라벨 버튼(요소 표에서 index만 다름)을 모델이 페이지 텍스트 순서만으로 구분하나? — 실제 실행 필요 (q1 §3 참고)

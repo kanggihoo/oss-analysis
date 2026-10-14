@@ -327,3 +327,14 @@
 - Ran `uv run pytest`: 31 passed (offline). Live/paid scripts and `scripts/check_guards.py` (real Chrome) not run.
 - Wrote `reports/jev-ultrafast/overview.md`, `next.md`, archify diagrams `structure` (architecture) and `tick-flow` (sequence), both showcase-validated and visual-checked; metadata in `artifacts/jev-ultrafast/repo-metadata.txt`.
 - Added [[jev-ultrafast]]; updated `wiki/index.md` to 57 pages.
+
+## [2026-10-14] ingest | e2e first pass
+- Cloned `repos/e2e` (shallow, depth 50) at `dbdec7088693`; worktree clean. Read-only analysis: no install, build, test, or model call.
+- Wrote `reports/e2e/overview.md`, `next.md`, archify diagrams `structure` (architecture) and `flow` (sequence), both showcase-validated and visual-checked; metadata in `artifacts/e2e/repo-metadata.txt`.
+- Added [[e2e]]; updated `wiki/index.md` to 58 pages.
+
+## [2026-10-14] create | rea
+- First-pass analysis of morluto/rea @ 60c0880: reports/rea (overview, next, 2 archify diagrams), wiki/projects/rea.md.
+
+## [2026-10-14] update | pi agent layering
+- Added `reports/pi/agent/06-layering.md` (agent vs coding-agent relationship, why the layers are split; reasons marked `추론`). Added a summary bullet to [[pi]]. Rewrote `reports/pi/agent/00~05` with the humanizer skill (prose only, no fact changes).

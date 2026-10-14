@@ -24,6 +24,7 @@ sources:
   - reports/pi/agent/03-agent-class.md
   - reports/pi/agent/04-proxy.md
   - reports/pi/agent/05-call-flow.md
+  - reports/pi/agent/06-layering.md
   - artifacts/pi/agent-demos/
   - repos/pi/packages/agent/src/agent-loop.ts
   - repos/pi/packages/agent/src/agent.ts
@@ -87,6 +88,7 @@ agent.prompt("hi")
 - **throw 정책이 비대칭**: 도구 쪽은 루프가 `isError` 결과로 흡수, 그 밖의 훅은 호출자 책임, `Agent`가 안전망(`handleRunFailure`). [[stealable-pattern-hook-injected-loop-with-throw-contract]]
 - **도구 목록은 대화 기록의 system 메시지(`toolsAdded/toolsRemoved`)로 실린다**(`declareToolChanges`).
 - **`streamProxy`**: 서버가 `partial`을 뺀 이벤트를 보내면 클라이언트가 하나의 `partial`을 갱신하며 복원. 이 repo에서는 `coding-agent`가 쓰지 않고 테스트, README, 브라우저 스모크만 쓴다. `setDefaultStreamFn`은 provider 목록 의존 없이 호스트가 기본 모델 런타임을 설치하는 전역 변수.
+- **`coding-agent`와의 관계**: `coding-agent`가 `streamFn`, 도구(`execute` 함수 포함), 훅을 `Agent`에 넘기고 `agent`가 정해진 지점에서 호출한다. 도구는 `coding-agent`의 `ToolDefinition`을 `wrapToolDefinition`으로 `AgentTool`로 바꿔 `agent.state.tools`에 등록한다. 계층을 나눈 이유(도구 내용은 제품마다 다르고 반복은 같다, 정책은 훅으로 분리, 패키지를 작게 유지)는 코드와 CHANGELOG에서 읽은 `추론`이다. 이 repo에서 `agent`를 쓰는 패키지는 `coding-agent` 하나뿐이라 재사용 이점은 아직 잠재적이다(`reports/pi/agent/06-layering.md`).
 
 ## Taste Notes
 

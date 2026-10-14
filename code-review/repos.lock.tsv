@@ -1,0 +1,4 @@
+# name	url	branch	sha	commit_date
+pr-agent	https://github.com/The-PR-Agent/pr-agent	main	330f0813b5fe0d1f54b794077c2d02aa85a1fb63	2026-10-11
+kodus-ai	https://github.com/kodustech/kodus-ai	main	45676c5fe7ac016b6206ccea006e459677d92842	2026-10-12
+open-code-review	https://github.com/alibaba/open-code-review	main	57273a9ea28548b94b3d67c247ff13a63c01fc47	2026-06-21
