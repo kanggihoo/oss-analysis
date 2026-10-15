@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "REA 모듈 구조 (6.4.0, 60c0880)",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      960,
+      800
+    ]
+  },
+  "components": [
+    {
+      "id": "agent",
+      "type": "external",
+      "label": "Agent / 터미널",
+      "sublabel": "MCP client · rea CLI",
+      "pos": [
+        20,
+        200
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "dispatch",
+      "type": "frontend",
+      "label": "scripts/rea.mjs",
+      "sublabel": "mcp / one-shot 분기",
+      "pos": [
+        200,
+        200
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "main",
+      "type": "backend",
+      "label": "src/main.ts",
+      "sublabel": "MCP stdio 서버",
+      "pos": [
+        380,
+        80
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "backend",
+      "label": "src/cli.ts",
+      "sublabel": "one-shot CLI",
+      "pos": [
+        380,
+        320
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "src/server/",
+      "sublabel": "register*Tools · toolResult",
+      "pos": [
+        560,
+        80
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "composition",
+      "type": "backend",
+      "label": "src/composition/",
+      "sublabel": "provider·session factory",
+      "pos": [
+        560,
+        320
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "app",
+      "type": "backend",
+      "label": "src/application/",
+      "sublabel": "CLI/MCP 공용 workflow",
+      "pos": [
+        780,
+        200
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "cloud",
+      "label": "Native providers",
+      "sublabel": "hopper · ghidra · ida",
+      "pos": [
+        780,
+        500
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "jsbrowser",
+      "type": "cloud",
+      "label": "JS / 브라우저 분석",
+      "sublabel": "artifacts · browser · javascript",
+      "pos": [
+        560,
+        500
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "process",
+      "type": "security",
+      "label": "src/process/",
+      "sublabel": "소유 프로세스·정리",
+      "pos": [
+        780,
+        680
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "domain",
+      "type": "database",
+      "label": "domain + contracts",
+      "sublabel": "Evidence · Result · schema",
+      "pos": [
+        560,
+        680
+      ],
+      "size": [
+        150,
+        64
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "agent-dispatch",
+      "from": "agent",
+      "to": "dispatch"
+    },
+    {
+      "id": "dispatch-main",
+      "from": "dispatch",
+      "to": "main",
+      "label": "mcp"
+    },
+    {
+      "id": "dispatch-cli",
+      "from": "dispatch",
+      "to": "cli",
+      "label": "명령"
+    },
+    {
+      "id": "main-server",
+      "from": "main",
+      "to": "server"
+    },
+    {
+      "id": "cli-composition",
+      "from": "cli",
+      "to": "composition"
+    },
+    {
+      "id": "server-app",
+      "from": "server",
+      "to": "app",
+      "variant": "emphasis"
+    },
+    {
+      "id": "composition-app",
+      "from": "composition",
+      "to": "app"
+    },
+    {
+      "id": "app-providers",
+      "from": "app",
+      "to": "providers"
+    },
+    {
+      "id": "app-js",
+      "from": "app",
+      "to": "jsbrowser"
+    },
+    {
+      "id": "providers-process",
+      "from": "providers",
+      "to": "process"
+    },
+    {
+      "id": "js-domain",
+      "from": "jsbrowser",
+      "to": "domain"
+    }
+  ]
+}

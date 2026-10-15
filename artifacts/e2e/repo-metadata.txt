@@ -1,0 +1,9 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/e2e
+name=e2e
+date=2026-10-14
+commit=dbdec7088693d9d91f771ea4b6fad2e838e209c0
+commit_date=2026-10-14
+origin=https://github.com/tester-army/e2e
+clone=shallow (--depth 50)
+worktree=clean
+package_version=e2e 0.20.0

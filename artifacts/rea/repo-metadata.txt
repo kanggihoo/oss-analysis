@@ -1,0 +1,6 @@
+url: https://github.com/morluto/rea
+sha: 60c08802a7b6d2195121114a9e4224492f138185
+commit_date: 2026-10-14
+analyzed: 2026-10-14
+worktree: clean
+package: rea-agents 6.4.0 (MIT, Node >=22.19)

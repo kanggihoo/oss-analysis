@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "e2e (tester-army) 구조도 — packages/e2e 중심",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "viewBox": [
+      1270,
+      580
+    ]
+  },
+  "components": [
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "CLI",
+      "sublabel": "cli/index.ts main()",
+      "pos": [
+        40,
+        100
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "runner",
+      "type": "backend",
+      "label": "run()",
+      "sublabel": "run/runner.ts",
+      "pos": [
+        300,
+        100
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "collect",
+      "type": "backend",
+      "label": "Collect",
+      "sublabel": "collect/ test() registry",
+      "pos": [
+        560,
+        100
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "exec",
+      "type": "backend",
+      "label": "TargetExecutor",
+      "sublabel": "run/execute.ts runAttempt",
+      "pos": [
+        820,
+        100
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "worker 프로세스"
+    },
+    {
+      "id": "model",
+      "type": "external",
+      "label": "LLM provider",
+      "sublabel": "AI SDK (peer dep)",
+      "pos": [
+        40,
+        280
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "executor",
+      "type": "backend",
+      "label": "Tool-loop executor",
+      "sublabel": "agent/tool-loop.ts",
+      "pos": [
+        300,
+        280
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "agent.act()",
+      "sublabel": "agent/act.ts dispatch",
+      "pos": [
+        820,
+        280
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "engine",
+      "type": "backend",
+      "label": "Engine session",
+      "sublabel": "engine/session.ts SPI",
+      "pos": [
+        1080,
+        280
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "backend",
+      "label": "Replay cache",
+      "sublabel": "agent/step-cache.ts",
+      "pos": [
+        820,
+        460
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": ".e2e/cache/",
+      "sublabel": "cache/store.ts",
+      "pos": [
+        560,
+        460
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "web",
+      "type": "cloud",
+      "label": "web / mobile engines",
+      "sublabel": "Playwright, agent-device",
+      "pos": [
+        1080,
+        460
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cli-run",
+      "from": "cli",
+      "to": "runner",
+      "label": "run(options)"
+    },
+    {
+      "id": "run-collect",
+      "from": "runner",
+      "to": "collect",
+      "label": "collect tests"
+    },
+    {
+      "id": "collect-exec",
+      "from": "collect",
+      "to": "exec",
+      "label": "pairs"
+    },
+    {
+      "id": "exec-agent",
+      "from": "exec",
+      "to": "agent",
+      "label": "agent fixture",
+      "labelDx": 0,
+      "labelDy": 24
+    },
+    {
+      "id": "agent-cache",
+      "from": "agent",
+      "to": "cache",
+      "label": "begin / conclude",
+      "variant": "emphasis",
+      "labelDx": 0,
+      "labelDy": 24
+    },
+    {
+      "id": "agent-exec",
+      "from": "agent",
+      "to": "executor",
+      "label": "runStep on miss"
+    },
+    {
+      "id": "exec-model",
+      "from": "executor",
+      "to": "model",
+      "label": "tool calls"
+    },
+    {
+      "id": "cache-store",
+      "from": "cache",
+      "to": "store",
+      "label": "read / write"
+    },
+    {
+      "id": "agent-engine",
+      "from": "agent",
+      "to": "engine",
+      "label": "observe / actions"
+    },
+    {
+      "id": "engine-web",
+      "from": "engine",
+      "to": "web",
+      "label": "EngineSpi",
+      "labelDx": 0,
+      "labelDy": 24
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Run path",
+      "items": [
+        "CLI → run() → worker → TargetExecutor",
+        "test() files are re-imported in the worker"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Agent step",
+      "items": [
+        "Cache replay first, model loop on miss",
+        "Only act steps are cached"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Unverified",
+      "items": [
+        "runner→worker IPC detail",
+        "collect→exec edge is simplified"
+      ]
+    }
+  ]
+}

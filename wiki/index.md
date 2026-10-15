@@ -2,7 +2,7 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-10-15 | Total pages: 59
+> Last updated: 2026-10-15 | Total pages: 61
 
 ## Projects
 
@@ -13,6 +13,7 @@
 - [[codeburn]] — Source-verified architecture notes for the AI coding token/cost observability pipeline from provider logs to TUI, menubar JSON, and MCP surfaces.
 - [[codewiki]] — Source-verified overview of the dependency-graph documentation generator: graph → LLM clustering → recursive module agents, subscription (claude/codex CLI) backend, and fact-checked output reliability.
 - [[deeptutor]] — Source-verified analysis of DeepTutor's intelligent learning-agent modules, prompt/context contracts, educational IRs, validation loops, and mastery engine.
+- [[e2e]] — Source-verified first pass of the agentic E2E test framework: `agent.act` goals with a verified-then-replayed action cache, model fallback on divergence, and swappable executor/engine boundaries.
 - [[folo]] — Source-verified client-only monorepo analysis for the multi-platform RSS reader: public SDK boundary, offline-first local SQLite, and the Electron-over-web shell pattern.
 - [[codenotch]] — Source-verified notes for the macOS notch app that reads 20+ coding tools' usage limits: the five acquisition mechanisms behind the absent vendor API, convention-plus-credential account discovery, the situational polling schedule with persisted 429 back-off, and the Fidelity/ProviderStatus honesty model.
 - [[deeptutor]] — Source-verified analysis of DeepTutor's intelligent learning-agent modules, prompt/context contracts, educational IRs, validation loops, and mastery engine.
@@ -23,6 +24,7 @@
 - [[oss-analysis-workspace]] — Current workspace structure and operating model for repo analysis and wiki synthesis.
 - [[pi]] — Source-verified summary of the `ai` (unified LLM API) and `agent` (agent loop, `Agent` wrapper, proxy stream) packages of the TypeScript agent toolkit, with run-verified loop behavior; coding-agent and other packages not yet analyzed.
 - [[ponytail]] — Source-verified overview of the lazy-senior-dev agent skill, its ladder philosophy, safety boundaries, and thin multi-host adapter model.
+- [[rea]] — First-pass map of the local MCP/CLI reverse-engineering toolkit: Evidence model, shared application layer, bring-your-own native providers (partly unverified).
 - [[rsshub]] — Source-verified layered architecture of the self-hostable feed-generation server: route plugin model, request coalescing, and the 3,462-route catalog.
 - [[skills-manager]] - Source-verified first-pass notes on the Tauri/Rust app that keeps AI agent skills in one central library and deploys them to 54 agents by symlink/junction/copy, with ownership-based overwrite protection (ReplacePolicy).
 - [[tokscale]] — Source-verified architecture notes for the Rust CLI/core plus Next.js social platform that tracks AI coding assistant token usage.

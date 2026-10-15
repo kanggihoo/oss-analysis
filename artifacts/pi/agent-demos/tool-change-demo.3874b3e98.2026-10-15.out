@@ -1,0 +1,32 @@
+
+=== S1 도구 추가 (native=true) ===
+agent 기록(요청 2): roles=system,user,assistant,system,user
+  system 메시지 2개: #0 toolsAdded=[read,bash] toolsRemoved=[] | #1 toolsAdded=[edit] toolsRemoved=[]
+  맨 앞 system 메시지가 요청 1과 요청 2에서 같은가: true
+Anthropic 요청 1: tools=[read, bash, __pi_deferred_placeholder__[defer]]
+Anthropic 요청 2: tools=[read, bash, __pi_deferred_placeholder__[defer], edit[defer]]  중간 system 메시지 블록=["tool_addition:edit"]
+앞부분 유지(캐시 가능): 일반 tools 동일=true, system 동일=true, 요청 1의 messages가 요청 2의 앞부분=true
+
+=== S2 도구 제거 (native=true) ===
+agent 기록(요청 2): roles=system,user,assistant,system,user
+  system 메시지 2개: #0 toolsAdded=[read,bash] toolsRemoved=[] | #1 toolsAdded=[] toolsRemoved=[bash]
+  맨 앞 system 메시지가 요청 1과 요청 2에서 같은가: true
+Anthropic 요청 1: tools=[read, bash, __pi_deferred_placeholder__[defer]]
+Anthropic 요청 2: tools=[read, bash, __pi_deferred_placeholder__[defer]]  중간 system 메시지 블록=["tool_removal:bash"]
+앞부분 유지(캐시 가능): 일반 tools 동일=true, system 동일=true, 요청 1의 messages가 요청 2의 앞부분=true
+
+=== S3 같은 이름 재정의 (native=true) ===
+agent 기록(요청 2): roles=system,user,assistant,system,user
+  system 메시지 2개: #0 toolsAdded=[read] toolsRemoved=[] | #1 toolsAdded=[read] toolsRemoved=[read]
+  맨 앞 system 메시지가 요청 1과 요청 2에서 같은가: true
+Anthropic 요청 1: tools=[read, __pi_deferred_placeholder__[defer]]
+Anthropic 요청 2: tools=[read]  중간 system 메시지 블록=[]
+앞부분 유지(캐시 가능): 일반 tools 동일=false, system 동일=true, 요청 1의 messages가 요청 2의 앞부분=true
+
+=== S4 추가, 모델이 중간 변경 미지원 (native=false) ===
+agent 기록(요청 2): roles=system,user,assistant,system,user
+  system 메시지 2개: #0 toolsAdded=[read,bash] toolsRemoved=[] | #1 toolsAdded=[edit] toolsRemoved=[]
+  맨 앞 system 메시지가 요청 1과 요청 2에서 같은가: true
+Anthropic 요청 1: tools=[read, bash]
+Anthropic 요청 2: tools=[read, bash, edit]  중간 system 메시지 블록=[]
+앞부분 유지(캐시 가능): 일반 tools 동일=false, system 동일=true, 요청 1의 messages가 요청 2의 앞부분=true
