@@ -75,7 +75,7 @@ export * from "./types.ts";            // 타입들
 | `coding-agent` | 44회(파일 38개) | 47회 | 전부 루트 import |
 | 그 외 | 0 | 0 | |
 
-`coding-agent`가 가져가는 것(`src` 기준 상위)은 `AgentTool` 16, `ThinkingLevel` 16, `AgentMessage` 14, `AgentToolResult` 5, `AgentToolCallOutcome` 4, `StreamFn` 3, `Agent` 2, `AgentState` 2, `setDefaultStreamFn` 1, `runToolCall` 1 등이다. 대부분 타입이고, `Agent` 클래스를 실제로 만드는 곳은 두 곳, 함수 `runToolCall`은 한 곳이다.
+`coding-agent`가 가져가는 것(`src` 기준 상위)은 `AgentTool` 16, `ThinkingLevel` 16, `AgentMessage` 14, `AgentToolResult` 5, `AgentToolCallOutcome` 4, `StreamFn` 3, `Agent` 2, `AgentState` 2, `setDefaultStreamFn` 1, `runToolCall` 1 등이다. 대부분 타입이다. `Agent`는 두 파일이 import하지만 `new Agent(...)`로 실제로 만드는 곳은 `core/sdk.ts:387` 한 곳이고(`createAgentSession` 안, 2026-10-15 `coding-agent/src` 전체 검색), `core/agent-session.ts`는 타입으로만 가져온다. `test/`에는 `new Agent(`를 쓰는 파일이 13개 있다. 함수 `runToolCall`은 한 곳에서 쓴다.
 
 이전에는 `server`, `session-backends`, `chord` 등도 이 패키지를 썼으나 지금은 쓰지 않는다. 다른 패키지의 언급은 아래와 같고 모두 실행 코드의 import가 아니다.
 | 위치 | 내용 |
@@ -140,10 +140,21 @@ type StreamFn = (model, context: TranscriptContext, options?: SimpleStreamOption
 - 도구 요청이 있으면 결과를 붙여 다음 턴이 자동으로 이어지고, AI가 도구 요청 없이 답하면 끝난다.
 - 다음 사용자 입력은 보통 이 반복이 끝난 뒤에 온다. 다만 일하는 도중에 사용자가 메시지를 넣는 기능(`steer`, `followUp`)이 있어서, 이 경우 사용자 메시지가 턴 사이에 끼어든다.
 
-### 4.2 `AgentState`와 ai 패키지의 연결 (`types.ts:382-421`)
-- `systemPrompt`는 읽기 전용이고 "transcript의 시스템 메시지를 재생해서 얻는다." 바꾸려면 시스템 메시지를 추가한다.
-- `tools`를 새 배열로 바꾸면 "transcript에 선언된 도구와의 차이를 다음 요청 전에 시스템 메시지로 모델에 알린다."
-- agent가 ai/01 §2.1의 `SystemMessage` 기능(`content`, `sections`, `toolsAdded`, `toolsRemoved`)을 쓰는 곳이 여기다.
+### 4.2 시스템 프롬프트와 도구 목록은 대화 기록에 실린다 (`types.ts:382-421`)
+`AgentState`의 `systemPrompt`와 `tools`는 보통의 변수처럼 따로 저장된 값이 아니다. 둘 다 대화 기록 맨 앞의 system 메시지에 들어 있고, 그 메시지를 읽어서 얻는다. ai 패키지의 `SystemMessage`가 가진 `content`, `sections`, `toolsAdded`, `toolsRemoved` 필드를 `agent`가 쓰는 곳이다(ai/01 §2.1).
+
+- `systemPrompt`는 읽기 전용이다. 대화 기록의 system 메시지를 처음부터 훑어 현재 값을 계산한다. 바꾸려면 값을 대입하지 않고 system 메시지를 기록에 추가한다.
+- `tools`에 새 배열을 대입하면, `agent`가 "이전에 선언된 도구와 달라진 점"을 다음 요청을 보내기 전에 새 system 메시지로 기록에 끼워 넣는다.
+
+예: 세션 도중에 `edit` 도구가 추가되는 경우
+```
+처음 기록:  [system(도구: read, bash)] [user] [assistant] ...
+tools = [read, bash, edit] 로 변경
+다음 요청 직전:  [system(도구: read, bash)] [user] [assistant] ... [system(toolsAdded: edit)] [user]
+```
+- 맨 앞 system 메시지는 고치지 않는다. 변경분은 바뀐 시점의 뒤쪽에 새 system 메시지로 쌓인다. 도구가 빠지면 `toolsRemoved`로 적는다.
+- 이렇게 해 두면 앞부분이 그대로라서 LLM 서비스의 캐시(앞에서부터 같은 부분까지만 재사용)를 지키기 쉽다. 이 경로를 Anthropic 요청으로 바꾸는 코드의 주석이 "도구가 바뀌어도 캐시된 앞부분을 유지한다"고 적고 있다(`anthropic-messages.ts`). 실제 `Agent`로 도구를 추가, 제거, 재정의하고 요청 본문을 비교해 확인했다(요청 본문의 모양까지만 확인, 서버의 실제 캐시 적중은 미확인).
+- 모든 경우에 유지되는 것은 아니다. 모델이 대화 중간의 도구 변경을 지원하지 않으면 현재 도구 목록 전체를 요청 맨 앞에 보내므로 캐시가 깨질 수 있다. 같은 이름의 도구를 다르게 재정의하는 경우도 `3874b3e98`에서는 같은 폴백이었으나 `28dcce2ba`에서는 대화 중간에서 처리한다. 자세한 분기와 실행 결과는 [02 §8.1](./02-agent-loop.md)에 있다.
 
 ### 4.3 이벤트 10종 (`types.ts:514-529`)
 `agent_start`/`agent_end`, `turn_start`/`turn_end`, `message_start`/`message_update`/`message_end`, `tool_execution_start`/`tool_execution_update`/`tool_execution_end`.
@@ -193,14 +204,7 @@ type StreamFn = (model, context: TranscriptContext, options?: SimpleStreamOption
 ## 7. 읽지 않은 것 (`미확인`) (2026-10-06 갱신)
 - ~~루프 본문, `Agent` 내부, `proxy.ts` 본문~~ → 02, 03, 04에서 읽음
 - 테스트 4개 파일 내용(05의 가짜 `streamFn` 실험이 일부를 대신함), `examples/mcp-codemode`
-- `coding-agent`가 `Agent`를 쓰는 나머지(`agent-session.ts`), 두 번째 `new Agent` 위치
+- `coding-agent`가 `Agent`를 쓰는 나머지(`agent-session.ts`는 타입으로만 import하고 메서드를 호출하는 쪽, 호출 내용은 미확인). ~~두 번째 `new Agent` 위치~~ → 2026-10-15에 없는 것으로 확인(`src`에는 `sdk.ts:387` 한 곳뿐)
 - `durable` 패키지가 이 패키지의 개념을 어떻게 이어받았는지
 
-## 8. 다음 문서 계획 (agent 시리즈): 01~05 모두 작성 완료 (2026-10-06)
-| 번호 | 내용 |
-|---|---|
-| 01-types | 이미 읽은 `types.ts`의 `AgentMessage`, `AgentTool`, `AgentEvent`, `AgentLoopConfig`를 쉬운 말과 표로 정리 |
-| 02-agent-loop | `agent-loop.ts` 루프 본문: 턴, 도구 실행(순차/병렬), 훅 호출 지점, 종료 조건, ai 스트림을 받는 `:385-455` |
-| 03-agent-class | `Agent` 클래스: 상태, 큐(steering/follow-up), 구독자, 실패 처리, `waitForIdle` |
-| 04-proxy | `streamProxy`와 `ProxyMessageEventStream` |
-| 05-call-flow | `agent.prompt("...")` 한 번이 지나가는 길(ai/06과 이어서)과 실행 실험(가짜 `streamFn`) |
+

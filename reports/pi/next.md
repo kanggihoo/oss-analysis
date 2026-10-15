@@ -65,7 +65,7 @@
 ### 2.1 `agent` 나머지 — **완료** (02~05 작성, 2026-10-06)
 
 ### 2.2 `coding-agent`
-- `core/sdk.ts` (`setDefaultStreamFn` `:39`, `new Agent` `:387-420`, 두 번째 `new Agent` 위치 확인)
+- `core/sdk.ts` (`setDefaultStreamFn` `:39`, `new Agent` `:387-420`, ~~두 번째 `new Agent` 위치 확인~~ → 2026-10-15: `src`에는 `sdk.ts:387` 한 곳뿐)
 - `core/agent-session.ts`: `_handlePostAgentRun`, `_isRetryableError`, `_prepareRetry`, 자동 압축(`:2948-2972`), `runToolCall` 사용(`:31`, `:711`), `core/nested-tool-calls.ts`
 - `core/compaction/compaction.ts` (`retryAssistantCall` `:638`, `estimateContextTokens` `:196`)
 - `core/session-manager.ts` (`buildSessionProjection`, Q8 재검증), `core/auth-storage.ts`, `core/model-runtime.ts:211`

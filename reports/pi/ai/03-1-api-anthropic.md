@@ -259,6 +259,11 @@ Anthropic Messages API의 요청 객체를 만든다. 순서대로 정리한다.
 - `strict`(스키마를 엄격하게 지키게 하는 옵션)는 `compat.supportsStrictTools`가 true일 때만 쓴다. Anthropic이 거부하는 스키마 키워드(`minimum`, `maxItems`, 일부 `format` 등)가 있으면 `strict`를 쓰지 않는다 (`:1548-1581`).
 - 마지막 도구에 캐시 표시를 붙인다(`compat.supportsCacheControlOnTools`가 true일 때).
 
+쉬운 설명: 세션 도중 도구가 바뀔 때마다 요청 맨 앞의 도구 목록을 고치면 캐시(앞에서부터 같은 부분까지만 재사용)가 깨진다. 그래서 처음 도구는 맨 앞에 그대로 두고, 이후의 추가와 제거는 대화 중간의 블록(`tool_addition`, `tool_removal`)으로 보낸다. 모델이 이를 지원하지 않거나 같은 이름의 도구를 다르게 재정의하면 현재 도구 목록 전체를 맨 앞에 보내므로 캐시가 깨질 수 있다. `agent` 쪽에서 도구 변경을 기록하는 방식은 [agent/02 §8](../agent/02-agent-loop.md)과 [agent/00 §4.2](../agent/00-role.md)에 있다.
+
+> [!NOTE]
+> 2026-10-15 실행 확인: 아래 "이전 commit과 달라진 점" 문단은 맞다. 두 commit(`3874b3e98`, `28dcce2ba`)의 실제 `anthropic-messages.ts`에 같은 도구 변경 시나리오(추가, 제거, 같은 이름 재정의, 모델 미지원)를 넣고 요청 본문을 비교했다. `3874b3e98`은 나중 도구를 `defer_loading`으로 `tools`에 선언하고 재정의에서 폴백했고, `28dcce2ba`는 `tools`가 고정이고 재정의도 `tool_addition`(정의 포함)으로 처리했다. 체크아웃된 `repos/pi`가 `3874b3e98`이라 읽은 코드가 옛 방식이었을 뿐 모순은 없었다. 결과 표는 [agent/02 §8.1](../agent/02-agent-loop.md), 출력은 `artifacts/pi/agent-demos/tool-change-demo.*.out`.
+
 **도구 변경을 서버가 직접 지원하는 경우** (`nativeToolChanges`, `:1141-1149`, `:1205-1220`): 모델이 `supportsMidConvoSystemMessages`와 `supportsMidConvoToolChanges`를 모두 지원하고 처음부터 도구가 있으면, **요청 수준의 도구 목록은 처음 도구 + 자리표시자(`DEFERRED_TOOL_PLACEHOLDER`)로 고정**하고 이후 도구 변경은 대화 안의 블록으로 보낸다: 추가는 `tool_addition`에 **도구 정의를 값으로 담은** `tool_definition` 블록, 제거는 `tool_removal`(같은 이름을 다시 정의하면 제거 블록은 생략, `convertMessages` 내부). 주석에 따르면 도구 목록이 바뀌지 않으므로 앞부분 캐시가 깨지지 않는다. 도구 변경 때 캐시가 전부 무효화된 것을 측정했다는 주석도 있다(`:198-210`). **이전 commit과 달라진 점**: 이전에는 나중 도구를 `defer_loading: true`로 요청 목록에 미리 선언하고 `tool_addition`은 이름만 참조했으며(`tool_reference`), 같은 이름을 다시 정의한 대화는 이 방식을 쓸 수 없었다(`hasToolRedefinitions`). 지금은 정의를 값으로 보내므로 **재정의 제약이 없어졌고** `hasToolRedefinitions`는 `@deprecated`이다(`utils/transcript.ts`).
 
 ### 4.7 추론(thinking) 설정 (`:1242-1273`)

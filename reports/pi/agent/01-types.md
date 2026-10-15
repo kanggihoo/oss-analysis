@@ -14,7 +14,7 @@
 | D. 상태와 알림 | `AgentState`, `AgentContext`, `AgentEvent`, `ThinkingLevel` | 지금 상태, 화면에 알리는 이벤트 |
 | (연결) | `StreamFn` | ai를 부르는 함수의 모양 |
 
-## 1. 장난감 모델: 이 타입들이 쓰이는 순서
+## 1. 간단한 예시: 이 타입들이 쓰이는 순서
 ```
 기록 messages = [사용자: "a.txt 읽어줘"]
 ① convertToLlm(messages)         → AI가 이해하는 Message[] 로 변환   (AgentLoopConfig)
@@ -71,6 +71,8 @@ ai의 `Tool<TParameters>`(이름, 설명, 매개변수 스키마로 이루어진
 `parallel`의 순서 규칙(`:43-45`): `tool_execution_end` 이벤트는 끝난 순서로, tool-result 메시지는 AI가 요청한 순서로 나온다. 화면에는 먼저 끝난 것이 먼저 보이지만 기록은 요청 순서로 쌓인다.
 
 ## 4. C. 루프 설정 `AgentLoopConfig` (`:193-342`)
+훅 10개를 누가 채우고 언제 부르는지는 [07-hooks](./07-hooks.md)에 한 표로 정리했다.
+
 `SimpleStreamOptions`(ai의 호출 옵션: 키, 온도 등)를 상속하고 `model`(필수)에 아래 훅을 더한다. ai에 줄 옵션과 루프용 훅이 한 객체에 섞여 있다(ai/01 §2.4의 옵션 계층 위에 한 층이 더 있다).
 
 ### 4.1 호출 직전에 메시지를 다듬는 두 훅
@@ -132,9 +134,19 @@ ai의 `Tool<TParameters>`(이름, 설명, 매개변수 스키마로 이루어진
 `tools`와 `messages`가 getter/setter인 이유(`:379-380`)는 구현이 대입된 배열을 복사해서 저장하게 하려는 것이다.
 
 ### 5.2 `AgentContext` (`:500`)
-`{ messages, tools? }`로, 저수준 루프에 넘기는 스냅샷이다. `AgentState`의 일부만 뽑은 것으로 보인다(`추론`).
+`{ messages, tools? }`로, 저수준 루프에 넘기는 스냅샷이다. `Agent`가 run을 시작할 때 자기 상태에서 `messages`와 `tools`를 `slice()`로 복사해 만든다(`agent.ts:460-465`의 `createContextSnapshot`, `코드 확인`). 루프가 대화 기록을 바꿔도 `Agent`의 원본 상태에는 영향이 없게 하려는 것이다(03 §5.1). 훅의 입력(예: `beforeToolCall`이 받는 `context`)에도 이 값이 실려 간다.
 
 ### 5.3 `AgentEvent` 10종 (`:514-529`)
+이벤트는 §4의 훅과 다른 장치다.
+| | 훅 (`beforeToolCall`, `finishTurn` 등) | 이벤트 (`AgentEvent`) |
+|---|---|---|
+| 방향 | `agent`가 밖의 함수를 호출해서 물어봄 | `agent`가 일어난 일을 밖에 알려 줌 |
+| 반환값 | 루프 동작을 바꾼다(막기, 종료, 교체) | 쓰지 않는다 |
+| 등록 방법 | `Agent`의 필드에 대입 | `agent.subscribe(listener)` |
+| 용도 | 동작에 끼어드는 정책 | 화면 갱신, 로그, 저장 |
+
+예를 들어 도구를 실행하는 장면에서 `beforeToolCall`은 "실행해도 되는가"를 묻고 `{ block: true }`로 답하면 실행이 취소된다. 그 뒤 나가는 `tool_execution_end` 이벤트는 구독자에게 결과를 알릴 뿐 동작을 바꾸지 않는다. `coding-agent` 확장의 `pi.on("tool_call", ...)` 같은 이름은 `AgentEvent`가 아니라 훅의 몸체에 연결된 것이다([07-hooks](./07-hooks.md) §5).
+
 | 묶음 | 이벤트 (필드) |
 |---|---|
 | 실행 | `agent_start`, `agent_end{messages}` |
@@ -150,7 +162,7 @@ ai의 `Tool<TParameters>`(이름, 설명, 매개변수 스키마로 이루어진
 `off | minimal | low | medium | high | xhigh | max`. 주석에 따르면 `xhigh`, `max`는 일부 모델 계열만 지원하며 지원 여부는 ai의 모델 메타데이터로 판단한다. ai 쪽 추론 수준 타입과의 대응은 이 문서에서 `미확인`이다.
 
 ## 6. 연결: `StreamFn` (`:33-37`)
-`(model, context: TranscriptContext, options?) => AssistantMessageEventStream | Promise<…>`. throw, reject는 금지이고, 실패는 `stopReason: "error" | "aborted"`인 최종 `AssistantMessage`와 이벤트로 표현한다. `Models.streamSimple`이 이 모양을 만족한다(00-role §3.3).
+`(model, context: TranscriptContext, options?) => AssistantMessageEventStream | Promise<…>`. `agent`가 AI를 부를 때 쓰는 함수의 모양이다. `Models.streamSimple`이 이 모양을 만족하고(00-role §3.3), 실패는 throw하지 않고 `stopReason: "error" | "aborted"`인 최종 `AssistantMessage`와 이벤트로 표현한다. `ai` 패키지의 `StreamFunction`과 같은 모양이다. 입출력 예시, 시간 순서, 누가 만들어 넘기는지, 실패 처리는 [08-stream-fn](./08-stream-fn.md)에 정리했다.
 
 ## 7. 읽으면서 알게 된 것
 1. throw 금지 계약이 곳곳에 있다: `StreamFn`, `convertToLlm`, `transformContext`, `getApiKey`, `getSteeringMessages`, `getFollowUpMessages`. 루프 쪽 try/catch를 줄이는 대신 호출자에게 책임을 넘기는 설계다. 도구의 `execute`와 `beforeToolCall`/`afterToolCall`은 예외가 허용되는 것으로 보이나(주석에 금지 문구 없음) 루프의 처리는 `미확인`이다.

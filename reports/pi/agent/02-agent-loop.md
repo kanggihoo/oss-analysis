@@ -26,7 +26,7 @@
 - 반환값 `newMessages`는 이번 실행에서 새로 생긴 메시지만이다(기존 `context.messages`는 제외). `runAgentLoop`는 `[...context.messages, ...]` 복사본으로 시작하지만(`:112-115`), `runAgentLoopContinue`는 `{ ...context }`(`:144`)라서 `messages` 배열이 호출자와 같은 참조다. 루프가 `currentContext.messages.push`를 하므로 이 함수를 직접 부르면 호출자의 배열이 바뀐다. `Agent`를 거치면 `slice()` 복사본을 넘기므로 영향이 없다(03 §5.1, `코드 확인`).
 - `agentLoop`(`:38-61`)에는 `.catch`가 없다. `runAgentLoop`가 reject되면(throw 금지 훅 위반, 기본 `streamFn` 미설정 등) 처리되지 않은 rejection이 되고, `agent_end`가 오지 않으므로 반환한 스트림은 끝나지 않는다. `Agent`는 `runAgentLoop`를 직접 부르고 `handleRunFailure`로 받으므로 안전하다(04 §9, 실행 확인 05 H1).
 
-## 4. 장난감 모델: `runLoop`가 하는 일
+## 4. 간단한 예시: `runLoop`가 하는 일
 ```
 pending = getSteeringMessages()            ← 시작 시 한 번 (사용자가 기다리는 동안 친 것)
 while true:                                 ← 바깥 루프
@@ -151,6 +151,30 @@ afterToolCall({..., result, isError}, signal)  → 결과 덮어쓰기, throw �
 - 의미: 기록을 처음부터 재생하면 항상 `context.tools`가 나온다. 호출 지점은 첫 프롬프트(`:110`)와 매 턴 대기 메시지 주입(`:211`) 두 곳이다.
 - `getCurrentTools`, `getToolStateChanges`, `toToolDeclaration`은 ai에서 import한다(`:9-15`). 이들의 내용은 이 문서에서 `미확인`이다(ai/01 기준 확인 필요).
 - 이전 분석(Q5~Q8)에는 없는 개념이므로 재검증 때 반영해야 한다.
+
+### 8.1 이 방식이 캐시와 어떻게 이어지나 (2026-10-15 추가, `ai` 코드 확인과 실행 확인)
+- 배경: LLM 서비스의 캐시는 요청의 앞에서부터 같은 부분까지만 재사용된다. Anthropic은 `tools`, `system`, `messages` 순이라, 맨 앞의 도구 목록이 바뀌면 뒤 전체가 캐시 미스가 된다.
+- pi의 방식: 맨 앞 system 메시지는 고치지 않고, 바뀐 시점 뒤에 변경분만 system 메시지로 쌓는다(위 §8). `ai`가 이를 요청으로 바꿀 때, 모델이 지원하면 처음 도구는 요청 맨 앞에 두고 이후 변경은 대화 중간의 블록(`tool_addition`, `tool_removal`)으로 싣는다. 주석은 도구가 바뀌어도 캐시된 앞부분이 유지된다고 적고 있다(`anthropic-messages.ts`, `코드 확인`).
+- 캐시가 깨질 수 있는 경우(폴백): 현재 도구 목록 전체를 요청 맨 앞(`params.tools`)에 보낸다.
+  - 두 commit 모두: 모델이 `supportsMidConvoSystemMessages`/`supportsMidConvoToolChanges`를 지원하지 않거나, 처음 도구가 없을 때.
+  - `3874b3e98`만: 같은 이름의 도구를 다르게 재정의했을 때(`hasToolRedefinitions`). `28dcce2ba`에서는 `tool_addition`이 정의를 값으로 담아 재정의도 대화 중간에서 처리하므로 폴백하지 않는다.
+- 두 commit의 차이(나중에 추가된 도구를 어떻게 싣는가):
+  | | `3874b3e98` | `28dcce2ba` |
+  |---|---|---|
+  | 요청의 `tools` | 처음 도구, 자리표시자, 나중 도구(`defer_loading`)로 점점 늘어남 | 처음 도구와 자리표시자로 고정 |
+  | `tool_addition` | 이름만 참조(`tool_reference`) | 정의를 값으로 포함 |
+  | 재정의 | 폴백(캐시 깨질 수 있음) | 대화 중간에서 처리 |
+
+#### 실행 확인 (2026-10-15, `artifacts/pi/agent-demos/tool-change-demo.ts`)
+실제 `Agent`로 prompt를 두 번 하고 그 사이에 `agent.state.tools`를 바꿔 기록을 모은 뒤, 그 기록을 각 commit의 실제 `anthropic-messages.ts` 요청 만들기에 넣고 요청 본문을 비교했다. Anthropic SDK는 쓰지 않았고(빈 stub), 네트워크 호출도 없다. 출력: `tool-change-demo.3874b3e98.2026-10-15.out`, `tool-change-demo.28dcce2ba.2026-10-15.out`.
+| 시나리오 | agent 기록 | `3874b3e98` 요청 2 | `28dcce2ba` 요청 2 |
+|---|---|---|---|
+| S1 도구 추가(`edit`) | 맨 앞 system 메시지 그대로, 뒤에 `toolsAdded=[edit]` system 메시지 | 일반 tools 동일, `edit[defer]`가 뒤에 추가, `tool_addition:edit` 블록 | tools 완전 동일, `tool_addition`(정의 포함) 블록 |
+| S2 도구 제거(`bash`) | 뒤에 `toolsRemoved=[bash]` system 메시지 | tools 동일, `tool_removal:bash` 블록 | 같음 |
+| S3 같은 이름 재정의(`read`) | 뒤에 `toolsAdded=[read]`, `toolsRemoved=[read]` | 폴백: `tools=[read]`만 보내 앞부분이 달라짐 | tools 동일, `tool_addition`(정의 포함) 블록 |
+| S4 모델이 중간 변경 미지원 | 같음 | 폴백: `tools=[read, bash, edit]`로 앞부분이 달라짐 | 같음 |
+- 모든 시나리오에서 agent 쪽 맨 앞 system 메시지는 요청 1과 요청 2에서 같았고, `system` 필드와 요청 1의 `messages`가 요청 2의 앞부분이라는 점도 같았다.
+- 한계: 요청 본문의 모양만 비교했다. 실제 캐시 적중은 서버에서만 알 수 있고 호출하지 않았다. `defer_loading` 도구가 캐시 앞부분에 포함되지 않는다는 점은 코드 주석("measured")에 의존한다. Anthropic 경로만 확인했고 OpenAI 계열(`openai-completions.ts:1241`의 `anchorsAdditions`)은 `미확인`이다. `agent` 쪽은 `3874b3e98` 체크아웃의 `transcript.ts` shim을 썼다(`packages/agent/src`는 두 commit이 같다).
 
 ## 9. `runToolCall` (`:790-818`): export된 이유
 `prepareToolCall`, `executePreparedToolCall`, `finalizeExecutedToolCall`을 이벤트도 메시지도 만들지 않고 그대로 실행한다. 주석에 따르면 도구가 다른 도구를 부를 때 권한 검사 같은 훅이 똑같이 적용되게 하려는 것이다. 사용처는 coding-agent의 `agent-session.ts:31,711`과 `nested-tool-calls.ts`로 handoff에 적혀 있으나 이 문서에서는 `미확인`이다(coding-agent 단계에서 확인).

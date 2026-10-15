@@ -66,6 +66,7 @@ agent.prompt("hi")                              agent.ts:373
 | 13 | 순차 도구 중 중단 시 `toolResult` 누락 (02 §7.5) | F | 확인: toolCall 2, toolResult 1 |
 | 14 | run 도중 `state.model` 변경은 현재 run에 반영되지 않음 (03 §10) | G | 한 run: `fake -> fake`, 다음 run: `changed`. 일치 |
 | 15 | `agentLoop`(스트림 반환판)는 reject를 처리하지 않음 (04 §9) | H1 | 스트림이 300ms 후에도 끝나지 않고 `unhandledRejection` 발생. 확인 |
+| 16 | 세션 도중 도구가 바뀌면 맨 앞 system 메시지는 두고 뒤에 변경분이 쌓인다 (02 §8) | `tool-change-demo.ts` (2026-10-15) | 확인. 요청 본문 비교까지는 [02 §8.1](./02-agent-loop.md) 참조 |
 
 ### 3.1 D: steering (실행에서 새로 알게 된 것)
 `prompt` 전에 `steer(s1)`, `steer(s2)`를 넣은 경우다(도구 호출 1회와 답 1회).

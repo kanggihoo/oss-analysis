@@ -338,3 +338,12 @@
 
 ## [2026-10-14] update | pi agent layering
 - Added `reports/pi/agent/06-layering.md` (agent vs coding-agent relationship, why the layers are split; reasons marked `추론`). Added a summary bullet to [[pi]]. Rewrote `reports/pi/agent/00~05` with the humanizer skill (prose only, no fact changes).
+
+## [2026-10-15] update | pi tool-change cache run
+- Ran `artifacts/pi/agent-demos/tool-change-demo.ts` against both `3874b3e98` and `28dcce2ba` (git archive extracts in scratchpad, SDK stubbed, no network): real `Agent` + real `anthropic-messages.ts` request builder. Resolved the 03-1 vs checkout discrepancy (different commits, no contradiction). Updated `reports/pi/agent/00,02,05`, `reports/pi/ai/03-1`, [[pi]].
+
+## [2026-10-15] update | pi agent hooks
+- Added `reports/pi/agent/07-hooks.md` (10 hooks: who fills, when called, extension handlers, throw policy). Linked from `00-role` §8, `01-types` §4, `06-layering` §3.3; summary bullet in [[pi]]. Corrected hook line refs (sdk.ts convertToLlm :395, streamFn :396, transformContext :412).
+
+## [2026-10-15] update | pi agent StreamFn
+- Added `reports/pi/agent/08-stream-fn.md` (StreamFn input/output, call sequence, who supplies it, relation to ai `StreamFunction`, failure contract). `01-types` §6 shortened with a link; summary bullet in [[pi]].

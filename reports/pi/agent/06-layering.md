@@ -2,6 +2,7 @@
 
 - 기준 commit: `28dcce2ba` (`packages/agent/src`는 `3874b3e98`과 같다). 작성일: 2026-10-14
 - 선행 문서: [00-role](./00-role.md), [01-types](./01-types.md), [02-agent-loop](./02-agent-loop.md), [03-agent-class](./03-agent-class.md), [04-proxy](./04-proxy.md)
+- 훅 상세: [07-hooks](./07-hooks.md)
 - 읽은 파일: `coding-agent/src/core/tools/tool-definition-wrapper.ts`(앞 40줄), `coding-agent/src/core/agent-session.ts`(`grep`으로 `agent.state.tools` 사용 줄만), `agent/src/agent-loop.ts:726-780`, `agent/README.md`(앞 30줄), `mcp/README.md:34-41`, `codemode/README.md:117-120`. 나머지는 00~05의 기록을 가져왔다.
 - 검증 수준: 관계(누가 누구를 부르는가)는 `코드 확인`. 계층을 나눈 이유는 개발자가 직접 적은 문서를 찾지 못했으므로 코드, README, CHANGELOG에서 읽어낸 `추론`이다.
 
@@ -23,7 +24,7 @@ tools     (read, bash, edit 등 execute) ──▶  AI가 도구를 요청하면
 
 ## 3. 넘기는 것 네 가지
 
-### 3.1 `streamFn`: AI를 부르는 함수
+### 3.1 `streamFn`: AI를 부르는 함수 (상세: [08-stream-fn](./08-stream-fn.md))
 `coding-agent`(`core/sdk.ts:387-420`)가 `Models.streamSimple`을 감싼 함수를 만들어 `new Agent({ streamFn })`에 넘긴다. `agent`는 provider를 모르고 이 함수만 호출한다(00-role §3.1, §5).
 
 ### 3.2 `tools`: 실행 함수가 들어 있는 도구 객체
@@ -33,7 +34,7 @@ tools     (read, bash, edit 등 execute) ──▶  AI가 도구를 요청하면
 - AI가 `read`를 요청하면 `agent-loop.ts`가 이름이 같은 도구를 찾아 `validateToolArguments`로 인자를 검사하고(`:726`) `beforeToolCall`을 거친 뒤 `tool.execute(...)`를 부른다(02 §7.3). `agent`는 `execute` 안에서 무슨 일이 일어나는지 모른다.
 
 ### 3.3 훅: 정해진 지점에 끼우는 정책
-`transformContext`로 확장이 컨텍스트에 정보를 넣고(`sdk.ts`의 `extensionRunner?.emitContext`), `beforeToolCall`/`afterToolCall`, `finishTurn`, `prepareRequest`, `prepareNextTurn` 같은 훅이 `Agent`의 public 필드로 열려 있다(03 §3). 어떤 훅을 실제로 `coding-agent`가 채우는지는 이번에 `sdk.ts` 일부만 봤으므로 전체는 `미확인`이다.
+훅은 모두 10개다. `coding-agent`가 7개(`convertToLlm`, `transformContext`, `prepareRequest`, `prepareNextTurn`, `finishTurn`, `beforeToolCall`, `afterToolCall`)를 채우고, 끼어들기 훅 2개(`getSteeringMessages`, `getFollowUpMessages`)는 `Agent` 클래스가 스스로 채우며(큐에는 `coding-agent`가 `agent.steer`, `agent.followUp`으로 넣는다), `getApiKey`는 채우는 곳을 찾지 못했다. 훅은 `AgentSession`이 `Agent`의 필드에 꽂고, 몸체 안에서 확장(extension) 핸들러(`pi.on("tool_call", ...)` 등)에 연결된다. 표, 호출 순서, 예시는 [07-hooks](./07-hooks.md)에 있다(2026-10-15 확인).
 
 ### 3.4 구독자: 이벤트를 받는 쪽
 `agent.subscribe(...)`로 이벤트 10종을 받는다(01 §5.3). `coding-agent`가 이것으로 화면 갱신과 세션 저장을 하는지는 `미확인`(coding-agent 단계에서 확인).

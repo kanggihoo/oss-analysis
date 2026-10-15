@@ -25,6 +25,8 @@ sources:
   - reports/pi/agent/04-proxy.md
   - reports/pi/agent/05-call-flow.md
   - reports/pi/agent/06-layering.md
+  - reports/pi/agent/07-hooks.md
+  - reports/pi/agent/08-stream-fn.md
   - artifacts/pi/agent-demos/
   - repos/pi/packages/agent/src/agent-loop.ts
   - repos/pi/packages/agent/src/agent.ts
@@ -87,7 +89,10 @@ agent.prompt("hi")
 - **병렬 도구**: 준비(검증, `beforeToolCall`)는 순차, 실행만 동시, 완료 이벤트는 완료 순, `toolResult` 메시지는 호출 순. 실행 확인.
 - **throw 정책이 비대칭**: 도구 쪽은 루프가 `isError` 결과로 흡수, 그 밖의 훅은 호출자 책임, `Agent`가 안전망(`handleRunFailure`). [[stealable-pattern-hook-injected-loop-with-throw-contract]]
 - **도구 목록은 대화 기록의 system 메시지(`toolsAdded/toolsRemoved`)로 실린다**(`declareToolChanges`).
+  - 세션 도중 도구가 바뀌어도 맨 앞 system 메시지는 두고 변경분만 뒤에 쌓아, `ai`가 Anthropic 요청의 앞부분(캐시)을 유지하게 한다. 모델이 대화 중간 도구 변경을 지원하지 않으면 도구 목록 전체를 맨 앞에 보내 캐시가 깨질 수 있고, 같은 이름 재정의는 `3874b3e98`에서는 폴백, `28dcce2ba`에서는 대화 중간에서 처리한다. 두 commit의 실제 요청 본문을 비교해 확인했다(서버의 실제 캐시 적중은 미확인). `reports/pi/agent/02` §8.1.
 - **`streamProxy`**: 서버가 `partial`을 뺀 이벤트를 보내면 클라이언트가 하나의 `partial`을 갱신하며 복원. 이 repo에서는 `coding-agent`가 쓰지 않고 테스트, README, 브라우저 스모크만 쓴다. `setDefaultStreamFn`은 provider 목록 의존 없이 호스트가 기본 모델 런타임을 설치하는 전역 변수.
+- **`StreamFn`**: `agent`가 AI를 부르는 함수 모양(`model, context, options` 입력, 이벤트 스트림 출력, 실패는 `error` 이벤트로). `ai`의 `StreamFunction`과 같은 모양이 `agent`, `Models`, 통신 코드 층마다 반복된다(`reports/pi/agent/08-stream-fn.md`).
+- **훅 10개**: `coding-agent`가 7개를 채우고 큐 훅 2개는 `Agent`가 스스로 채우며 `getApiKey`는 채우는 곳을 못 찾았다. 훅은 매번 호출되고 할 일은 훅 안에서 확장(`pi.on("tool_call", ...)`) 핸들러 유무로 정해진다(`reports/pi/agent/07-hooks.md`).
 - **`coding-agent`와의 관계**: `coding-agent`가 `streamFn`, 도구(`execute` 함수 포함), 훅을 `Agent`에 넘기고 `agent`가 정해진 지점에서 호출한다. 도구는 `coding-agent`의 `ToolDefinition`을 `wrapToolDefinition`으로 `AgentTool`로 바꿔 `agent.state.tools`에 등록한다. 계층을 나눈 이유(도구 내용은 제품마다 다르고 반복은 같다, 정책은 훅으로 분리, 패키지를 작게 유지)는 코드와 CHANGELOG에서 읽은 `추론`이다. 이 repo에서 `agent`를 쓰는 패키지는 `coding-agent` 하나뿐이라 재사용 이점은 아직 잠재적이다(`reports/pi/agent/06-layering.md`).
 
 ## Taste Notes
