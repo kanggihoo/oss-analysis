@@ -1,142 +1,103 @@
 ---
 title: CodeBurn Provider Plugin System
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-10-15
 type: concept
-tags: [open-source, architecture, developer-tools, tooling, evidence, deepwiki]
+tags: [open-source, architecture, developer-tools, tooling, evidence]
 sources:
-  - artifacts/codeburn/deepwiki/pages-md/4-provider-plugin-system.md
-  - wiki/projects/codeburn.md
-  - wiki/concepts/codeburn-data-ingestion-and-caching.md
-  - wiki/concepts/codeburn-domain-terminology.md
   - repos/codeburn/src/providers/types.ts
   - repos/codeburn/src/providers/index.ts
-  - repos/codeburn/src/providers/codex.ts
-  - repos/codeburn/src/providers/cursor.ts
-  - repos/codeburn/src/providers/opencode.ts
-  - repos/codeburn/src/providers/antigravity.ts
   - repos/codeburn/src/providers/sqlite-session-parser.ts
-  - repos/codeburn/src/sqlite.ts
+  - repos/codeburn/src/providers/vercel-gateway.ts
+  - repos/codeburn/src/providers/copilot.ts
   - repos/codeburn/src/parser.ts
-  - repos/codeburn/tests/provider-registry.test.ts
+  - repos/codeburn/src/session-cache.ts
+  - wiki/projects/codeburn.md
+  - wiki/concepts/codeburn-data-ingestion-and-caching.md
+  - wiki/concepts/codeburn-codex-provider.md
 confidence: high
 ---
+
 # CodeBurn Provider Plugin System
 
-이 페이지는 [[codeburn]]의 provider plugin system을 정리한다. DeepWiki `4 Provider Plugin System`을 baseline으로 삼았지만, durable claim은 현재 `repos/codeburn` source를 직접 확인해 기록한다. Provider가 발견한 source를 core parser/cache가 처리하는 더 넓은 ingestion 흐름은 [[codeburn-data-ingestion-and-caching]], 공통 entity 용어는 [[codeburn-domain-terminology]]를 참조한다.
+검증 기준 checkout: repos/codeburn at 9a40cc603fcd194caca9daa8c5134a61ea7e0e2b (2026-10-15).
 
-검증 기준 checkout: `repos/codeburn` at `f1bf7a197bb38e70cc71cf1905bfa5cbd92c1cc3`.
+관련: [[codeburn]], [[codeburn-domain-terminology]], [[codeburn-data-ingestion-and-caching]], [[codeburn-codex-provider]], [[codeburn-pricing-and-currency-resolution]], [[codeburn-day-aggregation-and-caching]]
 
-## Mental model
+## 한 줄 요약
 
-CodeBurn provider는 “AI coding tool별 raw history format → 공통 `ParsedProviderCall` stream” 변환 adapter다. Core parser는 모든 tool format을 직접 알지 않고, provider registry에서 선택된 provider의 discovery/parser를 호출한 뒤, 결과를 session/project/day/report 구조로 접는다.
+- **provider**: AI 코딩 도구 하나(Codex, Cursor, Copilot 등)의 로컬 기록을 읽어 공통 형식으로 바꾸는 어댑터 객체.
+- 모든 provider는 `Provider` 타입 하나를 구현하고, `src/providers/index.ts` 레지스트리가 이를 모아 `parser.ts`에 넘긴다. parser는 provider별 포맷을 모르고 `ParsedProviderCall` 스트림만 소비한다. (코드 확인)
 
-```text
-local files / SQLite DB / network API
-→ Provider.discoverSessions()
-→ SessionSource[]
-→ Provider.createSessionParser(source, seenKeys, dateRange)
-→ ParsedProviderCall stream
-→ parseProviderSources(): cache, dedup, date filter
-→ ClassifiedTurn / SessionSummary / ProjectSummary
-→ dashboard, JSON, menubar, MCP, export
-```
+## Provider 인터페이스 (`src/providers/types.ts`)
 
-## Provider interface
+- `Provider` (types.ts:139-165) 필드 (코드 확인):
+  - `name` / `displayName`, `modelDisplayName()`, `toolDisplayName()` — 표시용 이름 변환.
+  - `discoverSessions(onSkippedVersion?)` → `Promise<SessionSource[]>` (:157) — 디스크/DB에서 세션 후보를 찾는다.
+  - `createSessionParser(source, seenKeys, dateRange?)` → `SessionParser` (:158) — 한 source를 파싱할 객체를 만든다.
+  - `probeRoots?()` (:164) — `codeburn doctor`가 스캔 경로 존재 여부를 보여주기 위한 선택 메서드.
+  - `network?` (:144) — 디스크 파일 없이 API로 가져오는 provider. fingerprint/증분 캐시 불가.
+  - `durableSources?` (:153) — 외부 프로세스가 원본을 지울 수 있는 provider. 캐시 항목을 지우지 않고 합집합으로 유지.
+- **SessionSource** (types.ts:4-26): 파싱 단위 하나. `path`, `project`, `provider` 필수, `sourceKind`(claude 전용), `agentName`(OMP), `retainWhilePresent`(copilot session-store) 등 provider별 확장 필드가 붙어 있다. (코드 확인)
+- **SessionParser** (types.ts:28-30): `parse(): AsyncGenerator<ParsedProviderCall>` 하나뿐. (코드 확인)
+- **ParsedProviderCall** (types.ts:32-130): API 호출 1건의 정규화 레코드. 토큰 버킷(input/output/cacheCreation/cacheRead/cached/reasoning), `costUSD`, `deduplicationKey`, `timestamp`, `speed`, `tools`, `sessionId` 등. 최근 추가된 선택 필드: `costFromBilling`, `fallbackCostUSD`, `locAdded/locRemoved/editFailed`, `nanoAiu`(Copilot), `requestCount`(Vercel), `route`, `billing`, `activeDurationMs/toolWaitMs`. (코드 확인)
+- **deduplicationKey**: 같은 호출이 여러 파일/경로로 보일 때 한 번만 세기 위한 문자열 키. provider가 만들고 parser가 `seenKeys` Set으로 공유한다. (코드 확인, parser.ts:3784)
 
-현재 `Provider` interface는 다음 contract를 요구한다. (`repos/codeburn/src/providers/types.ts:38-48`)
+## 레지스트리: core + lazy (`src/providers/index.ts`)
 
-| Field/method | 역할 |
-|---|---|
-| `name` | 내부 provider id. 예: `claude`, `codex`, `cursor`, `opencode` |
-| `displayName` | 사용자-facing 이름 |
-| `network?` | live API source provider 여부. true면 파일 fingerprint 없이 매 run 재-fetch |
-| `modelDisplayName(model)` | raw model id를 사람이 읽기 쉬운 이름으로 표시 |
-| `toolDisplayName(rawTool)` | provider-specific tool name을 CodeBurn canonical tool name으로 표시 |
-| `discoverSessions()` | local filesystem/DB/API에서 `SessionSource[]` 발견 |
-| `createSessionParser(source, seenKeys, dateRange?)` | source를 `ParsedProviderCall` async stream으로 변환 |
+- `coreProviders` (index.ts:200): 정적 import된 32개. `pi.ts`가 `pi`, `omp` 두 개를 export한다(:26). (코드 확인)
+- `lazyProviderNames` (index.ts:204): 11개 — antigravity, forge, goose, cursor, opencode, cursor-agent, crush, warp, vercel-gateway, zcode, zed. 각각 `loadX()`가 `await import()`로 한 번만 시도하고 실패하면 `null`을 캐시한다 (예: loadCursor index.ts:98-108). (코드 확인)
+  - lazy로 두는 이유: SQLite 등 선택적 네이티브 의존성이 깨져도 나머지 provider가 동작하도록. (추론, catch에서 null 반환하는 구조로부터)
+- `lazyProviderDisplayNames` (index.ts:209-221): 모듈 로드 실패 시에도 표시 이름을 돌려주기 위한 정적 표. `allProviderNames()` (:233-239)는 `--provider` 검증용 전체 이름 목록. (코드 확인)
+- `getAllProviders()` (index.ts:241-257)
+  - 입력: 없음.
+  - 내부 동작: 11개 lazy loader를 `Promise.all`로 병렬 실행, core 뒤에 성공한 것만 push.
+  - 반환값: `Provider[]` (core 순서 → lazy 순서). (코드 확인)
+- `getProvider(name)` (index.ts:325-371): lazy 이름이면 해당 loader, 아니면 core에서 find. (코드 확인)
+- 기준선 변화: 구 baseline(f1bf7a1)은 core 19 + lazy 9였다. 현재 32 + 11. (코드 확인, 구 수치는 이전 노트 기준)
 
-`ParsedProviderCall`은 provider/model, token buckets, `costUSD`, tools/bash commands, timestamp, speed, `deduplicationKey`, user message, session/project 정보를 담는다. (`repos/codeburn/src/providers/types.ts:13-36`)
+## Discovery 흐름
 
-## Registry: core providers + optional lazy providers
+- `discoverOne(provider)` (index.ts:268-286): provider 하나의 `discoverSessions()`를 try/catch로 격리. 실패 시 `recordProviderIssue(name,'locate',err)` 기록, provider당 1회 stderr 경고, `{sources: [], failed: true}` 반환. (코드 확인)
+- `discoverAllSessionsWithFailures(providerFilter?, providerList?)` (index.ts:298-316)
+  - 입력: `--provider` 필터(`'all'`이면 무시), 테스트용 provider 목록.
+  - 내부 동작: 필터링 후 모든 provider의 discovery를 `Promise.all`로 동시 실행, 레지스트리 순서로 concat.
+  - 반환값: `{ sources, failedProviders }` — "세션 없음"과 "discovery 실패"를 구분하기 위해 실패 이름을 따로 돌려준다(주석 :292-295). (코드 확인)
 
-현재 source 기준 provider registry는 DeepWiki page보다 커졌다.
+## Parser 통합 (`src/parser.ts`)
 
-Core providers는 동기 import되어 `providers` export에 바로 들어간다. 현재 core set은 다음 19개다. (`repos/codeburn/src/providers/index.ts:1-19`, `repos/codeburn/src/providers/index.ts:155`, `repos/codeburn/tests/provider-registry.test.ts:5-7`)
+- `runParseInner` (parser.ts:6488~): `discoverAllSessionsWithFailures` 호출(:6518) → claude source와 나머지로 분리(:6522-6525) → 나머지는 provider별 그룹. (코드 확인)
+- Claude는 예외 경로: 일반 transcript는 `scanProjectDirs()`(:6579)가 직접 처리하고, `sourceKind === 'claude-desktop-ledger'`만 `parseProviderSources('claude', ...)`(:6589)를 탄다. (코드 확인)
+- 나머지 provider: 그룹마다 `parseProviderSources(providerName, sources, seenKeys, diskCache, ...)` (:6616). 권한 오류만 건너뛰고 그 외 오류는 전체 실행을 중단한다(:6620-6625). (코드 확인)
+- `parseProviderSources` (parser.ts:3610) 핵심 단계 (코드 확인):
+  1. `getProvider()`로 객체 확보(:3625).
+  2. source마다 fingerprint 계산(`network` provider는 건너뛰고 합성 fingerprint로 매번 재수집, :3657, :3692-3695).
+  3. 변경된 source만 `provider.createSessionParser(source, parserDedup, dateRange)`(:3893) → `parse()`를 끝까지 수집.
+  4. Codex는 예외적으로 worker thread 풀에서 먼저 파싱 가능(:3808-3831, [[codeburn-codex-provider]] 참고).
+  5. `canonicalizeProviderCallProject` → `providerCallsToCachedTurns`(:3899-3900)로 캐시 turn 형태로 변환.
+  6. `durableSources`면 기존 캐시 항목을 지우지 않고 dedup key 기준 합집합 병합(:3855, :3928-3960). 아니면 경로 단위 덮어쓰기.
+- `providerCallToCachedCall` (parser.ts:2807-2830): 캐시에는 원칙적으로 `costUSD`를 저장하지 않고 읽을 때 토큰으로 재가격한다. 예외는 `REPORTED_COST_PROVIDERS`(:2794, mistral-vibe·antigravity·devin·vercel-gateway·hermes·kiro 등) 또는 `costFromBilling === true`. (코드 확인) 가격표 갱신이 과거 데이터에도 반영되게 하려는 설계. (추론, 주석 types.ts:44-50 근거)
 
-```text
-claude, cline, codebuff, codex, copilot, devin, droid, gemini,
-ibm-bob, kilo-code, kiro, kimi, mistral-vibe, mux, openclaw,
-pi, omp, qwen, roo-code
-```
+## 공통 helper (provider가 아닌 파일)
 
-Optional lazy providers는 dynamic import wrapper가 `try/catch`로 로드한다. Import 실패 시 `null`을 반환하므로 optional provider나 dependency 문제로 전체 registry가 깨지지 않는다. `getAllProviders()`는 이 lazy loaders를 `Promise.all()`로 호출한 뒤 성공한 provider만 core list 뒤에 붙인다. (`repos/codeburn/src/providers/index.ts:21-153`, `repos/codeburn/src/providers/index.ts:157-171`)
+- `sqlite-session-parser.ts`: `createSqliteSessionParser`(:253), `discoverSqliteSessions`(:477). 현재 사용처는 `opencode.ts`, `kilo-code.ts`. (코드 확인)
+- `session-message.ts`: `normalizeToolName`, `buildAssistantCall` 등 메시지→call 변환 helper(:50, :77). (코드 확인)
+- `vscode-cline-parser.ts`: VS Code 확장 globalStorage 경로 탐색과 `createClineParser`(:135). (코드 확인)
+- `opencode-file-parser.ts`(:51, :86), `mistral-vibe-unified.ts`(:54): 각 provider 전용 포맷 보조. (코드 확인)
 
-현재 optional lazy set은 다음 9개다.
+## 특수 플래그 사용 예
 
-```text
-antigravity, forge, goose, cursor, opencode, cursor-agent,
-crush, warp, vercel-gateway
-```
+- `network: true`: `vercel-gateway.ts:136` 하나. (코드 확인, grep 기준)
+- `durableSources: true`: `copilot.ts:3680`, `quickdesk.ts:529`. 캐시 쪽 정적 목록 `DURABLE_PROVIDER_NAMES`는 `copilot`만 포함(session-cache.ts:346). (코드 확인)
+- `probeRoots` 구현: providers 디렉터리 43개 파일에서 등장. (코드 확인, grep 파일 수)
 
-`getProvider(name)`은 특정 provider를 요청할 때 lazy provider는 개별 loader를 호출하고, core provider는 `coreProviders.find()`로 찾는다. (`repos/codeburn/src/providers/index.ts:189-227`)
+## 새 provider 추가 시 체크 (추론)
 
-## Discovery flow and provider filter
+1. `Provider` 구현 파일 작성 → `coreProviders` 또는 lazy loader + `lazyProviderNames` + `lazyProviderDisplayNames` 세 곳 동기화(주석 index.ts:202-208).
+2. 청구 기록 기반 비용이면 `costFromBilling` 사용, 캐시 포맷이 바뀌면 `PROVIDER_PARSE_VERSIONS`(session-cache.ts) 갱신(주석 parser.ts:2785-2793).
 
-`discoverAllSessions(providerFilter?)`는 다음 순서로 동작한다. (`repos/codeburn/src/providers/index.ts:176-186`)
+## 미확인
 
-1. `getAllProviders()`로 core + loadable optional provider 목록을 만든다.
-2. `providerFilter`가 있고 `all`이 아니면 `p.name === providerFilter`로 먼저 provider list를 줄인다.
-3. 선택된 provider들의 `discoverSessions()`를 순차 호출한다.
-4. 모든 provider의 `SessionSource[]`를 하나로 합친다.
-
-따라서 CLI의 `--provider cursor` 같은 필터는 source discovery 전에 적용된다. 이 구조는 provider별 expensive scan을 줄이고, optional provider가 load되지 않는 경우에도 필터 결과가 빈 list로 자연스럽게 처리되게 한다.
-
-## Core parser integration
-
-Provider parser가 만든 call은 바로 report가 되지 않고 `parseProviderSources()`에서 cache/dedup/date-filter 경계를 통과한다. (`repos/codeburn/src/parser.ts:1947-2110`)
-
-- Provider object는 `getProvider(providerName)`로 다시 가져온다.
-- `provider.network`가 true인 source는 fingerprint가 없으므로 synthetic fingerprint로 매번 changed source 취급한다.
-- 파일/DB source는 `fingerprintFile()`과 disk `SessionCache`를 비교해 unchanged source면 cached turns를 재사용한다.
-- Parser dedup set은 기존 `seenKeys`와 unchanged cached call keys를 합쳐 changed source parse 중 중복 call 생성을 줄인다.
-- Changed source parser가 yield한 `ParsedProviderCall[]`은 `canonicalizeProviderCallProject()`와 `providerCallsToCachedTurns()`를 거쳐 disk cache에 저장된다.
-- Query-time에서도 `seenKeys`로 cross-provider/source 중복을 다시 제거하고, date range는 첫 call timestamp 기준으로 적용한다.
-
-이 때문에 provider plugin의 책임은 “raw source에서 가능한 한 정확한 `ParsedProviderCall`을 yield”하는 것이고, caching, project/session rollup, classification은 core parser 쪽 책임으로 남는다.
-
-## SQLite provider family
-
-Cursor/OpenCode류 provider는 SQLite read-only wrapper를 공유한다. 현재 source는 DeepWiki의 “optional `better-sqlite3`” 설명과 달리 `node:sqlite` shim을 사용한다. `src/sqlite.ts`는 Node 내장 `node:sqlite`의 `DatabaseSync`를 lazy require하고, read-only DB wrapper와 `blobToText()`를 제공한다. Node 22/23의 SQLite ExperimentalWarning은 해당 warning만 한 번 가로채 조용히 처리한다. (`repos/codeburn/src/sqlite.ts:1-45`, `repos/codeburn/src/sqlite.ts:76-139`)
-
-Generic SQLite provider parser는 `session`, `message`, `part` table을 기대한다. Session tree를 recursive CTE로 따라가 message/part를 읽고, assistant/model role message를 token/cost/tool data로 변환한다. 개별 message가 yield되지 않는 경우 session-level token row fallback도 있다. (`repos/codeburn/src/providers/sqlite-session-parser.ts:161-180`, `repos/codeburn/src/providers/sqlite-session-parser.ts:199-345`, `repos/codeburn/src/providers/sqlite-session-parser.ts:347-390`)
-
-`discoverSqliteSessions()`는 provider config의 DB directory에서 prefix가 맞는 `.db` 파일을 찾고, top-level non-archived session row를 `SessionSource`로 만든다. (`repos/codeburn/src/providers/sqlite-session-parser.ts:394-445`)
-
-## Provider examples
-
-| Provider | Source shape | Source-verified behavior |
-|---|---|---|
-| `codex` | `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl` | `session_meta` 첫 줄로 valid Codex file인지 확인하고 cwd를 project로 sanitize한다. Parser는 `readSessionLines(..., { largeLineAsBuffer: true })`로 큰 JSONL을 streaming 처리하고, `exec_command → Bash`, `read_file → Read`, `write_file/apply_patch → Edit`, `spawn_agent → Agent`로 tool 이름을 normalize한다. (`repos/codeburn/src/providers/codex.ts:31-41`, `repos/codeburn/src/providers/codex.ts:249-368`, `repos/codeburn/src/providers/codex.ts:603-631`) |
-| `cursor` | OS별 Cursor `globalStorage/state.vscdb` + `workspaceStorage/*` | Global DB의 `cursorDiskKV`에서 `bubbleId:%`와 `agentKv:blob:%`를 읽고, workspace directory의 `workspace.json`/`composer.composerData`를 이용해 composerId를 workspace project에 매핑한다. Orphan composer catch-all source도 항상 만든다. (`repos/codeburn/src/providers/cursor.ts:79-107`, `repos/codeburn/src/providers/cursor.ts:300-340`, `repos/codeburn/src/providers/cursor.ts:680-816`) |
-| `opencode` | XDG data dir 또는 `~/.local/share/opencode` 아래 `opencode*.db` | Generic SQLite parser를 config로 재사용한다. Model id는 provider prefix를 제거한 뒤 `getShortModelName()`으로 표시하고, `skill`, `patch` 같은 OpenCode built-in tool도 canonical tool name으로 map한다. (`repos/codeburn/src/providers/opencode.ts:8-21`, `repos/codeburn/src/providers/opencode.ts:23-66`) |
-| `antigravity` | `.pb`/`.db` conversation files, statusline JSONL, local language server RPC | 여러 Antigravity app data roots를 scan하고, statusline events file도 source로 포함한다. Parser는 conversation file에서 cascade id/project path를 얻고, local server가 있으면 `GetAvailableModels`/`GetCascadeTrajectoryGeneratorMetadata` RPC로 usage metadata를 가져오며, 실패 시 cached cascade calls를 재사용한다. (`repos/codeburn/src/providers/antigravity.ts:19-45`, `repos/codeburn/src/providers/antigravity.ts:155-164`, `repos/codeburn/src/providers/antigravity.ts:476-532`, `repos/codeburn/src/providers/antigravity.ts:655-693`, `repos/codeburn/src/providers/antigravity.ts:990-1050`, `repos/codeburn/src/providers/antigravity.ts:1073-1100`) |
-
-## Normalization boundary
-
-Provider는 raw provider naming을 CodeBurn display layer에 맞춰 보정한다.
-
-- Codex: `exec_command → Bash`, `read_file → Read`, `write_file/apply_diff/apply_patch → Edit`, `spawn_agent/close_agent/wait_agent → Agent`, `read_dir → Glob`. (`repos/codeburn/src/providers/codex.ts:31-41`, `repos/codeburn/tests/provider-registry.test.ts:75-89`)
-- OpenCode: `bash → Bash`, `edit → Edit`, `task → Agent`, `skill → Skill`, `patch → Patch`; model은 `anthropic/claude-opus-...` 같은 provider prefix를 제거한 뒤 short name으로 표시한다. (`repos/codeburn/src/providers/opencode.ts:8-21`, `repos/codeburn/src/providers/opencode.ts:47-54`, `repos/codeburn/tests/provider-registry.test.ts:51-67`)
-- Cursor: model display map이 `cursor-auto → Cursor (auto)`와 일부 model alias를 처리하지만, tool display는 현재 rawTool identity다. (`repos/codeburn/src/providers/cursor.ts:28-43`, `repos/codeburn/src/providers/cursor.ts:773-779`, `repos/codeburn/tests/provider-registry.test.ts:105-112`)
-- Claude: test 기준 tool name은 identity로 유지되고 model id는 `claude-opus-4-6-... → Opus 4.6`, `claude-sonnet-4-6 → Sonnet 4.6`처럼 표시된다. (`repos/codeburn/tests/provider-registry.test.ts:69-95`)
-
-## Current-source corrections vs DeepWiki
-
-- DeepWiki의 core provider list는 현재 checkout보다 작고 오래됐다. 현재 core에는 `cline`, `codebuff`, `devin`, `ibm-bob`, `kimi`, `mistral-vibe`, `mux` 등이 포함되며 optional lazy provider에는 `forge`, `crush`, `warp`, `vercel-gateway`도 포함된다.
-- DeepWiki가 optional dependency 예로 든 `better-sqlite3`는 현재 source의 SQLite path가 아니다. 현재는 `node:sqlite` wrapper(`src/sqlite.ts`)를 사용한다.
-- `providers` export는 core provider만 담고, optional까지 포함한 전체 registry는 `getAllProviders()`를 await해야 한다.
-- Cursor는 단순히 global `state.vscdb` 하나만 project로 취급하지 않고, `workspaceStorage/*`의 workspace mapping을 이용해 workspace별 source와 orphan source로 나눈다.
-- Antigravity는 단순 `.pb` scan만이 아니라 statusline JSONL fallback/source와 local language server RPC/cache 경계를 함께 가진다.
-
-관련 페이지: [[codeburn]], [[codeburn-codex-provider]], [[codeburn-data-ingestion-and-caching]], [[codeburn-domain-terminology]], [[codeburn-pricing-and-currency-resolution]], [[evidence-backed-analysis]].
+- 43개 provider 각각의 discovery 경로와 포맷은 확인하지 않았다(Codex만 [[codeburn-codex-provider]]에서 확인).
+- `onSkippedVersion` 콜백을 실제로 쓰는 provider 목록.
+- lazy loader가 실제로 실패하는 환경(네이티브 모듈 부재)에서의 동작은 실행 확인하지 않았다.

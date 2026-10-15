@@ -100,7 +100,9 @@ README 표 기준 **20개 에이전트 행**(Claude Code, Codex, Cursor, CodeBud
 
 ## 5. 핵심 질문 및 세부 답변 목록 (Questions)
 
-아직 없음. 후보는 [next.md](./next.md) 참고.
+- [Q1: 혼자 쓰면서 프로젝트별로 나누기, 프로젝트마다 조금 다를 때](./questions/q1-solo-per-project-management.md) - *가능. `projects.yaml` namespace로 나누고, 차이는 같은 이름으로 통째 교체하거나 추가 파일·env로 뺀다*
+
+다른 후보는 [next.md](./next.md) 참고.
 
 ---
 

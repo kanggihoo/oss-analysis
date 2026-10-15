@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "codeburn report 실행 흐름",
+    "output": "reports/codeburn/diagrams/report-flow.html",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [
+      1080,
+      510
+    ]
+  },
+  "participants": [
+    {
+      "id": "cli",
+      "type": "backend",
+      "label": "main.ts",
+      "sublabel": "report (기본 명령)"
+    },
+    {
+      "id": "dash",
+      "type": "frontend",
+      "label": "dashboard.tsx",
+      "sublabel": "renderDashboard"
+    },
+    {
+      "id": "parser",
+      "type": "backend",
+      "label": "parser.ts",
+      "sublabel": "parseAllSessions"
+    },
+    {
+      "id": "scache",
+      "type": "database",
+      "label": "세션 캐시",
+      "sublabel": "session-cache.v10"
+    },
+    {
+      "id": "prov",
+      "type": "backend",
+      "label": "providers",
+      "sublabel": "Claude · Codex 등"
+    },
+    {
+      "id": "agg",
+      "type": "backend",
+      "label": "usage-aggregator",
+      "sublabel": "+ daily-cache.v75"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "cli",
+      "to": "dash",
+      "y": 165,
+      "label": "preAction(설정·환율) 후 renderDashboard",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "dash",
+      "to": "parser",
+      "y": 193,
+      "label": "parseAllSessions(range)"
+    },
+    {
+      "id": "m3",
+      "from": "parser",
+      "to": "scache",
+      "y": 221,
+      "label": "loadCache + refresh lock"
+    },
+    {
+      "id": "m4",
+      "from": "parser",
+      "to": "prov",
+      "y": 249,
+      "label": "discoverAllSessions → SessionSource[]"
+    },
+    {
+      "id": "m5",
+      "from": "parser",
+      "to": "prov",
+      "y": 277,
+      "label": "바뀐 파일만 parse()",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m6",
+      "from": "prov",
+      "to": "parser",
+      "y": 305,
+      "label": "ParsedProviderCall 스트림",
+      "variant": "return"
+    },
+    {
+      "id": "m7",
+      "from": "parser",
+      "to": "scache",
+      "y": 333,
+      "label": "saveCache(CachedTurn)"
+    },
+    {
+      "id": "m8",
+      "from": "parser",
+      "to": "dash",
+      "y": 361,
+      "label": "ProjectSummary[] (비용·분류)",
+      "variant": "return"
+    },
+    {
+      "id": "m9",
+      "from": "dash",
+      "to": "agg",
+      "y": 389,
+      "label": "buildDurablePeriod"
+    },
+    {
+      "id": "m10",
+      "from": "agg",
+      "to": "dash",
+      "y": 417,
+      "label": "PeriodData → Ink 렌더",
+      "variant": "return"
+    }
+  ]
+}

@@ -1,177 +1,99 @@
 ---
 title: CodeBurn Subscription Plans and Currency
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-10-15
 type: concept
-tags: [open-source, architecture, developer-tools, tooling, evidence, deepwiki]
+tags: [open-source, architecture, developer-tools, tooling, evidence]
 sources:
-  - artifacts/codeburn/deepwiki/pages-md/3.5-subscription-plans-and-currency.md
   - wiki/projects/codeburn.md
   - wiki/concepts/codeburn-pricing-and-currency-resolution.md
   - wiki/concepts/codeburn-day-aggregation-and-caching.md
   - repos/codeburn/src/config.ts
   - repos/codeburn/src/plans.ts
   - repos/codeburn/src/plan-usage.ts
+  - repos/codeburn/src/copilot-aiu.ts
+  - repos/codeburn/src/budget.ts
+  - repos/codeburn/src/quota.ts
+  - repos/codeburn/src/quota/index.ts
   - repos/codeburn/src/currency.ts
   - repos/codeburn/src/main.ts
-  - repos/codeburn/src/export.ts
-  - repos/codeburn/src/types.ts
   - repos/codeburn/src/parser.ts
 confidence: high
 ---
 # CodeBurn Subscription Plans and Currency
 
-이 페이지는 [[codeburn]]에서 구독제 plan의 월 비용을 USD budget으로 저장하고, 실제 사용량의 API-equivalent USD 비용과 비교한 뒤, 표시/JSON/export 단계에서 환율을 이용해 local currency로 변환하는 방식을 정리한다. Token 단가와 FX fetch/cache의 일반 구조는 [[codeburn-pricing-and-currency-resolution]], 일별/기간별 aggregate는 [[codeburn-day-aggregation-and-caching]]를 참조한다.
+검증 기준 checkout: repos/codeburn at 9a40cc603fcd194caca9daa8c5134a61ea7e0e2b (2026-10-15).
 
-검증 기준 checkout: `repos/codeburn` at `f1bf7a197bb38e70cc71cf1905bfa5cbd92c1cc3`.
+[[codeburn]]이 "API 가격으로 환산하면 얼마 썼나"를 구독료(plan)·예산(budget)과 비교하는 방식과, 그 결과를 사용자 통화로 보여주는 경계를 정리한다. 단가 계산과 환율 로드 자체는 [[codeburn-pricing-and-currency-resolution]], 기간 집계는 [[codeburn-day-aggregation-and-caching]]를 본다.
 
-## 핵심 모델
+용어:
+- plan: 사용자가 등록한 월 구독(예: Claude Max). 월 금액과 갱신일을 가진다.
+- API-equivalent 비용: 실제 청구액이 아니라 token을 API 단가로 환산한 USD. plan 비교의 "사용량"이 이것이다.
+- budget: plan과 별개인 일/주/월 지출 한도. 표시 통화 단위로 저장된다.
+- AI credit: GitHub Copilot 과금 단위. 1 credit = $0.01, 1e9 nano-AIU = 1 credit. `src/copilot-aiu.ts:6-7` (코드 확인)
 
-```text
-codeburn plan set claude-max
-→ config.plans.claude = { id, monthlyUsd, provider, resetDay, setAt }
-→ getPlanUsages()
-→ parseAllSessions(periodStart..today, provider/all)
-→ PlanUsage: spentApiEquivalentUsd, budgetUsd, percentUsed, projectedMonthUsd
-→ toJsonPlanSummary(): budget/spent/projectedMonthEnd = convertCost(USD)
-```
+## 1. Plan 데이터 모델 — `src/config.ts`
 
-Plan usage 계산 자체는 항상 USD 기준이다. Currency는 `budgetUsd`, `spentApiEquivalentUsd`, `projectedMonthUsd` 같은 plan summary 숫자를 UI/JSON/export에 내보낼 때 곱해지는 display layer다.
+- `Plan = { id, monthlyUsd, monthlyCredits?, provider, resetDay?, setAt }`. `src/config.ts:10-19` (코드 확인)
+- `PlanProvider`: `claude | codex | cursor | grok | copilot | antigravity | all`. `src/config.ts:8` (코드 확인)
+- 저장: config의 `plans`(provider별 맵). 옛 단일 `plan` 필드는 `plans`가 비었을 때만 읽고, 저장 시 지운다. `src/config.ts:151-187` (코드 확인)
+- `all` plan은 provider별 plan이 하나라도 있으면 버려진다(둘은 공존 불가). `src/config.ts:159-161`, `:178-184` (코드 확인)
+- 활성 조건: `id !== 'none'`이고 `monthlyUsd`가 유한한 양수. `src/plan-usage.ts:359-361` (코드 확인)
 
-## Plan config 저장 구조
+## 2. 내장 preset — `src/plans.ts:16-95`
 
-`Plan`은 `id`, `monthlyUsd`, `provider`, optional `resetDay`, `setAt`으로 구성된다. Provider scope는 `all`, `claude`, `codex`, `cursor`다. (`repos/codeburn/src/config.ts:7-16`, `repos/codeburn/src/plans.ts:3-4`)
+| id | monthlyUsd | provider |
+|---|---:|---|
+| claude-pro / claude-max-5x / claude-max | 20 / 100 / 200 | claude |
+| cursor-pro | 20 | cursor |
+| supergrok / supergrok-heavy | 30 / 300 | grok |
+| copilot-pro / -pro-plus / -max | 1500 / 7000 / 20000 credits × $0.01 | copilot |
+| google-ai-pro / -ultra-5x / -ultra-20x | 19.99 / 99.99 / 199.99 | antigravity |
 
-설정 파일 경로는 다음이다.
+모두 `resetDay: 1`. 이외 `custom`, `none`. (코드 확인) 금액은 코드 주석의 외부 문서 기준이며 현재 실제 가격인지는 미확인.
 
-```text
-~/.config/codeburn/config.json
-```
+## 3. CLI — `codeburn plan [show|set <id>|reset]` `src/main.ts:2234`
 
-현재 source는 과거 단일 `config.plan`도 읽지만, 새 저장은 provider-keyed `config.plans`를 사용한다. `savePlan()`은 provider가 `all`이면 `{ all: plan }`만 저장하고, provider-specific plan을 저장할 때는 `all` plan을 제거한 뒤 해당 provider key에 저장한다. `clearPlan(provider?)`는 특정 provider 또는 전체 plan을 제거한다. (`repos/codeburn/src/config.ts:22-56`, `repos/codeburn/src/config.ts:75-85`, `repos/codeburn/src/config.ts:87-162`)
+- `--provider`, `--reset-day`(1~28 정수), custom용 `--monthly-usd`, copilot custom용 `--credits`. (코드 확인)
+- copilot custom은 `--credits`만 허용, `--monthly-usd`와 혼용 시 오류. `src/main.ts:2327-2337` (코드 확인)
+- `set none`은 해당 provider plan 삭제. `src/main.ts:2312-2319` (코드 확인)
 
-예시:
+## 4. 사용량 계산 — `src/plan-usage.ts`
 
-```json
-{
-  "plans": {
-    "claude": {
-      "id": "claude-max",
-      "monthlyUsd": 200,
-      "provider": "claude",
-      "resetDay": 1,
-      "setAt": "2026-06-11T00:00:00.000Z"
-    },
-    "codex": {
-      "id": "custom",
-      "monthlyUsd": 200,
-      "provider": "codex",
-      "resetDay": 1,
-      "setAt": "2026-06-11T00:00:00.000Z"
-    }
-  }
-}
-```
+`getPlanUsages(today)` `:338`
+- 입력: 오늘 날짜.
+- 내부 동작: 활성 plan을 모으고, 가장 이른 period 시작일~오늘로 세션을 한 번 파싱. plan이 1개면 그 provider로만, 여러 개면 `'all'`로 파싱 후 `getPlanScopedProjects`(`:270`)로 provider·기간별 잘라낸다. (코드 확인)
+- 반환값: `PlanUsage[]`(`:13-32`): `spentApiEquivalentUsd`, `budgetUsd`, `percentUsed`, `status`, `projectedMonthUsd`, `daysUntilReset`, copilot이면 credit 필드.
 
-## Built-in subscription presets
+기간: `computePeriodFromResetDay`(`:39`)는 오늘 날짜가 resetDay 이상이면 이번 달 resetDay~다음 달 resetDay, 아니면 전달부터. resetDay는 1~28로 clamp(`:34-37`). (코드 확인)
 
-| Plan id | Display name | monthlyUsd | provider | resetDay |
-|---|---|---:|---|---:|
-| `claude-pro` | Claude Pro | 20 | `claude` | 1 |
-| `claude-max` | Claude Max 20x | 200 | `claude` | 1 |
-| `claude-max-5x` | Claude Max 5x | 100 | `claude` | 1 |
-| `cursor-pro` | Cursor Pro | 20 | `cursor` | 1 |
-| `custom` | Custom | user input | `all` or provider option | user input |
+`getPlanUsageFromProjects(plan, projects)` `:217` (코드 확인)
+- USD plan: spent = 프로젝트 `totalCostUSD` 합, percent = spent/monthlyUsd. `:252-253`
+- status: 100% 초과 `over`, 80% 이상 `near`, 그 외 `under`. `:9`, `:231`, `:254`
+- 월말 예상 `projectMonthEnd`(`:177`): 최근 최대 7일의 일별 비용 **중앙값** × 남은 일수 + spent. `:210-214`
+- Copilot plan: 비용이 아니라 credit으로 계산. `copilotCreditSpend`(`:111`)가 nano-AIU가 기록된 요청은 정확 credit으로, 없는 요청은 token 비용/$0.01로 추정해 `estimatedCredits`에 더한다. 미기록 요청이 하나라도 있으면 진행률 막대가 추정치를 따른다. `:228-229`
 
-근거: `repos/codeburn/src/plans.ts:6-63`, `repos/codeburn/src/main.ts:888-1028`.
+## 5. Budget — `src/budget.ts`, `src/main.ts`
 
-주의: DeepWiki는 `claude-max`를 “Claude Max”라고만 적지만 현재 display label은 `Claude Max 20x`다. 금액 자체는 `$200/month`로 동일하다.
+- `computeBudgetStatus`(`src/budget.ts:44`): pct = spent/budget, 선형 예측 projected = spent × totalDays / elapsedDays, 100% 이상 `over`, 80% 이상 `warn`. (코드 확인) plan의 중앙값 예측과 방식이 다르다.
+- budget 금액은 **표시 통화**로 저장된다(`src/config.ts:56`). 그래서 비교 전에 USD 비용을 `convertCost`로 먼저 바꾼다. `src/main.ts:333-334`, `:416-417` (코드 확인)
+- `codeburn budget --check`(`src/main.ts:1130`) → `runBudgetCheck`(`:401`)는 하나라도 over면 exit code 1. `:429` (코드 확인)
 
-## CLI plan flow
+## 6. 통화 변환 경계
 
-`codeburn plan` command는 `show`, `set`, `reset`을 처리한다. (`repos/codeburn/src/main.ts:888-1028`)
+- plan 금액(`monthlyUsd`)과 `PlanUsage`는 USD로 유지된다. JSON 출력 시 `toJsonPlanSummary`가 `budget`, `spent`, `projectedMonthEnd`만 `convertCost`로 바꾼다. `src/main.ts:186-198` (코드 확인)
+- copilot 요약은 원래 USD(`monthlyUsd`, `spentApiEquivalentUsd`)와 credit 필드를 같이 싣는다. `src/main.ts:199-210` (코드 확인)
+- 텍스트 `plan show`는 `$${monthlyUsd}/month`를 그대로 찍어 환율을 적용하지 않는다. `src/main.ts:2275` (코드 확인)
+- `codeburn currency <code>`는 ISO 4217 검증 후 config 저장 → `loadCurrency()`; 환율이 없으면 USD로 표시하며 안내. `src/main.ts:1649-1700` (코드 확인)
 
-- `codeburn plan` / `codeburn plan --format json`: 저장된 plan을 보여준다.
-- `codeburn plan set claude-max`: preset provider인 `claude` plan으로 저장한다.
-- `codeburn plan set custom --monthly-usd 200 --provider codex`: custom USD budget을 provider-specific으로 저장한다.
-- `codeburn plan reset --provider codex`: 특정 provider plan만 제거한다.
-- `--reset-day`는 1..28 정수만 허용된다.
+## 7. 관련되지만 다른 것
 
-Plan command의 text output은 plan budget을 `$<monthlyUsd>/month`로 보여준다. 즉 plan 설정 자체는 선택 currency로 변환해 저장하지 않는다.
+- proxy path: 구독 프록시를 거친 프로젝트는 `totalCostUSD`를 그대로 두고 같은 값을 `totalProxiedCostUSD`로 표시한다. plan과 무관한 별도 표기. `src/parser.ts:2754-2764` (코드 확인)
+- `codeburn quota`(`src/main.ts:3330`): provider 서버에서 실제 쿼터 창(5시간/주간 등)을 읽는 기능. `src/quota/index.ts`가 provider별 reader를 묶는다. plan 계산과 데이터 경로가 분리되어 있다. (코드 확인)
+- `src/quota.ts`: live/derived 쿼터 창을 합치고 pace를 계산하는 순수 모델. 현재 `src` 안에서 import하는 곳이 없고 `tests/quota.test.ts`만 사용한다. (코드 확인) 향후 통합용으로 보인다(추론).
 
-## Billing period와 projection
-
-`resetDay`는 `clampResetDay()`에서 1..28로 제한된다. 오늘 날짜가 resetDay 이상이면 billing period는 현재 월 resetDay부터 다음 월 resetDay 직전까지이고, 오늘이 resetDay 전이면 이전 월 resetDay부터 현재 월 resetDay까지다. (`repos/codeburn/src/plan-usage.ts:23-44`)
-
-`getPlanUsageFromProjects()`는 다음을 계산한다. (`repos/codeburn/src/plan-usage.ts:110-129`)
-
-| Field | 계산 |
-|---|---|
-| `spentApiEquivalentUsd` | scoped projects의 `totalCostUSD` 합계 |
-| `budgetUsd` | `plan.monthlyUsd` |
-| `percentUsed` | `spent / budget * 100` |
-| `status` | `>100`이면 `over`, `>=80`이면 `near`, 아니면 `under` |
-| `projectedMonthUsd` | trailing 7-day median daily cost 기반 월말 projection |
-| `daysUntilReset` | 오늘부터 period end까지 calendar day 차이 |
-
-Projection은 periodStart부터 today까지 날짜별 call cost를 모으고, 비어 있는 날은 0으로 채운 뒤, 최근 7일 median daily cost를 남은 일수에 곱해 현재 spent에 더한다. 단순 평균이 아니라 median을 쓰기 때문에 하루짜리 spike가 projection을 과도하게 끌어올리는 것을 줄인다. (`repos/codeburn/src/plan-usage.ts:46-107`)
-
-## Provider별 여러 plan 처리
-
-현재 구현은 여러 provider-specific plan을 지원한다. `getPlanUsages()`는 `readPlans()`에서 active plan들을 가져오고, plan이 하나뿐이면 해당 provider만 `parseAllSessions(range, plan.provider)`로 읽는다. Plan이 여러 개이면 가장 이른 periodStart부터 `parseAllSessions(range, 'all')`을 한 번 수행한 뒤, `getPlanScopedProjects()`가 각 plan provider와 periodStart..today 범위에 맞는 assistant call만 남긴 scoped project clone을 만든다. (`repos/codeburn/src/plan-usage.ts:132-214`)
-
-이 설계 때문에 같은 report payload에 legacy-compatible `plan` field와 provider-keyed `plans` map이 함께 붙을 수 있다. (`repos/codeburn/src/main.ts:73-93`)
-
-## Currency와 plan summary 변환
-
-Currency preference는 `config.currency`에 저장되고, `program.hook('preAction')`에서 `loadCurrency()`가 실행된다. (`repos/codeburn/src/main.ts:140-159`)
-
-`loadCurrency()`는 USD가 아니면 Frankfurter API에서 `USD → code` 환율을 가져온다.
-
-```text
-https://api.frankfurter.app/latest?from=USD&to=<CODE>
-```
-
-환율 cache는 다음 위치에 24시간 TTL로 저장된다.
-
-```text
-~/.cache/codeburn/exchange-rate.json
-```
-
-Fetched/cached rate는 `0.0001 <= rate <= 1_000_000` 범위인지 검증된다. Fetch 실패 시 rate `1`로 fallback되므로 해당 표시값은 USD-equivalent가 될 수 있다. (`repos/codeburn/src/currency.ts:14-28`, `repos/codeburn/src/currency.ts:74-132`)
-
-Plan JSON summary는 `toJsonPlanSummary()`에서 USD 숫자에 `convertCost()`를 적용한다.
-
-```text
-budget            = convertCost(planUsage.budgetUsd)
-spent             = convertCost(planUsage.spentApiEquivalentUsd)
-projectedMonthEnd = convertCost(planUsage.projectedMonthUsd)
-percentUsed       = round(percentUsed, 1)   // FX와 무관
-```
-
-근거: `repos/codeburn/src/main.ts:45-70`.
-
-중요한 점은 `percentUsed`와 `status`가 USD 기준 비율이라는 것이다. `budgetUsd`와 `spentApiEquivalentUsd`에 같은 환율을 곱해도 비율은 변하지 않기 때문에, 환율은 표시 금액에만 영향을 주고 plan burn 판단에는 영향을 주지 않는다.
-
-## Rounding boundary
-
-`convertCost(costUSD)`는 `costUSD * active.rate`만 반환하고 반올림하지 않는다. JPY/KRW처럼 소수 자릿수가 0인 통화에서 session별로 먼저 반올림하면 aggregate가 왜곡될 수 있기 때문이다. (`repos/codeburn/src/currency.ts:164-172`)
-
-반올림은 display/export boundary에서 한다.
-
-- `formatCost(costUSD)`는 active currency의 fraction digits를 보고 문자열을 만든다. 0-decimal currency는 정수로 표시한다. (`repos/codeburn/src/currency.ts:174-185`)
-- CSV/export row들은 `roundForActiveCurrency(convertCost(value))`를 사용한다. (`repos/codeburn/src/export.ts:48-83`, `repos/codeburn/src/export.ts:107-151`, `repos/codeburn/src/export.ts:188-247`)
-- `report/status/today/month` JSON plan summaries는 `convertCost()` 결과를 그대로 넣는다. Consumer가 필요한 rounding/display를 담당한다. (`repos/codeburn/src/main.ts:58-70`, `repos/codeburn/src/main.ts:83-93`)
-
-## Subscription-covered proxy cost와 plan의 차이
-
-CodeBurn에는 plan budget 외에 `proxyPaths`라는 구독 기반 proxy attribution도 있다. `proxyPaths` 아래 project는 full API-rate `totalCostUSD`를 유지하되, 같은 금액을 `totalProxiedCostUSD`로 기록해 `netCost = totalCostUSD - totalProxiedCostUSD`를 계산한다. 이는 “구독으로 커버된 would-be API 비용” 표시용이며, plan budget burn 계산과는 별개다. (`repos/codeburn/src/config.ts:45-55`, `repos/codeburn/src/types.ts:165-170`, `repos/codeburn/src/parser.ts:1658-1675`, `repos/codeburn/src/main.ts:377-385`)
-
-## Current-source corrections vs DeepWiki
-
-- DeepWiki는 plan을 단일 `plan`처럼 설명하지만 현재 source는 provider-keyed `plans` map을 우선 사용하고, legacy `plan`은 migration/read compatibility로 처리한다.
-- `claude-max` display label은 현재 `Claude Max 20x`다.
-- Plan 설정/저장은 항상 USD budget이며, `codeburn plan show` text도 `$monthlyUsd/month`를 보여준다. Currency conversion은 report/status/export payload boundary에서 수행된다.
-- Exchange-rate cache는 현재 `CODEBURN_CACHE_DIR`를 쓰지 않고 `~/.cache/codeburn/exchange-rate.json`에 고정된다. 이 점은 [[codeburn-pricing-and-currency-resolution]]의 current-source correction과 동일하다.
-
-관련 페이지: [[codeburn]], [[codeburn-pricing-and-currency-resolution]], [[codeburn-day-aggregation-and-caching]], [[codeburn-domain-terminology]], [[evidence-backed-analysis]].
+## 미확인
+- preset 금액과 Copilot credit 할당량이 현재 실제 가격과 일치하는지.
+- `codeburn quota` provider reader들이 호출하는 외부 엔드포인트의 동작.
+- dashboard(`src/dashboard.tsx:1798`, `:2316`)가 plan 금액을 어느 통화로 렌더링하는지 세부.
+- 여러 plan이 겹칠 때(예: claude와 codex) UI에서 어떤 plan을 대표로 보여주는지(JSON은 첫 항목을 `plan`으로 노출, `src/main.ts:250-253`).

@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "codeburn 구조 (로그 → 비용 대시보드)",
+    "output": "reports/codeburn/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/getagentseal/codeburn",
+      "revision": "9a40cc603fcd194caca9daa8c5134a61ea7e0e2b"
+    }
+  },
+  "components": [
+    {
+      "id": "clients",
+      "type": "frontend",
+      "label": "주변 앱",
+      "sublabel": "menubar · 데스크톱 앱",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "mac/Sources/CodeBurnMenubar/Data/DataClient.swift",
+          "line": 115
+        }
+      ]
+    },
+    {
+      "id": "outputs",
+      "type": "backend",
+      "label": "기계용 출력",
+      "sublabel": "menubar-json · mcp · serve",
+      "pos": [
+        300,
+        80
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/menubar-json.ts",
+          "line": 808
+        }
+      ]
+    },
+    {
+      "id": "pricing",
+      "type": "backend",
+      "label": "가격 · 분류",
+      "sublabel": "models.ts · classifier.ts",
+      "pos": [
+        560,
+        80
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/models.ts",
+          "line": 1516
+        },
+        {
+          "path": "src/classifier.ts",
+          "line": 200
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "backend",
+      "label": "CLI (commander)",
+      "sublabel": "cli.ts → main.ts",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/main.ts",
+          "line": 876
+        }
+      ]
+    },
+    {
+      "id": "dashboard",
+      "type": "frontend",
+      "label": "Ink TUI",
+      "sublabel": "dashboard.tsx",
+      "pos": [
+        300,
+        300
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/dashboard.tsx",
+          "line": 2480
+        }
+      ]
+    },
+    {
+      "id": "parser",
+      "type": "backend",
+      "label": "parser",
+      "sublabel": "parseAllSessions",
+      "pos": [
+        560,
+        300
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/parser.ts",
+          "line": 6299
+        }
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "backend",
+      "label": "provider registry",
+      "sublabel": "43개 어댑터",
+      "pos": [
+        820,
+        300
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/providers/index.ts",
+          "line": 200
+        }
+      ]
+    },
+    {
+      "id": "logs",
+      "type": "external",
+      "label": "에이전트 로컬 로그",
+      "sublabel": "~/.claude · ~/.codex 등",
+      "pos": [
+        1080,
+        300
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/providers/types.ts",
+          "line": 140
+        }
+      ]
+    },
+    {
+      "id": "dailycache",
+      "type": "database",
+      "label": "일별 캐시",
+      "sublabel": "daily-cache.v75.json",
+      "pos": [
+        40,
+        520
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/daily-cache.ts",
+          "line": 429
+        }
+      ]
+    },
+    {
+      "id": "aggregator",
+      "type": "backend",
+      "label": "usage-aggregator",
+      "sublabel": "buildDurablePeriod",
+      "pos": [
+        300,
+        520
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/usage-aggregator.ts",
+          "line": 908
+        }
+      ]
+    },
+    {
+      "id": "sessioncache",
+      "type": "database",
+      "label": "세션 캐시",
+      "sublabel": "session-cache.v10/",
+      "pos": [
+        560,
+        520
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/session-cache.ts",
+          "line": 244
+        }
+      ]
+    },
+    {
+      "id": "workers",
+      "type": "backend",
+      "label": "parse workers",
+      "sublabel": "worker_threads",
+      "pos": [
+        820,
+        520
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/parse-workers.ts",
+          "line": 156
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "clients-cli",
+      "from": "clients",
+      "to": "cli",
+      "label": "CLI 실행",
+      "labelAt": [
+        120,
+        222
+      ]
+    },
+    {
+      "id": "outputs-clients",
+      "from": "outputs",
+      "to": "clients",
+      "label": "JSON 응답"
+    },
+    {
+      "id": "cli-dashboard",
+      "from": "cli",
+      "to": "dashboard",
+      "label": "report",
+      "variant": "emphasis"
+    },
+    {
+      "id": "dashboard-parser",
+      "from": "dashboard",
+      "to": "parser",
+      "label": "세션 파싱",
+      "variant": "emphasis"
+    },
+    {
+      "id": "dashboard-aggregator",
+      "from": "dashboard",
+      "to": "aggregator",
+      "label": "기간 합계",
+      "labelAt": [
+        380,
+        442
+      ]
+    },
+    {
+      "id": "aggregator-daily",
+      "from": "aggregator",
+      "to": "dailycache",
+      "label": "읽기/쓰기"
+    },
+    {
+      "id": "parser-providers",
+      "from": "parser",
+      "to": "providers",
+      "label": "discover · parse",
+      "variant": "emphasis"
+    },
+    {
+      "id": "providers-logs",
+      "from": "providers",
+      "to": "logs",
+      "label": "로그 읽기",
+      "variant": "emphasis"
+    },
+    {
+      "id": "parser-pricing",
+      "from": "parser",
+      "to": "pricing",
+      "label": "비용 · 분류"
+    },
+    {
+      "id": "parser-session",
+      "from": "parser",
+      "to": "sessioncache",
+      "label": "fingerprint · 저장",
+      "labelAt": [
+        640,
+        442
+      ]
+    },
+    {
+      "id": "parser-workers",
+      "from": "parser",
+      "to": "workers",
+      "label": "대용량",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "읽는 순서",
+      "items": [
+        "CLI → report(기본) → Ink TUI",
+        "parser가 provider로 로그를 읽고 캐시",
+        "aggregator가 일별 캐시로 기간 합계"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "미확인",
+      "items": [
+        "optimize · guard · plugins · quota",
+        "주변 앱 내부 구조",
+        "일별 캐시 backfill 알고리즘"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+repo_dir=repos/codeburn
+name=codeburn
+date=2026-10-15
+commit=9a40cc603fcd194caca9daa8c5134a61ea7e0e2b
+commit_date=2026-10-13T10:10:38+02:00
+origin=https://github.com/getagentseal/codeburn.git
+worktree=dirty (untracked only: .codex/, .graphifyignore, AGENTS.md, graphify-out/ — local graphify outputs, no tracked changes)
+previous_baseline=f1bf7a197bb38e70cc71cf1905bfa5cbd92c1cc3 (wiki notes 2026-06-10~11; 1851 commits behind this baseline)

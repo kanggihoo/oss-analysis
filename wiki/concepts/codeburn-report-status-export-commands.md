@@ -1,160 +1,108 @@
 ---
 title: CodeBurn Report Status Export Commands
 created: 2026-06-11
-updated: 2026-06-11
+updated: 2026-10-15
 type: concept
-tags: [open-source, cli, commands, reporting, developer-tools, tooling, evidence, deepwiki]
+tags: [open-source, cli, commands, reporting, developer-tools, tooling, evidence]
 sources:
-  - artifacts/codeburn/deepwiki/pages-md/3.2-report-status-and-export-commands.md
+  - repos/codeburn/src/main.ts
+  - repos/codeburn/src/export.ts
+  - repos/codeburn/src/format.ts
+  - repos/codeburn/src/usage-aggregator.ts
+  - repos/codeburn/src/menubar-json.ts
   - wiki/projects/codeburn.md
   - wiki/concepts/codeburn-data-ingestion-and-caching.md
   - wiki/concepts/codeburn-day-aggregation-and-caching.md
   - wiki/concepts/codeburn-pricing-and-currency-resolution.md
   - wiki/concepts/codeburn-subscription-plans-and-currency.md
-  - repos/codeburn/src/cli.ts
-  - repos/codeburn/src/main.ts
-  - repos/codeburn/src/export.ts
-  - repos/codeburn/src/format.ts
-  - repos/codeburn/src/currency.ts
-  - repos/codeburn/src/usage-aggregator.ts
-  - repos/codeburn/src/menubar-json.ts
-  - repos/codeburn/tests/export.test.ts
-  - repos/codeburn/tests/menubar-json.test.ts
-  - repos/codeburn/tests/cli-status-menubar.test.ts
-  - repos/codeburn/tests/cli-export-date-range.test.ts
-confidence: high
+  - wiki/concepts/codeburn-optimization-engine.md
+confidence: medium
 ---
 # CodeBurn Report Status Export Commands
 
-이 페이지는 [[codeburn]]의 non-interactive reporting/export command surface를 정리한다. DeepWiki `3.2 Report, Status, and Export Commands`를 baseline으로 삼았지만, durable claim은 현재 `repos/codeburn` source와 실제 help/test 실행으로 확인했다. Provider/session parsing boundary는 [[codeburn-data-ingestion-and-caching]], period/day cache는 [[codeburn-day-aggregation-and-caching]], currency/plan boundary는 [[codeburn-pricing-and-currency-resolution]] 및 [[codeburn-subscription-plans-and-currency]]를 참조한다.
+검증 기준 checkout: repos/codeburn at 9a40cc603fcd194caca9daa8c5134a61ea7e0e2b (2026-10-15).
 
-검증 기준 checkout: `repos/codeburn` at `f1bf7a197bb38e70cc71cf1905bfa5cbd92c1cc3`.
+[[codeburn]]의 보고·상태·내보내기 CLI 명령(`report`, `today`, `month`, `status`, `export`)이 어떤 집계 함수로 이어지는지 정리한다. 세션 파싱은 [[codeburn-data-ingestion-and-caching]], 일 단위 캐시는 [[codeburn-day-aggregation-and-caching]], 통화·플랜은 [[codeburn-pricing-and-currency-resolution]]·[[codeburn-subscription-plans-and-currency]], optimize finding은 [[codeburn-optimization-engine]] 참조.
 
-## Current command surface
+용어:
+- **durable period** (`DurablePeriod`): 일 캐시(지난 날) + 오늘 live 파싱을 합친 기간 집계. `data`(헤드라인 합계), `days`, `knownProjects`, `liveProjects` 등을 담는다. (`src/usage-aggregator.ts:860`, 코드 확인)
+- **menubar payload** (`MenubarPayload`): 메뉴바/데스크톱 앱이 매 폴링마다 받는 JSON. (`src/menubar-json.ts:808-861`, 코드 확인)
+- **preAction hook**: 모든 명령 실행 전 timezone, config(모델 별칭·가격 override·proxy·gateway 포함 여부 등), 통화를 로드. (`src/main.ts:558-583`, 코드 확인)
 
-현재 `src/cli.ts`는 Node version guard와 `import('./main.js')`만 담은 launcher다. 실제 Commander command 정의는 `src/main.ts`에 있다. (`repos/codeburn/src/cli.ts:1-15`, `repos/codeburn/src/main.ts:133-159`)
+## 명령 표면 (`src/main.ts`)
 
-`npx tsx src/main.ts --help`로 확인한 report/status/export command surface는 다음과 같다.
+| 명령 | 위치 | `--format` | 비고 |
+|---|---|---|---|
+| `report` (기본 명령) | `:876-927` | `tui`(기본), `json` | `--period`(기본 `week`), `--day`, `--from/--to`, `--refresh` |
+| `today` / `month` | `:1481-1497` / `:1500-1516` | `tui`, `json` | 고정 기간 단축형 |
+| `status` | `:1191-1478` | `terminal`(기본), `json`, `menubar-json` | `--scope local\|combined`, `--days`, `--no-optimize`, `--no-timeline` |
+| `export` | `:1518-1603` | `csv`(기본), `json` | `-o`, `--from/--to`, 신규 `--route`, `--billing` |
 
-| Command | 현재 역할 | 주요 non-interactive format |
-|---|---|---|
-| `codeburn report` | 기본은 interactive dashboard이며 `--format json`일 때 JSON report를 출력 | `--format json` |
-| `codeburn status` | today/month compact summary 및 menubar/MCP payload 계열 | `--format terminal`, `json`, `menubar-json` |
-| `codeburn today` / `month` | period shortcut dashboard | `--format tui`, `json` |
-| `codeburn export` | usage data를 CSV directory 또는 JSON file로 저장 | `--format csv`, `json` |
+공통: `--provider`(기본 `all`, `assertProvider`로 검증), 반복 가능한 `--project/--exclude`. (코드 확인)
 
-실제 help 출력 검증에서 `report`, `status`, `export` 모두 `--provider`, repeatable `--project`, repeatable `--exclude`를 제공했다. `report`는 `--day`, `--from`, `--to`, `--period`, `--refresh`를 가진다. `status menubar-json`은 `--period`, `--day`, `--from`, `--to`, `--days`, `--no-optimize`를 가진다. `export`는 `--from/--to` custom range와 `-o/--output`을 가진다.
+## `report` (`src/main.ts:887-926`)
 
-## JSON report path
+- 입력: 위 옵션. `--day`와 `--from/--to` 동시 지정은 오류. (`:893-901`, 코드 확인)
+- 내부 동작:
+  1. `syncCursor()` — Cursor 사용량 동기화. JSON 경로는 백그라운드로 두고 기다리지 않는다. (`:905`, `:536-548`, 코드 확인)
+  2. `--format json` + `--day`/`--from/--to`: `buildDurablePeriod()` → `buildJsonReport()` → `attachPlanSummaries()`로 플랜 요약을 붙여 출력. (`:906-914`, 코드 확인)
+  3. `--format json` + 기간만: `runJsonReport(period, …)` — 동일하게 `getDateRange` → `buildDurablePeriod` → `buildJsonReport` → `attachPlanSummaries`. (`:916`, `:517-524`, 코드 확인)
+  4. 그 외: `renderDashboard()`(Ink TUI). `--period`를 사용자가 안 줬으면 `autoPeriod=true`로 "오늘, 비었으면 7일"을 대시보드가 고른다. (`:925-926`, 코드 확인)
+- 반환값: stdout JSON 또는 대화형 TUI.
 
-`codeburn report --format json`은 다음 flow를 따른다. (`repos/codeburn/src/main.ts:410-458`)
+`today`/`month`는 JSON이면 `runJsonReport('today'|'month', …)`, 아니면 `renderDashboard`. (`src/main.ts:1492-1496`, `:1511-1515`, 코드 확인)
 
-```text
-report --format json
-→ loadPricing()
-→ getDateRange() or parseDayFlag()/parseDateRangeFlags()
-→ parseAllSessions(range, provider)
-→ filterProjectsByName(project, exclude)
-→ buildJsonReport(projects, label, periodKey)
-→ attachPlanSummaries()
-→ stdout JSON
-```
+## `status` (`src/main.ts:1206-1478`)
 
-`buildJsonReport()`는 `ProjectSummary[]`에서 headline overview, daily, projects, models, activities, tools, MCP servers, shell commands, skills, subagents, Claude agent types, top sessions를 만든다. Overview에는 `cost`, `proxiedCost`, `netCost`, `savings`, `calls`, `sessions`, `cacheHitPercent`, token buckets가 포함된다. (`repos/codeburn/src/main.ts:161-407`)
+옵션 조합 검증이 많다: `--combined-details`는 `menubar-json --scope combined` 전용, `--days`는 `--day/--from/--to`와 배타, `--scope combined`는 provider/project/exclude 필터와 배타. (`:1207-1241`, 코드 확인)
 
-Cache hit 계산은 menubar JSON과 맞춰 `cacheRead / (input + cacheRead)`이다. `cache_write`는 served token이 아니라 저장된 token이므로 denominator에 넣지 않는다. (`repos/codeburn/src/main.ts:173-180`, `repos/codeburn/src/menubar-json.ts:196-200`, `repos/codeburn/tests/menubar-json.test.ts:125-143`)
+### `--format menubar-json` (`:1245-1426`)
 
-Plan integration은 DeepWiki의 단일 `plan` 설명보다 확장되어 있다. `attachPlanSummaries()`는 configured plan usage가 있으면 legacy-compatible `plan` 하나와 provider-keyed `plans` map을 같이 붙인다. (`repos/codeburn/src/main.ts:58-93`)
+- 내부 동작:
+  1. 기간 결정: `--days` > `--from/--to` > `--day` > `--period`(기본 `today`). (`:1247-1254`, 코드 확인)
+  2. `queryKey` 구성: 기간·필터·Claude 설정 디렉터리·각종 가격 config hash·통화·가격 데이터 세대·gateway 포함 여부. (`:1271-1325`, 코드 확인)
+  3. 디스크 스냅샷: `--no-optimize`이고 resident `serve` 자식이 아닐 때만 `computeCorpusFingerprint` → `loadStatusSnapshot` 재사용. optimize 결과는 설정 파일 상태에 의존해 지문으로 무효화할 수 없으므로 optimize 경로는 스냅샷을 쓰지 않는다(주석 근거). (`:1326-1355`, 코드 확인)
+  4. 스냅샷 miss면 `buildMenubarPayloadForRange(periodInfo, {...queryScope, daysSelection})`. 하이드레이션이 완전하고 stale이 아닐 때만 스냅샷 저장. (`:1356-1373`, 코드 확인)
+  5. `--scope combined`: `pullDevices()`로 페어링된 다른 기기 사용량을 합쳐 `payload.combined`(실패해도 로컬 payload는 출력). (`:1374-1410`, 코드 확인)
+  6. 마지막에 `cursorSync` 상태와 `providerIssues`를 붙여 한 줄 JSON 출력. (`:1413-1425`, 코드 확인)
 
-## Status and menubar JSON path
+`buildMenubarPayloadForRange()` (`src/usage-aggregator.ts:1634`): status menubar-json과 MCP 서버가 공유하는 집계. `opts.optimize === false`면 `scanAndDetect()` 생략(`:2079`), `timeline === false`면 granular history 생략(`:2081`), 마지막에 `buildMenubarPayload()`로 조립(`:2088`). (코드 확인)
 
-`codeburn status`의 terminal format은 month range를 parse한 뒤 `renderStatusBar()`에 넘긴다. `renderStatusBar()`는 turn의 user timestamp가 아니라 첫 assistant call timestamp를 local date로 bucket한다. 이 boundary는 midnight을 걸친 turn이 비용 발생 시점에 귀속되도록 하는 의도적 선택이다. (`repos/codeburn/src/main.ts:461-544`, `repos/codeburn/src/format.ts:31-63`)
+### `--format json` / `terminal` (`:1428-1477`)
 
-```text
-status --format terminal
-→ loadPricing()
-→ parseAllSessions(month range, provider)
-→ filterProjectsByName(project, exclude)
-→ renderStatusBar(projects)
-→ Today / Month cost + calls line
-```
+- 둘 다 `withLoadWindow(month)` 안에서 today·month `buildDurablePeriod()` 두 번. (코드 확인)
+- `json`: `{ currency, today{cost,savings,calls}, month{...}, localModelSavings? }`. 비용은 `getCurrency().rate` 곱 후 소수 둘째 자리 반올림. 이후 `attachPlanSummaries`. (`:1440-1466`, 코드 확인)
+- `terminal`: `renderStatusBar([], totals)`가 "Today $x n calls  Month $y n calls" 한 줄. (`:1474-1477`, `src/format.ts:82-94`, 코드 확인)
 
-`status --format json`은 today와 month를 각각 parse하고 `buildPeriodData()`로 `{ cost, savings, calls }`를 만든 뒤 currency rate를 적용해 JSON을 출력한다. Plan summary도 `attachPlanSummaries()`로 붙는다. (`repos/codeburn/src/main.ts:507-538`, `repos/codeburn/src/usage-aggregator.ts:12-53`)
+## `export` (`src/main.ts:1529-1602`)
 
-`status --format menubar-json`은 `buildMenubarPayloadForRange()`를 호출한다. 이 path는 menubar app뿐 아니라 MCP server와 공유되는 aggregation path이며, all-provider일 때 daily cache와 today parse를 섞어 current/history/provider tabs를 만든다. `--no-optimize`이면 expensive `scanAndDetect()` pass만 생략하고 retry/routing/local-model breakdown은 계속 계산된다. (`repos/codeburn/src/main.ts:487-504`, `repos/codeburn/src/usage-aggregator.ts:84-408`, `repos/codeburn/src/menubar-json.ts:304-341`)
+- 입력: `-f csv|json`, `-o`, `--from/--to`, `--provider`, `--route`, `--billing`, `--project/--exclude`.
+- 내부 동작:
+  1. `fp()` 필터 = 이름 필터 + `filterProjectsByBillingRoute({route, billing})`. (`:1540-1546`, 코드 확인)
+  2. custom range면 단일 기간, 아니면 30일 1회 파싱 후 `filterProjectsByDateRange`로 Today / 7 Days / 30 Days 3개 기간을 잘라낸다. (`:1556-1573`, 코드 확인)
+  3. 모두 비었으면 CSV는 안내문 후 종료, JSON은 빈 배열의 유효 파일을 쓴다. (`:1576-1582`, 코드 확인)
+  4. 기본 파일명 `codeburn-<YYYY-MM-DD>.<format>` → `exportJson`/`exportCsv`. 보호 장치 오류는 스택 없이 메시지만 출력 후 exit 1. (`:1584-1599`, 코드 확인)
 
-## Export path
+### `exportCsv()` (`src/export.ts:403-454`)
 
-`codeburn export`는 기본적으로 30일 parse 결과에서 Today/7 Days/30 Days period를 구성하고, `--from`/`--to`가 있으면 단일 custom period만 export한다. (`repos/codeburn/src/main.ts:580-644`)
+- 출력 경로를 폴더로 취급(`.csv` 확장자 제거). 기존 일반 폴더(마커 없음)를 주면 그 안에 `codeburn-export-<date>` 하위 폴더를 만든다. 파일이 있으면 거부, 마커 없는 폴더 재사용 거부, 마커(`.codeburn-export`)가 있으면 비우고 재작성. (코드 확인)
+- 파일: `README.txt`, `summary`, `daily`, `activity`, `models`(전 기간) + `records`, `projects`, `sessions`, `tools`, `mcp`, `shell-commands`(30 Days 또는 마지막 기간). (`:438-451`, 코드 확인)
 
-```text
-export
-→ loadPricing()
-→ parseAllSessions(30days or custom range, provider)
-→ filterProjectsByName(project, exclude)
-→ PeriodExport[]
-→ exportCsv() or exportJson()
-→ saved path message
-```
+### `exportJson()` (`src/export.ts:456-521`)
 
-CSV export는 단일 CSV 파일이 아니라 directory를 만든다. `.csv`로 끝나는 output path는 extension을 제거해 folder name으로 쓰고, folder 안에 marker와 table별 file을 쓴다. (`repos/codeburn/src/export.ts:300-344`)
+- `schema: 'codeburn.export.v2'`, `currency{code,rate,symbol}`, summary, periods[daily/activity/models], projects/sessions/records/tools/mcp/shellCommands. (`:461-478`, 코드 확인)
+- 경로가 폴더면 내부에 dated 파일, `.json` 아니면 확장자 추가. 기존 파일은 앞 4KB에 `"schema": "codeburn.export.v` 문자열이 없으면 덮어쓰기 거부. (`:484-518`, 코드 확인)
 
-```text
-.codeburn-export
-README.txt
-summary.csv
-daily.csv
-activity.csv
-models.csv
-projects.csv
-sessions.csv
-tools.csv
-shell-commands.csv
-```
+### 통화 · CSV 안전
 
-`summary`, `daily`, `activity`, `models`는 모든 `PeriodExport[]`에 대해 작성된다. `projects`, `sessions`, `tools`, `shell-commands`는 `30 Days` period가 있으면 그것을 detail period로 쓰고, 없으면 마지막 period를 쓴다. (`repos/codeburn/src/export.ts:304-341`)
+- 비용 셀은 `roundForActiveCurrency(convertCost(...))`로 활성 통화 변환. (`src/export.ts:5`, `:89-90`, 코드 확인)
+- `escCsv()`: `\t \r = + - @`로 시작하는 값 앞에 `'`를 붙여 스프레드시트 수식 주입을 막는다. (`src/export.ts:12-18`, 코드 확인)
+- `csvCell()`: 부동소수 노이즈를 소수 8자리로 정리. (`src/export.ts:31-36`, 코드 확인)
 
-JSON export는 `schema: "codeburn.export.v2"`, generated timestamp, active currency metadata, summary/period tables, detail projects/sessions/tools/shellCommands를 하나의 JSON file로 저장한다. Output path가 `.json`으로 끝나지 않으면 `.json`을 붙인다. (`repos/codeburn/src/export.ts:346-399`)
+## 미확인
 
-## Currency and rounding boundary
-
-CLI pre-action은 config/model alias/proxy path를 hydrate하고 `loadCurrency()`를 호출한다. (`repos/codeburn/src/main.ts:140-159`) `loadCurrency()`는 config currency가 있으면 Frankfurter API 또는 `~/.cache/codeburn/exchange-rate.json` cache에서 USD exchange rate를 가져오고, 실패 시 rate 1을 사용한다. (`repos/codeburn/src/currency.ts:74-143`)
-
-Export rows는 `convertCost()` 후 `roundForActiveCurrency()`를 적용한다. 따라서 JPY/KRW처럼 fraction digit이 0인 currency는 row boundary에서 자연 소수 자릿수로 rounding되고, `convertCost()` 자체는 unrounded value를 반환해 per-session rounding accumulation error를 피한다. (`repos/codeburn/src/export.ts:71-83`, `repos/codeburn/src/export.ts:193-226`, `repos/codeburn/src/currency.ts:56-72`, `repos/codeburn/src/currency.ts:164-185`)
-
-## Export safety and CSV injection guards
-
-CSV cell escaping은 spreadsheet formula injection을 막기 위해 `^[\t\r=+\-@]`로 시작하는 cell 앞에 single quote를 붙인다. 이후 comma/quote/newline이 있으면 double quote로 감싸고 내부 quote를 escape한다. (`repos/codeburn/src/export.ts:9-26`)
-
-Export path safety는 DeepWiki 설명보다 현재 source가 더 강하다.
-
-- CSV: existing file overwrite를 거부하고, existing directory는 `.codeburn-export` marker가 있을 때만 비운다. 즉 root/home directory 단순 guard가 아니라 marker-based reuse guard다. (`repos/codeburn/src/export.ts:284-324`)
-- JSON: existing file이 있으면 첫 4KB에서 `"schema": "codeburn.export.v` marker를 확인하고, CodeBurn export로 보이지 않으면 overwrite를 거부한다. Existing directory도 거부한다. (`repos/codeburn/src/export.ts:346-399`)
-
-`tests/export.test.ts`는 formula-like project/model/command escaping, tab/carriage-return prefix escaping, per-model efficiency CSV columns, empty period handling, README wording을 검증한다. (`repos/codeburn/tests/export.test.ts:115-196`)
-
-## Test/help verification
-
-이번 wiki update 중 다음 명령을 실제 실행해 확인했다.
-
-```bash
-npm ci
-npx tsx src/main.ts --help
-npx tsx src/main.ts report --help
-npx tsx src/main.ts status --help
-npx tsx src/main.ts export --help
-npm exec vitest -- run tests/export.test.ts tests/menubar-json.test.ts tests/cli-status-menubar.test.ts tests/cli-export-date-range.test.ts
-```
-
-결과는 `npm ci`가 218 packages 설치, 취약점 0개였고, Vitest는 4 files / 24 tests 모두 pass였다. Help 실행은 성공했지만 `tsx` 경로에서 Node `DEP0205 module.register()` deprecation warning이 stderr에 출력됐다.
-
-## Current-source corrections vs DeepWiki
-
-- DeepWiki는 command implementation을 `src/cli.ts`로 설명하지만, 현재 `src/cli.ts`는 launcher이고 실제 command logic은 `src/main.ts`에 있다.
-- DeepWiki의 “`codeburn report` generates JSON” 표현은 현재 source 기준으로는 `codeburn report --format json`일 때만 정확하다. 기본 `report`는 interactive dashboard(`--format tui`)다.
-- DeepWiki의 report line ranges는 현재 checkout과 맞지 않고, current JSON report는 `proxiedCost`, `netCost`, `savings`, model efficiency, skills/subagents/Claude agent types, `plans` map 등으로 확장되어 있다.
-- Status terminal bucketing은 assistant-call timestamp 기준인 반면, `buildJsonReport()` daily rollup은 turn timestamp를 우선하고 없을 때 assistant-call timestamp로 fallback한다. 두 surface의 date attribution boundary가 완전히 같지는 않다.
-- CSV export는 DeepWiki의 root/home overwrite guard보다 marker-based guard가 핵심이다. JSON export에도 schema-marker overwrite guard가 추가되어 있다.
-- Export files에는 DeepWiki 목록 외에 `README.txt`와 `summary.csv`가 포함된다.
-
-관련 페이지: [[codeburn]], [[codeburn-data-ingestion-and-caching]], [[codeburn-day-aggregation-and-caching]], [[codeburn-pricing-and-currency-resolution]], [[codeburn-subscription-plans-and-currency]], [[evidence-backed-analysis]].
+- `buildJsonReport()`(`src/main.ts:599`) 출력 필드 전체와 `attachPlanSummaries()`(`:247`) 플랜 요약 형태.
+- `buildDurablePeriod()` 내부의 캐시 하이드레이션·오늘 overlay 세부 → [[codeburn-day-aggregation-and-caching]] 쪽 검증 필요.
+- `loadStatusSnapshot`의 settle window 동작, `pullDevices()`의 기기 페어링 프로토콜.
+- `export`의 각 `build*Rows` 열 정의, `--route/--billing` 필터 의미.
+- 실행 확인 없음(help/test 미실행).

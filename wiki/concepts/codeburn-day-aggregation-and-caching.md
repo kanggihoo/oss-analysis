@@ -1,145 +1,82 @@
 ---
 title: CodeBurn Day Aggregation and Caching
 created: 2026-06-10
-updated: 2026-06-10
+updated: 2026-10-15
 type: concept
-tags: [open-source, architecture, developer-tools, tooling, evidence, deepwiki]
+tags: [open-source, architecture, developer-tools, tooling, evidence]
 sources:
-  - artifacts/codeburn/deepwiki/pages-md/2.4-day-aggregation-and-caching.md
+  - repos/codeburn/src/day-aggregator.ts
+  - repos/codeburn/src/daily-cache.ts
+  - repos/codeburn/src/usage-aggregator.ts
+  - repos/codeburn/src/main.ts
+  - repos/codeburn/src/cache-dir.ts
   - wiki/projects/codeburn.md
   - wiki/concepts/codeburn-data-ingestion-and-caching.md
   - wiki/concepts/codeburn-pricing-and-currency-resolution.md
   - wiki/concepts/codeburn-turn-classification-engine.md
-  - repos/codeburn/src/day-aggregator.ts
-  - repos/codeburn/src/daily-cache.ts
-  - repos/codeburn/src/usage-aggregator.ts
-  - repos/codeburn/src/menubar-json.ts
-  - repos/codeburn/src/export.ts
-  - repos/codeburn/src/currency.ts
-  - repos/codeburn/src/types.ts
 confidence: high
 ---
 # CodeBurn Day Aggregation and Caching
 
-이 페이지는 [[codeburn]]이 이미 파싱된 `ProjectSummary` / `SessionSummary` / `ClassifiedTurn` 데이터를 일별 bucket으로 접고, 기간별 조회를 빠르게 하기 위해 `daily-cache.json`을 어떻게 유지하는지 정리한다. Raw log parsing과 session cache는 [[codeburn-data-ingestion-and-caching]], cost 계산은 [[codeburn-pricing-and-currency-resolution]], turn/category 산정은 [[codeburn-turn-classification-engine]]를 참조한다.
+검증 기준 checkout: repos/codeburn at 9a40cc603fcd194caca9daa8c5134a61ea7e0e2b (2026-10-15).
 
-검증 기준 checkout: `repos/codeburn` at `f1bf7a197bb38e70cc71cf1905bfa5cbd92c1cc3`.
+[[codeburn]]이 파싱된 `ProjectSummary[]`를 일별 bucket으로 접고, 과거 날짜를 `daily-cache.v75.json`에 봉인(seal)해 기간 조회를 빠르게 하는 방법을 정리한다. 원천 파싱과 session cache는 [[codeburn-data-ingestion-and-caching]], 비용 계산은 [[codeburn-pricing-and-currency-resolution]], category/turn 판정은 [[codeburn-turn-classification-engine]]를 본다.
 
-## 한 문장 요약
-CodeBurn은 매번 모든 session file을 다시 파싱해서 기간별 chart를 만들지 않는다. 과거 날짜는 `DailyEntry[]`로 미리 접어 `daily-cache.json`에 저장하고, 조회 시에는 cache에 있는 historical days와 오늘만 새로 파싱한 today data를 합쳐 `PeriodData`를 만든다.
+## 용어
+- **`DailyEntry`**: 하루 합계(cost, calls, sessions, tokens, edit/one-shot turn)와 `models`/`categories`/`providers`/`projects` 분해(daily-cache.ts:484-508).
+- **`ProviderDaySlice`**: 하루 안의 provider별 조각. 병합·carry-forward의 단위.
+- **watermark (`lastComputedDate`)**: 어디까지 과거가 파생되었는지 표시하는 날짜.
+- **carried**: 원본 session 파일이 사라져 재파생할 수 없어 이전 캐시 값을 그대로 이어받은 day 표시(daily-cache.ts:503-507).
+- **settle window**: 최근 `SETTLE_DAYS = 7`일. 아직 원본이 있어 재파생 결과를 신뢰하는 구간(daily-cache.ts:1446).
 
-## 전체 흐름
-```text
-ProjectSummary[]
-→ aggregateProjectsIntoDays()
-→ DailyEntry[]
-→ ensureCacheHydrated()
-→ ~/.cache/codeburn/daily-cache.json
-→ getDaysInRange(cache, start, end)
-→ buildPeriodDataFromDays(days, label)
-→ menubar/status/MCP payload
-```
+## aggregateProjectsIntoDays (day-aggregator.ts:57)
+- 입력: `ProjectSummary[]`, `dateKeyFn`(기본 local 날짜 `dateKey`, tz 재파생 시 `dateKeyInTz`)(day-aggregator.ts:27-47).
+- 내부 동작:
+  - session은 `firstTimestamp` 날짜에 1회 집계. 여러 project로 쪼개진 session은 가장 이른 조각만 day/provider `sessions`를 올린다(day-aggregator.ts:85-110). 코드 확인.
+  - **두 가지 bucket 규칙**: category/editTurns/oneShotTurns 같은 turn 단위 판정은 turn timestamp 날짜에, cost/calls/tokens/model/project/provider 수치는 **각 call 자신의 날짜**에 넣는다(day-aggregator.ts:111-133, 203). 코드 확인. 자정을 걸친 turn에서 일별 합이 기간 headline과 맞도록 하려는 것(주석 근거, 코드 확인).
+  - turn의 call 수가 가장 많은 provider만 그 turn 수를 소유하고, cost는 등장한 모든 provider slice에 나눠 담는다(day-aggregator.ts:157-188). 코드 확인.
+  - 보조 회계 call(copilot rollup 등)은 cost/tokens만 더하고 calls/turn 가중치는 0(`isBehavioralTurn`, `behavioralCallWeight`, day-aggregator.ts:135-141, 195-199). 코드 확인.
+- 반환값: 날짜순 `DailyEntry[]`(day-aggregator.ts:274).
 
-`usage-aggregator.ts`의 `hydrateCache()`는 `ensureCacheHydrated()`에 `parseAllSessions(range, 'all')`, `aggregateProjectsIntoDays`, `getLocalModelSavingsConfigHash()`를 넘긴다. 즉 daily cache는 all-provider historical summary를 빠르게 만들기 위한 layer다. (`repos/codeburn/src/usage-aggregator.ts:55-73`)
+## buildPeriodDataFromDays (day-aggregator.ts:277)
+- 입력: `DailyEntry[]`, label. 내부 동작: 합계·model·category를 단순 합산, cost 내림차순 정렬. 반환값: `PeriodData`(menubar-json 타입). 코드 확인.
 
-## 1. `DailyEntry`가 저장하는 것
-`DailyEntry`는 하루치 cost/token/call/session/category/model/provider summary다. 현재 source 기준 field는 다음이다.
+## daily cache 파일
+- `DAILY_CACHE_VERSION = 75`, 최소 지원 28(daily-cache.ts:364-365). 파일 `daily-cache.v75.json`을 `CODEBURN_CACHE_DIR`(기본 `~/.cache/codeburn`) 아래에 둔다(daily-cache.ts:429, 553-555; cache-dir.ts:11-14). 코드 확인.
+- `DailyCache`(daily-cache.ts:510-547): `savingsConfigHash`, `tzKey`, `lastComputedDate`, `days`, `complete`, `watermarkTrusted`, `pendingRederive`. 코드 확인.
+- `loadDailyCache`(daily-cache.ts:781): 현재 버전 파일을 읽어 마이그레이션, 실패하거나 없으면 `adoptOlderDailyCaches`로 이전 버전 파일들의 day를 합집합으로 이어받는다(:817). 코드 확인.
+- `saveDailyCache`(daily-cache.ts:930): temp 파일 + fsync + rename 원자적 저장. 코드 확인.
+- 보존 기간 `DAILY_CACHE_RETENTION_DAYS = 3650`(10년), 백필 창 `BACKFILL_DAYS = 365`(daily-cache.ts:1669-1677). 코드 확인.
+- `PENDING_REDERIVE_PROVIDER_VERSIONS`: 회계 기준이 바뀐 provider(copilot 75, codex 43, cursor 71 등)에 한해 마이그레이션 후 첫 완전 재파생에서 call 수 감소를 허용(daily-cache.ts:385-417). 코드 확인.
 
-| Field group | 내용 | Evidence |
-|---|---|---|
-| scalar totals | `date`, `cost`, `savingsUSD`, `calls`, `sessions`, token totals, `editTurns`, `oneShotTurns` | `repos/codeburn/src/daily-cache.ts:18-29` |
-| `models` | model별 calls/cost/savings/token totals | `repos/codeburn/src/daily-cache.ts:30-38` |
-| `categories` | category별 turns/cost/savings/editTurns/oneShotTurns | `repos/codeburn/src/daily-cache.ts:39` |
-| `providers` | provider별 calls/cost/savings | `repos/codeburn/src/daily-cache.ts:40` |
+## ensureCacheHydrated (daily-cache.ts:1703)
+- 입력: `parseSessions(range)`, `aggregateDays`, config hash, `sessionComplete()`, 선택적 `aggregateDaysInTz`.
+- 내부 동작 (`withDailyCacheLock` 안, daily-cache.ts:1662, 1729):
+  1. 오늘 이후 날짜 entry 제거. 캐시는 어제까지만 저장한다(:1733-1742). 코드 확인.
+  2. `watermarkTrusted`가 없는 캐시는 watermark를 실제 최신 day로 당긴다(:1760-1763). settle window 안의 residue-only day(호출 없이 category만 남은 날)가 있으면 그 전날로 당긴다(:1779-1791). 코드 확인.
+  3. **전체 재파생**: config hash 변경, `complete !== true`, timezone 변경 중 하나면 `backfillStart`(365일 전)~어제를 파싱해 다시 만든다(:1811-1834). 기존 day를 버리지 않고 baseline으로 두며, 완전 파싱이면 `mergeDayEntries(fresh, baseline, carried=true, …)`, 부분 파싱이면 baseline 우선으로 빈 곳만 채운다(:1890-1892). tz 변경 시 지금까지 한 번 더 파싱해 자정을 넘어 이동한 turn을 baseline에서 뺀다(:1850-1876). 코드 확인.
+  4. **증분 gap**: 아니면 `lastComputedDate + 1`부터 어제까지, 그리고 settle window(7일)도 함께 다시 파싱해 병합(:1931-1972). 이미 봉인된 날은 줄어들지 않는다(`sealedBefore`, :1537-1541, 1969-1971). 코드 확인.
+  5. watermark 전진과 `complete`/`watermarkTrusted` 표시는 **session 파싱이 complete일 때만**(:1915-1920, 1979). 부분 파싱은 watermark를 유지해 다음 실행이 다시 채운다. 코드 확인.
+- 반환값: 갱신된 `DailyCache`.
+- 병합 guard: settle window 밖에서 fresh call 수가 baseline보다 적으면 원본이 사라진 것으로 보고 baseline 유지(`isPartialSurvival`, daily-cache.ts:1452-1454). 코드 확인.
 
-`DailyCache`는 `{ version, savingsConfigHash, lastComputedDate, days }` 구조다. `savingsConfigHash`는 `localModelSavings` mapping이 바뀌면 historical savings를 다시 계산해야 하기 때문에 저장된다. (`repos/codeburn/src/daily-cache.ts:43-51`)
+## 기간 조회: buildDurablePeriod (usage-aggregator.ts:908)
+- 입력: `PeriodInfo`(range, label), `opts`(provider, project/exclude, daysSelection).
+- 내부 동작:
+  - provider가 `all`이면 `hydrateCache()`(usage-aggregator.ts:226)로 daily cache를 채운다. 이때 parser는 `parseAllSessions(range, 'all', { includeAggregateOnly: true })`, hash는 savings+price override+flat-rate 설정 결합(usage-aggregator.ts:219-224). provider 탭이면 캐시를 그대로 load만 한다(:929). 코드 확인.
+  - 기간 range를 한 번 파싱하고 today 조각은 같은 파싱에서 잘라 쓴다(range가 오늘을 포함할 때, :938-958). 코드 확인.
+  - `unionDaysForPeriod`(usage-aggregator.ts:685): 캐시의 어제까지 day + 오늘 live day를 합친다. 같은 날짜에 live 파싱이 provider slice의 call을 더 많이 설명하면 그 slice가 이긴다(`'prefer-richer'`, :708-735). 코드 확인.
+  - project 필터가 있으면 캐시 day도 project로 잘라내고, project 분해가 없는 옛 day 비용은 `unattributedCostUSD`로 따로 보고한다(:972-998). 코드 확인.
+- 반환값: `DurablePeriod`. 호출처: `main.ts:520, 912, 1093, 1431-1432, 1470-1471`. 코드 확인.
 
-## 2. 일별 aggregation rule
-`aggregateProjectsIntoDays(projects)`는 project → session → turn → assistant call을 순회하며 날짜별 bucket을 만든다. (`repos/codeburn/src/day-aggregator.ts:29-101`)
+## 설계 의도 (추론)
+- session 원본은 provider가 지우는 휘발성 데이터라 daily cache가 장기 지출의 유일한 기록이 된다. 그래서 "재파생하되 버리지 않는다", "부분 파싱은 봉인하지 않는다", "봉인된 날은 줄지 않는다"가 반복되는 원칙이다. 추론(주석 근거 daily-cache.ts:1793-1805, 1670-1676).
 
-| Entity / metric | 날짜 귀속 방식 | Evidence |
-|---|---|---|
-| session count | `session.firstTimestamp`의 날짜에 `sessions += 1` | `repos/codeburn/src/day-aggregator.ts:37-40` |
-| turn category/edit metrics | turn의 첫 assistant call timestamp 날짜에 귀속 | `repos/codeburn/src/day-aggregator.ts:42-61` |
-| call cost/token/provider/model metrics | 각 assistant call의 own timestamp 날짜에 귀속 | `repos/codeburn/src/day-aggregator.ts:63-95` |
+## 관련
+[[codeburn-domain-terminology]] · [[codeburn-provider-plugin-system]] · [[codeburn-codex-provider]] · [[codeburn-subscription-plans-and-currency]] · [[codeburn-optimization-engine]] · [[codeburn-report-status-export-commands]]
 
-이 차이가 중요하다. 하나의 turn 안에 여러 assistant call이 있고 날짜가 넘어가면, turn/category metric은 첫 assistant call 날짜에 놓이지만 cost/token은 call timestamp별로 더 세밀하게 분산될 수 있다.
-
-## 3. 기간별 rollup
-`buildPeriodDataFromDays(days, label)`은 여러 `DailyEntry`를 한 기간 summary인 `PeriodData`로 접는다. 합산 대상은 cost/savings/calls/sessions/token totals이고, category/model breakdown은 cost descending으로 정렬된다. (`repos/codeburn/src/day-aggregator.ts:103-154`, `repos/codeburn/src/menubar-json.ts:1-24`)
-
-이 함수는 이미 만들어진 daily buckets만 입력으로 받으므로, "지난 30일", "이번 달", "최근 6개월" 같은 기간 조회를 raw session parsing 없이 빠르게 계산할 수 있다.
-
-## 4. Daily cache 저장 위치와 versioning
-Daily cache 기본 경로는 다음이다.
-
-```text
-${CODEBURN_CACHE_DIR:-~/.cache/codeburn}/daily-cache.json
-```
-
-근거: `repos/codeburn/src/daily-cache.ts:54-60`.
-
-현재 source 기준 version은 `8`이고, minimum supported version도 `8`이다. DeepWiki page의 version `4` 설명은 현재 checkout 기준으로 stale하다. Version 8은 local-model savings가 daily rollup에 포함되면서 도입된 구조다. (`repos/codeburn/src/daily-cache.ts:8-16`)
-
-`loadDailyCache()`는 version이 supported range이면 `migrateDays()`로 missing field를 채워 현재 `DailyCache`로 올리고, version이 맞지 않으면 old cache를 `.v<version>.bak`으로 best-effort backup한 뒤 empty cache로 시작한다. (`repos/codeburn/src/daily-cache.ts:66-121`)
-
-## 5. Hydration: 필요한 gap만 다시 파싱한다
-`ensureCacheHydrated()`는 cache와 raw provider logs 사이를 동기화한다. 핵심은 오래된 history 전체를 매번 다시 만들지 않고 gap만 backfill하는 것이다. (`repos/codeburn/src/daily-cache.ts:199-253`)
-
-흐름:
-
-```text
-loadDailyCache()
-→ savingsConfigHash가 다르면 cached days 전체 discard
-→ yesterday 이상 날짜가 cache에 있으면 제거
-→ gapStart = lastComputedDate 다음날 또는 오늘-365일
-→ gapStart <= yesterdayEnd 이면 그 기간만 parseSessions(range)
-→ aggregateDays(gapProjects)
-→ addNewDays()
-→ saveDailyCache()
-```
-
-현재 source는 `BACKFILL_DAYS = 365`, `DAILY_CACHE_RETENTION_DAYS = 730`이다. 즉 최초/재수화는 기본 1년 backfill이고, cache file은 2년 retention window 바깥의 old entries를 prune한다. (`repos/codeburn/src/daily-cache.ts:188-193`, `repos/codeburn/src/daily-cache.ts:145-174`)
-
-## 6. 오늘/어제 처리
-Daily cache는 안정된 과거 history용이다. `ensureCacheHydrated()`는 cache에 yesterday 이상 날짜가 있으면 `date < yesterdayStr`만 남긴다. 즉 yesterday와 today는 session file이 계속 쓰이는 중일 수 있으므로 stale cache를 쓰지 않게 한다. (`repos/codeburn/src/daily-cache.ts:208-234`)
-
-`buildMenubarPayloadForRange()`는 all-provider 조회에서 historical days를 cache에서 가져오고, today는 `parseAllSessions(todayRange, 'all')`로 새로 파싱한 뒤 `aggregateProjectsIntoDays()`로 만든 today days를 합친다. (`repos/codeburn/src/usage-aggregator.ts:94-145`)
-
-## 7. 저장 안전성
-`saveDailyCache()`는 final file에 직접 쓰지 않는다.
-
-```text
-daily-cache.json.<random>.tmp
-→ write JSON
-→ handle.sync()
-→ close
-→ rename(temp, final)
-```
-
-근거: `repos/codeburn/src/daily-cache.ts:124-143`.
-
-`withDailyCacheLock()`은 module-level promise chain으로 같은 process 안의 daily cache 작업을 직렬화한다. 다만 이 lock은 file lock이 아니라 process-local lock이다. 여러 process가 동시에 실행될 수 있는 상황에서 최종 파일 손상을 줄이는 핵심 장치는 temp file + fsync + atomic rename이다. (`repos/codeburn/src/daily-cache.ts:180-186`)
-
-## 8. Menubar/status/MCP에서 cache를 쓰는 방식
-All-provider period 조회는 daily cache path를 적극 사용한다.
-
-- `hydrateCache()`로 historical cache를 준비한다.
-- range start/end 문자열로 `getDaysInRange(cache, start, historicalEnd)`를 가져온다.
-- today가 range에 포함되면 fresh today days를 붙인다.
-- `buildPeriodDataFromDays()`로 current period payload를 만든다.
-
-근거: `repos/codeburn/src/usage-aggregator.ts:127-145`.
-
-Provider filter가 `all`이 아닌 경우에는 `loadDailyCache()`만 하고, 해당 provider의 `parseAllSessions(periodInfo.range, pf)`를 직접 수행해 `buildPeriodData()`로 period data를 만든다. 즉 provider-specific period view는 all-provider daily cache만으로 해결하지 않는다. (`repos/codeburn/src/usage-aggregator.ts:147-164`)
-
-## 9. Export와의 관계
-`export.ts`도 daily/activity/model CSV/JSON row를 만들지만, 현재 `buildDailyRows()`는 `DailyCache`를 직접 읽는 path가 아니라 전달받은 `ProjectSummary[]`에서 row를 만든다. Cost fields는 [[codeburn-pricing-and-currency-resolution]]에서 설명한 active currency conversion을 거쳐 표시된다. CSV cell은 `=`, `+`, `-`, `@`, tab, carriage return으로 시작하면 single quote를 붙여 formula injection을 막는다. (`repos/codeburn/src/export.ts:9-14`, `repos/codeburn/src/export.ts:48-83`)
-
-## Current-source corrections vs DeepWiki
-- DeepWiki는 `DAILY_CACHE_VERSION`을 4로 설명하지만 현재 source는 version 8, minimum supported version 8이다.
-- DeepWiki의 "Lock Chain prevents concurrent CLI/Menubar corruption" 설명은 current source 기준으로는 process-local 직렬화로 좁혀 말해야 한다. Cross-process safety는 atomic temp write/rename이 담당한다.
-- Daily cache path는 `CODEBURN_CACHE_DIR` override를 존중한다.
-- Export daily rows는 daily-cache file을 직접 읽는 layer가 아니라 `ProjectSummary[]`를 flat rows로 변환하는 별도 reporting path다.
-
-관련 페이지: [[codeburn]], [[codeburn-data-ingestion-and-caching]], [[codeburn-pricing-and-currency-resolution]], [[codeburn-turn-classification-engine]], [[evidence-backed-analysis]].
+## 미확인
+- `withDailyCacheLock`는 프로세스 내부 promise chain(daily-cache.ts:1660-1666)이다. 여러 프로세스가 동시에 daily cache를 쓸 때의 보호는 확인하지 못했다.
+- `hydrateCache`의 백필 파싱(365일~어제)과 기간 파싱은 range가 달라 별개의 `parseAllSessions` 호출이다. 두 번째 호출이 싸게 끝나는 것은 session cache 재사용 덕분이라고 추론하며 실행으로 확인하지 않았다.
+- `mergeDayEntries`(daily-cache.ts:1508) 본문의 `carried` 표시, `subtract` 적용 순서 세부.
+- `detectPhantomSpend`, `withoutImportReplacedSlices`의 역할.

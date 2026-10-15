@@ -371,3 +371,14 @@
 ## [2026-10-15] ingest | teamai-cli initial setup
 - Cloned `repos/teamai-cli` at `7ba8bcc` (clean, v0.22.0). Read README, product-overview, `package.json`, `src/index.ts` command list, `ResourceType`, `hook-dispatch`. No run/tests/diagrams.
 - Wrote `reports/teamai-cli/overview.md` (feature map by 3 layers) and `next.md`; metadata in `artifacts/teamai-cli/repo-metadata.txt`. Wiki project page not yet written.
+
+## [2026-10-15] ingest | codeburn re-baseline first pass
+- Fast-forwarded `repos/codeburn` `f1bf7a1` → `9a40cc6` (v0.9.27; tracked files clean, untracked graphify outputs only). Metadata in `artifacts/codeburn/repo-metadata.txt`.
+- Mapped entry/commands, provider registry (43), session cache v10 / daily cache v75, and the `codeburn report` path (code reading via subagent + spot-checks; no run/tests).
+- Wrote `reports/codeburn/overview.md` (with old-vs-new baseline diff table), `next.md`, archify diagrams `structure` and `report-flow` (deliver + visual-check passed; screenshots glanced once).
+- Added a re-baseline warning to [[codeburn]]; concept notes not yet re-verified.
+
+## [2026-10-15] update | codeburn wiki rebuilt on 9a40cc6
+- Rewrote [[codeburn]] and all 10 `codeburn-*` concept notes from scratch against `9a40cc6` (old `f1bf7a1`/DeepWiki-based content removed; code reading only, no run). Notable drift: providers 19+9 → 32+11; session cache → `session-cache.v10/` per-provider UTC-day pieces; daily cache v75; optimize 21 finding ids with `--apply`/`act undo`; 12 plan presets; cost repriced on read except `REPORTED_COST_PROVIDERS`/`costFromBilling`.
+- Added a "주요 기능" (features by group, with evidence level) section to `reports/codeburn/overview.md`; corrected cache/cost wording in overview/next.
+
