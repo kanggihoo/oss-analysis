@@ -76,6 +76,8 @@ README가 밝힌 한계: Windows 앱은 WSL 안에 링크를 만들 수 없어 �
 
 - [Q1: 같은 이름·다른 내용 스킬과 덮어쓰기 처리 (cc-switch 비교)](./questions/q1-same-name-conflict-and-overwrite.md) - *해시로 별개 스킬 구분, 소유권 기록 없으면 덮어쓰기 거부 후 충돌 보고. 코드 읽기만, 실행 검증은 아직.*
 
+- [Q2: 핵심 개념(설치·라이브러리·동기화·Preset·Workspace·백업·프록시·자동 업데이트)](./questions/q2-core-concepts-and-auto-update.md) - *설치=라이브러리 입고, 동기화=에이전트 폴더 연결(symlink/복사), 자동 업데이트는 옵트인 적용·복사 모드만 재복사. 코드 읽기 기준, 일부 README 기준.*
+
 나머지 제안 질문은 [next.md](./next.md) 참고.
 
 ---
