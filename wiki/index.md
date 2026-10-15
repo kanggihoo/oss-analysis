@@ -2,11 +2,12 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-10-09 | Total pages: 57
+> Last updated: 2026-10-15 | Total pages: 59
 
 ## Projects
 
 - [[career-ops]] — Source-verified project structure and initial setup model for the CLI-agnostic AI job-search automation workspace.
+- [[cc-switch]] — Source-verified 1차 notes on the Tauri/Rust provider-switching manager for Claude Code/Codex/Gemini CLI: base-URL-rewrite proxy (not MITM), Anthropic↔Gemini/OpenAI format conversion, and log-file-based Session Manager/usage that do not need the proxy.
 - [[claude-code-history-viewer]] — Tauri/React/Rust desktop and optional WebUI tool for browsing multi-provider AI coding assistant conversation history.
 - [[claude-devtools]] — Source-verified 1차 core architecture and data pipeline for an Electron app that inspects Claude Code session logs.
 - [[codeburn]] — Source-verified architecture notes for the AI coding token/cost observability pipeline from provider logs to TUI, menubar JSON, and MCP surfaces.
@@ -23,6 +24,7 @@
 - [[pi]] — Source-verified summary of the `ai` (unified LLM API) and `agent` (agent loop, `Agent` wrapper, proxy stream) packages of the TypeScript agent toolkit, with run-verified loop behavior; coding-agent and other packages not yet analyzed.
 - [[ponytail]] — Source-verified overview of the lazy-senior-dev agent skill, its ladder philosophy, safety boundaries, and thin multi-host adapter model.
 - [[rsshub]] — Source-verified layered architecture of the self-hostable feed-generation server: route plugin model, request coalescing, and the 3,462-route catalog.
+- [[skills-manager]] - Source-verified first-pass notes on the Tauri/Rust app that keeps AI agent skills in one central library and deploys them to 54 agents by symlink/junction/copy, with ownership-based overwrite protection (ReplacePolicy).
 - [[tokscale]] — Source-verified architecture notes for the Rust CLI/core plus Next.js social platform that tracks AI coding assistant token usage.
 
 ## Concepts

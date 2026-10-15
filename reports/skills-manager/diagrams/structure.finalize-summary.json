@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.json",
+    "sha256": "4c6ff1d99c1d67a4b193c6085061b7ae47d9b27663f8da3f5ca949701c463f81",
+    "bytes": 3742
+  },
+  "artifact": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.html",
+    "sha256": "feef43fabede445a4e07cb964604b04fc56d2f19a360c739d5c93305667a945c",
+    "bytes": 823994
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.finalize.json",
+    "summaryReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.1.0",
+    "availableVersion": "3.1.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-15T03:49:06.644Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 5143
+}

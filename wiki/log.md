@@ -327,3 +327,28 @@
 - Ran `uv run pytest`: 31 passed (offline). Live/paid scripts and `scripts/check_guards.py` (real Chrome) not run.
 - Wrote `reports/jev-ultrafast/overview.md`, `next.md`, archify diagrams `structure` (architecture) and `tick-flow` (sequence), both showcase-validated and visual-checked; metadata in `artifacts/jev-ultrafast/repo-metadata.txt`.
 - Added [[jev-ultrafast]]; updated `wiki/index.md` to 57 pages.
+
+## [2026-10-15] ingest | cc-switch first pass (proxy and session manager)
+- Read `repos/cc-switch` at `d35726e` while answering questions: proxy interception, settings.json write timing, Session Manager vs proxy, format conversion. Wrote `reports/cc-switch/overview.md`, `next.md`, `questions/q1-q4`; metadata appended to `artifacts/cc-switch/repo-metadata.txt` (earlier entry was shallow clone `bfaaba1`).
+- Findings: proxy works by rewriting each CLI base URL to `127.0.0.1:15721` (not MITM); install alone does not modify `~/.claude/settings.json` (confirmed on this PC); Session Manager reads `~/.claude/projects/**/*.jsonl`, unrelated to the proxy; Anthropic<->Gemini/OpenAI conversion lives in `proxy/providers/transform*.rs` with 193 commits touching it.
+- Not done: archify diagrams, restore-on-exit/startup code, `usage/logger.rs`. Added [[cc-switch]]; updated `wiki/index.md` to 58 pages.
+
+## [2026-10-15] update | cc-switch skills/MCP management and same-name skill probe
+- Read `services/skill.rs` and `mcp/`; ran the real `SkillService` in an isolated test home (`CC_SWITCH_TEST_HOME`) from a scratch copy of the repo; test source and output in `artifacts/cc-switch/skill-dup-probe/`. `repos/cc-switch` untouched.
+- Result: for a same-named skill with different content in Claude and Codex, import takes the first-found (Claude) as SSOT and a later `resync_all_apps` replaces the Codex folder, dropping its `agents/openai.yaml`. Wrote `reports/cc-switch/questions/q5-skills-mcp-management.md`; updated overview, next, [[cc-switch]].
+
+## [2026-10-15] update | cc-switch MCP per-app conversion documented
+- Read `mcp/*.rs`, `services/mcp.rs`, `claude_plugin.rs`. Wrote `reports/cc-switch/questions/q6-mcp-per-app-conversion.md` (code reading only, not executed); added skill sync problem summary to q5; updated overview, next, [[cc-switch]].
+
+## [2026-10-15] ingest | skills-manager first pass
+- Cloned `repos/skills-manager` at `e6dcedf` (clean, v1.42.0). Read README, layout, `sync_engine.rs`, `scenario_service.rs`, `tool_adapters.rs`, `migrations.rs`; traced one path (`sync_skill_to_tool`). No tests or app run.
+- Wrote `reports/skills-manager/overview.md`, `next.md`, archify diagrams `structure` and `deploy-flow` (automated gates passed, not visually reviewed); metadata in `artifacts/skills-manager/repo-metadata.txt`.
+- Added [[skills-manager]]; updated `wiki/index.md` to 59 pages.
+
+## [2026-10-15] update | skills-manager same-name conflict compared with cc-switch
+- Read `sync_engine.rs`, `scenario_service.rs`, `scanner.rs`, `installer.rs`, `commands/{scan,projects,agent_workspace}.rs` at `e6dcedf`; wrote `reports/skills-manager/questions/q1-same-name-conflict-and-overwrite.md` (code reading only). Linked from overview/next; updated [[skills-manager]].
+- Note: while writing, I overwrote `artifacts/skills-manager/repo-metadata.txt` (just created by another session with the same SHA); content rewritten with the same fields.
+
+## [2026-10-15] ingest | teamai-cli initial setup
+- Cloned `repos/teamai-cli` at `7ba8bcc` (clean, v0.22.0). Read README, product-overview, `package.json`, `src/index.ts` command list, `ResourceType`, `hook-dispatch`. No run/tests/diagrams.
+- Wrote `reports/teamai-cli/overview.md` (feature map by 3 layers) and `next.md`; metadata in `artifacts/teamai-cli/repo-metadata.txt`. Wiki project page not yet written.

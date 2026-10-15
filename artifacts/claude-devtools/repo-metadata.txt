@@ -4,3 +4,12 @@ date=2026-09-29T11:14:49Z
 commit=1486f2042c87bb547a4e34808ab54ab34a33f132
 origin=https://github.com/matt1398/claude-devtools.git
 worktree=clean
+
+# clone 복원 확인 (2026-10-15, Windows PC)
+date=2026-10-15
+repo_dir=C:\Users\SSAFY\Desktop\oss-analysis\repos\claude-devtools
+commit=1486f2042c87bb547a4e34808ab54ab34a33f132
+describe=v0.5.0-8-g1486f20
+commit_date=2026-09-26T16:43:48+09:00
+worktree=clean
+upstream_new_commits=0

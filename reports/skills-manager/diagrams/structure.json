@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "skills-manager 구조 (스킬 배포 경로)",
+    "output": "reports/skills-manager/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": { "url": "https://github.com/xingkongliang/skills-manager", "revision": "e6dcedf968f3f0ebf62e24edf5d90ec8cbf23509" }
+  },
+  "components": [
+    { "id": "ui", "type": "frontend", "label": "React UI", "sublabel": "src/lib/tauri.ts", "pos": [40, 300], "size": [140, 60],
+      "sources": [{ "path": "src/lib/tauri.ts", "line": 404 }] },
+    { "id": "cli", "type": "external", "label": "CLI / 에이전트", "sublabel": "skills-manager-cli", "pos": [300, 470], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/bin/skills-manager-cli.rs", "line": 1254 }] },
+    { "id": "cmd", "type": "backend", "label": "Tauri commands", "sublabel": "commands/sync.rs", "pos": [300, 300], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/commands/sync.rs", "line": 78 }] },
+    { "id": "adapters", "type": "backend", "label": "tool_adapters", "sublabel": "54개 에이전트 경로", "pos": [560, 130], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/core/tool_adapters.rs", "line": 147 }] },
+    { "id": "scenario", "type": "backend", "label": "scenario_service", "sublabel": "배포 결정", "pos": [560, 300], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/core/scenario_service.rs", "line": 852 }] },
+    { "id": "store", "type": "database", "label": "SQLite", "sublabel": "skills · skill_targets", "pos": [560, 470], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/core/skill_store.rs", "line": 447 }] },
+    { "id": "central", "type": "database", "label": "중앙 라이브러리", "sublabel": "~/.skills-manager", "pos": [820, 130], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/core/central_repo.rs", "line": 98 }] },
+    { "id": "engine", "type": "backend", "label": "sync_engine", "sublabel": "symlink / copy", "pos": [820, 300], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/core/sync_engine.rs", "line": 292 }] },
+    { "id": "agentdir", "type": "external", "label": "에이전트 skills 폴더", "sublabel": "~/.claude/skills 등", "pos": [1080, 300], "size": [140, 60],
+      "sources": [{ "path": "src-tauri/src/core/tool_adapters.rs", "line": 162 }] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "공유 Rust core (lib)", "wraps": ["adapters", "scenario", "store", "central", "engine"] }
+  ],
+  "connections": [
+    { "id": "ui-cmd", "from": "ui", "to": "cmd", "label": "invoke" },
+    { "id": "cmd-scenario", "from": "cmd", "to": "scenario", "label": "배포 요청" },
+    { "id": "cli-scenario", "from": "cli", "to": "scenario", "label": "같은 core 호출" },
+    { "id": "scenario-adapters", "from": "scenario", "to": "adapters", "label": "경로 조회", "variant": "dashed" },
+    { "id": "scenario-store", "from": "scenario", "to": "store", "label": "targets 기록" },
+    { "id": "scenario-engine", "from": "scenario", "to": "engine", "label": "sync_skill", "variant": "emphasis" },
+    { "id": "central-engine", "from": "central", "to": "engine", "label": "원본" },
+    { "id": "engine-agent", "from": "engine", "to": "agentdir", "label": "symlink/copy", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "읽는 순서", "items": ["UI 클릭 → commands → scenario_service", "scenario_service가 목적지·정책 결정", "sync_engine이 실제 파일 시스템 변경"] },
+    { "dot": "emerald", "title": "미확인", "items": ["git 백업/병합(git_backup, merge)", "marketplace·updater 경로", "file_watcher 재스캔 흐름"] }
+  ]
+}

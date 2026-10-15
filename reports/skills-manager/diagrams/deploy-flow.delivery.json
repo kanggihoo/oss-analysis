@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "6ddce672-9789-4b76-b54f-618729b2be0e",
+  "status": "current",
+  "command": "deliver",
+  "type": "sequence",
+  "input": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\deploy-flow.json",
+  "output": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\deploy-flow.html",
+  "specification": {
+    "sha256": "f04d97fa6b20e2145e67bdf90258728cda10e01fc7d4f8b05bd84ef279084513",
+    "bytes": 2030
+  },
+  "artifact": {
+    "sha256": "37eb971e85c8e68538569b4f3afcbb46b6e0767be5224f276cb1ced4866ccc96",
+    "bytes": 811460
+  }
+}

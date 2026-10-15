@@ -1,0 +1,49 @@
+===== STEP 0: 시작 상태 =====
+--- claude: C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.claude/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+--- codex: C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.codex/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CODEX-VERSION | --- | body-codex | 
+  agents\openai.yaml => interface: |   display_name: CODEX-ONLY-YAML | 
+
+===== STEP 1: scan_unmanaged =====
+  directory=dup-skill found_in=["claude", "codex"] path=C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.claude\skills\dup-skill
+
+===== STEP 2: import_from_apps (claude+codex 켬) =====
+  result ok=Ok(1)
+--- SSOT(~/.cc-switch): C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.cc-switch/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+--- claude: C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.claude/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+--- codex: C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.codex/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CODEX-VERSION | --- | body-codex | 
+  agents\openai.yaml => interface: |   display_name: CODEX-ONLY-YAML | 
+
+===== STEP 3: resync_all_apps (provider 전환 때 호출되는 경로) =====
+  claude ok=true err=None failed=[]
+  codex ok=true err=None failed=[]
+--- SSOT(~/.cc-switch): C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.cc-switch/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+--- claude: C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.claude/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+--- codex: C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.codex/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+
+===== STEP 4: codex 끄기 → 켜기 =====
+--- codex(끈 뒤): C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.codex/skills/dup-skill
+  (없음)
+--- codex(다시 켠 뒤): C:\Users\SSAFY\AppData\Local\Temp\cc-switch-test-home\.codex/skills/dup-skill
+  symlink=false
+  SKILL.md => --- | name: dup-skill | description: CLAUDE-VERSION | --- | body-claude | 
+test same_name_different_content_across_apps ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+exit=0

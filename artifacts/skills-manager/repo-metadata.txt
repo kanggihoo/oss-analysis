@@ -1,0 +1,7 @@
+repo_dir=repos/skills-manager
+name=skills-manager
+date=2026-10-15
+commit=e6dcedf968f3f0ebf62e24edf5d90ec8cbf23509
+commit_date=2026-10-15T01:43:29+11:00
+origin=https://github.com/xingkongliang/skills-manager.git
+worktree=clean

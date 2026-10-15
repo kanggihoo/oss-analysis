@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "스킬을 에이전트에 켤 때 (sync_skill_to_tool)",
+    "output": "reports/skills-manager/diagrams/deploy-flow.html",
+    "quality_profile": "showcase",
+    "column_fit": "spread"
+  },
+  "participants": [
+    { "id": "ui", "type": "frontend", "label": "React UI", "sublabel": "MySkills.tsx" },
+    { "id": "cmd", "type": "backend", "label": "commands/sync", "sublabel": "spawn_blocking" },
+    { "id": "scn", "type": "backend", "label": "scenario_service", "sublabel": "sync_single_skill_to_tool" },
+    { "id": "eng", "type": "backend", "label": "sync_engine", "sublabel": "sync_skill" },
+    { "id": "fs", "type": "external", "label": "에이전트 폴더", "sublabel": "~/.claude/skills" },
+    { "id": "db", "type": "database", "label": "SQLite", "sublabel": "skill_targets" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "ui", "to": "cmd", "y": 170, "label": "syncSkillToTool(id, tool)", "variant": "emphasis" },
+    { "id": "m2", "from": "cmd", "to": "scn", "y": 210, "label": "intent = Managed" },
+    { "id": "m3", "from": "scn", "to": "db", "y": 250, "label": "skill·기존 targets·sync_mode 조회" },
+    { "id": "m4", "from": "db", "to": "scn", "y": 280, "label": "기록된 mode", "variant": "return" },
+    { "id": "m5", "from": "scn", "to": "eng", "y": 320, "label": "sync_skill(source, target, mode, policy)", "variant": "emphasis" },
+    { "id": "m6", "from": "eng", "to": "fs", "y": 360, "label": "대상 상태 분류 후 symlink 생성" },
+    { "id": "m7", "from": "fs", "to": "eng", "y": 390, "label": "실제 mode (symlink/junction/copy)", "variant": "return" },
+    { "id": "m8", "from": "eng", "to": "scn", "y": 420, "label": "actual_mode", "variant": "return" },
+    { "id": "m9", "from": "scn", "to": "db", "y": 460, "label": "insert_target(row)" },
+    { "id": "m10", "from": "cmd", "to": "ui", "y": 500, "label": "Ok → 트레이 새로고침 예약", "variant": "return" }
+  ]
+}

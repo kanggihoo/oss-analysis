@@ -1,0 +1,7 @@
+repo_dir=repos/teamai-cli
+name=teamai-cli
+date=2026-10-15
+commit=7ba8bcc374cfa11e85da54cb75c572f54c687fab
+commit_date=2026-10-15T11:47:42+08:00
+origin=https://github.com/Tencent/teamai-cli
+worktree=clean

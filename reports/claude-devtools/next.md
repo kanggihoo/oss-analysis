@@ -13,6 +13,7 @@
 - [x] baseline 이후 변경 범위 확인 (8 commits, 소규모 UI/배포 변경)
 - [x] repos/claude-devtools 삭제 후 fresh clone (HEAD 동일 `1486f20`)
 - [x] archify 전체 아키텍처 구조도 작성 (`diagrams/structure.*`, showcase 통과)
+- [x] 2026-10-15: 다른 PC에서 `repos/claude-devtools` 재clone, upstream HEAD가 `1486f20`과 동일(신규 commit 0, worktree clean) 확인 (검증 수준: 실행 확인)
 
 ---
 

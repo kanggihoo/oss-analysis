@@ -5,3 +5,9 @@ commit=bfaaba1679b8e8df6c8673d2b963d204fc1e521e
 origin=https://github.com/farion1231/cc-switch.git
 worktree=clean
 clone=shallow(--depth 1)
+
+# 프록시/세션 분석 기준 (2026-10-15 갱신)
+date=2026-10-15
+commit=d35726e28695844deaf0098450b34911f5be7b78
+commit_date=2026-10-06T22:14:45+08:00
+worktree=clean

@@ -27,6 +27,28 @@ GitHub 설명: "The missing DevTools for Claude Code — inspect session logs, t
 | `src/renderer` | React + Zustand UI |
 | `src/shared` | main/renderer 공용 타입·유틸 |
 
+### 주요 기능
+
+제품 포지셔닝: Claude Code가 터미널에서 `Read 3 files` 같은 요약만 보여주는 문제(README "The Problem")를 겨냥해, 이미 저장된 로그에서 상세 내용을 재구성한다. Claude Code를 wrap·수정하지 않고(README "Not a Wrapper"), API 키·설정이 필요 없다. 설명의 1차 출처는 `README.md`이고, 아래 표의 "코드 근거"는 `1486f20` 로컬 소스에서 존재를 확인한 위치다.
+
+| 기능 | 설명 (README 기준) | 코드 근거 | 검증 수준 |
+|---|---|---|---|
+| Tool Call Inspector | Read는 구문 강조, Edit는 inline diff, Bash 출력, subagent 트리까지 도구 호출별 전용 뷰어 | `src/renderer/components/chat/viewers/`(`CodeBlockViewer`, `DiffViewer`, `MarkdownViewer`, `MermaidViewer`), `src/main/services/analysis/ToolExecutionBuilder.ts` | 코드 확인(존재) / 동작 미확인 |
+| Context Reconstruction | 턴별 context 토큰을 출처별로 귀속 (CLAUDE.md, @멘션 파일, tool I/O, thinking, 팀 오버헤드, 사용자 텍스트) | `src/renderer/types/contextInjection.ts`의 `ContextInjection` union | 코드 확인 — **README는 7개 카테고리(skills 포함)라 하나 union은 6개**(`claude-md`, `mentioned-file`, `tool-output`, `thinking-text`, `task-coordination`, `user-message`). skills 처리 위치 `미확인` |
+| Compaction Visualization | context가 한계에 도달해 압축되는 시점과 손실 지점 표시 | `src/renderer/components/chat/CompactBoundary.tsx` | 코드 확인(컴포넌트 존재) |
+| Team & Subagent Trees | agent별 실행 트리, tool trace, 토큰·시간·비용, 중첩 agent 재귀 렌더링 | `src/main/services/discovery/SubagentResolver.ts`, `analysis/SubagentDetailBuilder.ts`, `analysis/ProcessLinker.ts`, `src/main/ipc/subagents.ts` | 코드 확인(존재) |
+| SSH Remote Sessions | `~/.ssh/config`를 읽어 원격 머신의 세션을 같은 pipeline으로 조회 | `infrastructure/SshConnectionManager.ts`, `SshConfigParser.ts`, `SshFileSystemProvider.ts`, `src/main/ipc/ssh.ts` | 코드 확인(존재) / 전환 동작 `미확인` |
+| Notification Triggers | `.env` 접근, tool 에러, 고토큰 사용, 사용자 정의 regex에 시스템 알림 | `infrastructure/TriggerManager.ts`(builtin trigger, mode `content_match`/`error_status`/`token_threshold`, 기본 임계 8000 토큰), `NotificationManager.ts`, `error/` | 코드 확인 |
+| Project Memory 뷰어 | `~/.claude/projects/<project>/memory/`의 `MEMORY.md`와 layer 파일을 렌더링, wikilink 이동, 외부 에디터 열기 | `discovery/MemoryReader.ts`, `src/main/ipc/memory.ts`, `src/renderer/components/memory/` | 코드 확인(존재) |
+| 세션 검색 / Command Palette | Cmd+K로 세션 간 검색 | `discovery/SessionSearcher.ts`, `SearchTextCache.ts`, `src/renderer/components/search/` | 코드 확인(존재) |
+| Multi-pane 레이아웃 | 여러 세션을 나란히 열고 탭을 드래그 | `src/renderer/components/layout/TabbedLayout.tsx`, store의 pane 관련 slice | 코드 확인(존재) / 드래그 동작 `미확인` |
+| Export / Copy | 메시지·코드 블록 one-click 복사, 세션을 Markdown / JSON / plain text로 export | `src/renderer/utils/sessionExporter.ts`(`ExportFormat = 'markdown' \| 'json' \| 'plaintext'`) | 코드 확인 |
+| 실시간 갱신 | JSONL 변경을 감지해 UI에 push | `infrastructure/FileWatcher.ts` (구조도 참고) | 코드 확인 |
+| 배포 형태 | Electron 데스크톱(macOS/Linux/Windows) 외에 Docker/standalone(Fastify REST + SSE, 기본 포트 3456, `CLAUDE_ROOT`·`HOST`·`PORT` 환경변수) | `src/main/standalone.ts`, `infrastructure/HttpServer.ts` | 코드 확인(존재) / README의 "outbound network 호출 0"은 `미확인` |
+
+- 위 표는 **기능의 존재 확인**이다. 각 기능의 실제 동작, 토큰 귀속 알고리즘, 설정 UI 세부는 질문별 분석에서 다룬다.
+- 사용자 대상 흐름은 "세션 목록 → 세션 상세(chunk 기반 대화 뷰) → tool/subagent/context 상세 → 알림·검색·export"로 요약된다(`추론`: 컴포넌트 구성에서 본 것이며 화면 흐름을 실행해 확인하지 않음).
+
 ---
 
 ## 3. 핵심 아키텍처 지도 (archify Diagrams)

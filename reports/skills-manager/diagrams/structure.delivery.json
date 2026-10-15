@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "0be7a9e5-6ac7-4107-bb8c-59d14dc5020d",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.json",
+  "output": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\skills-manager\\diagrams\\structure.html",
+  "specification": {
+    "sha256": "4c6ff1d99c1d67a4b193c6085061b7ae47d9b27663f8da3f5ca949701c463f81",
+    "bytes": 3742
+  },
+  "artifact": {
+    "sha256": "feef43fabede445a4e07cb964604b04fc56d2f19a360c739d5c93305667a945c",
+    "bytes": 823994
+  }
+}

@@ -1,0 +1,6 @@
+repo_dir=/c/Users/SSAFY/Desktop/oss-analysis/repos/mitmproxy
+name=mitmproxy
+date=2026-10-15T05:57:25Z
+commit=77355977e5ea540b51ed029a40ed1dc2f1c2ba7b
+origin=https://github.com/mitmproxy/mitmproxy.git
+worktree=clean
