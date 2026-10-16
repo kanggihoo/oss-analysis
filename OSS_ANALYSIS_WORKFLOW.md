@@ -1,11 +1,13 @@
 # OSS Analysis Workflow
 
 Created: 2026-06-09
-Updated: 2026-10-05
+Updated: 2026-10-16
 Workspace: `/Users/kkh/Desktop/oss-analysis`
 
 **이 레포는 원본 코드를 보관하는 곳이 아니라, AI와 함께 오픈소스를 탐색하고 검증한 지식을 축적하는 작업 공간으로 운영합니다.**  
-기본 흐름은 **archify로 파악 → 질문 → 코드 검증 → reports 기록 → wiki 축적**입니다.
+기본 흐름은 **archify로 파악·해설 → 질문 → 코드 검증 → reports 기록 → wiki 축적**입니다.
+모든 분석은 **증거 기반**입니다. 주장은 원본 코드에 근거하고 검증 수준을 붙입니다([4장](#4-근거-및-검증-수준-기준)).
+기능을 떼어 다른 프로젝트에 쓰려면 검증한 내용을 **언어 중립 기능 스펙**(`wiki/capabilities/`)으로 정리합니다([8장](#8-기능-스펙-capability-spec)).
 
 ---
 
@@ -13,15 +15,15 @@ Workspace: `/Users/kkh/Desktop/oss-analysis`
 
 ```text
 oss-analysis/
-├── AGENTS.md                    # AI의 필수 작업 규칙
+├── AGENTS.md                    # 상황별로 읽을 곳을 가리키는 라우터 (규칙 원본은 이 문서)
 ├── OSS_ANALYSIS_WORKFLOW.md      # 분석·기록 절차
-├── templates/                   # 요청·보고서 템플릿
+├── templates/                   # 요청·보고서·기능 스펙 템플릿
 ├── scripts/                     # 분석·검증 보조 도구
 │
-├── repos/                       # 분석 대상의 독립적인 clone
+├── repos/                       # 분석 대상의 독립적인 clone · 1차 근거 (원본 코드)
 │   └── <repo>/
 │
-├── artifacts/                   # 분석기 출력·외부 자료·실행 로그
+├── artifacts/                   # 분석기 출력·외부 자료·실행 로그 · 참고 후보 (코드로 검증 전에는 사실 아님)
 │   └── <repo>/                  # 실험 스크립트와 날짜별 출력은 <주제>-demos/ (예: artifacts/pi/ai-demos/)
 │
 ├── reports/                     # 레포별 상세 분석
@@ -35,6 +37,7 @@ oss-analysis/
 └── wiki/                        # 다시 꺼내 쓸 핵심 지식
     ├── projects/                # 프로젝트별 핵심 요약
     ├── concepts/                # 재사용 가능한 개념·설계 패턴
+    ├── capabilities/            # 기능 단위 언어 중립 스펙 (8장)
     ├── comparisons/            # 프로젝트·구현 방식 비교
     ├── queries/                # 재사용 가치가 큰 종합 답변
     ├── index.md                 # 지식 목록
@@ -43,37 +46,58 @@ oss-analysis/
 
 ---
 
-## 2. 분석 6단계 절차
+## 2. 분석 절차
 
-분석은 다음 순서로 진행합니다.
+새 레포는 1~3단계로 첫 지도와 해설을 만들고, 그 뒤로는 사용자의 질문으로 진행합니다. 기능을 충분히 이해하면 기능 스펙으로 넘어갑니다.
+
+```text
+1 대상·목적 → 2 코드 기준 → 3 지도 + 글 해설 → [질문과 답변 반복] → (트리거) 기능 스펙 (8장)
+                                                   └ 세션마다 마무리: next.md, wiki 목록·로그
+```
 
 ### 1단계: 대상과 목적을 정합니다
 - 레포 URL과 분석 목적(학습 / 설계 참고 / 도입 검토 등)을 지정합니다.
 - 기존 보고서(`reports/<repo>/`)와 위키(`wiki/projects/<repo>.md`)를 먼저 찾아 중복 분석을 줄입니다.
+- 요청문은 [request-template.md](templates/request-template.md)([6장](#6-ai-첫-분석-요청-템플릿))를 씁니다.
 
 ### 2단계: 코드 기준을 기록합니다
 - `repos/<repo>/`에 clone(또는 fetch/pull)합니다.
-- 원본 URL, commit SHA, 분석일, 작업트리 변경 여부(clean/dirty)를 `artifacts/<repo>/repo-metadata.txt` 및 `reports/<repo>/overview.md`에 기록합니다.
+- 원본 URL, commit SHA, 분석일, 작업트리 변경 여부(clean/dirty)를 `artifacts/<repo>/repo-metadata.txt` 및 `reports/<repo>/overview.md`([overview-template.md](templates/overview-template.md))에 기록합니다.
 
-### 3단계: archify로 첫 지도를 만듭니다
+### 3단계: archify로 첫 지도를 만들고 글로 해설합니다
 - 주요 모듈 중심의 구조도와 대표 동작 하나의 실행 흐름을 작성합니다.
 - 실제 코드로 관계를 확인하고, 미확인 영역을 명확히 표시합니다.
 - **주의**: 처음부터 모든 파일을 그림에 넣지 않습니다.
 - archify 결과는 원본 JSON과 standalone HTML을 `reports/<repo>/diagrams/`에 함께 보관합니다.
 - archify 스킬의 검증 절차를 따르고, 산출물 검증·브라우저 확인·시각적 검토 결과를 구분합니다.
+- **그림을 글로 해설합니다.** `overview.md`의 "그림 해설"([overview-template.md](templates/overview-template.md) 3절)에 다음을 씁니다. 그림을 열지 않고 글만 읽어도 구조와 흐름이 이해되면 완료입니다.
+  - 그림을 읽는 순서
+  - 구조도: 모듈마다 맡은 일과 경계, 모듈 사이에 오가는 것
+  - 실행 흐름: 단계마다 입력 → 처리 → 출력
+  - 각 설명의 `파일:심볼`과 검증 수준, 미확인 영역
 
-### 4단계: 그림을 보고 궁금한 부분을 질문합니다
-- 사용자와 AI는 생성된 지도를 바탕으로 핵심 질문을 던집니다.
-  - 예: *“이 모듈은 왜 분리됐어?”*, *“실패하면 어떻게 처리해?”*, *“기능을 추가하려면 어디를 바꿔?”*
+### 질문과 답변
+첫 지도 이후에는 사용자가 궁금한 것을 질문하고, AI가 코드로 확인해 답합니다.
+- 예: *“이 모듈은 왜 분리됐어?”*, *“실패하면 어떻게 처리해?”*, *“기능을 추가하려면 어디를 바꿔?”*
 - AI는 관련 코드 경로를 추적하고, 필요할 때 상세 다이어그램을 추가합니다.
-
-### 5단계: 답변을 저장하고 지식을 갱신합니다
 - **문서화는 AI가 알아서 진행합니다.** 대화에서 이해한 설명과 새로 확인된 사실은 사용자가 매번 요청하지 않아도 해당 문서에 반영합니다. 방식은 [7.4](#74-문서화-ai가-알아서-진행)를 따릅니다.
-- 상세 답변은 `reports/<repo>/questions/<question>.md`(질문 단위) 또는 `reports/<repo>/<패키지>/NN-주제.md`(주제 단위)에 남깁니다.
-- 기존 이해가 바뀌면 `overview.md`와 다이어그램을 수정하고, 다시 활용할 내용은 `wiki/`에 요약합니다.
+- 상세 답변은 `reports/<repo>/questions/qN-<topic>.md`(질문 단위, [question-template.md](templates/question-template.md)) 또는 `reports/<repo>/<패키지>/NN-주제.md`(주제 단위)에 남기고, `overview.md` 질문 목록에 한 줄 결론과 함께 링크합니다.
+- 기존 이해가 바뀌면 `overview.md`의 해설과 다이어그램을 수정하고, 다시 활용할 내용은 `wiki/`에 요약합니다.
 
-### 6단계: 다음 시작점을 남깁니다
-- 세션 마무리 시 `reports/<repo>/next.md`에 확인한 범위, 남은 질문, 다음에 볼 파일·함수, 분석 SHA를 기록합니다.
+### 기능 스펙으로 넘어가기
+기능 하나를 떼어 다른 프로젝트에 쓸 수 있게 `wiki/capabilities/`로 정리하는 단계입니다. 작성 방법은 [8장](#8-기능-스펙-capability-spec)을 따르고, 양식은 [capability-spec-template.md](templates/capability-spec-template.md), 요청문은 [capability-request-template.md](templates/capability-request-template.md)입니다.
+
+| 트리거 | AI의 행동 |
+|---|---|
+| 사용자가 기능 스펙 정리를 요청하거나, 기능을 가져다 쓰겠다고 말함 | 바로 8장 절차를 시작합니다. |
+| 한 기능의 진입점, 핵심 처리, 실패 처리가 `questions/` 문서들로 확인됨 | 답변 끝에 "<기능>을 기능 스펙으로 정리할까요?"를 한 줄로 묻습니다. |
+| 같은 기능을 다른 레포에서도 이미 분석함 | 위와 같이 한 줄로 묻습니다. |
+
+- 사용자가 수락할 때만 작성합니다.
+- 보류하거나 거절하면 `next.md`의 "기능 스펙 후보"에 기능명과 근거 질문 문서를 남기고, 같은 세션에서 다시 묻지 않습니다.
+
+### 세션 마무리
+- `reports/<repo>/next.md`([next-template.md](templates/next-template.md))에 확인한 범위, 남은 질문, 기능 스펙 후보, 다음에 볼 파일·함수, 분석 SHA를 기록합니다.
 - `wiki/index.md`와 `wiki/log.md`를 업데이트합니다.
 
 ---
@@ -91,6 +115,7 @@ reports와 wiki는 **상세 조사**와 **재사용 지식**으로 구분합니�
 
 - `wiki/projects/<repo>.md`에는 해당 레포의 핵심 요약도 남깁니다. (wiki가 반드시 여러 레포에 공통인 내용만 담는 것은 아닙니다.)
 - **원칙**: 애매하면 `reports/`에 먼저 저장하고, 다음에도 필요할 내용만 `wiki/`로 요약합니다. 그림과 상세 설명은 복제하지 않고 링크합니다. 짧은 확인 질문은 기존 문서에 합쳐도 됩니다.
+- 기능 스펙(`wiki/capabilities/`)도 wiki에 속합니다. 레포가 아니라 **기능** 단위로 여러 레포의 reports를 종합하고, 다른 언어로 다시 구현할 수 있는 계약으로 씁니다([8장](#8-기능-스펙-capability-spec)).
 
 ---
 
@@ -99,6 +124,7 @@ reports와 wiki는 **상세 조사**와 **재사용 지식**으로 구분합니�
 모든 중요한 답변에는 반드시 구체적인 근거를 남깁니다.
 
 ### 질문 문서(`reports/<repo>/questions/*.md`)의 필수 항목
+양식: [question-template.md](templates/question-template.md)
 1. **질문과 짧은 결론**
 2. **동작 설명과 관련 그림** (필요시 archify 다이어그램 포함)
 3. **근거 코드**: commit SHA, 파일 경로, 함수·클래스명
@@ -136,7 +162,7 @@ reports와 wiki는 **상세 조사**와 **재사용 지식**으로 구분합니�
 
 ## 6. AI 첫 분석 요청 템플릿
 
-AI에게 첫 분석을 요청할 때는 다음 템플릿을 사용합니다:
+AI에게 첫 분석을 요청할 때는 다음 템플릿을 사용합니다([request-template.md](templates/request-template.md)와 같은 내용):
 
 ```text
 대상: <repo URL>
@@ -149,15 +175,18 @@ AGENTS.md와 OSS_ANALYSIS_WORKFLOW.md를 따르고,
 2. archify로 주요 구조도와 대표 실행 흐름을 만들어.
 3. 핵심 관계는 코드로 확인하고 미확인 범위를 표시해.
 4. JSON·HTML과 overview.md를 reports/<repo>/에 저장해.
-5. 그림을 읽는 순서와 후속 질문 3~5개를 제안해.
-6. 이후 질문의 상세 답변은 reports에 기록하고,
+5. overview.md에 그림을 읽는 순서와 구조·흐름을 글로 해설해.
+6. 이후 내 질문의 상세 답변은 reports에 기록하고,
    재사용할 핵심 지식은 wiki에 반영해.
-7. 마무리할 때 next.md와 wiki 목록·로그를 갱신해.
+7. 한 기능을 충분히 확인했으면 기능 스펙으로 정리할지 물어봐.
+8. 마무리할 때 next.md와 wiki 목록·로그를 갱신해.
 
 설명과 문서화는 OSS_ANALYSIS_WORKFLOW.md 7장의 스타일을 따르고,
 문서화는 내가 요청하지 않아도 알아서 진행해.
 실행 실험은 비용이 크지 않은 경우에만 해.
 ```
+
+기능 스펙 작성과 재구현 검증 요청은 [capability-request-template.md](templates/capability-request-template.md)를 사용합니다(8장).
 
 ---
 
@@ -206,7 +235,7 @@ pi `ai` 패키지 분석 세션(2026-10)에서 사용자의 요청과 반응을 
 - 용어와 타입은 별도 문서에서 먼저 정리해서 이후 문서가 쉽게 읽히게 한다. 마지막에는 흐름 전체를 엮는 **종합 문서**를 둔다.
 - 문서에 옮길 때도 대화에서 쓴 쉬운 설명을 유지하고, 줄 번호와 검증 수준을 다시 확인한다.
 - 문서를 바꾼 뒤에는 **어느 파일의 어느 절을 바꿨는지 한 줄로** 보고한다.
-- 큰 주제를 마치면 재사용할 핵심만 `wiki/projects/<repo>.md`로 요약하고 `wiki/index.md`, `wiki/log.md`를 갱신한다(3장, 2단계 6).
+- 큰 주제를 마치면 재사용할 핵심만 `wiki/projects/<repo>.md`로 요약하고 `wiki/index.md`, `wiki/log.md`를 갱신한다(3장, 2장 세션 마무리).
 
 ### 7.5 실행 실험 정책
 **비용이 크지 않은 경우에만** 실행한다. 비용은 아래 기준으로 판단한다.
@@ -239,3 +268,39 @@ pi `ai` 패키지 분석 세션(2026-10)에서 사용자의 요청과 반응을 
 6. 외부 시스템의 동작은 웹 검색이나 실행으로 확인하거나 `미확인`으로 둔다.
 7. 문서마다 `미확인` 목록과 다음 단계를 남긴다.
 8. 흐름 전체를 엮는 종합 문서를 쓰고, 재사용할 핵심을 wiki로 요약한다.
+
+---
+
+## 8. 기능 스펙 (Capability Spec)
+
+레포 단위 분석(1~7장)을 **기능 단위**로 다시 묶는 단계입니다. 목표는 오픈소스가 구현한 기능 하나를 떼어 와서, 원본과 다른 언어로도 내 프로젝트에 맞게 다시 구현하는 것입니다.
+
+### 8.1 언제 쓰나
+- 시작 조건(트리거)은 [2장 "기능 스펙으로 넘어가기"](#기능-스펙으로-넘어가기)에 있습니다.
+- 여러 레포가 같은 기능을 다르게 구현했다면 한 스펙에서 비교합니다 (예: 세션 로그 파싱 — claude-devtools, codeburn, tokscale).
+- 근거가 될 reports가 부족하면 먼저 2장 절차로 해당 레포를 분석합니다. 스펙은 검증한 내용을 종합하는 곳이지 처음 조사하는 곳이 아닙니다.
+
+### 8.2 산출물
+| 파일 | 역할 |
+|---|---|
+| [capability-spec-template.md](templates/capability-spec-template.md) | 스펙 양식. 섹션별 [필수]/[선택]과 작성 가이드 |
+| [capability-request-template.md](templates/capability-request-template.md) | 스펙 작성(Agent A)과 재구현 검증(Agent B) 요청문 |
+| `wiki/capabilities/<기능-slug>.md` | 완성된 스펙. frontmatter 규칙은 [wiki/SCHEMA.md](wiki/SCHEMA.md) |
+
+### 8.3 구조의 핵심
+- **A. 재구현 계약**: 이 부분만 떼어 줘도 다른 언어로 구현할 수 있어야 합니다. 코드·파일 경로·언어 고유 표현 없이 의미로 씁니다.
+- **B. 근거와 참조 구현**: 요구사항 ID별로 원본 코드 위치(`repo@SHA` `파일:라인` `심볼`)와 검증 수준을 연결하고, 코드를 읽는 순서를 적습니다.
+- **원본 관찰과 채택 결정을 구분합니다.** 원본의 동작을 그대로 따를지, 바꿀지, 새로 정할지를 요구사항마다 표시합니다. 원본의 약점까지 요구사항으로 옮기지 않기 위해서입니다.
+- **근거의 기준은 원본 코드**(`repos/<repo>`@SHA)입니다. reports는 그 코드를 어떻게 확인했는지의 기록입니다.
+
+### 8.4 절차
+1. **요청을 정합니다**: 기능, 비교 레포, 적용 목적을 [capability-request-template.md](templates/capability-request-template.md) 1번 요청문에 채웁니다. 적용 목적이 '채택' 판단의 기준이 됩니다.
+2. **근거를 확인합니다**: 레포별 SHA를 확인하고, reports에 없는 동작은 코드로 확인해 `reports/<repo>/questions/`에 먼저 남깁니다.
+3. **스펙을 씁니다**: 템플릿을 따라 `wiki/capabilities/<기능-slug>.md`에 작성합니다. 모르는 것은 `미확인` 또는 '미결정'으로 둡니다.
+4. **스스로 점검합니다**: "A만 읽고 구현한다면 막힐 질문" 목록을 만들고, 답할 수 있는 것은 A에 반영합니다.
+5. **재구현으로 검증합니다(선택)**: A만 별도 파일로 떼어 다른 에이전트에게 주고 다른 언어로 구현시킵니다(요청문 2번). 추측한 부분은 A3 '미결정'에 반영하고 결과는 frontmatter `verification.reimplementation`에 남깁니다.
+6. **목록을 갱신합니다**: `wiki/index.md`의 `## Capabilities`와 `wiki/log.md`를 갱신하고, 근거가 된 `wiki/projects/<repo>.md`에서 스펙으로 링크합니다.
+
+### 8.5 status와 검증 상태
+- `status: draft`: 구현을 막는 미결정 사항이 남아 있음. `ready`: 미결정 사항이 없어 바로 구현할 수 있음.
+- `verification.source`(원본을 얼마나 확인했나)와 `verification.reimplementation`(스펙만으로 구현이 됐나)은 따로 기록합니다. 하나가 확인됐다고 다른 하나가 확인된 것은 아닙니다.

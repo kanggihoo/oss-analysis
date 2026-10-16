@@ -37,7 +37,7 @@
 
 ## 5. 운영 메모
 
-- 설치: `repos/CodeWiki/.venv` (uv, Python 3.12), 설정 `~/.codewiki/config.json` (claude-code, `claude-sonnet-5-5`). 사용법은 루트 `AGENTS.md`의 CodeWiki 섹션.
+- 설치: `repos/CodeWiki/.venv` (uv, Python 3.12), 설정 `~/.codewiki/config.json` (claude-code, `claude-sonnet-5-5`). 사용법은 2026-10-16 루트 `AGENTS.md`에서 제거됐다. 원문은 `git show c0051fa:AGENTS.md`의 CodeWiki 섹션.
 - 생성 산출물: `artifacts/CodeWiki/codewiki/` (depth 2), `artifacts/CodeWiki/codewiki-depth4/` (depth 4). 레포 동봉 `docs/`는 업스트림 1.0.1 결과(commit `3c4b4c2`).
 
 ## 6. 다음 작업 및 연계 링크

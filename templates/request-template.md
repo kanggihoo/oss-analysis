@@ -15,8 +15,9 @@ AGENTS.md와 OSS_ANALYSIS_WORKFLOW.md를 따르고,
 2. archify로 주요 구조도와 대표 실행 흐름을 만들어.
 3. 핵심 관계는 코드로 확인하고 미확인 범위를 표시해.
 4. JSON·HTML과 overview.md를 reports/<repo>/에 저장해.
-5. 그림을 읽는 순서와 후속 질문 3~5개를 제안해.
-6. 이후 질문의 상세 답변은 reports에 기록하고,
+5. overview.md에 그림을 읽는 순서와 구조·흐름을 글로 해설해.
+6. 이후 내 질문의 상세 답변은 reports에 기록하고,
    재사용할 핵심 지식은 wiki에 반영해.
-7. 마무리할 때 next.md와 wiki 목록·로그를 갱신해.
+7. 한 기능을 충분히 확인했으면 기능 스펙으로 정리할지 물어봐.
+8. 마무리할 때 next.md와 wiki 목록·로그를 갱신해.
 ```

@@ -35,7 +35,7 @@ AI agent가 dependency graph를 기반으로 저장소 단위 문서를 생성�
 
 ## 운영 주의
 - Mermaid 검증이 다이어그램을 외부 `mermaid.ink`로 보낸다(`MERMAID_VALIDATE=0`으로 끔). 서비스 503도 "syntax errors"로 보고된다.
-- 워크스페이스 사용법(설치 위치, 출력 경로 규칙)은 루트 `AGENTS.md` CodeWiki 섹션.
+- 워크스페이스 사용법(설치 위치, 출력 경로 규칙)은 2026-10-16 루트 `AGENTS.md`에서 제거됐다. 원문은 커밋 `c0051fa`의 `AGENTS.md` CodeWiki 섹션(`git show c0051fa:AGENTS.md`).
 
 ## 관련
 - [[deepwiki-first-baseline]] — 외부 baseline을 second opinion으로 다루는 방식

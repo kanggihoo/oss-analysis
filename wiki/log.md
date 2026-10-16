@@ -382,3 +382,17 @@
 - Rewrote [[codeburn]] and all 10 `codeburn-*` concept notes from scratch against `9a40cc6` (old `f1bf7a1`/DeepWiki-based content removed; code reading only, no run). Notable drift: providers 19+9 → 32+11; session cache → `session-cache.v10/` per-provider UTC-day pieces; daily cache v75; optimize 21 finding ids with `--apply`/`act undo`; 12 plan presets; cost repriced on read except `REPORTED_COST_PROVIDERS`/`costFromBilling`.
 - Added a "주요 기능" (features by group, with evidence level) section to `reports/codeburn/overview.md`; corrected cache/cost wording in overview/next.
 
+
+## [2026-10-16] schema | capability spec layer added
+- Added `wiki/capabilities/` and `type: capability` to [[SCHEMA]] (directory layout, Layer 2 description with stealable-pattern/capability/comparison distinction, capability frontmatter fields `capability`/`status`/`source_revisions`/`verification`, page threshold, tag `capability`).
+- New templates: `templates/capability-spec-template.md` (A 재구현 계약 / B 근거와 참조 구현, [필수]/[선택] 섹션; structure agreed after review with Codex GPT-6-Astra) and `templates/capability-request-template.md` (Agent A 스펙 작성, Agent B 재구현 검증 요청문).
+- Added section 8 to `OSS_ANALYSIS_WORKFLOW.md`, a capability pointer to `AGENTS.md`, and an empty `## Capabilities` section to `wiki/index.md`. No capability page written yet.
+
+## [2026-10-16] workflow | analysis flow: diagram explanation, Q&A loop, capability trigger
+- `AGENTS.md` and `OSS_ANALYSIS_WORKFLOW.md` 2장: step 3 now requires a written explanation of the diagrams in `overview.md`; removed the old steps 4 (suggest follow-up questions) and 5; Q&A is now a user-driven loop; added a trigger section for moving to capability specs (explicit request → start; feature entry/core/failure confirmed in `questions/`, or same feature analyzed in another repo → one-line proposal; declined → `next.md` 기능 스펙 후보).
+- Removed the CodeWiki section from `AGENTS.md` (details remain in [[codewiki]] and `reports/CodeWiki/`).
+- Updated `templates/overview-template.md` (그림 해설 section), `templates/next-template.md` (기능 스펙 후보), `templates/request-template.md` and workflow 6장 request text.
+
+## [2026-10-16] workflow | AGENTS.md reduced to a router
+- `AGENTS.md` now holds only a situation → section routing table into `OSS_ANALYSIS_WORKFLOW.md` and the template table; rules live only in the workflow doc. Moved the two items that existed only in `AGENTS.md` (evidence-backed analysis statement; repos = 1차 근거, artifacts = 참고 후보) into workflow intro and 1장.
+- Fixed references to removed `AGENTS.md` sections: `templates/next-template.md` (→ workflow 2장), [[codewiki]] and `reports/CodeWiki/overview.md` (CodeWiki usage now only in `git show c0051fa:AGENTS.md`); updated AGENTS.md role in workflow 1장 tree and [[SCHEMA]].

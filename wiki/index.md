@@ -2,7 +2,7 @@
 
 > Content catalog for the `oss-analysis` LLM Wiki.
 > Read this first to find relevant pages for any query.
-> Last updated: 2026-10-15 | Total pages: 61
+> Last updated: 2026-10-16 | Total pages: 61
 
 ## Projects
 
@@ -72,6 +72,10 @@
 - [[stealable-pattern-hook-injected-loop-with-throw-contract]] — Hook-injected stateless agent loop where tool failures are absorbed into error results, other hooks must not throw, and the wrapper is the safety net.
 - [[pi-agent-turn-end-decision-priority]] — Seven-level priority among error/aborted, finishTurn end/continue, tool terminate, steering, and follow-up in pi's agent loop, run-verified.
 - [[stealable-pattern-stored-credential-owns-provider]] — Auth resolution rule where a stored login owns the provider (no silent env fallback) and token refresh is serialized with double-checked locking.
+
+## Capabilities
+
+> 기능 단위 언어 중립 스펙. 작성 절차는 `OSS_ANALYSIS_WORKFLOW.md` 8장. 아직 작성된 페이지 없음.
 
 ## Comparisons
 

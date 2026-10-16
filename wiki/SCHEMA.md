@@ -1,7 +1,7 @@
 # Wiki Schema
 
 Created: 2026-06-09
-Updated: 2026-09-15
+Updated: 2026-10-16
 Domain: open-source codebase analysis, repo architecture intelligence, analyzer evidence, and reusable cross-project knowledge for `/Users/kkh/Desktop/oss-analysis`.
 
 ## Purpose
@@ -12,7 +12,7 @@ Current canonical workspace boundary:
 
 ```text
 /Users/kkh/Desktop/oss-analysis/
-├── AGENTS.md                    # AI의 필수 작업 규칙
+├── AGENTS.md                    # 상황별 라우터 (규칙 원본은 OSS_ANALYSIS_WORKFLOW.md)
 ├── OSS_ANALYSIS_WORKFLOW.md      # 분석·기록 절차
 ├── templates/                   # 요청·보고서 템플릿
 ├── scripts/                     # 분석·검증 보조 도구
@@ -38,6 +38,7 @@ wiki/
 │   └── workspace/
 ├── projects/
 ├── concepts/
+├── capabilities/
 ├── comparisons/
 ├── queries/
 └── _meta/
@@ -59,8 +60,19 @@ Therefore, do not duplicate large repo or artifact trees into `wiki/raw/` by def
 
 - `projects/`: repo or workspace-level durable summaries.
 - `concepts/`: reusable concepts, workflows, analyzer boundaries, recurring architecture patterns.
+- `capabilities/`: language-neutral feature specs for reimplementing one feature in another project. One page per feature, possibly drawing on several repos. Written from `templates/capability-spec-template.md`; procedure in `OSS_ANALYSIS_WORKFLOW.md` section 8. Listed under `## Capabilities` in `index.md`.
 - `comparisons/`: cross-repo or tool comparisons.
 - `queries/`: durable answers that would be expensive to recreate.
+
+How the neighbours differ:
+
+| Page | Unit | Carries original code | Answers |
+|---|---|---|---|
+| `concepts/stealable-pattern-*` | one design decision or structure | yes, as illustration | "what shape is this, and why" |
+| `capabilities/*` | one feature someone would lift into their project | no in part A; only `repo@SHA file:line symbol` in part B | "what must my implementation guarantee, and where is the original" |
+| `comparisons/*` | projects or approaches side by side | no | "which one, under which conditions" |
+
+A capability page links the stealable patterns and reports it builds on instead of repeating them.
 
 ### Layer 3: schema/navigation/log
 
@@ -89,7 +101,7 @@ Therefore, do not duplicate large repo or artifact trees into `wiki/raw/` by def
 title: Page Title
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
-type: project | concept | comparison | query | summary
+type: project | concept | capability | comparison | query | summary
 tags: [open-source]
 sources: [AGENTS.md, OSS_ANALYSIS_WORKFLOW.md]
 confidence: high | medium | low
@@ -98,6 +110,22 @@ contested: true
 contradictions: [other-page-slug]
 ---
 ```
+
+`type: capability` pages add these fields (full form in `templates/capability-spec-template.md`):
+
+```yaml
+capability: <feature-slug>          # same as the file name
+status: draft | ready               # ready = no open decision blocks implementation
+source_revisions:                   # repos/ is outside Git, so pin the commit here
+  - repo: <repo>
+    url: <origin URL>
+    sha: "<full SHA>"
+verification:
+  source: "<코드 확인 / 실행 확인 / 혼합 / 미확인>"      # how well the original was checked
+  reimplementation: "<미실행 | language, scope, result link>"  # whether part A alone was implemented and passed
+```
+
+For capability pages, `sources:` lists the original source files under `repos/<repo>/` first and the `reports/` documents that record the verification second.
 
 ## Source/provenance rules
 
@@ -149,6 +177,7 @@ Claim strength:
 - `evidence`
 - `judgment`
 - `pattern`
+- `capability`
 - `tooling`
 - `reporting`
 
@@ -159,6 +188,7 @@ Create or update a page when:
 - A repo has been analyzed beyond a quick lookup.
 - A concept appears across multiple repos or will guide future analyses.
 - A comparison is likely to be reused.
+- The user wants to lift a feature that one or more analyzed repos implement into another project (capability page).
 - A query answer would be costly to recreate.
 - A workspace convention affects future analysis quality.
 
