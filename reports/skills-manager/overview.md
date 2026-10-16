@@ -85,4 +85,4 @@ README가 밝힌 한계: Windows 앱은 WSL 안에 링크를 만들 수 없어 �
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/skills-manager.md](../../wiki/projects/skills-manager.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/skills-manager.md`

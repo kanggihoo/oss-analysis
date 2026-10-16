@@ -70,4 +70,4 @@ workflow 유형은 소스 근거 자동 검증(`--repo-root`)을 지원하지 �
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/Understand-Anything.md](../../wiki/projects/Understand-Anything.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/Understand-Anything.md`

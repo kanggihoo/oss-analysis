@@ -58,4 +58,4 @@ archify로 도출한 주요 구조도 및 대표 실행 흐름 다이어그램�
 ## 6. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/rsshub.md](../../wiki/projects/rsshub.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/rsshub.md`

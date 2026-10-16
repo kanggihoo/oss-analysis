@@ -150,4 +150,4 @@ README가 스스로 "The honest caveat"라는 절을 두고 밝히듯,
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/codenotch.md](../../wiki/projects/codenotch.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/codenotch.md`

@@ -1,0 +1,15 @@
+# 2026-10-16, Windows 11, Claude Code 2.1.301 (Claude Code)
+# file: ~/.claude/projects/C--Users-SSAFY-Desktop-oss-analysis/<largest session>.jsonl (1552 lines)
+# project dir names (sample):
+#   C--Users-SSAFY--herdr-worktrees-S15P21A605-worktree-calm-forest-a059
+#   C--Users-SSAFY--herdr-worktrees-S15P21A605-worktree-calm-river-8a01
+#   C--Users-SSAFY--herdr-worktrees-S15P21A605-worktree-clear-cloud-858a
+#   C--Users-SSAFY--herdr-worktrees-S15P21A605-worktree-clear-river-e242
+types: {'mode': 119, 'permission-mode': 119, 'atis-latch': 119, 'file-history-snapshot': 40, 'user': 131, 'attachment': 192, 'last-prompt': 119, 'api-request-shape': 2, 'api-request-blob': 122, 'api-request': 129, 'ai-title': 117, 'assistant': 240, 'file-history-delta': 6, 'system': 89, 'cost-state': 4, 'queue-operation': 4}
+types without uuid: {'mode': 119, 'permission-mode': 119, 'atis-latch': 119, 'file-history-snapshot': 40, 'last-prompt': 119, 'api-request-shape': 2, 'api-request-blob': 122, 'api-request': 129, 'ai-title': 117, 'file-history-delta': 6, 'cost-state': 4, 'queue-operation': 4}
+malformed lines: 0
+first line index with cwd: 4
+requestIds: 116 | with >1 entries: 80 | max entries per requestId: 6
+multi-entry requestIds sharing one message.id: 80
+multi-entry requestIds whose entries carry different blocks: 80
+multi-entry requestIds with identical usage on every entry: 80

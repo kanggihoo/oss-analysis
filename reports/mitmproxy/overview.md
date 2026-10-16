@@ -183,4 +183,3 @@ CA는 설치 때마다 고유하게 생성되어 다른 PC와 공유되지 않�
 
 - **다음 세션 계획**: [next.md](./next.md)
 - **공식 문서 정리**: [docs-guide.md](./docs-guide.md) — `docs/src/content/` 전체를 폴더별로 정리(개념, 모드, 인증서, 프로토콜, howto, 애드온)
-- **축적된 위키 지식**: 아직 없음 (`wiki/projects/mitmproxy.md` 미작성)

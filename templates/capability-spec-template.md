@@ -1,22 +1,11 @@
 ---
-title: "<기능 이름>"
+sha: "<분석 기준 전체 SHA>"
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
-type: capability
-tags: [open-source, capability]
-sources:                 # 1차: 원본 코드(repos/), 2차: 검증 기록(reports/)
-  - repos/<repo>/<핵심 소스 파일>
-  - reports/<repo>/questions/<근거 문서>.md
-confidence: medium
-capability: <기능-slug>
+sources:                 # 인용한 원본 파일 (repos/<repo>/ 기준)
+  - <핵심 소스 파일>
 status: draft            # draft | ready (ready = 구현을 막는 미결정 사항 없음)
-source_revisions:        # repos/는 Git 추적 밖 로컬 clone이라 경로만으로는 시점이 고정되지 않는다
-  - repo: <repo>
-    url: <원본 URL>
-    sha: "<분석 기준 전체 SHA>"
-verification:
-  source: "<코드 확인 / 실행 확인 / 혼합 / 미확인 — 상세는 B1>"
-  reimplementation: "<미실행 | 언어·정책·검증 범위·결과 링크>"
+reimplementation: 미실행  # 실행하면 언어·범위·결과 링크
 ---
 
 # <기능 이름>
@@ -72,12 +61,12 @@ verification:
 <!-- 3~5개로 시작한다. 정상·실패·경계를 섞고, 중요한 보장을 검증하기에 부족하면 추가한다. -->
 | 사례 | 요구사항·정책 | Given / When | Then (출력·사후 상태) | 출처 |
 |---|---|---|---|---|
-| T-01 | R-01 / 기본 | <사전 상태와 입력> | <기대 결과> | 원본 테스트 `<경로>` / 계약에서 도출 |
+| T-01 | R-01 / 기본 | <사전 상태와 입력> | <기대 결과> | 원본 테스트 / 계약에서 도출 |
 
 ## B. 근거와 참조 구현 [필수]
 
 ### B1. 요구사항별 근거 지도 [필수]
-<!-- 의사코드 단계가 아니라 요구사항 ID로 연결한다. 내부 구조가 다른 여러 구현도 같은 보장으로 비교할 수 있다. -->
+<!-- 의사코드 단계가 아니라 요구사항 ID로 연결한다. 내부 구조가 다른 여러 구현도 같은 보장으로 비교할 수 있다. A5에서 '원본 테스트'로 표시한 사례의 테스트 파일 위치도 여기에 적는다(A에는 경로를 두지 않는다). -->
 | ID | 원본에서 관찰한 동작 | 채택·변경 이유 | 근거 (report 링크; repo@SHA `파일:라인` `심볼`) | 검증 수준 |
 |---|---|---|---|---|
 | R-01 | <사실 또는 미확인> | <우리 판단> | [[report]]; `<repo>@<sha7>` `<path>:<L1-L2>` `<symbol>` | <수준> |

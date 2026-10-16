@@ -1,10 +1,14 @@
+---
+sha: "<전체 커밋 SHA>"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+---
+
 # <Repo Name> Analysis Overview
 
 ## 1. 기본 정보 (Code Baseline)
 
 - **Repo URL**: `<URL>`
-- **분석 Commit SHA**: `<commit-sha>`
-- **분석 일자**: `YYYY-MM-DD`
 - **작업트리 상태**: `Clean / Modified (diff 보관 여부)`
 - **분석 목적**: `<학습 / 설계 참고 / 도입 검토>`
 
@@ -46,9 +50,9 @@ archify로 도출한 주요 구조도 및 대표 실행 흐름 다이어그램�
 
 ---
 
-## 4. 질문과 답변 목록 (Questions)
+## 4. 질문과 조사 기록 (Questions)
 
-사용자가 질문한 내용과 코드 기반 답변 문서 링크입니다.
+사용자 질문의 답과, 기능 스펙을 위해 AI가 조사한 기록의 링크입니다.
 
 - [Q1: <질문 제목>](./questions/q1-<topic>.md) - *간단한 한 줄 결론 요약*
 - [Q2: <질문 제목>](./questions/q2-<topic>.md) - *간단한 한 줄 결론 요약*
@@ -58,5 +62,4 @@ archify로 도출한 주요 구조도 및 대표 실행 흐름 다이어그램�
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/<repo>.md](../../wiki/projects/<repo>.md)
-- **기능 스펙**: <없음 | [wiki/capabilities/<기능-slug>.md](../../wiki/capabilities/<기능-slug>.md)>
+- **기능 스펙**: <없음 | [capabilities/<기능-slug>.md](./capabilities/<기능-slug>.md)>

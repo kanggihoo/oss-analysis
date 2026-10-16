@@ -109,5 +109,4 @@ README 표 기준 **20개 에이전트 행**(Claude Code, Codex, Cursor, CodeBud
 ## 6. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: 아직 없음 (`wiki/projects/teamai-cli.md`는 코드 검증 후 작성)
 - **비교 후보**: [skills-manager](../skills-manager/overview.md), [cc-switch](../cc-switch/overview.md) — 둘은 개인 로컬 도구이고 teamai는 git 기반 팀 배포라는 차이가 있어 보임 *(추론)*

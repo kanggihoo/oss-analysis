@@ -2,7 +2,7 @@
 
 - **상위 개요**: [overview.md](./overview.md)
 - **현재 기준 Commit SHA**: `1486f2042c87bb547a4e34808ab54ab34a33f132`
-- **작성/갱신 일자**: `2026-09-29`
+- **작성/갱신 일자**: `2026-10-16`
 
 ---
 
@@ -13,6 +13,7 @@
 - [x] baseline 이후 변경 범위 확인 (8 commits, 소규모 UI/배포 변경)
 - [x] repos/claude-devtools 삭제 후 fresh clone (HEAD 동일 `1486f20`)
 - [x] archify 전체 아키텍처 구조도 작성 (`diagrams/structure.*`, showcase 통과)
+- [x] 2026-10-16: 세션 탐색·JSONL 파싱을 `1486f20`에서 코드로 확인하고 [Q1](./questions/q1-session-discovery-and-jsonl-parsing.md) 작성, 실제 로그 형식 확인(`artifacts/claude-devtools/log-format-demos/`), 기능 스펙 [claude-code-session-log-reading](./capabilities/claude-code-session-log-reading.md) 작성(draft)
 - [x] 2026-10-15: 다른 PC에서 `repos/claude-devtools` 재clone, upstream HEAD가 `1486f20`과 동일(신규 commit 0, worktree clean) 확인 (검증 수준: 실행 확인)
 
 ---
@@ -21,6 +22,9 @@
 
 - [ ] 분석 목적 확정 (학습 / 설계 참고 / 도입 검토)
 - [ ] 대표 실행 흐름(sequence) 미작성 — 후보: 세션 선택 → `sessions.ts` getSessionDetail → cache/parse/chunk → renderer
+- [ ] 기능 스펙 미결정 2건: 디렉터리 이름 규칙의 정확한 형태(macOS·Linux 미확인), 나뉜 프로젝트에서 `cwd` 없는 세션의 소속
+- [ ] 레포 테스트 실행(`pnpm install` 필요, 허락 후): pathDecoder, ProjectScanner.cwdSplit, jsonl, SessionParser
+- [ ] `encodePath` 때문에 Windows에서 `MEMORY.md`를 못 찾는지 실행 확인
 - [ ] SSH context 전환(`handleModeSwitch`, `contextRegistry.switch`) 시 FileWatcher 재배선 동작
 
 ---

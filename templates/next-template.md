@@ -1,8 +1,12 @@
+---
+sha: "<전체 커밋 SHA>"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+---
+
 # Next Session Plan: <Repo Name>
 
 - **상위 개요**: [overview.md](./overview.md)
-- **현재 기준 Commit SHA**: `<commit-sha>`
-- **작성/갱신 일자**: `YYYY-MM-DD`
 
 ---
 
@@ -22,7 +26,7 @@
 
 ## 3. 기능 스펙 후보
 
-진입점·핵심 처리·실패 처리가 확인됐지만 아직 스펙으로 정리하지 않은 기능입니다 ([OSS_ANALYSIS_WORKFLOW.md "기능 스펙으로 넘어가기"](../OSS_ANALYSIS_WORKFLOW.md#기능-스펙으로-넘어가기)).
+진입점·핵심 처리·실패 처리가 확인됐지만 아직 스펙으로 정리하지 않은 기능입니다 ([OSS_ANALYSIS_WORKFLOW.md 3장 3번 "기능 스펙 트리거"](../OSS_ANALYSIS_WORKFLOW.md#3-질문과-답변)).
 
 | 기능 | 근거 질문 문서 | 상태 |
 |---|---|---|

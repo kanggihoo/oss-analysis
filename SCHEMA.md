@@ -1,0 +1,46 @@
+# SCHEMA
+
+Updated: 2026-10-16
+
+루트의 `index.md`·`log.md` 형식과 `reports/` 문서 frontmatter 규칙이다. 분석 내용은 모두 `reports/<repo>/`에 쓴다. 2026-10-16 이전에 있던 `wiki/` 폴더(projects, concepts 등)는 삭제했고, 원문은 `git show b52364d:<경로>`로 볼 수 있다.
+
+## index.md
+
+- 분석한 레포마다 한 줄: 레포 이름, 기준 SHA(7자리), `reports/<repo>/overview.md` 링크, 기능 스펙 링크.
+- 레포를 새로 분석하거나 기준 SHA를 올리거나 기능 스펙을 추가하면 그 줄을 고친다.
+- 맨 위 `Last updated`를 갱신한다.
+
+## log.md
+
+- 작업 한 묶음마다 맨 아래에 추가한다. 이미 쓴 항목은 고치지 않는다.
+- 형식: `## [YYYY-MM-DD] <종류> | <제목>` 다음에 무엇을 읽고, 실행하고, 어떤 파일을 바꿨는지 2~4줄.
+- 종류: `ingest`(새 레포), `update`(기존 레포 갱신), `capability`(기능 스펙), `workflow`(규칙·템플릿 변경).
+
+## reports 문서 frontmatter
+
+`reports/<repo>/` 아래 문서는 맨 위에 frontmatter를 둔다. 파일 경로나 git으로 알 수 있는 것은 넣지 않는다.
+
+```yaml
+---
+sha: "<전체 커밋 SHA>"        # 모든 문서. 이 문서가 기준으로 삼은 커밋
+created: YYYY-MM-DD           # 모든 문서. 처음 쓴 날
+updated: YYYY-MM-DD           # 모든 문서. 내용을 마지막으로 바꾸거나 다시 확인한 날
+sources:                      # questions/, <패키지>/NN-주제.md, capabilities/
+  - <repos/<repo>/ 기준 상대 경로>
+status: draft | ready         # capabilities/만. ready = 구현을 막는 미결정 사항 없음
+reimplementation: 미실행      # capabilities/만. 실행하면 언어·범위·결과 링크
+---
+```
+
+| 필드 | 규칙 |
+|---|---|
+| `sha` | 같은 레포 안에서도 문서마다 다를 수 있다. 새 커밋에서 다시 확인하면 올린다. |
+| `created` | 바꾸지 않는다. |
+| `updated` | 내용이 바뀌거나 코드·실행으로 다시 확인했을 때 바꾼다. 링크·오타·형식만 고칠 때는 바꾸지 않는다. |
+| `sources` | 본문에서 인용한 원본 파일을 모두 적는다. 레포가 업데이트됐을 때 다시 볼 문서를 찾는 기준이다(`OSS_ANALYSIS_WORKFLOW.md` 5장). |
+| `status` | 본문 A3 "미결정"이 비면 `ready`. |
+| `reimplementation` | `templates/capability-request-template.md` 2번 요청으로 검증한 결과. |
+
+넣지 않는 것: `title`(본문 첫 제목), `type`(파일 이름·폴더), `repo`(경로), `url`(`artifacts/<repo>/repo-metadata.txt`), 문서 전체 검증 수준(주장마다 본문에 붙임).
+
+기존 문서에는 한꺼번에 붙이지 않고, 새로 쓰거나 내용을 고치는 문서부터 붙인다.

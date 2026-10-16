@@ -104,7 +104,7 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 | [04-proxy](./agent/04-proxy.md) | `streamProxy`: `partial`을 뺀 이벤트를 클라이언트가 복원, `setDefaultStreamFn` |
 | [05-call-flow](./agent/05-call-flow.md) | `agent.prompt()` 한 번의 경로 + 가짜 `streamFn`/로컬 SSE 서버 실행 확인(`artifacts/pi/agent-demos/`) |
 
-핵심 발견(요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md)): 훅으로 정책을 주입하는 상태 없는 루프, throw 정책의 비대칭(도구는 루프가 흡수, 나머지 훅은 호출자 책임, `Agent`가 안전망), 알려진 구멍(중단 시 `toolResult` 짝 불일치, 프록시 `partialJson` 잔존, `agentLoop`의 reject 미처리).
+핵심 발견: 훅으로 정책을 주입하는 상태 없는 루프, throw 정책의 비대칭(도구는 루프가 흡수, 나머지 훅은 호출자 책임, `Agent`가 안전망), 알려진 구멍(중단 시 `toolResult` 짝 불일치, 프록시 `partialJson` 잔존, `agentLoop`의 reject 미처리).
 
 ## 3.5 학습 가이드
 
@@ -128,4 +128,4 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/pi.md](../../wiki/projects/pi.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/pi.md`

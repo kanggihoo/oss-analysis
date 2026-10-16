@@ -1,7 +1,14 @@
+---
+sha: "<전체 커밋 SHA>"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+sources:                 # 인용한 원본 파일 (repos/<repo>/ 기준)
+  - <path/to/file>
+---
+
 # [Q] <질문 제목>
 
 - **상위 개요**: [overview.md](../overview.md)
-- **분석 Commit SHA**: `<commit-sha>`
 - **검증 수준**: `코드 확인 / 실행 확인 / 추론 / 미확인`
 
 ---

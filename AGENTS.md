@@ -1,29 +1,21 @@
 # AGENTS.md — oss-analysis
 
-이 레포는 AI와 함께 오픈소스를 분석하고, 검증한 지식을 쌓는 작업 공간이다.
-규칙의 원본은 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md)다. 이 파일은 상황마다 읽을 곳만 가리킨다. **작업을 시작하기 전에 해당 절을 읽고 따른다.**
+오픈소스를 원본 코드로 검증하며 분석하고, 결과를 레포별로 쌓는 작업 공간이다. 절차와 규칙의 원본은 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md)이고, 작업 전에 아래 표에서 해당 장을 읽고 따른다.
+
+## 항상
+
+- 주장은 `repos/<repo>` 기준 SHA의 원본 코드로 확인하고, 주장마다 검증 수준(`코드 확인` / `실행 확인` / `추론` / `미확인`)을 붙인다. 분석기·DeepWiki 출력은 후보로 읽는다.
+- 레포에 관한 글은 `reports/<repo>/`, 도구 출력은 `artifacts/<repo>/`에 쓰고, `index.md`(목록)와 `log.md`(기록)를 갱신한다.
+- 확인한 내용은 요청이 없어도 문서에 반영하고, 바꾼 파일과 절을 한 줄로 보고한다.
 
 ## 상황별로 읽을 곳
 
 | 상황 | 읽을 곳 |
 |---|---|
-| 새 레포 분석 시작, 레포 업데이트 | [2장 분석 절차](OSS_ANALYSIS_WORKFLOW.md#2-분석-절차) 1~3단계, [1장 디렉터리 구조](OSS_ANALYSIS_WORKFLOW.md#1-디렉터리-구조) |
-| 사용자가 레포에 대해 질문 | [2장 질문과 답변](OSS_ANALYSIS_WORKFLOW.md#질문과-답변), [4장 근거·검증 수준](OSS_ANALYSIS_WORKFLOW.md#4-근거-및-검증-수준-기준), [7장 설명·문서화 스타일](OSS_ANALYSIS_WORKFLOW.md#7-설명과-문서화-스타일-사용자-맞춤) |
-| 질문에 답한 직후 | [2장 기능 스펙으로 넘어가기](OSS_ANALYSIS_WORKFLOW.md#기능-스펙으로-넘어가기)의 트리거 확인 |
-| 기능 스펙 작성, 재구현 검증 | [8장 기능 스펙](OSS_ANALYSIS_WORKFLOW.md#8-기능-스펙-capability-spec) |
-| reports와 wiki 중 어디에 쓸지 | [3장 역할 구분](OSS_ANALYSIS_WORKFLOW.md#3-reports와-wiki의-역할-구분) |
-| wiki 페이지 작성·수정 | [wiki/SCHEMA.md](wiki/SCHEMA.md) |
-| 코드 실행 실험 | [7.5 실행 실험 정책](OSS_ANALYSIS_WORKFLOW.md#75-실행-실험-정책) |
-| 세션 마무리 | [2장 세션 마무리](OSS_ANALYSIS_WORKFLOW.md#세션-마무리) |
-| 커밋할 대상 판단 | [5장 Git 관리 방침](OSS_ANALYSIS_WORKFLOW.md#5-git-관리-방침) |
-
-## 템플릿 (`templates/`)
-
-| 템플릿 | 쓰는 단계 | 만드는 파일 |
-|---|---|---|
-| [request-template.md](templates/request-template.md) | 새 레포 분석, 사용자 요청문 | — |
-| [overview-template.md](templates/overview-template.md) | 2·3단계 | `reports/<repo>/overview.md` |
-| [question-template.md](templates/question-template.md) | 질문과 답변 | `reports/<repo>/questions/qN-<topic>.md` |
-| [next-template.md](templates/next-template.md) | 세션 마무리 | `reports/<repo>/next.md` |
-| [capability-request-template.md](templates/capability-request-template.md) | 기능 스펙, 요청문 | — |
-| [capability-spec-template.md](templates/capability-spec-template.md) | 기능 스펙 | `wiki/capabilities/<기능-slug>.md` |
+| 새 레포 분석 | [2장](OSS_ANALYSIS_WORKFLOW.md#2-새-레포-분석) |
+| 레포에 대한 질문 (답한 뒤 기능 스펙 트리거 확인까지) | [3장](OSS_ANALYSIS_WORKFLOW.md#3-질문과-답변), [7장](OSS_ANALYSIS_WORKFLOW.md#7-근거와-검증-수준), [8장](OSS_ANALYSIS_WORKFLOW.md#8-설명과-문서화) |
+| 기능 스펙 작성, 재구현 검증 | [4장](OSS_ANALYSIS_WORKFLOW.md#4-기능-스펙) |
+| 분석한 레포의 새 커밋 | [5장](OSS_ANALYSIS_WORKFLOW.md#5-레포가-업데이트됐을-때) |
+| 세션 마무리 | [6장](OSS_ANALYSIS_WORKFLOW.md#6-세션-마무리) |
+| 코드·명령 실행 실험 | [9장](OSS_ANALYSIS_WORKFLOW.md#9-실행-실험) |
+| 저장 위치, reports frontmatter | [1장](OSS_ANALYSIS_WORKFLOW.md#1-저장-위치), [SCHEMA.md](SCHEMA.md) |

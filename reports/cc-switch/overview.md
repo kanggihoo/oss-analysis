@@ -65,4 +65,4 @@ Usage(무프록시)  ── 각 도구의 로컬 세션 로그 스캔 (services/
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/cc-switch.md](../../wiki/projects/cc-switch.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/cc-switch.md`

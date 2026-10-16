@@ -136,4 +136,4 @@ pnpm 모노레포. 추적 파일 1,821개. 핵심은 `packages/e2e` (약 594개 
 ## 7. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md) (후속 질문 후보는 그쪽에 남아 있다)
-- **축적된 위키 지식**: [wiki/projects/e2e.md](../../wiki/projects/e2e.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/e2e.md`

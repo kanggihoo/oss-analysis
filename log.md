@@ -396,3 +396,29 @@
 ## [2026-10-16] workflow | AGENTS.md reduced to a router
 - `AGENTS.md` now holds only a situation → section routing table into `OSS_ANALYSIS_WORKFLOW.md` and the template table; rules live only in the workflow doc. Moved the two items that existed only in `AGENTS.md` (evidence-backed analysis statement; repos = 1차 근거, artifacts = 참고 후보) into workflow intro and 1장.
 - Fixed references to removed `AGENTS.md` sections: `templates/next-template.md` (→ workflow 2장), [[codewiki]] and `reports/CodeWiki/overview.md` (CodeWiki usage now only in `git show c0051fa:AGENTS.md`); updated AGENTS.md role in workflow 1장 tree and [[SCHEMA]].
+
+## [2026-10-16] capability | first spec: claude-code-session-log-reading (claude-devtools)
+- Re-read session discovery / JSONL parsing / fingerprint cache at `1486f20` (code reading; repo tests not run, no `node_modules`). Wrote `reports/claude-devtools/questions/q1-session-discovery-and-jsonl-parsing.md`.
+- Inspected the real Claude Code 2.1.301 logs on this PC with `artifacts/claude-devtools/log-format-demos/inspect_session_log.py` (format stats only): 16 line types, `cwd` first at line index 4, 80/116 multi-line `requestId`s each carrying one block with identical usage; project dir names turn `:` `\` `.` into `-`.
+- Added [[claude-code-session-log-reading]] (draft, 14 requirements, 3 changes vs original) and linked it from [[claude-devtools]], `reports/claude-devtools/overview.md`, `next.md`; added a 2026-10-16 note to [[claude-devtools-session-discovery-and-jsonl-parsing]].
+- Template fixes found by this pilot: A5 source column no longer holds test paths (moved to B1); Agent B extraction command now also strips frontmatter.
+
+## [2026-10-16] workflow | wiki reduced to index/log; everything per repo lives in reports
+- Deleted `wiki/projects/` (21), `wiki/concepts/` (41), `wiki/queries/`, `wiki/raw/`; originals stay at `git show b52364d:<path>` (full list: `git ls-tree -r --name-only b52364d wiki/`). `wiki/` now holds only `README.md`, `index.md` (repo table: baseline SHA, overview, capability spec), `log.md`, `SCHEMA.md` (index/log format, capability frontmatter).
+- Capability specs are now per repo: moved the spec to `reports/claude-devtools/capabilities/claude-code-session-log-reading.md`.
+- `OSS_ANALYSIS_WORKFLOW.md`: new 3장 "어디에 저장하나" (artifacts / reports / wiki), 5장 "레포가 업데이트됐을 때" (no script), 8.1·8.4 AI investigates directly without waiting for user questions; `AGENTS.md` routing and templates updated to the new paths.
+- Replaced "축적된 위키 지식" links in 15 `reports/*/overview.md` with `git show b52364d:` pointers; older planning notes (`initial-capture.md`, `wiki-ingestion-plan.md`, past `next.md` checkboxes) left as historical text.
+
+## [2026-10-16] workflow | reports frontmatter: sha, created, updated, sources (+status, reimplementation)
+- [[SCHEMA]] now defines one frontmatter for every `reports/<repo>/` document: `sha`, `created`, `updated` (content changed or re-checked; not for link/typo fixes), `sources` (cited original files, used to find docs to re-check after upstream changes); capabilities add `status` and `reimplementation`. Dropped `title`, `type`, `repo`, `url`, `confidence`, doc-level `verification`, `tags`, `capability`, `source_revisions`.
+- Added the frontmatter to the question/overview/next/capability-spec templates and removed their duplicate SHA/date body lines; applied it to claude-devtools `q1` and the capability spec. Older reports get it when their content is next edited.
+- `OSS_ANALYSIS_WORKFLOW.md` 5장 update steps now match `git diff --name-only` against `sources`; 8.4/8.5 use `reimplementation`. Deleted `scripts/wiki-lint.py`.
+
+## [2026-10-16] workflow | wiki/ folder removed; index, log, SCHEMA, README moved to root
+- `git mv wiki/{README,SCHEMA,index,log}.md .`; `wiki/` no longer exists. `README.md` rewritten as the workspace guide; `SCHEMA.md` intro and `index.md` links (`../reports/` → `reports/`) adjusted.
+- Updated paths in `AGENTS.md`, `OSS_ANALYSIS_WORKFLOW.md` (intro, 1장 tree, 2장, 3장 table, 5장, 6장, 7.4, 8장), `templates/request-template.md`, `templates/capability-request-template.md`.
+
+## [2026-10-16] workflow | AGENTS.md and OSS_ANALYSIS_WORKFLOW.md rewritten with writing-for-agents
+- `OSS_ANALYSIS_WORKFLOW.md` (306 → 157 lines): procedures first (1 저장 위치, 2 새 레포 분석, 3 질문과 답변 + 기능 스펙 트리거, 4 기능 스펙, 5 레포 업데이트, 6 세션 마무리), reference after (7 근거·검증 수준, 8 설명·문서화, 9 실행 실험). Every step ends with a checkable 완료 condition (e.g. capability A extraction greps 0 source paths). Removed duplicates (old 6장 request text, 4장 question checklist, 7.7 checklist, 8.2/8.3), the stale `Workspace:` path, and rephrased prohibitions as target behaviour.
+- `AGENTS.md`: three always-on rules (evidence + 검증 수준, where to write, auto-documentation) plus a situation → chapter routing table; template table dropped (lives in workflow 1장).
+- `templates/request-template.md` and the Agent A part of `templates/capability-request-template.md` reduced to inputs + "follow chapter N"; anchors in `next-template.md`, `capability-request-template.md` updated.

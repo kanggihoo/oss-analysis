@@ -6,7 +6,7 @@
 - **분석 Commit SHA**: `9a40cc603fcd194caca9daa8c5134a61ea7e0e2b` (2026-10-13, npm `codeburn` v0.9.27)
 - **분석 일자**: `2026-10-15`
 - **작업트리 상태**: 추적 파일 변경 없음. 미추적 파일만 있음(`.codex/`, `.graphifyignore`, `AGENTS.md`, `graphify-out/` — 이전 세션의 graphify 산출물)
-- **분석 목적**: 학습. AI 코딩 도구 로그 → 토큰·비용 집계 파이프라인 이해 (비슷한 도구: [[tokscale]], [[claude-devtools]], [[codenotch]])
+- **분석 목적**: 학습. AI 코딩 도구 로그 → 토큰·비용 집계 파이프라인 이해 (비슷한 도구: tokscale, claude-devtools, codenotch)
 - **메타데이터**: `artifacts/codeburn/repo-metadata.txt`
 
 > 초기 작업(1차)이다. 구조와 대표 흐름 하나(`codeburn report`)만 코드로 확인했다. 테스트와 실행은 하지 않았다.
@@ -150,5 +150,5 @@ Claude Code, Codex, Cursor 같은 AI 코딩 도구가 **로컬에 남긴 세션 
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **축적된 위키 지식**: [wiki/projects/codeburn.md](../../wiki/projects/codeburn.md) (이전 기준 `f1bf7a1`)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/codeburn.md`
 - **외부 자료**: `artifacts/codeburn/deepwiki/` (이전 기준의 DeepWiki 추출본, 참고용)

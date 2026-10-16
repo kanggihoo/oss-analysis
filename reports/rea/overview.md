@@ -154,4 +154,4 @@ REA는 3번까지를 담당한다. 최종 산출물은 요청에 따라 설명(�
 ## 9. 연계 링크
 
 - 다음 세션 계획: [next.md](./next.md)
-- 위키: [wiki/projects/rea.md](../../wiki/projects/rea.md)
+- **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/rea.md`
