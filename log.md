@@ -422,3 +422,22 @@
 - `OSS_ANALYSIS_WORKFLOW.md` (306 → 157 lines): procedures first (1 저장 위치, 2 새 레포 분석, 3 질문과 답변 + 기능 스펙 트리거, 4 기능 스펙, 5 레포 업데이트, 6 세션 마무리), reference after (7 근거·검증 수준, 8 설명·문서화, 9 실행 실험). Every step ends with a checkable 완료 condition (e.g. capability A extraction greps 0 source paths). Removed duplicates (old 6장 request text, 4장 question checklist, 7.7 checklist, 8.2/8.3), the stale `Workspace:` path, and rephrased prohibitions as target behaviour.
 - `AGENTS.md`: three always-on rules (evidence + 검증 수준, where to write, auto-documentation) plus a situation → chapter routing table; template table dropped (lives in workflow 1장).
 - `templates/request-template.md` and the Agent A part of `templates/capability-request-template.md` reduced to inputs + "follow chapter N"; anchors in `next-template.md`, `capability-request-template.md` updated.
+
+## [2026-10-16] update | overview 템플릿에 '주요 기능' 절 추가
+- `templates/overview-template.md` 2절에 주요 기능 표, `OSS_ANALYSIS_WORKFLOW.md` 2장 3단계에 반영.
+
+## [2026-10-16] update | claude-devtools 분석 목적 확정
+- `reports/claude-devtools/overview.md` 1절: 분석 목적을 '.jsonl 세션 로그 분석 방식 학습'으로 기록.
+
+## [2026-10-16] create | searxng clone, 기준 SHA 기록
+- `repos/searxng`를 `0ce72dd`에서 clone, `artifacts/searxng/repo-metadata.txt` 작성 (worktree clean). overview·index 행은 분석 목적 확인 후 작성.
+
+## [2026-10-16] create | searxng overview 1~2절 작성
+- `reports/searxng/overview.md` 1절(목적: 학습+AI 검색 도구 설계 참고), 2절(소스 구성, 주요 기능, AI 연동), `index.md` 행 추가. 3절 구조도·실행 흐름은 미작성.
+
+## [2026-10-16] update | searxng 주요 기능 정리로 마무리
+- `reports/searxng/overview.md` 1절 목적을 '주요 기능 파악'으로 축소, 2절에 봇 제한·자동완성·프라이버시 행 추가, 3절은 그리지 않음으로 표시.
+
+## [2026-10-16] update | searxng 분석 마무리
+- `reports/searxng/overview.md` 2절에 '한 번의 검색이 처리되는 방식'(engine별 URL, 사전 수집 없음, 질의 확장 없음) 추가, 5절에 next 링크.
+- `reports/searxng/next.md` 작성. 분석은 주요 기능 수준에서 종료.

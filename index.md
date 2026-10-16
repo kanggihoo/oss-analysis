@@ -21,6 +21,7 @@
 | pi | `4259686`, `ai`·`agent` 패키지는 `3874b3e` | [overview](reports/pi/overview.md) | — |
 | rea | `60c0880` | [overview](reports/rea/overview.md) | — |
 | rsshub | `0a4ecdb` | [overview](reports/rsshub/overview.md) | — |
+| searxng | `0ce72dd` | [overview](reports/searxng/overview.md) | — |
 | skills-manager | `e6dcedf` | [overview](reports/skills-manager/overview.md) | — |
 | teamai-cli | `7ba8bcc` | [overview](reports/teamai-cli/overview.md) | — |
 | Understand-Anything | `b05cc3b` | [overview](reports/Understand-Anything/overview.md) | — |

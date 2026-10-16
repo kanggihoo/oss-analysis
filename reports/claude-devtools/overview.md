@@ -6,7 +6,7 @@
 - **분석 Commit SHA**: `1486f2042c87bb547a4e34808ab54ab34a33f132` (`v0.5.0-8-g1486f20`)
 - **분석 일자**: `2026-09-29`
 - **작업트리 상태**: `clean`
-- **분석 목적**: `미정 (사용자 확인 필요)`
+- **분석 목적**: `학습` — Claude Code가 쓰는 세션 `.jsonl` 로그를 claude-devtools가 어떻게 읽고(파싱), 묶고(chunk), 해석하는지 확인
 - **메타데이터**: [`artifacts/claude-devtools/repo-metadata.txt`](../../artifacts/claude-devtools/repo-metadata.txt)
 - **이전 baseline**: 2026-06 1차 분석과 DeepWiki snapshot(`artifacts/claude-devtools/deepwiki/`, 54/54 pages)은 `16cc3c8`(v0.5.0) 기준. 당시 메타데이터는 [`repo-metadata.2026-05-deepwiki-baseline.txt`](../../artifacts/claude-devtools/repo-metadata.2026-05-deepwiki-baseline.txt)에 보관
 - **baseline 이후 변경**: 8 commits, 13 files, +39/−5 — docker compose 포트 override, standalone 서버 URL 출력, copy 버튼 확장, context navigation 후 AI group 펼침 유지 설정. 기존 wiki의 아키텍처 설명에 영향 없는 수준 (검증 수준: `코드 확인` — `git diff --stat 16cc3c8 HEAD`만 확인)

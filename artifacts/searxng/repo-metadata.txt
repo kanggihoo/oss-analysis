@@ -1,0 +1,7 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/searxng
+name=searxng
+date=2026-10-16
+commit=0ce72dd2ccd6bd06d21e6afd1844455c98719605
+origin=https://github.com/searxng/searxng.git
+commit_date=2026-10-16T14:56:49+02:00
+worktree=clean
