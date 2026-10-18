@@ -1,7 +1,7 @@
 ---
 sha: "1486f2042c87bb547a4e34808ab54ab34a33f132"
 created: 2026-10-16
-updated: 2026-10-16
+updated: 2026-10-17
 sources:
   - src/main/utils/pathDecoder.ts
   - src/main/services/discovery/ProjectScanner.ts
@@ -52,6 +52,7 @@ reimplementation: 미실행
 | Block | `type`이 `text`/`thinking`/`tool_use`/`tool_result`/`image` 등 | 모르는 블록 type도 그대로 둔다 |
 | Metrics | `inputTokens`, `outputTokens`, `cacheReadTokens`, `cacheCreationTokens`, `totalTokens`(네 값의 합), `messageCount`(메시지 배열 길이), `durationMs`(가장 늦은 시각 − 가장 이른 시각): int | 토큰은 R-11 규칙으로 센다. 값이 없으면 0 |
 | 실제 사용자 입력 | Message에 대한 판정 | `type=user`, `isMeta`가 아님, 내용이 문자열이면 비어 있지 않고, 배열이면 `text`나 `image` 블록이 있음. 단 내용(또는 텍스트 블록)이 `<local-command-stdout>`·`<local-command-stderr>`·`<local-command-caveat>`·`<system-reminder>`·`<teammate-message`로 시작하거나, 블록이 `[Request interrupted by user`로 시작하는 텍스트 하나뿐이면 아님. `<command-name>`(슬래시 명령)은 사용자 입력이다. |
+| Attachment | `uuid`, `timestamp`, `attachment`: `{type: string, ...}` | `type=attachment`인 줄. 하위 `attachment.type`이 `prompt_snapshot`(필드 `systemPrompt`: list<string>), `instructions`, `skill_listing`, `mcp_instructions_delta`, `environment`, `session_context` 등이다. 하위 type 목록은 열려 있다(관찰 35종). |
 | Fingerprint | string `"<수정시각 ms>-<바이트 크기>"` | 같으면 내용이 같다고 본다 |
 
 ### A3. 행동 계약과 미결정 사항
@@ -66,15 +67,17 @@ reimplementation: 미실행
 | R-06 | 프로젝트 목록 | 세션 파일 수정 시각의 최댓값(`lastModified`) 내림차순. | 원본 유지 | 코드 확인 |
 | R-07 | 세션 목록 | 보여줄 줄이 하나도 없는 세션은 뺀다. 보여줄 줄 = 사이드체인이 아닌 assistant(모델 `<synthetic>` 제외), 또는 `<system-reminder>`·`<local-command-caveat>`만으로 된 것이 아닌 user. | 원본 유지 | 코드 확인 |
 | R-08 | 세션 목록 정보 | `preview` = `isMeta`가 아닌 첫 user 텍스트(`<local-command-stdout>`·`<local-command-stderr>`로 시작하는 명령 출력, 중단 메시지, `<command-name>`으로 시작하는 것 제외, 500자 자름). 없으면 첫 `<command-name>`의 `/명령어` 이름. `turnCount` = 실제 사용자 입력(A2) 수 + 각 입력 뒤 첫 메인 assistant(사이드체인·`<synthetic>` 제외) 응답 수. `gitBranch` = 처음 나온 값. `createdAt` = preview 시각, 없으면 파일 생성 시각. `createdAt` 내림차순. | 원본 유지 | 코드 확인 |
-| R-09 | 세션 줄 읽기 | 줄 단위로 읽는다(파일 전체를 메모리에 올리지 않음). 빈 줄·깨진 줄은 건너뛰고 개수만 센다. `uuid`가 없는 줄, type이 `user`/`assistant`/`system`/`summary`/`file-history-snapshot`/`queue-operation`이 아닌 줄은 건너뛴다. | 원본 유지 (+깨진 줄 개수 신규) | 코드 확인, 모르는 type이 많음은 실행 확인 |
+| R-09 | 세션 줄 읽기 | 줄 단위로 읽는다(파일 전체를 메모리에 올리지 않음). 빈 줄·깨진 줄은 건너뛰고 개수만 센다. `uuid`가 없는 줄, type이 `user`/`assistant`/`system`/`summary`/`file-history-snapshot`/`queue-operation`이 아닌 줄은 건너뛴다(원본. R-15에서 `attachment`는 예외로 보존). | 원본 유지 (+깨진 줄 개수 신규) | 코드 확인, 모르는 type이 많음은 실행 확인 |
 | R-10 | `timestamp`가 없는 줄 | `timestamp`를 비워 둔다. 정렬이 필요하면 줄 순서를 쓴다. | **변경** (원본은 읽은 시점의 현재 시각) | 코드 확인 |
 | R-11 | 같은 `requestId`의 assistant 줄 여러 개 | 모든 줄을 메시지로 남긴다(한 응답의 블록이 줄마다 나뉘어 있음). 토큰 합계(`metrics`)는 `requestId`마다 마지막 줄 하나만 더한다. | 원본 유지 | 코드 확인, 형식은 실행 확인 |
 | R-12 | `readSession`에 `knownFingerprint`가 현재 지문과 같음 | `{unchanged: true}`만 돌려주고 파일을 읽지 않는다. 지문을 못 구하면 이 단축을 쓰지 않는다. | 원본 유지 | 코드 확인 |
 | R-13 | 캐시 저장 | 결과는 **읽기 전에 잰 지문**과 묶는다. 읽는 도중 파일이 바뀌면 다음 요청에서 지문이 달라 다시 읽는다. | 원본 유지 | 코드 확인 |
 | R-14 | `cwd`로 프로젝트를 찾아야 할 때 | 경로를 인코딩해 디렉터리 이름을 만들지 않는다. `listProjects` 결과의 `path`와 비교해 찾는다. | **변경** (원본은 단순 인코딩으로 이름을 만듦) | 추론 (원본이 Windows에서 실패할 것으로 봄, 미실행) |
+| R-15 | `type=attachment` 줄 | 건너뛰지 않고 Attachment로 보존한다. `prompt_snapshot`의 `systemPrompt`는 가공 없이 그대로 돌려주고, 하위 type을 모르면 원본 JSON을 그대로 둔다. `isMeta`·`<system-reminder>` 필터(R-07)의 대상이 아니다. | **변경** (원본은 type 필터에서 버림) | 코드 확인(원본이 버림), 실행 확인(로그에 존재) |
 
 - 불변식: 로그 파일을 수정하지 않는다. 같은 파일 상태(지문)에서는 같은 결과를 낸다(R-10 변경이 이를 위한 것).
 - 미결정:
+  - R-15 `prompt_snapshot`의 구성. 한 세션(스냅샷 5개) 관찰: `systemPrompt`는 스냅샷마다 같고(13조각), 맨 앞 `You are Claude Code…` 한 줄은 `cliPrefix`, 도구 정의는 `tools`로 따로 있으며 이 둘은 일부 스냅샷에만 있다. 따라서 "모델이 받은 전체" = `cliPrefix` + `systemPrompt`(+ `tools`)로 보인다(실행 확인, 한 세션·한 버전). 다른 세션·버전에서 `systemPrompt`가 달라지는지(길이 291~15,019자)와 한 세션에서 값이 바뀌는 경우는 확인하지 못했다.
   - R-01 이름 규칙의 정확한 형태. Claude Code가 어떤 문자를 `-`로 바꾸는지 공식 근거가 없다. 관찰상 `:`, `\`, `/`, `.`, 한글이 `-`가 된다(Windows만 확인). 엄격하게 검사하면 새 형식을 놓칠 수 있다.
   - R-05 나뉜 프로젝트에서 `cwd` 없는 세션을 별도 프로젝트로 둘지, 가장 짧은 `cwd` 프로젝트에 붙일지.
 
@@ -96,6 +99,7 @@ reimplementation: 미실행
 | T-04 | R-04, R-09 | 세션 줄: 정상 user / 깨진 JSON / `cwd` 있는 정상 assistant | 메시지 2개, 깨진 줄 1개로 집계. 프로젝트 `path` = 그 `cwd` | 계약에서 도출 (R-04는 원본과 다름) |
 | T-05 | R-09, R-11 | 같은 `requestId`의 assistant 줄 3개(블록 `thinking`/`text`/`tool_use` 각 1개, usage 입력 10·출력 5로 같음) + `uuid` 없는 `mode` 줄 | 메시지 3개, `mode` 줄 없음. metrics 입력 10·출력 5 (30·15가 아님) | 계약에서 도출, 형식은 실제 로그 관찰 |
 | T-06 | R-12 | `readSession`이 돌려준 지문을 파일을 바꾸지 않고 다시 전달 | `{unchanged: true}`, 파일 읽기 0회. 파일에 한 줄을 추가한 뒤에는 새 메시지 배열과 다른 지문 | 계약에서 도출 |
+| T-07 | R-15 | 줄: `{"type":"attachment","uuid":"u1","attachment":{"type":"prompt_snapshot","systemPrompt":["A","B"]}}` / `readSession` | 메시지 배열에 Attachment 1개, `systemPrompt` = `["A","B"]`. 이 줄은 `turnCount`에 영향 없음 | 계약에서 도출, 형식은 실제 로그 관찰 |
 
 ## B. 근거와 참조 구현
 
@@ -119,6 +123,7 @@ A5 원본 테스트 위치: T-01 `test/main/utils/pathDecoder.test.ts:105-112`, 
 | R-11 | 메시지는 그대로, 합계만 `requestId`당 마지막 줄 | — (원본 주석의 "출력 토큰이 늘어난다"는 관찰과 다름) | `jsonl.ts:233-309` `deduplicateByRequestId` `calculateMetrics` | 코드 확인 + 실행 확인 |
 | R-12 | `mtimeMs-size` 비교 후 sentinel | — | `ipc/sessions.ts:224-245` `handleGetSessionDetail` | 코드 확인 |
 | R-13 | 파싱 전 지문으로 캐시, 50개·10분·버전 2 | — | `ipc/sessions.ts:248-279`, `DataCache.ts:37-43`, `:75`, `:156-175` | 코드 확인 |
+| R-15 | `parseMessageType`이 6개 type 외에는 `null`을 돌려 `attachment`가 버려짐. 실제 로그 610개 세션 중 576개에 `prompt_snapshot`이 있음 | 도구로 시스템 프롬프트·주입된 지침을 보려는 목적(적용 목적 확장) | `jsonl.ts:199-217` `parseMessageType`; [관찰](../../../artifacts/claude-devtools/log-format-demos/2026-10-17-attachment-output.txt), [q2](../questions/q2-attachment-and-system-prompt.md) | 코드 확인 + 실행 확인 (완전성은 미확인) |
 | R-14 | `encodePath`는 `/`·`\`만 `-`로 바꿈 | 실제 이름에서는 `.`·`:`도 `-`라서 맞지 않음 | `pathDecoder.ts:27-36`, `ClaudeMdReader.ts:229-236` `readAutoMemoryFile` | 추론 |
 
 ### B2. 코드 읽는 순서

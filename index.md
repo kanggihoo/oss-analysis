@@ -8,11 +8,13 @@
 | 레포 | 기준 SHA | 입구 | 기능 스펙 |
 |---|---|---|---|
 | claude-code-history-viewer | `9d86b46` | [overview](reports/claude-code-history-viewer/overview.md) | — |
-| claude-devtools | `1486f20` | [overview](reports/claude-devtools/overview.md) | [claude-code-session-log-reading](reports/claude-devtools/capabilities/claude-code-session-log-reading.md) (draft) |
+| claude-devtools | `1486f20` | [overview](reports/claude-devtools/overview.md) | [claude-code-session-log-reading](reports/claude-devtools/capabilities/claude-code-session-log-reading.md) (draft), [claude-code-session-picker](reports/claude-devtools/capabilities/claude-code-session-picker.md) (draft) |
+| agent-skills | `aeac41d` | [overview](reports/agent-skills/overview.md) | — |
 | cc-switch | `d35726e` | [overview](reports/cc-switch/overview.md) | — |
 | codeburn | `9a40cc6` | [overview](reports/codeburn/overview.md) | — |
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
 | CodeWiki | `3e3d848` | [overview](reports/CodeWiki/overview.md) | — |
+| context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |
 | e2e | `dbdec70` | [overview](reports/e2e/overview.md) | — |
 | folo | `44f0e5d` | [overview](reports/folo/overview.md) | — |
 | Graft | `f9e6539` | [overview](reports/Graft/overview.md) | — |
@@ -21,6 +23,7 @@
 | pi | `4259686`, `ai`·`agent` 패키지는 `3874b3e` | [overview](reports/pi/overview.md) | — |
 | rea | `60c0880` | [overview](reports/rea/overview.md) | — |
 | rsshub | `0a4ecdb` | [overview](reports/rsshub/overview.md) | — |
+| Scrapling | `7a68493` | [overview](reports/Scrapling/overview.md) | — |
 | searxng | `0ce72dd` | [overview](reports/searxng/overview.md) | — |
 | skills-manager | `e6dcedf` | [overview](reports/skills-manager/overview.md) | — |
 | teamai-cli | `7ba8bcc` | [overview](reports/teamai-cli/overview.md) | — |

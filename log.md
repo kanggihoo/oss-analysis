@@ -441,3 +441,42 @@
 ## [2026-10-16] update | searxng 분석 마무리
 - `reports/searxng/overview.md` 2절에 '한 번의 검색이 처리되는 방식'(engine별 URL, 사전 수집 없음, 질의 확장 없음) 추가, 5절에 next 링크.
 - `reports/searxng/next.md` 작성. 분석은 주요 기능 수준에서 종료.
+
+## [2026-10-16] create | context-mode overview 1~2절
+- `artifacts/context-mode/repo-metadata.txt`, `reports/context-mode/overview.md`(목적: hook 트리거·강제 학습), `index.md` 행 추가. 3절 이후 미작성.
+
+## [2026-10-17] query | context-mode Q1 Claude Code hook 정의 방식
+- `reports/context-mode/questions/q1-claude-code-hook-definition.md` 작성, overview 4절 링크.
+
+## [2026-10-17] query | claude-devtools Q2 attachment·system prompt
+- `reports/claude-devtools/questions/q2-attachment-and-system-prompt.md` 작성, `artifacts/claude-devtools/log-format-demos/attachment_types.py`·`2026-10-17-attachment-output.txt` 추가.
+- `reports/claude-devtools/capabilities/claude-code-session-log-reading.md`에 R-15(`attachment` 보존, 변경)·T-07·A2 Attachment 행·B1 행 추가, 미결정에 `prompt_snapshot` 완전성 추가. overview 4절 링크.
+
+## [2026-10-17] create | 세션 로그 HTML 뷰어
+- `artifacts/claude-devtools/session-viewer/render_session.py` 작성(R-04·R-09·R-11·R-15 적용, `--check` 자체 검사). system prompt는 첫 `prompt_snapshot`의 `cliPrefix`+`systemPrompt`+`tools`로 표시.
+- 스펙 R-15 미결정·Q2 미확인을 한 세션 관찰 결과로 갱신(스냅샷 5개 모두 `systemPrompt` 동일, `cliPrefix`·`tools`는 별도 필드).
+
+## [2026-10-17] create | claude-devtools 기능 스펙 session-picker
+- `reports/claude-devtools/capabilities/claude-code-session-picker.md` 작성(draft): 저장소·worktree 묶기, 세션 쪽 나누기, 날짜 그룹·고정·숨김·정렬. 근거는 `1486f20`의 GitIdentityResolver·WorktreeGrouper·ProjectScanner.listSessionsPaginated·DateGroupedSessions·ConfigManager.
+- 미결정: 노이즈 세션 수 불일치(R-05), 삭제된 worktree 미병합(R-03), `most-context`의 `contextConsumption` 출처(R-11). `overview.md` 5절·`index.md` 링크 추가.
+
+## [2026-10-17] update | session-picker worktree 제외, 세션 목록 서버
+- `reports/claude-devtools/capabilities/claude-code-session-picker.md`: R-01~R-04 채택을 `제외`로, 적용 목적에 "worktree는 무시, 프로젝트 폴더 하나 = 선택지 하나" 결정 추가.
+- `artifacts/claude-devtools/session-viewer/serve.py` 작성: `~/.claude/projects`를 훑어 프로젝트 → 세션(날짜 그룹, 최근순) 목록을 보여 주고 누른 세션을 `render_session`으로 렌더링(127.0.0.1만). curl로 목록·프로젝트·세션 200, 경로 조작·없는 세션 404 확인.
+
+## [2026-10-17] update | 세션 뷰어 가독성 개선
+- `artifacts/claude-devtools/session-viewer/render_session.py`: system prompt를 로그 조각(13~16개) 대신 한 덩어리로, 도구 정의는 이름별 접기, attachment·도구 입력은 JSON 대신 `key: 값` 텍스트(여러 줄 문자열은 실제 줄바꿈)로 표시. 같은 type이 1개면 번호 접기 없이 바로 표시.
+
+## [2026-10-17] create | agent-skills clone, overview 1~2절
+- `repos/agent-skills`(`aeac41d`, 0.6.13) clone, `artifacts/agent-skills/repo-metadata.txt`, `reports/agent-skills/overview.md`, `index.md` 행. hook 3종(session-start, simplify-ignore, sdd-cache) 확인, 플러그인이 hook을 등록하지 않음. 3절 이후 미작성.
+
+## [2026-10-17] query | agent-skills Q1 hook 설정·트리거 동작
+- `reports/agent-skills/questions/q1-claude-code-hook-setup-and-trigger.md` 작성, overview 4절 링크.
+
+## [2026-10-18] create | Scrapling clone, overview 1~2절, Q1 정적/동적 판단·봇 차단 우회
+- `repos/Scrapling`(`7a68493`, 0.4.15) clone, `artifacts/Scrapling/repo-metadata.txt`, `reports/Scrapling/overview.md`, `questions/q1-static-dynamic-and-bot-evasion.md`, `index.md` 행.
+- 확인: 정적/동적 자동 판단 코드 없음(사용자가 fetcher 선택). 우회는 curl_cffi TLS 지문·실제 헤더 → patchright 스텔스 브라우저 → Turnstile 위젯 좌표 클릭(최대 3회) + 프록시 로테이션. 실행 확인 없음, archify 생략.
+
+## [2026-10-18] query | Scrapling Q2 봇 차단 대응에서 배울 점
+- `reports/Scrapling/questions/q2-bot-evasion-lessons.md` 작성, overview 4절 링크. 추가로 `_page.py`·`navigation.py`·`throttle.py`·`cache.py`·`spiders/engine.py`·`docs/spiders/proxy-blocking.md`를 읽음.
+- 정정: Q1의 "정적→동적 승격 권장 흐름을 문서에서 확인 못 함"은 오류. proxy-blocking.md에 차단 시 `sid`를 stealth 세션으로 바꾸는 예제가 있어 Q1 수정. 기본값(robots 미준수, autothrottle 꺼짐, 지연 0) 확인.

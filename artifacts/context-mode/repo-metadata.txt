@@ -1,0 +1,7 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/context-mode
+name=context-mode
+date=2026-10-16
+commit=f8d46390613f068f232eb14ad91804841c64bdfa
+describe=v1.0.136-1-gf8d4639
+origin=https://github.com/mksglu/context-mode.git
+worktree=clean

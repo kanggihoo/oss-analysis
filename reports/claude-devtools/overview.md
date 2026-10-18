@@ -75,11 +75,12 @@ GitHub 설명: "The missing DevTools for Claude Code — inspect session logs, t
 ## 4. 핵심 질문 및 세부 답변 목록 (Questions)
 
 - [Q1: Claude Code 세션 로그를 어떻게 찾고 읽는가](./questions/q1-session-discovery-and-jsonl-parsing.md) - *디렉터리 이름 대신 세션 안의 `cwd`로 프로젝트 경로를 정하고, 깨진 줄·모르는 type은 건너뛰며, `mtime-크기` 지문이 같으면 다시 읽지 않는다. 실제 로그에서 같은 `requestId`의 줄이 블록 단위로 나뉘어 있음을 확인*
+- [Q2: system prompt는 로그에 있고 devtools는 보여 주는가](./questions/q2-attachment-and-system-prompt.md) - *로그에는 `attachment`/`prompt_snapshot`으로 system prompt가 있고, devtools는 `attachment` 줄을 type 필터에서 버려 보여 주지 않는다(숨기려는 의도는 코드에서 확인되지 않음)*
 
 ---
 
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
-- **기능 스펙**: [capabilities/claude-code-session-log-reading.md](./capabilities/claude-code-session-log-reading.md) (draft)
+- **기능 스펙**: [capabilities/claude-code-session-log-reading.md](./capabilities/claude-code-session-log-reading.md) (draft), [capabilities/claude-code-session-picker.md](./capabilities/claude-code-session-picker.md) (draft)
 - **이전 wiki 요약**: 2026-10-16 삭제. 원문은 `git show b52364d:wiki/projects/claude-devtools.md`, `git show b52364d:wiki/concepts/claude-devtools-electron-process-and-ipc.md`, `git show b52364d:wiki/concepts/claude-devtools-session-discovery-and-jsonl-parsing.md`, `git show b52364d:wiki/concepts/claude-devtools-context-token-and-session-analysis.md`
