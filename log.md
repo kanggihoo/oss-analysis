@@ -480,3 +480,18 @@
 ## [2026-10-18] query | Scrapling Q2 봇 차단 대응에서 배울 점
 - `reports/Scrapling/questions/q2-bot-evasion-lessons.md` 작성, overview 4절 링크. 추가로 `_page.py`·`navigation.py`·`throttle.py`·`cache.py`·`spiders/engine.py`·`docs/spiders/proxy-blocking.md`를 읽음.
 - 정정: Q1의 "정적→동적 승격 권장 흐름을 문서에서 확인 못 함"은 오류. proxy-blocking.md에 차단 시 `sid`를 stealth 세션으로 바꾸는 예제가 있어 Q1 수정. 기본값(robots 미준수, autothrottle 꺼짐, 지연 0) 확인.
+
+## [2026-10-20] ingest | hyperframes clone, overview 1~2절
+- `repos/hyperframes`(`b7fa007`, 0.8.181) clone, `artifacts/hyperframes/repo-metadata.txt`, `reports/hyperframes/overview.md`, `index.md` 행.
+- 확인: README·determinism·frame-adapters 문서, 패키지 구성, 렌더 경로(`frameCapture.ts` beginFrame, `streamingEncoder.ts` ffmpeg spawn), 어댑터 파일 목록, 레지스트리 블록 210·컴포넌트 238, 스킬 21개. 실행·archify 없음.
+
+## [2026-10-20] query | hyperframes 사용 방식(스킬 vs 앱 vs CLI)
+- `README.md`, `skills/hyperframes-cli/SKILL.md`, `packages/cli/src/templates/blank/index.html`을 읽고 overview 2절에 "사용 방식" 소절 추가.
+
+## [2026-10-20] ingest | hyperframes Prompt Guide 34페이지 수집
+- `artifacts/hyperframes/crawl_prompt_guide.mjs`(fetch, Playwright 불필요)로 `https://hyperframes.heygen.com/<page>.md`를 받아 `artifacts/hyperframes/prompt-guide/`에 레벨별 폴더·순번 파일로 저장(744K, `manifest.json`). 목록·순서는 `repos/hyperframes/docs/docs.json` "Prompt Guide" 그룹. 내용 분석은 아직 안 함(후보 원재료).
+
+## [2026-10-20] ingest | hyperframes Prompt Guide 한국어 번역 34페이지
+- Haiku 서브에이전트 10개(파일 2~4개씩)가 `artifacts/hyperframes/prompt-guide/`를 번역해 `official-ko/hyperframes/`에 같은 디렉터리 구조로 저장. 26개 파일에 공통인 `DocsVideo` 컴포넌트 코드(약 250줄)는 번역 대상에서 빼고 플레이스홀더로 바꿨다가 번역 후 원본 그대로 복원.
+- 검증: 원문 대비 제목·코드 펜스·표 행·목록 항목·JSX 태그 수, 코드 블록 내용, URL 집합이 34개 모두 일치. 예외 1건: 묶음 0이 2개 파일의 `llms.txt` URL을 `.com`→`.ai`로 바꿔서 직접 되돌림. 줄 수는 일부 파일에서 문단 줄바꿈을 합쳐 줄었음(내용 누락 아님).
+- 번역 품질(용어 일관성, 어색한 문장)은 검수하지 않음.

@@ -1,0 +1,8 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/hyperframes
+name=hyperframes
+date=2026-10-20
+commit=b7fa007bf3cfb03a62bbb5460009c7e628e3bb2d
+origin=https://github.com/heygen-com/hyperframes
+commit_date=2026-10-20T09:52:28+00:00
+worktree=clean
+version=0.8.181

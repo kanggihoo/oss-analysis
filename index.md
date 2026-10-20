@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-10-16
+> Last updated: 2026-10-20
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -18,6 +18,7 @@
 | e2e | `dbdec70` | [overview](reports/e2e/overview.md) | — |
 | folo | `44f0e5d` | [overview](reports/folo/overview.md) | — |
 | Graft | `f9e6539` | [overview](reports/Graft/overview.md) | — |
+| hyperframes | `b7fa007` | [overview](reports/hyperframes/overview.md) | — |
 | jev-ultrafast | `1231850` | [overview](reports/jev-ultrafast/overview.md) | — |
 | mitmproxy | `7735597` | [overview](reports/mitmproxy/overview.md) | — |
 | pi | `4259686`, `ai`·`agent` 패키지는 `3874b3e` | [overview](reports/pi/overview.md) | — |

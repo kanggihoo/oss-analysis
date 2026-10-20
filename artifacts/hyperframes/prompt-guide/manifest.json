@@ -1,0 +1,243 @@
+{
+  "fetched": "2026-10-20",
+  "pages": [
+    {
+      "order": 1,
+      "group": null,
+      "file": "01-overview.md",
+      "url": "https://hyperframes.heygen.com/prompting/overview.md",
+      "bytes": 26398
+    },
+    {
+      "order": 2,
+      "group": "Level 1 — Your first video",
+      "file": "level-1-your-first-video/01-product-launch.md",
+      "url": "https://hyperframes.heygen.com/prompting/product-launch.md",
+      "bytes": 20559
+    },
+    {
+      "order": 3,
+      "group": "Level 1 — Your first video",
+      "file": "level-1-your-first-video/02-explainers.md",
+      "url": "https://hyperframes.heygen.com/prompting/explainers.md",
+      "bytes": 19485
+    },
+    {
+      "order": 4,
+      "group": "Level 1 — Your first video",
+      "file": "level-1-your-first-video/03-code-and-prs.md",
+      "url": "https://hyperframes.heygen.com/prompting/code-and-prs.md",
+      "bytes": 19133
+    },
+    {
+      "order": 5,
+      "group": "Level 1 — Your first video",
+      "file": "level-1-your-first-video/04-captions-and-talking-heads.md",
+      "url": "https://hyperframes.heygen.com/prompting/captions-and-talking-heads.md",
+      "bytes": 21420
+    },
+    {
+      "order": 6,
+      "group": "Level 1 — Your first video",
+      "file": "level-1-your-first-video/05-music-and-slideshows.md",
+      "url": "https://hyperframes.heygen.com/prompting/music-and-slideshows.md",
+      "bytes": 21577
+    },
+    {
+      "order": 7,
+      "group": "Level 1 — Your first video",
+      "file": "level-1-your-first-video/06-motion-graphics.md",
+      "url": "https://hyperframes.heygen.com/prompting/motion-graphics.md",
+      "bytes": 19745
+    },
+    {
+      "order": 8,
+      "group": "Level 2 — Control",
+      "file": "level-2-control/01-anatomy.md",
+      "url": "https://hyperframes.heygen.com/prompting/anatomy.md",
+      "bytes": 21189
+    },
+    {
+      "order": 9,
+      "group": "Level 2 — Control",
+      "file": "level-2-control/02-specification-dial.md",
+      "url": "https://hyperframes.heygen.com/prompting/specification-dial.md",
+      "bytes": 2280
+    },
+    {
+      "order": 10,
+      "group": "Level 2 — Control",
+      "file": "level-2-control/03-vocabulary.md",
+      "url": "https://hyperframes.heygen.com/prompting/vocabulary.md",
+      "bytes": 14899
+    },
+    {
+      "order": 11,
+      "group": "Level 2 — Control",
+      "file": "level-2-control/04-visual-specs.md",
+      "url": "https://hyperframes.heygen.com/prompting/visual-specs.md",
+      "bytes": 19339
+    },
+    {
+      "order": 12,
+      "group": "Level 2 — Control",
+      "file": "level-2-control/05-examples.md",
+      "url": "https://hyperframes.heygen.com/prompting/examples.md",
+      "bytes": 28893
+    },
+    {
+      "order": 13,
+      "group": "Level 3 — Life",
+      "file": "level-3-life/01-motion.md",
+      "url": "https://hyperframes.heygen.com/prompting/motion.md",
+      "bytes": 33801
+    },
+    {
+      "order": 14,
+      "group": "Level 3 — Life",
+      "file": "level-3-life/02-transitions.md",
+      "url": "https://hyperframes.heygen.com/prompting/transitions.md",
+      "bytes": 21996
+    },
+    {
+      "order": 15,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/01-code-blocks.md",
+      "url": "https://hyperframes.heygen.com/prompting/code-blocks.md",
+      "bytes": 21849
+    },
+    {
+      "order": 16,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/02-data-and-maps.md",
+      "url": "https://hyperframes.heygen.com/prompting/data-and-maps.md",
+      "bytes": 22504
+    },
+    {
+      "order": 17,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/03-overlays-and-lower-thirds.md",
+      "url": "https://hyperframes.heygen.com/prompting/overlays-and-lower-thirds.md",
+      "bytes": 20619
+    },
+    {
+      "order": 18,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/04-captions-catalog.md",
+      "url": "https://hyperframes.heygen.com/prompting/captions-catalog.md",
+      "bytes": 21728
+    },
+    {
+      "order": 19,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/05-generated-artwork.md",
+      "url": "https://hyperframes.heygen.com/prompting/generated-artwork.md",
+      "bytes": 16168
+    },
+    {
+      "order": 20,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/06-color-grading.md",
+      "url": "https://hyperframes.heygen.com/prompting/color-grading.md",
+      "bytes": 28299
+    },
+    {
+      "order": 21,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/07-vfx-and-liquid-glass.md",
+      "url": "https://hyperframes.heygen.com/prompting/vfx-and-liquid-glass.md",
+      "bytes": 23973
+    },
+    {
+      "order": 22,
+      "group": "Level 4 — Substance",
+      "file": "level-4-substance/08-runtimes-and-3d.md",
+      "url": "https://hyperframes.heygen.com/prompting/runtimes-and-3d.md",
+      "bytes": 20239
+    },
+    {
+      "order": 23,
+      "group": "Level 5 — Voice and sound",
+      "file": "level-5-voice-and-sound/01-media-and-audio.md",
+      "url": "https://hyperframes.heygen.com/prompting/media-and-audio.md",
+      "bytes": 24916
+    },
+    {
+      "order": 24,
+      "group": "Level 5 — Voice and sound",
+      "file": "level-5-voice-and-sound/02-audio-effects.md",
+      "url": "https://hyperframes.heygen.com/prompting/audio-effects.md",
+      "bytes": 7739
+    },
+    {
+      "order": 25,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/01-design-systems.md",
+      "url": "https://hyperframes.heygen.com/prompting/design-systems.md",
+      "bytes": 20731
+    },
+    {
+      "order": 26,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/02-variables-and-templating.md",
+      "url": "https://hyperframes.heygen.com/prompting/variables-and-templating.md",
+      "bytes": 22375
+    },
+    {
+      "order": 27,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/03-storyboards.md",
+      "url": "https://hyperframes.heygen.com/prompting/storyboards.md",
+      "bytes": 23231
+    },
+    {
+      "order": 28,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/04-editing-existing-videos.md",
+      "url": "https://hyperframes.heygen.com/prompting/editing-existing-videos.md",
+      "bytes": 20743
+    },
+    {
+      "order": 29,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/05-iterating.md",
+      "url": "https://hyperframes.heygen.com/prompting/iterating.md",
+      "bytes": 5010
+    },
+    {
+      "order": 30,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/06-recreating-references.md",
+      "url": "https://hyperframes.heygen.com/prompting/recreating-references.md",
+      "bytes": 18903
+    },
+    {
+      "order": 31,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/07-rendering-and-output.md",
+      "url": "https://hyperframes.heygen.com/prompting/rendering-and-output.md",
+      "bytes": 22339
+    },
+    {
+      "order": 32,
+      "group": "Level 6 — Scale",
+      "file": "level-6-scale/08-remotion-migration.md",
+      "url": "https://hyperframes.heygen.com/prompting/remotion-migration.md",
+      "bytes": 5851
+    },
+    {
+      "order": 33,
+      "group": "Level 7 — Capstone",
+      "file": "level-7-capstone/01-capstone.md",
+      "url": "https://hyperframes.heygen.com/prompting/capstone.md",
+      "bytes": 27034
+    },
+    {
+      "order": 34,
+      "group": "Appendix",
+      "file": "appendix/01-rules-and-anti-patterns.md",
+      "url": "https://hyperframes.heygen.com/prompting/rules-and-anti-patterns.md",
+      "bytes": 13763
+    }
+  ]
+}
