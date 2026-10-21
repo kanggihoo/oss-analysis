@@ -1,12 +1,13 @@
 # Index
 
-> Last updated: 2026-10-20
+> Last updated: 2026-10-21
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
 
 | 레포 | 기준 SHA | 입구 | 기능 스펙 |
 |---|---|---|---|
+| ai-job-search | `e16acee` | [overview](reports/ai-job-search/overview.md) | — |
 | claude-code-history-viewer | `9d86b46` | [overview](reports/claude-code-history-viewer/overview.md) | — |
 | claude-devtools | `1486f20` | [overview](reports/claude-devtools/overview.md) | [claude-code-session-log-reading](reports/claude-devtools/capabilities/claude-code-session-log-reading.md) (draft), [claude-code-session-picker](reports/claude-devtools/capabilities/claude-code-session-picker.md) (draft) |
 | agent-skills | `aeac41d` | [overview](reports/agent-skills/overview.md) | — |

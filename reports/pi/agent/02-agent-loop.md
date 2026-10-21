@@ -21,7 +21,7 @@
 | `runAgentLoopContinue` | 위의 continue 판. 같은 검증 후 `agent_start`, `turn_start`, `runLoop` | `:128-151` |
 
 - `createAgentStream`(`:153`)은 `agent_end` 이벤트가 오면 스트림을 끝내고, 그 이벤트의 `messages`를 최종 결과로 삼는다(ai의 `EventStream`, ai/03-0 참조).
-- `streamFn ?? getDefaultStreamFn()`(`:124`, `:149`): 타입은 필수인데 런타임에 비어 있으면 기본값(`stream-fn.ts`)을 쓴다. coding-agent가 `setDefaultStreamFn`으로 기본을 바꾼다고 handoff에 있으나 이 문서에서는 `미확인`이다.
+- `streamFn ?? getDefaultStreamFn()`(`:124`, `:149`): 타입은 필수인데 런타임에 비어 있으면 기본값(`stream-fn.ts`)을 쓴다. coding-agent가 `setDefaultStreamFn`으로 기본을 등록한다는 인수인계 메모가 있으나 이 문서에서는 `미확인`이다.
 - 두 `Continue`가 던지는 에러는 같은 검사인데 방식이 다르다. `agentLoopContinue`는 함수 호출 시점의 동기 throw이고, `runAgentLoopContinue`는 async 함수의 reject다(`코드 확인`).
 - 반환값 `newMessages`는 이번 실행에서 새로 생긴 메시지만이다(기존 `context.messages`는 제외). `runAgentLoop`는 `[...context.messages, ...]` 복사본으로 시작하지만(`:112-115`), `runAgentLoopContinue`는 `{ ...context }`(`:144`)라서 `messages` 배열이 호출자와 같은 참조다. 루프가 `currentContext.messages.push`를 하므로 이 함수를 직접 부르면 호출자의 배열이 바뀐다. `Agent`를 거치면 `slice()` 복사본을 넘기므로 영향이 없다(03 §5.1, `코드 확인`).
 - `agentLoop`(`:38-61`)에는 `.catch`가 없다. `runAgentLoop`가 reject되면(throw 금지 훅 위반, 기본 `streamFn` 미설정 등) 처리되지 않은 rejection이 되고, `agent_end`가 오지 않으므로 반환한 스트림은 끝나지 않는다. `Agent`는 `runAgentLoop`를 직접 부르고 `handleRunFailure`로 받으므로 안전하다(04 §9, 실행 확인 05 H1).
@@ -129,15 +129,15 @@ beforeToolCall({assistantMessage, toolCall, args(검증됨), context}, signal)
 tool.execute(id, args, signal, onUpdate)   ← 실패는 catch 하여 에러 결과로
 afterToolCall({..., result, isError}, signal)  → 결과 덮어쓰기, throw 하면 에러 결과로
 ```
-- throw 금지와 허용의 구분(01의 질문): 도구 쪽(`execute`, `prepareArguments`, 검증, `beforeToolCall`, `afterToolCall`)은 전부 try/catch로 감싸져 있고 예외는 `isError: true`인 결과로 바뀐다(`:724-775`, `:841-847`, `:892-895`). 계약은 "throw해도 된다, 루프가 에러 결과로 바꿔 준다"이다. 반대로 `convertToLlm`, `transformContext`, `getApiKey`, 큐 훅, `finishTurn`, `prepareRequest`, `prepareNextTurn`은 try/catch가 없다. 던지면 `runLoop`가 reject되어 `agent_end`가 나가지 않는다(`코드 확인`, 처리는 03의 `Agent`에서 볼 일).
-- `args`는 `beforeToolCall`에 검증된 값(`validatedArgs`)으로 가지만 `toolCall`은 원본(`preparedToolCall`이 아님)이다(`:730-731`). 실행되는 `prepared.toolCall`도 원본 `toolCall`이다(`:765`). 그래서 `prepareArguments`로 보정한 인자는 `args`(검증 후)에만 반영되고 `toolCall.arguments`는 보정 전이다. `tool_execution_start`의 `args`도 보정 전 값이다(`코드 확인`).
+- throw 금지와 허용의 구분(01의 질문): 루프는 도구 쪽(`execute`, `prepareArguments`, 검증, `beforeToolCall`, `afterToolCall`)을 전부 try/catch로 감싸고, 잡은 예외를 `isError: true`인 결과로 바꾼다(`:724-775`, `:841-847`, `:892-895`). 계약은 "throw해도 된다, 루프가 에러 결과로 바꿔 준다"이다. 반대로 `convertToLlm`, `transformContext`, `getApiKey`, 큐 훅, `finishTurn`, `prepareRequest`, `prepareNextTurn`은 try/catch가 없다. 던지면 `runLoop`가 reject되어 `agent_end`가 나가지 않는다(`코드 확인`, 처리는 03의 `Agent`에서 볼 일).
+- `beforeToolCall`에는 검증된 값(`validatedArgs`)이 `args`로 가지만, `toolCall`은 보정 전 원본이다(`preparedToolCall`이 아님, `:730-731`). 실행되는 `prepared.toolCall`도 원본 `toolCall`이다(`:765`). 그래서 `prepareArguments`로 보정한 인자는 `args`(검증 후)에만 반영되고 `toolCall.arguments`는 보정 전 값이다. `tool_execution_start`의 `args`도 보정 전 값이다(`코드 확인`).
 - `beforeToolCall` 이후 `signal.aborted`를 두 번 확인한다(`:737`, `:756`). 훅이 오래 걸려 그 사이 중단되면 실행하지 않고 `"Operation aborted"` 에러 결과를 낸다.
 - 도구 업데이트 이벤트: `onUpdate`로 들어온 부분 결과는 `tool_execution_update`로 나간다. `execute`가 끝나면 `acceptingUpdates = false`가 되어 늦게 도착한 업데이트는 버린다(`:834`, `:838`). 끝나기 전에 쌓인 업데이트 이벤트는 모두 `await`한다(`:839`, `:843`). 따라서 `tool_execution_end`는 항상 모든 `update`보다 뒤다.
 - `afterToolCall`의 덮어쓰기(`:877-890`): `content`, `details`, `usage`, `terminate`, `isError`는 `??`로 필드별 대체한다. `structuredContent`는 `content`를 바꾸면서 새 `structuredContent`를 주지 않으면 지운다(내용이 어긋날 수 있어서, 주석 `:878`).
 - 에러 결과는 항상 `{ content: [{type:"text", text: message}], details: {} }`이다(`:905`). `isError`는 결과 객체 안이 아니라 별도 값으로 들고 다닌다.
 
 ### 7.4 잘린 응답 (`:264-270`, `:478-503`)
-`stopReason === "length"`이면 도구를 하나도 실행하지 않고 전부 에러 결과로 돌려준다. 주석에 따르면 스트리밍 중 인자를 salvage 파서로 마무리하므로, 잘린 인자가 파싱도 검증도 통과하는데 내용이 불완전할 수 있기 때문이다. 에러 문구는 "다시 완전한 인자로 호출하라"고 AI에게 안내한다. 이때 `terminate`는 `false`이므로 AI가 다시 시도할 기회를 얻는다(`코드 확인`).
+`stopReason === "length"`이면 도구를 하나도 실행하지 않고 전부 에러 결과로 돌려준다. 주석에 따르면 스트리밍 중 인자를 잘린 JSON도 가능한 만큼 복구하는(salvage) 파서로 마무리하므로, 잘린 인자가 파싱도 검증도 통과하는데 내용이 불완전할 수 있기 때문이다. 에러 문구는 "다시 완전한 인자로 호출하라"고 AI에게 안내한다. 이때 `terminate`는 `false`이므로 AI가 다시 시도할 기회를 얻는다(`코드 확인`).
 
 ### 7.5 중단(abort) 시 (`:575`, `:613`, `:641`)
 - 순차: 각 도구 직후 `signal.aborted`이면 `break`한다. 남은 도구에는 결과 메시지가 만들어지지 않는다.
@@ -146,7 +146,7 @@ afterToolCall({..., result, isError}, signal)  → 결과 덮어쓰기, throw �
 - 이 경로는 `signal`이 `aborted`일 때만 해당한다. `stopReason`이 `aborted`로 오는 경우는 §5 #7에서 이미 종료되므로 도구까지 오지 않는다. 도구 실행 중에 중단된 경우에만 해당한다.
 
 ## 8. `declareToolChanges` (`:333-375`): 01에 없던 개념
-- 문제: 도구 목록이 중간에 바뀔 수 있다(예: 확장이 도구를 켬/끔). 그런데 AI에게 보내는 요청의 도구 정보를 매번 따로 넘기지 않고, 대화 기록의 system 메시지에 `toolsAdded`/`toolsRemoved`로 변경분을 적는 방식이다.
+- 문제: 도구 목록이 중간에 바뀔 수 있다(예: 확장이 도구를 켬/끔). 그래서 pi는 요청마다 도구 정보를 따로 넘기지 않고, 대화 기록의 system 메시지에 `toolsAdded`/`toolsRemoved`로 변경분을 적는다.
 - 동작: 대기 메시지를 넣기 전에 (a) 지금까지 기록으로 계산한 "AI가 부를 수 있는 도구"(`getCurrentTools`)와 (b) 실제 실행 가능한 `context.tools`의 차이를 구한다. 다르면 system 메시지를 끼워 넣거나(`:359-362`) 대기 중인 system 메시지의 필드를 덮어쓴다(`:356`).
 - 의미: 기록을 처음부터 재생하면 항상 `context.tools`가 나온다. 호출 지점은 첫 프롬프트(`:110`)와 매 턴 대기 메시지 주입(`:211`) 두 곳이다.
 - `getCurrentTools`, `getToolStateChanges`, `toToolDeclaration`은 ai에서 import한다(`:9-15`). 이들의 내용은 이 문서에서 `미확인`이다(ai/01 기준 확인 필요).
@@ -177,7 +177,7 @@ afterToolCall({..., result, isError}, signal)  → 결과 덮어쓰기, throw �
 - 한계: 요청 본문의 모양만 비교했다. 실제 캐시 적중은 서버에서만 알 수 있고 호출하지 않았다. `defer_loading` 도구가 캐시 앞부분에 포함되지 않는다는 점은 코드 주석("measured")에 의존한다. Anthropic 경로만 확인했고 OpenAI 계열(`openai-completions.ts:1241`의 `anchorsAdditions`)은 `미확인`이다. `agent` 쪽은 `3874b3e98` 체크아웃의 `transcript.ts` shim을 썼다(`packages/agent/src`는 두 commit이 같다).
 
 ## 9. `runToolCall` (`:790-818`): export된 이유
-`prepareToolCall`, `executePreparedToolCall`, `finalizeExecutedToolCall`을 이벤트도 메시지도 만들지 않고 그대로 실행한다. 주석에 따르면 도구가 다른 도구를 부를 때 권한 검사 같은 훅이 똑같이 적용되게 하려는 것이다. 사용처는 coding-agent의 `agent-session.ts:31,711`과 `nested-tool-calls.ts`로 handoff에 적혀 있으나 이 문서에서는 `미확인`이다(coding-agent 단계에서 확인).
+`prepareToolCall`, `executePreparedToolCall`, `finalizeExecutedToolCall`을 이벤트도 메시지도 만들지 않고 그대로 실행한다. 주석에 따르면 도구가 다른 도구를 부를 때 권한 검사 같은 훅이 똑같이 적용되게 하려는 것이다. 사용처는 coding-agent의 `agent-session.ts:31,711`과 `nested-tool-calls.ts`라고 인수인계 메모에 적혀 있으나 이 문서에서는 `미확인`이다(coding-agent 단계에서 확인).
 
 ## 10. 요약 표: 01의 `미확인` 해소 여부
 | 01의 질문 | 답 | 위치 |

@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "/apply 실행 흐름",
+    "output": "flow.html",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "ui",
+      "label": "사용자"
+    },
+    {
+      "id": "orch",
+      "label": "메인 Claude (오케스트레이터)"
+    },
+    {
+      "id": "sub",
+      "label": "서브에이전트 (읽기 전용)와 가드 도구"
+    }
+  ],
+  "mainPath": [
+    "user",
+    "fetcher",
+    "guard",
+    "eval",
+    "confirm",
+    "draft",
+    "reviewer",
+    "revise",
+    "final"
+  ],
+  "nodes": [
+    {
+      "id": "user",
+      "lane": "ui",
+      "col": 0,
+      "type": "external",
+      "label": "/apply <URL>",
+      "sublabel": "공고 URL 또는 붙여넣기",
+      "width": 132
+    },
+    {
+      "id": "fetcher",
+      "lane": "sub",
+      "col": 1,
+      "type": "security",
+      "label": "posting-fetcher",
+      "sublabel": "포털 CLI → WebFetch → curl",
+      "width": 132
+    },
+    {
+      "id": "guard",
+      "lane": "sub",
+      "col": 2,
+      "type": "security",
+      "label": "posting_guard.py",
+      "sublabel": "숨은 텍스트 제거·판정",
+      "width": 132
+    },
+    {
+      "id": "eval",
+      "lane": "orch",
+      "col": 3,
+      "type": "backend",
+      "label": "적합도 평가",
+      "sublabel": "04-job-evaluation.md",
+      "width": 132
+    },
+    {
+      "id": "confirm",
+      "lane": "ui",
+      "col": 3,
+      "type": "frontend",
+      "label": "진행 확인",
+      "sublabel": "아니오면 중단",
+      "width": 132
+    },
+    {
+      "id": "draft",
+      "lane": "orch",
+      "col": 4,
+      "type": "backend",
+      "label": "CV·커버레터 초안",
+      "sublabel": "프로필 3종 근거 감사",
+      "width": 132
+    },
+    {
+      "id": "reviewer",
+      "lane": "sub",
+      "col": 4,
+      "type": "security",
+      "label": "application-reviewer",
+      "sublabel": "회사 조사·수정안 반환",
+      "width": 132
+    },
+    {
+      "id": "revise",
+      "lane": "orch",
+      "col": 5,
+      "type": "backend",
+      "label": "수정·PDF 검증",
+      "sublabel": "Edit, LaTeX, verify_*",
+      "width": 132
+    },
+    {
+      "id": "final",
+      "lane": "ui",
+      "col": 5,
+      "type": "frontend",
+      "label": "최종 결과",
+      "sublabel": "체크리스트·tracker 기록",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "user",
+      "to": "fetcher",
+      "label": "URL",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e2",
+      "from": "fetcher",
+      "to": "guard",
+      "label": "본문"
+    },
+    {
+      "id": "e3",
+      "from": "guard",
+      "to": "eval",
+      "label": "정제 텍스트"
+    },
+    {
+      "id": "e4",
+      "from": "eval",
+      "to": "confirm",
+      "label": "평가 보고"
+    },
+    {
+      "id": "e5",
+      "from": "confirm",
+      "to": "draft",
+      "label": "예"
+    },
+    {
+      "id": "e6",
+      "from": "draft",
+      "to": "reviewer",
+      "label": "초안 inline"
+    },
+    {
+      "id": "e7",
+      "from": "reviewer",
+      "to": "revise",
+      "label": "JSON 수정안"
+    },
+    {
+      "id": "e9",
+      "from": "revise",
+      "to": "final",
+      "variant": "emphasis"
+    }
+  ]
+}

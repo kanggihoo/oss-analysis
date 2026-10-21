@@ -41,7 +41,7 @@ coding-agent는 hook을 두 곳에서 채운다.
 3. **`message_end`면 세션 파일에 저장**: 일반 메시지는 `appendMessage`, custom 메시지는 `appendCustomMessageEntry`로 저장한다.
 4. **assistant 응답이 성공하면 재시도 횟수를 초기화한다.**
 
-Q6에서 본 대로 `Agent`는 구독자를 하나씩 await한다. 그래서 루프는 세션 저장이 끝난 뒤에야 다음으로 진행한다. `코드 확인` (그래서 저장이 빠져도 루프가 앞서 나가지 않는다는 해석은 `추론`)
+Q6에서 본 대로 `Agent`는 구독자를 하나씩 await한다. 그래서 루프는 세션 저장이 끝난 뒤에야 다음으로 진행한다. `코드 확인` (저장이 느려도 루프가 저장보다 앞서 나가지 않는다는 해석은 `추론`)
 
 ## run 이후 루프: 재시도와 compaction (`_runAgentPrompt`, :1736)
 

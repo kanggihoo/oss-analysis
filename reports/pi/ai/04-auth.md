@@ -38,7 +38,7 @@
        └ 요청 옵션에 합침 (호출자가 직접 준 값이 우선)
   └ provider.streamSimple(requestModel, transcript, requestOptions)   → 03의 통신 코드가 받음
 ```
-인증은 **"provider별 인증 방법"**(`ProviderAuth`)을 정의하고, **"저장소"**(`CredentialStore`)에서 저장된 값을 읽고, **"환경"**(`AuthContext`)에서 환경변수를 읽어 한 번의 `AuthResult`로 합치는 구조다.
+인증은 세 부분으로 나뉜다. **"provider별 인증 방법"**(`ProviderAuth`)이 방식을 정의하고, **"저장소"**(`CredentialStore`)가 저장된 값을 읽어 주고, **"환경"**(`AuthContext`)이 환경변수를 읽어 준다. 이 셋을 합쳐 한 번의 `AuthResult`를 만든다.
 
 ## 3. 타입 (`auth/types.ts`)
 
@@ -200,7 +200,7 @@ resolveProviderAuthWithSignal (:46-93)
 - 결과가 `undefined`이면 `applyAuth`가 `ModelsError("auth", "Provider is not configured: ...")`를 던지고, 이것이 03에서 본 것처럼 스트림의 `error` 이벤트가 된다(02 §4.4).
 
 ### 4.2 "저장된 credential이 provider를 소유한다"는 말의 뜻 (`resolve.ts:24-28`, `:70-93`, `실행 확인`)
-**한 줄**: provider에 **저장된 로그인 정보가 하나라도 있으면 그것만 쓰고, 환경변수 같은 다른 출처는 아예 보지 않는다.** 저장된 것이 쓸 수 없는 상태여도 환경변수로 몰래 바꿔 쓰지 않고 **오류를 낸다.**
+**한 줄**: provider에 **저장된 로그인 정보가 하나라도 있으면 그것만 쓰고, 환경변수 같은 다른 출처는 아예 보지 않는다.** 저장된 것이 쓸 수 없는 상태여도 환경변수로 조용히 바꿔 쓰지 않고 **오류를 낸다.**
 
 주석 원문: "A stored credential owns the provider: ambient/env is consulted only when nothing is stored. No silent env fallback after a failed refresh or for a credential type without a matching handler."
 
@@ -229,7 +229,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 ## 5. 두 가지 인증 방식
 
 ### 5.1 OAuth: 저장된 토큰이 곧 만료될 때의 갱신 (`auth/resolve.ts:102-188`, 갱신 본체는 `refreshStoredOAuthCredential` `:119-158`)
-`resolveStoredOAuth`(`:161`)가 만료 임박을 판단하고, **갱신 자체는 export된 `refreshStoredOAuthCredential`이 한다**(새 commit에서 분리됨, `models.ts:625`의 모델 목록 갱신도 같은 함수를 쓴다). 주석: "double-checked locking: 남은 유효 시간이 5분 미만인 토큰은 락을 걸고, 락 안에서 만료 여부를 다시 확인하고, 전체에서 한 번만 갱신하고, 바뀐 credential을 저장한 뒤 락을 푼다."
+`resolveStoredOAuth`(`:161`)가 만료 임박을 판단하고, **갱신 자체는 export된 `refreshStoredOAuthCredential`이 한다**(새 commit에서 분리됨, `models.ts:625`의 모델 목록 갱신도 같은 함수를 쓴다). 주석: "double-checked locking: 남은 유효 시간이 5분 미만인 토큰은 락을 걸고, 락 안에서 만료 여부를 다시 확인하고, 동시에 들어온 요청 중 한 번만 갱신하고, 바뀐 credential을 저장한 뒤 락을 푼다."
 
 ```
 저장된 credential 의 expires 가 지금 + 5분 이하인가?                         (:169-173)  ← 낙관적 확인
@@ -244,7 +244,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
            }, { signal: lockWait.signal })                                      ← 호출자 signal 은 "락 대기"만 취소
        갱신된 credential 로 toAuth(credential)
 ```
-- **신호의 범위가 바뀌었다 (이전 `3874b3e98`과 다른 점)**: 이전에는 호출자의 `signal`이 갱신 요청(`oauth.refresh`)까지 취소했다(`AbortSignal.any([signal, timeout])`). 지금은 **`signal`이 락을 기다리는 동안만 취소하고, 갱신이 일단 시작되면 `signal`을 무시하고 15초 제한만 받는다**(`:140`, 주석 `:105-118`). 이유(주석): 서버가 이미 리프레시 토큰을 교체했을 수 있는데 취소로 결과를 버리면 **유일하게 유효한 토큰을 잃는다**. 취소에 즉시 반응해야 하는 호출자는 이 프로미스와 자기 signal을 `race`한다. 아래 §4의 `raceWithAbortSignal`(`:33-44`)이 그 역할로 보이나 이 호출 경로 연결은 `미확인`.
+- **`signal`의 범위가 바뀌었다 (이전 `3874b3e98`과 다른 점)**: 이전에는 호출자의 `signal`이 갱신 요청(`oauth.refresh`)까지 취소했다(`AbortSignal.any([signal, timeout])`). 지금은 **`signal`이 락을 기다리는 동안만 취소하고, 갱신이 일단 시작되면 `signal`을 무시하고 15초 제한만 받는다**(`:140`, 주석 `:105-118`). 이유(주석): 서버가 이미 리프레시 토큰을 교체했을 수 있는데 취소로 결과를 버리면 **유일하게 유효한 토큰을 잃는다**. 취소에 즉시 반응해야 하는 호출자는 이 프로미스와 자기 signal을 `race`한다. 아래 §4의 `raceWithAbortSignal`(`:33-44`)이 그 역할로 보이나 이 호출 경로 연결은 `미확인`.
 - 같은 이유로 모델 목록 갱신(`models.ts:620-632`)도 "시작된 갱신은 취소나 뒤따르는 갱신 때문에 버려지지 않는다"는 주석과 함께 이 함수로 바뀌었다(이전에는 `modify` + `oauth.refresh(current, signal)`을 직접 호출했다). 만료 판정은 여기서는 `Date.now() >= current.expires`(여유 5분 없음).
 - **5분 여유**(`DEFAULT_OAUTH_MINIMUM_VALIDITY_MS`, `:102`)를 두는 이유는 요청이 시작된 직후 토큰이 만료되는 일을 피하려는 것으로 보인다(`추론`). `OpenAI ChatGPT` 흐름은 자체로 3분 여유를 둔다(`openai-chatgpt.ts` `EXPIRY_MARGIN_MS`).
 - `modify`는 provider별로 직렬화되므로, 같은 토큰으로 요청 여러 개가 동시에 들어와도 **첫 번째만 갱신하고 나머지는 대기했다가 갱신된 값을 그대로 본다**(§7 실험).
@@ -388,7 +388,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 
 ## 9. 설계 포인트
 1. **인증을 한 곳에서 합친다.** 키 찾기, 저장된 로그인, 환경변수, 호출 옵션이 모두 `resolveProviderAuth` 하나를 통과한다. 통신 코드는 최종 `apiKey`와 `headers`만 받는다.
-2. **저장된 credential이 환경변수보다 우선이고, 실패해도 조용히 넘어가지 않는다.** 로그인이 만료되었는데 다른 키로 몰래 호출되는 일을 막으려는 설계로 읽힌다(`추론`).
+2. **저장된 credential이 환경변수보다 우선이고, 실패해도 조용히 넘어가지 않는다.** 로그인이 만료되었는데 다른 키로 조용히 호출되는 일을 막으려는 설계로 읽힌다(`추론`).
 3. **`modify` 하나로 모든 쓰기를 직렬화한다.** 갱신과 로그인이 동시에 일어나도 토큰이 이중으로 갱신되지 않는다.
 4. **ai 패키지는 저장 위치를 정하지 않는다.** `CredentialStore`는 인터페이스이고 기본 구현은 메모리뿐(`InMemoryCredentialStore`)이다. 파일 저장은 앱이 넣는다. `coding-agent`의 `AuthStorage`가 `getAgentDir()` 아래 `auth.json`(파일 권한 `0o600`)에 저장하고 `proper-lockfile`로 프로세스 사이 락을 건다(`coding-agent/src/core/auth-storage.ts`의 헤더 주석과 `grep` 결과만 확인, 파일 경로의 정확한 위치와 나머지 동작은 `미확인`). 저장된 `key`는 설정 값(환경변수 참조나 명령 실행)으로 해석되는 경로가 있다(`resolveConfigValue`, `:266`, `:446`, `미확인`).
 5. **로그인 코드는 필요할 때만 불러온다.** `lazyOAuth`와 `load.ts`가 Node 전용 코드를 브라우저 번들에서 분리한다.

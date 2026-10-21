@@ -20,7 +20,7 @@
 | 타입 | 정체 | 한 줄 설명 | 위치 |
 |---|---|---|---|
 | `Model` (단수) | 데이터 | 모델 한 개의 명세서. `id`, `api`, `provider`, `baseUrl`, `cost`, `contextWindow`, `compat` 등을 담는다. 함수는 없다. | `types.ts:1111` |
-| `Provider` | 객체 | 서비스 하나. 모델 목록, 인증 방법, 통신 코드를 가지고 `getModels()`, `stream()` 등의 메서드를 가진다. | `models.ts:144` |
+| `Provider` | 객체 | 서비스 하나. 모델 목록, 인증 방법, 통신 코드를 담고 `getModels()`, `stream()` 등의 메서드를 제공한다. | `models.ts:144` |
 | `Models` (복수) | 객체 | `Provider`들을 모아 둔 상자이자 호출 입구. `getModel()`, `stream()`, `complete()`, `refresh()` 등을 가진다. | `models.ts:244`, `:384` |
 
 ```
@@ -65,13 +65,13 @@ Provider 안:  auth (키 찾는 법) + models (Model 목록) + api (통신 코�
 
 | 개념 | 한 줄 설명 | 위치 |
 |---|---|---|
-| `Provider` | "한 회사/계정"을 다루는 실행 단위. 인증 방법, 모델 목록, 호출 구현을 가진다. | `models.ts:144-233` (인터페이스) |
+| `Provider` | 서비스 하나(회사 또는 계정 단위)를 다루는 실행 단위. 인증 방법, 모델 목록, 호출 구현을 가진다. | `models.ts:144-233` (인터페이스) |
 | `Models` | `Provider`들의 모음. 모델 조회, 인증 적용, 호출 입구를 제공한다. | `models.ts:244-353` (인터페이스), `:384` (`ModelsImpl`) |
 | `createModels()` | 빈 `Models`를 만든다. | `models.ts:985` |
 | `createProvider()` | 부품(id, 인증, 모델, api)으로 `Provider`를 조립한다. | `models.ts:1034` |
 | `builtinModels()` | 내장 provider 42개를 모두 등록한 `Models`를 만든다. | `providers/all.ts:184` |
 
-## 2. `Provider`: 한 회사를 다루는 단위
+## 2. `Provider`: 서비스 하나를 다루는 단위
 
 ### 2.1 인터페이스의 주요 항목 (`models.ts:144-233`)
 | 항목 | 역할 |
@@ -268,7 +268,7 @@ complete(...) { return this.stream(...).result(); }
 
 ## 6. 모델 데이터는 어디서 오나
 
-`scripts/generate-models.ts`(3680줄)를 읽고 정리했다. 스크립트는 실행하지 않았다(외부 네트워크 접근이 필요하고 레포 규칙상 빌드류 명령은 요청이 있을 때만 실행하기 때문이다). 모든 내용은 `코드 확인`이다.
+`scripts/generate-models.ts`(3680줄)를 읽고 정리했다. 이 절을 쓸 때는 스크립트를 실행하지 않았다. 외부 네트워크 접근이 필요하고, 레포 규칙상 빌드류 명령은 요청이 있을 때만 실행하기 때문이다(나중에 한 실행은 §6.6). 모든 내용은 `코드 확인`이다.
 
 ### 6.1 한 줄 요약
 모델 정보(가격, 컨텍스트 크기 등)는 사람이 직접 쓰지 않는다. **빌드할 때 스크립트가 외부 사이트에서 내려받아 JSON 파일로 저장하고, 앱은 실행 중에 그 JSON만 읽는다.**
@@ -400,13 +400,13 @@ Radius는 두 방식을 모두 쓴다. 스크립트가 빌드 때 공개 목록�
 
 | 함수 | 역할 | 위치 |
 |---|---|---|
-| `calculateCost(model, usage)` | 토큰 수와 모델 가격으로 `usage.cost`를 채운다. 입력 토큰 구간별 가격(`tiers`) 중 가장 높게 맞는 것을 요청 전체에 적용한다. Anthropic 1시간 캐시 쓰기는 입력 가격의 2배로 계산한다. 이 함수는 `Models`가 부르지 않고, 각 통신 코드(`api/*.ts`)가 응답에서 토큰 수를 받은 직후에 부른다(예: `anthropic-messages.ts:690, 859`). | `:1193-1213` |
+| `calculateCost(model, usage)` | 토큰 수와 모델 가격으로 `usage.cost`를 채운다. 입력 토큰 수가 해당하는 구간별 가격(`tiers`) 중 가장 높은 구간의 가격을 요청 전체에 적용한다. Anthropic 1시간 캐시 쓰기는 입력 가격의 2배로 계산한다. 이 함수는 `Models`가 부르지 않고, 각 통신 코드(`api/*.ts`)가 응답에서 토큰 수를 받은 직후에 부른다(예: `anthropic-messages.ts:690, 859`). | `:1193-1213` |
 | `getSupportedThinkingLevels(model)` | 이 모델이 지원하는 추론 수준 목록. `reasoning`이 false면 `["off"]`. `thinkingLevelMap`에서 `null`인 수준은 제외하고, `xhigh`, `max`는 명시된 경우만 포함한다. | `:1217-1226` |
 | `clampThinkingLevel(model, level)` | 요청한 수준을 지원하지 않으면 가까운 지원 수준으로 맞춘다. 같거나 높은 쪽을 먼저 찾고, 없으면 낮은 쪽을 찾는다. | `:1228-1247` |
 | `hasApi(model, api)` | `model.api`가 맞는지 확인하며 타입을 좁힌다. | `:1189` |
 | `modelsAreEqual(a, b)` | type, id, provider가 같으면 같은 모델로 본다. | `:1253-1256` |
 
-`calculateCost`의 계산 규칙(Anthropic 2배 등)이 공용 `models.ts` 안에 있는 것은 눈에 띄는 점이다. 이유는 `추론`이지만, 비용 계산을 `Usage`를 채우는 단계 한 곳에서 처리하려는 것으로 보인다.
+`calculateCost`의 계산 규칙(Anthropic 2배 등)이 공용 `models.ts` 안에 있는 것은 눈에 띄는 점이다. 이유는 코드에 적혀 있지 않다. 비용 계산을 `Usage`를 채우는 단계 한 곳에서 처리하려는 것으로 보이며 이는 `추론`이다.
 
 ## 8. 설계 포인트
 1. **`Models`는 호출을 직접 처리하지 않고 위임한다.** 인증과 헤더 조립(`applyAuth`)만 하고, 실제 호출은 `provider.stream`에 넘긴다. 주석도 "Providers own request behavior; `Models` resolves auth and delegates"라고 적고 있다(`:235-239`).

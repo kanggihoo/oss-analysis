@@ -64,7 +64,7 @@ Groq, Cerebras, DeepSeek은 회사는 다르지만 모두 "OpenAI 호환" 방식
    - 인증: 요청에 직접 준 key → 저장된 로그인 정보 → 환경변수 순서로 찾는다. OAuth 토큰이 5분 안에 만료되면 여기서 갱신한다.
    - 구현 불러오기: `anthropic-messages` 코드를 **처음 쓸 때만** `import()`로 불러온다. 안 쓰는 회사의 SDK는 아예 로드하지 않는다.
 3. **옵션을 바꾼다.** `reasoning: "high"`라는 공통 옵션을 Anthropic의 effort 값이나 thinking token 예산으로 바꾼다.
-4. **요청하고 흘려보낸다.** SSE 응답을 받는 대로 공통 이벤트로 바꿔 스트림에 넣는다.
+4. **요청하고 흘려보낸다.** SSE(서버가 응답을 조각으로 계속 보내는 방식) 응답을 받는 대로 공통 이벤트로 바꿔 스트림에 넣는다.
 
 ```
 start → text_delta … → toolcall_start → toolcall_delta … → toolcall_end → done
@@ -126,7 +126,7 @@ turn 3  LLM: "고쳤습니다. 원인은 ..."        stopReason=stop
     ② LLM에 요청하고 응답을 흘려받는다
     ③ 응답에 tool call이 있으면 실행하고 결과를 붙인다
     ④ turn 끝 → 새로 끼어든 메시지가 있나 확인
-  멈추려는 시점: 나중에 처리할 메시지(follow-up)가 있으면 바깥 루프를 한 번 더
+  안쪽 루프가 끝나면: 나중에 처리할 메시지(follow-up)가 있으면 바깥 루프를 한 번 더 돈다
   없으면 종료
 ```
 
@@ -159,7 +159,7 @@ tool 쪽 실패는 루프를 멈추지 않는다. 아래 경우는 모두 **에�
 - `beforeToolCall`이 차단
 - 실행 중 예외
 
-특이한 경우도 하나 있다. 응답이 토큰 한도(`length`)에 걸려 잘렸으면 tool call의 인자도 잘렸을 수 있다. 그래서 **하나도 실행하지 않고** "인자를 온전히 해서 다시 불러라"라는 에러를 돌려준다.
+특이한 경우도 하나 있다. 응답이 토큰 한도(`length`)에 걸려 잘렸으면 tool call의 인자도 잘렸을 수 있다. 그래서 **하나도 실행하지 않고** "완전한 인자로 다시 호출하라"는 에러 결과를 돌려준다.
 
 루프가 **즉시 멈추는** 경우는 LLM 응답 자체가 `error`이거나 `aborted`일 때뿐이다. 2.4절의 "throw 대신 stopReason" 규칙 덕분에 루프는 이 한 곳만 확인하면 된다. 재시도는 위층이 `agentLoopContinue`로 한다.
 
@@ -214,7 +214,7 @@ agent_end
 
 `agent.subscribe(fn)`으로 등록한 구독자는 이벤트마다 **등록한 순서대로, 앞의 것이 끝나야 다음 것**이 호출된다. 구독자가 이벤트를 디스크에 쓰는 데 오래 걸리면 루프도 그만큼 기다린다.
 
-`agent_end` 이벤트가 나왔다고 곧바로 끝난 게 아니다. 그 이벤트의 구독자까지 모두 끝나야 `waitForIdle()`이 풀린다.
+`agent_end` 이벤트가 나와도 `Agent`는 곧바로 쉬는 상태(idle)가 되지 않는다. 그 이벤트의 구독자까지 모두 끝나야 `waitForIdle()`이 풀린다.
 
 ### 4.3 한 번에 하나만 실행한다
 
@@ -250,13 +250,13 @@ agent_end
 |---|---|
 | `streamFn` | `modelRuntime.streamSimple`. 여기서 pi-ai와 연결된다 |
 | `convertToLlm` | 화면 전용 메시지를 빼고, 설정에서 이미지를 막았으면 이미지를 "Image reading is disabled."로 바꾼다 |
-| `transformContext` | extension이 context를 고칠 기회를 준다. 숨긴 tool 선언을 빼고, 강제 system prompt를 적용한다 |
+| `transformContext` | extension이 context를 고칠 수 있게 한다. 숨긴 tool 선언을 빼고, 강제 system prompt를 적용한다 |
 | `prepareRequest` | 세션 projection으로 교체한다. "자동 선택" 같은 가상 모델이면 이번 요청에 쓸 실제 모델을 고른다 |
 | `prepareNextTurn` | 대화가 한도에 가까우면 미리 요약하고, system prompt와 tool 목록을 새로 만든다 |
 | `beforeToolCall` / `afterToolCall` | extension의 `tool_call` / `tool_result` 이벤트로 넘긴다. extension이 위험한 명령을 막거나 결과를 고칠 수 있다 |
 | `finishTurn` | extension이 "한 턴 더"를 요청할 수 있게 한다 |
 
-hook은 **이어 붙이는(chain)** 방식으로 설치된다. 새 hook이 기존 hook을 `previous...`로 보관했다가 먼저 부르고, 그 결과에 자기 로직을 더한다.
+`AgentSession`은 hook을 **이어 붙이는(chain)** 방식으로 설치한다. 기존 hook을 `previous...`로 보관해 두었다가 먼저 부르고, 그 결과에 자기 로직을 더한다.
 
 ### 5.3 재시도와 요약은 루프 밖에서 한다
 

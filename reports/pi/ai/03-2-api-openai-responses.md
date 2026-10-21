@@ -61,7 +61,7 @@ Provider "openai"
 `streamSimple`은 `:252`에서 `return stream(model, context, {...})`로 `stream`을 **호출한 결과(상자)**를 그대로 돌려준다.
 
 ### 동기 구간과 비동기 구간
-②의 첫 `await`는 `:174`(`await options?.onPayload?.(params, model)`)다. `async` 함수는 첫 `await`까지 동기로 실행되므로 아래는 규칙과 코드 구조에서 도출한 구분이다(`추론`).
+②의 첫 `await`는 `:174`(`await options?.onPayload?.(params, model)`)다. `async` 함수는 첫 `await` 앞까지 동기로 실행된다. 아래 구분은 이 규칙과 코드 구조에서 도출한 것이다(`추론`).
 | 시점 | 줄 | 하는 일 |
 |---|---|---|
 | `stream()`이 돌려주기 **전** (동기) | `:137-153` | 빈 `AssistantMessage`(`output`) 만들기 |
@@ -173,7 +173,7 @@ Claude의 `streamSimple`(adaptive와 예산 두 갈래)보다 단순하다. `rea
 | `tools` | `convertResponsesTools(...)` | `:352-357` | 도구가 있을 때 (§4.6) |
 | `tool_choice` | 주어졌을 때만 | `:359-361` | |
 | `reasoning`, `include` | 아래 | `:363-379` | |
-| `samplingParams` | `resolveSamplingParams(model, 추론수준, options.samplingParams)`의 결과를 덮어씀 | `:383-386`, 함수는 `simple-options.ts:24-34` | **마지막**에 적용되어 앞의 이름 있는 필드를 덮어쓴다. 우선순위는 `model.samplingParams` < **`model.samplingParamsByThinkingLevel[효과 추론수준]`** < 호출 옵션(`...` 스프레드 순서). 추론 수준은 `clampThinkingLevel`로 모델이 지원하는 값으로 맞춘 것. (이전 commit에는 추론 수준별 항목이 없었다) |
+| `samplingParams` | `resolveSamplingParams(model, 추론수준, options.samplingParams)`의 결과를 덮어씀 | `:383-386`, 함수는 `simple-options.ts:24-34` | **마지막**에 적용되어 앞의 이름 있는 필드를 덮어쓴다. 우선순위는 `model.samplingParams` < **`model.samplingParamsByThinkingLevel[실제 적용 추론수준]`** < 호출 옵션(`...` 스프레드 순서). 추론 수준은 `clampThinkingLevel`로 모델이 지원하는 값으로 맞춘 것. (이전 commit에는 추론 수준별 항목이 없었다) |
 
 **추론 설정** (`:363-379`)
 ```
@@ -321,7 +321,7 @@ pi 코드는 이것과 그대로 일치한다(`openai-chatgpt.ts:16`, `:21`, `:2
 - **로그인마다 클라이언트를 새로 등록한다**(`:15` 주석: "every login registers a new client with this ID; OpenAI returns the issued client ID in the callback"). 그래서 **발급된 `clientId`를 credential에 저장**하고, 갱신 때 그것을 쓴다.
 - `expires`는 실제 만료보다 **3분 일찍**으로 저장한다(`EXPIRY_MARGIN_MS`, `:29`). 04 §5.1의 5분 여유와 별개의 안전 마진이다.
 - 이 파일은 콜백 서버를 **자기 파일에 직접 구현**한다(`startCallbackServer`, `:85-132`). `CHANGELOG.md`는 "Anthropic, OpenAI Codex, OpenRouter, Radius의 브라우저 로그인 콜백 서버를 하나로 통합했다"고 적었는데, 이 목록에 이 파일은 없고 코드도 `auth/oauth/callback-server.ts`를 쓰지 않는다(`코드 확인`).
-- 마지막 `finally`에 `callback.server.closeAllConnections()`(`:296`)가 있다. 주석: `close()`만으로는 브라우저가 미리 열어 둔 여분의 연결이 서버에 남아서, 같은 프로세스에서 다시 로그인할 때 새 콜백이 옛 서버로 가 "state mismatch"로 거부될 수 있다.
+- 마지막 `finally`에 `callback.server.closeAllConnections()`(`:296`)가 있다. 주석: `close()`만으로는 브라우저가 미리 열어 둔 여분의 연결이 서버에 남는다. 그러면 같은 프로세스에서 다시 로그인할 때 새 콜백이 옛 서버로 가서 "state mismatch"로 거부될 수 있다.
 
 ### 7.3 갱신과 요청용 인증
 - **갱신** (`refreshAccessToken`, `:208-223`): 저장된 `clientId`가 없으면 "Stored OpenAI OAuth credential does not contain an issued client ID; reconnect ChatGPT"로 실패한다. 있으면 `grant_type=refresh_token`, `client_id`, `refresh_token`, `resource`를 같은 토큰 주소에 POST해서 새 토큰 쌍을 받는다. 갱신 시점과 락은 04-auth §5.1의 `resolveStoredOAuth`가 정한다.

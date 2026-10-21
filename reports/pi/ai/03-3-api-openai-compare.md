@@ -13,7 +13,7 @@
 
 | 파일 | 상대 서버의 API | 한 줄 성격 |
 |---|---|---|
-| `openai-completions.ts` | **Chat Completions** (`messages` 배열로 주고받는 방식) | **OpenAI 호환을 표방하는 여러 서버**를 하나의 코드로 처리하는 범용 코드. 서버마다 다른 점이 많아 compat 처리가 크다. |
+| `openai-completions.ts` | **Chat Completions** (`messages` 배열로 주고받는 방식) | **OpenAI 호환을 표방하는 여러 서버**를 하나의 코드로 처리하는 범용 코드. 서버마다 다른 점이 많아 compat로 맞추는 코드가 많다. |
 | `openai-responses.ts` | **Responses** (`input` 항목과 종류가 정해진 `response.*` 이벤트로 주고받는 방식) | OpenAI 공식 최신 API용. SDK를 쓰고 단순하다. |
 | `openai-codex-responses.ts` | **ChatGPT 구독의 Codex 백엔드**(`chatgpt.com/backend-api`) | Responses와 비슷한 프로토콜을 SDK 없이 직접 통신. WebSocket 우선. |
 
@@ -27,7 +27,7 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 | `openai-completions` | 26 | 716 | openrouter(385), huggingface(76), opencode(26), baseten(22), nvidia(21), qwen-token-plan-cn(20), qwen-token-plan(20), opencode-go(19), cloudflare-ai-gateway(18), cloudflare-workers-ai(18), together(17), … 그 외 15개 |
 | `openai-responses` | 7 | 131 | **openai(44)**, opencode(30), cloudflare-ai-gateway(24), github-copilot(18), opencode-go(6), meta(5), xai(4) |
 | `openai-codex-responses` | 1 | 9 | **openai-codex(9)** |
-| (참고) `azure-openai-responses` (api) | 이전 1 → 지금 **provider id는 `azure`로 바뀌어** `azure-openai-responses`와 `openai-completions` 두 api를 가진다(`providers/azure.ts:44-54`) | 44(2026-10-04 생성분, 새 SHA에서 재생성 안 함) | azure-openai-responses(44). 별도 파일(`azure-openai-responses.ts`, 351줄)이며 공용 변환기를 쓴다(`:22`). 이 문서에서는 읽지 않았다. |
+| (참고) `azure-openai-responses` (api) | 이전에는 1개였다. 지금은 **provider id가 `azure`로 바뀌어** `azure-openai-responses`와 `openai-completions` 두 api를 가진다(`providers/azure.ts:44-54`) | 44(2026-10-04 생성분, 새 SHA에서 재생성 안 함) | azure-openai-responses(44). 별도 파일(`azure-openai-responses.ts`, 351줄)이며 공용 변환기를 쓴다(`:22`). 이 문서에서는 읽지 않았다. |
 
 - **`openai`(OpenAI 본사)는 `openai-responses`다.** `completions`가 아니다.
 - `openai-completions`는 **26개 provider에 걸쳐 716개 모델**을 맡는다. 가장 많은 모델을 처리하는 통신 코드다.
@@ -45,7 +45,7 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 | 재시도 | 공용 `retryProviderRequest` | 공용 `retryProviderRequest` | **자체 구현**(03-4 §6.2) |
 
 - `openai-responses-shared.ts`(809줄)는 **Responses 계열(responses, codex, azure)이 함께 쓰는 변환기**다. `completions`는 이것을 쓰지 않고 변환과 해석을 모두 자기 파일에 가진다.
-- 그래서 `openai-responses.ts`는 415줄로 짧고(요청 준비만 하고 나머지는 공용), `completions`와 `codex`는 각자 1700줄대다. 단 길어진 이유는 서로 다르다(§0의 성격 참고: completions는 서버 방언, codex는 WebSocket).
+- 그래서 `openai-responses.ts`는 415줄로 짧고(요청 준비만 하고 나머지는 공용), `completions`와 `codex`는 각자 1700줄대다. 다만 길어진 이유는 서로 다르다(§0의 성격 참고: completions는 서버 방언, codex는 WebSocket).
 
 ### 2.2 모두 같은 뼈대
 세 파일 모두 03-1에서 정리한 뼈대를 따른다(`new AssistantMessageEventStream()` → `(async () => { try { ... } catch { ... } })()` → `return stream`). 코드 위치만 적는다.
@@ -200,7 +200,7 @@ getCompat(model)
 - 서드파티 서버 다수가 Chat Completions를 흉내 낸다는 점은 README(`:241`)와 `detectCompat`의 서버 목록에서 확인된다. Responses를 지원하는 서버는 데이터상 7개 provider뿐이다(§1).
 - 이 두 API가 OpenAI 안에서 어떤 관계인지(어느 쪽이 새것인지 등)는 이 저장소의 코드와 문서로는 직접 확인되지 않는다(`미확인`).
 
-**읽는 순서 제안**: 응답 해석이 가장 단순한 `openai-responses.ts`(415줄)를 먼저 보고, 변환 규칙은 공용 `openai-responses-shared.ts`에서 보고, `openai-completions.ts`는 compat가 왜 필요한지 이해한 뒤 `detectCompat`부터 읽는 것이 좋다.
+**읽는 순서 제안**: 먼저 `openai-responses.ts`(415줄)를 읽는다. 응답 해석이 가장 짧다. 변환 규칙은 공용 `openai-responses-shared.ts`에서 읽는다. `openai-completions.ts`는 compat가 왜 필요한지 이해한 뒤에 `detectCompat`부터 읽는다.
 
 ## 8. 읽지 않은 것 (`미확인`)
 - `openai-responses-shared.ts`의 `convertResponsesMessages`, `convertResponsesTools`(`:145-410`): Responses 계열의 요청 변환 규칙

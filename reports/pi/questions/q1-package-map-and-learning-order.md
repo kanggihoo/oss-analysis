@@ -28,11 +28,11 @@
 
 ## 우선순위 근거
 
-1. **pi-ai가 가장 아래 토대다** — 내부 의존이 telemetry뿐이고, coding-agent가 가장 많이 import하는 패키지다(94회). `코드 확인`
-2. **agent-core는 두 층으로 나뉜다** — 기본 루프인 `agent-loop.ts`(940줄)와 `agent.ts`(613줄)는 `pi-ai`만 import한다. `chord` import 32회는 대부분 `harness/`(특히 `harness/pico3/` 18개 파일)에서 나온다. 따라서 루프 이해에는 chord가 필요 없다. `코드 확인`
-3. **새 harness는 실험 트랙이다** — `pico3`/`AgentHarness`를 쓰는 coding-agent 코드는 `src/experimental/` 아래(`session-worker.ts`, `micro/*`)에서만 발견됐다. 그래서 chord·server·protocol·durable은 차세대 실험 아키텍처로 보인다. `추론` (공식 로드맵 미확인)
-4. **coding-agent는 83k줄이라 통독하지 않는다** — `main.ts` → `core/agent-session.ts` → 내장 도구 → `modes/` 순으로 필요한 경로만 따라간다.
-5. **tui, codemode, mcp는 독립 leaf다** — 핵심 경로와 무관하게 각각 따로 학습할 수 있다. 특히 codemode(1.6k)와 mcp(3k)는 작고 설계 패턴이 뚜렷해서 가성비가 좋다.
+1. **pi-ai가 가장 아래 토대다.** 내부 의존이 telemetry뿐이고, coding-agent가 가장 많이 import하는 패키지다(94회). `코드 확인`
+2. **agent-core는 두 층으로 나뉜다.** 기본 루프인 `agent-loop.ts`(940줄)와 `agent.ts`(613줄)는 `pi-ai`만 import한다. `chord` import 32회는 대부분 `harness/`(특히 `harness/pico3/` 18개 파일)에서 나온다. 따라서 루프 이해에는 chord가 필요 없다. `코드 확인`
+3. **새 harness는 실험 트랙이다.** `pico3`/`AgentHarness`를 쓰는 coding-agent 코드는 `src/experimental/` 아래(`session-worker.ts`, `micro/*`)에서만 발견됐다. 그래서 chord·server·protocol·durable은 차세대 실험 아키텍처로 보인다. `추론` (공식 로드맵 미확인)
+4. **coding-agent는 83k줄이라 통독하지 않는다.** `main.ts` → `core/agent-session.ts` → 내장 도구 → `modes/` 순으로 필요한 경로만 따라간다.
+5. **tui, codemode, mcp는 독립 leaf다.** 핵심 경로와 무관하게 각각 따로 학습할 수 있다. 특히 codemode(1.6k)와 mcp(3k)는 작고 설계 패턴이 뚜렷해서 가성비가 좋다.
 
 ## 권장 학습 순서
 
@@ -50,4 +50,4 @@
 ## 남은 질문
 
 - chord·durable·server 계열이 기존 `Agent`/`AgentSession`을 대체하려는 것인가? (CHANGELOG·issue 확인 필요)
-- `pi-durable`에는 레포 내 소비자가 없다 — 어디서 쓰이는가?
+- `pi-durable`에는 레포 내 소비자가 없다. 어디서 쓰이는가?

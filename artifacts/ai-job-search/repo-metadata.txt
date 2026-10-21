@@ -1,0 +1,9 @@
+repo_dir=/Users/kkh/Desktop/oss-analysis/repos/ai-job-search
+name=ai-job-search
+date=2026-10-21
+commit=e16acee3abdaae57f8026789338a3c6eebf4608b
+origin=https://github.com/MadsLorentzen/ai-job-search
+commit_date=2026-10-21T07:29:11+02:00
+worktree=clean
+framework_version=1.0.0
+license=MIT

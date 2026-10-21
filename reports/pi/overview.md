@@ -8,7 +8,7 @@
 - **작업트리 상태**: `clean`
 - **분석 목적**: `미정 (사용자 확인 필요)`
 - **메타데이터**: [`artifacts/pi/repo-metadata.txt`](../../artifacts/pi/repo-metadata.txt)
-- **외부 baseline**: DeepWiki snapshot `artifacts/pi/deepwiki/` — commit `406a221` (2026-06-11) 기준, **HEAD보다 2069 commits 뒤처짐**. 당시 코드 기준은 [`repo-metadata.2026-06-11-deepwiki-baseline.txt`](../../artifacts/pi/repo-metadata.2026-06-11-deepwiki-baseline.txt)에 보관
+- **외부 baseline**: DeepWiki snapshot `artifacts/pi/deepwiki/`, commit `406a221` (2026-06-11) 기준, **HEAD보다 2069 commits 뒤처짐**. 당시 코드 기준은 [`repo-metadata.2026-06-11-deepwiki-baseline.txt`](../../artifacts/pi/repo-metadata.2026-06-11-deepwiki-baseline.txt)에 보관
 
 ---
 
@@ -16,7 +16,7 @@
 
 GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI" (MIT, ⭐110k). TypeScript monorepo (~348k LOC TS, 1700 files; `artifacts/pi/static-analysis/tokei.txt`).
 
-### 패키지 구성 (`packages/*/package.json` description 기준, 검증 수준: 코드 확인 — 선언만 확인, 구현 미확인)
+### 패키지 구성 (`packages/*/package.json` description 기준, 검증 수준: 코드 확인. 선언만 확인했고 구현은 미확인)
 
 | 패키지 | npm 이름 | 설명 | DeepWiki baseline에 존재 |
 |---|---|---|---|
@@ -91,20 +91,20 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 | [06-call-flow](./ai/06-call-flow.md) | 호출 경로 종합과 종단 실험, Q4와 달라진 점 |
 
 > [!WARNING]
-> 아래 Q4~Q8과 learning-guide는 이전 SHA(`4259686d9`) 기준이다. ai 관련 서술 중 달라진 점은 [06-call-flow §8](./ai/06-call-flow.md)에, agent 쪽 Q5·Q6은 2026-10-06에 재검증을 마쳤고(일치, [agent/00 §6](./agent/00-role.md)), Q7·Q8(AgentSession, 세션 투영)은 coding-agent 단계에서 재검증한다. 요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md).
+> 아래 Q4~Q8과 learning-guide는 이전 SHA(`4259686d9`) 기준이다. ai 관련 서술 중 달라진 점은 [06-call-flow §8](./ai/06-call-flow.md)에 있다. agent 쪽 Q5·Q6은 2026-10-06에 재검증을 마쳤고 현재 코드와 일치한다([agent/00 §6](./agent/00-role.md)). Q7·Q8(AgentSession, 세션 projection)은 coding-agent 단계에서 재검증한다. 요약은 [`wiki/projects/pi.md`](../../wiki/projects/pi.md).
 
 ## 3.45 agent 패키지 상세 문서 (commit `28dcce2ba` 기준, `packages/agent/src`는 `3874b3e98`과 동일)
 
 | 문서 | 내용 |
 |---|---|
 | [00-role](./agent/00-role.md) | 역할(AI 호출 → 도구 실행 → 재호출 반복), 6개 파일, 의존, harness 삭제, 이전 Q5~Q8 대조표 |
-| [01-types](./agent/01-types.md) | `types.ts`: 타입 4묶음, 훅 표, 이벤트 10종 |
-| [02-agent-loop](./agent/02-agent-loop.md) | `runLoop` 이중 루프, 턴 순서와 훅 호출 지점, 종료 7단계 우선순위, 병렬/순차 이벤트 순서, `declareToolChanges` |
+| [01-types](./agent/01-types.md) | `types.ts`: 타입 4묶음, hook 표, 이벤트 10종 |
+| [02-agent-loop](./agent/02-agent-loop.md) | `runLoop` 이중 루프, 턴 순서와 hook 호출 지점, 종료 7단계 우선순위, 병렬/순차 이벤트 순서, `declareToolChanges` |
 | [03-agent-class](./agent/03-agent-class.md) | `Agent`: 스냅샷 입력 + 이벤트 전용 상태 갱신, 큐, 실패 처리(`handleRunFailure`), run 시작 시 config 스냅샷 |
 | [04-proxy](./agent/04-proxy.md) | `streamProxy`: `partial`을 뺀 이벤트를 클라이언트가 복원, `setDefaultStreamFn` |
 | [05-call-flow](./agent/05-call-flow.md) | `agent.prompt()` 한 번의 경로 + 가짜 `streamFn`/로컬 SSE 서버 실행 확인(`artifacts/pi/agent-demos/`) |
 
-핵심 발견: 훅으로 정책을 주입하는 상태 없는 루프, throw 정책의 비대칭(도구는 루프가 흡수, 나머지 훅은 호출자 책임, `Agent`가 안전망), 알려진 구멍(중단 시 `toolResult` 짝 불일치, 프록시 `partialJson` 잔존, `agentLoop`의 reject 미처리).
+핵심 발견: hook으로 정책을 주입받는 상태 없는 루프, throw 정책의 비대칭(도구의 throw는 루프가 흡수하고, 나머지 hook의 throw는 호출자 책임이며, `Agent`가 안전망), 알려진 구멍(중단 시 `toolResult` 짝 불일치, 프록시 `partialJson` 잔존, `agentLoop`의 reject 미처리).
 
 ## 3.5 학습 가이드
 
@@ -120,7 +120,7 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 - [Q4: pi-ai 패키지의 역할](./questions/q4-ai-package-roles.md) - *api(wire 프로토콜 10종)와 provider(벤더 약 42개)를 분리한 통합 LLM 층. agent-core는 streamFn 주입으로만 ai를 쓰고, coding-agent가 Models 런타임을 연결*
 - [Q5: agent-loop 동작](./questions/q5-agent-loop.md) - *상태 없는 이중 루프(tool/steering → follow-up). 정책은 전부 AgentLoopConfig hook, 실패는 toolResult 에러로 LLM에 되돌리고 error/aborted만 hard exit*
 - [Q6: Agent 클래스](./questions/q6-agent-class.md) - *상태는 이벤트(processEvents)로만 갱신, 구독자는 순차 await, 루프 밖 예외도 가짜 error 메시지로 이벤트 순서 보장*
-- [Q7: coding-agent의 hook 구현](./questions/q7-agent-session-hooks.md) - *세션 파일 projection이 대화 원본(prepareRequest에서 교체). 재시도(3회, 2·4·8s)와 overflow compaction(1회)은 루프 밖 _runAgentPrompt가 agent.continue()로 처리*
+- [Q7: coding-agent의 hook 구현](./questions/q7-agent-session-hooks.md) - *대화 원본은 세션 파일이고, `prepareRequest`가 매 요청마다 그 projection으로 루프의 context를 교체. 재시도(3회, 2·4·8s)와 overflow compaction(1회)은 루프 밖 _runAgentPrompt가 agent.continue()로 처리*
 - [Q8: 세션 projection](./questions/q8-session-projection.md) - *append-only JSONL 트리(id/parentId). leaf→root 경로 → 최신 compaction으로 자르기 → context_edit 적용 → 메시지 변환. 숨김·요약은 새 entry로 표현*
 
 ---

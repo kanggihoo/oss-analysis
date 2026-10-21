@@ -10,7 +10,7 @@
 
 ## 0. 이 문서의 질문
 - `openai-codex` provider(02 §2.2)가 쓰는 통신 코드는 03-1의 Claude 코드와 **무엇이 같고 무엇이 다른가**?
-- 이 파일은 왜 1697줄로 커졌는가? (Claude는 1646줄이지만 이 파일은 그중 약 절반이 WebSocket 처리다.)
+- 이 파일은 왜 1697줄로 커졌는가? (Claude 통신 코드도 1646줄이지만, 이 파일은 약 절반이 WebSocket 처리다.)
 - 응답 이벤트는 어떻게 pi 이벤트로 바뀌는가?
 
 > `openai-codex` provider는 이름이 `OpenAI Codex (legacy)`다. `CHANGELOG.md:70`에 "`openai` provider의 ChatGPT 로그인이 이를 대체한다"고 적혀 있다. 이 파일은 현재도 코드에 남아 있고 `openai-codex` provider가 쓴다(`providers/openai-codex.ts`).
@@ -29,7 +29,7 @@ Provider "openai-codex"  (OAuth만, baseUrl https://chatgpt.com/backend-api)
             ⑤ done 또는 error
 ```
 
-03-1(Claude)과 같은 뼈대이고(빈 `output` 만들기, `try`/`catch`, `start`, `done`/`error`), 이 파일은 `(async () => { ... })()` 안쪽 구조도 같다. 달라지는 것은 **②요청 본문, ③전송 방식, ④응답 해석을 공용 코드에 맡기는 점**이다.
+03-1(Claude)과 같은 뼈대이고(빈 `output` 만들기, `try`/`catch`, `start`, `done`/`error`), 이 파일은 `(async () => { ... })()` 안쪽 구조도 같다. 달라지는 것은 **②요청 본문, ③전송 방식, 그리고 ④응답 해석을 공용 코드에 맡기는 점**이다.
 
 ## 1.1 `stream()`의 줄 구조: 상자를 만들고, 뒤에서 채우고, 상자를 돌려준다
 `stream()`(`openai-codex-responses.ts:237-498`)은 03-1의 Claude와 같은 모양이다. **"빈 상자(`AssistantMessageEventStream`)를 만들어 바로 돌려주고, 상자에 넣는 일은 뒤에서 따로 한다."** 상자가 무엇인지는 [03-0](./03-0-event-stream.md), 같은 구조를 Claude 코드로 설명한 것은 [03-1 §1.1](./03-1-api-anthropic.md)에 있다.
@@ -46,7 +46,7 @@ Provider "openai-codex"  (OAuth만, baseUrl https://chatgpt.com/backend-api)
 `streamSimple`은 `:517`에서 `return stream(model, context, {...})`로 `stream`을 **호출한 결과(상자)**를 그대로 돌려준다.
 
 ### 동기로 실행되는 부분과 비동기로 실행되는 부분
-② 안에서 첫 `await`는 `:278`(`await options?.onPayload?.(body, model)`)이다. `async` 함수는 첫 `await`까지 동기로 실행되므로(JavaScript 규칙) 아래 구분은 규칙과 코드 구조에서 도출한 것이다(`추론`).
+② 안에서 첫 `await`는 `:278`(`await options?.onPayload?.(body, model)`)이다. JavaScript 규칙상 `async` 함수는 첫 `await` 앞까지 동기로 실행된다. 아래 구분은 이 규칙과 코드 구조에서 도출한 것이다(`추론`).
 
 | 시점 | 줄 | 하는 일 |
 |---|---|---|
@@ -238,7 +238,7 @@ SSE 경로 (:376-483)
 
 **이어 붙이기(continuation): 서버가 직전 응답을 기억할 때만 쓰는 선택적 최적화** (`:1425-1477`, `:1518-1522`, `:1565-1580`)
 - **기본은 전체 대화를 보내는 것이다.** AI 서버는 기본적으로 이전 대화를 기억하지 않는다. WebSocket이라는 통신 방식 자체가 대화를 기억해 주는 것이 아니다. pi는 항상 전체 대화(`context.messages`)를 가지고 있고, 위층(`agent-loop.ts:397-407`)은 매번 전체를 넘긴다.
-- 그런데 이 Codex 통신 코드는 **서버가 "직전 응답을 기억하고 이어 붙이는" 기능을 지원하는 경우** 변경분만 보내도록 해 두었다. 요청에 `previous_response_id`("직전 응답 `r1`에 이어서")를 넣으면 서버가 `r1`까지의 대화를 알고 있다고 보고 새 입력만 받는 OpenAI Responses API의 기능이다.
+- 그런데 이 Codex 통신 코드는 **서버가 "직전 응답을 기억하고 이어 붙이는" 기능을 지원하는 경우** 변경분만 보내도록 해 두었다. OpenAI Responses API에는 요청에 `previous_response_id`("직전 응답 `r1`에 이어서")를 넣는 기능이 있다. 이 값이 있으면 서버는 `r1`까지의 대화를 알고 있다고 보고 새 입력만 받는다.
   - 근거(`코드 확인`): 변경분만 보내는 요청 본문을 만드는 코드(`:1472-1476`), 서버가 `previous_response_not_found`(이전 응답을 못 찾음)를 돌려줄 수 있다고 보고 처리하는 코드(`:64`, `:345-348`), 그리고 주석 "ChatGPT Codex Responses rejects `store: true`. WebSocket continuation still works via connection-scoped previous_response_id state"(`:1519-1520`, 저장은 거부하지만 연결이 열려 있는 동안은 서버가 직전 응답 상태를 기억해 준다는 해석).
   - 추가 단서 (`코드 확인`, 모두 이 저장소 안의 기록):
     - `packages/ai/CHANGELOG.md:1046`: "Added `websocket-cached` transport support for OpenAI Codex Responses used with ChatGPT subscription auth. This keeps the same WebSocket open for a session and, after the first request, sends only new conversation items instead of resending the full chat history when possible." 프로젝트가 직접 적은 설계 설명이다.
@@ -281,9 +281,9 @@ Node나 Bun 실행 환경에서 `node:zlib`의 `zstdCompressSync`(압축 수준 
 03-1의 Claude와 `openai-responses.ts`는 공용 `retryProviderRequest`를 쓴다. **이 파일은 그 함수를 import하지 않고** 직접 반복문(`for attempt ...`)을 쓴다.
 
 - `maxRetries` 기본값이 **0**이다(`DEFAULT_MAX_RETRIES`, `:54`, `:388`). 호출자가 `options.maxRetries`를 주지 않으면 재시도하지 않는다.
-- 재시도할지 판단 (`isRetryableError`, `:129-137`): 상태 코드가 429, 500, 502, 503, 504이거나 오류 문구가 `rate limit`, `overloaded`, `service unavailable` 등과 맞으면 재시도한다. 단 429이면서 `Monthly usage limit reached`, `insufficient_quota`, `billing` 같은 **한도 소진 문구**이면 재시도하지 않는다(`:123-127`).
+- 재시도할지 판단 (`isRetryableError`, `:129-137`): 상태 코드가 429, 500, 502, 503, 504이거나 오류 문구가 `rate limit`, `overloaded`, `service unavailable` 등과 맞으면 재시도한다. 다만 429이면서 `Monthly usage limit reached`, `insufficient_quota`, `billing` 같은 **한도 소진 문구**이면 재시도하지 않는다(`:123-127`).
 - 기다리는 시간: 서버가 `retry-after-ms` 또는 `retry-after` 헤더로 알려 주면 그 시간, 없으면 `1초 × 2^시도횟수`(지수 증가)(`:425-429`). 서버가 요청한 대기 시간이 `maxRetryDelayMs`(기본 60초)보다 길면 재시도하지 않고 "Server requested Ns retry delay (max: Ms)"로 실패한다(`:168-176`). 이는 01 §2.4의 `maxRetryDelayMs` 설명("길게 기다리라고 하면 즉시 실패시켜 상위에서 처리")과 같은 동작이다.
-- 네트워크 오류도 재시도한다. 단 `usage limit`이 들어간 오류와 대기 시간 초과 오류는 제외한다(`:450-458`).
+- 네트워크 오류도 재시도한다. 다만 `usage limit`이 들어간 오류와 대기 시간 초과 오류는 제외한다(`:450-458`).
 - 응답 헤더를 기다리는 제한 시간은 `timeoutMs`(`AbortSignal.timeout`)다. 초과하면 "Codex SSE response headers timed out after Nms"(`:396-409`).
 - 마지막 시도 또는 재시도 불가 오류이면 `parseErrorResponse`로 사람이 읽을 문구를 만든다(§8).
 

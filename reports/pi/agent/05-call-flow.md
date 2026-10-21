@@ -114,7 +114,7 @@ agent.prompt("hi")                              agent.ts:373
    3. `agentLoop`(스트림판)는 루프 reject 시 끝나지 않음(H1)
    4. 실패 run의 `agent_end.messages`가 `[failure]` 하나뿐(E)
    5. context 교체 훅은 `state.messages`에 반영되지 않음(`추론`, 실행 안 함)
-6. 도구 정보는 system 메시지 델타로 대화 기록에 실린다(이전 분석 Q5~Q8에는 요약만 있음).
+6. 도구 정보는 system 메시지의 변경분(`toolsAdded`/`toolsRemoved`)으로 대화 기록에 실린다(이전 분석 Q5~Q8에는 요약만 있음).
 
 ## 6. `미확인`
 - 실제 provider에서 `aborted` signal로 요청했을 때의 동작(F의 마지막 `assistant`)

@@ -496,6 +496,20 @@
 - 검증: 원문 대비 제목·코드 펜스·표 행·목록 항목·JSX 태그 수, 코드 블록 내용, URL 집합이 34개 모두 일치. 예외 1건: 묶음 0이 2개 파일의 `llms.txt` URL을 `.com`→`.ai`로 바꿔서 직접 되돌림. 줄 수는 일부 파일에서 문단 줄바꿈을 합쳐 줄었음(내용 누락 아님).
 - 번역 품질(용어 일관성, 어색한 문장)은 검수하지 않음.
 
+## [2026-10-21] ingest | ai-job-search clone, overview, archify 2개
+- `repos/ai-job-search`(`e16acee`, MIT) clone, `artifacts/ai-job-search/repo-metadata.txt`, `reports/ai-job-search/overview.md`·`next.md`, `index.md` 행.
+- 읽음: README, `CLAUDE.md`, `AGENTS.md`, `.claude/commands/apply.md`·`rank.md`, `job-scraper/SKILL.md`, 에이전트 3개, `tools/` 주요 파일 docstring과 핵심 함수. 실행: `posting_guard`, `make_key`, `overall_score`(`artifacts/ai-job-search/tools-demos/`). `pytest` 없어 테스트는 안 돌림.
+- archify: `diagrams/structure`(architecture), `flow`(workflow, `/apply`). 9개 산출물 검사와 4개 뷰포트 `visual-check` 통과, 시각 검토는 안 함. flow는 처음 세로 넘침으로 실패해 레인 3개로 줄여 통과.
+
+## [2026-10-21] query | ai-job-search 평가·글쓰기·면접 (Q1~Q3)
+- 사용자 요청: 검색·공고 가져오기는 제외하고, 평가 방식·지원서 글쓰기·면접 진행을 자신에게 적용할 관점으로. `reports/ai-job-search/questions/q1~q3` 작성, overview 4절 링크, `next.md` 갱신.
+- 읽음: `04-job-evaluation.md`, `03-writing-style.md`, `05`·`06`·`07`·`08`, `interview.md`, `apply.md` Step 2~4, `setup.md` 추론 규칙, `cover_example.tex`. 실행 없음. 레포에 실제 산출 예시는 없고 `*_example.tex`는 뼈대뿐.
+
+## [2026-10-21] query | ai-job-search Q4~Q6: /setup, /outcome, /upskill·/expand
+- 사용자 요청으로 `reports/ai-job-search/questions/q4-profile-setup.md`, `q5-outcome-calibration.md`, `q6-upskill-expand.md` 작성(설명 스킬 `explain-clearly`의 순서: 결론 한 문장, 비유와 한계, 실제 사례, 흔한 오해). overview 4절 링크와 `next.md` 갱신.
+- 읽음: `setup.md` 전체, `outcome.md` 전체, `upskill/SKILL.md` 전체, `expand.md` 전체, `rank_state.py`의 `gaps` 저장(:447, :486). 실행 없음.
+- 정정: 앞 세션에서 overview 4절에 Q1~Q3 링크를 넣었다고 보고했으나 치환 실패로 빠져 있어 이번에 반영. q1에 "구간 안의 숫자를 고르는 규칙 없음" 추가.
+
 ## [2026-10-22] workflow | 기능 스펙 절차 개편: 기능 지도 → 범위 승인 → 원본 동작 스펙
 - Codex(gpt-6.1-sol)와 11라운드 토론, defuddle(`9db7260`)로 지도·하위 스펙 시뮬레이션(scratch, reports 미작성). 지도 일부(추출기 등록 24개, `parseAsync` 분기)는 원본과 대조.
 - 바꾼 것: `OSS_ANALYSIS_WORKFLOW.md` 서두·1~6장(읽기 기본값·제외 목록, 기능 지도, 부속 서비스 포함 여부를 묻는 범위 승인 단계, 원본 동작 스펙, C-ID 코드 참조, 통합 검토, 보고 2단), 7장 검증 수준 R-ID 단위. `SCHEMA.md` `depends`·`status`·`sources`. 템플릿 capability-spec(A/B·채택 열·클린룸 제거, 1부 동작/2부 근거/적용 메모), capability-request(지도 행 지시문, 재구현 제공 범위), overview(라이선스·범위·기능 지도), request(스펙 범위), next(다음 기능). `AGENTS.md` 라우팅.

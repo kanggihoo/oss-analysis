@@ -80,7 +80,7 @@ body: { model, context, options(11개 필드) }
 - 터미널 이벤트가 여러 번 와도 막지 않는다(`sawTerminalEvent`는 플래그뿐). 이후 `stream.push`는 `EventStream`이 처리한다(ai/03-0, `미확인`).
 - `catch`에서 `partial`을 그대로 `error`에 싣는다. 중단 직전까지 쌓인 내용이 `error` 메시지에 남는다(`코드 확인`).
 - 비동기 즉시실행 함수(`:127`)는 `await`/`catch` 없이 실행되고 `stream`을 먼저 반환한다(`:264`). 안쪽 `catch`가 모든 것을 잡지만 `catch` 안의 `stream.push` 자체가 던지면 처리되지 않은 rejection이 된다(`추론`, 가능성은 낮음).
-- 에러 메시지에 `partial.errorMessage`를 쓰므로 02의 §7.5와 달리, 여기서는 중단 시 도구 호출 부분 인자가 `partial`에 있다. 루프는 `stopReason === "aborted"`이면 도구를 실행하지 않는다(02 §5 #7).
+- 중단되면 도구 호출의 부분 인자가 `partial`에 남는다. 다만 루프는 `stopReason === "aborted"`이면 도구를 실행하지 않는다(02 §5 #7). 02 §7.5는 도구 실행 중에 중단되는 다른 경우다.
 
 ## 8. 쓰는 곳 (`grep`)
 | 위치 | 용도 |

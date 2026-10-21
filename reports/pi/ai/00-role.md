@@ -48,7 +48,7 @@ Anthropic / OpenAI / Google / Bedrock / Mistral ... (외부 서비스)
 ### 3.1 `api`와 `provider`: 이 패키지의 핵심 구분
 - **api**: 통신 방식. 예: `anthropic-messages`, `openai-completions`. `src/api/`에 구현이 있고 `KnownApi`는 10종이다(`types.ts:17`).
 - **provider**: 회사/계정. 예: `anthropic`, `openai`. `src/providers/`에 있고 "주소 + 인증 방법 + 모델 목록 + 쓸 api"를 묶는다.
-- 여러 회사가 한 api를 공유한다. OpenAI식 통신(`openai-completions`)을 쓰는 여러 호환 회사가 같은 통신 코드를 쓰고, 미세한 차이는 모델별 `compat` 설정으로 맞춘다(Q4, `코드 확인`. 이 commit에서 일부 provider만 직접 확인).
+- 여러 회사가 한 api를 공유한다. OpenAI식 통신(`openai-completions`)을 따르는 호환 회사들은 같은 통신 코드를 함께 쓰고, 미세한 차이는 모델별 `compat` 설정으로 맞춘다(Q4, `코드 확인`. 이 commit에서 일부 provider만 직접 확인).
 
 ## 4. `ai`가 하지 않는 일 (경계)
 
@@ -83,7 +83,7 @@ Anthropic / OpenAI / Google / Bedrock / Mistral ... (외부 서비스)
 | `evals` | 2 | 0 | 루트 1, `/utils/transcript` 1 |
 
 - 이전 집계(`cross-package-imports.txt`, `4259686d9`)와 비교:
-  - `agent`는 50회에서 4회로 줄었다. `7fd478a2e`(2026-10-01) `feat(agent): remove the experimental harness from pi-agent-core` 커밋이 harness를 삭제했고, `packages/agent/src`는 6개 파일(`agent-loop`, `agent`, `index`, `proxy`, `stream-fn`, `types`)만 남았다. 이전 SHA 대비 112개 파일에서 약 3.1만 줄이 삭제되었다. `agent/package.json`에서 `chord` 의존도 사라졌다.
+  - `agent`는 50회에서 4회로 줄었다. `7fd478a2e`(2026-10-01) `feat(agent): remove the experimental harness from pi-agent-core` 커밋이 harness를 삭제했고, `packages/agent/src`는 6개 파일(`agent-loop`, `agent`, `index`, `proxy`, `stream-fn`, `types`)만 남았다. 이전 SHA 대비 112개 파일에서 약 3만 1천 줄이 사라졌다. `agent/package.json`에서 `chord` 의존도 사라졌다.
   - `coding-agent`는 94회에서 108회로 늘었다.
   - `session-backends`는 `packages/` 아래에 더 이상 없다. 이전 SHA에는 33개 파일이 있었다.
 - 영향: [Q4](../questions/q4-ai-package-roles.md)의 "재시도는 agent-core의 `harness/runtime/drive/response.ts`, `harness/compaction`이 한다"는 부분은 이 commit에서는 맞지 않는다. 그 경로가 삭제되었기 때문이다. 현재 재시도 주체는 별도로 다시 확인해야 한다(`미확인`).

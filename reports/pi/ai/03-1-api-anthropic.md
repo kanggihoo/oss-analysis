@@ -131,7 +131,7 @@ const response = await retryProviderRequest(
 - 함수는 `return`을 한 번만 할 수 있다. `stream()`은 이미 `:902`에서 상자를 `return`했으므로, 그 뒤에 도착하는 수십 개의 조각을 `return`으로 전달할 수 없다. 여러 값을 시간이 지나면서 하나씩 전달할 때는 상자에 `push`한다.
 - 받는 쪽은 실제로 이벤트가 올 때마다 바로 처리한다: `agent-loop.ts:414-441`에서 `text_delta`마다 `message_update`를 내보낸다.
 
-**`yield`(비동기 제너레이터)로 해도 "올 때마다 받기"는 된다.** 사실 안쪽 `iterateAnthropicEvents`(`:532`)가 `async function*`이고 `yield event`를 한다. 즉 **서버 조각을 읽는 안쪽은 `yield`, 호출한 쪽에 돌려주는 바깥은 `push`**다. 바깥이 `push`인 이유는 아래 해석이다. 코드나 문서에 직접 적혀 있지 않아서 읽은 사실에서 도출한 `추론`이다.
+**`yield`(비동기 제너레이터)로 해도 "올 때마다 받기"는 된다.** 사실 안쪽 `iterateAnthropicEvents`(`:532`)가 `async function*`이고 `yield event`를 한다. 즉 **서버 조각을 읽는 안쪽은 `yield`, 호출한 쪽에 돌려주는 바깥은 `push`**다. 바깥이 `push`인 이유는 아래와 같이 해석한다. 코드나 문서에 직접 적혀 있지 않아서 읽은 사실에서 도출한 `추론`이다.
 
 | | 제너레이터(`yield`) | `EventStream`(`push`) |
 |---|---|---|
@@ -203,7 +203,7 @@ Anthropic 공식 SDK(`@anthropic-ai/sdk`)의 객체를 만든다. **인증 방�
 | OAuth | API 키에 `sk-ant-oat`가 들어 있음 (`:980-982`, `:1016-1036`) | Bearer 토큰 + **Claude Code 흉내 헤더** |
 | 일반 | 그 외 | API 키 또는 헤더로 준 인증, 또는 workload identity federation (`:1038-1079`) |
 
-**OAuth 경로의 특징**(Claude Pro/Max 구독 로그인): `user-agent: claude-cli/<버전>`, `x-app: cli` 헤더를 보내고(`:1027-1028`), 시스템 프롬프트 맨 앞에 `"You are Claude Code, Anthropic's official CLI for Claude."`를 추가하며(`:1168-1183`), 도구 이름을 Claude Code의 표준 철자(`Read`, `Write`, `Bash` 등, `:103-126`)로 바꿔 보내고 응답에서 다시 원래 이름으로 되돌린다(`fromClaudeCodeName`, `:127-134`, `:729-731`). 코드 주석은 이를 "Stealth mode: Mimic Claude Code's tool naming exactly"(`:97`)라고 적었다. 이 동작의 이유는 코드에 직접 적혀 있지 않다(`추론`: 구독 토큰이 Claude Code 형태의 요청만 받도록 되어 있어서로 보이지만 확인하지 못했다).
+**OAuth 경로의 특징**(Claude Pro/Max 구독 로그인): `user-agent: claude-cli/<버전>`, `x-app: cli` 헤더를 보내고(`:1027-1028`), 시스템 프롬프트 맨 앞에 `"You are Claude Code, Anthropic's official CLI for Claude."`를 추가하며(`:1168-1183`), 도구 이름을 Claude Code의 표준 철자(`Read`, `Write`, `Bash` 등, `:103-126`)로 바꿔 보내고 응답에서 다시 원래 이름으로 되돌린다(`fromClaudeCodeName`, `:127-134`, `:729-731`). 코드 주석은 이를 "Stealth mode: Mimic Claude Code's tool naming exactly"(`:97`)라고 적었다. 이 동작의 이유는 코드에 직접 적혀 있지 않다(`추론`: 구독 토큰이 Claude Code 형태의 요청만 받는 것으로 보이지만 확인하지 못했다).
 
 헤더는 여러 출처를 합친다. 기본 헤더, 세션 친화 헤더, **모델의 `headers`**, 마지막으로 **호출자가 준 `options.headers`**(뒤에 오는 것이 앞을 덮어쓴다, `mergeHeaders` `:295-303`).
 
@@ -501,7 +501,7 @@ stream(model, context, options)
   })()
   return stream
 ```
-`anthropic-messages.ts`와 줄 구성까지 같다. **모든 `api/*.ts` 통신 코드가 이 뼈대를 따른다**고 보이지만, 이 두 파일만 읽었다(나머지는 `미확인`).
+`anthropic-messages.ts`와 줄 구성까지 같다. **모든 `api/*.ts` 통신 코드가 이 뼈대를 따르는 것**으로 보이지만, 이 두 파일만 읽었다(나머지는 `미확인`).
 
 ### 8.2 다른 점
 | | Anthropic Messages | OpenAI Responses |
@@ -536,7 +536,7 @@ stream(model, context, options)
 | inner 스트림은 누가 만드는가? | `api/*.ts`의 `stream` 함수가 만든다 (`anthropic-messages.ts:578`). |
 | 변환(raw 응답 → 공용 이벤트)은 누가 하는가? | 같은 `stream` 함수 안의 루프(`:665-861`)가 한다. |
 | `stream`과 `streamSimple`의 차이는? | `streamSimple`은 `reasoning`을 회사별 설정으로 바꾸고 `stream`을 부른다(§3). |
-| 스트림은 SSE 연결인가? | 스트림 객체는 아니다. SSE 연결을 읽는 코드는 이 파일의 `iterateSseMessages`다(§5.1). |
+| 스트림은 SSE 연결인가? | 아니다. 스트림 객체는 메모리 안의 대기열이다. SSE 연결을 읽는 코드는 이 파일의 `iterateSseMessages`다(§5.1). |
 | 에러는 어떻게 전달되는가? | `catch`에서 `error` 이벤트를 push한다(§6). |
 | 비용은 언제 계산되는가? | 응답의 토큰 수를 `usage`에 적은 직후(`:690`, `:859`). |
 

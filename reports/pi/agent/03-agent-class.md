@@ -9,7 +9,7 @@
 (1) `Agent`는 루프 위에 무엇을 얹는가? (2) 상태는 어떻게 갱신되나? (3) steering / follow-up 큐와 `QueueMode`는 어떻게 동작하나? (4) 루프에서 예외가 나면 어떻게 되나? (5) 02에서 `미확인`으로 남긴 것(`messages` 공유, `toolResult` 누락, 훅 throw)은 어떻게 되나?
 
 ## 2. 한 줄 답
-`Agent`는 상태가 없는 `runLoop`에 "대화 기록, 실행 잠금, 큐 2개, 구독자"를 얹은 래퍼다. 루프에는 매번 복사본 context와 그때 값으로 만든 config를 넘기고, 루프가 내보내는 이벤트(`processEvents`)로만 자기 상태를 갱신한다.
+`Agent`는 상태가 없는 `runLoop`에 "대화 기록, 실행 잠금, 큐 2개, 구독자"를 얹은 래퍼다. 루프에는 run을 시작할 때마다 복사본 context와 그 시점의 값으로 만든 config를 넘긴다. 자기 상태는 루프가 내보내는 이벤트를 `processEvents`로 받아서만 갱신한다.
 
 ## 3. 구성 (`:188-254`)
 | 묶음 | 필드 | 줄 |
@@ -29,8 +29,8 @@
 ## 4. 상태 모델 (`:70-111`)
 - `systemPrompt`는 getter다(`:89`). `getCurrentSystemPrompt(messages)`로 대화 안 system 메시지에서 다시 계산하고, 별도 저장 필드가 없다. 프롬프트를 바꾸려면 system 메시지를 기록에 추가해야 한다(Q6과 일치).
 - 생성자는 `systemPrompt`와 `tools`로 첫 system 메시지를 만든다(`createInitialSystemMessage`). 이미 `messages[0]`이 system이면 만들지 않는다(`:85-86`). 02 §8의 `declareToolChanges`와 짝을 이룬다. 도구 정보가 기록 안에 있다.
-- `tools`, `messages`는 setter가 `slice()`로 얕은 복사해 저장한다(`:97-105`). 배열 자체를 바꾸는 `push`는 getter가 돌려준 원본에 직접 적용되므로 허용된다.
-- `state` getter는 `_state`를 그대로 돌려준다(`:276`). 타입은 `AgentState`(읽기 전용 느낌)지만 런타임 객체는 같은 것이다(`코드 확인`).
+- `tools`, `messages`는 setter가 `slice()`로 얕은 복사해 저장한다(`:97-105`). getter가 돌려준 배열에 직접 `push`하면 저장된 배열이 그대로 바뀐다. 복사는 대입할 때만 일어난다.
+- `state` getter는 `_state`를 그대로 돌려준다(`:276`). 타입은 읽기 전용처럼 보이는 `AgentState`지만 런타임에 돌려주는 객체는 내부 `_state` 그대로다(`코드 확인`).
 
 ## 5. 이벤트에서 상태로: `processEvents` (`:565-612`)
 | 이벤트 | 상태 변화 |

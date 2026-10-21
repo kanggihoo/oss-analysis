@@ -34,7 +34,7 @@ tools     (read, bash, edit 등 execute) ──▶  AI가 도구를 요청하면
 - AI가 `read`를 요청하면 `agent-loop.ts`가 이름이 같은 도구를 찾아 `validateToolArguments`로 인자를 검사하고(`:726`) `beforeToolCall`을 거친 뒤 `tool.execute(...)`를 부른다(02 §7.3). `agent`는 `execute` 안에서 무슨 일이 일어나는지 모른다.
 
 ### 3.3 훅: 정해진 지점에 끼우는 정책
-훅은 모두 10개다. `coding-agent`가 7개(`convertToLlm`, `transformContext`, `prepareRequest`, `prepareNextTurn`, `finishTurn`, `beforeToolCall`, `afterToolCall`)를 채우고, 끼어들기 훅 2개(`getSteeringMessages`, `getFollowUpMessages`)는 `Agent` 클래스가 스스로 채우며(큐에는 `coding-agent`가 `agent.steer`, `agent.followUp`으로 넣는다), `getApiKey`는 채우는 곳을 찾지 못했다. 훅은 `AgentSession`이 `Agent`의 필드에 꽂고, 몸체 안에서 확장(extension) 핸들러(`pi.on("tool_call", ...)` 등)에 연결된다. 표, 호출 순서, 예시는 [07-hooks](./07-hooks.md)에 있다(2026-10-15 확인).
+훅은 모두 10개다. `coding-agent`가 7개(`convertToLlm`, `transformContext`, `prepareRequest`, `prepareNextTurn`, `finishTurn`, `beforeToolCall`, `afterToolCall`)를 채운다. 끼어들기 훅 2개(`getSteeringMessages`, `getFollowUpMessages`)는 `Agent` 클래스가 스스로 채운다(큐에는 `coding-agent`가 `agent.steer`, `agent.followUp`으로 넣는다). `getApiKey`는 채우는 곳을 찾지 못했다. `AgentSession`이 훅을 `Agent`의 필드에 꽂고, 훅 함수 안에서 확장(extension) 핸들러(`pi.on("tool_call", ...)` 등)를 호출한다. 표, 호출 순서, 예시는 [07-hooks](./07-hooks.md)에 있다(2026-10-15 확인).
 
 ### 3.4 구독자: 이벤트를 받는 쪽
 `agent.subscribe(...)`로 이벤트 10종을 받는다(01 §5.3). `coding-agent`가 이것으로 화면 갱신과 세션 저장을 하는지는 `미확인`(coding-agent 단계에서 확인).

@@ -3,11 +3,11 @@
 - **기준 commit**: `3874b3e98` / **분석일**: 2026-10-05
 - **선행 문서**: [03-0-event-stream](./03-0-event-stream.md), [03-1-api-anthropic](./03-1-api-anthropic.md), [03-2-api-openai-responses](./03-2-api-openai-responses.md), [01-types](./01-types.md)
 - **읽은 파일**: `src/utils/` 아래 `provider-retry.ts`(125줄), `retry.ts`(252줄), `overflow.ts`(188줄), `estimate.ts`(117줄), `json-parse.ts`(124줄), `validation.ts`(350줄), `error-body.ts`(149줄), `diagnostics.ts`, `models-error.ts`, `abort.ts`, `abort-signals.ts`, `sleep.ts`, `text.ts`, `sanitize-unicode.ts`, `hash.ts`, `uuid.ts`, `headers.ts`, `provider-env.ts`, `pi-user-agent.ts`, `model-operations.ts`, `typebox-helpers.ts`, `event-stream.ts`(03-0), `transcript.ts`(01, 03-1). `assistant-message-frame.ts`(490줄)는 앞 70줄만. 사용처는 `grep`과 `coding-agent/src/core/agent-session.ts`의 일부(`:2948-2972`, `:3640-3760`)를 읽어 확인했다. 줄 번호는 모두 이 commit 기준이다.
-- **검증 수준**: 코드 읽기는 `코드 확인`. 재시도, 오버플로 판정, 토큰 추정, JSON 복구, 작은 도구들은 실제 파일을 불러서 돌렸다(`실행 확인`, §8). 단 `partial-json`과 `typebox`가 설치되어 있지 않아 **`parseStreamingJson`의 부분 해석과 `validateToolArguments`는 실행하지 못했다**(`미확인`).
+- **검증 수준**: 코드 읽기는 `코드 확인`. 재시도, 오버플로 판정, 토큰 추정, JSON 복구, 작은 도구들은 실제 파일을 불러서 돌렸다(`실행 확인`, §8). 다만 `partial-json`과 `typebox`가 설치되어 있지 않아 **`parseStreamingJson`의 부분 해석과 `validateToolArguments`는 실행하지 못했다**(`미확인`).
 
 ## 0. 이 문서의 질문
 - 03에서 본 `retryProviderRequest`, `parseStreamingJson`, `estimateContextTokens`, `isContextOverflow`, `validateToolArguments` 등은 정확히 무엇을 하는가?
-- 03-4에서 "재시도는 이전에는 agent의 `harness`가 했다"는 Q4의 설명이 이 commit에서는 맞지 않았다. **지금은 누가 재시도하는가?**
+- Q4는 "재시도는 agent의 `harness`가 한다"고 설명했다. 03-4에서 보았듯 이 설명은 이 commit에서 맞지 않았다. **그러면 지금은 누가 재시도하는가?**
 
 ## 1. 지도: 무엇이 어디에 있고 누가 쓰는가
 | 묶음 | 파일 | 한 줄 역할 | 주요 사용처 |
@@ -58,7 +58,7 @@ const response = await retryProviderRequest(
 | **SDK 호환** | `:114` 주석 | 재시도마다 새 SDK 요청이라 `X-Stainless-Retry-Count` 헤더는 계속 0이다. |
 
 - **Codex 통신 코드는 이것을 쓰지 않고 자체 반복문을 쓴다**(03-4 §6.2). `openai-completions.ts`와 `openai-responses.ts`, `anthropic-messages.ts`는 쓴다.
-- 이 파일이 던지는 "Server requested ... retry delay" 오류 문구는 2층의 재시도 대상 패턴(`"retry delay"`, `retry.ts:87`)에 들어 있다. 주석: "제공자가 요청한 대기 상한 실패는 바깥의 재시도 정책으로 흘러가서, 호출자가 대기를 사용자에게 보이거나 중단할 수 있게 한다(#1123)."
+- 이 파일이 던지는 "Server requested ... retry delay" 오류 문구는 2층의 재시도 대상 패턴(`"retry delay"`, `retry.ts:87`)에 들어 있다. 주석: "제공자가 요청한 대기 상한 실패는 바깥의 재시도 정책으로 흘러가서, 호출자가 대기를 사용자에게 보여 주거나 중단할 수 있게 한다(#1123)."
 
 ### 2.2 2층: `retry.ts`
 
@@ -102,7 +102,7 @@ produce() 로 AssistantMessage 를 얻는다
 | **`coding-agent`: 요약 호출** | `core/compaction/compaction.ts:614-638` | 대화 요약(compaction)과 브랜치 요약의 LLM 호출을 `retryAssistantCall`로 감싼다. 같은 `settings.retry` 예산을 쓴다(`agent-session.ts:3666-3669` 주석). |
 | **`durable` 패키지** | `harness/generation.ts:457-479`, `harness/compaction.ts:179` | `isContextOverflow`, `isRetryableAssistantError`, `retryDelayMs`를 직접 사용 |
 - `agent` 패키지의 `agent-loop.ts`에는 재시도 코드가 없다(`grep`으로 `retry` 판정 함수를 부르는 곳이 없음을 확인).
-- 3층으로 정리하면 **통신 코드(요청 재시도, 응답 시작 전) → `coding-agent`(응답 단위 재시도, 대기 이벤트로 화면에 표시)**다. 같은 일시 오류에 두 번 재시도가 겹칠 수 있는지(1층에서 `maxRetries`를 몇으로 넘기는지)는 확인하지 않았다(`미확인`).
+- 두 층으로 정리하면 **통신 코드(요청 재시도, 응답 시작 전) → `coding-agent`(응답 단위 재시도, 대기 이벤트로 화면에 표시)**다. 같은 일시 오류에 두 번 재시도가 겹칠 수 있는지(1층에서 `maxRetries`를 몇으로 넘기는지)는 확인하지 않았다(`미확인`).
 
 ## 3. 컨텍스트 크기
 
@@ -114,10 +114,11 @@ produce() 로 AssistantMessage 를 얻는다
 | `estimateMessageTokens(message)` | `:46-69` | 메시지 하나 추정. 이미지 한 장은 **4800글자 = 1200토큰**으로 침(`ESTIMATED_IMAGE_CHARS`). 도구 호출은 이름 + 인자 JSON 글자 수. 시스템 메시지는 도구 추가/제거 JSON까지 |
 | `estimateContextTokens(context)` | `:97-112` | **마지막 응답의 `usage` + 그 뒤에 추가된 메시지 추정** |
 
-`estimateContextTokens`의 요령(`:71-112`): 가장 최근 `assistant` 메시지의 **서버가 보고한 `usage.totalTokens`**를 기준으로 삼고, 그 뒤에 쌓인 메시지(`trailing`)만 글자 수로 추정해 더한다. 서버 값이 더 정확하기 때문이다. 단 아래 응답의 usage는 기준으로 쓰지 않는다.
+`estimateContextTokens`의 요령(`:71-112`): 가장 최근 `assistant` 메시지의 **서버가 보고한 `usage.totalTokens`**를 기준으로 삼고, 그 뒤에 쌓인 메시지(`trailing`)만 글자 수로 추정해 더한다. 서버 값이 더 정확하기 때문이다. 다만 아래 두 경우의 usage는 기준으로 쓰지 않는다.
 - `aborted`나 `error`로 끝난 응답
 - **그 응답 뒤에 더 늦은 시각의 메시지가 끼어든 경우**(주석: 압축 요약이 삽입되면 이전 응답의 usage는 지금의 앞부분을 설명하지 못한다)
-- 사용량 기록이 하나도 없으면 전체를 글자 수 / 4로 추정한다.
+
+기준으로 쓸 usage가 하나도 없으면 전체를 글자 수 / 4로 추정한다.
 
 **쓰이는 곳**: `api/simple-options.ts:17`의 `clampMaxTokensToContext`가 `model.contextWindow - 추정 토큰 - 4096`으로 **한 번에 받을 수 있는 출력 최대치를 자른다**(03-1 §3의 `buildBaseOptions`). 대화가 길수록 출력 한도가 줄어든다. `coding-agent`에도 같은 이름의 `estimateContextTokens`(`compaction.ts:196`, `AgentMessage` 기준)가 따로 있다(읽지 않음, `미확인`).
 
@@ -158,7 +159,7 @@ AI가 만든 도구 호출 인자가 도구의 스키마에 맞는지 확인한�
 - 오류 경로 표시는 `a.b.c` 형태이고, 필수 필드가 없으면 그 필드 이름까지 붙인다(`formatValidationPath`, `:282-293`).
 - `validateToolCall(tools, toolCall)`는 이름으로 도구를 찾고(없으면 `Tool "x" not found`) 위를 부른다(`:302-308`).
 - **쓰이는 곳**: `agent/src/agent-loop.ts:726`(`validateToolArguments(tool, preparedToolCall)`), `durable/harness/tool.ts:150`. 즉 도구를 실행하기 전의 마지막 관문이다.
-- `typebox`가 설치되어 있지 않아 **실제로 돌려 보지 못했다**(`미확인`). 위 설명은 코드 읽기이다.
+- `typebox`가 설치되어 있지 않아 **실제로 돌려 보지 못했다**(`미확인`). 위 설명은 코드를 읽고 정리한 것이다.
 
 ## 5. 오류 정리
 
@@ -166,7 +167,7 @@ AI가 만든 도구 호출 인자가 도구의 스키마에 맞는지 확인한�
 **문제**: 게이트웨이나 프록시 뒤에서 서버가 비정상 응답을 주면 SDK가 본문을 오류 메시지에 합쳐 주지 못해 `"403 status code (no body)"` 같은 불투명한 메시지가 된다. 본문은 SDK 오류 객체의 **SDK마다 다른 필드 이름**에 들어 있다.
 - `normalizeProviderError(error)` (`:38-54`)가 알려진 모양을 순서대로 본다.
   - 상태 코드: `statusCode`(Mistral) → `status`(`openai`, `@google/genai`) → `$metadata.httpStatusCode`(Bedrock) → `$response.statusCode`(Bedrock)
-  - 본문: `body` 문자열(Mistral) → `error` 객체(`openai`의 파싱된 본문) → `$response.body`(Bedrock). 빈 객체와 아직 읽지 않은 스트림은 본문이 아니라고 본다. **일반 객체(plain object)만** 본문으로 인정한다(주석 `:98-111`: AWS SDK의 `$response.body`는 HTTP 스트림 래퍼라서 문자열로 만들면 `{"_events":...}` 같은 쓰레기가 되어 진짜 메시지를 덮어쓴다).
+  - 본문: `body` 문자열(Mistral) → `error` 객체(`openai`의 파싱된 본문) → `$response.body`(Bedrock). 빈 객체와 아직 읽지 않은 스트림은 본문이 아니라고 본다. **일반 객체(plain object)만** 본문으로 인정한다(주석 `:98-111`: AWS SDK의 `$response.body`는 HTTP 스트림 래퍼라서 문자열로 만들면 `{"_events":...}` 같은 의미 없는 문자열이 되어 진짜 메시지를 덮어쓴다).
   - 본문은 4000글자(`MAX_PROVIDER_ERROR_BODY_CHARS`)로 자른다.
 - `formatProviderError(norm, prefix?)` (`:128-135`): 메시지에 본문이 이미 있거나 상태·본문을 못 찾았으면 메시지를 그대로, 아니면 `"<prefix> (<상태>): <본문>"`. §8 실험에서 `403 status code (no body)` + `error: {error:{message:"blocked by gateway"}}`가 `OpenAI API error (403): {"error":{"message":"blocked by gateway"}}`가 되었다.
 - **쓰이는 곳**: 03-1, 03-2, 03-3, 03-4의 통신 코드 `catch`(`formatProviderError(normalizeProviderError(error))`).

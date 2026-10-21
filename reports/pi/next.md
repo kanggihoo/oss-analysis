@@ -45,7 +45,7 @@
 - 실험: `artifacts/pi/agent-demos/` (`agent-flow-demo.ts`, `proxy-demo.ts`, `lib.ts`, `pi-ai-shim.ts`, `loader.mjs`, 출력 `*.2026-10-06.out`). 실행: `cd artifacts/pi/agent-demos && node --no-warnings --import ./register.mjs agent-flow-demo.ts`. `typebox@1.3.27`, `partial-json@0.1.7`은 **이 폴더에만** 설치(`.gitignore`에 `artifacts/**/node_modules/` 추가). `pi-ai-shim.ts`가 agent가 쓰는 ai 함수만 실제 소스에서 가져온다.
 - Q5·Q6 재검증: 본문 **일치**, 두 문서 머리에 재검증 메모 추가. Q7·Q8은 coding-agent 단계에서.
 - wiki: [[pi]]에 agent 절 추가, `stealable-pattern-hook-injected-loop-with-throw-contract`, `pi-agent-turn-end-decision-priority`, `wiki/index.md`, `wiki/log.md` 갱신 완료(wiki-lint 새 이슈 없음).
-- **알려진 구멍 → coding-agent에서 메워지는지 확인할 것**: ① 중단 시 `toolResult` 짝 불일치(05 F, `Agent`는 안 메움) ② 압축처럼 context를 교체하는 훅이 `state.messages`를 어떻게 갱신하나(`추론`) ③ 실패 run의 `agent_end.messages`가 `[failure]` 하나뿐 → 구독자가 `message_end`로 저장하는가 ④ 느린 구독자가 스트림을 늦춤 ⑤ `setDefaultStreamFn` 호출 위치(`sdk.ts:2`는 import만 확인)
+- **알려진 구멍 → coding-agent에서 메워지는지 확인할 것**: ① 중단 시 `toolResult` 짝 불일치(05 F, `Agent`는 안 메움) ② compaction처럼 context를 교체하는 hook이 `state.messages`를 어떻게 갱신하나(`추론`) ③ 실패 run의 `agent_end.messages`가 `[failure]` 하나뿐 → 구독자가 `message_end`로 저장하는가 ④ 느린 구독자가 스트림을 늦춤 ⑤ `setDefaultStreamFn` 호출 위치(`sdk.ts:2`는 import만 확인)
 
 ### 1.3 문서 위생 발견 (낡은 문서, 수정은 하지 않음)
 - `packages/telemetry/README.md:326,371,380`: 삭제된 `AGENT_TELEMETRY_SCHEMAS`를 `pi-agent-core`에서 가져온다고 적음
@@ -62,7 +62,7 @@
 
 ## 2. 앞으로 할 일 (순서대로)
 
-### 2.1 `agent` 나머지 — **완료** (02~05 작성, 2026-10-06)
+### 2.1 `agent` 나머지: **완료** (02~05 작성, 2026-10-06)
 
 ### 2.2 `coding-agent`
 - `core/sdk.ts` (`setDefaultStreamFn` `:39`, `new Agent` `:387-420`, ~~두 번째 `new Agent` 위치 확인~~ → 2026-10-15: `src`에는 `sdk.ts:387` 한 곳뿐)

@@ -32,7 +32,7 @@ type AgentMessage = Message | CustomAgentMessages[keyof CustomAgentMessages];
 ```
 - `Message`는 ai 패키지의 `system / user / assistant / toolResult` 메시지다(ai/01).
 - `CustomAgentMessages`(`:365`)는 기본적으로 빈 인터페이스다. 앱이 `declare module`로 필드를 추가하면(주석 예: `artifact`, `notification`) 그 값이 `AgentMessage`에 합쳐진다. 같은 이름의 인터페이스를 여러 곳에서 선언하면 합쳐지는 TypeScript 기능을 declaration merging이라 한다.
-- 빈 인터페이스의 `keyof`는 `never`이므로 아무도 확장하지 않으면 `AgentMessage`는 그냥 `Message`다. (TypeScript 규칙에서 `추론`, 실행 안 함.)
+- 빈 인터페이스의 `keyof`는 `never`이므로 아무도 확장하지 않으면 `AgentMessage`는 `Message`와 같다. (TypeScript 규칙에서 `추론`, 실행 안 함.)
 - 화면용 알림 같은 것을 대화 기록에 함께 보관하고 싶지만 AI에게는 보내면 안 될 때 쓴다. 그래서 AI에게 보내기 직전에 `convertToLlm`이 걸러낸다(§4.1).
 - 주석 예제의 모듈 이름이 `"@mariozechner/agent"`(`:357`)로 이전 패키지 이름이다. 실제 패키지는 `@earendil-works/pi-agent-core`이므로 주석이 낡았다(`코드 확인`).
 
@@ -145,7 +145,7 @@ ai의 `Tool<TParameters>`(이름, 설명, 매개변수 스키마로 이루어진
 | 등록 방법 | `Agent`의 필드에 대입 | `agent.subscribe(listener)` |
 | 용도 | 동작에 끼어드는 정책 | 화면 갱신, 로그, 저장 |
 
-예를 들어 도구를 실행하는 장면에서 `beforeToolCall`은 "실행해도 되는가"를 묻고 `{ block: true }`로 답하면 실행이 취소된다. 그 뒤 나가는 `tool_execution_end` 이벤트는 구독자에게 결과를 알릴 뿐 동작을 바꾸지 않는다. `coding-agent` 확장의 `pi.on("tool_call", ...)` 같은 이름은 `AgentEvent`가 아니라 훅의 몸체에 연결된 것이다([07-hooks](./07-hooks.md) §5).
+예를 들어 도구를 실행하는 장면에서 `beforeToolCall`은 "실행해도 되는가"를 묻고 `{ block: true }`로 답하면 실행이 취소된다. 그 뒤 나가는 `tool_execution_end` 이벤트는 구독자에게 결과를 알릴 뿐 동작을 바꾸지 않는다. `coding-agent` 확장의 `pi.on("tool_call", ...)` 같은 이름은 `AgentEvent`가 아니라 훅 함수 안에서 호출되는 확장 핸들러에 연결된다([07-hooks](./07-hooks.md) §5).
 
 | 묶음 | 이벤트 (필드) |
 |---|---|

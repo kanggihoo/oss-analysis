@@ -14,7 +14,7 @@
 
 | 개념 | 위치 | 의미 | 개수 |
 |---|---|---|---|
-| **api** (wire 프로토콜) | `src/api/*.ts` | HTTP 요청/SSE 파싱 방식. 예: `anthropic-messages`, `openai-completions`, `openai-responses`, `google-generative-ai`, `bedrock-converse-stream` | `KnownApi` 10종 (`types.ts:17`) |
+| **api** (wire 프로토콜) | `src/api/*.ts` | 네트워크로 주고받는 요청·응답 형식. HTTP 요청을 어떻게 만들고 SSE 응답을 어떻게 해석하나. 예: `anthropic-messages`, `openai-completions`, `openai-responses`, `google-generative-ai`, `bedrock-converse-stream` | `KnownApi` 10종 (`types.ts:17`) |
 | **provider** (벤더/계정) | `src/providers/*.ts` | baseUrl + 인증 방법 + 모델 목록 + 사용할 api의 조합 | 약 42개 (`*.models.ts` 42개) |
 
 - 하나의 api를 여러 provider가 재사용한다. 예를 들어 Groq, Cerebras, DeepSeek 같은 OpenAI 호환 벤더는 `openai-completions` api를 공유하고, 벤더별 차이는 `Model.compat` 설정(`OpenAICompletionsCompat`, `types.ts:787`)으로 조정한다. `코드 확인` (groq·cerebras·deepseek의 `api: openAICompletionsApi()`)

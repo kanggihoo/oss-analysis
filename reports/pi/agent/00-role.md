@@ -83,7 +83,7 @@ export * from "./types.ts";            // 타입들
 | `client/tsconfig.test.json:9`, `server/vitest.config.ts:19-20` | 테스트용 경로 별칭 |
 | `server/CHANGELOG.md:9` | "the package no longer depends on `@earendil-works/pi-agent-core`" |
 | `codemode/README.md`, `mcp/README.md` | 도구를 `AgentTool`로 감싸는 사용 예시(타입 import) |
-| `telemetry/README.md:326`, `:371`, `:380` | `AGENT_TELEMETRY_SCHEMAS`를 `pi-agent-core`에서 가져온다고 적혀 있다. 위 CHANGELOG에 따르면 텔레메트리 스키마는 이 패키지에서 삭제되었으므로 이 README는 낡았다. (`추론`: 실제 export 여부는 `index.ts`에서 확인, 위 2.2에 없음) |
+| `telemetry/README.md:326`, `:371`, `:380` | `AGENT_TELEMETRY_SCHEMAS`를 `pi-agent-core`에서 가져온다고 적혀 있다. 위 CHANGELOG에 따르면 텔레메트리 스키마는 이 패키지에서 삭제되었으므로 이 README는 낡았다. (`추론`: `index.ts`의 export 목록(위 2.2)에 없으므로 지금은 내보내지 않는 것으로 보인다) |
 
 ### 3.3 ai 패키지와 맞닿는 곳: `StreamFn` 계약 (`types.ts:19-37`)
 ```ts

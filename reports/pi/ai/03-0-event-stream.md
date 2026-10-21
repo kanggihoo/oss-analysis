@@ -2,7 +2,7 @@
 
 - **기준 commit**: `3874b3e98` / **분석일**: 2026-10-05
 - **선행 문서**: [01-types](./01-types.md) (`AssistantMessageEvent`, `AssistantMessage`)
-- **이어서 읽을 문서**: [03-1-api-anthropic](./03-1-api-anthropic.md), [03-2-api-openai-responses](./03-2-api-openai-responses.md), [03-4-api-openai-codex-legacy](./03-4-api-openai-codex-legacy.md) (둘 다 이 스트림 객체를 만들어서 `push`한다)
+- **이어서 읽을 문서**: [03-1-api-anthropic](./03-1-api-anthropic.md), [03-2-api-openai-responses](./03-2-api-openai-responses.md), [03-4-api-openai-codex-legacy](./03-4-api-openai-codex-legacy.md) (세 문서의 코드 모두 이 스트림 객체를 만들어서 `push`한다)
 - **읽은 파일**: `utils/event-stream.ts`(약 125줄 전체), `api/lazy.ts`, `agent/src/agent-loop.ts`(`:385-455`). 줄 번호는 모두 이 commit 기준이다.
 - **검증 수준**: 코드 읽기는 `코드 확인`. 이 파일을 그대로 불러서 생산자와 소비자를 돌리는 실험을 했다(`실행 확인`, §7). 실험 스크립트와 출력은 `artifacts/pi/ai-demos/event-stream-demo.ts`, `event-stream-demo.2026-10-05.log`에 있다.
 
@@ -11,7 +11,7 @@
 
 **먼저 정리할 오해 두 가지**
 - 이 스트림은 **SSE나 WebSocket 같은 네트워크 연결이 아니다.** 이 파일에는 네트워크 코드가 없다. 이벤트를 쌓아 두는 **메모리 안의 대기열**이다. 네트워크에서 읽는 코드는 `api/*.ts`에 있고, 읽은 결과를 이 객체에 `push`한다.
-- `streamSimple`이나 `stream`을 호출했을 때 돌려받는 것은 함수가 아니라 **이 클래스의 객체**다. `return stream(...)`의 괄호는 "`stream`을 호출한 결과를 돌려준다"는 뜻이다. 03-1 §1에서 `stream`이 함수 이름이면서 그 안의 변수 이름(`const stream = new AssistantMessageEventStream()`, `anthropic-messages.ts:578`)이기도 하니 구분해서 읽어야 한다.
+- `streamSimple`이나 `stream`을 호출했을 때 돌려받는 것은 함수가 아니라 **이 클래스의 객체**다. `return stream(...)`은 `stream`을 호출한 결과를 돌려준다는 뜻이다. 03-1 §1에서 `stream`은 함수 이름이면서 그 안의 변수 이름(`const stream = new AssistantMessageEventStream()`, `anthropic-messages.ts:578`)이기도 하다. 둘을 구분해서 읽어야 한다.
 
 ## 1. 한 장 요약
 ```
@@ -104,7 +104,7 @@ push(event: T): void {
 4. 있으면 그 소비자의 열쇠를 `{ value: event, done: false }`로 호출한다. 열쇠가 채우는 Promise는 소비자가 `await`하고 있던 것이라, 호출 즉시 소비자가 이어서 실행될 준비가 된다. `done: false`는 "끝이 아니고 이것이 다음 값"이라는 표준 형식이다.
 5. 없으면 대기열에 쌓는다.
 
-잠든 소비자가 있다는 것은 대기열이 비어 있다는 뜻(소비자는 대기열이 비었을 때만 잠들기 때문)이라서 4번이 대기열을 건너뛰어도 **순서는 유지된다.**
+소비자는 대기열이 비었을 때만 잠든다. 그래서 잠든 소비자가 있으면 대기열은 비어 있다. 4번이 대기열을 건너뛰어도 **순서는 유지된다.**
 
 ### 5.2 `end(result?)`: 닫는다 (`:54-63`)
 ```ts

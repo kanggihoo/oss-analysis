@@ -53,7 +53,7 @@
 - 스트림 A, B, C는 모두 `AssistantMessageEventStream` 객체(메모리 안의 대기열)이고 네트워크 연결이 아니다(03-0).
 
 ### 1.1 단계별 "어느 파일의 어느 줄인가" (기준 `28dcce2ba`, 경로는 모두 `packages/ai/src/` 기준)
-통신 코드는 Claude(`api/anthropic-messages.ts`)를 예로 든다. OpenAI 계열은 파일명과 줄이 다르지만 뼈대는 같다(03-2, 03-3). **줄 번호는 현재 파일을 직접 `grep`/`sed`로 다시 확인한 것이다**(`코드 확인`). 이 문서의 아래 절에서 이전 줄 번호가 보이면 `models.ts`는 약 +5줄 어긋난 것이므로 이 표를 기준으로 본다.
+통신 코드는 Claude(`api/anthropic-messages.ts`)를 예로 든다. OpenAI 계열은 파일명과 줄이 다르지만 뼈대는 같다(03-2, 03-3). **줄 번호는 현재 파일을 직접 `grep`/`sed`로 다시 확인한 것이다**(`코드 확인`). 아래 절에 이 표와 다른 줄 번호가 보이면 이전 commit 기준이라 `models.ts`는 약 +5줄 어긋난 것이다. 이 표를 기준으로 본다.
 
 | 번호 | 하는 일 | 파일 : 줄 | 이름 |
 |---|---|---|---|
@@ -88,7 +88,7 @@
 | ⑦ | 호출한 쪽이 C를 `for await`로 소비 | `packages/agent/src/agent-loop.ts:414` | `streamAssistantResponse` |
 | ⑧ | 최종 결과만 필요한 호출 | `models.ts:909-915` | `completeSimple` → `.result()` |
 
-**질문하신 "실제 호출 결과 → pi 이벤트 → 전달" 부분을 줄로 따라가면**: 서버 응답 읽기(`anthropic-messages.ts:663`) → 이벤트별 변환·`push`(`:737-:820`) → `done`+`end`(`:885-886`)가 스트림 A에서 일어나고, 이후 `api/lazy.ts:31-39`의 `forwardStream`이 같은 이벤트를 B, C로 옮긴다.
+**"실제 호출 결과 → pi 이벤트 → 전달" 구간을 줄로 따라가면**: 서버 응답 읽기(`anthropic-messages.ts:663`) → 이벤트별 변환·`push`(`:737-:820`) → `done`+`end`(`:885-886`)가 스트림 A에서 일어나고, 이후 `api/lazy.ts:31-39`의 `forwardStream`이 같은 이벤트를 B, C로 옮긴다.
 
 ## 2. 단계별 정리
 
@@ -118,7 +118,7 @@ streamSimple(model, context, options) {
 }
 ```
 - **`normalizeContext`**: `systemPrompt`와 `tools`를 맨 앞 `SystemMessage` 한 줄로 합친다. 이유는 회사마다 지침을 넣는 자리가 달라서 입력을 먼저 한 가지 모양으로 통일하기 위해서다(01 §2.3).
-- **`lazyStream`**: 인증 확정과 통신 코드 로딩이 시간이 걸리는 비동기 작업인데 `streamSimple`은 즉시 반환해야 해서, 빈 스트림(outer)을 먼저 돌려주고 나중에 생기는 진짜 스트림(inner)을 `forwardStream`으로 복사한다. 준비 중 실패는 던지지 않고 `error` 이벤트로 넣는다(03-0 §8.1).
+- **`lazyStream`**: 인증 확정과 통신 코드 로딩은 시간이 걸리는 비동기 작업이다. 그런데 `streamSimple`은 즉시 반환해야 한다. 그래서 빈 스트림(outer)을 먼저 돌려주고, 나중에 생기는 진짜 스트림(inner)을 `forwardStream`으로 복사한다. 준비 중에 실패하면 예외를 던지지 않고 `error` 이벤트로 넣는다(03-0 §8.1).
 
 ### ③ 인증을 확정한다 (`applyAuth`, `models.ts:842-875`)
 1. `getAuth(model, { apiKey, env, signal })` → `resolveProviderAuth`: **호출 옵션 `apiKey` > 저장된 credential > 환경변수** 순서(04 §4). 저장된 것이 있으면 환경변수는 보지 않고 갱신이 실패해도 환경변수로 넘어가지 않는다(04 §4.2).
@@ -144,7 +144,7 @@ streamSimple(model, context, options) {
 
 ### ⑦⑧ 호출한 쪽이 받는다
 - 이벤트는 A → B → C로 **두 번 복사**된다(`lazyStream`이 `lazyApi`와 `Models.stream` 두 곳에 있기 때문, 03-0 §8.1).
-- **`for await (const e of C)`**: 이벤트를 하나씩 받는다. 비어 있으면 열쇠를 맡기고 잠들고, 다른 코드가 실행된다(03-0 §6).
+- **`for await (const e of C)`**: 이벤트를 하나씩 받는다. 대기열이 비어 있으면 소비자가 열쇠를 맡기고 잠들며, 그동안 다른 코드가 실행된다(03-0 §6).
 - **`await C.result()`**: 최종 `AssistantMessage`. `done`/`error` 이벤트가 push되면 채워지고 **절대 reject하지 않는다**(03-0 §5.4).
 - **`models.completeSimple(...)`**: 이벤트를 꺼내지 않고 `.result()`만 기다리는 포장이다(`models.ts:909-915`).
 
@@ -198,7 +198,7 @@ streamSimple(model, context, options) {
 [+ 95ms] result(): stopReason=error, errorMessage=Provider is not configured: demo
 ```
 - **인증 실패는 예외가 아니라 `error` 이벤트와 `stopReason: "error"`로 전달된다.**
-- 이 호출에서는 `(지연 로딩) 통신 코드 모듈을 불러옴` 줄이 **나오지 않았다.** 인증 확정(③)이 통신 코드 선택과 로딩(④⑤)보다 먼저라서, 인증이 실패하면 통신 코드는 불러지지도 않는다.
+- 이 호출에서는 `(지연 로딩) 통신 코드 모듈을 불러옴` 줄이 **나오지 않았다.** 인증 확정(③)이 통신 코드 선택과 로딩(④⑤)보다 먼저라서, 인증이 실패하면 통신 코드를 불러오지도 않는다.
 - 이 호출 도중 직전 호출 1의 소비자가 `done` 이벤트를 찍은 것(`+89ms`)도 보인다. 호출 1의 `.result()`는 소비자가 `done`을 꺼내기 전에 이미 채워졌다(03-0 §7).
 
 ### 호출 3, 4

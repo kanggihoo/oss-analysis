@@ -34,12 +34,12 @@ pi                                       # 같은 쉘에서 실행
   | Amazon Bedrock | `AWS_PROFILE`, `AWS_ACCESS_KEY_ID`+`AWS_SECRET_ACCESS_KEY`, `AWS_BEARER_TOKEN_BEDROCK` 등 |
 - **환경변수 말고 키를 지정하는 다른 방법**(`docs/providers.md`, `core/resolve-config-value.ts`)
   - `/login`으로 저장한 키는 `auth.json`에 들어가고 **환경변수보다 우선**한다(§4.2).
-  - `auth.json`의 `key`에 `!`로 시작하는 **명령**을 적으면 키가 필요할 때 그 명령을 실행해서 출력값을 쓴다(예: `"key": "!security find-generic-password -ws 'anthropic'"`). 결과는 프로세스가 사는 동안 캐시한다(문서의 설명).
+  - `auth.json`의 `key`에 `!`로 시작하는 **명령**을 적으면 키가 필요할 때 그 명령을 실행해서 출력값을 쓴다(예: `"key": "!security find-generic-password -ws 'anthropic'"`). pi는 이 결과를 프로세스가 실행되는 동안 캐시한다(문서의 설명).
   - `key` 값은 명령, 환경변수 참조(`$NAME`, `${NAME}`), 일반 문자열 중 하나로 해석된다(`resolve-config-value.ts` 머리말과 템플릿 파서). 참조 문법의 세부는 읽지 않았다(`미확인`).
   - 저장된 API 키 credential에 `env` 객체를 넣으면 **그 provider에 한해 프로세스 환경변수보다 우선**한다(예: Cloudflare 계정 ID, 문서 예시).
 
 ## 2. OAuth 로그인 결과는 어디에 저장되는가 (`코드 확인`)
-브라우저 로그인이든 디바이스 코드 로그인이든 **마지막에는 똑같은 `OAuthCredential` 객체**(`{ type: "oauth", access, refresh, expires, ... }`)가 만들어지고, 그것이 같은 경로로 저장된다.
+브라우저 로그인이든 디바이스 코드 로그인이든 **마지막에는 똑같은 `OAuthCredential` 객체**(`{ type: "oauth", access, refresh, expires, ... }`)를 만들고, 같은 경로로 저장한다.
 ```
 브라우저 / 디바이스 코드 로그인  →  OAuthCredential
    → models.login()          (models.ts:756-811)
@@ -72,7 +72,7 @@ pi                                       # 같은 쉘에서 실행
 | **저장된 credential** (`/login`으로 저장한 API 키 또는 OAuth 토큰) | **`~/.pi/agent/auth.json`** (`PI_CODING_AGENT_DIR`로 변경 가능) | 그다음. 있으면 **환경변수는 보지 않는다** |
 | **환경변수** | pi를 실행하는 프로세스의 환경 (`export ...` 후 `pi`) | 저장된 것이 **없을 때만** |
 
-- 저장된 것이 있으면 환경변수를 몰래 대신 쓰지 않는다. 갱신이 실패하면 오류를 낸다(04 §4.2의 실험).
+- 저장된 것이 있으면 환경변수로 조용히 대체하지 않는다. 갱신이 실패하면 오류를 낸다(04 §4.2의 실험).
 - 환경변수 API 키는 어디에도 저장되지 않는다. `auth.json`에 있는 것은 `/login`으로 저장한 것뿐이다.
 
 ## 4. 읽지 않은 것 (`미확인`)

@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ai-job-search 모듈 구조",
+    "output": "structure.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "사용자",
+      "sublabel": "Claude Code CLI",
+      "pos": [
+        40,
+        260
+      ],
+      "size": [
+        130,
+        60
+      ]
+    },
+    {
+      "id": "cmds",
+      "type": "backend",
+      "label": "슬래시 명령·스킬",
+      "sublabel": ".claude/commands, skills",
+      "pos": [
+        250,
+        260
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "profile",
+      "type": "database",
+      "label": "프로필 문서",
+      "sublabel": "CLAUDE.md, 01~09-*.md",
+      "pos": [
+        250,
+        40
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "agents",
+      "type": "security",
+      "label": "읽기 전용 서브에이전트",
+      "sublabel": "fetcher / scorer / reviewer",
+      "pos": [
+        480,
+        260
+      ],
+      "size": [
+        160,
+        64
+      ]
+    },
+    {
+      "id": "guard",
+      "type": "security",
+      "label": "권한 가드",
+      "sublabel": "settings.json, security_guards.py",
+      "pos": [
+        480,
+        40
+      ],
+      "size": [
+        160,
+        64
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "backend",
+      "label": "포털 CLI",
+      "sublabel": ".agents/skills/*/cli (bun)",
+      "pos": [
+        720,
+        260
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "web",
+      "type": "external",
+      "label": "채용 포털·웹",
+      "sublabel": "LinkedIn, FreeHire 등",
+      "pos": [
+        940,
+        260
+      ],
+      "size": [
+        140,
+        60
+      ]
+    },
+    {
+      "id": "tools",
+      "type": "backend",
+      "label": "Python 도구",
+      "sublabel": "tools/*.py",
+      "pos": [
+        480,
+        480
+      ],
+      "size": [
+        160,
+        64
+      ]
+    },
+    {
+      "id": "state",
+      "type": "database",
+      "label": "상태 파일",
+      "sublabel": "seen_jobs.json, tracker.csv",
+      "pos": [
+        720,
+        480
+      ],
+      "size": [
+        150,
+        64
+      ]
+    },
+    {
+      "id": "latex",
+      "type": "backend",
+      "label": "CV·커버레터",
+      "sublabel": "LaTeX → PDF",
+      "pos": [
+        250,
+        480
+      ],
+      "size": [
+        150,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "로컬 작업공간 (포크한 비공개 레포)",
+      "wraps": [
+        "cmds",
+        "profile",
+        "agents",
+        "guard",
+        "cli",
+        "tools",
+        "state",
+        "latex"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-cmd",
+      "from": "user",
+      "to": "cmds",
+      "label": "/apply 등",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cmd-profile",
+      "from": "cmds",
+      "to": "profile",
+      "label": "읽기",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "cmd-agents",
+      "from": "cmds",
+      "to": "agents",
+      "label": "dispatch"
+    },
+    {
+      "id": "guard-agents",
+      "from": "guard",
+      "to": "agents",
+      "label": "허용 목록",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        560,
+        186
+      ]
+    },
+    {
+      "id": "agents-cli",
+      "from": "agents",
+      "to": "cli",
+      "label": "detail"
+    },
+    {
+      "id": "cli-web",
+      "from": "cli",
+      "to": "web",
+      "label": "HTTP"
+    },
+    {
+      "id": "agents-tools",
+      "from": "agents",
+      "to": "tools",
+      "label": "posting_guard",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        560,
+        406
+      ]
+    },
+    {
+      "id": "tools-state",
+      "from": "tools",
+      "to": "state",
+      "label": "읽기·쓰기"
+    },
+    {
+      "id": "cmd-latex",
+      "from": "cmds",
+      "to": "latex",
+      "label": "초안 작성",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        325,
+        406
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "오케스트레이션",
+      "items": [
+        "Python 앱이 아니라 Markdown 지시문이 흐름을 정의한다",
+        "실행은 Claude Code가 한다"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "결정적 도구",
+      "items": [
+        "중복 제거, 점수 계산, 게이트는 Python 코드"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "신뢰 경계",
+      "items": [
+        "웹 본문을 만지는 에이전트는 Edit/Write 도구가 없다"
+      ]
+    }
+  ]
+}

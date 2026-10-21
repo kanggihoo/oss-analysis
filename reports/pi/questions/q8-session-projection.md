@@ -42,7 +42,7 @@
 
 1. **경로 (`buildSessionPath`, :390)**: `leafId`에서 `parentId`를 따라 root까지 올라간 뒤 뒤집는다. 현재 가지에 속한 entry만 남는다.
 2. **설정 (`getSessionContextSettings`, :418)**: 경로에서 마지막 `thinking_level_change`와 마지막 모델을 찾는다. 모델은 `model_change`나 assistant 메시지의 provider/model 중 나중에 나온 것을 쓴다.
-3. **compaction으로 자르기 (`buildContextEntries`, :476)**: 경로에서 **가장 최근 compaction**을 찾는다. 결과는 다음 순서로 조립된다. 그보다 오래된 entry는 버린다.
+3. **compaction으로 자르기 (`buildContextEntries`, :476)**: 경로에서 **가장 최근 compaction**을 찾는다. `firstKeptEntryId`보다 앞선 entry는 버리고, 결과를 다음 순서로 조립한다.
    - 그 compaction entry
    - compaction 이전 entry 중 `firstKeptEntryId`부터의 것 (system 메시지 제외)
    - compaction 이후의 entry 전부
