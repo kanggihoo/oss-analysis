@@ -36,6 +36,8 @@ updated: YYYY-MM-DD
 
 ## 4. 다음에 볼 파일 및 함수 (Next Entry Points)
 
+다음에 쓸 기능 스펙이 있으면 먼저 적는다: `<지도의 기능 이름>` → `capabilities/<slug>.md` · 막힌 점 `<...>`
+
 | 대상 파일 경로 | 함수 / 클래스 | 확인 목적 |
 |---|---|---|
 | `src/core/dispatcher.ts` | `dispatch()` | 이벤트 전달 및 핸들러 매핑 방식 검증 |

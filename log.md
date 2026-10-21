@@ -495,3 +495,9 @@
 - Haiku 서브에이전트 10개(파일 2~4개씩)가 `artifacts/hyperframes/prompt-guide/`를 번역해 `official-ko/hyperframes/`에 같은 디렉터리 구조로 저장. 26개 파일에 공통인 `DocsVideo` 컴포넌트 코드(약 250줄)는 번역 대상에서 빼고 플레이스홀더로 바꿨다가 번역 후 원본 그대로 복원.
 - 검증: 원문 대비 제목·코드 펜스·표 행·목록 항목·JSX 태그 수, 코드 블록 내용, URL 집합이 34개 모두 일치. 예외 1건: 묶음 0이 2개 파일의 `llms.txt` URL을 `.com`→`.ai`로 바꿔서 직접 되돌림. 줄 수는 일부 파일에서 문단 줄바꿈을 합쳐 줄었음(내용 누락 아님).
 - 번역 품질(용어 일관성, 어색한 문장)은 검수하지 않음.
+
+## [2026-10-22] workflow | 기능 스펙 절차 개편: 기능 지도 → 범위 승인 → 원본 동작 스펙
+- Codex(gpt-6.1-sol)와 11라운드 토론, defuddle(`9db7260`)로 지도·하위 스펙 시뮬레이션(scratch, reports 미작성). 지도 일부(추출기 등록 24개, `parseAsync` 분기)는 원본과 대조.
+- 바꾼 것: `OSS_ANALYSIS_WORKFLOW.md` 서두·1~6장(읽기 기본값·제외 목록, 기능 지도, 부속 서비스 포함 여부를 묻는 범위 승인 단계, 원본 동작 스펙, C-ID 코드 참조, 통합 검토, 보고 2단), 7장 검증 수준 R-ID 단위. `SCHEMA.md` `depends`·`status`·`sources`. 템플릿 capability-spec(A/B·채택 열·클린룸 제거, 1부 동작/2부 근거/적용 메모), capability-request(지도 행 지시문, 재구현 제공 범위), overview(라이선스·범위·기능 지도), request(스펙 범위), next(다음 기능). `AGENTS.md` 라우팅.
+- 기존 claude-devtools 스펙 2개는 이전 형식 그대로 두고, 다음 수정 때 옮긴다.
+- 스킬 `oss-repo-spec` 추가(`.agents/skills/oss-repo-spec/SKILL.md`, `.claude/skills/`에 심볼릭 링크): 위 절차를 기준 고정 → 지도 → 구조도 → 범위 승인(멈춤) → 기능별 스펙 → 통합 검토 순서로 실행.
