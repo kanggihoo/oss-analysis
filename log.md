@@ -515,3 +515,6 @@
 - 바꾼 것: `OSS_ANALYSIS_WORKFLOW.md` 서두·1~6장(읽기 기본값·제외 목록, 기능 지도, 부속 서비스 포함 여부를 묻는 범위 승인 단계, 원본 동작 스펙, C-ID 코드 참조, 통합 검토, 보고 2단), 7장 검증 수준 R-ID 단위. `SCHEMA.md` `depends`·`status`·`sources`. 템플릿 capability-spec(A/B·채택 열·클린룸 제거, 1부 동작/2부 근거/적용 메모), capability-request(지도 행 지시문, 재구현 제공 범위), overview(라이선스·범위·기능 지도), request(스펙 범위), next(다음 기능). `AGENTS.md` 라우팅.
 - 기존 claude-devtools 스펙 2개는 이전 형식 그대로 두고, 다음 수정 때 옮긴다.
 - 스킬 `oss-repo-spec` 추가(`.agents/skills/oss-repo-spec/SKILL.md`, `.claude/skills/`에 심볼릭 링크): 위 절차를 기준 고정 → 지도 → 구조도 → 범위 승인(멈춤) → 기능별 스펙 → 통합 검토 순서로 실행.
+
+## [2026-10-22] delete | CodeWiki, e2e, folo, jev-ultrafast, knowledge-catalog, rsshub
+- Removed `repos/`, `reports/`, `artifacts/`, `deepwiki-ko/` entries of these six repos at user request, and their rows from `index.md`. Earlier log entries are kept as history.

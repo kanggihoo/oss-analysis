@@ -14,17 +14,12 @@
 | cc-switch | `d35726e` | [overview](reports/cc-switch/overview.md) | — |
 | codeburn | `9a40cc6` | [overview](reports/codeburn/overview.md) | — |
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
-| CodeWiki | `3e3d848` | [overview](reports/CodeWiki/overview.md) | — |
 | context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |
-| e2e | `dbdec70` | [overview](reports/e2e/overview.md) | — |
-| folo | `44f0e5d` | [overview](reports/folo/overview.md) | — |
 | Graft | `f9e6539` | [overview](reports/Graft/overview.md) | — |
 | hyperframes | `b7fa007` | [overview](reports/hyperframes/overview.md) | — |
-| jev-ultrafast | `1231850` | [overview](reports/jev-ultrafast/overview.md) | — |
 | mitmproxy | `7735597` | [overview](reports/mitmproxy/overview.md) | — |
 | pi | `4259686`, `ai`·`agent` 패키지는 `3874b3e` | [overview](reports/pi/overview.md) | — |
 | rea | `60c0880` | [overview](reports/rea/overview.md) | — |
-| rsshub | `0a4ecdb` | [overview](reports/rsshub/overview.md) | — |
 | Scrapling | `7a68493` | [overview](reports/Scrapling/overview.md) | — |
 | searxng | `0ce72dd` | [overview](reports/searxng/overview.md) | — |
 | skills-manager | `e6dcedf` | [overview](reports/skills-manager/overview.md) | — |
@@ -39,7 +34,6 @@
 | agent-browser | — | [initial-capture](reports/agent-browser/initial-capture.md) |
 | defuddle | — | [initial-capture](reports/defuddle/initial-capture.md) |
 | insane-search | — | [initial-capture](reports/insane-search/initial-capture.md) |
-| knowledge-catalog | — | [initial-capture](reports/knowledge-catalog/initial-capture.md) |
 | obsidian-clipper | — | [initial-capture](reports/obsidian-clipper/initial-capture.md) |
 | peerjs | — | [initial-capture](reports/peerjs/initial-capture.md) |
 | uptime-kuma | `b4ce005` | [initial-capture](reports/uptime-kuma/initial-capture.md) |
