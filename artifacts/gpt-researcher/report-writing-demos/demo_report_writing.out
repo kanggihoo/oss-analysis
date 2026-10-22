@@ -1,0 +1,199 @@
+# run 2026-10-22: python demo_report_writing.py  (offline, fake LLM; see the docstring of demo_report_writing.py for what is real and what is replaced)
+Python-Markdown 3.10.3 from C:\Users\SSAFY\AppData\Local\uv\cache\archive-v0\0NDFaUedZ9HAdUJ4\Lib\site-packages\markdown\__init__.py
+
+======== A. markdown_processing.py (real code, real Python-Markdown)
+[{"level": 1, "text": "Title", "children": [{"level": 2, "text": "Section A", "children": [{"level": 3, "text": "Sub A1"}]}, {"level": 2, "text": "Section B (<a href=\"http://x.y\">cite</a>)"}]}, {"level": 1, "text": "Setext H1", "children": [{"level": 4, "text": "Deep"}, {"level": 2, "text": "Section A"}]}]
+  [PASS] A-01 extract_headers: nested by relative level, children only when present
+  [PASS] A-02 header text is inner HTML, not plain text (link stays <a>)
+  [PASS] A-03 level jump H1 -> H4 makes the H4 a direct child of the last H1 (setext H1 included)
+  [PASS] A-04 duplicate header text is kept, not merged
+  [PASS] A-05 extract_headers('') == []
+  [PASS] A-05 extract_headers(None) == []
+  [PASS] A-05 extract_headers(5) == []
+  [PASS] A-05 extract_headers(b'x') == []
+  [PASS] A-06 text without header -> []
+  [PASS] A-07 empty header '#' gives text ''
+  [PASS] A-08 trailing hashes are dropped by Python-Markdown
+fence case headers: [{"level": 1, "text": "T"}, {"level": 1, "text": "a comment", "children": [{"level": 2, "text": "S"}]}]
+  [PASS] A-09 code fence is NOT recognised: '# a comment' inside ``` becomes a header
+  [PASS] A-10 header inside a list item / blockquote is found
+[{"section_title": "Title", "written_content": "Intro para."}, {"section_title": "Section A", "written_content": "text a"}, {"section_title": "Sub A1", "written_content": "text a1 bold"}, {"section_title": "Section B (<a href=\"http://x.y\">cite</a>)", "written_content": "text b"}, {"section_title": "Setext H1", "written_content": "para"}, {"section_title": "Deep", "written_content": "x"}, {"section_title": "Section A", "written_content": "dup"}]
+  [PASS] A-11 extract_sections: one entry per header with non-empty body, flat list in document order
+  [PASS] A-12 body tags stripped (**bold** -> bold); title keeps HTML
+[{"section_title": "B", "written_content": "b text"}, {"section_title": "C", "written_content": "c text &amp; x a &lt; b"}]
+  [PASS] A-13 text before the first header is dropped; a header with an empty body (A) is dropped
+  [PASS] A-14 entities stay escaped in body ('&' -> &amp;, '<' -> &lt;), tags removed
+  [PASS] A-15 body of several paragraphs: tags removed, paragraphs joined by the newline between tags
+  [PASS] A-16 header written as raw <h2 id='x'> html is a header for extract_headers but not for extract_sections
+  [PASS] A-17 extract_sections('') == []
+  [PASS] A-17 extract_sections(None) == []
+  [PASS] A-17 extract_sections(5) == []
+'## Table of Contents\n\n- Title\n    - Section A\n        - Sub A1\n    - Section B (<a href="http://x.y">cite</a>)\n- Setext H1\n    - Deep\n    - Section A\n'
+  [PASS] A-18 table_of_contents: '## Table of Contents\n\n' then '- text' lines, 4 spaces per depth
+  [PASS] A-19 indent follows tree depth, not the H-number (H4 under H1 is depth 1)
+  [PASS] A-20 no headers -> only the title line
+  [PASS] A-21 non-str input -> '' (not the title line)
+  [PASS] A-22 empty header gives a bare '- ' line
+'# R\n\n\n## References\n\n- [https://a.example/y](https://a.example/y)\n- [https://b.example/x](https://b.example/x)\n'
+  [PASS] A-23 add_references: '\n\n\n## References\n\n' + '- [url](url)\n' per url, sorted ascending
+  [PASS] A-24 result is deterministic for equal sets
+  [PASS] A-25 empty set -> heading appended with no entries
+  [PASS] A-26 visited_urls None -> report unchanged
+  [PASS] A-27 report None -> '' + references; non-str report -> str(report)
+  [PASS] A-28 a list is accepted and NOT de-duplicated (only sets dedupe)
+  [PASS] A-29 unsortable url set (mixed types): exception swallowed, report returned unchanged, message printed  -> Encountered exception in adding source urls : '<' not supported between instances of 'str' and 'int'
+  [PASS] A-30 URLs are written verbatim (no escaping, no validation)
+  [PASS] A-31 a str is iterated per character
+
+======== B. get_prompt_by_report_type and what each prompt receives (real prompts.py)
+  'research_report'                -> generate_report_prompt               warnings=[]
+  'resource_report'                -> generate_resource_report_prompt      warnings=[]
+  'outline_report'                 -> generate_outline_report_prompt       warnings=[]
+  'custom_report'                  -> generate_custom_report_prompt        warnings=[]
+  'subtopic_report'                -> generate_subtopic_report_prompt      warnings=[]
+  'deep'                           -> generate_deep_research_prompt        warnings=[]
+  'detailed_report'                -> generate_report_prompt               warnings=['Invalid report type: detailed_report.']
+  'bogus'                          -> generate_report_prompt               warnings=['Invalid report type: bogus.']
+  ''                               -> generate_report_prompt               warnings=['Invalid report type: .']
+  <ReportType.ResearchReport: 'research_report'> -> generate_report_prompt               warnings=['Invalid report type: ReportType.ResearchReport.']
+  [PASS] B-01 research_report -> generate_report_prompt, no warning
+  [PASS] B-01 resource_report -> generate_resource_report_prompt, no warning
+  [PASS] B-01 outline_report -> generate_outline_report_prompt, no warning
+  [PASS] B-01 custom_report -> generate_custom_report_prompt, no warning
+  [PASS] B-01 subtopic_report -> generate_subtopic_report_prompt, no warning
+  [PASS] B-01 deep -> generate_deep_research_prompt, no warning
+  [PASS] B-02 detailed_report has no entry: UserWarning + falls back to generate_report_prompt
+  [PASS] B-03 unknown string and '' also fall back with a warning
+  [PASS] B-04 the ReportType enum member itself (not .value) is NOT a key: warning + fallback
+  [PASS] B-05 mapping is a dict of 6 entries (detailed_report absent)
+  research_report  {'context': True, 'question': True, 'words': True, 'language': True, 'fmt': True, 'tone': True, 'web_vs_local_differ': True, 'date_line': True}
+  resource_report  {'context': True, 'question': True, 'words': True, 'language': True, 'fmt': False, 'tone': False, 'web_vs_local_differ': True, 'date_line': False}
+  outline_report   {'context': True, 'question': True, 'words': True, 'language': False, 'fmt': False, 'tone': False, 'web_vs_local_differ': False, 'date_line': False}
+  custom_report    {'context': True, 'question': True, 'words': False, 'language': False, 'fmt': False, 'tone': False, 'web_vs_local_differ': False, 'date_line': False}
+  deep             {'context': True, 'question': True, 'words': True, 'language': True, 'fmt': True, 'tone': True, 'web_vs_local_differ': True, 'date_line': True}
+  subtopic_report  {'context': True, 'question': True, 'words': True, 'language': True, 'fmt': True, 'tone': True, 'headers': True, 'written': True, 'main': True}
+  [PASS] B-06 research_report prompt uses context, question, words, language, MLA9 format, tone
+  [PASS] B-07 resource_report uses words and language but NOT format or tone
+  [PASS] B-08 outline_report uses words only (no language, no format, no tone)
+  [PASS] B-09 custom_report prompt is just context + query (no words/language/format/tone)
+  [PASS] B-10 deep prompt uses words, language, format, tone
+  [PASS] B-11 subtopic prompt uses existing headers, written contents, main topic, words, language, format, tone
+  [PASS] B-12 report_source != 'web' switches the reference paragraph (research/resource/deep); outline and custom ignore it
+  [PASS] B-13 research_report: 'web' -> source URLs wording; hybrid/static/anything else -> document names wording
+  [PASS] B-14 research_report with tone=None omits the tone sentence
+  [PASS] B-15 defaults when the generator is called without options: 1000 words, 'apa', 'english'
+  [PASS] B-16 subtopic prompt: report_format is upper-cased, research prompt keeps it as given
+
+======== C. generate_report (real code, fake LLM)
+{'model': 'fake-model', 'temperature': 0.35, 'llm_provider': 'fake', 'stream': True, 'websocket': None, 'max_tokens': 12000, 'llm_kwargs': {}, 'cost_callback': <function <lambda> at 0x0000022F76B4FC40>}
+  [PASS] C-01 returns the LLM text
+  [PASS] C-02 call: system=agent_role_prompt, user=prompt; temperature 0.35; stream True; smart model/provider/token limit
+  [PASS] C-03 research_report prompt carries context, query, 1200 words, APA, tone sentence, language, date line
+  [PASS] C-04 custom_report without custom_prompt: user message == '"CTX"\n\nMY OWN INSTRUCTION' (query is the instruction)
+  [PASS] C-05 custom_prompt wins over research_report: 'CUSTOM PROMPT\n\nContext: CTX'
+  [PASS] C-05 custom_prompt wins over resource_report: 'CUSTOM PROMPT\n\nContext: CTX'
+  [PASS] C-05 custom_prompt wins over outline_report: 'CUSTOM PROMPT\n\nContext: CTX'
+  [PASS] C-05 custom_prompt wins over custom_report: 'CUSTOM PROMPT\n\nContext: CTX'
+  [PASS] C-05 custom_prompt wins over deep: 'CUSTOM PROMPT\n\nContext: CTX'
+  [PASS] C-06 custom_prompt is IGNORED for subtopic_report (subtopic prompt used)
+  [PASS] C-07 subtopic prompt: query is the subtopic, existing headers / written contents inserted as Python list repr
+  [PASS] C-08 subtopic prompt: 1200 words (cfg.total_words overrides the prompt default 800), Formal-free Objective tone
+  [PASS] C-09 existing_headers / relevant_written_contents / main_topic are ignored by non-subtopic prompts
+  [PASS] C-10 report_type 'detailed_report' reaches generate_report -> research_report prompt (with a UserWarning)
+  [PASS] C-11 list context is interpolated as Python repr: "['alpha\nbeta', 'gamma']" (escaped, quoted)  -> Information: "['alpha\nbeta', 'gamma']"
+  [PASS] C-12 generate_report itself has no empty-context guard (prompt with empty context is sent)
+  [PASS] C-24 generate_report takes format/words/language from cfg and tone from its argument; model and max_tokens from cfg
+AVAILABLE IMAGES:
+You have the following pre-generated images available. Embed them in relevant sections of your report using the exact markdown syntax provided:
+
+- Image 1: ![T1](http://i/1.png) - Intro
+- Image 2: ![ALT2](http://i/2.png) - General
+- Image 3: ![Illustration](http://i/3.png) - General
+
+Place each image on its own line after the relevant section header or paragraph. Use all available images where they add value to the content.
+  [PASS] C-13 images block appended after the prompt; only dicts with non-empty url; numbered 1..n over valid rows
+  [PASS] C-14 alt text order: title, then alt_text, then 'Illustration'; hint defaults to 'General'
+  [PASS] C-15 no valid image -> no AVAILABLE IMAGES block
+  [PASS] C-16 available_images=None -> treated as []
+  [PASS] C-17 image block is also appended after a custom_prompt
+  [PASS] C-18 first LLM call raises -> one more call, same settings, ONE user message '<role>\n\n<content>'; its text is returned
+  [PASS] C-19 both calls raise -> returns '' (no exception), message printed to stdout with the second error only  -> Error in generate_report: boom2
+  [PASS] C-20 cost_callback is passed to both attempts (fake calls it only on success: 1 call)
+  [PASS] C-21 extra **kwargs are forwarded to the LLM call
+  [PASS] C-22 prompt construction errors are outside the try: tone is a str -> AttributeError, 0 LLM calls
+  [PASS] C-23 subtopic prompt with tone=None -> AttributeError (tone.value is unconditional); research_report with tone=None works
+
+======== D. introduction, conclusion, draft titles (real code, fake LLM)
+{'model': 'fake-model', 'temperature': 0.25, 'llm_provider': 'fake', 'stream': True, 'websocket': 'WSMARK', 'max_tokens': 12000, 'llm_kwargs': {}, 'cost_callback': <function <lambda> at 0x0000022F76B4F4C0>}
+  [PASS] D-01 introduction: system=role, temperature 0.25, stream True, websocket forwarded, smart model
+  [PASS] D-02 introduction prompt: context first, query, 'H1 heading', language from config; report_format is NOT passed (always APA)
+  [PASS] D-03 introduction ignores tone and total_words
+  [PASS] D-04 conclusion: report body as context, 2-3 paragraphs, '## Conclusion' title rule, language, APA fixed
+  [PASS] D-05 introduction: LLM error -> '' (no retry here, one call, no exception)
+  [PASS] D-05 conclusion: LLM error -> '' (no retry here, one call, no exception)
+  [PASS] D-06 draft titles: split on '\n', websocket NOT forwarded (None), temperature 0.25
+  [PASS] D-07 draft titles: error -> []
+
+======== E. ReportGenerator.write_report (real skills/writer.py, fake researcher and LLM)
+  [PASS] E-01 normal call returns the LLM text; add_costs is the cost_callback
+  [PASS] E-02 empty/blank context '': apology string returned, 0 LLM calls, no cost
+  [PASS] E-02 empty/blank context []: apology string returned, 0 LLM calls, no cost
+  [PASS] E-02 empty/blank context None: apology string returned, 0 LLM calls, no cost
+  [PASS] E-02 empty/blank context '  \n ': apology string returned, 0 LLM calls, no cost
+  [PASS] E-02 empty/blank context ['', '  ']: apology string returned, 0 LLM calls, no cost
+  [PASS] E-02 empty/blank context 0: apology string returned, 0 LLM calls, no cost
+  apology text: I could not gather any source material for "Q?". No sources were retrieved (searches may have returned nothing or been blocked), so I am not able to produce a reliable, sourced report.
+  [PASS] E-03 list context with a non-str element: TypeError escapes (the emptiness check does '\n'.join)  -> sequence item 0: expected str instance, dict found
+  [PASS] E-04 dict context passes the guard through str() and is interpolated as repr
+  [PASS] E-05 ext_context wins over researcher.context
+  [PASS] E-06 falsy ext_context '' -> researcher.context used
+  [PASS] E-06 falsy ext_context [] -> researcher.context used
+  [PASS] E-06 falsy ext_context None -> researcher.context used
+  [PASS] E-07 ext_context rescues an empty researcher.context (guard sees the chosen context)
+  [PASS] E-08 subtopic_report: query -> current_subtopic, parent_query -> main_topic, headers/contents inserted
+  [PASS] E-09 non-subtopic report_type: existing_headers / relevant_written_contents never reach the prompt
+  [PASS] E-10 role set after ReportGenerator construction is still used (re-read at call time)
+  [PASS] E-11 cfg.agent_role (AGENT_ROLE) beats researcher.role
+  [PASS] E-12 no role anywhere: system message is the literal string 'None'
+  [PASS] E-13 report_type is a snapshot taken at construction (later change not used by the prompt)
+  [PASS] E-14 researcher.kwargs are forwarded to the LLM call
+  [PASS] E-15 custom_prompt arrives through write_report
+  events: [('images', 'selected_images'), ('logs', 'images_available'), ('logs', 'writing_report'), ('logs', 'report_written')]
+  [PASS] E-16 verbose+websocket+images: selected_images, images_available, writing_report, report_written in this order
+  [PASS] E-17 selected_images event: output = json string of scraped image URLs, metadata = the list (scraped images, not generated ones)
+  [PASS] E-18 verbose=False: only the selected_images event is sent (it ignores verbose)
+  [PASS] E-19 no scraped images: no selected_images event
+  [PASS] E-20 empty context: images event IS sent (before the guard), but no 'logs' events and no LLM call
+  [PASS] E-21 LLM failure: write_report returns '' and still sends 'report_written'
+  [PASS] E-22 the LLM call receives the researcher's websocket (the provider streams paragraphs to it)
+  [PASS] E-23 write_introduction uses researcher.context (not an argument), role, kwargs, add_costs, websocket
+  [PASS] E-24 write_report_conclusion uses the report passed in, not researcher.context
+  [PASS] E-25 write_introduction has NO empty-context guard (LLM is called)
+  [PASS] E-26 intro events: writing_introduction, introduction_written (verbose only)
+
+======== F. agent.py methods (source cut out with ast, run on a fake self)
+  extracted _log_event (agent.py:323-341)
+  extracted write_report (agent.py:463-504)
+  extracted write_report_conclusion (agent.py:506-518)
+  extracted write_introduction (agent.py:520-529)
+  extracted add_costs (agent.py:785-806)
+  steps: [('writing_report', {'existing_headers': [], 'context_source': 'internal', 'available_images_count': 0}), ('report_completed', {'report_length': 8, 'images_embedded': 0})]
+  [PASS] F-01 write_report: sets _current_step='report_writing', passes defaults to the generator, returns its text<string>:18: RuntimeWarning: coroutine '_log_event' was never awaited
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+
+  [PASS] F-02 log_handler events: writing_report {existing_headers, context_source 'internal', available_images_count}, then report_completed {report_length, images_embedded}
+  [PASS] F-03 ext_context passed through; context_source 'external'
+  [PASS] F-04 falsy ext_context '': falls back to self.context and is logged as 'internal'
+  [PASS] F-04 falsy ext_context []: falls back to self.context and is logged as 'internal'
+  [PASS] F-04 falsy ext_context None: falls back to self.context and is logged as 'internal'
+  [PASS] F-05 available_images (made earlier by conduct_research) is passed as is; images_embedded logs len(input), not the number actually embedded
+  [PASS] F-06 no log_handler: write_report still works
+  [PASS] F-07 write_introduction / write_report_conclusion do NOT change _current_step; log steps writing_introduction/introduction_completed/writing_conclusion/conclusion_completed
+  [PASS] F-08 add_costs adds to research_costs and to step_costs[_current_step]
+  [PASS] F-09 add_costs('1') -> ValueError
+  [PASS] F-09 add_costs(None) -> ValueError
+  [PASS] F-09 add_costs([1]) -> ValueError
+  [PASS] F-10 add_costs with a log_handler calls self._log_event(...) WITHOUT await: coroutine never runs, no 'cost_update' step is recorded  -> ["coroutine '_log_event' was never awaited"]
+
+======== SUMMARY
+  140 PASS / 0 FAIL of 140 checks

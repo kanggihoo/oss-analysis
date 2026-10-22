@@ -1,0 +1,5 @@
+True same filename -> same hash
+False url param differs -> differs
+True empty filename collapse
+['http://old/10.png', 'http://s/b.png', 'http://s/d.png', 'http://s/e.png']
+['http://old/10.png', 'http://s/b.png', 'http://s/d.png', 'http://s/e.png', 'http://s/a.png', 'http://s/c.png']

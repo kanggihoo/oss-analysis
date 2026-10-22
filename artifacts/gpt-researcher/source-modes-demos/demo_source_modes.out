@@ -1,0 +1,223 @@
+# run 2026-10-22, Python 3.12.13, python -I demo_source_modes.py (stubs: langchain_core, langchain_community loaders, aiohttp, azure.storage.blob, json_repair/typing_extensions/provider lists for Config, recorders for retriever/scraper/select_context; see script docstring). Temp paths are in the session scratchpad.
+
+======== 0. ReportSource enum (real gpt_researcher/utils/enum.py)
+  values: [('Web', 'web'), ('Local', 'local'), ('Azure', 'azure'), ('LangChainDocuments', 'langchain_documents'), ('LangChainVectorStore', 'langchain_vectorstore'), ('Static', 'static'), ('Hybrid', 'hybrid')]
+
+======== 1. DocumentLoader(path).load() on a directory (stub langchain loaders)
+  error: None
+    url='B.TXT'      raw_content='upper-case extension' keys=['raw_content', 'url']
+    url='a.txt'      raw_content='alpha text' keys=['raw_content', 'url']
+    url='a.txt'      raw_content='same basename, different folder' keys=['raw_content', 'url']
+    url='c.txt'      raw_content='nested file' keys=['raw_content', 'url']
+    url='doc.pdf'    raw_content='[stub pdf page 1 of doc.pdf]' keys=['raw_content', 'url']
+    url='doc.pdf'    raw_content='[stub pdf page 2 of doc.pdf]' keys=['raw_content', 'url']
+    url='notes.md'   raw_content='# Title\nmd body' keys=['raw_content', 'url']
+    url='page.html'  raw_content='<html><body>hi</body></html>' keys=['raw_content', 'url']
+  count: 8
+  loader constructors called per file (name -> count): {'B.TXT': 12, 'README': 12, 'a.txt': 24, 'c.txt': 12, 'data.xyz': 12, 'doc.pdf': 12, 'empty.txt': 12, 'notes.md': 12, 'page.html': 12}
+  distinct loader classes constructed for data.xyz: ['BSHTMLLoader', 'PyMuPDFLoader', 'TextLoader', 'UnstructuredCSVLoader', 'UnstructuredEPubLoader', 'UnstructuredExcelLoader', 'UnstructuredMarkdownLoader', 'UnstructuredPowerPointLoader', 'UnstructuredWordDocumentLoader']
+
+======== 1b. DocumentLoader with a list of paths
+  error: None
+  urls: ['a.txt', 'c.txt']
+  list with no valid file -> error: ValueError('🤷 Failed to load any documents!')
+
+======== 1c. DocumentLoader failure cases
+  nonexistent directory: ValueError('🤷 Failed to load any documents!')
+  empty directory: ValueError('🤷 Failed to load any documents!')
+  path of invalid type (int): ValueError('Invalid type for path. Expected str, bytes, os.PathLike, or list thereof.')
+    [stdout of real code] Failed to load md document: C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\notes.md
+    [stdout of real code] stub: UnstructuredMarkdownLoader could not parse the file
+  md loader .load() raises -> error: None
+  md loader .load() raises -> urls still loaded: ['B.TXT', 'a.txt', 'a.txt', 'c.txt', 'doc.pdf', 'doc.pdf', 'page.html']
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\a.txt
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\B.TXT
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\data.xyz
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\doc.pdf
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\empty.txt
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\notes.md
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\page.html
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\README
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\sub\a.txt
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+    [stdout of real code] Failed to load document : C:\Users\SSAFY\AppData\Local\Temp\claude\C--Users-SSAFY-Desktop-oss-analysis\541d3cbb-e30a-4486-8889-40971aab1b81\scratchpad\demo_tmp\srcmodes_docs_s3g4m0cy\sub\c.txt
+    [stdout of real code] stub: UnstructuredEPubLoader dependency missing
+  one loader CONSTRUCTOR raises (epub) -> error: ValueError('🤷 Failed to load any documents!')
+
+======== 2. OnlineDocumentLoader (fake aiohttp, real validate_url, stub loaders)
+  _get_extension('https://h.example/Report.PDF?sig=1'): '.pdf'
+  _get_extension('http://h/a'): ''
+  _get_extension('http://h/a.tar.gz'): '.gz'
+  _get_extension('http://h/a.txt#frag'): '.txt#frag'
+  _get_extension('http://h/a.TXT'): '.txt'
+  _get_extension('http://h/dir.v2/file'): ''
+    [stdout of real code] Skipping unsafe document URL file:///etc/passwd: URL scheme 'file' is not allowed; only http and https URLs may be fetched.
+    [stdout of real code] Skipping unsafe document URL http://127.0.0.1/x.txt: URL host '127.0.0.1' resolves to a non-public address (127.0.0.1); set ALLOW_PRIVATE_URLS=true to allow internal targets.
+    [stdout of real code] Failed to download http://93.184.216.34/b.TXT: HTTP 404
+    [stdout of real code] Failed to process http://93.184.216.34/f.txt
+    [stdout of real code] connection reset
+  error: None
+  requests actually issued: ['http://93.184.216.34/a.pdf?sig=1', 'http://93.184.216.34/b.TXT', 'http://93.184.216.34/c', 'http://93.184.216.34/d.html', 'http://93.184.216.34/f.txt', 'http://93.184.216.34/e.txt']
+  request headers / timeout of first request: ({'User-Agent': 'Mozilla/5.0'}, 6)
+    raw_content='[stub pdf page 1 of tmp50vlsxya.pd' url='C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\tmp50vlsxya.pdf'  url_is_original_url=False  url_file_still_exists=False
+    raw_content='[stub pdf page 2 of tmp50vlsxya.pd' url='C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\tmp50vlsxya.pdf'  url_is_original_url=False  url_file_still_exists=False
+    raw_content='text body from the net' url='C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\tmpzfar1aiu.txt'  url_is_original_url=False  url_file_still_exists=False
+    [stdout of real code] Skipping unsafe document URL file:///etc/passwd: URL scheme 'file' is not allowed; only http and https URLs may be fetched.
+  only unsafe / unsupported URLs -> error: ValueError('🤷 Failed to load any documents!')
+  ALLOW_PRIVATE_URLS=true, loopback url -> request issued / docs: (['http://127.0.0.1/x.txt'], ['private ok'])
+
+======== 3. AzureDocumentLoader (fake BlobServiceClient) + DocumentLoader reuse
+  fake client calls: [('from_connection_string', 'CS'), ('get_container_client', 'cont')]
+  returned paths are under one mkdtemp dir: True
+  relative to temp dir: ['report.txt', 'sub\\dir\\note.md']
+  DocumentLoader(paths) urls (folder prefix lost): ['note.md', 'report.txt']
+  temp dir still exists after load (no cleanup): True
+    _get_blob_path('../escape.txt') -> ValueError(Unsafe blob name: ../escape.txt)
+    _get_blob_path('/abs.txt') -> ValueError(Unsafe blob name: /abs.txt)
+    _get_blob_path('a/../b.txt') -> ValueError(Unsafe blob name: a/../b.txt)
+    _get_blob_path('a\\..\\b.txt') -> ValueError(Unsafe blob name: a\..\b.txt)
+    _get_blob_path('a\\b.txt') -> a\b.txt
+  unsafe blob name aborts the whole load: ValueError('Unsafe blob name: ../escape.txt')
+  empty container -> paths: []
+  empty container -> DocumentLoader: ValueError('🤷 Failed to load any documents!')
+
+======== 4. LangChainDocumentLoader (real file, stub Document)
+  load(): [{'raw_content': 'body one', 'url': 'T1'}, {'raw_content': 'body two', 'url': ''}, {'raw_content': '', 'url': 'T3'}]
+  load(metadata_source_index='source'): [{'raw_content': 'body one', 'url': 'S1'}, {'raw_content': 'body two', 'url': 'S2'}, {'raw_content': '', 'url': ''}]
+  empty list: []
+  None: TypeError("'NoneType' object is not iterable")
+
+======== 5. join_local_web_documents (functions extracted from prompts.py with ast)
+  default (docs='D', web='W'): 'Context from local documents: D\n\nContext from web sources: W'
+  default with failed passes ([] , []): 'Context from local documents: []\n\nContext from web sources: []'
+  granite3 ('D','W'): '<|start_of_role|>documents<|end_of_role|>\nD\n\nW\n<|end_of_text|>'
+  granite3.3 ('D','W'): 'D\n\nW'
+  granite3 with docs_context=[] (a failed pass): TypeError('sequence item 0: expected str instance, list found')
+  granite3.3 with docs_context=[] (a failed pass): TypeError('sequence item 0: expected str instance, list found')
+
+======== 6. ResearchConductor.conduct_research branch dispatch (real code; sub-methods recorded)
+  -- web
+       call: ('_get_context_by_web_search', 'no-docs', None, "query_domains=['dom.example']")
+       result: 'WEB[no-docs]'
+  -- web + source_urls=[] (falsy)
+       call: ('_get_context_by_web_search', 'no-docs', None, "query_domains=['dom.example']")
+       result: 'WEB[no-docs]'
+  -- local + source_urls truthy (source_urls wins, no doc loading)
+       call: ('_get_context_by_urls', ['http://u1', 'http://u2'])
+       result: 'URLCTX'
+  -- source_urls + complement_source_urls=True
+       call: ('_get_context_by_urls', ['http://u1'])
+       call: ('_get_context_by_web_search', 'no-docs', None, "query_domains=['dom.example']")
+       result: 'URLCTX WEB[no-docs]'
+  -- local (doc dir has files)
+       call: ('_get_context_by_web_search', 'docs', ['a.txt', 'B.TXT', 'doc.pdf', 'doc.pdf', 'notes.md', 'page.html', 'a.txt', 'c.txt'], "query_domains=['dom.example']")
+       result: 'WEB[docs]'
+  -- local + vector_store present (excluded path; only the load call is shown)
+       call: ('_get_context_by_web_search', 'docs', ['a.txt', 'B.TXT', 'doc.pdf', 'doc.pdf', 'notes.md', 'page.html', 'a.txt', 'c.txt'], "query_domains=['dom.example']")
+       result: 'WEB[docs]'
+  vector_store.load called with n documents: [8]
+  -- local, doc dir does not exist
+       result: None   ERROR: ValueError('🤷 Failed to load any documents!')
+  -- hybrid, no document_urls (doc_path used)
+       call: ('_get_context_by_web_search', 'docs', ['a.txt', 'B.TXT', 'doc.pdf', 'doc.pdf', 'notes.md', 'page.html', 'a.txt', 'c.txt'], "query_domains=['dom.example']")
+       call: ('_get_context_by_web_search', 'no-docs', None, "query_domains=['dom.example']")
+       result: 'Context from local documents: WEB[docs]\n\nContext from web sources: WEB[no-docs]'
+  -- hybrid, document_urls given but doc_path ignored
+       call: ('_get_context_by_web_search', 'docs', ['C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\tmp73e9b4pa.txt', 'C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\tmpzm1f43zd.pdf', 'C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\tmpzm1f43zd.pdf'], "query_domains=['dom.example']")
+       call: ('_get_context_by_web_search', 'no-docs', None, "query_domains=['dom.example']")
+       result: 'Context from local documents: WEB[docs]\n\nContext from web sources: WEB[no-docs]'
+  -- hybrid, empty doc dir (web pass never runs)
+       result: None   ERROR: ValueError('🤷 Failed to load any documents!')
+  -- local + document_urls (ignored)
+       call: ('_get_context_by_web_search', 'docs', ['a.txt', 'B.TXT', 'doc.pdf', 'doc.pdf', 'notes.md', 'page.html', 'a.txt', 'c.txt'], "query_domains=['dom.example']")
+       result: 'WEB[docs]'
+  -- unknown report_source='static'
+       result: []
+  -- unknown report_source='doc'
+       result: []
+  -- unknown report_source='web_search'
+       result: []
+  -- unknown report_source='online'
+       result: []
+  -- unknown report_source='Local'
+       result: []
+  -- unknown report_source=None
+       result: []
+  -- langchain_vectorstore (excluded; only the dispatch)
+       call: ('_get_context_by_vectorstore', {'k': 'v'})
+       result: ['VSCTX']
+  -- langchain_documents with 2 docs
+       call: ('_get_context_by_web_search', 'docs', ['T1', 'T2'], "query_domains=['dom.example']")
+       result: 'WEB[docs]'
+  -- langchain_documents with []
+       call: ('_get_context_by_web_search', 'no-docs', None, "query_domains=['dom.example']")
+       result: 'WEB[no-docs]'
+  -- langchain_documents with None
+       result: None   ERROR: TypeError("'NoneType' object is not iterable")
+  -- azure
+       call: ('_get_context_by_web_search', 'docs', ['report.txt'], 'query_domains=None')
+       result: 'WEB[docs]'
+  fake azure client calls (env vars read): [('from_connection_string', 'CS-from-env'), ('get_container_client', 'cont-from-env')]
+
+======== 7. real _get_context_by_web_search / _process_sub_query with and without supplied documents
+  -- scraped_data = 2 documents
+       ('initial_search', 'Q', ['dom.example'])
+       ('plan', 'n_initial_results=1')
+       ('select', 'sq1', 2)
+       ('select', 'sq2', 2)
+       ('select', 'Q', 2)
+       result: 'SEL[sq1|2] SEL[sq2|2] SEL[Q|2]'
+       visited_urls after: []
+  -- scraped_data = []
+       ('initial_search', 'Q', ['dom.example'])
+       ('plan', 'n_initial_results=1')
+       ('scrape_data_by_urls', 'Q', 'initial_results')
+       ('select', 'Q', 1)
+       ('scrape_data_by_urls', 'sq1', 'search')
+       ('select', 'sq1', 1)
+       ('scrape_data_by_urls', 'sq2', 'search')
+       ('select', 'sq2', 1)
+       ('scrape_data_by_urls', 'Q', 'search')
+       ('select', 'Q', 1)
+       result: 'SEL[Q|1] SEL[sq1|1] SEL[sq2|1] SEL[Q|1]'
+       visited_urls after: []
+
+======== 8. real _get_context_by_urls (scraper and selection replaced by recorders)
+  -- two new urls
+       ('browse_urls', ['http://u1', 'http://u2'])
+       ('select', 'Q', ['http://u1', 'http://u2'])
+       result: 'SEL[Q|2]'
+       visited_urls after: ['http://u1', 'http://u2']
+  -- one already visited
+       ('browse_urls', ['http://u2'])
+       ('select', 'Q', ['http://u2'])
+       result: 'SEL[Q|1]'
+       visited_urls after: ['http://u1', 'http://u2']
+  -- all urls already visited
+       ('browse_urls', [])
+       ('select', 'Q', [])
+       result: 'SEL[Q|0]'
+       visited_urls after: ['http://u1']
+  -- all fail to scrape
+       ('browse_urls', ['http://fail1'])
+       ('select', 'Q', [])
+       result: 'SEL[Q|0]'
+       visited_urls after: ['http://fail1']
+
+======== 9. real Config() and DOC_PATH / REPORT_SOURCE (json_repair, provider lists, retriever names stubbed)
+  A default dict (REPORT_SOURCE web) + env DOC_PATH -> doc_path / dir created: ('from_env', False)
+  B json REPORT_SOURCE=local + env DOC_PATH -> doc_path / json dir created / env dir created: ('from_json', True, False)
+    [stdout of real code] Warning: Error validating doc_path: [WinError 3] 지정된 경로를 찾을 수 없습니다: 'C:\\Users\\SSAFY\\AppData\\Local\\Temp\\claude\\C--Users-SSAFY-Desktop-oss-analysis\\541d3cbb-e30a-4486-8889-40971aab1b81\\scratchpad\\demo_tmp\\srcmodes_cfg__nhmbp9h\\a_file\\sub'. Using default doc_path.
+  C json local + DOC_PATH under a regular file (makedirs fails) -> doc_path: ./my-docs
+  D env REPORT_SOURCE=local only -> cfg.report_source / doc_path / dir created: ('local', 'from_env2', False)
+  E nothing set -> cfg.report_source / cfg.doc_path: ('web', './my-docs')
+
+(done)

@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-10-21
+> Last updated: 2026-10-22
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -16,6 +16,7 @@
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
 | context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |
 | Graft | `f9e6539` | [overview](reports/Graft/overview.md) | — |
+| gpt-researcher | `3582a68` | [overview](reports/gpt-researcher/overview.md) | [research-pipeline](reports/gpt-researcher/capabilities/research-pipeline.md) (ready), [source-modes](reports/gpt-researcher/capabilities/source-modes.md) (ready), [retrievers](reports/gpt-researcher/capabilities/retrievers.md) (draft), [scrapers](reports/gpt-researcher/capabilities/scrapers.md) (draft), [context-selection](reports/gpt-researcher/capabilities/context-selection.md) (draft), [report-writing](reports/gpt-researcher/capabilities/report-writing.md) (ready), [detailed-report](reports/gpt-researcher/capabilities/detailed-report.md) (ready), [deep-research](reports/gpt-researcher/capabilities/deep-research.md) (draft), [mcp-client](reports/gpt-researcher/capabilities/mcp-client.md) (ready) |
 | hyperframes | `b7fa007` | [overview](reports/hyperframes/overview.md) | — |
 | mitmproxy | `7735597` | [overview](reports/mitmproxy/overview.md) | — |
 | pi | `4259686`, `ai`·`agent` 패키지는 `3874b3e` | [overview](reports/pi/overview.md) | — |
@@ -25,6 +26,10 @@
 | skills-manager | `e6dcedf` | [overview](reports/skills-manager/overview.md) | — |
 | teamai-cli | `7ba8bcc` | [overview](reports/teamai-cli/overview.md) | — |
 | Understand-Anything | `b05cc3b` | [overview](reports/Understand-Anything/overview.md) | — |
+| herdr-bar (herdr-plugin/) | `261de9b` | [overview](herdr-plugin/reports/herdr-bar/overview.md) | — |
+| herdr-projects (herdr-plugin/) | `8258d96` | [overview](herdr-plugin/reports/herdr-projects/overview.md) | — |
+| herdr-nvim (herdr-plugin/) | `3ca8671` | [overview](herdr-plugin/reports/herdr-nvim/overview.md) | — |
+| herdr-auto-title (herdr-plugin/) | `69d7182` | [overview](herdr-plugin/reports/herdr-auto-title/overview.md) | — |
 
 ## 첫 수집만 한 레포 (overview 없음)
 

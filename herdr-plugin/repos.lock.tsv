@@ -1,0 +1,5 @@
+# name	url	branch	sha	commit_date
+herdr-bar	https://github.com/jeffarese/herdr-bar	main	261de9b0441a6972941414bbf16eb4f5df27ac34	2026-10-21
+herdr-projects	https://github.com/eliasstravik/herdr-projects	main	8258d965c179f9297e96879f9a17680c3eacb49f	2026-10-21
+herdr-nvim	https://github.com/ChmaraX/herdr-nvim	main	3ca867153baad10d658f731ad8dcdd1d4a1fc1c2	2026-10-20
+herdr-auto-title	https://github.com/kryptamine/herdr-auto-title	main	69d7182ce46d539dd092ae666b11298a9a2bc39e	2026-10-21

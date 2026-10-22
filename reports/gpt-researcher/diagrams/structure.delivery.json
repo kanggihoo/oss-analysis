@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "0152e7a4-5e37-464b-a62c-6d1b98c3e9fc",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\gpt-researcher\\diagrams\\structure.json",
+  "output": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\gpt-researcher\\diagrams\\structure.html",
+  "specification": {
+    "sha256": "8ea556bc33a60647cd3c3a026d0e23745e847d1ddd8d2542cf70d7f935126bf6",
+    "bytes": 7846
+  },
+  "artifact": {
+    "sha256": "dc310638cbf0ca692b8a21f647c1fbdc96df251a7379b3defecbfce702e595e7",
+    "bytes": 852117
+  }
+}

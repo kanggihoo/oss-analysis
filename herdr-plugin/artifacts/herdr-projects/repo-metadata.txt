@@ -1,0 +1,6 @@
+url: https://github.com/eliasstravik/herdr-projects
+branch: main
+sha: 8258d965c179f9297e96879f9a17680c3eacb49f
+commit_date: 2026-10-21
+fetched: 2026-10-22 (git clone --depth 50)
+worktree: clean

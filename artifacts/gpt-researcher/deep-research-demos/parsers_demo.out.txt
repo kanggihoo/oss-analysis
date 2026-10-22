@@ -1,0 +1,87 @@
+# parsers_demo.py 실행 출력 (2026-10-22, python 3.12.13, 네트워크·LLM 호출 없음, json_repair는 엄격 json.loads 가짜)
+== 1. parse_search_queries_response (num_queries=3) ==
+[JSON 배열]
+  -> [{'query': 'q1', 'researchGoal': 'g1'}, {'query': 'q2', 'researchGoal': 'g2'}]
+[코드펜스+앞말]
+  -> [{'query': 'q1', 'researchGoal': 'g1'}]
+[dict 래퍼 queries]
+  -> [{'query': 'a', 'researchGoal': 'b'}]
+[dict 래퍼 searchQueries]
+  -> [{'query': 'a', 'researchGoal': 'b'}]
+[항목 일부 불량(goal 누락/공백/비문자열)]
+  -> [{'query': 'ok', 'researchGoal': 'goal'}]
+[개수 초과 -> 앞에서 num_queries개]
+  -> [{'query': '1', 'researchGoal': 'g'}, {'query': '2', 'researchGoal': 'g'}, {'query': '3', 'researchGoal': 'g'}]
+[줄 형식 번호]
+  -> [{'query': 'q1', 'researchGoal': 'g1'}, {'query': 'q2', 'researchGoal': 'g2'}]
+[줄 형식 불릿+Research Goal]
+  -> [{'query': 'q1', 'researchGoal': 'g1'}]
+[줄 형식 Goal 없는 마지막 Query는 버림]
+  -> [{'query': 'q1', 'researchGoal': 'g1'}]
+[줄 형식 Query 앞에 Goal만]
+  -> [{'query': 'q1', 'researchGoal': 'g1'}]
+[JSON인데 모두 불량 -> 줄 파서로 내려가 []]
+  -> []
+[빈 문자열]
+  -> []
+[자연어 문단]
+  -> []
+[JSON 객체에 배열이 문자열 중간 (정규식 후보 [..])]
+  -> [{'query': 'z', 'researchGoal': 'y'}]
+
+== 2. parse_follow_up_questions_response (num_questions=3) ==
+[questions 객체]
+  -> ['What A?', 'What B?']
+[followUpQuestions 키]
+  -> ['What A?']
+[비문자열 요소는 str()]
+  -> ['A?', '5']
+[배열 그대로]
+  -> ['A?', 'B?', 'C?']
+[줄 형식 Question:]
+  -> ['What A?', 'What B?']
+[줄 형식 물음표로 끝나는 줄만]
+  -> ['What A?', 'What B?']
+[questions 비어 있음 -> 줄 파서 -> []]
+  -> []
+
+== 3. parse_research_results_response (num_learnings=3) ==
+[정상 JSON]
+  -> {'learnings': ['I1', 'I2'], 'followUpQuestions': ['N1?', 'N2?'], 'citations': {'I1': 'https://a.test'}}
+[learning/citation 별칭 키]
+  -> {'learnings': ['L1'], 'followUpQuestions': ['Q?'], 'citations': {'L1': 'https://c.test'}}
+[learnings가 문자열 리스트]
+  -> {'learnings': ['plain1', 'plain2'], 'followUpQuestions': [], 'citations': {}}
+[같은 insight 두 번(citation은 나중 것)]
+  -> {'learnings': ['dup', 'dup'], 'followUpQuestions': [], 'citations': {'dup': 'https://2'}}
+[learnings 4개, 질문 4개 -> 둘 다 3개로 자름]
+  -> {'learnings': ['a', 'b', 'c'], 'followUpQuestions': ['1?', '2?', '3?'], 'citations': {}}
+[JSON 정상이지만 둘 다 비어 있음 -> 줄 파서로 -> 빈 결과]
+  -> {'learnings': [], 'followUpQuestions': [], 'citations': {}}
+[줄 형식 Learning [url]:]
+  -> {'learnings': ['Insight 1', 'Insight 2'], 'followUpQuestions': ['What next?'], 'citations': {'Insight 1': 'https://a.test', 'Insight 2': 'https://b.test'}}
+[줄 형식 본문 속 URL 추출]
+  -> {'learnings': ['stuff happened at'], 'followUpQuestions': [], 'citations': {'stuff happened at': 'https://example.com/api/v1?key=value'}}
+[줄 형식 URL 뒤에 따옴표 있으면 URL에서 제외]
+  -> {'learnings': ['see "" ok'], 'followUpQuestions': [], 'citations': {'see "" ok': 'https://x.test/a'}}
+[빈 문자열]
+  -> {'learnings': [], 'followUpQuestions': [], 'citations': {}}
+
+== 4. count_words / trim_context_to_word_limit ==
+MAX_CONTEXT_WORDS = 25000
+[max=10, 6+5+4단어 -> 뒤에서부터 채움]
+  -> ['bx5', 'cx4']
+[max=10, 3/20/2 -> 가운데가 넘치면 거기서 중단(앞의 a도 버림)]
+  -> ['cx2']
+[max=10, 마지막 항목 하나가 한도 초과 -> 앞 10단어로 잘라 그것만]
+  -> ['bx10']
+[빈 목록]
+  -> []
+[dict 항목은 str(dict)="{'Content': 'x y z'}" 의 단어 수(4)로 셈 -> max=4면 dict 그대로]
+  -> [{'Content': 'x y z'}]
+[dict 항목 하나가 한도 초과(max=3) -> str(dict)를 앞 3단어로 잘라 문자열로 바꿈]
+  -> ["{'Content': 'x y"]
+[리스트 항목(중첩)]
+  -> ['e f']
+[빈 문자열 항목은 0단어라 항상 들어감]
+  -> ['', 'z z']

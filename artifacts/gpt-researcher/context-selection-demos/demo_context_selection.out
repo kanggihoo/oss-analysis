@@ -1,0 +1,103 @@
+# run 2026-10-22, Python 3.12.13, python -I demo_context_selection.py (stubs: langchain_core, langchain_text_splitters, httpx; see script docstring)
+
+======== 1. resolve_context_filter
+  key=unset setting=None           -> keyword
+  key=unset setting=''             -> keyword
+  key=unset setting='auto'         -> keyword
+  key=unset setting=' JEV '        -> jev
+  key=unset setting='Keyword'      -> keyword
+  key=unset setting='embeddings'   -> embeddings
+  key=unset setting='none'         -> none
+  [log WARNING] Unknown CONTEXT_FILTER 'foo'; expected one of ('auto', 'jev', 'keyword', 'embeddings', 'none'). Using 'auto'.
+  key=unset setting='foo'          -> keyword
+  [log WARNING] Unknown CONTEXT_FILTER 'bm25'; expected one of ('auto', 'jev', 'keyword', 'embeddings', 'none'). Using 'auto'.
+  key=unset setting='bm25'         -> keyword
+  key=set setting=None           -> jev
+  key=set setting=''             -> jev
+  key=set setting='auto'         -> jev
+  key=set setting=' JEV '        -> jev
+  key=set setting='Keyword'      -> keyword
+  key=set setting='embeddings'   -> embeddings
+  key=set setting='none'         -> none
+  [log WARNING] Unknown CONTEXT_FILTER 'foo'; expected one of ('auto', 'jev', 'keyword', 'embeddings', 'none'). Using 'auto'.
+  key=set setting='foo'          -> jev
+  [log WARNING] Unknown CONTEXT_FILTER 'bm25'; expected one of ('auto', 'jev', 'keyword', 'embeddings', 'none'). Using 'auto'.
+  key=set setting='bm25'         -> jev
+  key='' (empty string) setting='auto' -> keyword
+
+======== 2. tokenize / stem / bm25
+  tokenize: ['battery', 'cost', 'class', '2024', 'movy', 'glass', '전기차', '배터리', '비용']
+  stems: {'batteries': 'battery', 'costs': 'cost', 'classes': 'class', 'boxes': 'box', 'watches': 'watch', 'glass': 'glass', 'movies': 'movy', 'cars': 'cars', 'bus': 'bus'}
+  bm25 scores: [1.7796, 0.8155, 0.0, 0.0]
+  bm25 empty passages: []  all-stopword query: [0.0]
+
+======== 3. LexicalContextCompressor: relative threshold and cap
+  chunk scores: [1.794, 1.075, 0.0, 0.538, 0.542]  best: 1.794
+  threshold=0.0: kept chunk indexes [0, 1, 4, 3, 2]
+  threshold=0.5: kept chunk indexes [0, 1]
+  threshold=0.9: kept chunk indexes [0]
+  threshold=0 max_results=2: kept [0, 1]
+  (ties keep chunk order): sorted key (-score, index) verified by indexes above
+
+======== 4. keyword: no overlap fallback = first N chunks across pages (not one per page)
+  query='quantum zebra': sources of kept chunks ['http://a', 'http://a', 'http://a']
+  query='the of and': sources of kept chunks ['http://a', 'http://a', 'http://a']
+  query='': sources of kept chunks ['http://a', 'http://a', 'http://a']
+
+======== 5. select_context paths (keyword mode)
+  6 pages, total chars 12624 (>8000 -> filtering)
+  keyword result sources in order: ['http://p0', 'http://p1', 'http://p2', 'http://p3', 'http://p3', 'http://p4', 'http://p5']
+  KEYWORD constants: 0.5 25
+  small fast path (2 pages, <8000 chars) returns all in input order, unfiltered:
+    'Source: http://s1\nTitle: S1\nContent: tiny one\n\nSource: http://s2\nTitle: S2\nContent: tiny two battery\n'
+  11 tiny pages (>max_results=10, no overlap with query) -> filtered path; chunks returned: 11 (first-N fallback, cap 25)
+  zero pages -> ''
+  raw_content None page -> 'Source: u\nTitle: t\nContent: \n'
+  page without title key -> 'Source: u\nTitle: \nContent: x\n'
+
+======== 6. mode none: every page, but each page cut at MAX_CONTENT_CHARS
+  MAX_CONTENT_CHARS=50, none mode; content length returned: 50
+  none mode with 15 pages returns 15 pages (no cap)
+  keyword mode, same 15 tiny pages returns 15 chunks
+  COMPRESSION_THRESHOLD='abc' -> ValueError invalid literal for int() with base 10: 'abc'
+  COMPRESSION_THRESHOLD=0 and 2 tiny pages: chunks returned 2 (fast path disabled)
+  import with {'KEYWORD_MAX_RESULTS': 'ten'} -> ValueError invalid literal for int() with base 10: 'ten'
+  import with {'KEYWORD_RELATIVE_THRESHOLD': 'half'} -> ValueError could not convert string to float: 'half'
+  KEYWORD_MAX_RESULTS=2 -> chunks returned 2 ; select_context max_results=10 ignored by keyword path
+
+======== 7. embeddings mode in this environment (langchain_classic missing)
+  [log WARNING] Embedding context filter unavailable (No module named 'langchain_classic'); using keyword ranking
+  embeddings factory called: 0 times; fell back to keyword; chunks: 7
+  embeddings mode, small input: fast path, factory calls total: 0
+
+======== 8. jev mode with a scripted fake server (no network)
+  auto + key -> jev. requests: 15 max in flight: 4 (JEV_CONCURRENCY=4); splitter args: [(800, 80)]
+  url: https://api.typesafe.ai/v1/systemone
+  headers: {'Authorization': 'Bearer sk-demo'}
+  timeout: 30.0
+  payload keys: ['model', 'questions', 'state']  model: jev-latest
+  payload.questions: {'usefulness': {'type': 'score', 'instructions': 'How useful is this passage for answering the question: battery cost', 'criteria': ['Unrelated to the question', 'Same topic, but does not help answer the question', 'Partially answers the question or gives useful supporting facts', 'Directly answers the question with specific facts']}}
+  kept chunks: ['ANSWER the battery cost is 100 ', 'ANSWER another direct fact abou', 'partial info about batteries lo'] cost callback: [0.000126] (200 tokens x 15 x 0.042/1e6)
+  JEV_MIN_SCORE=3.0 kept: 2 chunks
+  JEV_MIN_SCORE=9 (nothing passes) -> result '' (no keyword fallback for 'nothing relevant')
+  JEV_MIN_SCORE=0, 15 chunks, max_results=10 -> kept 10 ; first 2 are the score-3.0 chunks: ['ANSWER the battery co', 'ANSWER another direct']
+  [log WARNING] Jev context filter unavailable (HTTP 401: unauthorized); using keyword ranking
+  401 -> requests: 15 (each chunk tried once, no retry); fell back to keyword, chunks: 3
+  429,429,200 -> score 3.0 after 3 attempts, 1.56s (backoff 0.5 + 1.0)
+  429 x4 -> JevError after 4 attempts, 3.57s (0.5+1+2): Jev request failed after 4 attempts: HTTP 429: slow down
+  529 also retried: attempts 4
+  httpx.HTTPError -> retried, attempts 4: Jev request failed after 4 attempts: connect failed
+  200 without answers key -> JevError, attempts 1 (no retry): Unexpected Jev response: {"foo":1}
+  200 non-JSON body -> JevError, attempts 1 (no retry): Unexpected Jev response: <html>
+  200 score not a number -> JevError, attempts 1 (no retry): Unexpected Jev response: 
+  200 without usage -> 2.0 input_tokens stays 200
+  [log WARNING] Jev context filter unavailable (HTTP 500: boom); using keyword ranking
+  one chunk HTTP 500 -> whole jev pass dropped; keyword used; cost_callback calls: [] ; chunks: 3
+  [log WARNING] Jev context filter unavailable (TYPESAFE_API_KEY is not set); using keyword ranking
+  jev without TYPESAFE_API_KEY -> requests 0 -> keyword chunks: 3
+  JEV_MIN_SCORE='high' -> ValueError escapes select_context (only JevError is caught)
+  JEV_CONCURRENCY='x' -> ValueError escapes select_context
+  jev default JEV_CONCURRENCY semaphore per loop: 64 free slots after run
+
+======== 9. output format
+'Source: http://a\nTitle: A\nContent: one\n\nSource: http://b\nTitle: B\nContent: two\n'

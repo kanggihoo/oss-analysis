@@ -1,0 +1,6 @@
+url: https://github.com/ChmaraX/herdr-nvim
+branch: main
+sha: 3ca867153baad10d658f731ad8dcdd1d4a1fc1c2
+commit_date: 2026-10-20
+fetched: 2026-10-22 (git clone --depth 50)
+worktree: clean

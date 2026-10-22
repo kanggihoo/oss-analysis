@@ -518,3 +518,27 @@
 
 ## [2026-10-22] delete | CodeWiki, e2e, folo, jev-ultrafast, knowledge-catalog, rsshub
 - Removed `repos/`, `reports/`, `artifacts/`, `deepwiki-ko/` entries of these six repos at user request, and their rows from `index.md`. Earlier log entries are kept as history.
+
+## [2026-10-22] ingest | gpt-researcher 기능 지도와 구조도 (범위 승인 대기)
+- `oss-repo-spec`으로 새 레포 분석 시작. `repos/gpt-researcher`를 `--depth 50`으로 clone(SHA `3582a68`), 작업트리 clean, `artifacts/gpt-researcher/repo-metadata.txt` 작성. 라이선스는 LICENSE(Apache 2.0)와 pyproject·setup.py(MIT) 표기가 어긋나 overview에 그대로 기록.
+- 읽음: README, pyproject, `agent.py`, `skills/researcher.py`·`writer.py`·`deep_research.py`·`context_manager.py`, `actions/retriever.py`, `scraper/scraper.py`, `context/select.py`·`jev_filter.py`, `config/variables/default.py`, `llm_provider/generic/base.py`, `backend/server/*`·`chat/chat.py`·`report_type/*`, `multi_agents/agents/orchestrator.py`, `deep_agents/agent.py`, cli.py. 실행 없음, 테스트·docs·frontend 컴포넌트·evals 코드는 열지 않음.
+- 쓴 것: `reports/gpt-researcher/overview.md`(기능 지도 21행·공유 계약 3개·그림 해설), `diagrams/structure.json`·`.html`(archify finalize 4게이트 통과, 시각 검토 미실시), `next.md`. `index.md`에 행 추가. 스펙 범위는 사용자 승인 전이라 기능 스펙은 쓰지 않음.
+
+## [2026-10-22] capability | gpt-researcher 기능 스펙 9개 작성 (ready 5 / draft 4)
+- 사용자 범위 승인(연구 파이프라인·소스 모드·Retriever·스크래퍼·컨텍스트 선별·보고서 작성·상세 보고서·Deep Research·MCP 연동, 벡터스토어 경로·LLM 설정 등은 제외)에 따라 서브에이전트(sonnet, effort high)로 `reports/gpt-researcher/capabilities/` 스펙 9개를 병렬로 썼다. 선행 순서대로 3개 → 5개 → 1개 파도로 나눠 시작했고, 보고서 작성 스펙은 서브에이전트가 파일 쓰기를 거부당해 사용자 확인 뒤 메인 세션이 그대로 저장했다.
+- 오프라인 실행(LLM·네트워크·설치 없이 소스 줄을 대체물과 함께 실행): `artifacts/gpt-researcher/{scrapers,context-selection,deep-research,report-writing,source-modes,mcp,detailed-report}-demos/`.
+- 통합 검토: 스펙 9개의 frontmatter·depends·코드 줄 범위가 존재하는지 확인했고, 스펙 사이 어긋남을 고쳤다(research-pipeline에 MCP 사전 실행 포인터, report-writing의 `get_draft_section_titles` 설명, context-selection의 detailed-report 링크, deep-research `depends`에 research-pipeline 추가). overview 지도의 9행에 스펙 링크·상태·진입점 정정(`_search` 미사용, 초기 검색, `DEEP_RESEARCH_*` 설정 키 등)과 공유 계약 URL 안전성, 대표 흐름을 반영했다.
+- 남은 미결정 4건은 `next.md`에 있다. 재구현 검증은 하지 않았다.
+
+## [2026-10-22] ingest | herdr-plugin 폴더 신설, herdr 플러그인 4개 overview (지도만)
+- `herdr-plugin/`(trading/과 같은 방식: `repos/`·`artifacts/`·`reports/`, `GUIDE.md`, `repos.lock.tsv`)을 만들고 herdr-bar(`261de9b`), herdr-projects(`8258d96`), herdr-nvim(`3ca8671`), herdr-auto-title(`69d7182`)를 `--depth 50`으로 clone. 모두 clean, 라이선스 MIT. `.gitignore`에 `/herdr-plugin/repos/` 추가.
+- 사용자 지시로 archify 구조도와 기능 스펙은 만들지 않고, 레포마다 `reports/<repo>/overview.md`(기능 지도·공유 계약·글로 쓴 구조 해설)만 서브에이전트(sonnet)로 병렬 작성. 읽기만 했고 빌드·실행 없음, herdr 서버 쪽 동작은 미확인으로 표시.
+
+## [2026-10-22] ingest | gpt-researcher Q1 서브쿼리 결과 합치기
+- 사용자 질문("서브쿼리를 어떻게 합치게 되는가")을 서브에이전트(sonnet, effort high)에 탐색 범위를 정해 맡겼다. 합치기(`researcher.py:385-408`), 서브쿼리 하나의 처리, URL 중복, MCP 결합, 길이 제한, 실패 처리를 읽고 가짜 검색·스크래퍼로 원본 합치기 소스를 실행했다(`artifacts/gpt-researcher/context-merge-demos/`). 메인 세션이 `_get_new_urls`, 합치기 코드, 길이 제한 Grep을 다시 확인했다.
+- 쓴 것: `reports/gpt-researcher/questions/q1-subquery-context-merge.md`, `overview.md` 4절 링크. 결론은 별도 병합 로직 없음, `" "`로 이어 붙임, 중복은 URL 단위로만 제거, 합친 뒤 길이 제한 없음.
+- 같은 날 스펙 에이전트 3개(Deep Research, 보고서 작성, 상세 보고서)가 "백그라운드 작업이 남았다"며 멈추지 않아 중단했다. 그 사이 `detailed-report.md` R-31 행에서 줄바꿈 표기가 실제 줄바꿈으로 바뀌어 표 행이 쪼개져 있던 것을 되돌렸고, 스펙 9개의 표를 다시 검사해 열 개수 불일치가 없음을 확인했다.
+
+## [2026-10-22] ingest | gpt-researcher Q2 합친 뒤 과정, 프롬프트·도구 위치
+- 사용자 질문(합친 뒤 전처리 여부, 최종 개수, 보고서 전까지의 과정, LLM 프롬프트와 도구 정의 위치)에 대해 `researcher.py:212-240`, `agent.py:343-413`, `prompts.py`의 프롬프트 함수 전체, `curator.py`, `mcp/research.py`, `utils/tools.py`, `backend/chat/chat.py`, `deep_agents/tools.py`를 읽고, 기존 capabilities 스펙의 해당 줄 번호(R-ID, C-ID)를 찾아 대응시켰다. 실행 없음.
+- 쓴 것: `reports/gpt-researcher/questions/q2-prompts-tools-and-pre-report-flow.md`, `overview.md` 4절 링크. 프롬프트 13종 중 스펙에 정리된 것은 9종, 도구 3곳 중 스펙에 정리된 것은 MCP 1곳이다.

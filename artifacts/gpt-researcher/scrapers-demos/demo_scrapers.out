@@ -1,0 +1,26 @@
+'file:///etc/passwd' REJECT: URL scheme 'file' is not allowed; only http and https URLs may be fetc
+'ftp://example.com/x' REJECT: URL scheme 'ftp' is not allowed; only http and https URLs may be fetch
+'/etc/passwd' REJECT: URL scheme '(none)' is not allowed; only http and https URLs may be fe
+'http://' REJECT: URL must include a valid host.
+'http://127.0.0.1/' REJECT: URL host '127.0.0.1' resolves to a non-public address (127.0.0.1); set
+'http://10.0.0.1/' REJECT: URL host '10.0.0.1' resolves to a non-public address (10.0.0.1); set A
+'http://169.254.169.254/latest/meta-data' REJECT: URL host '169.254.169.254' resolves to a non-public address (169.254.1
+'http://[::1]/' REJECT: URL host '::1' resolves to a non-public address (::1); set ALLOW_PRIVA
+'http://0.0.0.0/' REJECT: URL host '0.0.0.0' resolves to a non-public address (0.0.0.0); set ALL
+'http://100.100.100.200/' OK
+'http://100.64.0.1/' OK
+'http://224.0.0.1/' REJECT: URL host '224.0.0.1' resolves to a non-public address (224.0.0.1); set
+'http://192.0.2.1/' REJECT: URL host '192.0.2.1' resolves to a non-public address (192.0.2.1); set
+'http://93.184.216.34/' OK
+'HTTP://93.184.216.34/' OK
+'  http://93.184.216.34/ ' OK
+'http://[::ffff:127.0.0.1]/' REJECT: URL host '::ffff:127.0.0.1' resolves to a non-public address (::ffff:1
+'http://no-such-host.invalid/' REJECT: Could not resolve host 'no-such-host.invalid': [Errno 11001] getaddrin
+allow env ' TRUE ': OK REJECT: URL scheme 'file' is not allowed; only http and https URLs may be fetc OK
+allow env 'false': REJECT: URL host '127.0.0.1' resolves to a non-public address (127.0.0.1); set
+allow env 'y': REJECT: URL host '127.0.0.1' resolves to a non-public address (127.0.0.1); set
+block at 4990: True  beyond 5000: False  upper: True  curly apostrophe: False
+wordlist len 199999: False  200000 no endings: True
+wordlist 200000 with 40 '.': False  with 39: True  with 41: False
+cjk 200000 w/ ¡£ x100: False
+pdf %PDF-: True  one marker: False  two: True  case: False  leading space %PDF: False

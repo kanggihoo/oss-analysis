@@ -1,0 +1,136 @@
+
+======== A1. constructor: main researcher arguments and defaults (detailed_report.py:11-76)
+  [PASS] main researcher kwargs are exactly these keys  -> ['complement_source_urls', 'config_path', 'document_urls', 'headers', 'query', 'query_domains', 'report_source', 'report_type', 'source_urls', 'tone', 'websocket']
+  [PASS] main report_type is hard-coded 'research_report' although the argument says 'detailed_report'
+  [PASS] defaults: source_urls [] document_urls [] query_domains [] config_path None tone '' websocket None headers {} complement False
+  [PASS] no documents / subtopics / mcp / log_handler / verbose / visited_urls given to main
+  [PASS] DetailedReport has no 'documents' parameter
+  [PASS] initial state: existing_headers [], global_context [], global_written_sections [], global_urls set()
+  [PASS] research_id = 'detailed_<unix seconds>_<md5(query)[:8]>' and it is not read anywhere else  -> detailed_1792639011_f09564c9
+  [PASS] global_urls is seeded with set(source_urls) when given
+  [PASS] mcp_configs / mcp_strategy are passed to main only when not None
+  [PASS] max_search_results overrides main cfg.max_search_results_per_query with int()
+  [PASS] max_search_results None leaves cfg untouched
+  [PASS] max_search_results='abc' raises ValueError in the constructor  -> invalid literal for int() with base 10: 'abc'
+  [PASS] mutable default arguments [] are shared across instances (source_urls default list is one object)
+
+======== A2. run(): order of steps, sequential subtopics (detailed_report.py:84-91, 110-120)
+  [PASS] call order = initial research, subtopics, introduction, per subtopic (conduct, draft titles, similar, write), conclusion  -> main.conduct:start > main.conduct:end > main.get_subtopics > main.write_introduction > T1.conduct:start > T1.conduct:end > T1.draft_titles > T1.get_similar > T1.write_report > T2.conduct:start > T2.conduct:end > T2.draft_titles > T2.get_similar > T2.write_report > main.write_report_conclusion
+  [PASS] subtopics run strictly one after another (T2 starts after T1.write_report), even with awaits that yield
+  [PASS] introduction is written BEFORE any subtopic report and from the main researcher's initial context
+  [PASS] conclusion receives the report body (subtopic reports joined), not the introduction
+
+======== A3. subtopic researcher arguments (detailed_report.py:138-165)
+  [PASS] subtopic kwargs are exactly these keys  -> ['agent', 'complement_source_urls', 'headers', 'mcp_configs', 'mcp_strategy', 'parent_query', 'query', 'query_domains', 'report_source', 'report_type', 'role', 'source_urls', 'subtopics', 'tone', 'visited_urls', 'websocket']
+  [PASS] report_type 'subtopic_report', query = subtopic task, parent_query = main query
+  [PASS] document_urls, documents, config_path, log_handler, verbose, context, max_subtopics are NOT passed to subtopic researchers
+  [PASS] visited_urls: the very same set object is shared (main.visited_urls is d.global_urls is sub.kw['visited_urls'])
+  [PASS] agent and role are the main researcher's chosen values
+  [PASS] mcp_configs / mcp_strategy are copied from the main researcher (None / 'fast' when MCP unused)
+  [PASS] subtopics=self.subtopics ([]) goes to subtopic researchers; the main researcher never gets it
+  [PASS] subtopic researcher's context is overwritten by its own conduct_research (T1 context is 'T1 CTX', not the preset)
+  [PASS] when set: subtopic gets source_urls, complement_source_urls, query_domains, tone, headers, websocket, report_source
+  [PASS] main got document_urls and config_path, subtopic got neither
+  [PASS] mcp_configs/strategy: subtopic copies the main researcher's attributes
+  [PASS] max_search_results=9 is set on the main and on every subtopic researcher's cfg
+  [PASS] the same websocket object is shared by main and subtopic researchers
+
+======== A4. global state: visited_urls, written sections, existing_headers, hashable_context
+  [PASS] global_urls accumulates every researcher's visited URLs (same object, duplicates collapse)
+  [PASS] the two update() calls at run():89 and :188 act on the same object, so they change nothing
+  [PASS] T1 write_report saw existing_headers == [] and T2 saw only T1's entry  -> [{"subtopic task": "T1", "headers": [{"level": 2, "text": "T1 Heading", "children": [{"level": 3, "text": "A1"}, {"level": 3, "text": "B1"}]}]}]
+  [PASS] after the run existing_headers has one entry per subtopic in order
+  [PASS] relevant_written_contents given to write_report is exactly what the similar-content step returned
+  [PASS] T1 similar-content call: written sections so far == [] ; T2 call gets T1's sections (empty-body headings skipped)  -> [{"section_title": "A1", "written_content": "text a1 (c)"}, {"section_title": "B1", "written_content": "text b1"}]
+  [PASS] global_written_sections after the run = sections of T1 then T2
+  [PASS] write_report is called with only existing_headers and relevant_written_contents (no ext_context / custom_prompt)
+  [PASS] _hashable_context: str items -> str, other -> str(), dict -> 'Title: {title}\nContent: {body or content}'
+  [PASS] _hashable_context('abca') iterates the STRING character by character -> ['a','b','c','a']
+  [PASS] so global_context after a run is the unique CHARACTERS of the last subtopic's context string  -> [' ', '2', 'C', 'T', 'X']
+  [PASS] _hashable_context([]) == []
+  [PASS] list(set(...)) removes duplicates but does not keep order
+
+======== A5. assembly string (detailed_report.py:197-205)
+  [PASS] report == intro + '\n\n' + toc + '\n\n' + body + '\n\n' + conclusion + references(of the conclusion only)
+  --- report (repr) ---
+  '# Intro\n\nintro text\n\n## Table of Contents\n\n- T1 Heading\n    - A1\n    - B1\n- T2 Heading\n    - A2\n\n\n\n\n\n## T1 Heading\n\n### A1\n\ntext a1 ([c](https://x))\n\n### B1\n\ntext b1\n\n\n## T2 Heading\n\n### A2\n\ntext a2\n\n## Conclusion\n\nconcl\n\n\n## References\n\n- [https://m1](https://m1)\n- [https://m2](https://m2)\n- [https://t1a](https://t1a)\n- [https://t2a](https://t2a)\n'
+  [PASS] toc is built from the body only (intro and conclusion headings are not listed)
+  [PASS] references are appended to the conclusion and listed sorted; they end the report
+  [PASS] each non-empty subtopic report is prefixed by three newlines in the body
+
+======== A6. empty / failed pieces inside the assembly
+  [PASS] a '' subtopic report is left out of the body but its state updates still happen (existing_headers entry with headers [])
+  [PASS] the fixed no-material sentence (report-writing R-03) is truthy, so it IS appended to the body like a report
+  [PASS] that sentence has no header: toc is just the title line, global_written_sections stays empty
+  [PASS] get_subtopics returning [] (what construct_subtopics returns on failure) -> prints 'Unexpected subtopics data format: []' and continues with no subtopic
+  [PASS] no-subtopic report with failed intro and conclusion: toc title + references only  -> '\n\n## Table of Contents\n\n\n\n\n\n\n\n\n## References\n\n- [https://m1](https://m1)\n- [https://m2](https://m2)\n'
+  [PASS] conclusion is still requested with an empty body when there are no subtopics
+  [PASS] a parsed object whose .subtopics is empty takes the same 'Unexpected subtopics data format' path
+  [PASS] DetailedReport does not cap or deduplicate subtopics: 5 parsed subtopics -> 5 subtopic researchers
+
+======== A7. failures propagate; nothing is caught in DetailedReport
+  [PASS] exception in a subtopic researcher aborts run() with that exception
+  [PASS] ... after T1 is fully processed and the introduction already written; no conclusion, no partial report
+  [PASS] exception in the initial research stops before get_subtopics
+  [PASS] exception in a subtopic write_report aborts run() (global_written_sections/existing_headers not updated for it)
+
+======== A8. draft section titles never reach the similar-content search
+  [PASS] the real get_draft_section_titles returns list[str]; detailed_report.py:169-170 turns a non-str into str(list)
+  [PASS] extract_headers(str(list)) finds NO header (the '###' is mid-line), so the title list passed on is []
+  [PASS] only a real str with line-start '###' would produce headers
+  [PASS] empty list from a failed LLM call: str([]) = '[]' -> [] as well
+  [PASS] get_similar_written_contents... is called as (task, [], global_written_sections): queries = [task] only
+
+======== A9. existing_headers / relevant_written_contents as the subtopic prompt shows them (prompts.py:595-670, real)
+  [PASS] existing_headers is inserted with Python repr (single quotes, key 'subtopic task')
+  [PASS] relevant_written_contents strings are inserted with repr (the newline is the two characters backslash-n)
+
+======== A10. ContextManager: similar written contents (real context_manager.py + real lexical.py)
+  [PASS] no embedding model (get_embeddings raises) -> rank_written_sections keyword ranking is used, result is list[str]  -> ['Title: Grid storage\nContent: Grid storage uses batteries to shift evening demand.\n']
+  [PASS] each item is 'Title: <section_title>\nContent: <chunk>\n'
+  [PASS] the keyword path never builds WrittenContentCompressor (constructing it would raise AssertionError here)
+  [PASS] empty written_contents (first subtopic) with keyword ranking -> []
+  [PASS] rank_written_sections: only sections scoring >= 0.5 * best are returned, best first  -> ['Title: Grid storage']
+  [PASS] rank_written_sections: no keyword overlap -> []
+  [PASS] rank_written_sections: empty sections -> []
+  [PASS] rank_written_sections: max_results caps the list
+  [PASS] rank_written_sections: missing keys -> '' title / '' content do not raise
+  [PASS] rank_written_sections: title is part of the scored text (a section matched only by its title is found)
+  [PASS] rank_written_sections: splitter built with (chunk_size=1000, chunk_overlap=100)
+  [PASS] embeddings available: one WrittenContentCompressor call per query in [subtopic] + draft titles (3 calls)  -> [('battery storage', 10, True, 0.5), ('### x', 10, True, 0.5), ('### y', 10, True, 0.5)]
+  [PASS] each call uses similarity_threshold=0.5, max_results=10 and passes a cost_callback
+  [PASS] results are united as a set (duplicates collapse): {S1,S2,S3}  -> ['S3', 'S2', 'S1']
+  [PASS] union of 24 distinct strings is cut to the first 10 of list(set) (max_results=10); which 10 depends on set order
+  [PASS] an error inside WrittenContentCompressor is NOT caught (only get_embeddings() errors fall back to keywords)
+
+======== A11. real WrittenContentCompressor with stand-in langchain pieces
+  [PASS] output items are 'Title: <section_title>\nContent: <page_content>\n' built from the kept chunks  -> ['Title: Keep me\nContent: KEEP this paragraph.\n']
+  [PASS] pipeline built as splitter(1000,100) then EmbeddingsFilter(threshold=0.5)
+  [PASS] cost_callback is called once BEFORE the retrieval with estimate_embedding_cost(OPENAI_EMBEDDING_MODEL, all documents)
+  [PASS] no cost_callback -> no cost call
+  [PASS] max_results truncates the formatted list (3 kept, 2 returned)
+  [PASS] SectionRetriever: one Document per section, metadata only section_title ('' when missing), content '' when missing
+
+======== A12. construct_subtopics (real llm.py) with fake langchain chain
+  [PASS] success: returns the parsed Subtopics object (pydantic) with Subtopic.task
+  [PASS] template input variables task/data/subtopics/max_subtopics; chain input carries config.max_subtopics (3), task, data, subtopics
+  [PASS] the limit exists only as prompt text 'Limit the number of subtopics to a maximum of 3'
+  [PASS] provider: config.smart_llm_provider, model config.smart_llm_model, temperature=config.temperature (non-reasoning model), max_tokens=smart_token_limit; no cost_callback anywhere
+  [PASS] reasoning model: reasoning_effort='high' instead of temperature; llm_kwargs merged
+  [PASS] more subtopics than max_subtopics (3) are returned untouched: no truncation in code
+  [PASS] duplicates are not removed by the model either (two identical tasks stay two)
+  [PASS] LLM exception: exception is logged and the INPUT `subtopics` list is returned (not a Subtopics object)
+  [PASS] invalid JSON: exception is logged and the INPUT `subtopics` list is returned (not a Subtopics object)
+  [PASS] empty task (min_length=1): exception is logged and the INPUT `subtopics` list is returned (not a Subtopics object)
+  [PASS] wrong shape: pydantic default 'subtopics: []' makes it a valid EMPTY Subtopics (no exception)
+  [PASS] failure with the default subtopics argument returns [] (the mutable default list)
+  [PASS] Subtopic(task='') raises ValidationError
+
+======== A13. server/CLI call shapes (arguments only; backend/server/websocket_manager.py:144-157, cli.py:274-281 are read, not run)
+  [PASS] server passes report_type=<'detailed_report'>, report_source, source_urls, document_urls, tone, config_path, websocket=logs_handler, headers, mcp_*, max_search_results
+  [PASS] CLI passes only query, query_domains, report_type='research_report', report_source='web_search'
+
+======== A14. CLI report_source='web_search' has no research branch (real researcher.py branch text)
+  [PASS] 'web_search' is not one of the six values compared in ResearchConductor.conduct_research  -> ['azure', 'hybrid', 'langchain_documents', 'langchain_vectorstore', 'local', 'web']
+
+======== SUMMARY: 104 PASS / 0 FAIL of 104 checks

@@ -1,0 +1,65 @@
+   [sub-query 'A'] returned str: sources=['u2']
+   [sub-query 'C'] returned str: sources=[]
+   [sub-query 'B'] returned str: sources=[]
+   [sub-query 'Q'] returned str: sources=['u4']
+==============================================================================
+S1 initial=[u1,u9]; A=[u1,u2] (fast); B=[u2,u3(scrape fails)]; C=browse_urls raises; Q=[u1,u4]
+------------------------------------------------------------------------------
+type: str | len: 853
+repr (repeated filler words collapsed to <f>): 'Source: u9\nTitle: T-u9\nContent: PAGE-U9 <f>\n\nSource: u1\nTitle: T-u1\nContent: PAGE-U1 <f>\n Source: u2\nTitle: T-u2\nContent: PAGE-U2 <f>Source: u4\nTitle: T-u4\nContent: PAGE-U4 <f>'
+browse_urls calls (order): [['u9', 'u1'], ['u2'], ['uC'], ['u3'], ['u4']]
+visited_urls: ['u1', 'u2', 'u3', 'u4', 'u9', 'uC']
+   [sub-query 'B'] returned str: sources=['u2']
+   [sub-query 'C'] returned str: sources=[]
+   [sub-query 'Q'] returned str: sources=['u4']
+   [sub-query 'A'] returned str: sources=[]
+==============================================================================
+S2 same inputs, but B's search finishes before A's
+------------------------------------------------------------------------------
+type: str | len: 853
+repr (repeated filler words collapsed to <f>): 'Source: u9\nTitle: T-u9\nContent: PAGE-U9 <f>\n\nSource: u1\nTitle: T-u1\nContent: PAGE-U1 <f>\n Source: u2\nTitle: T-u2\nContent: PAGE-U2 <f>Source: u4\nTitle: T-u4\nContent: PAGE-U4 <f>'
+browse_urls calls (order): [['u9', 'u1'], ['u3', 'u2'], ['uC'], ['u4'], []]
+visited_urls: ['u1', 'u2', 'u3', 'u4', 'u9', 'uC']
+   [sub-query 'A'] returned str: sources=[]
+   [sub-query 'Q'] returned str: sources=[]
+==============================================================================
+S3 all sub-queries return no search results, no initial results
+------------------------------------------------------------------------------
+type: list | len: 0
+   [sub-query 'A'] returned str: sources=['p1']
+   [sub-query 'B'] returned str: sources=['p1']
+   [sub-query 'Q'] returned str: sources=['p1']
+==============================================================================
+S4 retriever with requires_scraping=False returns the SAME url for A, B, Q
+------------------------------------------------------------------------------
+type: str | len: 659
+repr (repeated filler words collapsed to <f>): 'Source: p1\nTitle: \nContent: FULLTEXT-P1 <f>Source: p1\nTitle: \nContent: FULLTEXT-P1 <f>Source: p1\nTitle: \nContent: FULLTEXT-P1 <f>'
+occurrences of 'Source: p1': 3 | browse_urls calls: [[], [], []]
+research_sources urls: ['p1', 'p1', 'p1'] | visited: ['p1']
+   [sub-query 'A'] returned str: sources=[]
+   [sub-query 'B'] returned str: sources=['u1']
+   [sub-query 'Q'] returned str: sources=['u4']
+==============================================================================
+S5 retriever.search raises for A (caught inside _search_relevant_source_urls)
+------------------------------------------------------------------------------
+type: str | len: 439
+repr (repeated filler words collapsed to <f>): 'Source: u1\nTitle: T-u1\nContent: PAGE-U1 <f>Source: u4\nTitle: T-u4\nContent: PAGE-U4 <f>'
+   [sub-query 'A'] returned str: sources=['u1', 'MCP-T']
+   [sub-query 'B'] returned str: sources=['u2', 'MCP-T']
+   [sub-query 'Q'] returned str: sources=['u4', 'MCP-T']
+==============================================================================
+S7 web retriever + MCP retriever (mcp_strategy=fast): same cached MCP result per sub-query
+------------------------------------------------------------------------------
+type: str | len: 764
+repr (repeated filler words collapsed to <f>): 'Source: u1\nTitle: T-u1\nContent: PAGE-U1 <f>\n\nMCP-BODY for Q\n\n*Source: MCP-T (mcp://srv)* Source: u2\nTitle: T-u2\nContent: PAGE-U2 <f>\n\nMCP-BODY for Q\n\n*Source: MCP-T (mcp://srv)* Source: u4\nTitle: T-u4\nContent: PAGE-U4 <f>\n\nMCP-BODY for Q\n\n*Source: MCP-T (mcp://srv)*'
+occurrences of 'MCP-BODY': 3 (3 sub-queries A, B, Q)
+   [sub-query 'Q'] returned str: sources=['MCP-T']
+   [sub-query 'Q'] returned str: sources=['MCP-T']
+==============================================================================
+S8 MCP-only: planner returns [Q] and Q is appended again -> Q runs twice
+------------------------------------------------------------------------------
+type: str | len: 87
+repr (repeated filler words collapsed to <f>): 'MCP-BODY for Q\n\n*Source: MCP-T (mcp://srv)* MCP-BODY for Q\n\n*Source: MCP-T (mcp://srv)*'
+occurrences of 'MCP-BODY': 2
+==============================================================================
+S6 plan_research raises -> RuntimeError LLM planning failed (propagates out of _get_context_by_web_search)

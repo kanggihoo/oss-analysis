@@ -1,0 +1,158 @@
+MCP demos | repo SHA 3582a6841fe7dc801e2a34e34ee408641aea9bce | run date 2026-10-22 | python 3.12.13
+
+=== A. 미설치 동작: 실제 파일을 그대로 exec (이 환경에는 langchain_mcp_adapters 가 없다) ===
+  langchain_mcp_adapters importable: False
+  PASS client.py: HAS_MCP_ADAPTERS == False 로 import 성공
+  PASS mcp/__init__.py: HAS_MCP_ADAPTERS False, __all__ == ['HAS_MCP_ADAPTERS']  -> ['HAS_MCP_ADAPTERS']
+  PASS retrievers/mcp/__init__.py: MCPRetriever is None
+  PASS MCPRetriever=None 이면 retrievers=['tavily','mcp'] 는 [Tavily, Tavily] (mcp가 조용히 Tavily로 대체)  -> ['TavilySearch', 'TavilySearch']
+  PASS 헤더 retrievers 가 있으면 cfg.retrievers(mcp 포함)는 읽히지 않는다  -> ['TavilySearch']
+  PASS 미설치: get_or_create_client() -> None
+  PASS 미설치: get_all_tools() -> []
+  PASS 설치+설정 없음: get_or_create_client() -> None
+  PASS 설치+설정 있음: 클라이언트는 한 번만 만들고 캐시한다  -> 1
+  PASS get_all_tools 정상: 도구 목록 반환
+  PASS get_tools 예외는 삼키고 []
+  PASS close_client 뒤 _client is None (참조만 버림)
+  PASS close 뒤 다시 get_or_create 하면 새 클라이언트  -> 2
+  PASS 생성자 예외는 삼키고 None
+
+=== B. mcp_configs 변환 규칙: MCPClientManager.convert_configs_to_langchain_format 실제 소스 ===
+  PASS stdio: args 문자열은 공백으로 split, env 전달  -> {'fs': {'transport': 'stdio', 'command': 'npx', 'args': ['-y', '@x/server', '/tmp'], 'env': {'K': 'v'}}}
+  PASS name 없으면 mcp_server_<목록 위치+1>  -> {'mcp_server_1': {'transport': 'stdio', 'command': 'py', 'args': ['a.py']}}
+  PASS dict가 아닌 항목은 건너뛰고, 기본 이름의 번호는 원래 목록 위치를 따른다  -> {'mcp_server_2': {'transport': 'stdio', 'command': 'py', 'args': []}}
+  PASS https URL: transport=streamable_http, connection_type 무시(sse 지정해도), headers·token 전달  -> {'a': {'transport': 'streamable_http', 'url': 'https://h/mcp', 'headers': {'X': '1'}, 'token': 'tk'}}
+  PASS 대문자 스킴도 websocket  -> {'a': {'transport': 'websocket', 'url': 'WSS://h/ws'}}
+  PASS ws/http 외 스킴: connection_type 사용, websocket이면 url 설정  -> {'a': {'transport': 'websocket', 'url': 'tcp://h:1'}}
+  PASS ws/http 외 스킴 + connection_type 없음: stdio, command 없으니 {'transport': 'stdio'}만  -> {'a': {'transport': 'stdio'}}
+  PASS connection_type=sse 는 url 없이 transport만 넘어간다(url 누락)  -> {'a': {'transport': 'sse'}}
+  PASS URL 없이 connection_type=http: transport 'http', url 없음  -> {'a': {'transport': 'http'}}
+  PASS stdio에도 token이 붙고, headers는 붙지 않고, tool_name은 읽지 않는다  -> {'a': {'transport': 'stdio', 'command': 'c', 'args': [], 'token': 'tk'}}
+  PASS 같은 name 은 뒤의 것이 덮어쓴다  -> {'dup': {'transport': 'stdio', 'command': 'two', 'args': []}}
+  PASS 빈 목록 -> {}
+  PASS args=None 은 그대로 None 으로 전달(검증 없음)  -> {'a': {'transport': 'stdio', 'command': 'c', 'args': None}}
+
+=== C. 전략 결정: GPTResearcher._resolve_mcp_strategy 실제 소스 (agent.py:217-281) ===
+  PASS resolve('fast', None, 'deep') == fast  -> fast
+  PASS resolve('deep', None) == deep  -> deep
+  PASS resolve('disabled', None) == disabled  -> disabled
+  PASS resolve('optimized', None) == fast  -> fast
+  PASS resolve('comprehensive', None) == deep  -> deep
+  PASS resolve('bogus', None, 'deep') == fast  -> fast
+  PASS resolve(None, 0) == disabled  -> disabled
+  PASS resolve(None, 1) == fast  -> fast
+  PASS resolve(None, -1) == deep  -> deep
+  PASS resolve(None, 7) == fast  -> fast
+  PASS resolve('deep', 0) == deep  -> deep
+  PASS resolve(None, None, 'deep') == deep  -> deep
+  PASS resolve(None, None, 'optimized') == fast  -> fast
+  PASS resolve(None, None, 'comprehensive') == deep  -> deep
+  PASS resolve(None, None, 'bogus') == fast  -> fast
+  PASS resolve(None, None) == fast  -> fast
+  PASS resolve(None, 0, 'deep') == disabled  -> disabled
+
+=== D. mcp_configs -> retrievers: GPTResearcher._process_mcp_configs 실제 소스 (agent.py:295-321) ===
+  PASS ['tavily'] -> ['tavily','mcp'] (끝에 덧붙임)
+  PASS 이미 mcp가 있으면 순서 유지
+  PASS 문자열 'tavily, exa' -> ['tavily','exa','mcp']
+  PASS 빈 retrievers -> ['mcp']
+
+=== E. 도구 선택: MCPToolSelector 실제 소스 + 프롬프트 실제 소스 (대체: LLM 응답, json_repair->json.loads) ===
+  PASS LLM이 준 index 순서대로 선택  -> ['read_file', 'web_search']
+  PASS 프롬프트에 'EXACTLY 3', 쿼리, 도구 JSON(index/name/description) 포함, description 없으면 'No description available'
+  PASS 중복 index 와 max_tools 초과를 걸러내지 않는다  -> ['web_search', 'web_search', 'read_file', 'delete_all']
+  PASS 범위 밖 index 만 있으면 선택 0개 -> 폴백  -> ['web_search', 'read_file', 'get_weather']
+  PASS float index 하나가 있으면 TypeError -> 이미 고른 것도 버리고 전체 폴백  -> ['web_search', 'read_file', 'get_weather']
+  PASS 문자열 index('1')도 비교 TypeError -> 폴백  -> ['web_search', 'read_file', 'get_weather']
+  PASS JSON이 객체가 아니면 폴백  -> ['web_search', 'read_file', 'get_weather']
+  PASS LLM 호출 실패(빈 응답) -> 폴백  -> ['web_search', 'read_file', 'get_weather']
+  PASS 파싱 불가(대체 json.loads) -> 폴백  -> ['web_search', 'read_file', 'get_weather']
+  PASS 도구 수 < max_tools 이면 max_tools=도구 수, LLM은 여전히 호출  -> ['web_search']
+  PASS 도구가 없으면 LLM 호출 없이 []
+  PASS 폴백: 패턴(search/get/read/...)에 하나도 안 맞으면 [] 가능  -> []
+  PASS 폴백 점수: 이름 일치 3점/설명 일치 1점, 높은 순(동점은 원래 순서)  -> ['search_get', 'read', 'misc']
+
+=== F. 도구 실행·결과 정규화: MCPResearchSkill 실제 소스 (대체: GenericLLMProvider, LLM 응답, 도구) ===
+  PASS LLM 호출은 정확히 1번(도구 결과를 LLM에 되돌려 주지 않는다)  -> 1
+  PASS provider 인자: strategic 제공자/모델 + llm_kwargs 전달  -> ('p1', {'model': 'm1', 'verbose': True})
+  PASS 실패한 도구·없는 도구·빈 결과는 건너뛰고 나머지는 계속, 마지막에 LLM Analysis 추가  -> ['A', 'Result from web_search', 'LLM Analysis: Q?']
+  PASS list 결과: dict 아닌 항목(str-item)은 버려지고 title+content 없는 dict는 str(dict)  -> {'title': 'Result from web_search', 'href': 'mcp://web_search/2', 'body': "{'foo': 1}"}
+  PASS LLM Analysis 항목: href=mcp://llm_analysis, body=response.content
+  PASS 도구는 LLM이 준 args 로 호출됨
+  PASS tool_calls 없음: LLM Analysis 한 건만  -> [{'title': 'LLM Analysis: Q?', 'href': 'mcp://llm_analysis', 'body': 'only text'}]
+  PASS tool_calls 없고 content 비어 있음: []
+  PASS LLM ainvoke 예외: 전체 []
+  PASS 선택 도구 없음: LLM 호출 없이 []
+  PASS content가 블록 리스트면 body도 리스트가 된다(문자열로 바꾸지 않음)  -> [{'type': 'text', 'text': 'blocks'}]
+  PASS 래퍼 dict + structured_content.results: 항목마다 title/href(href>url>mcp://t/i)/body(body>content)  -> [{'title': 'T', 'href': 'u', 'body': 'c'}]
+  PASS structured_content dict(results 리스트 없음): 한 건, body=str(dict)  -> [{'title': 'S', 'href': 'mcp://t', 'body': "{'title': 'S', 'x': 1}"}]
+  PASS results가 빈 리스트면 content 폴백: text 파트를 빈 줄로 이음, 알 수 없는 파트는 str(part)  -> [{'title': 'Result from t', 'href': 'mcp://t', 'body': "a\n\n5\n\n{'k': 1}\n\nz"}]
+  PASS content 문자열
+  PASS content가 그 밖의 타입이면 body=str(result 전체)  -> [{'title': 'Result from t', 'href': 'mcp://t', 'body': "{'content': 3}"}]
+  PASS 리스트: title+(body|content) 있으면 그대로 변환, 아니면 일반 제목, 비-dict 항목은 버림  -> [{'title': 'A', 'href': 'mcp://t/0', 'body': 'b'}, {'title': 'Result from t', 'href': 'mcp://t/1', 'body': "{'title': 'no content'}"}]
+  PASS 문자열 리스트는 결과 0건
+  PASS 래퍼 키가 없는 dict: 한 건  -> [{'title': 'D', 'href': 'h', 'body': 'b'}]
+  PASS 그 밖의 타입: str(result) 한 건  -> [{'title': 'Result from t', 'href': 'mcp://t', 'body': 'text'}]
+
+=== G. MCPRetriever.search / search_async / _get_all_tools 실제 소스 (대체: client_manager, tool_selector, mcp_researcher, streamer) ===
+  PASS search_async: 결과를 max_results 개로 자른다(뒤쪽 잘림), max_tools=3으로 선택 호출, 끝에 close_client  -> (5, [3], 1)
+  PASS search_async: 단계 이벤트 Stage 1~3 + 결과 요약  -> [('start', 'Stage 1'), ('log', '📋 Loaded 2 total tools from MCP servers'), ('start', 'Stage 2'), ('start', 'Stage 3'), ('results', 5, 15)]
+  PASS 도구 0개: [] + warning, close_client 는 호출
+  PASS 선택 0개: [] + warning
+  PASS mcp_configs 없음: [] 이고 close_client 호출 없음(finally 이전 반환)
+  PASS 선택 단계 예외: [] + error 이벤트 + close_client
+  PASS 도구 로드 예외(_get_all_tools가 삼킴): [] 
+  PASS close_client 예외는 삼키고 결과 반환
+  PASS _get_all_tools: 같은 인스턴스에서는 도구 목록을 캐시
+  PASS 루프 안에서 search() 호출 시 결과 반환  -> 5
+  PASS search() 가 끝날 때까지 호출한 이벤트 루프가 멈춘다(ticker 0회) -- 최소 0.6s 블로킹  -> ticks_during=0 dt=0.92s ticks_after=4
+  PASS 루프 밖에서 search(): asyncio.run 경로로 같은 결과
+  PASS future.result(timeout) 초과 시 search()는 [] 를 돌려주지만, with ThreadPoolExecutor 종료가 스레드 완료를 기다려 실제로는 1초 작업이 끝난 뒤에야 반환(타임아웃 0.3s 치환본)  -> out=[] dt=1.31s
+  PASS search(): mcp_configs 없음 -> [] (예외 없음)
+
+=== H. ResearchConductor 의 MCP 경로 (실제 소스 + 대체: retriever 클래스, 스크랩, 선별, 서브쿼리 계획 LLM, stream_output) ===
+  [서브쿼리 계획 대체: LLM 이 ['s1','s2'] 를 줌 -> 원 질문 Q 가 덧붙어 [s1, s2, Q]; MCP 단독이면 [Q]+[Q]]
+  PASS fast + [web, mcp]: MCP 1회(원 질문), 서브쿼리 3개 모두 캐시 재사용  -> (['Q'], 3)
+  PASS fast: 서브쿼리마다 MCP 본문이 결과에 반복된다(3번)  -> 3
+  PASS deep + [web, mcp]: MCP 3회(서브쿼리 s1, s2, Q 각각), 캐시 없음  -> ['s1', 's2', 'Q']
+  PASS deep + subtopic_report: 원 질문이 안 붙으므로 2회  -> ['s1', 's2']
+  PASS disabled + [web, mcp]: MCP 0회, 웹 결과는 정상  -> ([], 1)
+  PASS fast + [mcp] 단독: 선점 1회 + 초기 검색 1회 = 2회, 서브쿼리는 [Q, Q]  -> ['Q', 'Q']
+  PASS deep + [mcp] 단독: 초기 검색 1회 + 서브쿼리 [Q, Q] 2회 = 3회  -> ['Q', 'Q', 'Q']
+  PASS disabled + [mcp] 단독: 초기 검색은 전략과 무관하게 MCP를 1회 실행하고 그 결과는 쓰이지 않는다  -> (['Q'], [])
+  PASS fast + [mcp, web]: 선점 1 + 초기 검색 1 = 2회  -> ['Q', 'Q']
+  PASS Tavily MCP 중복 + fast: 서브쿼리에서는 MCP를 쓰지 않지만 선점 단계에서는 MCP가 1회 실행된다(낭비)  -> (['Q'], 3)
+  PASS Tavily MCP 중복 + deep: MCP 0회  -> []
+  PASS fast, 동시 두 패스: 잠금 덕분에 MCP 선점은 1회  -> ['Q']
+  PASS (대조) 잠금을 no-op 으로 바꾸면 2회 -- 잠금이 중복 실행을 막는다  -> ['Q', 'Q']
+  PASS deep, 동시 두 패스: 패스마다 3회씩 6회(캐시 없음)  -> 6
+  PASS fast: 같은 ResearchConductor 의 두 번째 호출은 MCP를 다시 실행하지 않고 첫 질문('Q')의 결과를 쓴다  -> ['Q']
+  PASS 캐시 항목 형식: content/url/title/query/source_type  -> {'content': 'mcp body for Q', 'url': 'https://mcp.example/x', 'title': 'T:Q', 'query': 'Q', 'source_type': 'mcp'}
+  PASS 캐시에는 LLM Analysis 항목도 들어간다(내용이 있으면)  -> ['T:Q', 'LLM Analysis: Q']
+  PASS fast + MCP 빈 결과: 캐시는 [] (None 아님)이라 재실행 없음, 웹 결과만 반환  -> ([], ['Q'])
+  PASS MCP search 예외(deep): 서브쿼리는 계속되고 웹 결과가 남는다
+  PASS   (확인) mcp_research_error 이벤트  -> 3
+  PASS MCP 본문이 str 이 아니면(예: 블록 리스트) 결합에서 AttributeError -> 그 서브쿼리 결과는 웹 컨텍스트까지 포함해 ''  -> ''
+  PASS 알 수 없는 전략: 선점은 fast처럼 1회 캐시, 그런데 서브쿼리 쪽은 캐시를 안 쓰고 서브쿼리마다 실행 -> 총 4회  -> ['Q', 's1', 's2', 'Q']
+  PASS _get_mcp_strategy: researcher.mcp_strategy 가 None 이면 cfg.mcp_strategy
+  PASS _get_mcp_strategy: researcher.mcp_strategy 가 우선
+
+=== I. _tavily_mcp_redundant_with_direct 단위 (실제 소스) ===
+  PASS name에 tavily -> 중복
+  PASS args 리스트에 tavily -> 중복
+  PASS command에 tavily -> 중복
+  PASS args가 문자열이면 글자 단위로 이어져 'tavily'를 못 찾는다 -> 중복 아님
+  PASS connection_url만 tavily -> 중복 아님
+  PASS 서버 중 하나라도 tavily가 아니면 중복 아님
+  PASS 직접 Tavily retriever가 없으면 중복 아님
+  PASS non-MCP retriever가 없으면 중복 아님
+  PASS 비-dict 항목이 섞이면 중복 아님
+  PASS mcp_configs 비어 있음 -> 중복 아님
+
+=== J. _combine_mcp_and_web_context 형식 (실제 소스) ===
+  PASS web(strip) + 빈 줄 + MCP 항목들(본문 strip + '*Source: 제목 (URL)*'), 항목 사이 '---', 공백뿐인 본문 제외  -> 'web\n\nc1\n\n*Source: T1 (https://u)*\n\n---\n\nc2\n\n*Source: LLM Analysis*\n\n---\n\nc3\n\n*Source: T3*\n\n---\n\nc5\n\n*Source:  (mcp://tool/1)*'
+  PASS web 없음 -> MCP만
+  PASS 둘 다 없음 -> ''
+  PASS MCP 항목이 전부 빈 본문 -> web만
+
+요약: 실패 0건

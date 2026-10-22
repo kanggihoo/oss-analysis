@@ -1,0 +1,111 @@
+# recursion_demo.py 실행 출력 (2026-10-22, python 3.12.13, 네트워크·LLM 호출 없음, 가짜 LLM·가짜 GPTResearcher, 원본 deep_research.py 실행)
+# 맨 위 'Error processing ...' 등은 원본 logger.error/warning 출력(stderr)이다
+Error processing query 'Q1.2': nested research failed for Q1.2
+Error processing query 'Q1.1': nested research failed for Q1.1
+Error processing query 'Q1.2': nested research failed for Q1.2
+Deep research produced no successful query results at depth=3; stopping descent.
+Error processing query 'Q1.1': LLM down (results #1)
+Error processing query 'Q1.2': LLM down (results #2)
+Deep research produced no successful query results at depth=1; stopping descent.
+Error processing query 'Q1.1': LLM down (results #1)
+Error with retriever TavilySearch: retriever misconfigured
+Deep research generated zero search queries; stopping descent.
+Error processing query 'Q1.1': callback boom
+
+======== A1. 설정 값 3/2/4(Config 기본값과 같은 값)로 run(): 레벨별 breadth, 중첩 연구자 수, 동시 실행 상한
+skill.breadth/depth/concurrency = 3 2 4
+deep_research() 호출 순서 (depth, breadth): [('2', '3'), ('1', '2'), ('1', '2'), ('1', '2')]
+중첩 GPTResearcher 수: 9 / 최대 동시 실행: 3
+LLM 호출 종류별 횟수: {'plan': 1, 'queries': 4, 'results': 9}
+중첩 연구자 생성 인자 예(첫 번째): {'query': 'Q1.1', 'report_type': 'research_report', 'report_source': 'web', 'tone': 'str', 'websocket': None, 'config_path': None, 'headers': {'h': 1}, 'visited_urls': 'set', 'mcp_configs': None, 'mcp_strategy': None}
+계획용 검색 호출(retriever, query 앞 20자, max_results): [('TavilySearch', 'how does X work', None)]
+최종 반환 타입: str / 줄 수: 18
+최종 컨텍스트 앞 3줄: ['learning about Q4.1 [Source: https://src.test/Q4.1]', 'learning about Q1.3 [Source: https://src.test/Q1.3]', 'learning about Q1.1 [Source: https://src.test/Q1.1]']
+researcher.visited_urls 타입: list / 개수: 10 / skill.visited_urls(처음 받은 집합): set 10
+researcher.research_sources 개수: 9
+비용: outer.add_costs 호출 = [] / LLM 호출에 cost_callback 전달 여부 집합: {False}
+deep_research_costs 로그 details: [{'research_costs': 0.0, 'total_costs': 0.0}]
+질의 생성 프롬프트의 Prompt: 이후 문자열 (1) 최상위, (2) 첫 재귀: [' \n        Initial Query: how does X work\nFollow - up Questions and Answers:\n\n        Q: plan question 1?\nA: Automatically proceeding with research\nQ: plan question 2?\nA: Automatically proceeding with research', ' \n                Previous research goal: goal of Q1.1\n                Follow-up questions: follow-up of Q1.1?\n                ']
+LLM 호출 옵션(종류, 옵션): [('plan', '{"reasoning_effort": "high", "temperature": 0.4}'), ('queries', '{"reasoning_effort": "medium", "temperature": 0.4}'), ('results', '{"max_tokens": 4000, "reasoning_effort": "high", "temperature": 0.4}')]
+
+======== A2. breadth=4, depth=3: 깊이마다 breadth가 max(2, breadth//2)로 줄어든다
+deep_research() 호출 (depth, breadth) 순서(앞 8개): [('3', '4'), ('2', '2'), ('1', '2'), ('1', '2'), ('2', '2'), ('1', '2'), ('1', '2'), ('2', '2')]
+레벨별 deep_research() 호출 수: {'depth=3,breadth=4': 1, 'depth=2,breadth=2': 4, 'depth=1,breadth=2': 8}
+중첩 GPTResearcher 수: 28 (4 + 4*2 + 4*2*2 = 28 이면 규칙과 일치)
+
+======== A3. depth=1: 재귀 없음
+중첩 GPTResearcher 수: 3 / deep_research 호출: [('1', '3')]
+
+======== A4. 동시 실행 상한(세마포어)
+breadth=3 depth=1 concurrency=1 -> 최대 동시 실행: 1
+breadth=3 depth=1 concurrency=2 -> 최대 동시 실행: 2
+breadth=3 depth=2 concurrency=3 -> 최대 동시 실행: 3 (최상위 레벨 3개가 동시에 돈다. 자식 레벨은 형제 결과마다 순차로 재귀한다)
+
+======== B. getattr 기본값(4/2/2) 대 설정 객체 값
+cfg에 deep_research_* 속성이 없을 때: breadth/depth/concurrency = 4 2 2
+default.py DEFAULT_CONFIG(원본 파일을 ast로 읽음): {'DEEP_RESEARCH_BREADTH': 3, 'DEEP_RESEARCH_DEPTH': 2, 'DEEP_RESEARCH_CONCURRENCY': 4}
+
+======== C1. 일부 중첩 연구가 실패: 그 질의만 버리고 계속
+최종 컨텍스트에 Q1.2 포함? False / Q1.1 포함? True / 생성된 중첩 연구자: 3
+
+======== C2. 한 레벨의 모든 질의가 실패하면 그 레벨에서 중단(#1579): depth=3이어도 재귀하지 않음
+run 반환: '' / 중첩 연구자: 2 / outer.context: '' / deep_research 호출 수: 1
+조기 종료 시 outer.visited_urls: set 0
+C2b. 중첩 연구는 성공했지만 학습 추출 LLM이 전부 실패: 공유 집합에는 URL 3 개가 있지만 run 뒤 outer.visited_urls = set 0 / 같은 객체인가: False / run 반환: ''
+
+======== C3. process_research_results(LLM)가 실패하면 그 질의만 버림
+LLM 호출: {'plan': 1, 'queries': 1, 'results': 2} / 결과의 [Source:] 학습 줄 수: 1
+
+======== C4. 깊은 레벨의 질의 생성 LLM이 실패하면 예외가 run 밖으로 나가고, 지금까지 얻은 결과는 outer에 반영되지 않음
+run 결과: RuntimeError LLM down (queries #2)
+outer.context: [] / outer.research_sources: [] / outer.visited_urls(공유 집합이라 부분적으로 채워짐): 3 set
+중첩 연구자 수(첫 레벨 완료 뒤 중단): 2
+
+======== C5. 계획 단계: retriever 예외는 개별로 삼킴, 질문 0개여도 진행, 최상위 질의 0개면 빈 컨텍스트
+계획 검색 호출: [('TavilySearch', 'how does X work', None), ('DuckSearch', 'how does X work', None)] / run 반환 타입: str / 질문 0개여도 중첩 연구 실행: True
+질의 0개: run 반환: '' / 중첩 연구자: 0 / outer.context: '' / outer.visited_urls: set
+
+======== D1. 중복: 같은 학습 텍스트는 한 번만, citation은 나중 것 / URL은 집합이라 중복 없음
+학습 줄: ['same learning [Source: https://src.test/Q1.2]']
+visited_urls 중복 없음? True ['https://web.test/Q1.1', 'https://web.test/Q1.2', 'https://web.test/shared']
+
+======== D2. 컨텍스트가 25,000단어를 넘으면 앞쪽 항목부터 버림 (deep_research 호출 끝의 trim, 그리고 run 끝의 trim)
+중첩 연구 3개 x 12000단어: 최종 단어 수: 24015 / 남은 컨텍스트 항목: ['ctx-Q1.2', 'ctx-Q1.3'] / 학습 줄([Source:]) 수: 3 (deep_research 끝의 trim이 앞의 ctx-Q1.1을 버렸다)
+
+======== D3. run 끝의 trim은 학습 줄이 맨 앞이라 먼저 버려진다 (컨텍스트 2개 x 12498단어 + 학습 줄 2개(줄당 5단어) = 25006단어)
+최종 단어 수: 24996 / 남은 컨텍스트 항목: ['ctx-Q1.1', 'ctx-Q1.2'] / 학습 줄 수: 0 / 학습 줄이 하나라도 남았나?: False
+
+======== E. on_progress 이벤트 (breadth=2, depth=2, concurrency=1). 같은 객체가 변하므로 호출 시점 값을 복사해 기록
+(객체, cur_depth, total_depth, cur_breadth, total_breadth, completed, total_queries, current_query)
+   ('P0', 1, 2, 0, 2, 0, 0, None)
+   ('P0', 1, 2, 0, 2, 0, 2, 'Q1.1')
+   ('P0', 1, 2, 1, 2, 1, 2, 'Q1.1')
+   ('P0', 1, 2, 1, 2, 1, 2, 'Q1.2')
+   ('P0', 1, 2, 2, 2, 2, 2, 'Q1.2')
+   ('P0', 1, 2, 2, 2, 2, 2, 'Q1.2')
+   ('P1', 1, 1, 0, 2, 0, 0, None)
+   ('P1', 1, 1, 0, 2, 0, 2, 'Q2.1')
+   ('P1', 1, 1, 1, 2, 1, 2, 'Q2.1')
+   ('P1', 1, 1, 1, 2, 1, 2, 'Q2.2')
+   ('P1', 1, 1, 2, 2, 2, 2, 'Q2.2')
+   ('P1', 1, 1, 2, 2, 2, 2, 'Q2.2')
+   ('P1', 1, 1, 0, 2, 0, 0, None)
+   ('P1', 1, 1, 0, 2, 0, 2, 'Q3.1')
+   ('P1', 1, 1, 1, 2, 1, 2, 'Q3.1')
+   ('P1', 1, 1, 1, 2, 1, 2, 'Q3.2')
+  ... 총 이벤트 수: 18 / 서로 다른 ResearchProgress 객체: 2
+async 콜백을 넘기면 await되지 않음 -> 'never awaited' 경고 수: 6 / run은 정상 완료: True
+
+======== F. on_progress 콜백이 예외를 던질 때: 질의 처리 안(시작·완료 알림)이면 그 질의만 버려지고, 레벨 시작/끝 알림이면 전파
+질의 시작 알림에서 예외 -> run 결과 타입: str / Q1.1 포함? False / Q1.2 포함? True
+레벨 시작 알림에서 예외 -> run 결과: ValueError callback boom at level start
+
+======== G. 중첩 연구가 빈 결과([])를 돌려줘도 학습 추출 LLM을 부르고, 그 프롬프트에는 '[]'가 들어간다
+results LLM 호출 수: 2 / 프롬프트의 Research results: 이후: '\n[]'
+run 반환(학습 줄은 LLM이 낸 것): ['learning about Q1.1 [Source: https://src.test/Q1.1]', 'learning about Q1.2 [Source: https://src.test/Q1.2]']
+
+======== H. 설정 값 경계: breadth=1, depth=0, concurrency=0 / -1 (값 검증이 없음)
+breadth=1, depth=2 -> deep_research() 호출 (depth, breadth): [('2', '1'), ('1', '2')] / 중첩 연구자: 3 (자식 breadth는 max(2, 1//2)=2)
+depth=0 -> 한 레벨은 실행: [('0', '2')] / 중첩 연구자: 2
+concurrency=0 -> 1초 안에 끝나지 않음: TimeoutError / 중첩 연구자 생성 수: 0
+concurrency=-1 -> ValueError Semaphore initial value must be >= 0

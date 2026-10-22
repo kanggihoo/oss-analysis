@@ -1,6 +1,7 @@
 # 1. Local repositories (managed by their own origin git)
 /repos/
 /trading/repos/
+/herdr-plugin/repos/
 /code-review/repos/
 
 # 2. Artifacts: exclude heavy dumps, logs, and temporary caches

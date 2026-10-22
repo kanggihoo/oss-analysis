@@ -1,0 +1,7 @@
+repo_dir=repos/gpt-researcher
+name=gpt-researcher
+date=2026-10-22
+commit=3582a6841fe7dc801e2a34e34ee408641aea9bce
+origin=https://github.com/assafelovic/gpt-researcher
+worktree=clean
+clone=shallow(--depth 50)
