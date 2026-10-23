@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "gbrain 모듈 구조 (63f62b2c)",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "clients",
+      "type": "external",
+      "label": "에이전트·사용자",
+      "sublabel": "터미널 · MCP 클라이언트 · 훅",
+      "pos": [
+        30,
+        285
+      ],
+      "size": [
+        160,
+        64
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "CLI 디스패처",
+      "sublabel": "cli/main.ts · command-table.ts",
+      "pos": [
+        230,
+        160
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "mcp",
+      "type": "frontend",
+      "label": "MCP 서버",
+      "sublabel": "mcp/server.ts · serve-http*.ts",
+      "pos": [
+        230,
+        410
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "ops",
+      "type": "security",
+      "label": "연산 계약·신뢰 경계",
+      "sublabel": "operations.ts · ops/* · contract.ts",
+      "pos": [
+        450,
+        285
+      ],
+      "size": [
+        190,
+        72
+      ],
+      "tag": "remote 필수"
+    },
+    {
+      "id": "gateway",
+      "type": "cloud",
+      "label": "AI 게이트웨이",
+      "sublabel": "core/ai/gateway.ts",
+      "pos": [
+        710,
+        40
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "reads",
+      "type": "backend",
+      "label": "읽기 계층",
+      "sublabel": "search/ · think/ · verbs.ts · facts/",
+      "pos": [
+        710,
+        160
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "journal",
+      "type": "backend",
+      "label": "쓰기 저널",
+      "sublabel": "persistence/page-mutations.ts",
+      "pos": [
+        710,
+        285
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "import",
+      "type": "backend",
+      "label": "import 파이프라인",
+      "sublabel": "import-file.ts · markdown.ts",
+      "pos": [
+        710,
+        410
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "ingest",
+      "type": "backend",
+      "label": "수집·소스",
+      "sublabel": "commands/sync.ts · sources",
+      "pos": [
+        710,
+        530
+      ],
+      "size": [
+        180,
+        64
+      ]
+    },
+    {
+      "id": "engine",
+      "type": "database",
+      "label": "BrainEngine",
+      "sublabel": "PGLite | Postgres",
+      "pos": [
+        950,
+        160
+      ],
+      "size": [
+        180,
+        330
+      ]
+    },
+    {
+      "id": "bg",
+      "type": "messagebus",
+      "label": "잡 큐·dream 사이클",
+      "sublabel": "minions/ · cycle.ts",
+      "pos": [
+        950,
+        560
+      ],
+      "size": [
+        180,
+        64
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-cli",
+      "from": "clients",
+      "to": "cli",
+      "label": "argv"
+    },
+    {
+      "id": "c-mcp",
+      "from": "clients",
+      "to": "mcp",
+      "label": "tools/call"
+    },
+    {
+      "id": "cli-ops",
+      "from": "cli",
+      "to": "ops",
+      "label": "remote:false"
+    },
+    {
+      "id": "mcp-ops",
+      "from": "mcp",
+      "to": "ops",
+      "label": "remote:true"
+    },
+    {
+      "id": "ops-reads",
+      "from": "ops",
+      "to": "reads",
+      "label": "읽기 op",
+      "fromSide": "top",
+      "toSide": "left"
+    },
+    {
+      "id": "ops-journal",
+      "from": "ops",
+      "to": "journal",
+      "label": "쓰기 op"
+    },
+    {
+      "id": "journal-import",
+      "from": "journal",
+      "to": "import",
+      "label": "importFromContent",
+      "labelDy": 24
+    },
+    {
+      "id": "journal-engine",
+      "from": "journal",
+      "to": "engine",
+      "label": "트랜잭션"
+    },
+    {
+      "id": "reads-engine",
+      "from": "reads",
+      "to": "engine",
+      "label": "SQL",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          920,
+          192
+        ],
+        [
+          920,
+          130
+        ],
+        [
+          1040,
+          130
+        ]
+      ]
+    },
+    {
+      "id": "reads-gateway",
+      "from": "reads",
+      "to": "gateway",
+      "label": "embed·rerank·chat",
+      "variant": "dashed"
+    },
+    {
+      "id": "ingest-import",
+      "from": "ingest",
+      "to": "import",
+      "label": "파일 import"
+    },
+    {
+      "id": "bg-ingest",
+      "from": "bg",
+      "to": "ingest",
+      "label": "sync 단계"
+    },
+    {
+      "id": "bg-engine",
+      "from": "bg",
+      "to": "engine",
+      "label": "minion_jobs"
+    }
+  ]
+}

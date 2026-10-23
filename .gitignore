@@ -2,6 +2,7 @@
 /repos/
 /trading/repos/
 /herdr-plugin/repos/
+/prompt-eval/repos/
 /code-review/repos/
 
 # 2. Artifacts: exclude heavy dumps, logs, and temporary caches

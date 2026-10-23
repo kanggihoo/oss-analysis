@@ -542,3 +542,38 @@
 ## [2026-10-22] ingest | gpt-researcher Q2 합친 뒤 과정, 프롬프트·도구 위치
 - 사용자 질문(합친 뒤 전처리 여부, 최종 개수, 보고서 전까지의 과정, LLM 프롬프트와 도구 정의 위치)에 대해 `researcher.py:212-240`, `agent.py:343-413`, `prompts.py`의 프롬프트 함수 전체, `curator.py`, `mcp/research.py`, `utils/tools.py`, `backend/chat/chat.py`, `deep_agents/tools.py`를 읽고, 기존 capabilities 스펙의 해당 줄 번호(R-ID, C-ID)를 찾아 대응시켰다. 실행 없음.
 - 쓴 것: `reports/gpt-researcher/questions/q2-prompts-tools-and-pre-report-flow.md`, `overview.md` 4절 링크. 프롬프트 13종 중 스펙에 정리된 것은 9종, 도구 3곳 중 스펙에 정리된 것은 MCP 1곳이다.
+
+## [2026-10-22] ingest | prompt-eval 폴더 신설, dspy·promptfoo·prompt-optimizer clone (초기 작업)
+- `prompt-eval/`(herdr-plugin/과 같은 방식)을 만들고 dspy(`3fdb93f`, main), promptfoo(`dfe2d45`, main), prompt-optimizer(`a201f47`, develop)를 `--depth 50`으로 clone. 목적은 내 스킬·프롬프트의 평가, 모델 비교, 개선에 쓸 도구 파악. `.gitignore`에 `/prompt-eval/repos/` 추가.
+- 3개 모두 작업트리 clean. LICENSE 파일 확인: dspy MIT, promptfoo MIT, prompt-optimizer AGPL-3.0-only.
+- `GUIDE.md`, `repos.lock.tsv`, `artifacts/<repo>/repo-metadata.txt` 작성. overview와 기능 지도는 쓰지 않음. 먼저 볼 곳(`promptfoo`의 `claude-agent-sdk.ts`와 `optimizer/`, dspy `teleprompt/`)은 디렉터리·grep 수준의 후보다.
+
+## [2026-10-22] ingest | prompt-eval 3개 레포 overview(기능 지도·구조도), 스펙 범위 승인 대기
+- oss-repo-spec 1~3단계를 레포마다 서브에이전트(sonnet 계열)에 병렬로 맡겼다. 레포 코드는 읽기만 했고 설치·빌드·실행은 없다. 레포마다 `overview.md`(기능 지도, 공유 계약, 목적 질문 Q1~Q3 초기 답, 그림 해설)와 `diagrams/structure.{json,html}`(archify deliver 검증, 로컬 Chrome visual-check 통과, 시각 검토는 스크린샷 일부만)을 썼다.
+- 기능 지도 행 수: dspy 27(핵심 24/부속 3), promptfoo 27(핵심 19/부속 8), prompt-optimizer 21(핵심 12/부속 9). 모두 스펙 미작성, 범위 승인 전.
+- 메인 세션이 보고 중 3건(promptfoo `skill-used` 어서션, dspy GEPA `skills` 인자, prompt-optimizer MCP 도구 이름)을 grep으로 다시 확인했다. `visual-check` 부산물은 `artifacts/prompt-optimizer/structure-visual-check/`, `artifacts/promptfoo/structure-visual-check/`에 있다.
+- `index.md`에 3행 추가(임시 "클론만 한 레포" 절은 삭제), `prompt-eval/GUIDE.md` 현재 단계 갱신.
+
+## [2026-10-22] ingest | gbrain overview(기능 지도 44행·구조도), 스펙 범위 승인 대기
+- `repos/gbrain`에 clone(`63f62b2c`, master, 0.60.371.0, 작업트리 clean)하고 `artifacts/gbrain/repo-metadata.txt`를 썼다. 라이선스: 루트 MIT(Garry Tan), 하위 LICENSE 4개(company-brain MIT, skillpack-reference 자리표시자, node 벤더, postgres UNLICENSE).
+- 추적 파일이 12,864개라 영역 6개(저장·쓰기 / 검색·그래프 / 메모리 / 수집·소스 / 서빙·접근 / 잡·운영·스킬)를 서브에이전트가 읽기 전용으로 조사했다. 보고는 후보로 읽고 메인 세션이 코드에서 다시 확인한 것: 엔진 기본값, 쓰기 진입점, 스키마 버전 264, 소스 해석 7단계, `IngestionDaemon` 미연결, 사이클 30단계, `remote:false` 위치, 발행 게이트 위치, scope 6종, 검색 모드 번들, `facts` DDL 위치. 보고 원문은 파일로 보존하지 않았다(대화에만 있음). 나머지 행의 세부는 서브에이전트 보고 기준이다.
+- 쓴 것: `reports/gbrain/overview.md`(기능 지도 44행 — 핵심 34/부속 10, 공유 계약 4, 대조 범위·문서와 구현 차이·미탐색), `reports/gbrain/diagrams/structure.{json,html}`(archify deliver 통과, visual-check 통과, 시각 검토는 1440×900 light 한 장). 부산물은 `artifacts/gbrain/structure-visual-check/`. 스펙은 쓰지 않았다.
+- `index.md`에 gbrain 행 추가. 다음: 사용자가 스펙 범위를 승인하면 `next.md`를 쓰고 4장으로 간다.
+
+## [2026-10-22] ingest | gbrain Q1(개요·Claude 기본 메모리와의 차이)
+- 질문에 답하려고 `src/core/verbs.ts` `remember` 핸들러, `src/core/facts-fence.ts`·`facts/fence-write.ts` 머리 주석, `persistence/memory-mutations.ts`의 fence 사용, `docs/architecture/system-of-record.md`, `docs/guides/memory-boundaries.md`를 읽었다. 실행은 하지 않았다.
+- 쓴 것: `reports/gbrain/questions/q1-what-it-is-vs-builtin-memory.md`, `overview.md` 4절 링크. Claude Code 기본 메모리 열은 이 세션 환경을 관찰한 것이고 claude.ai 앱 메모리는 미확인이다.
+
+## [2026-10-22] update | gbrain Q1 후속("중앙 메모리 + .md" 범위)
+- `persistence/memory-mutations.ts` `planRememberTarget`(70~135줄)와 `docs/architecture/system-of-record.md`(26~36, 79~100줄)를 읽었다. 실행은 하지 않았다.
+- `reports/gbrain/questions/q1-what-it-is-vs-builtin-memory.md`에 4절 추가(.md가 원본이지만 엔티티 없이 저장한 사실·쓰기 설정 꺼짐·서브에이전트 샌드박스·이력/철회 장부는 DB에만 있음), `overview.md` 4절 한 줄 갱신.
+
+## [2026-10-22] workflow | prompt-eval 방향 결정: dspy 제외, 두 레포에서 필요한 기능만 선별
+- 사용자 결정: dspy는 스펙 범위에서 제외(overview 1절 "스펙 범위", `prompt-eval/GUIDE.md`, `index.md`에 이유 기록). promptfoo와 prompt-optimizer에서 필요한 기능만 골라 스킬 평가·개선·모델 적합도 기록 환경을 만든다.
+- 4단계 범위 승인용 선별안을 사용자에게 제시했다. 승인 전이라 두 레포 overview 1절 "스펙 범위"는 아직 바꾸지 않았다.
+
+## [2026-10-22] capability | prompt-eval 기능 스펙 21개 작성(promptfoo 15, prompt-optimizer 6)
+- 사용자 승인 범위(2026-10-22)대로 스펙을 서브에이전트(레포·기능별, 4개 웨이브)에 맡겨 썼다. 선행 계약부터: 공유 계약 4+1개, 기능 14+5개. 작업자는 자기 스펙 파일만 썼고 지도·index·log는 메인 세션이 고쳤다. 원본은 읽기만 했고 설치·빌드·실행·모델 호출은 없다(`실행 확인` 없음).
+- 선행 스펙이 서로 지적한 정정을 다시 맡겨 반영했다: config-loading(변수 파일 오류가 단계 목록 생성 중에 남), provider-contract(`PROMPTFOO_DELAY_MS` 분기 도달 경로), eval-run(`--suggest-prompts`는 n회 호출·동시 4·대화형 선택), template-rendering(기본 템플릿 선택 R-17 확정, 이미지 템플릿은 범위 밖). 미결정이 남았던 스펙(agent-providers, script-bridges, llm-evaluation, prompt-optimize, iterate-rewrite)은 읽을 수 있는 코드를 읽어 닫았고 외부 라이브러리 동작은 확인 한계로 옮겼다.
+- 결과: promptfoo ready 15 / draft 0, prompt-optimizer ready 6 / draft 0. 두 overview의 지도 상태 칸을 링크와 `ready`로 바꾸고 틀린 서술(Skill 도구 추가 조건, 약 120개 factory, 어서션 핸들러 줄 번호, generate 호출 수, 정렬 규칙, 4개 스냅샷, 구조화 비교 조건)을 고쳤다. `next.md` 2개 추가. 빈 파일 `eb-ui.md`(오타로 생긴 0바이트)를 삭제했다.
+- 남은 결정: `agent-workspace`(`copy_working_dir`·`workspaceDiff`)를 별도 스펙으로 뺄지, 웹 UI를 그대로 쓸지 새로 만들지는 사용자 결정 대기. 재구현 검증(4장 6번)은 요청이 없어 하지 않았다.

@@ -1,0 +1,4 @@
+# name	url	branch	sha	commit_date
+dspy	https://github.com/stanfordnlp/dspy	main	3fdb93f205b0f24a9338449c5bbad0092b5cce1c	2026-10-22
+promptfoo	https://github.com/promptfoo/promptfoo	main	dfe2d45e6f72be85c866b746e3852de0dd7622c5	2026-10-22
+prompt-optimizer	https://github.com/linshenkx/prompt-optimizer	develop	a201f47d2b17d6cf6a9347f336691b00c98720a1	2026-10-22

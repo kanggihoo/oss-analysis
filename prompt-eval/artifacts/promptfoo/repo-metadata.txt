@@ -1,0 +1,6 @@
+url: https://github.com/promptfoo/promptfoo
+branch: main
+sha: dfe2d45e6f72be85c866b746e3852de0dd7622c5
+commit_date: 2026-10-22
+fetched: 2026-10-22 (git clone --depth 50)
+worktree: clean

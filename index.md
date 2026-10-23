@@ -30,6 +30,10 @@
 | herdr-projects (herdr-plugin/) | `8258d96` | [overview](herdr-plugin/reports/herdr-projects/overview.md) | — |
 | herdr-nvim (herdr-plugin/) | `3ca8671` | [overview](herdr-plugin/reports/herdr-nvim/overview.md) | — |
 | herdr-auto-title (herdr-plugin/) | `69d7182` | [overview](herdr-plugin/reports/herdr-auto-title/overview.md) | — |
+| dspy (prompt-eval/) | `3fdb93f` | [overview](prompt-eval/reports/dspy/overview.md) | — (범위 제외) |
+| promptfoo (prompt-eval/) | `dfe2d45` | [overview](prompt-eval/reports/promptfoo/overview.md), [next](prompt-eval/reports/promptfoo/next.md) | [provider-contract](prompt-eval/reports/promptfoo/capabilities/provider-contract.md), [skill-calls-metadata](prompt-eval/reports/promptfoo/capabilities/skill-calls-metadata.md), [eval-records](prompt-eval/reports/promptfoo/capabilities/eval-records.md), [default-providers](prompt-eval/reports/promptfoo/capabilities/default-providers.md), [config-loading](prompt-eval/reports/promptfoo/capabilities/config-loading.md), [assertion-family](prompt-eval/reports/promptfoo/capabilities/assertion-family.md), [model-graded-matchers](prompt-eval/reports/promptfoo/capabilities/model-graded-matchers.md), [agent-providers](prompt-eval/reports/promptfoo/capabilities/agent-providers.md), [response-cache](prompt-eval/reports/promptfoo/capabilities/response-cache.md), [script-bridges](prompt-eval/reports/promptfoo/capabilities/script-bridges.md), [generate-datasets](prompt-eval/reports/promptfoo/capabilities/generate-datasets.md), [eval-run](prompt-eval/reports/promptfoo/capabilities/eval-run.md), [results-store](prompt-eval/reports/promptfoo/capabilities/results-store.md), [prompt-optimize](prompt-eval/reports/promptfoo/capabilities/prompt-optimize.md), [web-ui](prompt-eval/reports/promptfoo/capabilities/web-ui.md) (모두 ready) |
+| prompt-optimizer (prompt-eval/) | `a201f47` | [overview](prompt-eval/reports/prompt-optimizer/overview.md), [next](prompt-eval/reports/prompt-optimizer/next.md) | [template-rendering](prompt-eval/reports/prompt-optimizer/capabilities/template-rendering.md), [history-chain](prompt-eval/reports/prompt-optimizer/capabilities/history-chain.md), [prompt-optimize](prompt-eval/reports/prompt-optimizer/capabilities/prompt-optimize.md), [llm-evaluation](prompt-eval/reports/prompt-optimizer/capabilities/llm-evaluation.md), [iterate-rewrite](prompt-eval/reports/prompt-optimizer/capabilities/iterate-rewrite.md), [calibration-script](prompt-eval/reports/prompt-optimizer/capabilities/calibration-script.md) (모두 ready) |
+| gbrain | `63f62b2` | [overview](reports/gbrain/overview.md) | — (범위 승인 대기) |
 
 ## 첫 수집만 한 레포 (overview 없음)
 
@@ -42,6 +46,7 @@
 | obsidian-clipper | — | [initial-capture](reports/obsidian-clipper/initial-capture.md) |
 | peerjs | — | [initial-capture](reports/peerjs/initial-capture.md) |
 | uptime-kuma | `b4ce005` | [initial-capture](reports/uptime-kuma/initial-capture.md) |
+
 
 ## reports 없이 wiki에만 있던 기록 (2026-10-16 삭제)
 

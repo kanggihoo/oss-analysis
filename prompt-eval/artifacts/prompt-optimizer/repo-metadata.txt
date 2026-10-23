@@ -1,0 +1,6 @@
+url: https://github.com/linshenkx/prompt-optimizer
+branch: develop
+sha: a201f47d2b17d6cf6a9347f336691b00c98720a1
+commit_date: 2026-10-22
+fetched: 2026-10-22 (git clone --depth 50)
+worktree: clean

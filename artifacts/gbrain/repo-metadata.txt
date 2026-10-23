@@ -1,0 +1,12 @@
+repo_url: https://github.com/garrytan/gbrain
+local_path: /Users/kkh/Desktop/oss-analysis/repos/gbrain
+branch: master
+head_sha: 63f62b2cafdaf0c30d9a409eae9d08b8d7ea272e
+describe: latest-stable
+remote_url: https://github.com/garrytan/gbrain
+status: 0 dirty entries
+latest_commit:
+  63f62b2cafdaf0c30d9a409eae9d08b8d7ea272e
+  capy-ai[bot] <230910855+capy-ai[bot]@users.noreply.github.com>
+  2026-10-22T12:44:43Z
+  Merge pull request #7344 from garrytan/gbra133-freshness-7338

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "DSPy 모듈 구조",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": { "url": "https://github.com/stanfordnlp/dspy", "revision": "3fdb93f205b0f24a9338449c5bbad0092b5cce1c" }
+  },
+  "components": [
+    { "id": "gepa", "type": "external", "label": "gepa 패키지", "sublabel": "gepa==0.1.4 (레포 밖)", "pos": [300, 50], "size": [170, 64] },
+    { "id": "evaluate", "type": "backend", "label": "Evaluate", "sublabel": "devset + metric", "pos": [40, 200], "size": [170, 64], "sources": [{ "path": "dspy/evaluate/evaluate.py" }] },
+    { "id": "optimizers", "type": "backend", "label": "옵티마이저", "sublabel": "teleprompt compile()", "pos": [300, 200], "size": [170, 64], "sources": [{ "path": "dspy/teleprompt/teleprompt.py" }] },
+    { "id": "data", "type": "frontend", "label": "Example 데이터", "sublabel": "trainset / valset", "pos": [560, 200], "size": [170, 64], "sources": [{ "path": "dspy/primitives/example.py" }] },
+    { "id": "program", "type": "frontend", "label": "Predict · Module", "sublabel": "Signature 지시문 + demos", "pos": [40, 400], "size": [170, 64], "sources": [{ "path": "dspy/predict/predict.py" }] },
+    { "id": "adapter", "type": "backend", "label": "Adapter", "sublabel": "Chat / JSON / XML", "pos": [300, 400], "size": [170, 64], "sources": [{ "path": "dspy/adapters/base.py" }] },
+    { "id": "lm", "type": "backend", "label": "dspy.LM", "sublabel": "엔진 선택 · 재시도", "pos": [560, 400], "size": [170, 64], "sources": [{ "path": "dspy/clients/lm.py" }, { "path": "dspy/clients/execution.py" }] },
+    { "id": "lm15", "type": "backend", "label": "lm15 엔진", "sublabel": "벤더링 · 기본 경로", "pos": [820, 400], "size": [170, 64], "sources": [{ "path": "dspy/_vendor/lm15/router.py" }] },
+    { "id": "providers", "type": "external", "label": "LLM 제공자 API", "sublabel": "OpenAI · Anthropic · …", "pos": [1080, 400], "size": [170, 64] },
+    { "id": "settings", "type": "backend", "label": "settings", "sublabel": "configure / context", "pos": [40, 600], "size": [170, 64], "sources": [{ "path": "dspy/dsp/utils/settings.py" }] },
+    { "id": "cache", "type": "database", "label": "응답 캐시", "sublabel": "메모리 + ~/.dspy_cache", "pos": [560, 600], "size": [170, 64], "sources": [{ "path": "dspy/clients/cache.py" }] },
+    { "id": "litellm", "type": "external", "label": "litellm", "sublabel": "선택 엔진 (호환)", "pos": [820, 600], "size": [170, 64], "sources": [{ "path": "dspy/clients/engines/litellm_engine.py" }] }
+  ],
+  "connections": [
+    { "id": "data-to-opt", "from": "data", "to": "optimizers", "label": "trainset / valset" },
+    { "id": "opt-to-eval", "from": "optimizers", "to": "evaluate", "label": "후보 평가" },
+    { "id": "opt-to-gepa", "from": "optimizers", "to": "gepa", "label": "GEPA", "variant": "dashed" },
+    { "id": "eval-to-program", "from": "evaluate", "to": "program", "label": "병렬 호출 + metric", "labelDy": 24 },
+    { "id": "settings-to-program", "from": "settings", "to": "program", "label": "lm / adapter 기본값" },
+    { "id": "program-to-adapter", "from": "program", "to": "adapter", "label": "signature, demos" },
+    { "id": "adapter-to-lm", "from": "adapter", "to": "lm", "label": "messages" },
+    { "id": "lm-to-lm15", "from": "lm", "to": "lm15", "label": "auto" },
+    { "id": "lm-to-litellm", "from": "lm", "to": "litellm", "label": "litellm 지정 시", "variant": "dashed" },
+    { "id": "lm15-to-providers", "from": "lm15", "to": "providers", "label": "HTTPS" },
+    { "id": "litellm-to-providers", "from": "litellm", "to": "providers", "label": "HTTPS", "variant": "dashed" },
+    { "id": "lm-to-cache", "from": "lm", "to": "cache", "label": "요청 해시 조회", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "프로그램 경로", "items": ["Predict가 Signature 지시문과 demos를 Adapter에 넘긴다", "Adapter가 messages를 만들고 dspy.LM이 호출한다"] },
+    { "dot": "emerald", "title": "평가·최적화 경로", "items": ["Evaluate는 devset을 병렬로 program에 흘리고 metric으로 점수를 낸다", "옵티마이저는 Evaluate와 LM을 반복 호출해 지시문·demos를 바꾼다"] },
+    { "dot": "amber", "title": "데이터 경로", "items": ["기본 엔진은 벤더링된 lm15가 제공자 API로 직접 HTTPS 전송", "litellm은 engine 지정 시 선택되는 호환 경로"] }
+  ]
+}

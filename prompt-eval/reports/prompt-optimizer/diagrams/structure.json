@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "prompt-optimizer 구조도",
+    "output": "structure.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "docker", "type": "cloud", "label": "Docker 이미지", "sublabel": "nginx + supervisord", "tag": "부속 배포", "pos": [270, 40], "size": [150, 64] },
+    { "id": "mcp", "type": "backend", "label": "mcp-server", "sublabel": "Express /mcp, 도구 3개", "pos": [730, 40], "size": [150, 64] },
+    { "id": "mcpclient", "type": "external", "label": "MCP 클라이언트", "sublabel": "Claude Desktop 등", "pos": [960, 40], "size": [150, 64] },
+    { "id": "gate", "type": "security", "label": "Vercel 게이트", "sublabel": "middleware.js, api/auth.js", "tag": "부속 배포", "pos": [40, 210], "size": [150, 64] },
+    { "id": "web", "type": "frontend", "label": "packages/web", "sublabel": "Vite 껍데기", "pos": [270, 210], "size": [150, 64] },
+    { "id": "ui", "type": "frontend", "label": "packages/ui", "sublabel": "Vue 앱, 4열 테스트 영역", "pos": [500, 210], "size": [150, 64] },
+    { "id": "core", "type": "backend", "label": "packages/core", "sublabel": "Prompt/Evaluation/LLM 서비스", "pos": [730, 210], "size": [150, 64] },
+    { "id": "providers", "type": "external", "label": "모델 공급자 API", "sublabel": "OpenAI, Anthropic, Gemini 등", "pos": [960, 210], "size": [150, 64] },
+    { "id": "ext", "type": "frontend", "label": "packages/extension", "sublabel": "Chrome MV3 껍데기", "tag": "부속", "pos": [500, 380], "size": [150, 64] },
+    { "id": "desktop", "type": "backend", "label": "packages/desktop", "sublabel": "Electron 메인 + IPC", "tag": "부속", "pos": [730, 380], "size": [150, 64] },
+    { "id": "storage", "type": "database", "label": "저장소", "sublabel": "IndexedDB / 파일 / 메모리", "pos": [960, 380], "size": [150, 64] }
+  ],
+  "connections": [
+    { "id": "gate-web", "from": "gate", "to": "web", "label": "비밀번호", "variant": "security" },
+    { "id": "docker-web", "from": "docker", "to": "web", "label": "dist 서빙", "variant": "dashed", "labelDy": 24 },
+    { "id": "docker-mcp", "from": "docker", "to": "mcp", "label": "/mcp 프록시", "variant": "dashed" },
+    { "id": "client-mcp", "from": "mcpclient", "to": "mcp", "label": "MCP" },
+    { "id": "mcp-core", "from": "mcp", "to": "core", "label": "optimize/iterate", "labelDy": 24 },
+    { "id": "web-ui", "from": "web", "to": "ui", "variant": "emphasis" },
+    { "id": "ui-core", "from": "ui", "to": "core", "label": "서비스 호출", "variant": "emphasis" },
+    { "id": "ext-ui", "from": "ext", "to": "ui", "variant": "dashed" },
+    { "id": "desktop-core", "from": "desktop", "to": "core", "label": "IPC", "variant": "dashed" },
+    { "id": "core-providers", "from": "core", "to": "providers", "label": "SDK 호출", "variant": "emphasis" },
+    { "id": "core-storage", "from": "core", "to": "storage", "label": "모델·키 저장" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "핵심", "items": ["ui가 core 서비스를 직접 호출한다", "core가 템플릿을 렌더링해 공급자를 부른다"] },
+    { "dot": "violet", "title": "껍데기와 배포", "items": ["web, extension, desktop은 ui를 싣는 껍데기 (extension, desktop은 부속)", "Docker와 Vercel은 배포 래퍼 (부속)"] },
+    { "dot": "rose", "title": "데이터 경로", "items": ["브라우저는 공급자에 직접 요청한다", "MCP는 컨테이너가 서버 측에서 요청한다", "api/에는 LLM 프록시가 없다"] }
+  ]
+}

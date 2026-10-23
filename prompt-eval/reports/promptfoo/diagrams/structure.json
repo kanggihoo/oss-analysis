@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "promptfoo 전체 모듈 구조",
+    "output": "structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/promptfoo/promptfoo",
+      "revision": "dfe2d45e6f72be85c866b746e3852de0dd7622c5"
+    }
+  },
+  "components": [
+    {
+      "id": "cfg",
+      "type": "external",
+      "label": "설정 파일",
+      "sublabel": "promptfooconfig.yaml",
+      "tag": "prompts·providers·tests",
+      "pos": [
+        15,
+        230
+      ],
+      "size": [
+        140,
+        70
+      ]
+    },
+    {
+      "id": "hosted",
+      "type": "external",
+      "label": "promptfoo 호스팅",
+      "sublabel": "api·r·a.promptfoo",
+      "pos": [
+        15,
+        400
+      ],
+      "size": [
+        140,
+        70
+      ]
+    },
+    {
+      "id": "entry",
+      "type": "frontend",
+      "label": "CLI · 라이브러리 입구",
+      "sublabel": "main.ts · index.ts",
+      "pos": [
+        225,
+        60
+      ],
+      "size": [
+        150,
+        410
+      ],
+      "sources": [
+        {
+          "path": "src/main.ts",
+          "line": 88,
+          "label": "명령 등록"
+        },
+        {
+          "path": "src/index.ts",
+          "label": "라이브러리 facade"
+        }
+      ]
+    },
+    {
+      "id": "optimizer",
+      "type": "backend",
+      "label": "프롬프트 최적화",
+      "sublabel": "optimizePromptTestSuite",
+      "pos": [
+        455,
+        60
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/optimizer/promptOptimizer.ts"
+        }
+      ]
+    },
+    {
+      "id": "loader",
+      "type": "backend",
+      "label": "설정·프롬프트 로딩",
+      "sublabel": "resolveConfigs · prompts/*",
+      "pos": [
+        455,
+        230
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/util/config/load.ts"
+        },
+        {
+          "path": "src/prompts/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "redteam",
+      "type": "security",
+      "label": "레드팀",
+      "sublabel": "plugins · strategies · graders",
+      "pos": [
+        455,
+        400
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/redteam/shared.ts"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "SQLite·캐시",
+      "sublabel": "~/.promptfoo",
+      "pos": [
+        675,
+        60
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/database/tables.ts"
+        },
+        {
+          "path": "src/cache.ts"
+        }
+      ]
+    },
+    {
+      "id": "evaluator",
+      "type": "backend",
+      "label": "평가 실행기",
+      "sublabel": "evaluator.ts · scheduler",
+      "pos": [
+        675,
+        230
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/evaluator.ts",
+          "line": 4053,
+          "label": "Evaluator"
+        }
+      ]
+    },
+    {
+      "id": "assertions",
+      "type": "backend",
+      "label": "어서션 · 매처",
+      "sublabel": "assertions/index.ts",
+      "pos": [
+        675,
+        400
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/assertions/index.ts",
+          "line": 297
+        }
+      ]
+    },
+    {
+      "id": "webui",
+      "type": "frontend",
+      "label": "웹 UI · 서버",
+      "sublabel": "src/server · src/app",
+      "pos": [
+        895,
+        60
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/server/server.ts"
+        }
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "cloud",
+      "label": "프로바이더",
+      "sublabel": "providers/registry.ts",
+      "pos": [
+        895,
+        230
+      ],
+      "size": [
+        140,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/providers/registry.ts",
+          "line": 421
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "LLM API · 에이전트 SDK",
+      "sublabel": "OpenAI·Anthropic·SDK",
+      "pos": [
+        895,
+        400
+      ],
+      "size": [
+        140,
+        70
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "cfg-entry",
+      "from": "cfg",
+      "to": "entry",
+      "label": "YAML 입력"
+    },
+    {
+      "id": "entry-hosted",
+      "from": "entry",
+      "to": "hosted",
+      "label": "telemetry",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "right"
+    },
+    {
+      "id": "entry-optimizer",
+      "from": "entry",
+      "to": "optimizer"
+    },
+    {
+      "id": "entry-loader",
+      "from": "entry",
+      "to": "loader"
+    },
+    {
+      "id": "entry-redteam",
+      "from": "entry",
+      "to": "redteam"
+    },
+    {
+      "id": "optimizer-evaluator",
+      "from": "optimizer",
+      "to": "evaluator"
+    },
+    {
+      "id": "loader-evaluator",
+      "from": "loader",
+      "to": "evaluator"
+    },
+    {
+      "id": "redteam-evaluator",
+      "from": "redteam",
+      "to": "evaluator"
+    },
+    {
+      "id": "evaluator-store",
+      "from": "evaluator",
+      "to": "store",
+      "label": "결과·캐시"
+    },
+    {
+      "id": "evaluator-assertions",
+      "from": "evaluator",
+      "to": "assertions",
+      "label": "채점",
+      "labelDy": 40
+    },
+    {
+      "id": "evaluator-providers",
+      "from": "evaluator",
+      "to": "providers",
+      "label": "callApi"
+    },
+    {
+      "id": "providers-llm",
+      "from": "providers",
+      "to": "llm",
+      "label": "HTTPS · SDK",
+      "labelDy": 40
+    },
+    {
+      "id": "webui-store",
+      "from": "webui",
+      "to": "store",
+      "label": "조회"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "핵심 경로",
+      "items": [
+        "설정 로드 → 평가 실행기 → 프로바이더 → LLM",
+        "결과는 SQLite, 응답은 디스크 캐시"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "평가기 재사용",
+      "items": [
+        "optimize와 redteam은 평가 실행기를 다시 호출",
+        "채점기(llm-rubric)는 프로바이더를 한 번 더 호출"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "그림에 넣지 않은 부속",
+      "items": [
+        "site(문서), helm·Dockerfile, code-scan-action",
+        "plugins/promptfoo(에이전트 스킬 번들)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+url: https://github.com/stanfordnlp/dspy
+branch: main
+sha: 3fdb93f205b0f24a9338449c5bbad0092b5cce1c
+commit_date: 2026-10-22
+fetched: 2026-10-22 (git clone --depth 50)
+worktree: clean
