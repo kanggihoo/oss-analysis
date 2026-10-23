@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-10-22
+> Last updated: 2026-10-23
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -15,6 +15,7 @@
 | codeburn | `9a40cc6` | [overview](reports/codeburn/overview.md) | — |
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
 | context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |
+| defuddle | `556d74e` | [overview](reports/defuddle/overview.md) | — |
 | Graft | `f9e6539` | [overview](reports/Graft/overview.md) | — |
 | gpt-researcher | `3582a68` | [overview](reports/gpt-researcher/overview.md) | [research-pipeline](reports/gpt-researcher/capabilities/research-pipeline.md) (ready), [source-modes](reports/gpt-researcher/capabilities/source-modes.md) (ready), [retrievers](reports/gpt-researcher/capabilities/retrievers.md) (draft), [scrapers](reports/gpt-researcher/capabilities/scrapers.md) (draft), [context-selection](reports/gpt-researcher/capabilities/context-selection.md) (draft), [report-writing](reports/gpt-researcher/capabilities/report-writing.md) (ready), [detailed-report](reports/gpt-researcher/capabilities/detailed-report.md) (ready), [deep-research](reports/gpt-researcher/capabilities/deep-research.md) (draft), [mcp-client](reports/gpt-researcher/capabilities/mcp-client.md) (ready) |
 | hyperframes | `b7fa007` | [overview](reports/hyperframes/overview.md) | — |
@@ -37,7 +38,6 @@
 |---|---|---|
 | Agent-Reach | — | [initial-capture](reports/Agent-Reach/initial-capture.md) |
 | agent-browser | — | [initial-capture](reports/agent-browser/initial-capture.md) |
-| defuddle | — | [initial-capture](reports/defuddle/initial-capture.md) |
 | insane-search | — | [initial-capture](reports/insane-search/initial-capture.md) |
 | obsidian-clipper | — | [initial-capture](reports/obsidian-clipper/initial-capture.md) |
 | peerjs | — | [initial-capture](reports/peerjs/initial-capture.md) |

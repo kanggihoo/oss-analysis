@@ -542,3 +542,25 @@
 ## [2026-10-22] ingest | gpt-researcher Q2 합친 뒤 과정, 프롬프트·도구 위치
 - 사용자 질문(합친 뒤 전처리 여부, 최종 개수, 보고서 전까지의 과정, LLM 프롬프트와 도구 정의 위치)에 대해 `researcher.py:212-240`, `agent.py:343-413`, `prompts.py`의 프롬프트 함수 전체, `curator.py`, `mcp/research.py`, `utils/tools.py`, `backend/chat/chat.py`, `deep_agents/tools.py`를 읽고, 기존 capabilities 스펙의 해당 줄 번호(R-ID, C-ID)를 찾아 대응시켰다. 실행 없음.
 - 쓴 것: `reports/gpt-researcher/questions/q2-prompts-tools-and-pre-report-flow.md`, `overview.md` 4절 링크. 프롬프트 13종 중 스펙에 정리된 것은 9종, 도구 3곳 중 스펙에 정리된 것은 MCP 1곳이다.
+
+## [2026-10-23] update | defuddle 재clone 및 overview.md 최초 작성 (지도만)
+- `repos/defuddle`가 삭제된 상태라 `https://github.com/kepano/defuddle.git`을 현재 HEAD(`556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5`, `0.19.5-2-g556d74e`)로 새로 clone. 이전 캡처(`9db7260`, `0.18.1`) 대비 `git diff --stat`로 343개 파일 변경 확인(`bilibili`/`gmail` 추출기 추가, `src/frontmatter.ts` 신설, `AGENTS.md` 보안 규칙 신설, CI 워크플로 추가, website에 Stripe 과금·API 키·Durable Objects 추가).
+- README·package.json·`src/defuddle.ts`·`src/extractor-registry.ts`·`src/node.ts`·`src/cli.ts`·`src/frontmatter.ts`·`src/utils/dom.ts`·`website/src/index.ts`·`website/src/convert.ts`·`website/wrangler.toml`을 코드로 읽고 기능 지도 10행(핵심 8 + 부속 2) 작성, archify 전체 모듈 구조도(`reports/defuddle/diagrams/structure.{json,html}`, finalize validate/deliver/check/browser-check 통과, 교차선 시각 재검토는 안 함) 1개 작성. README Options 표에 없는 `removeContentPatterns` 옵션을 코드에서 발견해 문서-구현 차이로 기록.
+- 쓴 것: `reports/defuddle/overview.md`(신규), `reports/defuddle/initial-capture.md`(overview 링크 한 줄 추가), `artifacts/defuddle/repo-metadata.txt`(새 SHA로 갱신), `index.md`(defuddle을 "첫 수집만" 표에서 "분석한 레포" 표로 이동), `reports/defuddle/next.md`(신규).
+- 지도 요약을 보여주고 스펙 범위를 물은 결과, 사용자가 "지도만 유지(스펙 보류)"를 선택했고 website 부속 2행(변환 API, API 키·과금)은 제외로 확정했다. 기능 스펙(4장)은 시작하지 않음, 후보는 `next.md` 3절에 기록.
+
+## [2026-10-23] ingest | defuddle Q1 지원 사이트·defuddle.md·Cloudflare Worker·fetch 방식
+- 사용자 질문(지원 사이트 목록, defuddle.md/API 키의 정체, Cloudflare Worker가 왜 나오는지, Puppeteer/Playwright 헤드리스 브라우저 사용 여부)에 답했다. `src/extractor-registry.ts` 등록 순서 전체, `website/src/index.ts`의 과금·Stripe·Durable Object 로직, `website/wrangler.toml`, `src/fetch.ts`의 `fetchPage()`, `src/utils/linkedom-compat.ts`를 코드로 확인하고 저장소 전체에서 `puppeteer|playwright|headless|chromium`을 검색해 0건임을 확인했다.
+- 쓴 것: `reports/defuddle/questions/q1-supported-sites-and-website-service.md`, `overview.md` 4절 링크. 결론: 등록 24개 중 실제 "사이트"는 21개(+패턴 매칭 2개 + 범용 폴백 1개), defuddle.md/API 키는 라이브러리와 별개인 Cloudflare Worker 상용 서비스, 헤드리스 브라우저는 쓰지 않고 평범한 `fetch()` + `linkedom`(JS 미실행) 조합이다. 사용자가 세션 초반에 기능 스펙을 보류하기로 해 스펙 트리거는 다시 묻지 않음.
+
+## [2026-10-23] ingest | defuddle Q2 YouTube 자막 가져오는 방식
+- 사용자 질문("fetch로 가져온 HTML 안에 자막이 숨어있는 거냐")에 답했다. `src/extractors/youtube.ts`의 `extractAsync()`(95~106행), `parseInlineJson()`(566~602행), `fetchPlayerData()`의 InnerTube iOS/Android/Web 3단 폴백(796~888행), `fetchCaptionXml()`의 SSRF 방지 호스트 검사(649~681행), `parseTranscriptXml()`(983행~), `fetchChapters()`(890~919행)를 코드로 읽었다. 실행(실제 네트워크 요청)은 하지 않음.
+- 쓴 것: `reports/defuddle/questions/q2-youtube-transcript-fetch.md`, `overview.md` 4절 링크. 결론: 처음 fetch한 HTML에는 자막 트랙 URL 목록만 들어있고, 실제 자막 텍스트는 그 URL로 별도 요청해야 받는다. defuddle은 신뢰성을 위해 YouTube 비공식 InnerTube API에도 추가로 질의한다(최대 3회 네트워크 요청 체인). 브라우저 확장 환경에서는 "자막 보기" 버튼을 실제로 클릭하는 별도 DOM 경로가 있다는 점도 구분해 기록.
+
+## [2026-10-23] ingest | defuddle Q3 YouTube 언어 지정 방법 및 "가끔 아랍어" 버그 원인
+- 사용자 질문(언어 우선순위 지정 가능 여부, CLI로 받을 때 가끔 아랍어 자막이 나오는 이유)에 답했다. `src/cli.ts`→`src/node.ts`→`pickCaptionTrack()`(`src/extractors/youtube.ts:229-250`)의 `--lang` 처리 순서, `getDefaultCaptionTrack()`/`getOriginalLanguageTrack()`의 폴백 체인을 코드로 읽고, `git log`/`git show f6ca46d`로 이 증상과 정확히 일치하는 과거 버그(GitHub #410, 자동 더빙 영상에서 기본 자막 인덱스 부재 시 알파벳순 0번째 트랙 선택)와 그 수정 커밋을 찾았다. `git tag`로 마지막 릴리스(`0.19.5`)가 수정 커밋보다 먼저임을 확인해 npm 배포 여부는 추론으로 남기고 실제 레지스트리 확인은 하지 않았다(외부 접속, 사용자 동의 필요).
+- 쓴 것: `reports/defuddle/questions/q3-youtube-language-priority-and-arabic-bug.md`, `overview.md` 4절 링크. 결론: `--lang`으로 지정 가능(최우선), 미지정 시 기본 추측 실패하면 알파벳순 0번째(종종 Arabic)로 빠지는 버그가 있었고 분석 SHA(`556d74e`)에는 수정이 포함돼 있으나 npm 정식 배포 여부는 미확인.
+
+## [2026-10-23] ingest | defuddle Q3 후속 — npm 배포 여부 실행 확인
+- 사용자 요청으로 `registry.npmjs.org/defuddle` 공개 API를 curl로 받아 확인했다(외부 접속, 사용자 동의 하에 실행). `dist-tags.latest=0.19.5`, 배포 시각 `2026-10-10T15:35:10.787Z` 확인. `git log --date=iso-strict`로 태그 커밋(`e87d416`, 15:32:07Z)·버그 수정 커밋(`f6ca46d`, 17:42:13Z)·분석 HEAD(`556d74e`, 17:59:08Z)를 UTC로 대조해 수정이 npm 배포 2시간 10분 뒤에 들어갔음을 확인. `.github/workflows/release.yml`로 "태그 push = CI가 npm publish" 구조도 확인.
+- 쓴 것: `reports/defuddle/questions/q3-youtube-language-priority-and-arabic-bug.md`에 "npm 배포 여부" 절 추가(미확인 → 실행 확인으로 격상), `overview.md` 4절 요약 갱신. 결론: `npx defuddle`/`npm install defuddle`는 현재도 버그 있는 `0.19.5`를 받는다. 우회책은 `--lang` 명시.

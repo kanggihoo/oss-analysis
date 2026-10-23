@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e3d138a7-3fab-4450-ac22-014789c7bb17",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.json",
+  "output": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.html",
+  "specification": {
+    "sha256": "9936ac41d79511a7ac49798862057c5ab21cf5ef3c35792703a68830fce09fea",
+    "bytes": 8336
+  },
+  "artifact": {
+    "sha256": "57f79e4e8078c344355b254cc338c48dc59312a81b4458403ff4c6399349103c",
+    "bytes": 857648
+  }
+}

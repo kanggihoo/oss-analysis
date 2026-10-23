@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.json",
+    "sha256": "9936ac41d79511a7ac49798862057c5ab21cf5ef3c35792703a68830fce09fea",
+    "bytes": 8336
+  },
+  "artifact": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.html",
+    "sha256": "57f79e4e8078c344355b254cc338c48dc59312a81b4458403ff4c6399349103c",
+    "bytes": 857648
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.finalize.json",
+    "summaryReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\defuddle\\diagrams\\structure.browser-check.json"
+  },
+  "update": {
+    "status": "update_available",
+    "installedVersion": "3.1.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": "https://github.com/tt-a1i/archify/releases/tag/v3.2.0",
+    "severity": "normal",
+    "checkedAt": "2026-10-23T06:35:14.189Z",
+    "source": "cache",
+    "noticeRequired": true,
+    "noticeText": "Archify update: 3.1.0 → 3.2.0. A previous check at 2026-10-23T06:35:14.189Z found a newer release. Release notes: https://github.com/tt-a1i/archify/releases/tag/v3.2.0. The installed Skill has not changed; ask to snooze or ignore this reminder.",
+    "eventKey": "archify@sha256:70e210265c59f24dcbdf2a502ff671104b5454e7ee7d3554aecd86bad32384f5"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 5106,
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 10,
+      "routesOverSuggestedBends": 4,
+      "routesOverSuggestedStretch": 2
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "caller-core-entry",
+            "from": "caller",
+            "to": "entry_core",
+            "label": "new Defuddle(document)",
+            "collectionIndex": 0,
+            "artifactIndex": 1
+          },
+          "right": {
+            "id": "caller-full-entry",
+            "from": "caller",
+            "to": "entry_full",
+            "label": "new Defuddle(document)",
+            "collectionIndex": 1,
+            "artifactIndex": 2
+          },
+          "point": [
+            305,
+            74
+          ],
+          "sharedNode": "caller"
+        },
+        {
+          "left": {
+            "id": "node-entry-core",
+            "from": "entry_node",
+            "to": "core",
+            "label": "parseAsync()",
+            "collectionIndex": 6,
+            "artifactIndex": 7
+          },
+          "right": {
+            "id": "full-to-markdown",
+            "from": "entry_full",
+            "to": "markdown",
+            "label": "toMarkdown()",
+            "collectionIndex": 13,
+            "artifactIndex": 14
+          },
+          "point": [
+            384,
+            244
+          ]
+        },
+        {
+          "left": {
+            "id": "core-to-metadata",
+            "from": "core",
+            "to": "metadata",
+            "label": "MetadataExtractor.extract()",
+            "collectionIndex": 11,
+            "artifactIndex": 12
+          },
+          "right": {
+            "id": "full-to-markdown",
+            "from": "entry_full",
+            "to": "markdown",
+            "label": "toMarkdown()",
+            "collectionIndex": 13,
+            "artifactIndex": 14
+          },
+          "point": [
+            447,
+            336
+          ]
+        },
+        {
+          "left": {
+            "id": "core-to-metadata",
+            "from": "core",
+            "to": "metadata",
+            "label": "MetadataExtractor.extract()",
+            "collectionIndex": 11,
+            "artifactIndex": 12
+          },
+          "right": {
+            "id": "node-to-markdown",
+            "from": "entry_node",
+            "to": "markdown",
+            "label": "toMarkdown()",
+            "collectionIndex": 14,
+            "artifactIndex": 15
+          },
+          "point": [
+            412,
+            336
+          ]
+        },
+        {
+          "left": {
+            "id": "core-to-metadata",
+            "from": "core",
+            "to": "metadata",
+            "label": "MetadataExtractor.extract()",
+            "collectionIndex": 11,
+            "artifactIndex": 12
+          },
+          "right": {
+            "id": "cli-to-frontmatter",
+            "from": "entry_cli",
+            "to": "frontmatter",
+            "label": "buildFrontmatter() (--frontmatter)",
+            "collectionIndex": 16,
+            "artifactIndex": 17
+          },
+          "point": [
+            678,
+            336.06666666666666
+          ]
+        },
+        {
+          "left": {
+            "id": "core-to-sanitize",
+            "from": "core",
+            "to": "sanitize",
+            "label": "_stripUnsafeElements() / parseHTML()",
+            "collectionIndex": 12,
+            "artifactIndex": 13
+          },
+          "right": {
+            "id": "full-to-markdown",
+            "from": "entry_full",
+            "to": "markdown",
+            "label": "toMarkdown()",
+            "collectionIndex": 13,
+            "artifactIndex": 14
+          },
+          "point": [
+            447,
+            387
+          ]
+        },
+        {
+          "left": {
+            "id": "core-to-sanitize",
+            "from": "core",
+            "to": "sanitize",
+            "label": "_stripUnsafeElements() / parseHTML()",
+            "collectionIndex": 12,
+            "artifactIndex": 13
+          },
+          "right": {
+            "id": "node-to-markdown",
+            "from": "entry_node",
+            "to": "markdown",
+            "label": "toMarkdown()",
+            "collectionIndex": 14,
+            "artifactIndex": 15
+          },
+          "point": [
+            412,
+            387
+          ]
+        },
+        {
+          "left": {
+            "id": "core-to-sanitize",
+            "from": "core",
+            "to": "sanitize",
+            "label": "_stripUnsafeElements() / parseHTML()",
+            "collectionIndex": 12,
+            "artifactIndex": 13
+          },
+          "right": {
+            "id": "convert-to-core",
+            "from": "worker_convert",
+            "to": "core",
+            "label": "import Defuddle (core class)",
+            "collectionIndex": 18,
+            "artifactIndex": 19
+          },
+          "point": [
+            322,
+            378
+          ],
+          "sharedNode": "core"
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "id": "full-to-markdown",
+            "from": "entry_full",
+            "to": "markdown",
+            "label": "toMarkdown()",
+            "collectionIndex": 13,
+            "artifactIndex": 14
+          },
+          "bends": 4,
+          "stretch": 1.236
+        },
+        {
+          "relationship": {
+            "id": "cli-to-frontmatter",
+            "from": "entry_cli",
+            "to": "frontmatter",
+            "label": "buildFrontmatter() (--frontmatter)",
+            "collectionIndex": 16,
+            "artifactIndex": 17
+          },
+          "bends": 4,
+          "stretch": 1.421,
+          "directCorridorBlockers": [
+            {
+              "id": "metadata",
+              "label": "Metadata extractor",
+              "box": [
+                610,
+                420,
+                150,
+                60
+              ]
+            }
+          ]
+        },
+        {
+          "relationship": {
+            "id": "convert-to-core",
+            "from": "worker_convert",
+            "to": "core",
+            "label": "import Defuddle (core class)",
+            "collectionIndex": 18,
+            "artifactIndex": 19
+          },
+          "bends": 6,
+          "stretch": 1.408
+        },
+        {
+          "relationship": {
+            "id": "convert-to-target",
+            "from": "worker_convert",
+            "to": "target_page",
+            "label": "fetch target URL",
+            "collectionIndex": 20,
+            "artifactIndex": 21
+          },
+          "bends": 6,
+          "stretch": 1.155
+        }
+      ],
+      "truncated": true
+    },
+    "hints": [
+      "caller → entry_core and caller → entry_full cross next to caller: move node entry_core or entry_full so the two reach caller from different sides (for example one level with it, one directly above or below it).",
+      "entry_node → core crosses entry_full → markdown: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "core → metadata crosses entry_full → markdown: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "core → metadata crosses entry_node → markdown: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "core → metadata crosses entry_cli → frontmatter: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "core → sanitize crosses entry_full → markdown: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "core → sanitize crosses entry_node → markdown: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "core → sanitize and worker_convert → core cross next to core: move node sanitize or worker_convert so the two reach core from different sides (for example one level with it, one directly above or below it)."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

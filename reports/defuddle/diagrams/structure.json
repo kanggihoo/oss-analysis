@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "defuddle module map",
+    "subtitle": "Entry points, core pipeline, and the separate defuddle.md worker",
+    "output": "reports/defuddle/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/kepano/defuddle",
+      "provider": "github",
+      "revision": "556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5"
+    }
+  },
+  "components": [
+    { "id": "caller", "type": "external", "label": "Caller code", "sublabel": "browser page / Node app / shell", "pos": [360, 30], "size": [160, 60] },
+
+    { "id": "entry_core", "type": "frontend", "label": "Core bundle", "sublabel": "src/index.ts", "pos": [40, 160], "size": [150, 60], "sources": [{ "path": "src/index.ts", "line": 1, "end_line": 5 }] },
+    { "id": "entry_full", "type": "frontend", "label": "Full bundle", "sublabel": "src/index.full.ts", "pos": [230, 160], "size": [150, 60], "sources": [{ "path": "src/index.full.ts", "line": 11, "end_line": 37 }] },
+    { "id": "entry_node", "type": "frontend", "label": "Node bundle", "sublabel": "src/node.ts", "pos": [420, 160], "size": [150, 60], "sources": [{ "path": "src/node.ts", "line": 13, "end_line": 46 }] },
+    { "id": "entry_cli", "type": "frontend", "label": "CLI", "sublabel": "src/cli.ts", "pos": [610, 160], "size": [150, 60], "sources": [{ "path": "src/cli.ts", "line": 156, "end_line": 202 }] },
+
+    { "id": "core", "type": "backend", "label": "Defuddle core", "sublabel": "src/defuddle.ts", "pos": [230, 290], "size": [170, 64], "sources": [{ "path": "src/defuddle.ts", "line": 38, "end_line": 62 }, { "path": "src/defuddle.ts", "line": 816, "end_line": 839 }] },
+
+    { "id": "registry", "type": "backend", "label": "Extractor registry", "sublabel": "src/extractor-registry.ts", "pos": [40, 420], "size": [150, 60], "sources": [{ "path": "src/extractor-registry.ts", "line": 243, "end_line": 285 }] },
+    { "id": "standardize", "type": "backend", "label": "HTML standardize", "sublabel": "elements/*, removals/*", "pos": [230, 420], "size": [150, 60], "sources": [{ "path": "src/standardize.ts", "line": 180, "end_line": 180 }] },
+    { "id": "sanitize", "type": "security", "label": "DOM sanitizer", "sublabel": "src/utils/dom.ts", "pos": [420, 420], "size": [150, 60], "sources": [{ "path": "src/utils/dom.ts", "line": 73, "end_line": 124 }, { "path": "src/utils/dom.ts", "line": 125, "end_line": 158 }] },
+    { "id": "metadata", "type": "backend", "label": "Metadata extractor", "sublabel": "src/metadata.ts", "pos": [610, 420], "size": [150, 60], "sources": [{ "path": "src/metadata.ts", "line": 4, "end_line": 9 }] },
+    { "id": "fetch", "type": "backend", "label": "URL fetch", "sublabel": "src/fetch.ts (CLI only)", "pos": [800, 420], "size": [150, 60], "sources": [{ "path": "src/fetch.ts", "line": 1, "end_line": 17 }] },
+
+    { "id": "extractors", "type": "backend", "label": "Site extractors", "sublabel": "src/extractors/*.ts (24)", "pos": [40, 550], "size": [150, 64], "sources": [{ "path": "src/extractor-registry.ts", "line": 45, "end_line": 236 }] },
+    { "id": "markdown", "type": "backend", "label": "Markdown converter", "sublabel": "src/markdown.ts (turndown)", "pos": [325, 550], "size": [160, 60], "sources": [{ "path": "src/markdown.ts", "line": 1014, "end_line": 1014 }] },
+    { "id": "frontmatter", "type": "backend", "label": "Frontmatter builder", "sublabel": "src/frontmatter.ts", "pos": [610, 550], "size": [150, 60], "sources": [{ "path": "src/frontmatter.ts", "line": 44, "end_line": 67 }] },
+    { "id": "target_page", "type": "external", "label": "Target web page", "sublabel": "fetched over HTTP(S)", "pos": [800, 550], "size": [150, 60] },
+
+    { "id": "worker_pages", "type": "frontend", "label": "Marketing & docs pages", "sublabel": "landing / docs / playground / pricing", "pos": [40, 700], "size": [170, 60], "sources": [{ "path": "website/src/index.ts", "line": 1, "end_line": 16 }, { "path": "website/src/index.ts", "line": 382, "end_line": 391 }] },
+    { "id": "worker_convert", "type": "backend", "label": "Convert API", "sublabel": "website/src/convert.ts", "pos": [250, 700], "size": [160, 60], "sources": [{ "path": "website/src/convert.ts", "line": 22, "end_line": 27 }, { "path": "website/src/index.ts", "line": 621, "end_line": 656 }] },
+    { "id": "worker_billing", "type": "backend", "label": "API keys & billing", "sublabel": "Stripe + Durable Objects + KV", "pos": [450, 700], "size": [170, 60], "sources": [{ "path": "website/src/index.ts", "line": 185, "end_line": 235 }, { "path": "website/src/index.ts", "line": 658, "end_line": 731 }, { "path": "website/src/index.ts", "line": 785, "end_line": 842 }] },
+    { "id": "stripe", "type": "external", "label": "Stripe", "sublabel": "payments", "pos": [820, 700], "size": [120, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "website/ — Cloudflare Worker (defuddle.md) — 부속", "wraps": ["worker_pages", "worker_convert", "worker_billing"], "pad": 18 }
+  ],
+  "connections": [
+    { "id": "caller-core-entry", "from": "caller", "to": "entry_core", "label": "new Defuddle(document)" },
+    { "id": "caller-full-entry", "from": "caller", "to": "entry_full", "label": "new Defuddle(document)" },
+    { "id": "caller-node-entry", "from": "caller", "to": "entry_node", "label": "Defuddle(doc, url, opts)" },
+    { "id": "caller-cli-entry", "from": "caller", "to": "entry_cli", "label": "npx defuddle parse" },
+
+    { "id": "core-entry-core", "from": "entry_core", "to": "core", "label": "parse()" },
+    { "id": "full-entry-core", "from": "entry_full", "to": "core", "label": "parse() / parseAsync()" },
+    { "id": "node-entry-core", "from": "entry_node", "to": "core", "label": "parseAsync()" },
+    { "id": "cli-to-node-entry", "from": "entry_cli", "to": "entry_node", "label": "Defuddle(doc, url, opts)" },
+
+    { "id": "core-to-registry", "from": "core", "to": "registry", "label": "findExtractor(url)" },
+    { "id": "registry-to-extractors", "from": "registry", "to": "extractors", "label": "match pattern → instantiate" },
+    { "id": "core-to-standardize", "from": "core", "to": "standardize", "label": "standardizeContent()" },
+    { "id": "core-to-metadata", "from": "core", "to": "metadata", "label": "MetadataExtractor.extract()" },
+    { "id": "core-to-sanitize", "from": "core", "to": "sanitize", "label": "_stripUnsafeElements() / parseHTML()", "labelDx": 150 },
+
+    { "id": "full-to-markdown", "from": "entry_full", "to": "markdown", "label": "toMarkdown()" },
+    { "id": "node-to-markdown", "from": "entry_node", "to": "markdown", "label": "toMarkdown()" },
+    { "id": "cli-to-fetch", "from": "entry_cli", "to": "fetch", "label": "fetchPage(url)" },
+    { "id": "cli-to-frontmatter", "from": "entry_cli", "to": "frontmatter", "label": "buildFrontmatter() (--frontmatter)" },
+    { "id": "fetch-to-target", "from": "fetch", "to": "target_page", "label": "GET html, bot UA retry" },
+
+    { "id": "convert-to-core", "from": "worker_convert", "to": "core", "label": "import Defuddle (core class)" },
+    { "id": "convert-to-frontmatter", "from": "worker_convert", "to": "frontmatter", "label": "buildFrontmatter()" },
+    { "id": "convert-to-target", "from": "worker_convert", "to": "target_page", "label": "fetch target URL" },
+    { "id": "billing-to-stripe", "from": "worker_billing", "to": "stripe", "label": "Checkout session + webhook" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "부속 (library와 별개 배포 단위)", "items": ["website/ 는 Cloudflare Worker로 따로 배포되는 결제 API/마케팅 사이트다 (website/wrangler.toml)", "src/ 핵심 파이프라인을 그대로 import해 쓴다"] },
+    { "dot": "rose", "title": "보안 경계", "items": ["_stripUnsafeElements()/isDangerousUrl()은 모든 출력 경로에서 무조건 실행된다 (src/defuddle.ts:1166, src/utils/dom.ts:73)"] },
+    { "dot": "slate", "title": "등록된 24개 사이트 추출기 (src/extractor-registry.ts:45-236)", "items": ["X/Twitter, Reddit, YouTube, Bilibili, HackerNews, ChatGPT, Claude, Grok, Gemini, GitHub, Gmail", "LinkedIn, Threads, Bluesky, Medium, C2 Wiki, Substack, NYTimes, Wikipedia, Mastodon, Discourse, LeetCode, LWN", "매칭되는 것이 없으면 BbcodeDataExtractor(catch-all)가 높는다"] }
+  ]
+}
