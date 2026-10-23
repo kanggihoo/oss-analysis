@@ -1,5 +1,7 @@
 # kepano/defuddle initial capture
 
+> 이 문서는 SHA `9db7260` 시점의 초기 캡처(지도 없음)다. 기능 지도와 구조도는 [overview.md](./overview.md)(SHA `556d74e`)를 본다.
+
 ## Snapshot
 
 - GitHub: <https://github.com/kepano/defuddle>
