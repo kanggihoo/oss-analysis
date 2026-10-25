@@ -28,5 +28,13 @@ herdr-plugin/
 | herdr-projects | https://github.com/eliasstravik/herdr-projects | 태스크 보드, 태스크별 에이전트 위임 |
 | herdr-nvim | https://github.com/ChmaraX/herdr-nvim | nvim 사이드바, 에이전트 주석·코멘트 |
 | herdr-auto-title | https://github.com/kryptamine/herdr-auto-title | 탭 제목 자동 생성 |
+| herdr-mobile-relay | https://github.com/0cv/herdr-mobile-relay | 폰에서 에이전트 모니터링·승인 응답·터미널 보기, E2EE 전송, 푸시 |
+| ovis | https://github.com/devswha/ovis | 폰·웹에서 herdr 레이아웃·채팅·승인 카드·알림, 원격 PC, 푸시 릴레이 |
+| collie | https://github.com/AltanS/collie | 웹 대시보드(답장·Ask 카드·STT·히스토리), 멀티플렉서 어댑터, 푸시 |
 
 기준 SHA는 `repos.lock.tsv`, 각 overview의 frontmatter `sha`와 같다.
+
+## 비교 문서
+
+- [모바일 원격 제어 비교와 추천](reports/mobile-remote-comparison.md): herdr-mobile-relay, ovis, collie의 연결 방식·설치·모바일 UX 비교와 추천(2026-10-24).
+- [ovis 설치와 폰 접속 가이드(macOS·Windows)](reports/ovis/install-and-mobile-access.md): 플러그인 설치, 텔레메트리 끄기, Tailscale로 폰 접속(2026-10-25).

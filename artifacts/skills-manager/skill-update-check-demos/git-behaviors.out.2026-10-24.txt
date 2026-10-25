@@ -1,0 +1,53 @@
+== git: git version 2.50.1 (Apple Git-155)
+
+## A. 모노레포: skills/a 만 바뀐 커밋 뒤의 하위 트리 비교
+c1=4270f9940c860ca777487adfef6a3db235b2a112
+head=8cb4a463f617fe83318507478901a680ef1bdaaf
+fetch ok (exit 0)
+  (skills/a): CHANGED(update_available)
+     old: tree=ed2a3c4ddb0c9e8cde145ef7bfb9d48d282ae872 attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+     new: tree=45f9aba369c1c49a98cd7bc98bc89d2d238a4ead attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+  (skills/b): unchanged
+     old: tree=1d49a14a7dcb54e7c6e2736ebe5902df5056e0be attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+     new: tree=1d49a14a7dcb54e7c6e2736ebe5902df5056e0be attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+
+## B. 위쪽 디렉터리에 .gitattributes 가 새로 생기면 트리는 같아도 CHANGED
+warning: in the working copy of 'skills/b/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+fetch ok
+  (skills/b): CHANGED(update_available)
+     old: tree=1d49a14a7dcb54e7c6e2736ebe5902df5056e0be attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+     new: tree=1d49a14a7dcb54e7c6e2736ebe5902df5056e0be attr(skills/.gitattributes)=absent attr(.gitattributes)=415bbcd6da72f3af74669c5242656df9b74419ae
+
+## C. 서버가 모르는 옛 revision 하나가 섞이면 fetch 전체가 실패하는가 (유효한 쌍도 같이 빠지나)
+  git: fatal: git upload-pack: not our ref 0123456789abcdef0123456789abcdef01234567
+  git: fatal: remote error: upload-pack: not our ref 0123456789abcdef0123456789abcdef01234567
+  fetch exit=128
+  fetch 뒤 head 객체가 있는가: commit
+  fetch 뒤 c1 객체가 있는가:   commit
+
+## D. 서버가 partial clone(filter)을 허용하지 않을 때 같은 fetch
+  git: warning: filtering not recognized by server, ignoring
+  fetch exit=0
+  (skills/b): unchanged
+     old: tree=1d49a14a7dcb54e7c6e2736ebe5902df5056e0be attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+     new: tree=1d49a14a7dcb54e7c6e2736ebe5902df5056e0be attr(skills/.gitattributes)=absent attr(.gitattributes)=absent
+
+## E. ls-remote 후보 ref: 브랜치 main, 같은 이름의 주석 태그 main 과 v1
+-- branch 후보 (branch=main): refs/heads/main refs/tags/main^{} refs/tags/main
+  f7e0dc54e0d85509b9636fd45a34212b71d0bbaa	refs/heads/main
+  4adf12ffb114b1c7d077f20fad6b003e90054a1f	refs/tags/main
+  b8bf2fbeee2f2ba041a77a6eeddb63030a0cb8a5	refs/tags/main^{}
+-- tag 후보 (branch=v1): refs/heads/v1 refs/tags/v1^{} refs/tags/v1
+  794b265b989ccf23014e2b782c137b771461169b	refs/tags/v1
+  b8bf2fbeee2f2ba041a77a6eeddb63030a0cb8a5	refs/tags/v1^{}
+-- branch=None: HEAD
+  f7e0dc54e0d85509b9636fd45a34212b71d0bbaa	HEAD
+-- 존재하지 않는 ref (branch=nope): 종료코드와 출력
+  exit=0 bytes=       0
+-- 접근 불가 URL (file://없는경로): 종료코드
+  exit=128
+  fatal: '/private/tmp/claude-501/-Users-kkh-Desktop-oss-analysis/b8a0d3bb-d354-4740-9c93-fa62be4d8dca/scratchpad/suc1/does-not-exist' does not appear to be a git repository
+  fatal: Could not read from remote repository.
+  
+  Please make sure you have the correct access rights
+  and the repository exists.

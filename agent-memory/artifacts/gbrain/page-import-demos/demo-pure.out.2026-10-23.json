@@ -1,0 +1,156 @@
+{
+ "split: <!-- timeline --> marker": {
+  "truth": "Alice is a founder.\n",
+  "timeline": "\n- 2024-01-02: met"
+ },
+ "split: --- timeline --- decorated": {
+  "truth": "Body",
+  "timeline": "- 2024: x"
+ },
+ "split: bare --- then ## Timeline": {
+  "truth": "Body\n",
+  "timeline": "\n## Timeline\n- 2024-05-01: a"
+ },
+ "split: bare --- horizontal rule only (NO split)": {
+  "truth": "Part one\n\n---\n\nPart two",
+  "timeline": ""
+ },
+ "split: bare --- then ## History prose (split by rule 3, heading kept as separator? see timeline text)": {
+  "truth": "Body",
+  "timeline": "## History\nProse about history."
+ },
+ "split: no sentinel, bare ## Timeline of dated bullets (rule 4: heading kept in timeline)": {
+  "truth": "Body text\n\n## Other\nkept in truth",
+  "timeline": "## Timeline\n- 2024-05-01: a\n- 2023: b\n"
+ },
+ "split: no sentinel, ## History prose (NO split)": {
+  "truth": "Body\n\n## History\nWe started in a garage.\n",
+  "timeline": ""
+ },
+ "split: marker inside code fence (ignored)": {
+  "truth": "Intro\n```\n<!-- timeline -->\n```\nmore",
+  "timeline": ""
+ },
+ "split: ## Timeline as first content (NO split)": {
+  "truth": "## Timeline\n- 2024-05-01: a",
+  "timeline": ""
+ },
+ "chunk: 250 words -> 1 chunk": [
+  {
+   "i": 0,
+   "words": 250,
+   "chars": 1889,
+   "startsWith": "word0 word1 wo"
+  }
+ ],
+ "chunk: 301 words one paragraph": [
+  {
+   "i": 0,
+   "words": 301,
+   "chars": 2297,
+   "startsWith": "word0 word1 wo"
+  }
+ ],
+ "chunk: 900 words in 40-word paragraphs (target 300, limit 450, overlap 50)": [
+  {
+   "i": 0,
+   "words": 440,
+   "chars": 2579,
+   "startsWith": "p0w0 p0w1 p0w2"
+  },
+  {
+   "i": 1,
+   "words": 490,
+   "chars": 3311,
+   "startsWith": "p9w30 p9w31 p9"
+  },
+  {
+   "i": 2,
+   "words": 90,
+   "chars": 611,
+   "startsWith": "p20w30 p20w31 "
+  }
+ ],
+ "chunk: 7000-char whitespace-less string (maxChars 6000 sliding window)": [
+  {
+   "i": 0,
+   "words": 1,
+   "chars": 6000,
+   "startsWith": "aaaaaaaaaaaaaa"
+  },
+  {
+   "i": 1,
+   "words": 1,
+   "chars": 1500,
+   "startsWith": "aaaaaaaaaaaaaa"
+  }
+ ],
+ "chunk: empty / whitespace": [
+  [],
+  []
+ ],
+ "chunk: takes fence removed before chunking (facts fence not exercised here)": [
+  "Intro line.\n\n\n\nOutro line."
+ ],
+ "constants": {
+  "MARKDOWN_CHUNKER_VERSION": 4
+ },
+ "hash: baseline": "0effc9030a15c8dcde62e0de9bde885b3fd73562dca8de0ee7864db0a238e37c",
+ "hash: same + captured_at/ingested_at/trust_tier (ephemeral keys ignored)": true,
+ "hash: tags order irrelevant": true,
+ "hash: other frontmatter key changes it": false,
+ "hash: timeline undefined == \"\"": true,
+ "HASH_EPHEMERAL_FRONTMATTER_KEYS": [
+  "captured_at",
+  "ingested_at",
+  "quarantine",
+  "content_flag",
+  "embed_skip",
+  "atoms_scan_hash",
+  "trust_tier"
+ ],
+ "request_id: import": "ok",
+ "request_id: UUID passes through lowercased": "3f6a2c1e-9b47-4d2a-8e5f-7c0b1d9a6e24",
+ "request_id: non-UUID -> deterministic UUIDv5 (twice same)": [
+  "eb4aeb5f-ba6b-54d3-8708-1b695f62e1a8",
+  "eb4aeb5f-ba6b-54d3-8708-1b695f62e1a8"
+ ],
+ "request_id: space -> invalid_params": "THROWS OperationError: request_id must be 1 to 128 printable ASCII characters with no spaces (this one has 9 characters, including a space or non-ASCII character).",
+ "request_id: 129 chars -> invalid_params": "THROWS OperationError: request_id must be 1 to 128 printable ASCII characters with no spaces (this one has 129 characters).",
+ "precondition: expected_revision + force": "THROWS OperationError: expected_revision and force: true are mutually exclusive.",
+ "precondition: expected_revision not UUID": "THROWS OperationError: expected_revision must be the UUID returned by a page read.",
+ "precondition: none": {},
+ "revision: import": "ok",
+ "revision: exists, no expected -> code": "revision_required",
+ "revision: exists, matching expected": "ok",
+ "revision: exists, stale expected -> code": "revision_conflict",
+ "revision: absent, no expected (create)": "ok",
+ "revision: absent, expected given -> code": "revision_conflict",
+ "revision: exists, force": "ok",
+ "capture: defaultSlug note (2026-10-23)": "inbox/2026-10-23-35c6b9f6",
+ "capture: defaultSlug diary/event prefix": [
+  "life/diary/2026-10-23-2d711642",
+  "life/events/2026-10-23-2d711642"
+ ],
+ "capture: normalizeForHash CRLF/BOM/NFKC": "ABC\nx",
+ "capture: deriveTitle 80 cap + heading strip": [
+  "Hello world",
+  80,
+  "Capture"
+ ],
+ "slugifyPath": {
+  "People/Alice Example.md": "people/alice-example",
+  "notes/v1.0.0.md": "notes/v1.0.0",
+  "_index.md": "_index",
+  "Daily/2024-03-15 Standup.md": "daily/2024-03-15-standup",
+  "한글/메모.md": "한글/메모",
+  "Apple Notes/2017-05-03 ohmygreen.md": "apple-notes/2017-05-03-ohmygreen",
+  "a--b.md": "a-b",
+  "Café Notes.mdx": "cafe-notes"
+ },
+ "hyphenFoldedSlug (put_page refuses a NEW slug this changes)": {
+  "notes/x---y": "notes/x-y",
+  "notes/x-": "notes/x",
+  "notes/ok": null
+ }
+}

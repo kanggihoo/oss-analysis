@@ -1,0 +1,15 @@
+repo_url: https://github.com/rohitg00/agentmemory
+local_path: /Users/kkh/Desktop/oss-analysis/agent-memory/repos/agentmemory
+branch: main
+head_sha: 70517d2bdf302a0aed11ca470151ee854e74c678
+describe: v0.9.30-52-g70517d2
+remote_url: https://github.com/rohitg00/agentmemory
+status: 0 dirty entries
+tracked_files: 1016
+package_version: 0.9.30 (package.json)
+latest_commit:
+  70517d2bdf302a0aed11ca470151ee854e74c678
+  Rohit Ghumare <48523873+rohitg00@users.noreply.github.com>
+  2026-10-23T18:58:13+05:30
+  fix(dsh): preserve config and forward daemon credentials (#1606)
+fetched: 2026-10-25 (git clone, full history)

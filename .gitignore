@@ -20,3 +20,6 @@ artifacts/**/cache/
 .venv/
 __pycache__/
 artifacts/**/node_modules/
+
+/agent-memory/repos/
+/ai-learning/repos/

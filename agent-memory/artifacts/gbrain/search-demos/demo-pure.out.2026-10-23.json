@@ -1,0 +1,704 @@
+{
+  "rrf: effectiveRrfK(60, w) for intent weights": {
+    "entity_keyword": 52.173913043478265,
+    "concept_keyword": 66.66666666666667,
+    "concept_vector": 50,
+    "general": {
+      "keywordWeight": 1,
+      "vectorWeight": 1,
+      "suggestedRecency": null,
+      "exactMatchBoost": 1
+    },
+    "event": {
+      "keywordWeight": 1.2,
+      "vectorWeight": 0.95,
+      "suggestedRecency": "on",
+      "exactMatchBoost": 1.1
+    },
+    "temporal": {
+      "keywordWeight": 1,
+      "vectorWeight": 1,
+      "suggestedRecency": "on",
+      "exactMatchBoost": 1
+    }
+  },
+  "rrf: page-level vote, no boost (detail != low)": [
+    "B#2=1.0000",
+    "A#1=0.5041",
+    "C#4=0.4959",
+    "A#3=0.4879"
+  ],
+  "rrf: explicit low -> compiled_truth x2.0 after normalize": [
+    "B#2=2.0000",
+    "A#1=1.0083",
+    "C#4=0.4959",
+    "A#3=0.4879"
+  ],
+  "rrf: auto-low tilt 1.2": [
+    "B#2=1.2000",
+    "A#1=0.6050",
+    "C#4=0.4959",
+    "A#3=0.4879"
+  ],
+  "rrf: weight 0.5 on keyword list": [
+    "B#2=1.0000",
+    "A#1=0.6740",
+    "A#3=0.6523",
+    "C#4=0.3315"
+  ],
+  "rrf: synthetic chunkless title row never gets compiled_truth boost": 1,
+  "rrf: single list normalized to rank-1 = 1.0": [
+    "A#1=1.0000",
+    "B#2=0.9836",
+    "A#3=0.9677"
+  ],
+  "rrf: RRF_K=60 constant check (1/(60+0))": 0.016666666666666666,
+  "compose: expansion budget null (legacy) vs 1.0, 2 variants": {
+    "legacy_null": [
+      "vector:k=60",
+      "vector_variant#1:k=60",
+      "vector_variant#2:k=60",
+      "keyword:k=60"
+    ],
+    "budget_1": [
+      "vector:k=60",
+      "vector_variant#1:k=60,w=0.5",
+      "vector_variant#2:k=60,w=0.5",
+      "keyword:k=60"
+    ],
+    "budget_0_5": [
+      "vector:k=60",
+      "vector_variant#1:k=60,w=0.25",
+      "vector_variant#2:k=60,w=0.25",
+      "keyword:k=60"
+    ]
+  },
+  "compose: title list only if non-empty; relational only if non-empty": [
+    "vector:k=60",
+    "keyword:k=50",
+    "title:k=50",
+    "relational:k=60"
+  ],
+  "cosine: blended = 0.7*normRrf + 0.3*cosine; unhydrated -> cosine 0": [
+    "A#1 score=0.8500 cosine=0.5",
+    "B#2 score=0.6200 cosine=0.9",
+    "C#3 score=0.1750 cosine=0"
+  ],
+  "cosine: no row hydrated -> input untouched; sql failure -> js fallback; both fail -> input untouched": {
+    "none_same_object": true,
+    "js_fallback_score": 1,
+    "js_fallback_cosine": 1,
+    "dead_same_object": true
+  },
+  "dedup: 5 chunks of one page -> at most 2 kept (+ compiled_truth guarantee appended)": {
+    "out": [
+      "p#1",
+      "p#2",
+      "p#5"
+    ]
+  },
+  "dedup: same-page Jaccard > 0.85 dropped; cross-page near-duplicates both kept": [
+    "p#1",
+    "q#3"
+  ],
+  "dedup: type ratio 60% (only when >1 type)": {
+    "kept_types": {
+      "note": 6,
+      "company": 2
+    }
+  },
+  "dedup: one type only -> ratio cap not applied": 4,
+  "dedup: same slug in two sources are two pages": [
+    "x#1",
+    "x#2",
+    "x#3"
+  ],
+  "budget: estimateTokens ascii/CJK": {
+    "ascii_8": 2,
+    "ascii_9": 3,
+    "cjk_3": 3,
+    "mixed": 3,
+    "empty": 0
+  },
+  "budget: skip oversize, keep packing (title cost counted)": {
+    "ids": [
+      "a#1",
+      "c#3"
+    ],
+    "meta": {
+      "budget": 250,
+      "used": 200,
+      "dropped": 1,
+      "kept": 2
+    }
+  },
+  "budget: head alone over budget -> 1 truncated copy (minKeep failsafe)": {
+    "n": 1,
+    "used": 100,
+    "truncated": true,
+    "text_len": 396,
+    "original_untouched": 4000
+  },
+  "budget: undefined or <=0 -> no-op": [
+    2,
+    2,
+    {
+      "budget": 0,
+      "used": 8,
+      "dropped": 0,
+      "kept": 2
+    }
+  ],
+  "budget: packToBudget stops at first oversize (memory verbs variant)": [
+    1
+  ],
+  "rerank: head reordered by provider order, tail (past topNIn) keeps RRF position": {
+    "order": [
+      "C#3",
+      "A#1",
+      "D#4",
+      "B#2",
+      "E#5"
+    ],
+    "rerank_scores": [
+      0.9,
+      0.5,
+      0.4,
+      0.1,
+      null
+    ],
+    "delta": [
+      2,
+      -1,
+      1,
+      -2,
+      null
+    ],
+    "ev": {
+      "skip": null,
+      "fail": null,
+      "pass": null
+    }
+  },
+  "rerank: exact score ties keep input (fused) order": [
+    "A#1",
+    "B#2",
+    "D#4",
+    "C#3",
+    "E#5"
+  ],
+  "rerank: topNOut truncates; items provider omitted are appended at end of head": [
+    "B#2",
+    "A#1",
+    "C#3"
+  ],
+  "rerank: no_key -> input returned, onSkip, no audit row": {
+    "same_object": true,
+    "ev": {
+      "skip": "no_key",
+      "fail": null,
+      "pass": null
+    },
+    "audit_rows": 0
+  },
+  "rerank: timeout / auth / budget / unknown -> input returned, onFailure reason, audit row": {
+    "timeout": {
+      "same_object": true,
+      "fail": "timeout",
+      "audit_reason": "timeout"
+    },
+    "auth": {
+      "same_object": true,
+      "fail": "auth",
+      "audit_reason": "auth"
+    },
+    "rate_limit": {
+      "same_object": true,
+      "fail": "rate_limited",
+      "audit_reason": "rate_limit"
+    },
+    "network": {
+      "same_object": true,
+      "fail": "provider_error",
+      "audit_reason": "network"
+    },
+    "plain Error": {
+      "same_object": true,
+      "fail": "provider_error",
+      "audit_reason": "unknown"
+    }
+  },
+  "rerank: provider returns empty array / non-array -> pass-through with reason": {
+    "empty": {
+      "same_object": true,
+      "pass": "empty_result_set"
+    },
+    "non_array": {
+      "same_object": true,
+      "pass": "malformed_shape"
+    }
+  },
+  "rerank: disabled / empty input / topNIn<=0 -> input as is, provider not called": {
+    "a_same": true,
+    "b_len": 0,
+    "c_same": true,
+    "called": 0
+  },
+  "rerank: document sent = chunk_text (title if empty), capped by capRerankDoc": {
+    "doc_lengths": [
+      1,
+      3000
+    ],
+    "first_doc_is_title": true,
+    "RERANK_MAX_DOC_TOKENS": 1400,
+    "cap_demo_len": 1500
+  },
+  "expand: <3 words -> [query], gateway not called": {
+    "result": [
+      "acme revenue"
+    ],
+    "gateway_calls": 0
+  },
+  "expand: no expansion provider -> [query], gateway not called": {
+    "result": [
+      "what is acme revenue growth"
+    ],
+    "gateway_calls": 0
+  },
+  "expand: original + 3 variants -> only 2 variants kept (MAX_QUERIES=3), dup/case dedupe": {
+    "result": [
+      "what is acme revenue growth",
+      "ACME revenue growth rate",
+      "sales trend of acme"
+    ],
+    "gateway_calls": 1
+  },
+  "expand: gateway throws -> [query]": {
+    "result": [
+      "what is acme revenue growth"
+    ],
+    "gateway_calls": 1
+  },
+  "expand: sanitizeQueryForPrompt strips code fences/tags/instruction prefix; >500 chars cut": {
+    "fence": "find acme revenue",
+    "tag": "acme revenue now",
+    "prefix": "acme revenue",
+    "long_len": 499
+  },
+  "expand: sanitizeExpansionOutput drops non-strings/control chars/dups, max 2": [
+    "okone",
+    "two"
+  ],
+  "mode: MODE_BUNDLES key knobs per mode": {
+    "conservative": {
+      "tokenBudget": 4000,
+      "expansion": false,
+      "searchLimit": 10,
+      "reranker_enabled": false,
+      "reranker_model": "voyage:rerank-3-lite",
+      "reranker_top_n_in": 30,
+      "reranker_top_n_out": null,
+      "reranker_timeout_ms": 5000,
+      "autocut": false,
+      "graph_signals": false,
+      "relationalRetrieval": false,
+      "relational_planner": false,
+      "contextual_retrieval": "none",
+      "collapse": true,
+      "rank_priors": true,
+      "title_boost": 1.25,
+      "keywordOrFallback": true,
+      "intentWeighting": true,
+      "metadata_boost_gate": "lexical",
+      "cache_enabled": true,
+      "cache_ttl_seconds": 3600,
+      "cache_similarity_threshold": 0.92
+    },
+    "balanced": {
+      "tokenBudget": 12000,
+      "expansion": false,
+      "searchLimit": 25,
+      "reranker_enabled": true,
+      "reranker_model": "voyage:rerank-3-lite",
+      "reranker_top_n_in": 25,
+      "reranker_top_n_out": null,
+      "reranker_timeout_ms": 5000,
+      "autocut": false,
+      "graph_signals": true,
+      "relationalRetrieval": true,
+      "relational_planner": true,
+      "contextual_retrieval": "title",
+      "collapse": true,
+      "rank_priors": true,
+      "title_boost": 1.25,
+      "keywordOrFallback": true,
+      "intentWeighting": true,
+      "metadata_boost_gate": "lexical",
+      "cache_enabled": true,
+      "cache_ttl_seconds": 3600,
+      "cache_similarity_threshold": 0.92
+    },
+    "tokenmax": {
+      "expansion": false,
+      "searchLimit": 50,
+      "reranker_enabled": true,
+      "reranker_model": "voyage:rerank-3-lite",
+      "reranker_top_n_in": 50,
+      "reranker_top_n_out": null,
+      "reranker_timeout_ms": 5000,
+      "autocut": false,
+      "graph_signals": true,
+      "relationalRetrieval": true,
+      "relational_planner": true,
+      "contextual_retrieval": "per_chunk_synopsis",
+      "collapse": true,
+      "rank_priors": true,
+      "title_boost": 1.25,
+      "keywordOrFallback": true,
+      "intentWeighting": true,
+      "metadata_boost_gate": "lexical",
+      "cache_enabled": true,
+      "cache_ttl_seconds": 3600,
+      "cache_similarity_threshold": 0.92
+    }
+  },
+  "mode: knobs that differ between bundles (all keys)": {
+    "bundle_key_count": 44,
+    "differing": {
+      "tokenBudget": [
+        4000,
+        12000,
+        null
+      ],
+      "searchLimit": [
+        10,
+        25,
+        50
+      ],
+      "reranker_enabled": [
+        false,
+        true,
+        true
+      ],
+      "reranker_top_n_in": [
+        30,
+        25,
+        50
+      ],
+      "graph_signals": [
+        false,
+        true,
+        true
+      ],
+      "contextual_retrieval": [
+        "none",
+        "title",
+        "per_chunk_synopsis"
+      ],
+      "relationalRetrieval": [
+        false,
+        true,
+        true
+      ],
+      "relational_planner": [
+        false,
+        true,
+        true
+      ]
+    }
+  },
+  "mode: resolve chain per-call > override > bundle": {
+    "searchLimit": 3,
+    "reranker_enabled": false,
+    "resolved_mode": "tokenmax"
+  },
+  "mode: unset/invalid/uppercase mode": {
+    "unset": "balanced",
+    "invalid": [
+      "balanced",
+      false
+    ],
+    "upper_trim": "tokenmax"
+  },
+  "mode: tokenBudget undefined in tokenmax stays undefined unless override": [
+    null,
+    9000
+  ],
+  "intent: classifyQuery samples": {
+    "who is alice-example": "entity/detail=low/rec=off/sal=off/mod=text",
+    "when did we last meet acme": "temporal/detail=high/rec=off/sal=off/mod=text",
+    "acme raised $5M announcement": "event/detail=high/rec=off/sal=off/mod=text",
+    "what is the ownership economy": "concept/detail=undefined/rec=off/sal=off/mod=text",
+    "everything about acme": "temporal/detail=high/rec=off/sal=off/mod=text",
+    "catch me up on acme today": "general/detail=undefined/rec=strong/sal=on/mod=text",
+    "acme revenue": "general/detail=undefined/rec=off/sal=off/mod=text",
+    "show me photos of the offsite": "general/detail=undefined/rec=off/sal=off/mod=image"
+  },
+  "scope: sourceScopeOpts ladder": {
+    "federated_array_wins_over_scalar": {
+      "sourceIds": [
+        "x",
+        "y"
+      ]
+    },
+    "scalar": {
+      "sourceId": "a"
+    },
+    "neither_local": {},
+    "empty_array_local_no_scalar": {},
+    "empty_array_remote_no_scalar": "THROWS permission_denied",
+    "empty_array_remote_with_scalar": {
+      "sourceId": "a"
+    },
+    "all_sentinel_local": {},
+    "all_sentinel_remote_stays_literal": {
+      "sourceId": "__all__"
+    },
+    "none_sentinel": "THROWS no_source_grant",
+    "remote_unset_no_auth": {}
+  },
+  "visibility: buildVisibilityClause text (every arm adds this)": "AND p.deleted_at IS NULL AND ((p.text_projection_revision = p.knowledge_revision) IS TRUE AND (cc.body_generation IS NULL OR cc.body_generation <= p.body_generation)) AND NOT s.archived AND NOT (COALESCE(p.frontmatter, '{}'::jsonb) ? 'quarantine') AND NOT (COALESCE(p.frontmatter, '{}'::jsonb) ? 'pinned_question')",
+  "visibility: remote adds safe-chunk + (excludePrivate) private filter": "AND p.deleted_at IS NULL AND (p.text_projection_revision = p.knowledge_revision) IS TRUE AND NOT s.archived AND NOT (COALESCE(p.frontmatter, '{}'::jsonb) ? 'quarantine') AND NOT (COALESCE(p.frontmatter, '{}'::jsonb) ? 'pinned_question') AND ((COALESCE(p.frontmatter->>'visibility', CASE WHEN (p.type IN ('atom', 'question') OR (p.type = 'concept' AND p.frontmatter->>'synthesized_by' IS NOT NULL)) THEN 'private' ELSE 'world' END) <> 'private' AND NOT COALESCE(p.frontmatter ? 'pinned_question', false) AND NOT (p.frontmatter->>'visibility' IS NULL AND (COALESCE(lower(btrim(p.frontmatter->>'access')) IN ('private','restricted','confidential'), false) OR COALESCE(lower(btrim(p.frontmatter->>'confidentiality')) IN ('confidential','secret','private','restricted'), false)))) AND NOT (CASE WHEN p.type = 'atom' THEN EXISTS (SELECT 1 FROM pages derived_origin WHERE derived_origin.source_id = p.source_id AND derived_origin.slug = p.frontmatter->>'source_slug' AND derived_origin.frontmatter->>'visibility' = 'private') WHEN (p.type IN ('atom', 'question') OR (p.type = 'concept' AND p.frontmatter->>'synthesized_by' IS NOT NULL)) THEN EXISTS (SELECT 1 FROM links derived_input_link JOIN pages derived_input ON derived_input.id = derived_input_link.to_page_id WHERE derived_input_link.from_page_id = p.id AND derived_input_link.link_source = 'concept-provenance' AND derived_input_link.link_type = 'synthesized_from' AND (COALESCE(derived_input.frontmatter->>'visibility', CASE WHEN derived_input.type = 'atom' THEN 'private' ELSE 'world' END) = 'private' OR EXISTS (SELECT 1 FROM pages derived_input_origin WHERE derived_input_origin.source_id = derived_input.source_id AND derived_input_origin.slug = derived_input.frontmatter->>'source_slug' AND derived_input_origin.frontmatter->>'visibility' = 'private'))) WHEN p.type = 'event' AND p.frontmatter->>'captured_via' LIKE 'life-chronicle:%' THEN NOT EXISTS (SELECT 1 FROM pages chronicle_origin WHERE chronicle_origin.source_id = p.source_id AND chronicle_origin.slug = p.frontmatter->'event'->>'depth' AND (COALESCE(chronicle_origin.frontmatter->>'visibility', CASE WHEN (chronicle_origin.type IN ('atom', 'question') OR (chronicle_origin.type = 'concept' AND chronicle_origin.frontmatter->>'synthesized_by' IS NOT NULL)) THEN 'private' ELSE 'world' END) <> 'private' AND NOT COALESCE(chronicle_origin.frontmatter ? 'pinned_question', false) AND NOT (chronicle_origin.frontmatter->>'visibility' IS NULL AND (COALESCE(lower(btrim(chronicle_origin.frontmatter->>'access')) IN ('private','restricted','confidential'), false) OR COALESCE(lower(btrim(chronicle_origin.frontmatter->>'confidentiality')) IN ('confidential','secret','private','restricted'), false)))) AND NOT (CASE WHEN jsonb_typeof(chronicle_origin.frontmatter->'derived_from') IN ('array', 'string') THEN EXISTS ( SELECT 1 FROM pages declared_origin WHERE declared_origin.source_id = chronicle_origin.source_id AND declared_origin.frontmatter->>'visibility' = 'private' AND declared_origin.slug = ANY(ARRAY( SELECT regexp_replace(declared.slug, '\\.md$', '') FROM jsonb_array_elements_text( CASE WHEN jsonb_typeof(chronicle_origin.frontmatter->'derived_from') = 'array' THEN chronicle_origin.frontmatter->'derived_from' ELSE jsonb_build_array(chronicle_origin.frontmatter->'derived_from') END) AS declared(slug)))) ELSE false END)) ELSE false END) AND NOT (CASE WHEN jsonb_typeof(p.frontmatter->'derived_from') IN ('array', 'string') THEN EXISTS ( SELECT 1 FROM pages declared_origin WHERE declared_origin.source_id = p.source_id AND declared_origin.frontmatter->>'visibility' = 'private' AND declared_origin.slug = ANY(ARRAY( SELECT regexp_replace(declared.slug, '\\.md$', '') FROM jsonb_array_elements_text( CASE WHEN jsonb_typeof(p.frontmatter->'derived_from') = 'array' THEN p.frontmatter->'derived_from' ELSE jsonb_build_array(p.frontmatter->'derived_from') END) AS declared(slug)))) ELSE false END)) AND p.chunker_version >= 4",
+  "scope SQL: keyword where for sourceIds / [] / sourceId / none (params shown)": {
+    "sourceIds_ab": {
+      "has_source_clause": true,
+      "params": [
+        [
+          "a",
+          "b"
+        ]
+      ]
+    },
+    "sourceIds_empty_array": {
+      "has_source_clause": false,
+      "params": []
+    },
+    "sourceId_a": {
+      "has_source_clause": true,
+      "params": [
+        "a"
+      ]
+    },
+    "none": {
+      "has_source_clause": false,
+      "params": []
+    },
+    "both_array_and_scalar": {
+      "has_source_clause": true,
+      "params": [
+        [
+          "a"
+        ]
+      ]
+    }
+  },
+  "keyword SQL: websearch_to_tsquery on chunk vector, text modality only; CJK -> LIKE AND": {
+    "ascii_pred": "cc.search_vector @@ websearch_to_tsquery('english', $1) AND NOT (p.slug LIKE 'te",
+    "modality_text_only": true,
+    "cjk_pred": "cc.chunk_text LIKE $1 ESCAPE '\\' AND cc.chunk_text LIKE $2 ESCAPE '\\' AND NOT (p.slug LIKE",
+    "blank_query_null": null
+  },
+  "keyword OR fallback builder (zero strict rows -> one retry, tagged keyword_relaxed)": {
+    "three_terms": "acme OR revenue OR growth",
+    "single_term": null,
+    "quoted_phrase_no_fallback": null,
+    "negation_no_fallback": null,
+    "dedup_and_drop_or_and": "Acme OR growth OR x",
+    "interior_hyphen_ok": "foo OR bar OR baz",
+    "websearch_bound_long_term_count": 256
+  },
+  "source boost: defaults, config merge, none, env, hard excludes": {
+    "hard_excludes": [
+      "test/",
+      "attachments/",
+      ".raw/"
+    ],
+    "include_opt_back": [
+      "attachments/",
+      ".raw/"
+    ],
+    "default_people": 1.2,
+    "config_override": 2,
+    "none_drops_defaults": [
+      "wiki/"
+    ],
+    "factor_case_high_bypass": "1.0",
+    "factor_case_default": "(CASE WHEN unv THEN 1.0 WHEN p.slug LIKE 'people/x/%' THEN 2 WHEN p.slug LIKE 'people/%' THEN 1.2 ELSE 1.0 END)"
+  },
+  "limits: perArmPoolLimit = min(max(2*limit, 50, offset+limit), 100)": {
+    "limit10": 50,
+    "limit25": 50,
+    "limit50": 100,
+    "limit20_offset90": 100,
+    "limit200": 100,
+    "cap": 100
+  },
+  "snippet: resultChunkCap precedence and marker": {
+    "explicit_0": 0,
+    "explicit_50": 0,
+    "no_explicit_no_cap": 8000,
+    "subagent_cap_300": 300,
+    "RESULT_CHUNK_CHARS": 8000,
+    "rows": [
+      "xxxxxxxxxx… [truncated 10 chars — get_page p around_chunk_id=9]",
+      "short"
+    ]
+  },
+  "lean rows: remote default keeps only agent-facing fields; local = full": {
+    "lean": {
+      "slug": "p",
+      "title": "p",
+      "type": "note",
+      "chunk_text": "text of p#3",
+      "chunk_id": 3,
+      "score": 0.1235,
+      "source_id": "default",
+      "effective_date": "2026-01-02"
+    },
+    "remote_default": "lean",
+    "local_default": "full",
+    "remote_fields_full": "full"
+  },
+  "score contract: reranked list -> returned score = rerank score, non-increasing; fused_score keeps old": {
+    "reranked": [
+      {
+        "slug": "b",
+        "score": 0.8,
+        "rerank_score": 0.8,
+        "fused_score": 0.9
+      },
+      {
+        "slug": "a",
+        "score": 0.4,
+        "rerank_score": 0.4,
+        "fused_score": 0.5
+      },
+      {
+        "slug": "c",
+        "score": 0.4,
+        "fused_score": 0.1
+      }
+    ],
+    "not_reranked_unchanged": [
+      {
+        "slug": "x",
+        "score": 0.3
+      },
+      {
+        "slug": "y",
+        "score": 0.2
+      }
+    ]
+  },
+  "cache: availability hard-off; defaults; row id; text guard": {
+    "semanticResultCacheAvailable": false,
+    "DEFAULT_SIMILARITY_THRESHOLD": 0.92,
+    "DEFAULT_TTL_SECONDS": 3600,
+    "row_id_same_inputs": true,
+    "row_id_diff_knobs": false,
+    "row_id_len": 32,
+    "guard_equal_after_normalize": true,
+    "guard_dice_pass": true,
+    "guard_reject": false,
+    "scope_key_federated": "__set__:a,b",
+    "scope_key_scalar": "a",
+    "scope_key_unscoped": "__unscoped__",
+    "filter_by_scope": 1
+  },
+  "exact: phrase -> POSIX regex (words in order, any whitespace), constants": {
+    "p1": {
+      "regex": "quarterly[[:space:]]+board[[:space:]]+pack",
+      "longest": "quarterly"
+    },
+    "p2": {
+      "regex": "INV-2024\\.0042[[:space:]]+\\(v2\\)",
+      "longest": "INV-2024.0042"
+    },
+    "blank": null,
+    "limits": {
+      "EXACT_DEFAULT_LIMIT": 100,
+      "EXACT_MAX_LIMIT": 1000,
+      "EXACT_DEFAULT_SECONDS": 30,
+      "EXACT_MAX_SECONDS": 120,
+      "EXACT_MAX_PHRASE_CHARS": 500,
+      "EXACT_SNIPPETS_PER_PAGE": 3
+    }
+  },
+  "exact: scan statement page filters (remote adds safe-chunk gap rule)": {
+    "local_filters": [
+      [
+        "deleted_at IS NULL",
+        true
+      ],
+      [
+        "NOT s.archived",
+        true
+      ],
+      [
+        "? 'quarantine'",
+        true
+      ],
+      [
+        "pinned_question",
+        true
+      ],
+      [
+        "LIKE",
+        true
+      ]
+    ],
+    "remote_has_unsealed": true,
+    "local_has_unsealed": false,
+    "source_clause": true
+  },
+  "exact: run with scripted engine -> complete / limit / gaps": {
+    "all_match": {
+      "matches": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "complete": true,
+      "reasons": [],
+      "resume_after": null,
+      "scanned": 3,
+      "unreadable": 0
+    },
+    "limit_hit": {
+      "matches": [
+        "s1",
+        "s2"
+      ],
+      "complete": false,
+      "reasons": [
+        "limit"
+      ],
+      "resume_after": 2,
+      "scanned": 2,
+      "unreadable": 0
+    },
+    "with_gap": {
+      "matches": [
+        "s1",
+        "s3"
+      ],
+      "complete": false,
+      "reasons": [
+        "unreadable_pages"
+      ],
+      "resume_after": null,
+      "scanned": 3,
+      "unreadable": 1
+    },
+    "deadline_passed": {
+      "matches": [],
+      "complete": false,
+      "reasons": [
+        "deadline"
+      ],
+      "resume_after": 0,
+      "scanned": 0,
+      "unreadable": 0
+    }
+  }
+}

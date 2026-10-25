@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "agentmemory 모듈 구조 (70517d2b)",
+    "quality_profile": "showcase",
+    "output": "structure.html",
+    "repository": {
+      "url": "https://github.com/rohitg00/agentmemory",
+      "revision": "70517d2bdf302a0aed11ca470151ee854e74c678"
+    },
+    "viewBox": [
+      1240,
+      600
+    ]
+  },
+  "components": [
+    {
+      "id": "host",
+      "type": "external",
+      "label": "에이전트·사용자",
+      "sublabel": "훅 · MCP · 터미널",
+      "pos": [
+        20,
+        250
+      ],
+      "size": [
+        140,
+        64
+      ]
+    },
+    {
+      "id": "hooks",
+      "type": "frontend",
+      "label": "훅 스크립트·스풀",
+      "sublabel": "plugin/scripts · _capture",
+      "pos": [
+        210,
+        100
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/hooks/_capture.ts",
+          "label": "captureObservation"
+        },
+        {
+          "path": "src/capture/spool.ts",
+          "label": "스풀"
+        },
+        {
+          "path": "plugin/hooks.json",
+          "label": "Claude 훅 6개"
+        }
+      ]
+    },
+    {
+      "id": "mcp",
+      "type": "frontend",
+      "label": "MCP 입구",
+      "sublabel": "REST 프록시 · standalone",
+      "pos": [
+        210,
+        250
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/mcp/server.ts",
+          "label": "registerMcpEndpoints"
+        },
+        {
+          "path": "src/mcp/standalone.ts",
+          "label": "독립 stdio"
+        },
+        {
+          "path": "src/mcp/tools-registry.ts",
+          "line": 1009,
+          "label": "도구 54개"
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "CLI·커넥터",
+      "sublabel": "cli.ts · connect/*",
+      "pos": [
+        210,
+        400
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/cli.ts",
+          "line": 4260,
+          "label": "commands 표"
+        },
+        {
+          "path": "src/cli/connect/index.ts",
+          "label": "ADAPTERS 21개"
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "type": "cloud",
+      "label": "iii 엔진 + REST",
+      "sublabel": "HTTP :3111 · state · stream",
+      "pos": [
+        460,
+        40
+      ],
+      "size": [
+        170,
+        504
+      ],
+      "tag": "엔진 내부 미확인",
+      "sources": [
+        {
+          "path": "iii-config.yaml",
+          "label": "워커 설정"
+        },
+        {
+          "path": "src/triggers/api.ts",
+          "label": "api::* 145개"
+        },
+        {
+          "path": "src/triggers/events.ts",
+          "label": "event::*"
+        }
+      ]
+    },
+    {
+      "id": "refine",
+      "type": "backend",
+      "label": "정제",
+      "sublabel": "통합·그래프·교훈·망각",
+      "pos": [
+        760,
+        40
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/functions/consolidation-pipeline.ts",
+          "line": 86
+        },
+        {
+          "path": "src/functions/graph.ts",
+          "line": 722
+        },
+        {
+          "path": "src/functions/retention.ts",
+          "line": 129
+        }
+      ]
+    },
+    {
+      "id": "capture",
+      "type": "backend",
+      "label": "캡처·압축·요약",
+      "sublabel": "observe·compress·summarize",
+      "pos": [
+        760,
+        150
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/functions/observe.ts",
+          "line": 72
+        },
+        {
+          "path": "src/functions/compress.ts",
+          "line": 263
+        },
+        {
+          "path": "src/functions/summarize.ts",
+          "line": 469
+        }
+      ]
+    },
+    {
+      "id": "recall",
+      "type": "backend",
+      "label": "검색·컨텍스트",
+      "sublabel": "search·smart-search·context",
+      "pos": [
+        760,
+        260
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/functions/search.ts",
+          "line": 730
+        },
+        {
+          "path": "src/state/hybrid-search.ts",
+          "line": 24,
+          "label": "RRF_K"
+        },
+        {
+          "path": "src/functions/context.ts",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "id": "coord",
+      "type": "backend",
+      "label": "조정·팀",
+      "sublabel": "action·lease·signal·mesh",
+      "pos": [
+        760,
+        370
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/functions/actions.ts",
+          "line": 10
+        },
+        {
+          "path": "src/functions/leases.ts",
+          "line": 12
+        },
+        {
+          "path": "src/functions/mesh.ts",
+          "line": 172
+        }
+      ]
+    },
+    {
+      "id": "ops",
+      "type": "backend",
+      "label": "내보내기·진단",
+      "sublabel": "export·snapshot·diagnose",
+      "pos": [
+        760,
+        480
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/functions/export-import.ts",
+          "line": 128
+        },
+        {
+          "path": "src/functions/snapshot.ts",
+          "line": 58
+        },
+        {
+          "path": "src/functions/diagnostics.ts",
+          "line": 47
+        }
+      ]
+    },
+    {
+      "id": "providers",
+      "type": "cloud",
+      "label": "LLM·임베딩 공급자",
+      "sublabel": "LLM·임베딩 · opt-in",
+      "pos": [
+        1040,
+        40
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/providers/index.ts",
+          "label": "createProvider"
+        },
+        {
+          "path": "src/providers/embedding/index.ts"
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "type": "database",
+      "label": "상태 KV·색인",
+      "sublabel": "StateKV · BM25 · 벡터 · 그래프",
+      "pos": [
+        1040,
+        150
+      ],
+      "size": [
+        160,
+        394
+      ],
+      "sources": [
+        {
+          "path": "src/state/kv.ts",
+          "label": "StateKV"
+        },
+        {
+          "path": "src/state/schema.ts",
+          "label": "KV 스코프"
+        },
+        {
+          "path": "src/state/search-index.ts"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "host-hooks",
+      "from": "host",
+      "to": "hooks"
+    },
+    {
+      "id": "host-mcp",
+      "from": "host",
+      "to": "mcp"
+    },
+    {
+      "id": "host-cli",
+      "from": "host",
+      "to": "cli"
+    },
+    {
+      "id": "hooks-engine",
+      "from": "hooks",
+      "to": "engine",
+      "label": "POST /observe"
+    },
+    {
+      "id": "mcp-engine",
+      "from": "mcp",
+      "to": "engine"
+    },
+    {
+      "id": "cli-engine",
+      "from": "cli",
+      "to": "engine"
+    },
+    {
+      "id": "engine-refine",
+      "from": "engine",
+      "to": "refine"
+    },
+    {
+      "id": "engine-capture",
+      "from": "engine",
+      "to": "capture"
+    },
+    {
+      "id": "engine-recall",
+      "from": "engine",
+      "to": "recall"
+    },
+    {
+      "id": "engine-coord",
+      "from": "engine",
+      "to": "coord"
+    },
+    {
+      "id": "engine-ops",
+      "from": "engine",
+      "to": "ops"
+    },
+    {
+      "id": "refine-providers",
+      "from": "refine",
+      "to": "providers",
+      "label": "LLM·임베딩 호출",
+      "variant": "dashed"
+    },
+    {
+      "id": "capture-state",
+      "from": "capture",
+      "to": "state"
+    },
+    {
+      "id": "recall-state",
+      "from": "recall",
+      "to": "state"
+    },
+    {
+      "id": "coord-state",
+      "from": "coord",
+      "to": "state"
+    },
+    {
+      "id": "ops-state",
+      "from": "ops",
+      "to": "state"
+    },
+    {
+      "id": "refine-state",
+      "from": "refine",
+      "to": "state"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "입구",
+      "items": [
+        "훅은 REST 클라이언트(독립 .mjs)",
+        "MCP는 전체 서버 경로와 독립 stdio 경로",
+        "CLI가 엔진 설치·기동·connect를 맡음"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "코어",
+      "items": [
+        "모든 기능이 mem::* 함수(160개)",
+        "상태는 iii state KV 위 StateKV",
+        "공급자는 LLM·임베딩 모두 opt-in"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "그림에 없는 것",
+      "items": [
+        "뷰어(:3113), 리플레이, 호스트 플러그인",
+        "iii 엔진 내부와 호스트 훅 사양은 미확인"
+      ]
+    }
+  ]
+}

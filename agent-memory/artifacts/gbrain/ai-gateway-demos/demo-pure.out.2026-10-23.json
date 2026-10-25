@@ -1,0 +1,52 @@
+{
+ "parse colon": {
+  "providerId": "openrouter",
+  "modelId": "anthropic/claude-sonnet-4-6"
+ },
+ "parse slash": {
+  "providerId": "anthropic",
+  "modelId": "claude-sonnet-4-6"
+ },
+ "parse bare": "THROWS AIConfigError: Model id \"claude-sonnet-4-6\" is missing a provider prefix.",
+ "alias": {
+  "providerId": "anthropic",
+  "modelId": "claude-haiku-4-5-20251001"
+ },
+ "unknown provider": "THROWS AIConfigError: Unknown provider: \"nope\"",
+ "anthropic embedding touchpoint": "THROWS AIConfigError: Provider \"anthropic\" does not support touchpoint \"embedding\".",
+ "dims openai": 1536,
+ "dims voyage default": 1024,
+ "truncate 8000": [
+  8000,
+  0,
+  0
+ ],
+ "plan voyage (1 char/token, 0.5 safety => 60000 token budget)": [
+  7,
+  4
+ ],
+ "plan openai (100K*0.8 tokens, 4 chars/token)": [
+  40,
+  40,
+  20
+ ],
+ "plan ollama (no_batch_cap => 16 items)": [
+  16,
+  16,
+  8
+ ],
+ "screen empty/zero": "THROWS EmbeddingZeroNormError: embedding_zero_norm: the embedding provider demo:m gave no usable vector for some inputs (empty_input, zero_norm); those inputs were not indexed and the rest of the batch was kept.",
+ "fallback chain normalize": "Attempted to load JSON module without specifying \"type\": \"json\" attribute in the import statement.",
+ "fallback attempts dedupe": "Attempted to load JSON module without specifying \"type\": \"json\" attribute in the import statement.",
+ "import reservation-cost": "ok",
+ "cost chat anthropic:claude-sonnet-4-6 (1M in, 0 out)": 3,
+ "cost chat alias anthropic:claude-haiku-4-5 (1M in)": 1,
+ "cost embed voyage:voyage-4 (1M in)": 0.06,
+ "cost embed ollama:bge-m3 (free local)": 0,
+ "cost embed litellm:x (unpriced => null)": null,
+ "cost chat ollama:llama3 (free local)": 0,
+ "cost chat litellm:gpt-4o (unpriced => null)": null,
+ "cost with override": 12.5,
+ "wildcard allowed for per-token provider?": false,
+ "wildcard allowed for claude-cli?": true
+}

@@ -1,0 +1,56 @@
+git: git version 2.50.1 (Apple Git-155)
+(번역본 시나리오. 앱·Rust 미실행. 코드 줄 범위는 파일 머리 주석 참고)
+
+## S1. 로컬 수정(기존 파일) + 업스트림이 같은 폴더를 바꿈, 재시작 없음
+결과: Applied content_changed = True
+라이브러리 SKILL.md: '---\nname: foo\n---\nupstream v2\n'
+-> 병합·충돌 감지 없음. 내가 고친 기존 파일은 목록에 안 뜨고 통째로 교체된다.
+
+## S2. 로컬 수정 + 로컬에서만 만든 새 파일(notes.md) + 업스트림 변경
+1차(토큰 없음): Held pending = [('library', 'notes.md')]
+  파일 그대로인가: SKILL.md = '---\nname: foo\n---\nMY EDIT\n' | notes.md = 'my notes\n'
+  임시 staged 폴더 잔존: []
+2차(토큰 전달): Applied content_changed = True
+  결과 파일: ['SKILL.md', 'scripts/run.py'] | SKILL.md = '---\nname: foo\n---\nupstream v2\n' 
+
+## S3. 업스트림은 이 폴더를 안 바꿈(모노레포 다른 폴더만 변경), 로컬 수정, 재시작 없음
+결과: Applied content_changed = False | SKILL.md = '---\nname: foo\n---\nMY EDIT\n'
+-> 저장 해시(설치 때 값) == 원격 해시라 교체 안 함, 수정이 남는다.
+
+## S4. S3과 같지만 그 사이 앱/CLI를 한 번 시작함(reindex가 content_hash를 디스크 해시로 덮어씀)
+결과: Applied content_changed = True | SKILL.md = '---\nname: foo\n---\nupstream v1\n'
+-> 저장 해시가 '수정 포함 디스크 해시'가 되어 원격(수정 전 내용)과 달라지고, 업스트림이 안 바뀌었는데도 교체된다.
+
+## S5. 승인 토큰이 묶는 것
+pending: [('library', 'mine.txt'), ('library', 'outputs/')]
+승인 뒤 기존 파일 SKILL.md 수정 -> 토큰 불변: True
+승인 뒤 사라질 폴더 outputs/ 안에 새 파일 -> 토큰 불변: True
+승인 뒤 새 최상위 파일 -> 토큰 불변: False (바뀌면 다시 묻는다)
+리비전이 다르면 토큰 불변: False
+옛 토큰으로 호출 -> Held (목록이 자랐으므로 Held)
+최신 목록의 토큰으로 호출 -> Applied | 남은 파일: ['SKILL.md', 'scripts/run.py']
+
+## S6. removed_paths 규칙(사라질 파일 목록이 잡는 것/못 잡는 것)
+removed_paths: ['.git/', '.gitignore', 'link', 'other/', 'templates/', 'thing']
+-> SKILL.md, scripts/run.py(내용만 다름)는 목록에 없다. .pyc/__pycache__/.DS_Store는 제외, .gitignore/.git/는 포함.
+
+## S7. 복사 모드 배포 사본(agent copy)이 있을 때
+내용 변경 있음: Held [('claude_code', 'agent-note.md')]
+내용 변경 없음(staged 없음)에서도: Held [('claude_code', 'agent-note.md')]
+-> symlink 배포는 목록에 없고, copy 배포는 location=에이전트 키로 나온다.
+
+## S8. swap_skill_directory 의 실패 복구
+rename 실패: FileNotFoundError
+복구 뒤 라이브러리: ['SKILL.md'] | 잔존 .backup: []
+성공 swap 후: 'new\n' | 디렉터리: ['foo']
+
+## S9. set-source (local -> git): 저장 해시 vs 원격 해시
+재시작 없음, 원격=설치 때 내용: ('Applied', False) | 로컬 수정 유지: True ['SKILL.md', 'only-mine.md', 'scripts/run.py']
+재시작 뒤: ('Refused', True) (--force 없이 거절)
+  --dry-run: ('DryRun', True) | 파일 변화 없음: ['SKILL.md', 'scripts/run.py']
+  --force: ('Applied', True) | 결과 파일: ['SKILL.md', 'scripts/run.py'] (only-mine.md 소실, 확인 없음)
+
+## S10. reimport (local/import): 해시 비교 없이 항상 교체
+원본 안 바뀜 + 라이브러리 수정: Applied | SKILL.md = 'src v1\n'
+로컬 전용 파일 추가: Held [('library', 'mine.txt')]
+토큰 전달: Applied | 남은 파일: ['SKILL.md']

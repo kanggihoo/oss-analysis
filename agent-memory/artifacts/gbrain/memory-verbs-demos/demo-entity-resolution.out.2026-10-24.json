@@ -1,0 +1,665 @@
+{
+  "slugify / looksLikeSlug": {
+    "slugify": [
+      [
+        "Alice Example",
+        "alice-example"
+      ],
+      [
+        "Đăng Example",
+        "dang-example"
+      ],
+      [
+        "Café  Notes!",
+        "cafe-notes"
+      ],
+      [
+        "  --A__b--  ",
+        "a-b"
+      ],
+      [
+        "한글 메모",
+        ""
+      ]
+    ],
+    "looksLikeSlug": [
+      [
+        "people/alice-example",
+        true
+      ],
+      [
+        "People/Alice",
+        false
+      ],
+      [
+        "alice example",
+        false
+      ],
+      [
+        "한글/메모",
+        true
+      ],
+      [
+        "a.b",
+        false
+      ]
+    ]
+  },
+  "sameEntityName (같은 이름 토큰: 순서·대소문자·악센트·회사 접미 무시)": {
+    "reordered": true,
+    "acme_inc": true,
+    "alicia": false,
+    "examples": false,
+    "by_slug_basename": true
+  },
+  "isIdentityEntity / isFactEntityPage": {
+    "identity": [
+      [
+        "people/x",
+        null,
+        true
+      ],
+      [
+        "x",
+        "company",
+        true
+      ],
+      [
+        "meetings/x",
+        "meeting",
+        false
+      ],
+      [
+        "orgs/x",
+        null,
+        true
+      ]
+    ],
+    "fact_entity": [
+      [
+        "projects/x",
+        null,
+        true
+      ],
+      [
+        "x",
+        "concept",
+        true
+      ],
+      [
+        "x",
+        "deal",
+        true
+      ],
+      [
+        "meetings/x",
+        "meeting",
+        false
+      ],
+      [
+        "hosts/hive",
+        "host",
+        true
+      ]
+    ],
+    "BASENAME_DIRS": [
+      "people",
+      "companies",
+      "hosts",
+      "projects",
+      "concepts"
+    ]
+  },
+  "hasNameSignal (퍼지 phantom 게이트: ≥6자 또는 2토큰 + 엔트로피 ≥1.5)": [
+    [
+      "ai",
+      false
+    ],
+    [
+      "aaaa",
+      false
+    ],
+    [
+      "aaaaaa",
+      false
+    ],
+    [
+      "alice",
+      false
+    ],
+    [
+      "alexander",
+      true
+    ],
+    [
+      "ab cd",
+      true
+    ],
+    [
+      "hive",
+      false
+    ]
+  ],
+  "normalizeAlias": [
+    [
+      "  Alice   Example ",
+      "alice example"
+    ],
+    [
+      "\"Alice\"",
+      "alice"
+    ],
+    [
+      "[Allie]",
+      "allie"
+    ],
+    [
+      "ＡＬＩＣＥ",
+      "alice"
+    ],
+    [
+      "   ",
+      ""
+    ]
+  ],
+  "aliasSpellings (구분자 접기)": [
+    [
+      "Alice Example",
+      {
+        "literal": "alice example",
+        "folded": [
+          "alice-example",
+          "alice_example"
+        ],
+        "dir": null
+      }
+    ],
+    [
+      "alice_example",
+      {
+        "literal": "alice_example",
+        "folded": [
+          "alice example",
+          "alice-example"
+        ],
+        "dir": null
+      }
+    ],
+    [
+      "people/alice-example",
+      {
+        "literal": "people/alice-example",
+        "folded": [
+          "alice example",
+          "alice-example",
+          "alice_example"
+        ],
+        "dir": "people"
+      }
+    ],
+    [
+      "Saoirse",
+      {
+        "literal": "saoirse",
+        "folded": [],
+        "dir": null
+      }
+    ]
+  ],
+  "isBareName": [
+    [
+      "Alice",
+      true
+    ],
+    [
+      "Alice Example",
+      false
+    ],
+    [
+      "alice-example",
+      false
+    ],
+    [
+      "people/alice",
+      false
+    ],
+    [
+      "!!!",
+      false
+    ],
+    [
+      "  Hive ",
+      true
+    ]
+  ],
+  "exactMatchPreference": [
+    [
+      "people/alice-example",
+      "person",
+      0
+    ],
+    [
+      "meetings/alice-sync",
+      "meeting",
+      2
+    ],
+    [
+      "x/alice",
+      "person",
+      1
+    ],
+    [
+      "x/alice",
+      "person",
+      0
+    ]
+  ],
+  "name-variants: matchNameVariant 행렬": [
+    [
+      "Alice Example",
+      "Alice Example",
+      "normalized"
+    ],
+    [
+      "Dr. Alice Example",
+      "Alice Example",
+      "honorific"
+    ],
+    [
+      "Example, Alice",
+      "Alice Example",
+      "reordered"
+    ],
+    [
+      "Example Alice",
+      "Alice Example",
+      "reordered"
+    ],
+    [
+      "Allie Example",
+      "Alice Example",
+      "diminutive"
+    ],
+    [
+      "Bob Example",
+      "Robert Example",
+      "diminutive"
+    ],
+    [
+      "A. Example",
+      "Alice Example",
+      "initial"
+    ],
+    [
+      "Alice Exampel",
+      "Alice Example",
+      "typo"
+    ],
+    [
+      "Example",
+      "Alice Example",
+      "surname"
+    ],
+    [
+      "Exa",
+      "Alice Example",
+      null
+    ],
+    [
+      "Jon Example",
+      "Joe Example",
+      null
+    ],
+    [
+      "Alic Example",
+      "Alice Example",
+      null
+    ],
+    [
+      "Alice Example",
+      "Alice",
+      null
+    ],
+    [
+      "Mayor Example",
+      "Alice Example",
+      "surname"
+    ],
+    [
+      "Alice Example Jr",
+      "Alice Example",
+      "normalized"
+    ]
+  ],
+  "name-variants: parsePersonName / probeWords / editDistance / isTitleStub / 상수": {
+    "parse": [
+      [
+        "Dr. Alice Example",
+        {
+          "core": [
+            "alice",
+            "example"
+          ],
+          "titles": [
+            "dr"
+          ]
+        }
+      ],
+      [
+        "Mayor Example",
+        {
+          "core": [
+            "example"
+          ],
+          "titles": [
+            "mayor"
+          ]
+        }
+      ],
+      [
+        "Alice Smith-Jones III",
+        {
+          "core": [
+            "alice",
+            "smith-jones"
+          ],
+          "titles": []
+        }
+      ],
+      [
+        "people/dr-alice-example",
+        {
+          "core": [
+            "people",
+            "dr",
+            "alice",
+            "example"
+          ],
+          "titles": []
+        }
+      ],
+      [
+        "CEO",
+        {
+          "core": [
+            "ceo"
+          ],
+          "titles": []
+        }
+      ]
+    ],
+    "probe": [
+      [
+        "example"
+      ],
+      [
+        "alice",
+        "example"
+      ]
+    ],
+    "edit": [
+      1,
+      2,
+      1
+    ],
+    "stub": [
+      [
+        "Mayor Example",
+        true
+      ],
+      [
+        "Dr. Alice Example",
+        false
+      ],
+      [
+        "Alice",
+        false
+      ]
+    ],
+    "rank": {
+      "normalized": 0,
+      "honorific": 1,
+      "reordered": 2,
+      "diminutive": 3,
+      "initial": 4,
+      "typo": 5,
+      "surname": 6
+    },
+    "weak": [
+      "typo",
+      "surname"
+    ],
+    "candidate_cap": 200
+  },
+  "resolveEntitySlugWithSource (가짜 엔진, 퍼지 불가)": {
+    "\"people/alice-example\"": "people/alice-example [exact_page]",
+    "\"people/old-bob\"": "people/bob-example [exact_page]",
+    "\"Alice Example\"": "people/alice-example [fuzzy_match]",
+    "\"alice example\"": "people/alice-example [fuzzy_match]",
+    "\"saoirse\"": "people/saoirse-x [alias_exact]",
+    "\"Saoirse\"": "people/saoirse-x [alias_exact]",
+    "\"Allie E\"": "people/alice-example [alias_exact]",
+    "\"Alice\"": "alice [fallback_slugify]",
+    "\"Acme\"": "companies/acme-0 [prefix_expansion]",
+    "\"hive\"": "hosts/hive [prefix_expansion]",
+    "\"Zebra\"": "zebra [fallback_slugify]",
+    "\"companies/widget-co\"": "orgs/widget-co [fuzzy_match]",
+    "\"widget company\"": "orgs/widget-co [alias_exact]",
+    "\"stale\"": "stale [fallback_slugify]",
+    "\"Nobody Person\"": "nobody-person [fallback_slugify]",
+    "\"People/Alice-Example\"": "people/alice-example [fallback_slugify]",
+    "\"\"": null,
+    "\"   \"": null,
+    "\"!!!\"": null,
+    "\"Zebra Telescope\"": "concepts/zebra-telescope [fuzzy_match]",
+    "\"concepts/zebra-telescope\"": "concepts/zebra-telescope [exact_page]",
+    "\"alice-example\"": "people/alice-example [fuzzy_match]",
+    "\"한글 메모\"": "한글-메모 [fallback_slugify]",
+    "\"Мария\"": "мария [fallback_slugify]",
+    "\"O'Brien\"": "o-brien [fallback_slugify]",
+    "\"Đức Example\"": "duc-example [fallback_slugify]",
+    "\"Jordan Lee\"": "THROWS Import \"zod\" not a dependency"
+  },
+  "resolveEntitySlug (slug만) = WithSource의 slug와 같은가": {
+    "differences": [
+      "\"Jordan Lee\": slug-only=\"jordan-lee\" with-source=\"THROWS Import \\\"zod\\\" not a dependency\""
+    ]
+  },
+  "resolveStrictEntityReference (sameName:true, 가짜 엔진; same_name 팔은 트라이그램 불가로 건너뜀)": {
+    "\"people/alice-example\"": {
+      "slug": "people/alice-example",
+      "arm": "exact_page"
+    },
+    "\"people/old-bob\"": {
+      "slug": "people/bob-example",
+      "arm": "exact_page"
+    },
+    "\"Alice Example\"": {
+      "slug": "people/alice-example",
+      "arm": "basename"
+    },
+    "\"saoirse\"": {
+      "slug": "people/saoirse-x",
+      "arm": "alias_exact"
+    },
+    "\"Allie E\"": {
+      "slug": "people/alice-example",
+      "arm": "alias_exact"
+    },
+    "\"Alice\"": {
+      "slug": null,
+      "miss": "unverified"
+    },
+    "\"Acme\"": {
+      "slug": null,
+      "miss": "unverified"
+    },
+    "\"Nobody Person\"": {
+      "slug": null,
+      "miss": "no_page"
+    },
+    "\"companies/widget-co\"": {
+      "slug": "orgs/widget-co",
+      "arm": "basename"
+    },
+    "\"Zebra Telescope\"": {
+      "slug": "concepts/zebra-telescope",
+      "arm": "basename"
+    },
+    "\"concepts/zebra-telescope\"": {
+      "slug": "concepts/zebra-telescope",
+      "arm": "exact_page"
+    },
+    "\"hive\"": {
+      "slug": null,
+      "miss": "unverified"
+    },
+    "\"   \"": {
+      "slug": null,
+      "miss": "no_page"
+    }
+  },
+  "resolveStrictEntityReference: 사실 엔티티가 아닌 페이지(회의)는 소스 팩 조회(mentions/policy.ts)가 필요 — zod 의존으로 import 불가라 실행하지 못함": "THROWS TypeError: Import \"zod\" not a dependency\n  \u001b[0m\u001b[36mhint:\u001b[0m If you want to use the npm package, try running `deno add npm:zod`\n    at \u001b[0m\u001b[36mfile:///Users/kkh/Desktop/oss-analysis/agent-memory/repos/gbrain/src/core/schema-pack/manifest-v1.ts\u001b[0m:\u001b[0m\u001b[33m18\u001b[0m:\u001b[0m\u001b[33m19\u001b[0m",
+  "entityReferenceCandidates (최대 5, slug 순)": {
+    "Alice": [
+      "people/alice-example",
+      "people/alice-smith"
+    ],
+    "Alice Example": [
+      "people/alice-example"
+    ],
+    "Acme": [
+      "companies/acme-example",
+      "companies/acme-labs-50",
+      "companies/acme-0"
+    ],
+    "Nobody Person": [],
+    "saoirse": [
+      "people/saoirse-x"
+    ]
+  },
+  "findPrefixCandidates (연결 수 내림차순, slug 오름차순)": [
+    {
+      "slug": "people/alice-example",
+      "connection_count": 10
+    },
+    {
+      "slug": "people/alice-smith",
+      "connection_count": 3
+    }
+  ],
+  "followRetirement": {
+    "live": {
+      "slug": "people/bob-example",
+      "type": "person"
+    },
+    "retired": {
+      "slug": "people/bob-example",
+      "type": "person"
+    },
+    "missing": null
+  },
+  "retiredPageSql 문자열 (SQL은 실행 안 함)": "(lower(COALESCE(p.frontmatter->>'canonical', '')) IN ('false', 'no')\n    OR btrim(COALESCE(p.frontmatter->>'superseded_by', '')) <> ''\n    OR btrim(COALESCE(p.frontmatter->>'merged_into', '')) <> ''\n    OR lower(COALESCE(p.frontmatter->>'status', '')) ~ '(^|[^a-z])(alias|redirect|redirected)([^a-z]|$)')",
+  "resolveNameVariant": {
+    "Allie Example": {
+      "hit": "people/alice-example (diminutive)",
+      "matches": [
+        "people/alice-example (diminutive)"
+      ]
+    },
+    "Dr. Alice Example": {
+      "hit": "people/alice-example (honorific)",
+      "matches": [
+        "people/alice-example (honorific)"
+      ]
+    },
+    "Example": {
+      "hit": null,
+      "matches": [
+        "companies/acme-example (surname)",
+        "people/alice-example (surname)",
+        "people/bob-example (surname)"
+      ]
+    },
+    "Alice Exampel": {
+      "hit": "people/alice-example (typo)",
+      "matches": [
+        "people/alice-example (typo)"
+      ]
+    },
+    "Robert Example": {
+      "hit": "people/bob-example (diminutive)",
+      "matches": [
+        "people/bob-example (diminutive)"
+      ]
+    },
+    "A. Example": {
+      "hit": null,
+      "matches": [
+        "companies/acme-example (initial)",
+        "people/alice-example (initial)"
+      ]
+    },
+    "Bob Examplx": {
+      "hit": "people/bob-example (typo)",
+      "matches": [
+        "people/bob-example (typo)"
+      ]
+    },
+    "a/b": {
+      "hit": null,
+      "matches": []
+    },
+    "one two three four five six": {
+      "hit": null,
+      "matches": []
+    }
+  },
+  "siblingVerdict (정체 형제 판정; siblingCanonical은 group일 때만 가장 작은 slug)": {
+    "group": "group",
+    "person": "person",
+    "type_mismatch": "type_mismatch",
+    "same_prefix": "same_prefix",
+    "subject_mismatch": "subject_mismatch",
+    "separate": "separate",
+    "excluded": "excluded",
+    "disabled": "disabled",
+    "capped": "capped",
+    "linkable_default": [
+      "company",
+      "entity",
+      "organization",
+      "person"
+    ],
+    "linkable_adds_removes": [
+      "company",
+      "deal",
+      "entity",
+      "organization",
+      "person"
+    ]
+  },
+  "entity 카드 후보 정렬(arm 순위 → 정확 일치 선호 → 최근 접촉)": {
+    "consts": [
+      0,
+      1,
+      2
+    ],
+    "alias_beats_exact": [
+      "people/alice-example",
+      "meetings/alice-sync"
+    ],
+    "exact_title_collision_prefers_entity_type": [
+      "companies/alice",
+      "meetings/alice-sync"
+    ],
+    "explicit_slug_stays_first": [
+      "people/alice-example",
+      "companies/alice"
+    ],
+    "recency_final_tiebreak_uses_max_of_updated_and_retrieved": [
+      "people/alice-old",
+      "people/alice-example"
+    ]
+  }
+}

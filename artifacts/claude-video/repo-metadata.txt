@@ -1,0 +1,7 @@
+repo_dir=repos/claude-video
+name=claude-video
+date=2026-10-25
+commit=03ceb42f7fa2c4439aca01752118044baabffb8f
+commit_date=2026-09-25T11:25:42+10:00
+origin=https://github.com/bradautomates/claude-video
+worktree=clean

@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "claude-video(watch) 구조 (영상 증거 생성 경로)",
+    "output": "reports/claude-video/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/bradautomates/claude-video",
+      "revision": "03ceb42f7fa2c4439aca01752118044baabffb8f"
+    },
+    "viewBox": [
+      1280,
+      760
+    ]
+  },
+  "components": [
+    {
+      "id": "agent",
+      "type": "frontend",
+      "label": "에이전트 + SKILL.md",
+      "sublabel": "/watch 호출 규약",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/SKILL.md",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "id": "config",
+      "type": "database",
+      "label": "config.py",
+      "sublabel": "~/.config/watch/.env",
+      "pos": [
+        40,
+        470
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/config.py",
+          "line": 132
+        }
+      ]
+    },
+    {
+      "id": "setup",
+      "type": "backend",
+      "label": "setup.py",
+      "sublabel": "점검·설치·hook",
+      "pos": [
+        300,
+        130
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/setup.py",
+          "line": 315
+        },
+        {
+          "path": "hooks/scripts/check-setup.sh",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": "watch",
+      "type": "backend",
+      "label": "watch.py",
+      "sublabel": "main · 보고서 출력",
+      "pos": [
+        300,
+        300
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/watch.py",
+          "line": 94
+        }
+      ]
+    },
+    {
+      "id": "gemini",
+      "type": "backend",
+      "label": "gemini.py",
+      "sublabel": "run_gemini 경로",
+      "pos": [
+        560,
+        130
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/gemini.py",
+          "line": 100
+        },
+        {
+          "path": "skills/watch/scripts/watch.py",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "id": "download",
+      "type": "backend",
+      "label": "download.py",
+      "sublabel": "yt-dlp 캡션·미디어",
+      "pos": [
+        560,
+        300
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/download.py",
+          "line": 134
+        },
+        {
+          "path": "skills/watch/scripts/download.py",
+          "line": 165
+        }
+      ]
+    },
+    {
+      "id": "transcribe",
+      "type": "backend",
+      "label": "transcribe.py",
+      "sublabel": "VTT 파싱·포맷",
+      "pos": [
+        560,
+        470
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/transcribe.py",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "id": "whisper",
+      "type": "backend",
+      "label": "whisper.py",
+      "sublabel": "groq·openai·whisperx 분기",
+      "pos": [
+        820,
+        470
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/whisper.py",
+          "line": 347
+        }
+      ]
+    },
+    {
+      "id": "google",
+      "type": "external",
+      "label": "Google Gemini API",
+      "sublabel": "Files API · interactions",
+      "pos": [
+        820,
+        130
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/gemini.py",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "id": "frames",
+      "type": "backend",
+      "label": "frames.py",
+      "sublabel": "ffmpeg 프레임 선택",
+      "pos": [
+        820,
+        300
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/frames.py",
+          "line": 517
+        }
+      ]
+    },
+    {
+      "id": "whisperx",
+      "type": "backend",
+      "label": "local_whisperx.py",
+      "sublabel": "별도 venv 프로세스",
+      "pos": [
+        1080,
+        470
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/watch/scripts/local_whisperx.py",
+          "line": 132
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "skills/watch/scripts (표준 라이브러리 Python)",
+      "wraps": [
+        "setup",
+        "watch",
+        "gemini",
+        "download",
+        "transcribe",
+        "whisper",
+        "frames",
+        "whisperx"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "agent-watch",
+      "from": "agent",
+      "to": "watch",
+      "label": "python3 watch.py",
+      "variant": "emphasis"
+    },
+    {
+      "id": "watch-config",
+      "from": "watch",
+      "to": "config",
+      "label": "get_config",
+      "variant": "dashed"
+    },
+    {
+      "id": "watch-gemini",
+      "from": "watch",
+      "to": "gemini",
+      "label": "engine=gemini",
+      "fromSide": "top",
+      "toSide": "left"
+    },
+    {
+      "id": "gemini-google",
+      "from": "gemini",
+      "to": "google",
+      "label": "upload · ask"
+    },
+    {
+      "id": "watch-download",
+      "from": "watch",
+      "to": "download",
+      "label": "local engine",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "download-frames",
+      "from": "download",
+      "to": "frames",
+      "label": "video_path"
+    },
+    {
+      "id": "download-transcribe",
+      "from": "download",
+      "to": "transcribe",
+      "label": "VTT",
+      "labelDy": 24
+    },
+    {
+      "id": "watch-whisper",
+      "from": "watch",
+      "to": "whisper",
+      "label": "캡션 없을 때",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          370,
+          590
+        ],
+        [
+          890,
+          590
+        ]
+      ]
+    },
+    {
+      "id": "whisper-whisperx",
+      "from": "whisper",
+      "to": "whisperx",
+      "label": "whisperx",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "agent-setup",
+      "from": "agent",
+      "to": "setup",
+      "label": "setup.py --json",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "left"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "읽는 순서",
+      "items": [
+        "agent가 SKILL.md 규약대로 watch.py 실행",
+        "watch.py가 엔진을 정함: gemini면 gemini.py, 아니면 local",
+        "local: download → frames + 캡션 파싱, 캡션이 없으면 whisper 분기"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "미확인",
+      "items": [
+        "setup.py 설치 단계(brew·uv·whisperx)는 실행하지 않음",
+        "yt-dlp·ffmpeg·외부 API의 실제 동작은 실행하지 않음",
+        "Groq/OpenAI 전사 API와 setup.py 설치 단계는 그림에서 노드로 그리지 않음(코드 확인만)"
+      ]
+    }
+  ]
+}

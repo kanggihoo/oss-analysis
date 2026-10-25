@@ -1,0 +1,9 @@
+== 1. ls-remote 로 revision 확보 (resolve_remote_revision 1단계)
+REV=b1021d3f3a39dbc419eadd3ea7993897ff1733b1
+== 2. 원격 전진 (확인 사이에 push 된 커밋 B)
+== 3. depth-1 clone (clone_repo_ref_scoped 의 full 경로와 같은 옵션)
+clone HEAD=9fe99ff6db76b3d3a87b30c9ff1a12bfb9219648
+== 4. checkout --detach <옛 REV> (checkout_revision 1차 경로)
+checkout FAILED (exit 128)
+== 5. 같은 REV 가 clone 의 HEAD 일 때
+checkout HEAD OK

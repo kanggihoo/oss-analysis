@@ -1,0 +1,541 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "DeepTutor 모듈 구조 (a31d826)",
+    "quality_profile": "showcase",
+    "output": "structure.html",
+    "repository": {
+      "url": "https://github.com/HKUDS/DeepTutor",
+      "revision": "a31d82624c27d75f4e771d4fcb78dce16470b383"
+    },
+    "viewBox": [
+      1380,
+      690
+    ]
+  },
+  "components": [
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "웹 앱",
+      "sublabel": "Next.js",
+      "pos": [
+        20,
+        80
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "web/proxy.ts",
+          "label": "/api·/ws 재작성"
+        },
+        {
+          "path": "web/features/chat/transport/UnifiedTurnClient.ts",
+          "label": "턴 WS 클라이언트"
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "frontend",
+      "label": "CLI",
+      "sublabel": "Typer",
+      "pos": [
+        20,
+        250
+      ],
+      "size": [
+        120,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor_cli/main.py",
+          "line": 83,
+          "label": "run_capability"
+        },
+        {
+          "path": "deeptutor/app/facade.py",
+          "line": 60,
+          "label": "DeepTutorApp"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "FastAPI 입구",
+      "sublabel": "라우터 · /ws",
+      "pos": [
+        200,
+        80
+      ],
+      "size": [
+        130,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/api/main.py",
+          "line": 800,
+          "label": "unified_ws 장착"
+        },
+        {
+          "path": "deeptutor/api/routers/unified_ws.py",
+          "line": 44,
+          "label": "unified_websocket"
+        }
+      ]
+    },
+    {
+      "id": "partners",
+      "type": "backend",
+      "label": "Partners·IM",
+      "sublabel": "채널 16종",
+      "pos": [
+        200,
+        420
+      ],
+      "size": [
+        130,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/services/partners/runtime.py",
+          "line": 137,
+          "label": "PartnerRunner"
+        },
+        {
+          "path": "deeptutor/partners/channels/registry.py",
+          "line": 64,
+          "label": "discover_all"
+        }
+      ]
+    },
+    {
+      "id": "turns",
+      "type": "backend",
+      "label": "턴 서비스",
+      "sublabel": "저장·재생·조정",
+      "pos": [
+        390,
+        80
+      ],
+      "size": [
+        130,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/app/service.py",
+          "line": 21,
+          "label": "TurnApplicationService"
+        },
+        {
+          "path": "deeptutor/services/session/turns/executor.py",
+          "line": 139,
+          "label": "_run_turn"
+        },
+        {
+          "path": "deeptutor/runtime/coordination/protocol.py",
+          "label": "RuntimeCoordinator"
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "type": "backend",
+      "label": "턴 엔진",
+      "sublabel": "오케스트레이터",
+      "pos": [
+        580,
+        80
+      ],
+      "size": [
+        130,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/runtime/turn_engine.py",
+          "line": 11,
+          "label": "TurnEngine"
+        },
+        {
+          "path": "deeptutor/runtime/orchestrator.py",
+          "line": 53,
+          "label": "ChatOrchestrator"
+        }
+      ]
+    },
+    {
+      "id": "caps",
+      "type": "backend",
+      "label": "캡빌리티·루프·도구",
+      "sublabel": "턴11·루프14·도구101",
+      "pos": [
+        770,
+        40
+      ],
+      "size": [
+        160,
+        470
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/runtime/bootstrap/builtin_capabilities.py",
+          "line": 35,
+          "label": "턴 캡빌리티 11"
+        },
+        {
+          "path": "deeptutor/capabilities/registry.py",
+          "line": 49,
+          "label": "루프 확장 14"
+        },
+        {
+          "path": "deeptutor/tools/builtin_specs.py",
+          "line": 46,
+          "label": "도구 목록"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "모델 서비스",
+      "sublabel": "LLM 45 · 임베딩",
+      "pos": [
+        770,
+        590
+      ],
+      "size": [
+        160,
+        64
+      ],
+      "tag": "외부 API 미확인",
+      "sources": [
+        {
+          "path": "deeptutor/services/provider_registry.py",
+          "line": 192,
+          "label": "PROVIDERS"
+        },
+        {
+          "path": "deeptutor/services/llm/provider_factory.py",
+          "line": 151,
+          "label": "get_runtime_provider"
+        }
+      ]
+    },
+    {
+      "id": "kb",
+      "type": "backend",
+      "label": "지식베이스·RAG",
+      "sublabel": "엔진 9 · 파서 7",
+      "pos": [
+        1000,
+        40
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/knowledge/manager.py",
+          "line": 325,
+          "label": "KnowledgeBaseManager"
+        },
+        {
+          "path": "deeptutor/services/rag/factory.py",
+          "line": 49,
+          "label": "KNOWN_PROVIDERS"
+        },
+        {
+          "path": "deeptutor/services/parsing/service.py",
+          "line": 74,
+          "label": "ParseService"
+        }
+      ]
+    },
+    {
+      "id": "mastery",
+      "type": "backend",
+      "label": "마스터리 엔진",
+      "sublabel": "게이트 · 복습",
+      "pos": [
+        1000,
+        140
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/learning/service.py",
+          "line": 328,
+          "label": "LearningService"
+        },
+        {
+          "path": "deeptutor/learning/policy.py",
+          "line": 266,
+          "label": "next_objective"
+        },
+        {
+          "path": "deeptutor/learning/storage.py",
+          "line": 395,
+          "label": "LearningStore"
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "type": "backend",
+      "label": "읽기·북·집필",
+      "sublabel": "Reading · Book",
+      "pos": [
+        1000,
+        240
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/reading/ingestion.py",
+          "line": 151,
+          "label": "ReadingIngestionService"
+        },
+        {
+          "path": "deeptutor/book/engine.py",
+          "line": 317,
+          "label": "BookEngine"
+        },
+        {
+          "path": "deeptutor/co_writer/edit_agent.py",
+          "line": 102,
+          "label": "EditAgent"
+        }
+      ]
+    },
+    {
+      "id": "mem",
+      "type": "backend",
+      "label": "메모리·저널",
+      "sublabel": "L1 · L2 · L3",
+      "pos": [
+        1000,
+        340
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/services/memory/store.py",
+          "line": 69,
+          "label": "MemoryStore"
+        },
+        {
+          "path": "deeptutor/services/learning_journal/store.py",
+          "line": 58,
+          "label": "LearningJournalStore"
+        }
+      ]
+    },
+    {
+      "id": "ext",
+      "type": "backend",
+      "label": "확장 연결",
+      "sublabel": "MCP · 서브에이전트",
+      "pos": [
+        1000,
+        440
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/services/mcp/manager.py",
+          "line": 235,
+          "label": "MCPConnectionManager"
+        },
+        {
+          "path": "deeptutor/services/subagent/registry.py",
+          "line": 29,
+          "label": "_BACKENDS"
+        },
+        {
+          "path": "deeptutor/services/sandbox/service.py",
+          "line": 33,
+          "label": "SandboxService"
+        }
+      ]
+    },
+    {
+      "id": "store",
+      "type": "database",
+      "label": "로컬 저장소",
+      "sublabel": "SQLite · md · JSON",
+      "pos": [
+        1210,
+        40
+      ],
+      "size": [
+        150,
+        464
+      ],
+      "sources": [
+        {
+          "path": "deeptutor/services/path_service.py",
+          "label": "data/user 배치"
+        },
+        {
+          "path": "deeptutor/services/session/sqlite_store.py",
+          "line": 254,
+          "label": "SQLiteSessionStore"
+        },
+        {
+          "path": "deeptutor/reading/catalog_store.py",
+          "line": 54,
+          "label": "ReadingCatalogStore"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "web-api",
+      "from": "web",
+      "to": "api",
+      "label": "WS·HTTP",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-turns",
+      "from": "cli",
+      "to": "turns",
+      "label": "in-process",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "id": "api-turns",
+      "from": "api",
+      "to": "turns",
+      "label": "start_turn"
+    },
+    {
+      "id": "turns-engine",
+      "from": "turns",
+      "to": "engine",
+      "label": "execute"
+    },
+    {
+      "id": "partners-engine",
+      "from": "partners",
+      "to": "engine",
+      "label": "turns 우회",
+      "fromSide": "right",
+      "toSide": "bottom"
+    },
+    {
+      "id": "engine-caps",
+      "from": "engine",
+      "to": "caps",
+      "label": "run"
+    },
+    {
+      "id": "caps-kb",
+      "from": "caps",
+      "to": "kb"
+    },
+    {
+      "id": "caps-mastery",
+      "from": "caps",
+      "to": "mastery"
+    },
+    {
+      "id": "caps-content",
+      "from": "caps",
+      "to": "content"
+    },
+    {
+      "id": "caps-mem",
+      "from": "caps",
+      "to": "mem"
+    },
+    {
+      "id": "caps-ext",
+      "from": "caps",
+      "to": "ext"
+    },
+    {
+      "id": "caps-llm",
+      "from": "caps",
+      "to": "llm",
+      "label": "LLM 호출",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [
+        855,
+        556
+      ]
+    },
+    {
+      "id": "kb-store",
+      "from": "kb",
+      "to": "store"
+    },
+    {
+      "id": "mastery-store",
+      "from": "mastery",
+      "to": "store"
+    },
+    {
+      "id": "content-store",
+      "from": "content",
+      "to": "store"
+    },
+    {
+      "id": "mem-store",
+      "from": "mem",
+      "to": "store"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "입구",
+      "items": [
+        "웹·CLI·IM 채널이 같은 턴 엔진으로 모인다",
+        "웹은 WS, CLI는 프로세스 안 호출, 파트너는 턴 서비스를 거치지 않는다"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "턴 안쪽",
+      "items": [
+        "턴 서비스가 저장·재생·조정, 엔진이 캡빌리티를 고른다",
+        "캡빌리티가 도구로 지식·마스터리·메모리·확장을 부른다"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "그림에 없는 것",
+      "items": [
+        "API 라우터가 도메인 엔진을 직접 부르는 경로",
+        "턴 서비스의 세션 DB 쓰기, 임베딩·검색 호출"
+      ]
+    }
+  ]
+}

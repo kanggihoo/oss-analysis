@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-10-23
+> Last updated: 2026-10-25
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -12,6 +12,7 @@
 | claude-devtools | `1486f20` | [overview](reports/claude-devtools/overview.md) | [claude-code-session-log-reading](reports/claude-devtools/capabilities/claude-code-session-log-reading.md) (draft), [claude-code-session-picker](reports/claude-devtools/capabilities/claude-code-session-picker.md) (draft) |
 | agent-skills | `aeac41d` | [overview](reports/agent-skills/overview.md) | — |
 | cc-switch | `d35726e` | [overview](reports/cc-switch/overview.md) | — |
+| claude-video | `03ceb42` | [overview](reports/claude-video/overview.md) | — (범위 승인 대기) |
 | codeburn | `9a40cc6` | [overview](reports/codeburn/overview.md) | — |
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
 | context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |
@@ -24,17 +25,23 @@
 | rea | `60c0880` | [overview](reports/rea/overview.md) | — |
 | Scrapling | `7a68493` | [overview](reports/Scrapling/overview.md) | — |
 | searxng | `0ce72dd` | [overview](reports/searxng/overview.md) | — |
-| skills-manager | `e6dcedf` | [overview](reports/skills-manager/overview.md) | — |
-| teamai-cli | `7ba8bcc` | [overview](reports/teamai-cli/overview.md) | — |
+| skills-manager | `7a22192` | [overview](reports/skills-manager/overview.md) | [skill-source-metadata](reports/skills-manager/capabilities/skill-source-metadata.md) (ready), [skill-install-external](reports/skills-manager/capabilities/skill-install-external.md) (ready), [skill-update-check](reports/skills-manager/capabilities/skill-update-check.md) (ready), [skill-source-diff](reports/skills-manager/capabilities/skill-source-diff.md) (ready), [skill-update-apply](reports/skills-manager/capabilities/skill-update-apply.md) (ready) |
+| teamai-cli | `a44493f` | [overview](reports/teamai-cli/overview.md) | — |
 | Understand-Anything | `b05cc3b` | [overview](reports/Understand-Anything/overview.md) | — |
 | herdr-bar (herdr-plugin/) | `261de9b` | [overview](herdr-plugin/reports/herdr-bar/overview.md) | — |
 | herdr-projects (herdr-plugin/) | `8258d96` | [overview](herdr-plugin/reports/herdr-projects/overview.md) | — |
 | herdr-nvim (herdr-plugin/) | `3ca8671` | [overview](herdr-plugin/reports/herdr-nvim/overview.md) | — |
 | herdr-auto-title (herdr-plugin/) | `69d7182` | [overview](herdr-plugin/reports/herdr-auto-title/overview.md) | — |
+| herdr-mobile-relay (herdr-plugin/) | `278b8c2` | [overview](herdr-plugin/reports/herdr-mobile-relay/overview.md) | — |
+| ovis (herdr-plugin/) | `5e44913` | [overview](herdr-plugin/reports/ovis/overview.md) | — |
+| collie (herdr-plugin/) | `c6a690d` | [overview](herdr-plugin/reports/collie/overview.md) | — |
 | dspy (prompt-eval/) | `3fdb93f` | [overview](prompt-eval/reports/dspy/overview.md) | — (범위 제외) |
 | promptfoo (prompt-eval/) | `dfe2d45` | [overview](prompt-eval/reports/promptfoo/overview.md), [next](prompt-eval/reports/promptfoo/next.md) | [provider-contract](prompt-eval/reports/promptfoo/capabilities/provider-contract.md), [skill-calls-metadata](prompt-eval/reports/promptfoo/capabilities/skill-calls-metadata.md), [eval-records](prompt-eval/reports/promptfoo/capabilities/eval-records.md), [default-providers](prompt-eval/reports/promptfoo/capabilities/default-providers.md), [config-loading](prompt-eval/reports/promptfoo/capabilities/config-loading.md), [assertion-family](prompt-eval/reports/promptfoo/capabilities/assertion-family.md), [model-graded-matchers](prompt-eval/reports/promptfoo/capabilities/model-graded-matchers.md), [agent-providers](prompt-eval/reports/promptfoo/capabilities/agent-providers.md), [response-cache](prompt-eval/reports/promptfoo/capabilities/response-cache.md), [script-bridges](prompt-eval/reports/promptfoo/capabilities/script-bridges.md), [generate-datasets](prompt-eval/reports/promptfoo/capabilities/generate-datasets.md), [eval-run](prompt-eval/reports/promptfoo/capabilities/eval-run.md), [results-store](prompt-eval/reports/promptfoo/capabilities/results-store.md), [prompt-optimize](prompt-eval/reports/promptfoo/capabilities/prompt-optimize.md), [web-ui](prompt-eval/reports/promptfoo/capabilities/web-ui.md) (모두 ready) |
 | prompt-optimizer (prompt-eval/) | `a201f47` | [overview](prompt-eval/reports/prompt-optimizer/overview.md), [next](prompt-eval/reports/prompt-optimizer/next.md) | [template-rendering](prompt-eval/reports/prompt-optimizer/capabilities/template-rendering.md), [history-chain](prompt-eval/reports/prompt-optimizer/capabilities/history-chain.md), [prompt-optimize](prompt-eval/reports/prompt-optimizer/capabilities/prompt-optimize.md), [llm-evaluation](prompt-eval/reports/prompt-optimizer/capabilities/llm-evaluation.md), [iterate-rewrite](prompt-eval/reports/prompt-optimizer/capabilities/iterate-rewrite.md), [calibration-script](prompt-eval/reports/prompt-optimizer/capabilities/calibration-script.md) (모두 ready) |
-| gbrain | `63f62b2` | [overview](reports/gbrain/overview.md) | — (범위 승인 대기) |
+| gbrain (agent-memory/) | `63f62b2` | [overview](agent-memory/reports/gbrain/overview.md), [next](agent-memory/reports/gbrain/next.md) | [ai-gateway](agent-memory/reports/gbrain/capabilities/ai-gateway.md), [engine-and-schema](agent-memory/reports/gbrain/capabilities/engine-and-schema.md), [page-storage-and-import](agent-memory/reports/gbrain/capabilities/page-storage-and-import.md), [hybrid-search](agent-memory/reports/gbrain/capabilities/hybrid-search.md), [memory-verbs](agent-memory/reports/gbrain/capabilities/memory-verbs.md), [fact-extraction](agent-memory/reports/gbrain/capabilities/fact-extraction.md), [ambient-context](agent-memory/reports/gbrain/capabilities/ambient-context.md) (모두 ready, 승인 범위 8행 / 지도 44행) |
+| agentmemory (agent-memory/) | `70517d2` | [overview](agent-memory/reports/agentmemory/overview.md), [next](agent-memory/reports/agentmemory/next.md) | — (범위 승인 대기) |
+| DeepTutor (ai-learning/) | `a31d826` | [overview](ai-learning/reports/DeepTutor/overview.md), [next](ai-learning/reports/DeepTutor/next.md) | — (범위 승인 대기, 지도 53행) |
+| learnharness (ai-learning/) | `b277ee3` | [overview](ai-learning/reports/learnharness/overview.md), [next](ai-learning/reports/learnharness/next.md) | — (범위 승인 대기, 지도 29행) |
 
 ## 첫 수집만 한 레포 (overview 없음)
 

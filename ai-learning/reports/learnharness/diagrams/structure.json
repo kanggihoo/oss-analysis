@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "learnharness 모듈 구조 (b277ee3)",
+    "quality_profile": "showcase",
+    "output": "structure.html",
+    "repository": {
+      "url": "https://github.com/amosblomqvist/learnharness",
+      "revision": "b277ee3e0fa24249c1b2d0f9b7fd6ed485f484b9"
+    },
+    "viewBox": [
+      1320,
+      680
+    ]
+  },
+  "components": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "학습 UI",
+      "sublabel": "components/ · app/*.tsx",
+      "pos": [
+        30,
+        90
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "components/session-core.ts",
+          "label": "POST /api/chat"
+        },
+        {
+          "path": "components/server-events.tsx",
+          "label": "EventSource"
+        },
+        {
+          "path": "components/dictation.tsx",
+          "label": "받아쓰기"
+        }
+      ]
+    },
+    {
+      "id": "electron",
+      "type": "frontend",
+      "label": "Electron 셸",
+      "sublabel": "서버 기동 · 인앱 업데이트 · 구독 로그인",
+      "pos": [
+        30,
+        290
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "electron/main.cjs",
+          "label": "spawn · setupAutoUpdater"
+        },
+        {
+          "path": "electron/chatgpt.cjs",
+          "label": "ChatGPT OAuth"
+        }
+      ]
+    },
+    {
+      "id": "skill",
+      "type": "external",
+      "label": "에이전트 스킬",
+      "sublabel": "skills/learnharness (Python)",
+      "pos": [
+        30,
+        490
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "skills/learnharness/SKILL.md",
+          "label": "읽기 전용 규칙"
+        },
+        {
+          "path": "skills/learnharness/scripts/sessions.py",
+          "label": "main"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API 라우트",
+      "sublabel": "app/api (30개) · proxy.ts 가드",
+      "pos": [
+        380,
+        90
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "app/api/chat/route.ts",
+          "label": "턴 입구"
+        },
+        {
+          "path": "proxy.ts",
+          "label": "desktopAPIAuthorized"
+        }
+      ]
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "서버 합성 루트",
+      "sublabel": "src/server · chat-handler · jobs",
+      "pos": [
+        380,
+        290
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/server/chat-handler.ts",
+          "label": "handleChatInput"
+        },
+        {
+          "path": "src/server/jobs.ts",
+          "label": "wake 파이프라인"
+        },
+        {
+          "path": "src/server/stores.ts",
+          "label": "stores"
+        }
+      ]
+    },
+    {
+      "id": "stores",
+      "type": "database",
+      "label": "저장소·데이터 파일",
+      "sublabel": "src/store → data/*.json(l)",
+      "pos": [
+        380,
+        490
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/store/chats.ts",
+          "label": "chatStore"
+        },
+        {
+          "path": "src/store/graph.ts",
+          "label": "graphStore"
+        },
+        {
+          "path": "config.ts",
+          "label": "PATHS"
+        }
+      ]
+    },
+    {
+      "id": "extract",
+      "type": "backend",
+      "label": "추출 파이프라인",
+      "sublabel": "추출기 → 감사기 → 병합기",
+      "pos": [
+        730,
+        90
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/agent/subagents/extraction.ts",
+          "label": "createExtractionPipeline"
+        },
+        {
+          "path": "src/core/graph.ts",
+          "label": "mergeFindings"
+        }
+      ]
+    },
+    {
+      "id": "agents",
+      "type": "backend",
+      "label": "교사 에이전트 3종",
+      "sublabel": "prober · teacher · practice + 도구",
+      "pos": [
+        730,
+        290
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/agent/teacher-agent.ts",
+          "label": "create*Agent"
+        },
+        {
+          "path": "src/agent/tools.ts",
+          "label": "도구 구성"
+        },
+        {
+          "path": "src/agent/prompts/README.md",
+          "label": "프롬프트 조립"
+        }
+      ]
+    },
+    {
+      "id": "subs",
+      "type": "backend",
+      "label": "백그라운드 하위 에이전트",
+      "sublabel": "research · demo · visual · pdf",
+      "pos": [
+        730,
+        490
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/agent/subagents/runner.ts",
+          "label": "createJobRunner"
+        },
+        {
+          "path": "src/agent/tools/jobs.ts",
+          "label": "jobTools"
+        }
+      ]
+    },
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "순수 코어",
+      "sublabel": "src/core · 계약 · 그래프 · 질문",
+      "pos": [
+        1080,
+        90
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/core/graph.ts",
+          "label": "병합·파생"
+        },
+        {
+          "path": "src/core/ports.ts",
+          "label": "포트"
+        },
+        {
+          "path": "src/core/question-core.ts",
+          "label": "채점"
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "external",
+      "label": "LLM 엔진 (pi-ai)",
+      "sublabel": "키 제공자 35행 · 구독 3종",
+      "pos": [
+        1080,
+        290
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/agent/models.ts",
+          "label": "piEngineForSpec"
+        },
+        {
+          "path": "src/core/auth-keys.ts",
+          "label": "AUTH_PROVIDER_KEYS"
+        }
+      ]
+    },
+    {
+      "id": "ext",
+      "type": "external",
+      "label": "외부 서비스",
+      "sublabel": "Tavily·Brave 검색 · Deepgram · 웹",
+      "pos": [
+        1080,
+        490
+      ],
+      "size": [
+        230,
+        76
+      ],
+      "sources": [
+        {
+          "path": "src/server/search.ts",
+          "label": "tavilyProvider"
+        },
+        {
+          "path": "src/agent/tools/web.ts",
+          "label": "web_fetch"
+        },
+        {
+          "path": "app/api/stt/token/route.ts",
+          "label": "토큰 발급"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "ui-api",
+      "from": "ui",
+      "to": "api",
+      "label": "fetch /api"
+    },
+    {
+      "id": "electron-server",
+      "from": "electron",
+      "to": "server",
+      "label": "spawn"
+    },
+    {
+      "id": "api-server",
+      "from": "api",
+      "to": "server",
+      "label": "@/src/server",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 50
+    },
+    {
+      "id": "server-agents",
+      "from": "server",
+      "to": "agents",
+      "label": "턴마다 생성",
+      "variant": "emphasis"
+    },
+    {
+      "id": "server-extract",
+      "from": "server",
+      "to": "extract",
+      "label": "토큰 충족 시",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "left"
+    },
+    {
+      "id": "server-stores",
+      "from": "server",
+      "to": "stores",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "skill-stores",
+      "from": "skill",
+      "to": "stores",
+      "label": "읽기만",
+      "variant": "dashed"
+    },
+    {
+      "id": "agents-subs",
+      "from": "agents",
+      "to": "subs",
+      "label": "job 생성",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 50
+    },
+    {
+      "id": "agents-llm",
+      "from": "agents",
+      "to": "llm"
+    },
+    {
+      "id": "extract-llm",
+      "from": "extract",
+      "to": "llm"
+    },
+    {
+      "id": "extract-core",
+      "from": "extract",
+      "to": "core",
+      "label": "병합"
+    },
+    {
+      "id": "subs-ext",
+      "from": "subs",
+      "to": "ext",
+      "label": "검색·fetch",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "입구",
+      "items": [
+        "UI → /api → 서버 합성 루트 한 줄기",
+        "Electron은 서버를 자식 프로세스로 띄우는 셸",
+        "스킬은 데이터 파일만 읽음"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "수업",
+      "items": [
+        "transcript의 probe_done이 prober와 teacher를 가름",
+        "practice는 별도 세션 종류",
+        "하위 에이전트는 비동기 job"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "그림에 없는 것",
+      "items": [
+        "에이전트·서버→코어, 하위 에이전트→LLM 간선은 생략",
+        "구독 OAuth IPC와 Deepgram 직접 연결은 생략"
+      ]
+    }
+  ]
+}

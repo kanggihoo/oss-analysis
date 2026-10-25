@@ -1,0 +1,7 @@
+repo_dir=ai-learning/repos/learnharness
+name=learnharness
+date=2026-10-25
+commit=b277ee3e0fa24249c1b2d0f9b7fd6ed485f484b9
+commit_date=2026-10-25T02:45:13+03:00
+origin=https://github.com/amosblomqvist/learnharness.git
+worktree=clean

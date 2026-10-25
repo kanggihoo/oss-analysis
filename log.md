@@ -598,3 +598,70 @@
 ## [2026-10-23] ingest | defuddle Q3 후속 — npm 배포 여부 실행 확인
 - 사용자 요청으로 `registry.npmjs.org/defuddle` 공개 API를 curl로 받아 확인했다(외부 접속, 사용자 동의 하에 실행). `dist-tags.latest=0.19.5`, 배포 시각 `2026-10-10T15:35:10.787Z` 확인. `git log --date=iso-strict`로 태그 커밋(`e87d416`, 15:32:07Z)·버그 수정 커밋(`f6ca46d`, 17:42:13Z)·분석 HEAD(`556d74e`, 17:59:08Z)를 UTC로 대조해 수정이 npm 배포 2시간 10분 뒤에 들어갔음을 확인. `.github/workflows/release.yml`로 "태그 push = CI가 npm publish" 구조도 확인.
 - 쓴 것: `reports/defuddle/questions/q3-youtube-language-priority-and-arabic-bug.md`에 "npm 배포 여부" 절 추가(미확인 → 실행 확인으로 격상), `overview.md` 4절 요약 갱신. 결론: `npx defuddle`/`npm install defuddle`는 현재도 버그 있는 `0.19.5`를 받는다. 우회책은 `--lang` 명시.
+
+## [2026-10-24] ingest | herdr-plugin에 herdr-mobile-relay, ovis, collie overview 추가 (지도만)
+- `herdr-plugin/`에 herdr-mobile-relay(`278b8c2`, AGPL-3.0-or-later), ovis(`5e44913`, MIT), collie(`c6a690d`, MIT)를 `--depth 50`으로 clone. 모두 main, clean. `repos.lock.tsv`, `artifacts/<repo>/repo-metadata.txt`, `GUIDE.md` 분석 대상 표, `index.md` 행을 갱신.
+- 사용자 지시로 graphify·archify 시각화와 기능 스펙은 만들지 않고, 레포마다 `reports/<repo>/overview.md`(기능 지도·공유 계약·글로 쓴 구조 해설)만 서브에이전트(sonnet) 3개로 병렬 작성. 기능 지도 행: herdr-mobile-relay 24, ovis 32, collie 37. 읽기만 했고 빌드·실행 없음(`실행 확인` 없음), herdr 서버 쪽 동작은 미확인으로 표시.
+- 메인 세션 점검: 각 레포의 LICENSE, `herdr-plugin.toml`의 actions·panes·startup·events 개수를 직접 확인해 보고와 일치함을 봤다. 줄 번호는 서브에이전트가 자체 점검했고 메인 세션은 전수 재검증하지 않았다.
+
+## [2026-10-24] capability | gbrain 기능 스펙 7개(질문 ①~④ 범위) + 통합 검토
+- 사용자 질문(마크다운 저장 위치·방식, 메모리 호출 트리거, 필요한 것만 LLM에 건네는 방법, 자동 저장 판단)에 맞춰 스펙 범위를 8행(1, 2+3 합본, 6, 11, 12, 16, 37)으로 승인받고 서브에이전트로 선행 순서(37·1 → 2+3 → 6 → 11 → 12·16)대로 작성했다. 읽기만 했고 `bun`이 없어 DB·핸들러·외부 공급자는 실행하지 못했다. 순수 함수는 `deno`로 발췌 실행해 `artifacts/gbrain/*-demos/`에 두었다.
+- 쓴 것: `reports/gbrain/capabilities/{ai-gateway,engine-and-schema,page-storage-and-import,hybrid-search,memory-verbs,fact-extraction,ambient-context}.md`(모두 ready), `reports/gbrain/next.md`, `overview.md`(1절 범위·목적, 지도 상태·선행 보정, 통합 흐름·통합 검토).
+- 메인 세션이 코드로 재확인해 고친 것: write-through로 파일도 쓰는 경로(1행 R-26 추론→코드 확인, 분할 저장 기본 `'on'`), 의미 캐시 비활성(`query-cache.ts:35`), `classifyAgainstCandidates` 호출자 없음, `captureGateDecision`, HTTP MCP의 `metaHook`과 push 경로의 핫 사실(11행 R-39), 마이그레이션 259개, 지도 선행 `38`→`37`. C-ID 198개의 줄 범위를 스크립트로 확인하고 1건을 고쳤다. Q1 결론을 "소스에 폴더가 있을 때 파일이 원본"으로 보정했다.
+
+## [2026-10-24] update | skills-manager, teamai-cli 최신화와 overview 재작성 (지도만, archify 생략)
+- `repos/skills-manager`를 `e6dcedf`→`7a22192`, `repos/teamai-cli`를 `7ba8bcc`→`a44493f`로 pull(작업트리 clean). 사용자 지시로 archify 구조도와 기능 스펙은 만들지 않았다. 읽기만 했고 빌드·실행·테스트는 하지 않았다.
+- 읽은 것: 두 레포의 명령 등록부(skills-manager `lib.rs` `generate_handler!` 124개와 CLI clap, teamai-cli `index.ts` 명령 표), 어댑터·에이전트 목록, 진입 파일 머리와 공개 함수, `git diff <이전 SHA>..HEAD` 파일 목록. skills-manager는 배포 경로(`sync_engine.rs`, `scenario_service.rs`)를 새 SHA에서 다시 읽었다.
+- 쓴 것: `reports/skills-manager/overview.md`(지도 17행 + 공유 계약 2), `reports/teamai-cli/overview.md`(지도 29행 + 공유 계약 6), 각 `next.md`, `artifacts/<repo>/repo-metadata.txt`, `index.md` SHA. 두 overview에 frontmatter를 붙이고 1절에 이전 기준 대비 변경 표를 넣었다.
+- 정정: skills-manager "에이전트 54개"는 틀렸다(이전 SHA 56, 지금 58). teamai-cli "리소스 타입 7종"은 이제 14종, "에이전트 20개"는 README 표 행 수이고 코드 `KNOWN_AGENTS`는 38개. 기존 질문 문서(skills-manager Q1·Q2, teamai-cli Q1)는 인용 파일이 바뀌어 재확인 대상으로 `next.md`에 적었고 고치지 않았다.
+
+## [2026-10-24] capability | skills-manager 외부 스킬 설치·변경 확인·diff 스펙 4개 + 통합 검토
+- 사용자 질문(`my-skills`가 남의 스킬을 래핑하므로 원본 변경 여부와 변경 내용을 확인하고 싶다)에 맞춰 범위를 승인받았다: 외부 스킬 설치, 출처 메타데이터(공유 계약에서 분리), 변경 확인, 원본 diff. 나머지 지도 행은 "제외: 사용자 범위". 메인 세션이 출처 메타데이터를 쓰고, 나머지 셋은 서브에이전트 3개가 병렬로 썼다. 앱·cargo·네트워크 실행 없이 코드를 읽었고, 순수 git CLI 실행 2건만 `artifacts/skills-manager/{skill-update-check,skill-source-diff}-demos/`에 두었다.
+- 쓴 것: `reports/skills-manager/capabilities/{skill-source-metadata,skill-install-external,skill-update-check,skill-source-diff}.md`(모두 ready, 재구현 검증 미실행), `overview.md`(1절 범위, 지도 행 분할·상태, 공유 계약 분리, 문서와 구현의 차이, "스펙 통합 검토"), `next.md`, `index.md` 기능 스펙 칸.
+- 통합 검토에서 고친 것: 출처 메타데이터가 "변경 확인은 상태 4열만 쓴다"고 쓴 서술(정규화·`source_revision` 이동도 씀), 설치 스펙의 미결정 U-01을 메타데이터 R-11·R-18로 해소, 원본 diff의 중복 R-02를 합침, well-known 직접 설치와 미리보기 확정 경로의 값 차이 반영. C-ID `경로:줄 범위` 83쌍의 시작·끝 줄을 `git show 7a22192`로 확인했다.
+- 새로 확인한 것: well-known 출처는 변경 확인·diff 대상이 아니다. 새 기기에서 처음 만들어진 git 스킬은 메타데이터 파일에 리비전이 없어 확인이 `unknown`에 머문다(코드 읽기, 실행 미확인). `install_git`(앱)과 CLI `--git`은 스킬을 열거하지 않고 폴더 하나를 한 스킬로 복사한다. 문서·주석과 구현이 다른 곳 6건은 overview 2절 "문서와 구현의 차이".
+
+## [2026-10-24] update | herdr-plugin 모바일 원격 제어 비교·추천 문서 작성
+- 사용자 요청으로 herdr-mobile-relay·ovis·collie의 폰 연결 방식(Cloudflare 터널·게이트웨이·Tailscale), 설치 난이도, 모바일 UX를 비교하고 추천(ovis, 사용 목적: 자리 비운 동안 작업 지시·진행 확인·승인 응답)을 정리했다. 각 레포의 스크린샷 5장과 relay QUICKSTART, ovis INSTALL.md, collie README 설치 절을 읽었다. 실행 없음, UX 평가는 `추론`.
+- 쓴 것: `herdr-plugin/reports/mobile-remote-comparison.md`, `herdr-plugin/GUIDE.md`에 링크 절 추가.
+
+## [2026-10-24] capability | skills-manager 갱신 적용·출처 재연결 스펙 추가 (사용자 추가 승인)
+- 사용자가 "1번도 조사해줘"(갱신 적용 조사)로 범위를 넓혀 `skill-update-apply`를 서브에이전트 하나로 썼다. 읽기 위주였고, 판단 규칙(해시, 사라질 파일 목록, 승인 토큰, swap, 갱신·set-source·재가져오기 결정부)을 파이썬으로 옮겨 `artifacts/skills-manager/skill-update-apply-demos/`에서 실행했다(소스 대체 범위는 스펙 2.3). 앱·cargo·네트워크는 실행하지 않았다.
+- 쓴 것: `reports/skills-manager/capabilities/skill-update-apply.md`(ready, R-42·C-28·T-26), 선행 스펙 보정(`skill-source-metadata` R-08에 relink·detach와 `update_status` 표 보정, `skill-update-check` R-29 추가), `overview.md`(범위, 지도 행, 통합 검토 5개로 갱신), `next.md`, `index.md`.
+- 메인 세션이 직접 확인한 것: 앱 시작 때 `reindex_or_rebuild_metadata`가 돌고 reindex가 `content_hash`를 디스크 해시로 다시 계산한다(`app_state.rs:175-179`, `sync_metadata.rs:232-261`). C-ID 30쌍 시작·끝 줄 확인. 새로 확인한 것: 갱신은 병합이 아니라 통째 교체이며 같은 경로 파일의 로컬 수정은 경고 없이 덮인다(사라질 파일만 경고). UI 결함 후보(보류 재응답 시 대화상자가 바로 닫힘)는 추론이고 앱 실행으로 확인하지 못했다.
+
+## [2026-10-24] ingest | teamai-cli packages·mcp 조사(q2)와 cc-switch 기존 분석 재독
+- 사용자가 `my-skills`에서 스킬뿐 아니라 플러그인·MCP도 다루고 싶다고 해서 두 조사를 했다. (1) teamai-cli `packages`·`mcp` 본문을 서브에이전트 하나가 읽어 `reports/teamai-cli/questions/q2-packages-and-mcp-sync.md`를 썼다. 읽기 위주, 순수 함수 복사본을 `node`로 실행(선언 해시·엔트리 해시, 소스 대체 범위는 문서에 명시)해 `artifacts/teamai-cli/packages-mcp-demos/`에 두었다. 앱·`claude` CLI·npm·네트워크는 실행하지 않았다. (2) cc-switch는 기존 `q5-skills-mcp-management.md`, `q6-mcp-per-app-conversion.md`만 읽었고 고치지 않았다. 두 문서의 SHA `d35726e`는 현재 `repos/cc-switch`에 없어(HEAD `bfaaba1`) 재확인하지 못했다.
+- 메인 세션 점검: q2의 `파일:줄` 인용 32개가 모두 `a44493f`의 파일 길이 안에 있고 무작위 5개가 설명한 함수와 맞음. 나머지 동작 주장은 재검증하지 않았다.
+- 쓴 것: q2, `reports/teamai-cli/overview.md` 4절 링크, `next.md`(기능 스펙 후보 2개, 답한 질문 표시).
+
+## [2026-10-24] review | prompt-eval 스펙 21개 구현 준비 점검
+- promptfoo 15개·prompt-optimizer 6개 스펙의 frontmatter, 1.4 미결정, 적용 메모 전부와 skill-calls-metadata 1부를 읽고 구현 가능성을 판단했다(`추론`, 재구현·실행 없음). 원본 재현은 문서상 준비됨(전부 `ready`, 미결정 없음)이나 재구현 검증은 아직 없다. 내 평가 환경 구현은 사용자 결정 7개, 실행으로 닫을 사실 3개, 적용 메모에 흩어진 공통 결정 8개가 남았다.
+- 쓴 것: `prompt-eval/GUIDE.md` "구현 준비 점검" 절 추가, 목적과 범위 절에 링크 문장 한 줄.
+
+## [2026-10-25] workflow | gbrain 분석을 agent-memory/ 폴더로 이동
+- `reports/gbrain`, `artifacts/gbrain`, `repos/gbrain`을 `agent-memory/{reports,artifacts,repos}/gbrain`으로 옮겼다(herdr-plugin/ 방식의 주제 폴더). 이동한 문서·산출물 안의 `reports|artifacts|repos/gbrain` 경로 문자열은 `agent-memory/…`로 고쳤고(문서 본문 경로와 데모 스크립트의 절대 경로), 상대 링크는 같은 폴더 안이라 그대로다.
+- `agent-memory/GUIDE.md`, `agent-memory/repos.lock.tsv`를 새로 썼고 `.gitignore`에 `/agent-memory/repos/`를 추가했다. `index.md`의 gbrain 행을 새 경로로 고쳤다. 이전 `log.md` 항목은 고치지 않았다(당시 경로 기준).
+
+## [2026-10-25] ingest | agentmemory overview(기능 지도 38행·구조도), 스펙 범위 승인 대기
+- `agent-memory/repos/agentmemory`에 clone(`70517d2b`, main, v0.9.30-52, 작업트리 clean)하고 `agent-memory/artifacts/agentmemory/repo-metadata.txt`를 썼다. 라이선스: 루트·`packages/mcp` Apache 2.0.
+- 읽은 것: README(설치·파이프라인·검색·도구·설정 절), `package.json`, `tsdown.config.ts`, `iii-config.yaml`, `src/index.ts`·`config.ts`·`state/schema.ts`·`types.ts` 색인, `registerFunction` 전수 grep, `triggers/events.ts`, `hooks/session-start.ts`·`post-tool-use.ts`·`_capture.ts`, `functions/{observe,compress,context,search,remember,…}` 진입부, `mcp/tools-registry.ts`·`standalone.ts`, `cli/connect/index.ts`, `providers/index.ts`, `viewer/server.ts`, `plugin/`·`integrations/`·`deploy/` README. 서브에이전트는 쓰지 않았고 코드를 실행하지 않았다. 테스트는 열지 않았다.
+- 쓴 것: `agent-memory/reports/agentmemory/overview.md`(기능 지도 38행 — 핵심 30/부속 8, 공유 계약 6, 대조 범위·문서와 구현 차이 3건·미탐색), `diagrams/structure.{json,html}`(archify deliver·visual-check 통과, 시각 검토는 1440×900 light 한 장), `next.md`. `index.md`에 agentmemory 행 추가. 다음: 사용자가 스펙 범위를 승인하면 4장으로 간다.
+
+## [2026-10-25] update | ovis 설치·폰 접속 가이드 작성 (macOS·Windows)
+- 사용자 요청으로 ovis 플러그인 설치, 텔레메트리 끄기(`OVIS_TELEMETRY=0`, `DO_NOT_TRACK=1`을 플러그인 `env` 파일에), Tailscale로 폰 접속하는 절차를 macOS와 Windows로 나눠 정리했다. `INSTALL.md`, `docs/guide.md`, `install.ps1`, `herdr-plugin.toml`, `scripts/plugin.{ts,ps1}`, `server/telemetry.ts`를 읽었다. 실행 없음.
+- 쓴 것: `herdr-plugin/reports/ovis/install-and-mobile-access.md`, `GUIDE.md`와 `mobile-remote-comparison.md`에 링크 추가. 인용 줄 번호는 다시 열어 고쳤다(`install.ps1`, `plugin.ps1`).
+
+## [2026-10-25] ingest | ai-learning/ 신설, DeepTutor·learnharness 기능 지도와 구조도, 스펙 범위 승인 대기
+- 주제 폴더 `ai-learning/`(GUIDE.md, repos.lock.tsv, repos/·artifacts/·reports/)를 만들고 `.gitignore`에 `/ai-learning/repos/`를 추가했다. 두 레포를 clone했다: DeepTutor `a31d8262`(main, v1.6.15, clean, 루트 Apache-2.0), learnharness `b277ee3e`(main, v0.3.7, clean, AGPL-3.0).
+- 레포별 서브에이전트 하나씩이 README·매니페스트·진입점·호출 경로를 읽고 overview(기능 지도 DeepTutor 53행 핵심 33/부속 20/공유 계약 8, learnharness 29행 핵심 19/부속 10/공유 계약 6)와 archify 구조도(deliver·visual-check 통과, 시각 검토는 각 한두 장)를 썼다. 코드 실행·의존성 설치 없음, 테스트·CI는 열지 않았다. 메인 세션은 LICENSE, 라우트 수, 문서에만 있는 `PracticeStore`, `USER_TOGGLEABLE_TOOL_NAMES` 존재를 직접 확인했고 나머지 주장은 재검증하지 않았다.
+- 쓴 것: `ai-learning/reports/{DeepTutor,learnharness}/{overview,next}.md`, `diagrams/structure.{json,html}`, `ai-learning/artifacts/*/{repo-metadata.txt,structure-visual-check/}`. 기능 스펙은 아직 없다(사용자 범위 승인 전).
+
+## [2026-10-25] ingest | claude-video(watch) 기능 지도와 구조도, 스펙 범위 승인 대기
+- `repos/claude-video`에 clone(`03ceb42`, main, 스킬 v0.3.2, 작업트리 clean)하고 `artifacts/claude-video/repo-metadata.txt`를 썼다. 라이선스: 루트 MIT(하위 LICENSE 없음).
+- 읽은 것: README, AGENTS.md, SKILL.md 전문, 매니페스트 4개·hooks·`.skillignore`·CHANGELOG, `watch.py`·`config.py` 전문, 나머지 스크립트는 심볼 목록과 `download_url`·`transcribe_video`·`upload_file`·`delete_file`·`setup.py` `_status`·`main`·fps 함수·상수. 테스트·CI(tests.yml)·`dev-sync.sh`는 열지 않았다. 서브에이전트 없음, 코드 실행 없음.
+- 쓴 것: `reports/claude-video/overview.md`(기능 지도 10행 — 핵심 9/부속 1, 공유 계약 4, 대조 범위·미탐색), `diagrams/structure.{json,html}`(archify deliver 9/9·visual-check 통과, 시각 검토는 1440×900 light 한 장), `artifacts/claude-video/structure-visual-check/`, `next.md`. `index.md`에 행 추가. 기능 스펙은 사용자 범위 승인 후.
+
+## [2026-10-26] workflow | 변경 파일 점검과 handoff.md 작성, 커밋·푸시
+- 사용자 요청으로 `git status`(수정 23·미추적 17개 묶음)와 `index.md`·`log.md`를 대조했다. 모든 변경에 log 항목이 있었고 `claude-video`는 다른 세션의 작업이라 파일 존재와 index·log 행만 확인했다(내용 미검증). 루트 `gbrain` 삭제 11개는 `agent-memory/`로의 이동이다.
+- 쓴 것: 루트 `handoff.md`(범위 승인 대기 5곳, 변경 묶음, 주의점). 커밋 대상은 원본 clone(`repos/`류)을 제외한 전부.
