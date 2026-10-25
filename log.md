@@ -660,7 +660,7 @@
 ## [2026-10-25] ingest | claude-video(watch) 기능 지도와 구조도, 스펙 범위 승인 대기
 - `repos/claude-video`에 clone(`03ceb42`, main, 스킬 v0.3.2, 작업트리 clean)하고 `artifacts/claude-video/repo-metadata.txt`를 썼다. 라이선스: 루트 MIT(하위 LICENSE 없음).
 - 읽은 것: README, AGENTS.md, SKILL.md 전문, 매니페스트 4개·hooks·`.skillignore`·CHANGELOG, `watch.py`·`config.py` 전문, 나머지 스크립트는 심볼 목록과 `download_url`·`transcribe_video`·`upload_file`·`delete_file`·`setup.py` `_status`·`main`·fps 함수·상수. 테스트·CI(tests.yml)·`dev-sync.sh`는 열지 않았다. 서브에이전트 없음, 코드 실행 없음.
-- 쓴 것: `reports/claude-video/overview.md`(기능 지도 10행 — 핵심 9/부속 1, 공유 계약 4, 대조 범위·미탐색), `diagrams/structure.{json,html}`(archify deliver 9/9·visual-check 통과, 시각 검토는 1440×900 light 한 장), `artifacts/claude-video/structure-visual-check/`, `next.md`. `index.md`에 행 추가. 기능 스펙은 사용자 범위 승인 후.
+- 쓴 것: `reports/claude-video/overview.md`(기능 지도 11행 — 핵심 10/부속 1, 공유 계약 4, 대조 범위·미탐색), `diagrams/structure.{json,html}`(archify deliver 9/9·visual-check 통과, 시각 검토는 1440×900 light 한 장), `artifacts/claude-video/structure-visual-check/`, `next.md`. `index.md`에 행 추가. 기능 스펙은 사용자 범위 승인 후.
 
 ## [2026-10-26] workflow | 변경 파일 점검과 handoff.md 작성, 커밋·푸시
 - 사용자 요청으로 `git status`(수정 23·미추적 17개 묶음)와 `index.md`·`log.md`를 대조했다. 모든 변경에 log 항목이 있었고 `claude-video`는 다른 세션의 작업이라 파일 존재와 index·log 행만 확인했다(내용 미검증). 루트 `gbrain` 삭제 11개는 `agent-memory/`로의 이동이다.

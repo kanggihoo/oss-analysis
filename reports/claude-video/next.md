@@ -12,7 +12,7 @@ updated: 2026-10-25
 
 ## 1. 이번 세션에서 확인한 범위
 
-- [x] clone·SHA·라이선스 기록, 기능 지도 10행(overview 2절), 구조도 하나(overview 3절)
+- [x] clone·SHA·라이선스 기록, 기능 지도 11행(overview 2절), 구조도 하나(overview 3절)
 - [ ] 사용자 스펙 범위 승인(overview 1절 "스펙 범위"는 아직 "승인 전")
 
 ---
