@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-10-25
+> Last updated: 2026-10-26
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -42,6 +42,7 @@
 | agentmemory (agent-memory/) | `70517d2` | [overview](agent-memory/reports/agentmemory/overview.md), [next](agent-memory/reports/agentmemory/next.md) | — (범위 승인 대기) |
 | DeepTutor (ai-learning/) | `a31d826` | [overview](ai-learning/reports/DeepTutor/overview.md), [next](ai-learning/reports/DeepTutor/next.md) | — (범위 승인 대기, 지도 53행) |
 | learnharness (ai-learning/) | `b277ee3` | [overview](ai-learning/reports/learnharness/overview.md), [next](ai-learning/reports/learnharness/next.md) | — (범위 승인 대기, 지도 29행) |
+| roast-room | `e40f406` | [overview](reports/roast-room/overview.md) | — |
 
 ## 첫 수집만 한 레포 (overview 없음)
 

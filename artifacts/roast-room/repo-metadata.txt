@@ -1,0 +1,9 @@
+repo: nateherkai/roast-room
+url: https://github.com/nateherkai/roast-room
+local_path: repos/roast-room
+branch: main
+head: e40f40652d5690c4d9f928c4794c673a99f2cd0e
+commit_date: 2026-10-21
+clone: --depth 50
+license: MIT (루트 LICENSE, Copyright 2026 AI Automation Society)
+status: clean (분석 중 수정 없음)

@@ -665,3 +665,11 @@
 ## [2026-10-26] workflow | 변경 파일 점검과 handoff.md 작성, 커밋·푸시
 - 사용자 요청으로 `git status`(수정 23·미추적 17개 묶음)와 `index.md`·`log.md`를 대조했다. 모든 변경에 log 항목이 있었고 `claude-video`는 다른 세션의 작업이라 파일 존재와 index·log 행만 확인했다(내용 미검증). 루트 `gbrain` 삭제 11개는 `agent-memory/`로의 이동이다.
 - 쓴 것: 루트 `handoff.md`(범위 승인 대기 5곳, 변경 묶음, 주의점). 커밋 대상은 원본 clone(`repos/`류)을 제외한 전부.
+
+## [2026-10-26] ingest | roast-room 질문 q1: 좌석 간 대화와 mesh 통신
+- `repos/roast-room`에 clone(`e40f406`, main, MIT, clean)하고 `artifacts/roast-room/repo-metadata.txt`를 썼다. 기능 지도는 만들지 않았다(질문 단위 분석).
+- 읽은 것: `SKILL.md`, `round-prompts.md`, `council-musk.md`, `settings.json`, `app/lib/{council,anthropic}.mjs` 전문, `watch.mjs`·`server.mjs`·`seats.mjs` 일부. 코드 실행·서브에이전트 없음.
+- 쓴 것: `reports/roast-room/overview.md`(간이), `questions/q1-seat-communication.md`. `index.md`에 행 추가. 결론: mesh 없음, 의장 중심 hub-and-spoke(파일/프롬프트로 카드 전달), SSE는 UI 표시용.
+
+## [2026-10-26] update | roast-room q1 후속: 좌석 권한·스폰 주기·json 역할
+- `live-room.md` 전문과 12개 좌석 frontmatter(`tools`, `maxTurns`)를 확인해 `reports/roast-room/questions/q1-seat-communication.md`에 2.4절을 추가하고, 확인된 미확인 항목 하나를 지웠다. 코드 실행 없음.
