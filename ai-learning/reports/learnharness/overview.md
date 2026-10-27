@@ -1,7 +1,7 @@
 ---
 sha: "b277ee3e0fa24249c1b2d0f9b7fd6ed485f484b9"
 created: 2026-10-25
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # learnharness Analysis Overview
@@ -11,12 +11,12 @@ updated: 2026-10-25
 - **Repo URL**: `https://github.com/amosblomqvist/learnharness`
 - **기준 SHA**: `b277ee3e` (2026-10-25, `main`), 태그 `v0.3.7`, `package.json` version 0.3.7
 - **작업트리 상태**: Clean (`ai-learning/artifacts/learnharness/repo-metadata.txt`, `git status` 변경 없음)
-- **분석 목적**: 학습 / 설계 참고 — AI와 함께 배우는 학습 앱의 기능·구조 파악. 특히 **이해도 측정 → 의존 관계 계획 → 가르치기 → 연습** 흐름, **지식 그래프**, **에이전트 도구 구성**. 이번 세션은 기능 지도와 구조도까지.
+- **분석 목적**: 학습 / 설계 참고 — **Claude Code 같은 에이전트 안에서 쓰는 가벼운 학습 스킬**을 만들기 위한 재료 찾기(2026-10-27 사용자 재정의). 스킬이 할 일: 주제 학습, 학습한 것 추적, 맞춤 자료 수집, 수준별 설명, 지속 관리. 복잡하게 만들지 않는 것이 조건이다. 그래서 2절 "스킬화 관점 지도"를 기능 지도 뒤에 추가했다(제품 전체 지도는 그대로 둔다). (이전 목적: 학습 / 설계 참고 — AI와 함께 배우는 학습 앱의 기능·구조 파악. 특히 **이해도 측정 → 의존 관계 계획 → 가르치기 → 연습** 흐름, **지식 그래프**, **에이전트 도구 구성**. 이번 세션은 기능 지도와 구조도까지.)
 - **라이선스**: GNU Affero General Public License v3 (본문 첫 줄 "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007") — `LICENSE`(661줄, 표준 AGPL 본문과 말미 "How to Apply" 안내만 있고 저작권자 줄은 없다). `skills/learnharness/LICENSE`도 같은 AGPL-3.0 본문이며 `cmp`로 루트 `LICENSE`와 바이트 단위로 같다. `package.json`의 `license` 필드는 `AGPL-3.0-only`, `skills/learnharness/SKILL.md` frontmatter의 `license`도 `AGPL-3.0-only`. 그 밖의 LICENSE 파일은 추적 파일에 없다(`git ls-files`). 코드 확인. (README 마지막 절은 "앱은 영원히 무료… 돈을 받는다면 편의(관리형 키·호스팅)에 대해서일 것"이라고 적었는데, 이는 라이선스 조건이 아니라 운영자의 약속이다 — 미확인.)
 - **언어/규모**: TypeScript(ESM, Next.js 16 App Router + React 19) + Electron 44 셸(CommonJS `.cjs`) + Python 스킬 스크립트. 추적 파일 533개(tests 185 / src 135 / components 98 / app 36 / docs 18 / 루트 15 / scripts 11 / build 11 / electron 10 / skills 6 / public 4 / .github 3 / lib 1). 소스 약 5.7만 줄(`src app components electron scripts skills lib`의 `.ts/.tsx/.cjs/.mjs/.py/.md/.js` 합). LLM 엔진은 외부 SDK `@earendil-works/pi-ai`·`pi-agent-core` 1.4.0(`package.json`) — 이 레포 밖. 코드 확인(`package.json`, `git ls-files`).
 - **분석 대상 제품**: 루트 패키지 `learnharness`(`private: true`, `main: electron/main.cjs`). 배포 단위는 (1) Next.js 웹 앱(`next build` → `output: "standalone"`, `next.config.ts`), (2) Electron 데스크톱 앱(`electron-builder.yml`: macOS arm64 DMG/ZIP, Windows x64 NSIS, Linux AppImage/deb), (3) 에이전트 스킬 `skills/learnharness`(Python 읽기 전용 리더). 중첩 패키지 매니페스트는 없다.
 - **런타임 모양**: 학습 데이터는 `LH_DATA_DIR`(없으면 레포 `data/`) 아래 평문 JSON/JSONL(`config.ts` `PATHS`, `LEDGER_FILES`). 데스크톱에서는 Electron이 Next 스탠드얼론 서버를 자식 프로세스로 띄우고 키 파일(`auth.json`)과 데이터 디렉터리를 `userData`에 둔다(`electron/main.cjs` 앞부분 주석). 코드 확인.
-- **스펙 범위**: 아직 승인 전. 이번 세션은 지도까지(5절 참조).
+- **스펙 범위**: 2026-10-27 승인(사용자 "1,2 진행", 2절 "스킬화 관점 지도" 기준). 승인 행: 2 이해도 측정, 3 의존 관계 계획, 4 가르치기, 5 연습 세션. 선행 공유 계약 S2(질문·답변)는 `capabilities/question-answer-contract.md`로 쓰고, 행 6(학습자 입력 채널)의 확신도·사고 필드는 여기에 흡수한다. 행 1·7·15·16·18은 각 스펙 1.2에 경계만 쓰고 `미작성`으로 둔다. 제외: 부속 10행 전부(이유: 사용자 제외, 별도 답 없음) · 나머지 핵심 행(이유: 이번 승인에 없음)
 
 ---
 
@@ -49,11 +49,11 @@ README 첫 줄의 주장: "An agent harness for learning." 학습자의 현재 �
 | 기능 | 사용자 동작·경계 | 진입점·처음 읽을 코드 | 선행 | 구분 | 스펙·상태 | 검증 수준 |
 |---|---|---|---|---|---|---|
 | 1. 세션 턴 파이프라인 | 학습자 입력 이벤트(`text`/`answer`/`continue`/`thinking`/`next`, 서버 steer) → 모델·키·컴팩션 게이트 → 입력을 기록에 먼저 저장(write-ahead) → 기록으로 에이전트 구성 → 턴을 백그라운드 객체로 실행 → 끝에 기록·사용량 저장, 추출 트리거. 세션당 턴 1개(409), `POST`는 `{ok:true}`만 돌려주고 스트림은 `GET /api/chats/[id]/stream`로 붙는다 | `app/api/chat/route.ts`, `src/server/chat-handler.ts` `handleChatRequest`(146)·`handleChatInput`(175), `src/server/pi/ui-stream.ts` `runPiTurn`(121), `src/server/turn-service.ts` `persistTurn`(50), `turn-liveness.ts` `beginTurn`(44), `turn-runs.ts` | S1, S2, S4, 18 | 핵심 | `capabilities/turn-pipeline.md` · 미작성 | 코드 확인(`handleChatInput` 전체, `persistTurn`) / `runPiTurn` 내부·`record-adapter`는 미확인 |
-| 2. 이해도 측정 (프로버) | 목표를 `ask_user_question`으로 구체화 → 가닥(strand)별로 `probe`/`recall` 질문을 이진 탐색(바닥·천장 브래킷) → 확신도·사고 필드로 다음 질문 결정 → `probe_done`(가닥별 평가)로 종료. 질문이 열려 있으면 `probe_done` 거부, 한 번만 호출. 설정이 열리면 `list_sessions`/`list_propositions`로 그래프를 이름만 읽음. 평가는 그래프에 저장하지 않음 | `src/agent/teacher-agent.ts` `createProberAgent`(259), `src/agent/tools.ts` `createProberTools`·`probeQuizTool`·`probeExplainTool`, `src/agent/tools/probe.ts` `probeDoneTool`(48), `src/core/contracts/probe.ts` `probeDoneInputSchema`, `src/agent/tools/graph.ts` `proberGraphTools`(41), `prompts/prober/10-probe-doctrine.md`, `prompts/shared/25-confidence.md` | S2, 6, 7, 8 | 핵심 | `capabilities/probe-measurement.md` · 미작성 | 코드 확인(도구 구성·`probe_done` 전체·그래프 도구 앞부분) / 프롬프트는 앞부분만, 판정 품질은 LLM 몫이라 미확인 |
-| 3. 의존 관계 계획 | 프로브 종료 직후 교사가 `plan_init`으로 mermaid 지도(`-->` = "먼저 이해해야 함", 슬러그 id)를 쓰면 파싱·검증해 기록의 `tree`에 저장, 틀리면 다시 호출해 통째로 교체. 학습자는 계획 창에서 지도를 본다. 진행 상태는 저장하지 않고 질문 호출의 `nodeId`에서 파생 | `src/agent/tools/plan.ts` `planTools`(62), `src/agent/tools/mermaid-plan.ts` `parseMermaidPlan`(77), `src/core/plan-tree.ts` `createTree`(112), `src/core/contracts/plan.ts` `derivePlanStatuses`(82), `src/core/plan-blocks.ts`, `components/plan-window.tsx`·`plan-block.tsx` | S1, 2 | 핵심 | `capabilities/plan-tree.md` · 미작성 | 코드 확인(도구 설명·시그니처·파생 함수 위치) / DAG 검증 세부·파서 규칙은 추론(`docs/architecture.md` 설명) |
-| 4. 가르치기 (교사) | 교사가 계획대로 predict(가르치기 전, 다음 단계 예측) → 설명 → check(가르친 뒤 확인) 사이클을 돌며 `quiz`/`explain`(`nodeId` 필수, 계획에 없으면 거부)로 질문, 틀리면 수리, 필요하면 `research`·`pdf`·`demo`·`visual` 호출. 단계(phase)는 probe → plan(`probe_done` 완료) → teach(첫 `nodeId` 질문 호출)로 파생. `probe_done`이 핸드오프 steer를 큐에 넣어 교사 첫 턴(계획)을 자동으로 깨운다 | `src/agent/teacher-agent.ts` `createTeacherAgent`(269), `src/agent/tools.ts` `createTeacherTools`·`teachQuizToolFor`·`teachExplainToolFor`·`quizMechanics`, `src/core/phases.ts` `phaseAt3Lh`, `src/core/contracts/jobs.ts` `buildProbeHandoffSteer`(432), `prompts/teacher/{05-method,10-planning,20-teaching,28-predictions,30-question-principles,40-jobs,50-demos}.md` | 2, 3, S2, 7, 8, 10 | 핵심 | `capabilities/teaching-cycle.md` · 미작성 | 코드 확인(도구·phase 주석·nodeId 검증) / 교사 프롬프트는 05·10·28 앞부분만 읽음, 나머지 미확인 |
-| 5. 연습 세션 | 홈/새 세션 화면에서 연습 모드로(선택한 명제를 `graphContext`로 함께) 세션 생성 → 첫 턴부터 연습 에이전트(계획·질문 도구 없음). `problem`(진술·모드 recall/discrimination/composition·대상 명제·미리 확정한 `modelSolution`, 턴 종료)과 `conclude`(결과 solved/solvedWithHints/movedOn/surrendered/dismissed·판정·힌트 사다리 R0~R5·실수 유형·재시험 여부)만 사용. 문제가 열려 있으면 새 `problem` 거부, 없으면 `conclude` 거부. 학습자는 사고 필드에 풀이 흔적을 여러 번 제출. 그래프 추출·기록은 하지 않음 | `src/agent/teacher-agent.ts` `createPracticeAgent`(320), `src/agent/tools/practice.ts` `practiceTools`(223)·`problemTool`·`concludeTool`·`createPracticeGate`, `chat-handler.ts` 391~421줄(PRACTICE BRANCH), `src/core/input-events.ts`(`thinking`·`next`), `prompts/practice/{00-base,10-doctrine}.md`, `app/api/chats/route.ts` POST, `components/practice-dock.tsx`·`practice-cards.tsx`·`new-session.tsx` | 15, 16, S1, 6, 7 | 핵심 | `capabilities/practice-session.md` · 미작성 | 코드 확인(도구 전체·게이트·핸들러 분기·세션 생성 라우트) / 독트린 본문(이론)은 앞부분만, 생성 UI는 헤더 주석만 |
-| 6. 학습자 입력 채널 | 질문 독(선택지·"모르겠음"·Other)에 사고 필드("Your thinking")와 확신도 슬라이더, 읽는 중 사고 필드(`readingThinking`), Esc로 질문 기각(기록에만 쓰고 에이전트를 깨우지 않음), 진행 중인 턴에 끼어드는 메시지(steer 큐), 연습 독. 답 객체는 선택·정오·확신도·사고글을 담음 | `components/question-dock.tsx`, `components/composer.tsx`, `components/session-core.ts`(`POST /api/chat`), `src/core/question-core.ts`(`QuestionAnswerData`, `confidence` 464·492·726줄), `src/core/input-events.ts` `parseChatInput`·`inputAppends`(197), `app/api/chats/[id]/steer/route.ts`, `app/api/chats/[id]/dismiss/route.ts` | S2, 1 | 핵심 | `capabilities/learner-input.md` · 미작성 | 코드 확인(타입·라우트 주석, 확신도 처리 줄) / 독·컴포저 렌더링 동작은 추론 |
+| 2. 이해도 측정 (프로버) | 목표를 `ask_user_question`으로 구체화 → 가닥(strand)별로 `probe`/`recall` 질문을 이진 탐색(바닥·천장 브래킷) → 확신도·사고 필드로 다음 질문 결정 → `probe_done`(가닥별 평가)로 종료. 질문이 열려 있으면 `probe_done` 거부, 한 번만 호출. 설정이 열리면 `list_sessions`/`list_propositions`로 그래프를 이름만 읽음. 평가는 그래프에 저장하지 않음 | `src/agent/teacher-agent.ts` `createProberAgent`(259), `src/agent/tools.ts` `createProberTools`·`probeQuizTool`·`probeExplainTool`, `src/agent/tools/probe.ts` `probeDoneTool`(48), `src/core/contracts/probe.ts` `probeDoneInputSchema`, `src/agent/tools/graph.ts` `proberGraphTools`(41), `prompts/prober/10-probe-doctrine.md`, `prompts/shared/25-confidence.md` | S2, 6, 7, 8 | 핵심 | [`capabilities/probe-measurement.md`](capabilities/probe-measurement.md) · ready(재구현 검증 완료) | 코드 확인(도구 구성·`probe_done` 전체·그래프 도구 앞부분) / 프롬프트는 앞부분만, 판정 품질은 LLM 몫이라 미확인 |
+| 3. 의존 관계 계획 | 프로브 종료 직후 교사가 `plan_init`으로 mermaid 지도(`-->` = "먼저 이해해야 함", 슬러그 id)를 쓰면 파싱·검증해 기록의 `tree`에 저장, 틀리면 다시 호출해 통째로 교체. 학습자는 계획 창에서 지도를 본다. 진행 상태는 저장하지 않고 질문 호출의 `nodeId`에서 파생 | `src/agent/tools/plan.ts` `planTools`(62), `src/agent/tools/mermaid-plan.ts` `parseMermaidPlan`(77), `src/core/plan-tree.ts` `createTree`(112), `src/core/contracts/plan.ts` `derivePlanStatuses`(82), `src/core/plan-blocks.ts`, `components/plan-window.tsx`·`plan-block.tsx` | S1, 2 | 핵심 | [`capabilities/plan-tree.md`](capabilities/plan-tree.md) · ready(재구현 검증 완료) | 코드 확인(도구 설명·시그니처·파생 함수 위치) / DAG 검증 세부·파서 규칙은 추론(`docs/architecture.md` 설명) |
+| 4. 가르치기 (교사) | 교사가 계획대로 predict(가르치기 전, 다음 단계 예측) → 설명 → check(가르친 뒤 확인) 사이클을 돌며 `quiz`/`explain`(`nodeId` 필수, 계획에 없으면 거부)로 질문, 틀리면 수리, 필요하면 `research`·`pdf`·`demo`·`visual` 호출. 단계(phase)는 probe → plan(`probe_done` 완료) → teach(첫 `nodeId` 질문 호출)로 파생. `probe_done`이 핸드오프 steer를 큐에 넣어 교사 첫 턴(계획)을 자동으로 깨운다 | `src/agent/teacher-agent.ts` `createTeacherAgent`(269), `src/agent/tools.ts` `createTeacherTools`·`teachQuizToolFor`·`teachExplainToolFor`·`quizMechanics`, `src/core/phases.ts` `phaseAt3Lh`, `src/core/contracts/jobs.ts` `buildProbeHandoffSteer`(432), `prompts/teacher/{05-method,10-planning,20-teaching,28-predictions,30-question-principles,40-jobs,50-demos}.md` | 2, 3, S2, 7, 8, 10 | 핵심 | [`capabilities/teaching-cycle.md`](capabilities/teaching-cycle.md) · ready(재구현 검증 완료) | 코드 확인(도구·phase 주석·nodeId 검증) / 교사 프롬프트는 05·10·28 앞부분만 읽음, 나머지 미확인 |
+| 5. 연습 세션 | 홈/새 세션 화면에서 연습 모드로(선택한 명제를 `graphContext`로 함께) 세션 생성 → 첫 턴부터 연습 에이전트(계획·질문 도구 없음). `problem`(진술·모드 recall/discrimination/composition·대상 명제·미리 확정한 `modelSolution`, 턴 종료)과 `conclude`(결과 solved/solvedWithHints/movedOn/surrendered/dismissed·판정·힌트 사다리 R0~R5·실수 유형·재시험 여부)만 사용. 문제가 열려 있으면 새 `problem` 거부, 없으면 `conclude` 거부. 학습자는 사고 필드에 풀이 흔적을 여러 번 제출. 그래프 추출·기록은 하지 않음 | `src/agent/teacher-agent.ts` `createPracticeAgent`(320), `src/agent/tools/practice.ts` `practiceTools`(223)·`problemTool`·`concludeTool`·`createPracticeGate`, `chat-handler.ts` 391~421줄(PRACTICE BRANCH), `src/core/input-events.ts`(`thinking`·`next`), `prompts/practice/{00-base,10-doctrine}.md`, `app/api/chats/route.ts` POST, `components/practice-dock.tsx`·`practice-cards.tsx`·`new-session.tsx` | 15, 16, S1, 6, 7 | 핵심 | [`capabilities/practice-session.md`](capabilities/practice-session.md) · ready(재구현 검증 완료, 선행 15·16은 "명제·연쇄 목록을 받는다"는 경계만 1.2에 씀) | 코드 확인(도구 전체·게이트·핸들러 분기·세션 생성 라우트) / 독트린 본문(이론)은 앞부분만, 생성 UI는 헤더 주석만 |
+| 6. 학습자 입력 채널 | 질문 독(선택지·"모르겠음"·Other)에 사고 필드("Your thinking")와 확신도 슬라이더, 읽는 중 사고 필드(`readingThinking`), Esc로 질문 기각(기록에만 쓰고 에이전트를 깨우지 않음), 진행 중인 턴에 끼어드는 메시지(steer 큐), 연습 독. 답 객체는 선택·정오·확신도·사고글을 담음 | `components/question-dock.tsx`, `components/composer.tsx`, `components/session-core.ts`(`POST /api/chat`), `src/core/question-core.ts`(`QuestionAnswerData`, `confidence` 464·492·726줄), `src/core/input-events.ts` `parseChatInput`·`inputAppends`(197), `app/api/chats/[id]/steer/route.ts`, `app/api/chats/[id]/dismiss/route.ts` | S2, 1 | 핵심 | `capabilities/learner-input.md` · 미작성(확신도·사고 필드의 데이터 계약은 [question-answer-contract.md](capabilities/question-answer-contract.md)에 흡수, 질문 독·컴포저 UI는 미작성) | 코드 확인(타입·라우트 주석, 확신도 처리 줄) / 독·컴포저 렌더링 동작은 추론 |
 | 7. 프롬프트 조립과 사용자 오버라이드 | 시스템 프롬프트 = 공유 기반(`system-prompt.md`) + 에이전트별 번호 접두 조각(정렬 순) + `shared/` 부록, 연습은 자기 디렉터리 + 선별 공유 조각만. 사용자는 조각 단위로 덮어쓰기 파일을 두고 설정의 스위치로 켠다 | `src/agent/teacher-agent.ts` `composeInstructions`(74), `src/agent/prompt-segments.ts` `effectivePromptSegments`·`listSourceSegments`, `src/store/prompt-overrides.ts`, `src/core/prompt-segments.ts`, `app/api/settings/prompts/route.ts`·`[...segment]/route.ts`, `src/agent/prompts/README.md` | S4, S6 | 핵심 | `capabilities/prompt-composition.md` · 미작성 | 코드 확인(조립 규칙·연습용 선별 목록) / 오버라이드 파일 쓰기·UI는 추론 |
 | 8. 도구 레지스트리와 인자 복구 | 에이전트별 도구 묶음(프로버/교사/연습)을 요청마다 조립, 설정으로 끌 수 있는 것은 `research`/`demo`/`visual`/`pdf`뿐, 퀴즈 도구는 설정(`tools.explain`)이 객관식↔자유서술을 바꿈. 약한 모델이 JSON을 문자열로 감싸 보내면(`options`, `mode` 등) 경계에서 복구, 입력 오류는 에러 결과로 돌려줘 같은 턴에 재시도. 학습자 파일은 `read/ls/find/grep` 읽기 전용 | `src/agent/tools.ts` `createProberTools`·`createTeacherTools`·`prepareQuestionArguments`, `src/agent/tools/heal.ts` `healToolRecord`, `src/core/argument-heal.ts`, `src/agent/tool-execute.ts`, `src/core/pending.ts` `TOGGLEABLE_TOOLS`(79)·`filterEnabledTools`(98), `src/agent/tools/{read,ls,find,grep,fs-shared}.ts` | S2, S4 | 핵심 | `capabilities/tool-registry.md` · 미작성 | 코드 확인(구성·토글·heal 헤더) / 학습자 파일 도구 본문과 경로 제한은 미확인 |
 | 9. 컨텍스트 컴팩션 | 대화가 임계(설정 기본 150k 토큰, 모델 컨텍스트−16k 중 작은 값)를 넘으면 세션 자신의 대화 모델이 요약을 쓰고 기록에 `compaction` 마커를 추가. 전체 이력은 지우지 않고 모델에 보낼 때만 [요약 + 컷 이후]로 투영. 턴이 끝난 직후 백그라운드로 시작하고 다음 턴 시작에서 기다림. 요약은 이해도 변화·교수 흐름·계획 트리 원문을 담음 | `src/core/compaction.ts`(`KEEP_RECENT_TOKENS` 등), `src/server/compaction.ts` `ensureCompacted`(267)·`kickCompaction`(295), `chat-handler.ts` 222~258·562~584줄, `src/core/native-messages.ts` `toLlmMessages`(512), `src/core/settings.ts` `FACTORY_SETTINGS.compaction` | S1, S4, 18 | 핵심 | `capabilities/compaction.md` · 미작성 | 코드 확인(헤더 주석·호출 지점·기본값) / 컷 알고리즘·요약 프롬프트는 미확인 |
@@ -103,7 +103,7 @@ README 첫 줄의 주장: "An agent harness for learning." 학습자의 현재 �
 | 계약 | 쓰는 기능 | 진입점·처음 읽을 코드 | 스펙·상태 | 검증 수준 |
 |---|---|---|---|---|
 | S1. 세션 기록(대화·마커·플랜·사용량) | 1~6, 9, 10, 13, 17, 23, 24, 28 | `src/core/contracts/chat.ts` `ChatRecord`(30), `src/core/native-messages.ts`(`LhMessage`, `hasProbeDone`·`danglingQuestionOf`·`activeProblemOf`·`toLlmMessages`), `src/core/ports.ts` `ChatStore`, `src/store/chats.ts` `chatStore`(208), `data/chats/<id>.json`(버전 스탬프, 더 새 버전은 거부) | 스펙은 각 기능에 분산 | 코드 확인(필드·포트·스토어 헤더) / `native-messages.ts` 본문(771줄)은 미확인 |
-| S2. 질문·답변 계약 | 2, 4, 5, 6, 8 | `src/core/question-core.ts`(입력 스키마 `quizInputObject`·`probeQuizInputSchema`·`explainInput*`·`askInputSchema`, 채점·셔플·`QuestionAnswerData`), `src/core/pending.ts` `QUESTION_TOOLS`(45), `src/core/tool-parts.ts`, `src/core/input-events.ts` | `capabilities/question-contract.md` · 미작성 | 코드 확인(스키마 정의·타입 위치) / 채점·셔플 알고리즘은 미확인 |
+| S2. 질문·답변 계약 | 2, 4, 5, 6, 8 | `src/core/question-core.ts`(입력 스키마 `quizInputObject`·`probeQuizInputSchema`·`explainInput*`·`askInputSchema`, 채점·셔플·`QuestionAnswerData`), `src/core/pending.ts` `QUESTION_TOOLS`(45), `src/core/tool-parts.ts`, `src/core/input-events.ts` | [`capabilities/question-answer-contract.md`](capabilities/question-answer-contract.md) · ready(경로명을 question-contract에서 변경, 행 6의 확신도·사고 필드 흡수) | 코드 확인(스키마 정의·타입 위치) / 채점·셔플 알고리즘은 미확인 |
 | S3. 그래프 원장 계약 | 13~17, 28, 2·5(읽기 도구) | `src/core/contracts/graph.ts`(`GraphNode`·`GraphChain`·`ProvenancePoint`·`NotesSource`·`CURRENT_GRAPH_FORMAT_VERSION`), `config.ts` `LEDGER_FILES`·`SOURCES_FILE`·`POSITIONS_FILE`, `src/core/ports.ts` `GraphStore` | 스펙은 각 기능에 분산 | 코드 확인(계약·파일 경로) |
 | S4. 설정 레코드와 해석 | 1, 7, 8, 9, 13, 18, 20, 24 | `src/core/settings.ts` `FACTORY_SETTINGS`(397)·`ROLE_SLOT`(220), `src/core/settings-resolution.ts`(`extractionEnabled`·`graphToolsEnabled`·`resolveSettings`), `src/store/settings.ts`, `config.ts` `SETTINGS_FILE`(델타만 저장, 없는 키는 공장값) | `capabilities/settings-record.md` · 미작성 | 코드 확인(공장값·해석 함수 위치) / 각 섹션 정규화 로직은 미확인 |
 | S5. job·steer 계약 | 4, 10, 11, 12, 22 | `src/core/contracts/jobs.ts`(`JobRecord`, `buildSubagentSteer`·`buildAbortSteer`·`buildProbeHandoffSteer`, 결정적 steer id, `steerDelivered`), `src/core/ports.ts` `JobStore` | 스펙은 각 기능에 분산 | 코드 확인(함수 위치·`server/jobs.ts` 헤더) |
@@ -138,6 +138,74 @@ README 첫 줄의 주장: "An agent harness for learning." 학습자의 현재 �
   - 열지 않은 문서: `docs/{vision,plan,teaching-methodology,probe-teach-split,pi-engine-swap,compaction-accounting,keyboard,release-0.3}.md`, `docs/archive/`. 후보로만 취급한다. `architecture.md`는 앞 약 230줄(1~4절 앞부분)만 읽었고 이후(Practice 절·불변식·시임 목록 등 약 330줄)는 읽지 않았다. `development.md`는 전부 읽었다.
   - 외부 시스템: pi-ai/pi-agent-core(에이전트 루프·카탈로그·가격), OpenAI·GitHub·xAI OAuth, Deepgram, Tavily, Brave, GitHub Releases, 각 LLM 제공자. 모두 `미확인`.
   - 실행: 코드·서버를 실행하거나 의존성을 설치하지 않았다. `실행 확인` 항목은 없다(archify 검증 명령은 3절).
+
+
+### 스킬화 관점 지도 (2026-10-27 추가)
+
+분석 목적이 "Claude Code 안의 가벼운 학습 스킬"로 바뀌어, 29행 제품 지도를 **학습 스킬이 하는 일 7가지**에 다시 대 보았다. 위 29행 지도는 코드 기준 제품 지도로 그대로 두고, 이 표는 "이 레포에서 무엇을 가져올 수 있나"만 본다. 승인된 스펙 범위가 아니라 **재구성 제안**이다.
+
+핵심 관찰: 이 레포의 학습 행동은 **프롬프트 마크다운 약 470줄**(`src/agent/prompts/`)에 들어 있다. 이 프롬프트는 도구 호출(`probe`·`quiz`·`plan_init`·`probe_done`·`problem`·`conclude`)을 전제로 쓰였지만, 방법 자체는 Claude Code 스킬 지시문으로 옮길 수 있는 글이다(옮길 수 있다는 판단은 추론).
+
+| 학습 스킬의 일 | 이 레포가 하는 방법 | 가져올 만한 것 (근거 위치) | 원 지도 행 | 검증 수준 |
+|---|---|---|---|---|
+| 1. 현재 수준 진단 | 프로버: ① 목표를 구체화할 때까지 질문 ② 목표에 필요한 "가닥(strand)"을 도출 ③ 가닥마다 **바닥(확실히 아는 것)과 천장(막히는 곳)을 이진 탐색**: 높은 데서 시작, 맞고 확신하면 크게 올리고, 틀리면 좁힘 ④ 한 번에 질문 하나 ⑤ 가닥별 floor·ceiling·오개념·"여기서부터 쌓을 것"을 `probe_done`에 기록. 오답 하나는 판정이 아니라 좌표 하나 | 진단 절차 전체(39줄), **확신도×정오 해석표**(맞고 확신=단단, 맞고 불안=취약, 틀리고 확신=굳은 오개념) | 2, 6 | 코드 확인(`src/agent/prompts/prober/10-probe-doctrine.md`, `shared/25-confidence.md`, `shared/16-mental-model.md` 전문) |
+| 2. 학습 계획 | 교사가 mermaid 지도로 선행 관계를 그린다. **최소 트리**: 학습자가 이미 아는 건 다시 가르치지 않고, 목표 경로 밖은 흥미로워도 안 가르침. 노드는 구조적 이정표이고 진행 상태는 저장하지 않고 질문 태그(`nodeId`)에서 파생. **계획을 제시하고 학습자가 확인하기 전에는 가르치지 않음.** 학습 중 드러난 사고에 따라 지도를 다시 쓴다 | 최소 트리 원칙, 확인 전 가르치지 않기, 뿌리 노드 검증("정말 이 사람에게 무조건적 진실인가?") | 3 | 코드 확인(`prompts/teacher/10-planning.md` 전문, `src/agent/tools/plan.ts` 도구 설명). **프롬프트는 "크기 상한 없음", 도구 설명은 "5–15 노드, 압축"이라 둘이 다르다**(어느 쪽이 강제되는지 미확인) |
+| 3. 수준별 설명 | 교사 방법 두 원칙: 원칙 i **무조건적 진실부터**(주의 없이 그대로 받아들일 수 있는 사실에서 시작) 원칙 ii **"어떻게 내가 직접 발견할 수 있었을까?"**(모든 단계에 동기를 붙인다). 단계 규칙: 한 단계 한 사실, 단계마다 이해 확인, 틀리면 진단·보강 후에만 다음. 사이클은 **예측(가르치기 전) → 설명 → 확인(가르친 뒤)**. 확인 문제는 "수업만으로 추론해서 풀 수 있고, 암송이 아니라 적용이며, 오답이 어떤 잘못된 모델인지 드러나야 한다" | 설명 방법 전체: `05-method.md`(44줄), `20-teaching.md`(33줄), `28-predictions.md`(22줄), `30-question-principles.md`(10줄). 수준 적응은 프로브 결과 + 학습자의 "사고 필드"로 계획을 고치는 것 | 4 | 코드 확인(위 4개 프롬프트 전문 읽음) |
+| 4. 맞춤 자료 수집 | 조사 하위 에이전트(`researcher`): 격리된 컨텍스트에서 `web_search`·`web_fetch`만 쓰고 질문을 2~4면으로 쪼개 검색해 **출처 인용이 달린 brief**를 돌려준다. 하지만 목적은 **교사가 가르칠 사실을 검증**하는 것이다. 학습자 파일은 `read/ls/find/grep`, PDF는 쪽 인용이 달린 brief | 아이디어: "확실하지 않은 사실은 가르치기 전에 조사로 확인하고 출처를 댄다"(프롬프트 `40-jobs.md`), 격리 컨텍스트 조사 | 11 | 코드 확인(`src/agent/subagents/researcher.ts` 머리, `prompts/teacher/40-jobs.md`). **학습자 수준에 맞춰 읽을 자료를 골라 주는 기능은 없다**(확인한 범위에서) |
+| 5. 학습 추적 | ① 세션 기록 JSON: 메시지, 학습자 답, **확신도**, 사고 필드 글(학습자가 소리 내어 생각한 것이 가장 정보가 많은 데이터로 취급됨). ② 지식 그래프 JSONL: 명제(`nodes`)와 **연쇄(전제들이 함께 결론을 함의)**(`chains`). 추출은 **교사가 쓴 설명문만** 보고 한다. 그래프에는 이해도 점수가 없다(아이디어 지도일 뿐 숙달 평가가 아님) | 기록 형식 자체(평문 JSON/JSONL이라 옮기기 쉬움), "점수가 아니라 근거를 기록" 철학 | 13, 15 | 프롬프트·지도 단계 확인은 코드 확인. 파일 형식은 `skills/learnharness/references/data-format.md` 문서 기준이라 **추론**(코드 대조 안 함) |
+| 6. 연습 | 연습 세션 독트린 141줄: 모드 3종 **회상 → 변별 → 조합**(앞 층이 약하면 되돌아감), 대상 선택 = 가장 약한 것·가장 많은 연쇄에 쓰이는 것·가장 오래 안 만진 것, 같은 대상 연속 출제 금지(교차), 쉬운 정도는 "회상 한 번당 성공률 약 85%", 출제 전에 직접 풀어 보고 모범 풀이를 먼저 확정, 힌트 사다리 R0~R5(한 요청에 한 단계), 세션 끝 전에 틀린 것은 **다른 표면으로 재시험**. 상태 저장 없음("no state record, no graduation criteria") | 연습 독트린 전체(`practice/10-doctrine.md`, `00-base.md`) | 5 | 코드 확인(`prompts/practice/10-doctrine.md`·`00-base.md` 전문). `docs/architecture.md`의 PracticeStore는 코드에 없다는 기존 확인(handoff)을 따른다 |
+| 7. 지속 관리 | **없다.** 복습 일정·망각 모델·"다음에 뭘 할지" 정책이 코드에 없다(`src app lib`에서 `spaced`·`forgetting`·`nextReview`·`fsrs` 검색: 무관한 문자열 2건뿐). 세션 시작 때 프로버가 `list_sessions`·`list_propositions`로 이전 지도를 **이름만** 읽고, 단단한 가닥은 다시 묻지 않는다. 그래프에 점수가 없어서 무엇을 언제 복습할지 정할 데이터도 없다 | 없음. DeepTutor가 채운다([DeepTutor 절](../DeepTutor/overview.md#스킬화-관점-지도-2026-10-27-추가)) | — | 코드 확인(grep 부정 확인이라 다른 이름의 구현을 놓쳤을 가능성은 남는다), `prober/10-probe-doctrine.md` 1절 |
+
+**빠진 일 두 가지(이 레포에서 못 찾음)**: ① 지속 관리(복습 일정) ② 학습자 맞춤 자료 추천.
+
+**재구성한 구분**
+
+| 구분 | 원 지도 행 | 이유 |
+|---|---|---|
+| 스킬 재료(핵심) | 2 프로버, 3 계획, 4 교사, 5 연습, 6 입력 채널(확신도·사고 필드 부분), 13 추출·15 원장(기록 형식), 28 에이전트 스킬 | 위 1~6번 일. 본체는 프롬프트 글. 28번은 이 레포가 **이미 만든 스킬**(SKILL.md 160줄 + 파이썬 스크립트 3개, 읽기 전용, 표준 라이브러리만)이라 스킬 형식과 읽기 전용 경계를 보는 참고가 된다 |
+| 참고만 | 7 프롬프트 조립, 11 조사 에이전트, 14 노트 가져오기, 9 컴팩션 | 프롬프트 파일을 번호순으로 조립하는 규칙, 조사 brief 형식 |
+| 제외(제품 기능) | 1(턴 파이프라인)·8(도구 레지스트리)·10·12·16~27·29 | Next.js·Electron 앱을 위한 층. Claude Code가 대신한다(추론) |
+
+**이 레포를 스킬 재료로 읽을 때의 주의**
+- 프롬프트는 앱의 도구(퀴즈 카드 UI, 확신도 슬라이더, "확인" 버튼 접힘)를 전제로 쓰였다. 터미널 대화에는 "확신도를 어떻게 받나"를 새로 정해야 한다(추론).
+- 수준 진단은 한 번에 질문 하나씩 많이 오가야 해서 대화가 길어진다. 가벼움과 정밀도가 맞바뀐다.
+- 라이선스가 **AGPL-3.0**이다(1절). 프롬프트·스킬을 옮겨 쓰거나 배포할 때의 조건은 사용자가 판단할 일이고, 이 문서는 법률 판단을 하지 않는다.
+
+
+### 대표 흐름: 새 주제 학습 한 바퀴 (스펙 4개와 S2를 잇는 글, 2026-10-27)
+
+각 단계의 근거는 괄호의 스펙 R-ID를 따른다. 검증 수준은 그 R-ID의 것이다.
+
+1. 학습자가 새 세션에서 "무엇을 배우고 싶은지" 말한다. 기록에 `probe_done` 호출이 없으므로 요청마다 **프로버**가 만들어진다(`probe-measurement.md` 1.1-1).
+2. 프로버가 `ask_user_question`으로 목표를 구체화하고, 가닥마다 `probe`/`recall`로 질문을 하나씩 낸다. 학습자 답은 정오·**확신도**·사고글이 한 객체로 다음 요청의 도구 결과가 된다(`question-answer-contract.md`). 프로버는 맞고 확신하면 난이도를 크게 올리고 틀리면 좁히며 가닥의 바닥과 천장을 찾는다(권고, 프롬프트).
+3. 모든 가닥이 잡히면 프로버가 `probe_done`을 한 번 호출하고(대기 질문이 있으면 거부됨, 강제), 교사의 첫 턴을 일으키는 핸드오프가 큐에 들어간다(발화 시점은 `추론`). 이후 요청은 `probe_done`을 이음새로 **교사**를 만든다.
+4. 교사가 `plan_init`으로 선행 관계 지도(mermaid)를 쓰고 접근법 산문과 함께 제시한 뒤 턴을 끝낸다. 학습자가 고치거나 수락한다(`plan-tree.md`). 도구가 막는 것은 형식과 순환이고 노드 수는 막지 않는다.
+5. 수락 후 교사는 노드마다 **예측 → 한 단계 설명 → 확인** 사이클을 돈다. 모든 질문은 `nodeId`와 `type`(`predict`/`check`)을 갖고, 지도 위 위치는 이 태그에서 매번 계산한다(`teaching-cycle.md`). 확인에서 틀리면 보강 후에만 진행한다(권고). 학습 중 드러난 사고가 계획과 다르면 `plan_init`을 다시 불러 지도를 고친다.
+6. 나중에 학습자가 연습 세션을 열면(지식 지도에서 고른 명제가 있으면 함께) 연습 에이전트가 모범 풀이를 먼저 확정한 문제를 `problem`으로 내고, 힌트는 한 번에 한 단계, `conclude` 뒤 턴을 끝내며 다음 문제는 학습자의 go-ahead에서만 낸다(`practice-session.md`). 세션 끝 전에 틀린 것은 새 표면으로 재시험한다(권고).
+7. **이 흐름에는 "다음에 무엇을 언제 복습할지"를 정하는 단계가 없다.** 6번의 연습 대상은 학습자가 고르는 명제이고, 그래프에는 점수가 없다. 이 칸은 DeepTutor `review-scheduler.md`·`mastery-engine.md`가 채울 수 있다(스킬화 판단은 추론).
+
+**통합 검토 결과 (워크플로 4장 5번)**: ① 승인 행 2·3·4·5와 S2가 모두 있고 쓰지 않은 행은 `미작성` ② 기능 사이 경계: `plan_init` 호출자·`nodeId` 검사·질문 도구 입력이 세 스펙에서 같은 용어(S2의 필드명 `confidence`·`thinking`·`dontKnow`)를 쓴다 ③ 모든 C-ID(재구현 검증 반영 후 94건, 줄 범위 표기 151개)가 기준 SHA에 파일·줄 범위로 존재하고 `depends`가 순환하지 않는다(question-answer-contract → probe-measurement → plan-tree → teaching-cycle, practice-session은 S2만) ④ 위 흐름이 처음 입력부터 연습까지 글로 이어진다.
+
+**작업자의 지도 보정 제안과 처리**: (a) 행 6의 확신도·사고 필드를 S2에 흡수 — 반영. (b) 행 8(도구 레지스트리·인자 복구)을 쓸 때 `heal.ts`·`argument-heal.ts`를 소유해야 한다 — 행 8 `미작성`이라 보류. (c) 행 5의 선행 15·16은 경계만으로 충분 — 반영. (d) 행 1(세션 턴 파이프라인)이 다음 후보 — `next.md`에 적음. (e) `probe_done` 핸드오프 발화 시점은 행 10(job·wake) 본문을 읽어야 확정 — `next.md`에 적음.
+
+**문서와 코드의 차이(작업자 확인, 스펙 2.1에 근거)**: 계획 노드 수는 프롬프트 "상한 없음"과 도구 설명 "5–15"가 다르고 **둘 다 코드로 강제되지 않는다**. `docs/architecture.md`의 `PracticeStore`·분할기→생성기 구조는 코드에 없고 실제는 `kind:"practice"` 세션과 `problem`/`conclude`다. 프로버 독트린은 질문 도구를 `quiz`/`explain`이라 부르지만 등록된 이름은 `probe`/`recall`이다. 교사 프롬프트는 `ask_user_question`도 접힌다고 하지만 코드는 `quiz`/`explain`만 접는다. 세부는 각 스펙 2.1.
+
+
+### 재구현 검증 결과 (2026-10-27, 워크플로 4장 6번)
+
+스펙 1부·선행 스펙·1.5 코드 범위만 받은 독립 에이전트가 Python 3(표준 라이브러리)으로 **[강제] 규칙의 순수 검증·변환·파생 로직**을 다시 구현했다. [권고] 규칙(프롬프트가 요청할 뿐인 것)과 UI, LLM 호출은 구현 대상이 아니다.
+
+| 스펙 | 구현 범위 | 테스트 | 결과 문서 |
+|---|---|---|---|
+| question-answer-contract, probe-measurement, plan-tree, teaching-cycle | 질문 도구 입력 검증·답 객체 구성, `probe_done` 거부 조건·이음새, `plan_init` 해석·검증·위치 파생, `nodeId`·`type` 검증 | 83개 통과(이 4개 스펙의 1.6 T-ID 전부 + 추가) | [RESULT.md](../../artifacts/learnharness/reimplementation/core/RESULT.md) |
+| practice-session | `problem`/`conclude` 게이트, 활성 문제 판정, 마커·입력 처리 | 36개 통과(보강 **전** 스펙 기준) | [RESULT.md](../../artifacts/learnharness/reimplementation/practice/RESULT.md) |
+
+- **원본과 비교하지 않았다.** 원본이 TypeScript라 같은 입력으로 출력을 비교하지 못했다. 통과는 "스펙이 말한 것을 구현자가 테스트로 옮겨 통과했다"는 뜻이고 "원본과 같다"는 뜻이 아니다.
+- **드러난 스펙 빈틈은 모두 원본 코드로 확인해 스펙에 반영했다**(실행은 하지 않고 코드 읽기). 보강 뒤의 규칙까지 재구현이 통과하는지는 다시 돌리지 않았다.
+- **재구현자의 주장이 코드와 달라 채택하지 않은 것**: `research` 등록이 조건부라는 주장(`jobTools`가 4종을 조건 없이 만들고 `tools.ts:335`의 분기는 항상 참인 죽은 분기), 서버가 정수만 받는다는 근거(검증 코드 없음, 주석뿐), 추출 입력이 "교사 텍스트만"이라는 서술(코드는 assistant 메시지 전부, 프로버 단계 텍스트 포함), `dismiss-problem`을 `POST /api/chat`로 보낸다는 서술(실제 경로 `POST /api/chats/<id>/dismiss`).
+- **재구현자가 옳아서 스펙을 고친 것**: "도구를 끌 수 없다"는 서술(실제로는 설정 쓰기 검증의 보장이고 팩토리는 값이 `false`인 도구를 이름 불문 뺀다), `conclude`가 공개하는 풀이(같은 메시지의 뒤 블록을 포함), `parseChatInput`의 빈 글 검사와 `parseDismissInput`이 C-ID에서 빠졌던 것.
+- **repo 밖 라이브러리**(pi-ai의 스키마 검증)가 거절할 때의 문구·`isError` 여부는 코드로 정할 수 없다. 미결정이 아니라 1.2 외부 의존과 확인 한계에 경계로 적었다("거절되고 `execute`는 안 불린다"까지만 계약).
+- 아직 안 한 것: 시드 섞기(FNV-1a + mulberry32)의 Python 이식이 JS와 같은 순서를 내는지는 원본을 실행하지 않아 미확인이다(스펙 시험 벡터는 코드를 옮긴 계산기 값).
 
 ---
 

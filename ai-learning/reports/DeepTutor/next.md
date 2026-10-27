@@ -1,7 +1,7 @@
 ---
 sha: "a31d82624c27d75f4e771d4fcb78dce16470b383"
 created: 2026-10-25
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # Next Session Plan: DeepTutor
@@ -18,7 +18,7 @@ updated: 2026-10-25
 - [x] 등록부 전수 집계: 턴 캡빌리티 11, 루프 확장 14, 내장 도구 101, RAG 공급자 9, LLM 제공자 스펙 45, 임베딩 7·검색 14·음성 6·이미지 3·영상 2·파싱 7·서브에이전트 11·채널 16
 - [x] 마스터리 정책(`is_mastered`·`next_objective`·게이트 상수·복습 간격표)과 연습 스케줄러 `schedule` 전문, 메모리 쓰기 경로(`write_memory`, L3 참조 주입 `executor.py:572`)
 - [x] 기능 지도 53행(핵심 33·부속 20)·공유 계약 8, 구조도(`diagrams/structure.{json,html}`) 산출물 검증·브라우저 확인
-- [ ] 스펙 범위 승인(아직 없음) — 4장(기능 스펙)은 시작하지 않았다
+- [x] 스펙 범위 승인(2026-10-27, 행 10 일부) — `capabilities/mastery-engine.md`·`review-scheduler.md` draft 작성, C-ID 31건 기준 SHA 존재 확인
 
 ---
 
@@ -40,7 +40,7 @@ updated: 2026-10-25
 
 | 기능 | 근거 | 상태 |
 |---|---|---|
-| 마스터리 엔진(10), 마스터리 튜터 루프(11) | 지도 10·11행 | 승인 대기. 학습자 상태·수업 진행 축의 중심 |
+| 마스터리 엔진(10): 상태·게이트·증거 기록, 복습 스케줄러 | [capabilities/mastery-engine.md](./capabilities/mastery-engine.md), [capabilities/review-scheduler.md](./capabilities/review-scheduler.md) | **ready 2개**(2026-10-27 승인·작성, 같은 날 재구현 검증 후 보강). 마스터리 튜터 루프(11)와 경로 생성 `topic_generation.py`는 미승인 |
 | 3계층 메모리(14), 학습 저널(15), 컨텍스트 조립(4) | 지도 14·15·4행 | 승인 대기. 학습자 상태가 다음 대화에 쓰이는 경로 |
 | 턴 접수·저장·재생(1), 채팅 에이전트 루프(2), 도구 레지스트리(3) | 지도 1~3행 | 승인 대기. 모든 기능의 선행 |
 | 지식베이스·RAG 엔진(17·18) | 지도 17·18행 | 승인 대기. 자료 연결 축 |
@@ -49,7 +49,9 @@ updated: 2026-10-25
 
 ## 4. 다음에 볼 파일 및 함수 (Next Entry Points)
 
-다음에 쓸 기능 스펙이 있으면 먼저 적는다: (승인 후) `마스터리 엔진` → `capabilities/mastery-engine.md` · 막힌 점 `learning/service.py` 3,355줄 본문 미탐색, 선행 공유 계약 S4
+승인 범위 스펙 2개는 ready이고 재구현 검증(51 테스트, 원본과 순수 계산 8,075사례 비교 불일치 0)을 마쳤다. 남은 일: 보강한 `service.py` 경로 규칙(R-14~R-24, T-29~T-46)으로 재구현을 다시 돌려 원본과 비교하기. 아래는 이 스펙들이 draft였을 때의 확인 순서로, 1~2번은 해소됐다(`prerequisite_ids`는 R-21, `register_question`은 R-22). 기록용으로 남긴다: ① `deeptutor/learning/objective_relations.py`와 `service.py`에서 `prerequisite_ids`를 읽어 진행을 막는 코드가 있는지 확인(`mastery-engine.md` R-07 미결정) ② `service.py` `register_question`·`_grade_group`(1412-1567)·`repair_question`(2356~)과 `lesson_evidence.py`는 읽지 않았으니 단일 문항 경로에 영향이 없는지 확인 ③ 가능하면 원본 순수 함수를 읽기 전용으로 호출해 `review-scheduler` T-ID를 `실행 확인`으로 올린다(이번에는 호출이 거부되어 손 계산만 했다). 경로 생성 `topic_generation.py`는 미승인 후보다. 아래 표는 이전 세션 기준 후보다.
+
+다음에 쓸 기능 스펙: 승인 범위는 끝났다. 후보는 `마스터리 튜터 루프`(행 11, `capabilities/mastery/loop.py` 901줄 미읽음)와 `경로 생성`(`learning/topic_generation.py`). 둘 다 사용자 승인이 필요하다.
 
 | 대상 파일 경로 | 함수 / 클래스 | 확인 목적 |
 |---|---|---|

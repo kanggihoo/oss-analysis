@@ -1,7 +1,7 @@
 ---
 sha: "b277ee3e0fa24249c1b2d0f9b7fd6ed485f484b9"
 created: 2026-10-25
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # Next Session Plan: learnharness
@@ -12,6 +12,7 @@ updated: 2026-10-25
 
 ## 1. 이번 세션에서 확인한 범위
 
+- [x] 2026-10-27 기능 스펙 5개 작성(`capabilities/`: question-answer-contract, probe-measurement, plan-tree, teaching-cycle, practice-session), 모두 ready. C-ID 61건 기준 SHA 존재 확인, 대표 흐름·통합 검토는 overview 2절 "스킬화 관점 지도" 끝
 - [x] 라이선스: 루트 `LICENSE`와 `skills/learnharness/LICENSE` 모두 AGPL-3.0 본문, 서로 바이트 동일(`cmp`)
 - [x] `git ls-files` 전체 훑기, README·`docs/architecture.md`(앞 약 230줄)·`docs/development.md`·`docs/desktop-release.md`·`package.json`·`config.ts`
 - [x] 턴 합성 루트 `src/server/chat-handler.ts` 전체, 에이전트 3종 팩토리 `teacher-agent.ts`, 도구 구성 `tools.ts`·`tools/{probe,practice,plan}.ts`, 프롬프트 조립 규칙
@@ -39,14 +40,16 @@ updated: 2026-10-25
 
 | 기능 | 근거 | 상태 |
 |---|---|---|
-| 2. 이해도 측정, 3. 의존 관계 계획, 4. 가르치기, 5. 연습 세션 | [overview 2절 지도](./overview.md#기능-지도) | 승인 대기 |
-| 13. 세션 추출 파이프라인, 15. 그래프 원장·파생 뷰, (14. 노트 가져오기) | 같음 | 승인 대기 |
-| 8. 도구 레지스트리와 인자 복구, 1. 세션 턴 파이프라인, 10. job 프로토콜과 wake | 같음 | 승인 대기 |
-| 부속 10행(19~21, 23~29) | 같음 | 사용자에게 따로 필요 여부를 물어야 함 |
+| 2. 이해도 측정, 3. 의존 관계 계획, 4. 가르치기, 5. 연습 세션, S2 질문·답변 계약 | [capabilities/](./capabilities/) | **ready 5개**(2026-10-27 승인·작성, 같은 날 재구현 검증 후 보강). 행 6의 확신도·사고 필드는 S2에 흡수 |
+| 13. 세션 추출 파이프라인, 15. 그래프 원장·파생 뷰, (14. 노트 가져오기) | [overview 2절 지도](./overview.md#기능-지도) | 미승인(스킬화 관점에서는 기록 형식 참고용) |
+| 1. 세션 턴 파이프라인(다음 첫 후보: 입력 게이트·`continue`·`text` 처리), 8. 도구 레지스트리와 인자 복구(`heal.ts`·`argument-heal.ts` 소유), 10. job 프로토콜과 wake(`probe_done` 핸드오프 발화 시점 확정) | 스펙 작성 작업자 보고 | 미승인 |
+| 부속 10행(19~21, 23~29) | 같음 | 제외로 기록(사용자 별도 답 없음) |
 
 ---
 
 ## 4. 다음에 볼 파일 및 함수 (Next Entry Points)
+
+승인 범위 스펙은 모두 썼고 재구현 검증(83+36 테스트)을 마쳤다. 남은 검증: ① 보강 뒤 규칙으로 재구현을 다시 돌리기 ② 원본(TypeScript, Node에서 직접 실행 가능한 것으로 보임 — 미확인)과 같은 입력으로 출력 비교(`plan_init` 해석기, `buildAnswer`, 시드 섞기 등). 다음 후보: 행 10 `src/server/jobs.ts`의 wake 파이프라인을 읽어 `probe-measurement.md` R-10(핸드오프 발화 시점, 현재 `추론`)을 코드 확인으로 올린다. 그다음 행 1 세션 턴 파이프라인. 아래 표는 이전 세션 기준 후보다.
 
 다음에 쓸 기능 스펙은 승인 후 정한다(지도 순서대로, 선행 계약부터: S1·S2 → 2 → 3 → 4 → 5).
 

@@ -673,3 +673,27 @@
 
 ## [2026-10-26] update | roast-room q1 후속: 좌석 권한·스폰 주기·json 역할
 - `live-room.md` 전문과 12개 좌석 frontmatter(`tools`, `maxTurns`)를 확인해 `reports/roast-room/questions/q1-seat-communication.md`에 2.4절을 추가하고, 확인된 미확인 항목 하나를 지웠다. 코드 실행 없음.
+
+## [2026-10-27] update | DeepTutor·learnharness 목적 재정의: 스킬화 관점 지도 추가
+- 사용자가 목적을 "Claude Code 같은 곳에서 쓰는 가벼운 학습 스킬(학습·추적·맞춤 자료 수집·수준별 설명·지속 관리)"로 정했다. 두 레포의 SHA 변동 없음(`a31d826`, `b277ee3`). 범위 승인은 아직 없다.
+- 새로 읽은 것: learnharness `prompts/{prober,teacher,practice,shared}` 주요 파일 전문, `skills/learnharness/SKILL.md`·`references/data-format.md`, `researcher.ts` 머리, `plan.ts` 도구 설명. DeepTutor `learning/{policy,mastery}.py` 전문, `scheduler.py` 앞 120줄, `topic_generation.py`·`topic_materials.py`·`models.py` 머리, `prompts/en.yaml`, `services/memory/{store,recall}.py` 머리. 코드 실행 없음.
+- 쓴 것: 두 `overview.md` 1절 분석 목적·스펙 범위 줄과 2절 끝 "스킬화 관점 지도"(기존 기능 지도는 유지). 기능 스펙은 쓰지 않았다.
+- 결과: DeepTutor는 학습 추적·게이트·복습 일정(순수 로직 약 1,160줄)이, learnharness는 진단·계획·설명·연습(프롬프트 글)이 강하고 서로의 빈 곳을 채운다. 둘 다 학습자 맞춤 자료 추천은 못 찾았다. learnharness 복습 일정 없음은 grep 부정 확인.
+- 발견한 차이: learnharness 계획 프롬프트는 "크기 상한 없음", `plan.ts` 도구 설명은 "5–15 노드"(강제 여부 미확인).
+
+## [2026-10-27] capability | DeepTutor·learnharness 학습 스킬 재료 기능 스펙 7개
+- 사용자가 스킬화 관점 지도에서 "1,2 진행"을 승인했다. 승인 범위는 overview 1절에 기록(learnharness 행 2·3·4·5 + 선행 계약 S2, DeepTutor 행 10 중 상태·게이트·복습 스케줄러). 부속 행은 별도 답이 없어 전부 제외로 기록.
+- 서브에이전트 2개가 병렬로 작성(각자 자기 스펙 파일만 씀). learnharness `capabilities/` 5개(question-answer-contract, probe-measurement, plan-tree, teaching-cycle, practice-session) **ready 5**, DeepTutor `capabilities/` 2개(mastery-engine, review-scheduler) **draft 2**. 지도 행 10은 두 스펙으로 분리, 행 6은 S2에 일부 흡수.
+- 메인 세션 확인: 7개 스펙의 C-ID 92건이 기준 SHA에 파일·줄 범위로 존재, `depends` 순환 없음(검사 스크립트 한 건은 파일 끝 줄바꿈 없음으로 인한 오탐이라 정상), 공유 필드명 일치. 대표 흐름과 통합 검토 결과를 두 overview 2절에 씀. 코드 실행 없음(DeepTutor 작업자의 원본 모듈 호출 시도는 거부되어 수락 사례는 손 계산).
+- 정정: 같은 날 쓴 스킬화 관점 지도의 DeepTutor 7번 행("유형별 간격표를 쓴다")이 틀렸다. 다음 복습 간격은 `안정도 × (−ln 목표 기억률)`이고 표는 첫 간격·옛 상태 채우기·칸 번호에만 쓰인다(`scheduler.py:148-159, 249-250`). overview 7번 행과 이 기록의 앞선 요약(복습 "간격표")을 고쳤다.
+- 확인 한계: `probe-measurement` R-10(핸드오프 발화 시점)은 코드 주석 기준 `추론`. DeepTutor `mastery-engine` R-07 미결정(`prerequisite_ids` 강제 코드 미발견). 모든 `[권고]` 규칙은 모델이 따르는지 미확인.
+
+## [2026-10-27] capability | 학습 스킬 재료 스펙: draft→ready 승격과 재구현 검증 (DeepTutor 2, learnharness 5)
+- 사용자 요청("draft를 ready로 올리기", "재구현 검증"). DeepTutor는 `prerequisite_ids`가 진행을 막는지 모든 사용처를 열거해 확인했다(막지 않음, 검증·문맥·지도 요약에만 쓰임 → mastery-engine R-21)하고 `register_question` 단일 문항 경로를 읽어 R-22로 썼다. 두 스펙 draft → ready.
+- 실행: 원본 순수 모듈 7개를 기준 SHA에서 꺼내 임시 폴더에 복사해 호출했다(`artifacts/DeepTutor/mastery-demos/run_pure.py` 40건, `run_pure2.py` 33건, 허용오차 ±0.001, 모두 통과). `service.py`·SQLite 경로 사례는 실행하지 못했다.
+- 재구현 검증(독립 에이전트 4명, 스펙 1부·선행·C-ID만 제공): DeepTutor 2스펙 51테스트 통과, learnharness 질문·프로브·계획·교사 4스펙 83테스트, 연습 36테스트 통과. 결과 문서는 `artifacts/{DeepTutor,learnharness}/reimplementation/**/RESULT.md`.
+- 원본과 같은 입력 비교는 DeepTutor 순수 계산만 했다(`diff_test.py`, 8,075사례, 고정 시드, 불일치 0). 비교의 검출력을 확인하려고 재구현 복사본에 변이를 넣었다. 처음 비교는 "같은 세션 창" 변이를 못 잡아 시간 간격 후보를 늘렸다. learnharness는 원본이 TypeScript라 비교하지 않았다.
+- 정정: 스펙 수치 `28.475`→`28.4737`, `60.902`→`60.8995`, `7.364`→`7.3633`. 처음 실행 때 허용오차를 0.01로 잡아 오차를 가렸고, 재구현자의 지적으로 ±0.001로 조여 확인했다.
+- 스펙 보강(작업자 4명, 원본 코드로 지적 검증 후 반영): 코드와 달라 재구현자 주장을 채택하지 않은 것(`research` 등록 조건부, 서버 정수 검증, 추출 입력 "교사만" 등)과 옳아서 스펙을 고친 것(도구 토글 서술, `conclude` 공개 규칙, 수치, 누락 C-ID)을 두 overview 2절 "재구현 검증 결과"에 적었다. 새 문서-코드 차이는 각 스펙 2.1.
+- 확인 한계: `[권고]` 규칙(프롬프트)이 모델에게 실제로 지켜지는지는 미확인. 보강 뒤 규칙으로 재구현을 다시 돌리지 않음. learnharness 시드 섞기의 JS 일치 미확인. pi-ai 스키마 검증 거절 문구는 repo 밖이라 경계로만 기록.
+- 상태: ready 7 / draft 0 / 승인 범위 밖 `미작성`. 재구현 검증 완료.

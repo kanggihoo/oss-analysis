@@ -1,7 +1,7 @@
 ---
 sha: "a31d82624c27d75f4e771d4fcb78dce16470b383"
 created: 2026-10-25
-updated: 2026-10-25
+updated: 2026-10-27
 sources:
   - repos/DeepTutor/LICENSE
   - repos/DeepTutor/THIRD_PARTY_NOTICES.md
@@ -48,7 +48,7 @@ sources:
 - **Repo URL**: `https://github.com/HKUDS/DeepTutor`
 - **기준 SHA**: `a31d8262` (커밋 날짜 2026-10-19, `main`), `deeptutor/__version__.py`의 버전 1.6.15. 코드 확인.
 - **작업트리 상태**: Clean (`ai-learning/artifacts/DeepTutor/repo-metadata.txt`)
-- **분석 목적**: 학습 / 설계 참고 — AI와 함께 배우는 학습 앱의 기능·구조 파악. `ai-learning/GUIDE.md`의 비교 축(① 학습자 상태 ② 수업 진행 ③ 자료 연결 ④ 모델·데이터)에 맞춰 읽되, 이번 세션은 기능 지도와 구조도까지(2026-10-25 사용자 요청).
+- **분석 목적**: 학습 / 설계 참고 — **Claude Code 같은 에이전트 안에서 쓰는 가벼운 학습 스킬**을 만들기 위한 재료 찾기(2026-10-27 사용자 재정의). 스킬이 할 일: 주제 학습, 학습한 것 추적, 맞춤 자료 수집, 수준별 설명, 지속 관리. 복잡하게 만들지 않는 것이 조건이다. 그래서 2절 "스킬화 관점 지도"를 기능 지도 뒤에 추가했다(제품 전체 지도는 그대로 둔다). (이전 목적: 학습 / 설계 참고 — AI와 함께 배우는 학습 앱의 기능·구조 파악. `ai-learning/GUIDE.md`의 비교 축(① 학습자 상태 ② 수업 진행 ③ 자료 연결 ④ 모델·데이터)에 맞춰 읽되, 이번 세션은 기능 지도와 구조도까지(2026-10-25 사용자 요청).)
 - **라이선스** (LICENSE 파일 본문을 직접 읽음):
   - `LICENSE` — Apache License 2.0(Version 2.0, January 2004) 전문 202줄. 부록 끝의 `Copyright 2025 Data Intelligence Lab, The University of Hong Kong`와 `Licensed under the Apache License, Version 2.0` 고지가 있다. 부록의 안내 문단(185~188줄)은 표준 Apache 2.0 부록 문구와 달리 `"Alarm or alarm" copyright header … (Alarm is the umbrella trademark …)`로 적혀 있다(조항 본문 1~9와는 별개의 부록 설명이라 허가 조건에는 영향이 없다고 읽지만, 문구가 표준과 다르다는 사실만 기록). `pyproject.toml:18`의 `license = {text = "Apache-2.0"}`와 일치. 코드 확인.
   - `web/vendor/thinking-orbs/LICENSE` — MIT, `Copyright (c) 2026 Jakub Antalik`. `THIRD_PARTY_NOTICES.md`가 출처(`Jakubantalik/Libraries` `packages/thinking-orbs`, 커밋 `3862ffa3`)와 지역 수정 사실을 적는다. 코드 확인.
@@ -64,7 +64,7 @@ sources:
   - 컨테이너: `Dockerfile`(웹 빌드+백엔드 한 이미지), `docker-compose*.yml`·`compose.yaml`(Podman), `Dockerfile.runner`(샌드박스 사이드카), 선택 사이드카 PocketBase·Redis.
   - 확장 입구: `examples/plugins/learning_echo`(예제 플러그인), 읽기 확장 entry point 5개(`pyproject.toml:105`), 루트 `SKILL.md`(에이전트용 CLI 핸드오버 문서).
   - `tests/`(881개)와 `web/tests/`, `.github/workflows` 4개는 열지 않았다(워크플로 2장 3번).
-- **스펙 범위**: 아직 승인 전 · 제외: 없음(승인 후 기록)
+- **스펙 범위**: 2026-10-27 승인(사용자 "1,2 진행", 2절 "스킬화 관점 지도" 기준). 승인 행: 10 마스터리 엔진 중 학습 상태·게이트·다음 목표·증거 기록(`learning/{models,policy,mastery}.py`와 기록 경로)과 복습 스케줄러(`learning/scheduler.py`). 4장에서 두 스펙 `mastery-engine.md`, `review-scheduler.md`로 나눈다(스케줄러가 독립된 550줄 상태 기계이고, 한쪽이 다른 쪽을 `depends`로 가져 순환하지 않는다). 제외: 부속 20행 전부(이유: 사용자 제외, 별도 답 없음) · 나머지 핵심 행, 경로 생성 `topic_generation.py` 포함(이유: 이번 승인에 없음, `미작성`)
 
 ---
 
@@ -121,7 +121,7 @@ README 첫 줄의 주장은 "Lifelong Personalized Tutoring"이고, 핵심 특�
 
 | 기능 | 사용자 동작·경계 | 진입점·처음 읽을 코드 | 선행 | 구분 | 스펙·상태 | 검증 수준 |
 |---|---|---|---|---|---|---|
-| 10. 마스터리 엔진 | 학습 경로(`LearningProgress`: 모듈 → 지식점 4유형 memory/concept/procedure/design, 증거, 퀴즈 시도, 오류, 대기 질문, 학습자 프로필)를 SQLite 트랜잭션으로 저장. 순수 정책: memory·procedure는 정량 게이트 0.9, concept·design은 모델의 정성 평가로 게이트, "다음에 할 것"은 숙달 상태에서 계산(단계 카운터 없음). 복습은 유형별 간격표·목표 기억률(기본 0.9, 0.7~0.99)로 스케줄 | `deeptutor/learning/service.py:328 LearningService`(`grade_and_record :535`), `deeptutor/learning/policy.py:150 is_mastered`(`:266 next_objective`, `QUANTITATIVE_GATE`), `deeptutor/learning/scheduler.py:127 SpacedRepetitionScheduler`(`INTERVAL_SEQUENCES`), `deeptutor/learning/storage.py:395 LearningStore`(`:108 LearningTransaction`), `deeptutor/learning/models.py:619 LearningProgress`, `deeptutor/learning/grading.py:13 grade_answer`, `deeptutor/learning/semantic_assessment.py` | S4 | 핵심 | `capabilities/mastery-engine.md` · 미작성 | 코드 확인(게이트 상수·`next_objective` 시그니처·간격표·저장소 클래스 정의) / `service.py` 3,355줄·`storage.py` 본문 대부분 미탐색 |
+| 10. 마스터리 엔진 | 학습 경로(`LearningProgress`: 모듈 → 지식점 4유형 memory/concept/procedure/design, 증거, 퀴즈 시도, 오류, 대기 질문, 학습자 프로필)를 SQLite 트랜잭션으로 저장. 순수 정책: memory·procedure는 정량 게이트 0.9, concept·design은 모델의 정성 평가로 게이트, "다음에 할 것"은 숙달 상태에서 계산(단계 카운터 없음). 복습은 유형별 간격표·목표 기억률(기본 0.9, 0.7~0.99)로 스케줄 | `deeptutor/learning/service.py:328 LearningService`(`grade_and_record :535`), `deeptutor/learning/policy.py:150 is_mastered`(`:266 next_objective`, `QUANTITATIVE_GATE`), `deeptutor/learning/scheduler.py:127 SpacedRepetitionScheduler`(`INTERVAL_SEQUENCES`), `deeptutor/learning/storage.py:395 LearningStore`(`:108 LearningTransaction`), `deeptutor/learning/models.py:619 LearningProgress`, `deeptutor/learning/grading.py:13 grade_answer`, `deeptutor/learning/semantic_assessment.py` | S4 | 핵심 | [`capabilities/mastery-engine.md`](capabilities/mastery-engine.md) ready(상태·게이트·증거 기록) + [`capabilities/review-scheduler.md`](capabilities/review-scheduler.md) ready(복습 일정). 2026-10-27에 둘로 분리: 스케줄러 550줄이 독립 상태 기계이고 `depends`가 스케줄러 → 엔진 한 방향이라 순환이 없다. 경로 생성 `topic_generation.py`는 미작성 | 코드 확인(게이트 상수·`next_objective` 시그니처·간격표·저장소 클래스 정의, 스펙에서 `service.py` 증거 기록 경로 추가 확인) / `service.py` 3,355줄·`storage.py` 본문 대부분 미탐색 |
 | 11. 마스터리 튜터 루프 | `mastery_path` 캡빌리티가 경로 바인딩·경로 리스(동시 턴 방지)를 정하고 튜터 프롬프트의 `MasteryLoopPipeline`(채팅 루프 엔진)을 실행. 게이트 도구(status·quiz·grade·assess·skip·repair·defer·build·mode·profile·revise)와 경로 이동 도구(paths·switch·leave), 레슨 준비. 카드형 문제 응답은 세션 어댑터가 채점 | `deeptutor/capabilities/mastery/capability.py:57 MasteryPathCapability`, `deeptutor/capabilities/mastery/pipeline.py:64 MasteryLoopPipeline`, `deeptutor/capabilities/mastery/tools.py:1606 MasteryGradeTool`(`:1067 MasteryQuizTool`, `:1946 MasteryAssessTool`, `:2294 MasteryBuildTool`), `deeptutor/capabilities/mastery/loop.py`, `deeptutor/services/session/turns/learning_adapter.py:22 LearningTurnAdapter`, `deeptutor/api/routers/mastery_path.py`, `deeptutor/learning/topic_generation.py` | 10, 2, 3, 4, 17, S7 | 핵심 | `capabilities/mastery-tutor.md` · 미작성 | 코드 확인(capability docstring·도구 클래스 목록·리스 획득 코드) / `tools.py` 3,816줄·`loop.py` 본문 미탐색 |
 | 12. 연습·문제 노트북 | 문제(퀴즈·마스터리 시도)를 문제 노트북(항목·북마크·카테고리, 세션 SQLite `notebook_entries`)에 모으고, 연습 큐·요약·분석·정답 확인·복습(SM-2식 again/hard/good/easy)과 CSV·XLSX·JSON 가져오기(비실행 파서), AI 판정 WebSocket(이미지 답안 포함) | `deeptutor/api/routers/question_notebook.py`, `deeptutor/api/routers/practice.py:135 queue`(`:243 review`, `:359 import/commit`), `deeptutor/services/practice/scheduler.py:30 schedule`, `deeptutor/services/practice/storage.py:100 PracticeStore`, `deeptutor/api/routers/quiz_judge.py:231 websocket_quiz_judge`, `deeptutor/tools/question_bank.py` | 1, S8 | 핵심 | `capabilities/practice-and-question-bank.md` · 미작성 | 코드 확인(`schedule` 함수 전문, 라우트 목록, `notebook_entries` 테이블 존재) / 판정 프롬프트·가져오기 파서 본문 미탐색. 마스터리 스케줄러(10)와 별개 상태이고 알고리즘도 다름(SM-2식 vs 유형별 간격표) |
 | 13. 코스 컨테이너·코스 스터디 | 코스 = 사용자별 학습 컨테이너(KB·책·노트북·마스터리 경로·읽기 워크스페이스·파트너를 참조 집합으로 보유, 규약, 기본값, 강의 계획 단위). course_study 캡빌리티는 코스 ID가 묶인 턴에서만 활성화되어 `course_overview`·`course_material`·`course_edit`·`course_handoff` 4도구로 상태를 보고 이동을 제안 | `deeptutor/services/courses.py:133 StudyCourse`, `deeptutor/services/courses_state.py`, `deeptutor/capabilities/course_study/mode.py:54 CourseStudyCapability`, `deeptutor/capabilities/course_study/capability.py:380 CourseStudyLoopCapability`, `deeptutor/capabilities/course_study/tools.py:560 CourseOverviewTool`, `deeptutor/api/routers/courses.py` | 2, 3, S7 | 핵심 | `capabilities/courses.md` · 미작성 | 코드 확인(docstring·클래스) / 상태 집계 본문·핸드오프 폐쇄 집합 미탐색 |
@@ -224,6 +224,59 @@ README 첫 줄의 주장은 "Lifelong Personalized Tutoring"이고, 핵심 특�
   - 외부 시스템 동작: 모델 제공자 API, EduHub/ClawHub 서버(`eduhub.deeptutor.info`), Invidious, YouTube·Bilibili 자막, IM 플랫폼, IMA·WeKnora·Kiwix·LightRAG Server·MarginNote4 애드온, PocketBase·Redis, Manim·MinerU·Docling 같은 선택 의존성. 모두 `미확인`.
   - README의 정량·운영 주장(예: 문서 사이트 24시간 재동기화, 테마 4종, 릴리스 이력)은 대조하지 않았다. `미확인`.
   - 하위 LICENSE가 아닌 `package-lock.json`·Python 의존성의 라이선스(`pyproject.toml` 의존성 목록은 읽었지만 각 패키지 라이선스는 미확인).
+
+
+### 스킬화 관점 지도 (2026-10-27 추가)
+
+분석 목적이 "Claude Code 안의 가벼운 학습 스킬"로 바뀌어, 53행 제품 지도를 **학습 스킬이 하는 일 7가지**에 다시 대 보았다. 위 53행 지도는 코드 기준 제품 지도로 그대로 두고, 이 표는 "이 레포에서 무엇을 가져올 수 있나"만 본다. 승인된 스펙 범위가 아니라 **재구성 제안**이다.
+
+| 학습 스킬의 일 | 이 레포가 하는 방법 | 가져올 만한 것 (근거 위치) | 원 지도 행 | 검증 수준 |
+|---|---|---|---|---|
+| 1. 현재 수준 진단 | 얕다. 고정 진단 퀴즈 생성 프롬프트(5~8문항, 쉬운 것→어려운 것). 경로 정책은 건드리지 않은 목표에 `probe`(가르치기 전 테스트아웃)를 지시한다 | 거의 없음. 진단은 learnharness 프로버가 훨씬 정교하다 | 10 | 코드 확인(`learning/prompts/en.yaml` `diagnostic`, `learning/policy.py` `NextStep` 독스트링) |
+| 2. 학습 계획 | 주제+목표+사용자 자료 → 모듈 3~8개(상한 20), 모듈당 목표 2~7개, 목표 유형 4종(memory/concept/procedure/design), 선행 `prerequisite_ids`. 모듈마다 "끝나면 할 수 있는 것" 한 문장. 사용자 문서는 하나도 빠짐없이 어느 모듈에 배정 | 모듈·목표 구조와 "능력으로 쓴 목표 문장" 규칙, 유형 4종(복습 간격이 유형에 묶임) | 10, 17 | 코드 확인(`learning/topic_generation.py` 상수, `learning/models.py` `KnowledgePoint`, `learning/prompts/en.yaml` `topic`) |
+| 3. 수준별 설명 | 얕다. `explain` 프롬프트는 비유 → 정의 → 예 1~2개 → 흔한 오해의 고정 순서이고 **학습자 수준을 입력으로 받지 않는다**(`{knowledge_point}`만). 수준 적응은 "무엇을 다루나"(게이트·다음 목표)에서만 일어난다 | 거의 없음(고정 템플릿). 설명 방법은 learnharness 교사 독트린이 낫다 | 11 | 코드 확인(`en.yaml` `explain`); 튜터 루프 본문 `capabilities/mastery/loop.py`(901줄)는 미읽음 |
+| 4. 맞춤 자료 수집 | 사용자가 고른 자료(챕터 단위 최대 24,000자, 책 24만, 총 60만자)를 목록(매니페스트)으로 알려 주고 튜터가 `read_source`로 필요할 때만 읽는다. 웹 조사는 딥 리서치·`web_search`가 따로 있다 | 아이디어: "자료 목록은 매번 알리고 본문은 필요할 때 읽는다". 구현은 제품 전용이라 가져올 코드는 없음 | 5, 17, 43 | 코드 확인(`learning/topic_materials.py` 머리 설명·상수). 마스터리 경로가 딥 리서치와 연결되는지는 미확인. **학습자 맞춤으로 자료를 골라 주는 기능은 확인한 범위에 없다**(추론) |
+| 5. 학습 추적 | 시도마다 증거 기록(결과·확신도·힌트 수·시각·피드백) `LearningEvidence`, `QuizAttempt`, 오답 `ErrorRecord`(유형 4종: structural/deviation/application/metacognitive). 숙달도 = 최근 5회 가중 정확도(0.5·0.7·0.85·0.95·1.0), 1회면 상한 0.5, 2회면 0.8 | **`compute_mastery` 40줄**: "한 번 맞았다고 숙달이 아니다"를 구현. 오답 유형 4종 분류 | 10 | 코드 확인(`learning/mastery.py` 전문, `learning/models.py`) |
+| 6. 지속 관리: 다음에 뭘 할지 | **`next_objective` 우선순위**: 대기 중인 질문 채점 → 복습 기한이 지난 것 → 첫 미숙달 목표 → 완료. 게이트: memory·procedure는 숙달도 ≥0.9, concept·design은 튜터가 `mastery_assess`(파인만식 설명)로 판정. 이미 증명한 목표는 건너뜀 | 우선순위 규칙과 게이트(순수 함수, I/O·LLM 없음) | 10 | 코드 확인(`learning/policy.py` `next_objective`·`is_mastered`·`QUANTITATIVE_GATE` 전문 읽음) |
+| 7. 지속 관리: 복습 일정 | 지수 망각 모델. **다음 복습 간격 = 안정도(stability) × (−ln 목표 기억률)**(목표 기억률 기본 0.9, 허용 0.7~0.99). 성공하면 안정도가 늘고 실패하면 간격을 절반 가까이로 줄인다. 유형별 표(memory 0·1·3·7·14·30·60일, concept 3·7·14·30, procedure 3·7·14, design 14·28)는 **첫 간격·옛 상태 채우기·칸 번호 표시에만** 쓰이고 실제 간격은 표 최댓값을 넘을 수 있다. 코드 주석이 "FSRS로 보정한 것이 아님"이라고 적었다. 직전 복습과 너무 가까운 시도(최대 0.25일)는 복습으로 세지 않는 규칙이 있다 | **망각 모델 수식과 "가까운 시도는 복습 아님" 규칙.** 표를 그대로 간격으로 쓰면 틀린다 | 10 → 스펙 `review-scheduler.md` | 코드 확인(`learning/scheduler.py:148-159`·`249-250`, 스펙 작성 중 줄 단위 재확인). 2026-10-27 초안의 "유형별 간격표를 쓴다"는 표현은 틀려서 고쳤다 |
+
+**빠진 일 두 가지(이 레포에서 못 찾음)**: ① 정교한 수준 진단 ② 수준에 맞춘 설명. 둘은 learnharness가 채운다([learnharness 절](../learnharness/overview.md#스킬화-관점-지도-2026-10-27-추가)).
+
+**재구성한 구분** (제품 전체가 아니라 스킬 재료 관점)
+
+| 구분 | 원 지도 행 | 이유 |
+|---|---|---|
+| 스킬 재료(핵심) | 10 마스터리 엔진 중 `policy.py`·`mastery.py`·`scheduler.py`·`topic_generation.py`·`models.py` | 위 5·6·7번 일의 본체. 합계 약 1,760줄(`policy` 566 + `mastery` 40 + `scheduler` 550 + `topic_generation` 601)이지만 `service.py` 3,355줄·`storage.py` 2,109줄은 제품 저장·서비스 층이라 제외 |
+| 참고만 | 11 튜터 루프, 14 3계층 메모리, 15 학습 저널, 4 컨텍스트 조립, 5 딥 리서치, 43 웹 검색 | 세션 사이에 학습자 정보를 잇는 방법과 자료 수집 아이디어. 본문 미확인이 많다 |
+| 제외(제품 기능) | 1~3, 6~9, 12~13, 16~53 | 서버·웹 UI·RAG·멀티유저·파트너·채널 등. Claude Code가 이미 하는 일(턴 관리·도구·파일 읽기)이거나 스킬이 필요로 하지 않는다(추론) |
+
+**이 레포를 스킬 재료로 읽을 때의 주의**
+- 스케줄러와 게이트는 순수 로직이라 "상태 파일 한 개 + 짧은 함수"로 옮길 수 있다는 것은 **추론**이다. 모델 클래스(pydantic) 의존을 걷어내는 비용은 확인하지 않았다.
+- 설명·진단 프롬프트가 얕아서 이 레포에서 "가르치는 방법"은 얻기 어렵다.
+- 라이선스는 Apache-2.0(1절). 코드를 옮기려면 NOTICE·하위 라이선스 확인이 필요하다.
+
+
+### 대표 흐름: 시도 하나가 다음 할 일을 정하기까지 (스펙 2개를 잇는 글, 2026-10-27)
+
+1. 튜터가 지식점 하나에 문제를 내면 정답 키가 든 `PendingQuestion`이 서버 쪽에 저장된다(`mastery-engine.md` R-17). 이 대기 질문이 있는 동안 `next_objective`는 항상 "채점"을 돌려준다(R-07).
+2. 학습자 답이 오면 결정론적 채점 또는 의미 채점으로 정오를 정하고 시도와 증거를 쌓는다. 오답이면 오류 기록을 만들고, 개념·설계형은 튜터의 질적 판정(`record_qualitative`)으로 게이트를 정한다(R-09~R-14).
+3. 숙달도는 같은 지식점의 취소되지 않은 독립 시도를 추가 순서대로 읽어 최근 5회 가중 정확도로 다시 계산한다(1회면 상한 0.5, 2회면 0.8, partial은 0.5). 이 숫자와 유형별 게이트(memory·procedure 0.9)로 "숙달"이 정해진다.
+4. 같은 증거로 `schedule_review`가 반복 상태를 갱신한다. 정답이면 안정도가 늘고 오답이면 줄며, 직전 복습과 너무 가까우면 일정은 그대로 둔다. 다음 복습 시각은 `안정도 × (−ln 목표 기억률)`일 뒤다(`review-scheduler.md` R-07~R-11). 이어서 `build_review_queue`가 모든 상태에서 망각 위험순 큐를 다시 만든다.
+5. 다음 요청에서 `next_objective`가 상태에서 매번 계산한다: 대기 질문 → 기한 지난 복습(`due_reviews`) → 첫 미숙달 지식점 → 완료. 단계 포인터는 저장하지 않는다.
+
+**통합 검토 결과 (워크플로 4장 5번)**: ① 승인 행(10)을 두 스펙으로 나눴고 경로 생성(`topic_generation.py`)은 `미작성` ② 시각 단위·증거 필드·`RepetitionState` 의미가 두 스펙에서 같다 ③ 모든 C-ID(재구현 검증 반영 후 49건)가 기준 SHA에 존재하고 `depends`는 `review-scheduler → mastery-engine` 한 방향 ④ 위 흐름이 이어진다. 두 스펙은 `ready`다: `mastery-engine`의 R-07 미결정(`prerequisite_ids` 강제 여부)은 R-21로 해소(진행을 막지 않음, 모든 사용처 열거)했다.
+
+### 재구현 검증 결과 (2026-10-27, 워크플로 4장 6번)
+
+**원본 순수 모듈 실행(수락 사례)**: 원본의 순수 모듈 7개를 기준 SHA에서 꺼내 임시 폴더에 복사해 호출했다([`run_pure.py`](../../artifacts/DeepTutor/mastery-demos/run_pure.py) 40건, [`run_pure2.py`](../../artifacts/DeepTutor/mastery-demos/run_pure2.py) 33건). 허용오차 ±0.001로 모두 통과했다. 처음에는 허용오차를 0.01로 넉넉히 잡아 스펙의 수치 오류(`28.475`→실제 `28.4737`, `60.902`→`60.8995`)를 가렸다. 재구현자가 지적해 허용오차를 스펙이 말한 ±0.001로 조이고 스펙 수치를 고쳤다. 실행하지 못한 것: `service.py`·SQLite 저장소 경로의 사례(mastery-engine T-04 시도 필터링, T-05, T-15~T-21, T-25~T-28, 그리고 이번에 추가된 T-29~T-46 전부).
+
+**독립 재구현**: 스펙 1부와 C-ID만 받은 에이전트가 Python 3(표준 라이브러리, pydantic 없이, SQLite 대신 메모리 저장소)로 두 스펙의 전 R-ID를 구현해 51개 테스트가 통과했다([RESULT.md](../../artifacts/DeepTutor/reimplementation/RESULT.md)).
+
+**원본과 같은 입력으로 비교**([`diff_test.py`](../../artifacts/DeepTutor/mastery-demos/diff_test.py), 출력 [`diff_test.out`](../../artifacts/DeepTutor/mastery-demos/diff_test.out), 고정 시드): `compute_mastery` 2,000, `grade_answer` 231, 초기 상태 400, `schedule_review` 1,822, `retrievability` 1,822, `replay` 400, `forgetting_risk` 800, `next_objective` 600사례에서 **불일치 0건**. 이 비교가 불일치를 잡아내는지 확인하려고 재구현 복사본에 변이를 넣었다(숙달도 가중치, 연체 가산 상한, 같은 세션 창). 처음 비교는 같은 세션 창 0.25→0.30 변이를 못 잡았고(시간 간격 후보가 경계 사이를 건드리지 않음), 간격 후보를 늘린 뒤에는 잡혔다.
+
+**비교하지 않은 것**: 영수증·저장소·`evidence_id`·`register_question` 등 `service.py` 경로, `review_reason` 문장과 `get_due_tasks`(후자 둘은 원본 실행으로만 확인), `next_objective`의 `reason` 문구와 `pending_question` 투영 필드. 이 부분은 스펙 보강 뒤 재구현을 다시 돌리지 않았다(두 스펙 frontmatter의 "재검증 필요").
+
+**재구현자 주장 중 코드와 달라 채택하지 않은 것**: 대기 질문 공개 투영 필드, `awaiting_input` 전이 경로가 없다는 주장(`mark_question_awaiting`이 설정), 영수증 최소 dict. **재구현자가 옳아서 스펙을 고친 것**: 수치 오류, `evidence_id` 생성식(`uuid5`), `get_due_tasks` 필터, R-22 검사 순서, 예외 계층, 시각 과제 증명 조건(코드는 `hints_used`만 본다, 독스트링은 "Independent"라고 썼으나 다름).
 
 ---
 
