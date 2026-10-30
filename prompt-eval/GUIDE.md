@@ -36,7 +36,7 @@ prompt-eval/
 
 "하는 일" 열은 Obsidian 노트(README 요약)와 디렉터리 이름 기준이고 코드로 확인하지 않았다(`미확인`).
 
-**dspy는 기능 스펙 범위에서 제외했다**(사용자 결정, 2026-10-22). 이유는 평가셋·채점 함수가 먼저 필요하고 최적화 호출 비용이 크며, 이번 목적은 promptfoo와 prompt-optimizer로 먼저 다루기 때문이다. overview(지도)는 남겨 둔다.
+**dspy는 기능 스펙 범위에서 제외했다**(사용자 결정, 2026-10-22). 이유는 평가셋·채점 함수가 먼저 필요하고 최적화 호출 비용이 크며, 이번 목적은 promptfoo와 prompt-optimizer로 먼저 다루기 때문이다. overview(feature map)는 남겨 둔다.
 
 기준 SHA는 `repos.lock.tsv`와 같다. prompt-optimizer의 기본 브랜치는 `main`이 아니라 `develop`이다.
 

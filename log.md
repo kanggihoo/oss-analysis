@@ -697,3 +697,12 @@
 - 스펙 보강(작업자 4명, 원본 코드로 지적 검증 후 반영): 코드와 달라 재구현자 주장을 채택하지 않은 것(`research` 등록 조건부, 서버 정수 검증, 추출 입력 "교사만" 등)과 옳아서 스펙을 고친 것(도구 토글 서술, `conclude` 공개 규칙, 수치, 누락 C-ID)을 두 overview 2절 "재구현 검증 결과"에 적었다. 새 문서-코드 차이는 각 스펙 2.1.
 - 확인 한계: `[권고]` 규칙(프롬프트)이 모델에게 실제로 지켜지는지는 미확인. 보강 뒤 규칙으로 재구현을 다시 돌리지 않음. learnharness 시드 섞기의 JS 일치 미확인. pi-ai 스키마 검증 거절 문구는 repo 밖이라 경계로만 기록.
 - 상태: ready 7 / draft 0 / 승인 범위 밖 `미작성`. 재구현 검증 완료.
+
+## [2026-10-30] workflow | 주제 폴더 문서화, 점검 스크립트, 목적 기준 지도·권장 범위 승인, handoff 연결
+- `OSS_ANALYSIS_WORKFLOW.md` 1장에 `handoff.md`·`<주제>/`·`scripts/check.py` 행과 "주제 폴더" 절을 추가했다. 2장 1·4·6번에 목적 기준 지도 세밀도(20행 점검 신호)와 권장 범위 기본안·부속 기본 제외·권장안 기록을 넣고, 2장 2번·4장 7번·5장·6장 완료 조건에 `scripts/check.py`를 넣었다. 6장에 handoff 갱신 단계를 추가했다.
+- `scripts/check.py` 신설(overview sha↔repo-metadata/repos.lock, index 행·SHA, 스펙 status↔지도↔index, 상대 링크). 전체 실행 결과 ERROR 3(`reports/pi`의 삭제된 `wiki/`·gitignore된 `static-analysis/` 링크), NOTE 15(이전 문서의 sha·메타 누락, 지도에 상태 칸이 없는 스펙 3개).
+- `AGENTS.md`(주제 폴더·handoff·check 한 줄씩), `SCHEMA.md` index 절(주제 폴더 이름·상태 표기), `README.md`, `templates/overview-template.md` 1절(목적·스펙 범위 권장안), `oss-repo-spec` 스킬 입력·1·2·4·5단계를 맞췄다.
+
+## [2026-10-30] workflow | "기능 지도" 용어를 "feature map"으로 변경
+- 사용자 요청: 직역보다 자연스러운 영어 명칭을 쓴다. `AGENTS.md`, `OSS_ANALYSIS_WORKFLOW.md`, `SCHEMA.md`, `README.md`, `templates/*`, `oss-repo-spec` 스킬, `scripts/check.py` 메시지, 주제 폴더 `GUIDE.md` 4개, `handoff.md`의 "기능 지도"·"지도"를 "feature map"으로 바꾸고 조사를 맞췄다.
+- 기존 `reports/` 문서와 이 로그의 이전 항목은 그대로 둔다. 워크플로 2장 4번에 "이전 문서의 '기능 지도'와 같다"를 적었다.

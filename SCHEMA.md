@@ -7,6 +7,8 @@ Updated: 2026-10-22
 ## index.md
 
 - 분석한 레포마다 한 줄: 레포 이름, 기준 SHA(7자리), `reports/<repo>/overview.md` 링크, 기능 스펙 링크.
+- 주제 폴더의 레포는 이름 칸을 `<repo> (<주제>/)`로 쓴다(예: `DeepTutor (ai-learning/)`). `scripts/check.py`가 이 형식으로 행을 찾는다.
+- 기능 스펙 링크 뒤에는 상태를 `(ready)`·`(draft)`로 붙이거나, 모두 같으면 칸 끝에 `(모두 ready)`처럼 한 번 쓴다.
 - 레포를 새로 분석하거나 기준 SHA를 올리거나 기능 스펙을 추가하면 그 줄을 고친다.
 - 맨 위 `Last updated`를 갱신한다.
 

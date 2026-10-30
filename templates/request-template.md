@@ -5,9 +5,9 @@
 ```text
 대상: <repo URL>
 목적: <학습 / 설계 참고 / 도입 검토 / 재구현>
-스펙 범위: <지도 보고 정함(기본) / 지정: 기능 목록 / 지도만>
+스펙 범위: <feature map 보고 정함(기본) / 지정: 기능 목록 / feature map만>
 
-AGENTS.md와 OSS_ANALYSIS_WORKFLOW.md 2장대로 기능 지도와 구조도까지 진행하고,
+AGENTS.md와 OSS_ANALYSIS_WORKFLOW.md 2장대로 feature map과 구조도까지 진행하고,
 스펙 범위를 나한테 확인받은 뒤 4장대로 기능 스펙을 써.
 이후 내 질문은 3장대로 답하고 기록해.
 ```

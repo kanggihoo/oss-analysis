@@ -1,11 +1,11 @@
 # AI 학습 오픈소스 분석 가이드
 
 - 작성일: 2026-10-25
-- 상위 규칙: [AGENTS.md](../AGENTS.md), [OSS_ANALYSIS_WORKFLOW.md](../OSS_ANALYSIS_WORKFLOW.md)를 그대로 따른다(코드 근거, 검증 수준 표기, 기능 지도 → 범위 승인 → 기능 스펙). 이 문서는 이 폴더에만 해당하는 차이를 다룬다.
+- 상위 규칙: [AGENTS.md](../AGENTS.md), [OSS_ANALYSIS_WORKFLOW.md](../OSS_ANALYSIS_WORKFLOW.md)를 그대로 따른다(코드 근거, 검증 수준 표기, feature map → 범위 승인 → 기능 스펙). 이 문서는 이 폴더에만 해당하는 차이를 다룬다.
 
 ## 목적과 범위
 
-사람이 AI와 함께 배우는 **AI 튜터·학습 앱** 오픈소스를 같은 기준으로 분석해 비교한다. 레포마다 `reports/<repo>/overview.md`(기능 지도·구조도)를 먼저 쓰고, 스펙 범위는 사용자가 지도를 보고 승인한다(기본). 비교 축(코드 확인 전 후보):
+사람이 AI와 함께 배우는 **AI 튜터·학습 앱** 오픈소스를 같은 기준으로 분석해 비교한다. 레포마다 `reports/<repo>/overview.md`(feature map·구조도)를 먼저 쓰고, 스펙 범위는 사용자가 feature map을 보고 승인한다(기본). 비교 축(코드 확인 전 후보):
 
 1. **학습자 상태**: 학습자가 무엇을 아는지를 어디에 어떤 형태로 저장하고, 다음 수업에 어떻게 쓰는가?
 2. **수업 진행**: 계획 → 설명 → 연습 → 평가 흐름을 누가(코드/LLM) 결정하는가?
@@ -38,5 +38,5 @@ ai-learning/
 
 | 레포 | 상태 |
 |---|---|
-| DeepTutor | 기능 지도 53행·구조도 완료(2026-10-25). 2026-10-27 목적을 "Claude Code 안의 가벼운 학습 스킬"로 재정의하고 스킬화 관점 지도 추가. 스펙 ready 2(mastery-engine, review-scheduler), 재구현 검증 완료 |
-| learnharness | 기능 지도 29행·구조도 완료(2026-10-25). 2026-10-27 스킬화 관점 지도 추가. 스펙 ready 5(S2 + 행 2·3·4·5), 재구현 검증 완료 |
+| DeepTutor | feature map 53행·구조도 완료(2026-10-25). 2026-10-27 목적을 "Claude Code 안의 가벼운 학습 스킬"로 재정의하고 스킬화 관점 feature map 추가. 스펙 ready 2(mastery-engine, review-scheduler), 재구현 검증 완료 |
+| learnharness | feature map 29행·구조도 완료(2026-10-25). 2026-10-27 스킬화 관점 feature map 추가. 스펙 ready 5(S2 + 행 2·3·4·5), 재구현 검증 완료 |
