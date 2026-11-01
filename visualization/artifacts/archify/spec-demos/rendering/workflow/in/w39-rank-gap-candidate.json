@@ -1,0 +1,41 @@
+{
+ "schema_version": 2,
+ "diagram_type": "workflow",
+ "meta": {
+  "title": "F",
+  "output": "f.html"
+ },
+ "lanes": [
+  {
+   "id": "L1",
+   "label": "One"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "a",
+   "lane": "L1",
+   "col": 0,
+   "type": "frontend",
+   "label": "A",
+   "yOffset": -30
+  },
+  {
+   "id": "b",
+   "lane": "L1",
+   "col": 1,
+   "type": "backend",
+   "label": "B",
+   "yOffset": 30
+  }
+ ],
+ "edges": [
+  {
+   "id": "e",
+   "from": "a",
+   "to": "b",
+   "fromSide": "right",
+   "toSide": "left"
+  }
+ ]
+}

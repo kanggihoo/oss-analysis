@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "5acbfac5-2985-4b7c-80c1-3e5318eb2f78",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c14-metric-empty.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/metric.html",
+  "specification": {
+    "sha256": "58d4d851168ad290e2b8ca477dc8ecab455bcff4d024dd73efb17e2cc17c93a5",
+    "bytes": 61
+  },
+  "artifact": {
+    "sha256": "38ca47c302f64b98c523a2d2d204232c0130e7bdcd2074972c27b2ab6de496bf",
+    "bytes": 130160
+  },
+  "explainer": {
+    "preparedSha256": "6d0419a92af3215e01445ee9e758fad92bd46245bc690a56a4305908a30f1546",
+    "dependencies": []
+  }
+}

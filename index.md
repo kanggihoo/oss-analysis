@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-10-26
+> Last updated: 2026-11-02
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -8,6 +8,7 @@
 | 레포 | 기준 SHA | 입구 | 기능 스펙 |
 |---|---|---|---|
 | ai-job-search | `e16acee` | [overview](reports/ai-job-search/overview.md) | — |
+| archify (visualization/) | `a406594` | [overview](visualization/reports/archify/overview.md), [next](visualization/reports/archify/next.md) | [artifact-choice](visualization/reports/archify/capabilities/artifact-choice.md) (ready), [type-routing](visualization/reports/archify/capabilities/type-routing.md) (ready), [authoring-contract](visualization/reports/archify/capabilities/authoring-contract.md) (draft), [finalize-orchestration](visualization/reports/archify/capabilities/finalize-orchestration.md) (ready), [input-validation](visualization/reports/archify/capabilities/input-validation.md) (ready), [rendering](visualization/reports/archify/capabilities/rendering.md) (ready), [delivery](visualization/reports/archify/capabilities/delivery.md) (ready), [verification-gates](visualization/reports/archify/capabilities/verification-gates.md) (ready), [repair-loop](visualization/reports/archify/capabilities/repair-loop.md) (ready), [explainer](visualization/reports/archify/capabilities/explainer.md) (ready), [viewer](visualization/reports/archify/capabilities/viewer.md) (ready), [auxiliary-commands](visualization/reports/archify/capabilities/auxiliary-commands.md) (draft) |
 | claude-code-history-viewer | `9d86b46` | [overview](reports/claude-code-history-viewer/overview.md) | — |
 | claude-devtools | `1486f20` | [overview](reports/claude-devtools/overview.md) | [claude-code-session-log-reading](reports/claude-devtools/capabilities/claude-code-session-log-reading.md) (draft), [claude-code-session-picker](reports/claude-devtools/capabilities/claude-code-session-picker.md) (draft) |
 | agent-skills | `aeac41d` | [overview](reports/agent-skills/overview.md) | — |

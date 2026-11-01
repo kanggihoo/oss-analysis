@@ -1,0 +1,140 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    768,
+    404
+  ],
+  "requiredViewBox": [
+    768,
+    404
+  ],
+  "columns": [
+    94,
+    214,
+    334,
+    454,
+    574,
+    694
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 1,
+      "x": 168,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 2,
+      "x": 288,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 1,
+      "x": 168,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "d",
+      "lane": "L2",
+      "col": 3,
+      "x": 408,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "a",
+      "to": "d",
+      "points": [
+        [
+          214,
+          145
+        ],
+        [
+          214,
+          165
+        ],
+        [
+          454,
+          165
+        ],
+        [
+          454,
+          217
+        ]
+      ]
+    },
+    {
+      "id": "e2",
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          334,
+          145
+        ],
+        [
+          334,
+          170
+        ],
+        [
+          214,
+          170
+        ],
+        [
+          214,
+          217
+        ]
+      ]
+    }
+  ],
+  "labels": [],
+  "diagnostics": [
+    {
+      "code": "composition/proper-crossing",
+      "severity": "warning",
+      "message": "[composition/proper-crossing] standard workflow edges[0] id \"e1\" \"a\" -> \"d\" crosses edges[1] id \"e2\" \"b\" -> \"c\" at [334, 165] (segments 1 and 0) — if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via, bias, or channel coordinates so the edges use separate lane corridors.",
+      "subject": {
+        "diagramType": "workflow",
+        "collection": "edges",
+        "index": 0,
+        "id": "e1",
+        "from": "a",
+        "to": "d"
+      },
+      "evidence": {
+        "otherRelationship": {
+          "diagramType": "workflow",
+          "collection": "edges",
+          "index": 1,
+          "id": "e2",
+          "from": "b",
+          "to": "c"
+        },
+        "point": [
+          334,
+          165
+        ],
+        "segmentIndex": 1,
+        "otherSegmentIndex": 0
+      },
+      "supportedFixes": [
+        "if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via, bias, or channel coordinates so the edges use separate lane corridors"
+      ]
+    }
+  ]
+}

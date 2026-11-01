@@ -1,0 +1,103 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    772,
+    404
+  ],
+  "requiredViewBox": [
+    772,
+    404
+  ],
+  "columns": [
+    94,
+    218,
+    338,
+    458,
+    578,
+    698
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 0,
+      "x": 48,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 1,
+      "x": 172,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 2,
+      "x": 292,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": null,
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          94,
+          145
+        ],
+        [
+          94,
+          172
+        ],
+        [
+          218,
+          172
+        ],
+        [
+          218,
+          145
+        ]
+      ]
+    },
+    {
+      "id": null,
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          264,
+          119
+        ],
+        [
+          338,
+          119
+        ],
+        [
+          338,
+          217
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": null,
+      "label": "a rather long relationship label",
+      "x": 156,
+      "y": 162,
+      "width": 163.6,
+      "height": 14
+    }
+  ],
+  "diagnostics": []
+}

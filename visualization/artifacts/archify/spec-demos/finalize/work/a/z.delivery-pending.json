@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "47cf1a7d-1f24-4109-b321-54415e0c7f68",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/a/z.html"
+}

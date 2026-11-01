@@ -1,0 +1,102 @@
+{
+  "diagram_type": "erd",
+  "viewBox": [
+    625,
+    254
+  ],
+  "layout": {
+    "margin": 24,
+    "legendH": 34,
+    "padX": 12,
+    "keyWidth": 30,
+    "keyFont": 9,
+    "headerFont": 13,
+    "headerFontMinimum": 10,
+    "rowFont": 11,
+    "rowFontMinimum": 9,
+    "typeFont": 10.5,
+    "typeFontMinimum": 9,
+    "minRelationshipLength": 24
+  },
+  "entities": [
+    {
+      "id": "a",
+      "label": "a",
+      "x": 32,
+      "y": 40,
+      "width": 240,
+      "height": 56,
+      "attributes": [
+        "id"
+      ],
+      "row": 0,
+      "col": 0
+    },
+    {
+      "id": "b",
+      "label": "b",
+      "x": 361,
+      "y": 40,
+      "width": 240,
+      "height": 56,
+      "attributes": [
+        "id"
+      ],
+      "row": 0,
+      "col": 1
+    },
+    {
+      "id": "c",
+      "label": "c",
+      "x": 32,
+      "y": 140,
+      "width": 240,
+      "height": 56,
+      "attributes": [
+        "id"
+      ],
+      "row": 1,
+      "col": 0
+    }
+  ],
+  "relationships": [
+    {
+      "from": "a",
+      "to": "c",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          152,
+          96
+        ],
+        [
+          152,
+          140
+        ]
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "from": "b",
+      "to": "a",
+      "label": "owns",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          361,
+          68
+        ],
+        [
+          272,
+          68
+        ]
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    }
+  ]
+}

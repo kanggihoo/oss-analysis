@@ -1,0 +1,36 @@
+{
+ "schema_version": 3,
+ "diagram_type": "lifecycle",
+ "meta": {
+  "title": "L",
+  "output": "x.html"
+ },
+ "mainPath": [
+  "a",
+  "b",
+  "c"
+ ],
+ "states": [
+  {
+   "id": "a",
+   "type": "start",
+   "label": "Draft"
+  },
+  {
+   "id": "b",
+   "type": "active",
+   "label": "Review"
+  },
+  {
+   "id": "c",
+   "type": "success",
+   "label": "Done"
+  }
+ ],
+ "transitions": [
+  {
+   "from": "a",
+   "to": "b"
+  }
+ ]
+}

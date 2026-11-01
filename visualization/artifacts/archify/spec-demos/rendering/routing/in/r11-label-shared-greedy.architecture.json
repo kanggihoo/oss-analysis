@@ -1,0 +1,51 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r11-label-shared-greedy",
+  "output": "r11-label-shared-greedy.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    240,
+    100
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    440,
+    160
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "label": "one",
+   "labelDx": 0
+  },
+  {
+   "from": "b",
+   "to": "c",
+   "label": "two",
+   "labelDx": 0
+  }
+ ]
+}

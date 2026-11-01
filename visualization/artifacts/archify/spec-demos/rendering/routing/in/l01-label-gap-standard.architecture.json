@@ -1,0 +1,36 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "l01-label-gap-standard",
+  "output": "l01-label-gap-standard.html",
+  "quality_profile": "standard"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    200,
+    40
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "label": "LONGLABELTEXT"
+  }
+ ]
+}

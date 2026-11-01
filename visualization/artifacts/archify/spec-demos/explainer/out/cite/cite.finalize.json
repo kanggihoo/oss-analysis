@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "startedAt": "2026-11-01T21:20:10.855Z",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/cite-bad-lines.archify.md",
+    "sha256": "1a3a04dfb1ec76f40a4028bb46bf81b994858a349e4e5252f745d7c3c706b3cf",
+    "bytes": 117
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+    "sha256": "b9b9cc78a04971970ac0585f42aa7b6f7e01930780048adbe4647872ee80bbb9",
+    "bytes": 130918
+  },
+  "stages": {
+    "browser-check": {
+      "status": "not-run",
+      "execution": "not-requested"
+    },
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "/opt/homebrew/Cellar/node/26.10.0_2/bin/node",
+        "/Users/kkh/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "explainer",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/cite-bad-lines.archify.md",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/Users/kkh/Desktop/oss-analysis/visualization/repos/archify",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "1a3a04dfb1ec76f40a4028bb46bf81b994858a349e4e5252f745d7c3c706b3cf",
+          "bytes": 117
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 280,
+      "command": [
+        "/opt/homebrew/Cellar/node/26.10.0_2/bin/node",
+        "/Users/kkh/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "explainer",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/cite-bad-lines.archify.md",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/Users/kkh/Desktop/oss-analysis/visualization/repos/archify",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "fe5f9b6b-6931-414d-934c-569114d4afcb",
+        "ok": true,
+        "command": "deliver",
+        "type": "explainer",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/cite-bad-lines.archify.md",
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+        "explainer": {
+          "preparedSha256": "e4e1f533f9a913578b5fcae300b6588862c2c06d774aeec6cea7d8b970f66bb8",
+          "dependencies": []
+        },
+        "specification": {
+          "sha256": "1a3a04dfb1ec76f40a4028bb46bf81b994858a349e4e5252f745d7c3c706b3cf",
+          "bytes": 117
+        },
+        "artifact": {
+          "sha256": "b9b9cc78a04971970ac0585f42aa7b6f7e01930780048adbe4647872ee80bbb9",
+          "bytes": 130918
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 158,
+      "command": [
+        "/opt/homebrew/Cellar/node/26.10.0_2/bin/node",
+        "/Users/kkh/.agents/skills/archify/bin/archify.mjs",
+        "check",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+        "family": "explainer",
+        "artifact": {
+          "sha256": "b9b9cc78a04971970ac0585f42aa7b6f7e01930780048adbe4647872ee80bbb9",
+          "bytes": 130918
+        },
+        "checks": [
+          {
+            "name": "explainer_structure",
+            "ok": true,
+            "details": [
+              "12 unique DOM IDs"
+            ]
+          },
+          {
+            "name": "explainer_payload_identity",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "explainer_dependencies",
+            "ok": true,
+            "details": [
+              "0 frozen dependencies"
+            ]
+          },
+          {
+            "name": "explainer_native_diagrams",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "issues": [],
+          "nativeDiagrams": []
+        },
+        "diagnostics": [],
+        "provenance": "current",
+        "deliveryReceiptId": "fe5f9b6b-6931-414d-934c-569114d4afcb"
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "finishedAt": "2026-11-01T21:20:11.453Z",
+  "durationMs": 598,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-valid"
+  }
+}

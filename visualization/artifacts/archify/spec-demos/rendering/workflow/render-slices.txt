@@ -1,0 +1,36 @@
+== w01-v2-base exit=0
+<svg viewBox="0 0 778 404" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard" data-quality-gates="advisory" data-node-ui="">
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-0" x="40" y="52" width="722" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-1" x="40" y="176" width="722" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<path data-edge-from="a" data-edge-to="b" data-edge-label="go" data-edge-key="0" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="140,119;178,119" d="M 140 119 L 178 119" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+<path data-edge-from="b" data-edge-to="c" data-edge-key="1" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="224,145;224,243;298,243" d="M 224 145 L 224 235 Q 224 243 232 243 L 298 243" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+9
+== w02-v1-base exit=0
+<svg viewBox="0 0 720 404" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard" data-quality-gates="advisory" data-node-ui="">
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-0" x="40" y="52" width="640" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-1" x="40" y="176" width="640" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<path data-edge-from="a" data-edge-to="b" data-edge-label="go" data-edge-key="0" data-composition-points="134,119;174,119" d="M 134 119 L 174 119" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+<path data-edge-from="b" data-edge-to="c" data-edge-key="1" data-composition-points="220,145;220,243;254,243" d="M 220 145 L 220 235 Q 220 243 228 243 L 254 243" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+9
+== w06-v2-stack exit=0
+<svg viewBox="0 0 768 452" data-reader-fit="width-first" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard" data-quality-gates="advisory" data-node-ui="">
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-0" x="40" y="52" width="712" height="276" rx="10" class="c-lane" stroke-width="1"/>
+<rect data-graph-role="structural-frame" data-composition-frame-kind="group" data-composition-frame-id="group-0" x="164" y="90" width="340" height="234" rx="9" class="c-lane" stroke-width="1"/>
+<path data-edge-from="a" data-edge-to="b" data-edge-key="0" data-edge-role="" data-composition-points="334,143;334,181" d="M 334 143 L 334 181" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+<path data-edge-from="b" data-edge-to="c" data-edge-key="1" data-edge-role="" data-composition-points="334,233;334,271" d="M 334 233 L 334 271" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+9
+== w07-v2-phase-group exit=0
+<svg viewBox="0 0 952 404" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard" data-quality-gates="advisory" data-node-ui="">
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-0" x="40" y="52" width="896" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-1" x="40" y="176" width="896" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<rect data-graph-role="structural-frame" data-composition-frame-kind="group" data-composition-frame-id="group-0" x="292.79999999999995" y="90" width="154.39999999999998" height="62" rx="9" class="c-lane" stroke-width="1"/>
+<path data-edge-from="a" data-edge-to="b" data-edge-label="go" data-edge-key="0" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="140,119;296.79999999999995,119" d="M 140 119 L 296.79999999999995 119" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+<path data-edge-from="b" data-edge-to="c" data-edge-key="1" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="342.79999999999995,145;342.79999999999995,243;471.19999999999993,243" d="M 342.79999999999995 145 L 342.79999999999995 235 Q 342.79999999999995 243 350.79999999999995 243 L 471.19999999999993 243" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" ma
+9
+== w36-mainpath-ok exit=0
+<svg viewBox="0 0 778 404" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="standard" data-quality-gates="advisory" data-node-ui="">
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-0" x="40" y="52" width="722" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-1" x="40" y="176" width="722" height="104" rx="10" class="c-lane" stroke-width="1"/>
+<path data-edge-from="a" data-edge-to="b" data-edge-label="go" data-edge-key="0" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="140,119;178,119" d="M 140 119 L 178 119" class="a-default" data-animate="edge" style="--step:0" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+<path data-edge-from="b" data-edge-to="c" data-edge-key="1" data-composition-routing="workflow-v2-auto" data-edge-role="" data-composition-points="224,145;224,243;298,243" d="M 224 145 L 224 235 Q 224 243 232 243 L 298 243" class="a-default" data-animate="edge" style="--step:1" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+9

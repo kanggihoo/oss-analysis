@@ -1,0 +1,102 @@
+{
+  "ok": false,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    360,
+    168
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 200,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        200,
+        40
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "LONGLABELTEXT",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          70
+        ],
+        [
+          200,
+          70
+        ]
+      ],
+      "labelAt": [
+        180,
+        60
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "LONGLABELTEXT",
+      "x": 144,
+      "y": 50,
+      "width": 72,
+      "height": 14,
+      "labelAt": [
+        180,
+        60
+      ]
+    }
+  ],
+  "schemaVersion": 1,
+  "source": "renderer",
+  "error": "Architecture layout validation failed:\n- Label \"LONGLABELTEXT\" overlaps component \"a\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [144, 50, 72, 14]\n  component \"a\" rect: [40, 40, 120, 60]\n  Suggested fix: set labelAt [180, 114] or set labelDy 54 (below); or set labelAt [180, 32] or set labelDy -28 (above)\n- Label \"LONGLABELTEXT\" overlaps component \"b\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [144, 50, 72, 14]\n  component \"b\" rect: [200, 40, 120, 60]\n  Suggested fix: set labelAt [180, 114] or set labelDy 54 (below); or set labelAt [180, 32] or set labelDy -28 (above)",
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Label \"LONGLABELTEXT\" overlaps component \"a\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [144, 50, 72, 14]\n  component \"a\" rect: [40, 40, 120, 60]\n  Suggested fix: set labelAt [180, 114] or set labelDy 54 (below); or set labelAt [180, 32] or set labelDy -28 (above)",
+      "subject": {
+        "diagramType": "architecture"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    },
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Label \"LONGLABELTEXT\" overlaps component \"b\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [144, 50, 72, 14]\n  component \"b\" rect: [200, 40, 120, 60]\n  Suggested fix: set labelAt [180, 114] or set labelDy 54 (below); or set labelAt [180, 32] or set labelDy -28 (above)",
+      "subject": {
+        "diagramType": "architecture"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ],
+  "contract": "archify-architecture-layout-v1"
+}

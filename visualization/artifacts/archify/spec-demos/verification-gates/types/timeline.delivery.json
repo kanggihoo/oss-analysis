@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "992dea81-4fb5-4b6a-8e3e-3f5078888fe3",
+  "status": "current",
+  "command": "deliver",
+  "type": "timeline",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/payment-incident.timeline.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/timeline.html",
+  "specification": {
+    "sha256": "c1f535b3cc915ddd47ecd7df4e3ef02c441c8c3191daced5cf4422cff8dec95f",
+    "bytes": 1445
+  },
+  "artifact": {
+    "sha256": "46494b119b8637449a402ec05990b2b63a0ffc3b883a85a3d622656ce909260e",
+    "bytes": 834097
+  }
+}

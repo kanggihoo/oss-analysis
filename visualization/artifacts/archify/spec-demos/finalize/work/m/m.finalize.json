@@ -1,0 +1,430 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "lifecycle",
+  "quality": "showcase",
+  "startedAt": "2026-11-01T21:34:49.331Z",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/many-errors.json",
+    "sha256": "c49af642ef24ae4af084754b190e66adb28cc9aafea0d6e05d72252b6b224468",
+    "bytes": 3305
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/m/m.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "/opt/homebrew/Cellar/node/26.10.0_2/bin/node",
+        "/Users/kkh/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "lifecycle",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/many-errors.json",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/m/m.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "15776a59-5431-42bf-813d-05c079e299f6",
+        "stage": "render",
+        "type": "lifecycle",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/many-errors.json",
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/m/m.html",
+        "error": "lifecycle schema validation failed:\n  /states/0 (id/label: \"Queued\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/1 (id/label: \"Planning\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/2 (id/label: \"Executing\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/3 (id/label: \"Reviewing\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/4 (id/label: \"Completed\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/5 (id/label: \"Needs Approval\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/6 (id/label: \"Failed\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/7 (id/label: \"Blocked\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/8 (id/label: \"Cancelled\") must have required property 'id' {\"missingProperty\":\"id\"}\n  /states/9 (id/label: \"Expired\") must have required property 'id' {\"missingProperty\":\"id\"}",
+        "diagnostics": [
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/0 (id/label: \"Queued\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/0",
+              "identity": "Queued"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/1 (id/label: \"Planning\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/1",
+              "identity": "Planning"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/2 (id/label: \"Executing\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/2",
+              "identity": "Executing"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/3 (id/label: \"Reviewing\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/3",
+              "identity": "Reviewing"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/4 (id/label: \"Completed\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/4",
+              "identity": "Completed"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/5 (id/label: \"Needs Approval\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/5",
+              "identity": "Needs Approval"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/6 (id/label: \"Failed\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/6",
+              "identity": "Failed"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/7 (id/label: \"Blocked\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/7",
+              "identity": "Blocked"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/8 (id/label: \"Cancelled\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/8",
+              "identity": "Cancelled"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          },
+          {
+            "code": "schema/required",
+            "severity": "error",
+            "message": "/states/9 (id/label: \"Expired\") must have required property 'id'",
+            "subject": {
+              "diagramType": "lifecycle",
+              "path": "/states/9",
+              "identity": "Expired"
+            },
+            "evidence": {
+              "keyword": "required",
+              "missingProperty": "id"
+            },
+            "supportedFixes": [
+              "add required property \"id\""
+            ]
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/0 (id/label: \"Queued\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/0",
+        "identity": "Queued"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/1 (id/label: \"Planning\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/1",
+        "identity": "Planning"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/2 (id/label: \"Executing\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/2",
+        "identity": "Executing"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/3 (id/label: \"Reviewing\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/3",
+        "identity": "Reviewing"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/4 (id/label: \"Completed\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/4",
+        "identity": "Completed"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/5 (id/label: \"Needs Approval\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/5",
+        "identity": "Needs Approval"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/6 (id/label: \"Failed\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/6",
+        "identity": "Failed"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/7 (id/label: \"Blocked\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/7",
+        "identity": "Blocked"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/8 (id/label: \"Cancelled\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/8",
+        "identity": "Cancelled"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    },
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/states/9 (id/label: \"Expired\") must have required property 'id'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/states/9",
+        "identity": "Expired"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "id"
+      },
+      "supportedFixes": [
+        "add required property \"id\""
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/m/m.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/m/m.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-11-01T21:34:49.531Z",
+  "durationMs": 200,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "disabled"
+  }
+}

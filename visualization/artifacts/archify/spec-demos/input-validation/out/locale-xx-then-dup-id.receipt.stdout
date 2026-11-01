@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/locale-xx-then-dup-id.json",
+  "error": "Relationship identity validation failed:\n- /connections/1/id duplicates relationship id \"web-to-api\"",
+  "diagnostics": [
+    {
+      "code": "i18n/locale-fallback",
+      "severity": "warning",
+      "message": "meta.locale \"xx\" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English.",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/meta/locale"
+      },
+      "evidence": {
+        "locale": "xx",
+        "bundledLocales": [
+          "en",
+          "zh-CN",
+          "zh-TW",
+          "es",
+          "ko",
+          "ar"
+        ]
+      },
+      "supportedFixes": [
+        "Supply meta.translations for this locale.",
+        "Use a bundled locale: en, zh-CN, zh-TW, es, ko, ar."
+      ]
+    },
+    {
+      "code": "relationship/duplicate-id",
+      "severity": "error",
+      "message": "/connections/1/id duplicates relationship id \"web-to-api\"",
+      "subject": {
+        "diagramType": "architecture",
+        "collection": "connections"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ]
+}

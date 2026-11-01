@@ -1,0 +1,19 @@
+types {"architecture":3,"workflow":3,"sequence":2,"dataflow":2,"lifecycle":2,"erd":1}
+system-overview signals 12 sumWeights 90
+deployment-ownership signals 13 sumWeights 114
+agent-tool-call signals 13 sumWeights 133
+delivery-workflow signals 12 sumWeights 116
+incident-runbook signals 12 sumWeights 119
+api-request signals 12 sumWeights 141
+duplicate signals in async-roundtrip [ 'webhook' ]
+async-roundtrip signals 12 sumWeights 115
+data-lineage signals 12 sumWeights 131
+event-stream signals 12 sumWeights 137
+object-lifecycle signals 11 sumWeights 121
+deployment-lifecycle signals 10 sumWeights 102
+database-schema signals 14 sumWeights 170
+layout-repair signals 27 sumWeights 447
+webhook => high ["webhook","webhook"] async-roundtrip
+database_schema => high ["database-schema"] database-schema
+blank => low system-overview en
+lang override => zh API 请求链

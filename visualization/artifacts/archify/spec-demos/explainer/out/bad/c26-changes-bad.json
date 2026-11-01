@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c26-changes-bad.archify.md",
+  "error": "The change target is absent from the authored native topology.",
+  "diagnostics": [
+    {
+      "code": "explainer/diagram-change-target",
+      "severity": "error",
+      "message": "The change target is absent from the authored native topology.",
+      "subject": {
+        "component": "diagram",
+        "line": 7,
+        "path": "/panels/0/blocks/0",
+        "column": 1,
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c26-changes-bad.archify.md",
+        "panelId": "p"
+      },
+      "evidence": {
+        "reason": "diagram-change-target",
+        "example": "{target:\"api\",change:\"modified\"}"
+      },
+      "supportedFixes": [
+        "Use this form: {target:\"api\",change:\"modified\"}"
+      ]
+    }
+  ]
+}

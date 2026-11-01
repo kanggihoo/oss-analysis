@@ -1,0 +1,45 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/explicit-pin-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"a->b\" has explicit geometry that violates edge-label node clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "a",
+        "to": "b",
+        "path": "/edges/0/labelAt"
+      },
+      "evidence": {
+        "invariant": "edge-label node clearance",
+        "conflictingPins": [
+          {
+            "edge": "a->b",
+            "field": "labelAt",
+            "path": "/edges/0/labelAt",
+            "value": [
+              94,
+              120
+            ]
+          }
+        ],
+        "labelAt": [
+          94,
+          120
+        ],
+        "labelRect": {
+          "x": 79,
+          "y": 110,
+          "width": 30,
+          "height": 14
+        },
+        "obstacleNode": "a"
+      },
+      "supportedFixes": [
+        "remove labelAt so readable-v2 can use its verified automatic label placement"
+      ]
+    }
+  ]
+}

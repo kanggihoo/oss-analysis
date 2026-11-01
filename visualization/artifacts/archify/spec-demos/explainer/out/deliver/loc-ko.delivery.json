@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "f2ad588f-f554-442c-b24e-8b77dbbc4313",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/loc/ko.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/deliver/loc-ko.html",
+  "specification": {
+    "sha256": "8d07ab5fd266a25b7c659fae3f1ac6ea5250ada0400f3417ab4988bc09c4f47b",
+    "bytes": 1346
+  },
+  "artifact": {
+    "sha256": "5dc6f6254be0cadb178300f97dd613ec87fdf83f975c2fbc6e18d917b6985182",
+    "bytes": 508996
+  },
+  "explainer": {
+    "preparedSha256": "bd9764ab34b5190e9d8b3cb3bf70c453b254a4e759a9cf10dcd113c0a667817b",
+    "dependencies": [
+      {
+        "kind": "repository",
+        "id": "router",
+        "path": "archify/explainer/layout.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "656232369fe0394e35f827c1b5295fb8f14d315e7fa53d5f16248440519736c8",
+        "bytes": 2571
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "miss-flow",
+        "inline": true,
+        "sha256": "8f1fd4e3eb73d05127b2987d4c7b7978b1e6fea4927ca4650b8c240a952a1183",
+        "bytes": 580
+      }
+    ]
+  }
+}

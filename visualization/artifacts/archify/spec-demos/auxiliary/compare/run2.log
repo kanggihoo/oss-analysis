@@ -1,0 +1,31 @@
+== A. 연결 id 누락
+exit=1
+compare delta/relationship-id-required {"side":"head"} {"paths":["/connections/0/id"]}
+== B. 중복 id
+exit=1
+input relationship/duplicate-id
+== C. 필수 필드 누락 head
+exit=1
+input schema/required
+== D. 실패 시 기존 출력 보존
+exit=1
+OLD
+OLD
+== E. 성공 시 기존 출력 교체
+exit=0
+<!doctype html>
+{
+  "schemaVersion": 1,
+  "ok"
+== F. 기본 출력 이름 (cwd=out2)
+exit=0
+a.json architecture-delta.html architecture-delta.receipt.json b.json c.json keep.html keep.receipt.json 
+== G. 출력 확장자 오류
+exit=1
+prepare output/cli-extension
+== H. 출력이 입력과 같은 경로
+exit=1
+prepare output/input-alias
+base.json intact
+== I. 스테이징 잔여물
+0

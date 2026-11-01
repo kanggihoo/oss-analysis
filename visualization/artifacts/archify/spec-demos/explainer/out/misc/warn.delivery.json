@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e1226488-6c64-48fc-8ab0-ef5a8d431c5e",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/warn.html",
+  "specification": {
+    "sha256": "dc97279037c200ed8c71d45bb9c6fe3cfe9b1cfcbff70ece9861ef1e3473c5a0",
+    "bytes": 96
+  },
+  "artifact": {
+    "sha256": "5f6434e0d864886c680f04d4fda52385c85e46d50b482a106c214b73403deaaa",
+    "bytes": 135190
+  },
+  "explainer": {
+    "preparedSha256": "fdad2f3bd1c7df78923c97ad74ab3a20f39468862f9cca5c826273a64dd48da4",
+    "dependencies": []
+  }
+}

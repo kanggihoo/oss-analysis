@@ -1,0 +1,15 @@
+{
+  "contract": "fixed-v1",
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Node \"c\" uses unknown lane \"nope\".",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+finalize fail: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/f/f.html
+gates validate:fail deliver:not-run check:not-run browser-check:not-run
+receipt /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/f/f.finalize.json
+perceptual visual review not-requested

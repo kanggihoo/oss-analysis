@@ -1,0 +1,72 @@
+{
+ "schema_version": 1,
+ "diagram_type": "dataflow",
+ "meta": {
+  "title": "D",
+  "output": "x.html",
+  "quality_profile": "showcase"
+ },
+ "stages": [
+  {
+   "label": "In"
+  },
+  {
+   "label": "Mid"
+  },
+  {
+   "label": "Out"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "a",
+   "type": "frontend",
+   "label": "A",
+   "stage": 0,
+   "row": 0
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "stage": 1,
+   "row": 1
+  },
+  {
+   "id": "c",
+   "type": "database",
+   "label": "C",
+   "stage": 2,
+   "row": 0
+  },
+  {
+   "id": "d",
+   "type": "database",
+   "label": "D",
+   "stage": 2,
+   "row": 2
+  }
+ ],
+ "flows": [
+  {
+   "from": "a",
+   "to": "b",
+   "label": "rows"
+  },
+  {
+   "from": "b",
+   "to": "c",
+   "label": "agg"
+  },
+  {
+   "from": "b",
+   "to": "d",
+   "label": "raw"
+  },
+  {
+   "from": "a",
+   "to": "c",
+   "label": "skip"
+  }
+ ]
+}

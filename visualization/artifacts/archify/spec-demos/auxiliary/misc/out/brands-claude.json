@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "brands",
+  "query": "claude",
+  "count": 1,
+  "marks": [
+    {
+      "id": "claude",
+      "title": "Claude",
+      "category": "ai",
+      "aliases": [
+        "claude-ai"
+      ],
+      "domains": [
+        "claude.ai"
+      ],
+      "viewBox": 24,
+      "hex": "D97757",
+      "provenance": {
+        "provider": "Simple Icons",
+        "providerVersion": "16.28.0",
+        "source": "https://claude.ai"
+      }
+    }
+  ],
+  "fallback": "Run \"archify brands capture <url> --json\", then use the returned digest-pinned brand value."
+}

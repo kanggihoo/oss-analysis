@@ -1,0 +1,11 @@
+Data-flow layout validation failed:
+- [clean-flow/edge-through-node] dataflow flows[2] "a" -> "c" crosses node "b" (unrelated to this relationship) on segment 0 [156, 166] -> [315, 166] (2px clearance) — adjust fromSide/toSide, set route/via or channelX/channelY, or move the node to another stage/row.
+- Label "skip" overlaps node "b" — adjust labelDx/labelDy/labelSegment or set labelAt.
+  label rect: [298, 136, 34, 16]
+  node "b" rect: [259, 128, 112, 58]
+  Suggested fix: set labelAt [315, 201] or set labelDy 54 (below); or set labelAt [315, 119] or set labelDy -28 (above)
+[layout/constraint] [clean-flow/edge-through-node] dataflow flows[2] "a" -> "c" crosses node "b" (unrelated to this relationship) on segment 0 [156, 166] -> [315, 166] (2px clearance) — adjust fromSide/toSide, set route/via or channelX/channelY, or move the node to another stage/row.
+[layout/constraint] Label "skip" overlaps node "b" — adjust labelDx/labelDy/labelSegment or set labelAt.
+  label rect: [298, 136, 34, 16]
+  node "b" rect: [259, 128, 112, 58]
+  Suggested fix: set labelAt [315, 201] or set labelDy 54 (below); or set labelAt [315, 119] or set labelDy -28 (above)

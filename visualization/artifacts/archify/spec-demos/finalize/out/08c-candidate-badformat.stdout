@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "stage": "arguments",
+  "error": "--candidate-sha256 must be 64 lowercase hexadecimal characters.",
+  "diagnostics": [
+    {
+      "code": "cli/invalid-option-value",
+      "severity": "error",
+      "message": "--candidate-sha256 must be 64 lowercase hexadecimal characters.",
+      "subject": {
+        "command": "finalize",
+        "option": "--candidate-sha256"
+      },
+      "evidence": {
+        "value": "ABC"
+      },
+      "supportedFixes": [
+        "copy candidate.sha256 from the passing validate receipt without modification"
+      ]
+    }
+  ]
+}

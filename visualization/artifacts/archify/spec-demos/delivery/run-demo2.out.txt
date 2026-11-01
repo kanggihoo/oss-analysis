@@ -1,0 +1,252 @@
+=== A. 첫 전달 실패 -> journal 잔여 -> 같은 경로 성공 전달
+
+$ archify deliver lifecycle in/bad-schema.json n/never.html
+lifecycle schema validation failed:
+  / must have required property 'states' {"missingProperty":"states"}
+[schema/required] / must have required property 'states' Fix: add required property "states".
+[exit 1]
+-- ls n
+   never.delivery-pending.json
+-- journal
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "f9d26423-d424-4ac9-a767-5d853c8fefe7",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/in/bad-schema.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/n/never.html"
+}
+
+$ archify deliver lifecycle in/ok.json n/never.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/n/never.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+-- ls n
+   never.delivery.json
+   never.html
+
+=== B. HTML만 있고 provenance 없는 기존 파일 + 실패
+
+$ archify check legacy.html
+{
+  "ok": true,
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/legacy.html",
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  "checks": [
+  "composition": {
+    "schemaVersion": 1,
+    "profile": "showcase",
+    "status": "pass",
+    "summary": {
+    "metrics": {
+    "suggestedLimits": {
+    "routeReview": {
+    "leadingSpace": {
+    "desktopReadability": {
+    "issues": []
+  "provenance": "unknown"
+}
+[exit 0]
+
+$ archify deliver lifecycle in/bad-schema.json legacy.html
+lifecycle schema validation failed:
+  / must have required property 'states' {"missingProperty":"states"}
+[schema/required] / must have required property 'states' Fix: add required property "states".
+[exit 1]
+-- ls .
+   in
+   legacy.delivery-pending.json
+   legacy.delivery.json
+   legacy.html
+   n
+-- legacy.delivery.json
+{
+  "schemaVersion": 1,
+  "receiptId": "c48f65e2-6b8c-498d-a3fb-065969c83788",
+  "status": "failed",
+  "command": "deliver",
+  "stage": "render",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/in/bad-schema.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/legacy.html",
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  },
+  "error": "lifecycle schema validation failed:\n  / must have required property 'states' {\"missingProperty\":\"states\"}"
+}
+
+=== C. 연속 실패 두 번 (receiptId 갱신, 파일 보존)
+
+$ archify deliver lifecycle in/bad-schema.json legacy.html
+lifecycle schema validation failed:
+  / must have required property 'states' {"missingProperty":"states"}
+[schema/required] / must have required property 'states' Fix: add required property "states".
+[exit 1]
+  "receiptId": "4a0f991b-fe9c-40dd-8aee-44325655ece3",
+
+=== D. 변조 검출
+
+$ archify deliver lifecycle in/ok.json t.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/t.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+
+$ archify check t.html --require-provenance --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "check",
+  "provenance": "mismatch",
+  "deliveryReceiptId": "a116de40-ba64-463e-9477-67b9d49deec6",
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/t.html"
+  "error": "The artifact bytes do not match their delivery provenance.",
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/t.html",
+  "diagnostic": "The artifact bytes do not match their delivery provenance.",
+  "diagnostics": [
+}
+[exit 1]
+
+$ archify check t.html
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "check",
+  "provenance": "mismatch",
+  "deliveryReceiptId": "a116de40-ba64-463e-9477-67b9d49deec6",
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/t.html"
+  "error": "The artifact bytes do not match their delivery provenance.",
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/t.html",
+  "diagnostic": "The artifact bytes do not match their delivery provenance.",
+  "diagnostics": [
+}
+[exit 1]
+
+=== E. 파일 심볼릭 링크 대상
+
+$ archify deliver lifecycle in/ok.json real.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/real.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+
+$ archify deliver lifecycle in/ok-v2.json alias.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/real.html
+9/9 artifact checks; composition showcase: pass; sha256 f41b812b25c5
+[exit 0]
+-- ls .
+   alias.html
+   in
+   legacy.delivery-pending.json
+   legacy.delivery.json
+   legacy.html
+   n
+   real.delivery.json
+   real.html
+   t.delivery.json
+   t.html
+   lrwxr-xr-x@ 1 kkh  staff  9 Nov  2 06:23 alias.html -> real.html
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/in/ok-v2.json",
+
+=== F. 하드링크 / 디렉터리 대상
+
+$ archify deliver lifecycle in/ok.json real.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "aa535bbc-ac1c-49e0-955b-472d2d5e7b58",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/in/ok.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/real.html",
+  "error": "The HTML artifact target is hard-linked and cannot be replaced atomically.",
+  "diagnostics": [
+}
+[exit 1]
+-- ls .
+   alias.html
+   hard.html
+   in
+   legacy.delivery-pending.json
+   legacy.delivery.json
+   legacy.html
+   n
+   real.delivery.json
+   real.html
+   t.delivery.json
+   t.html
+
+$ archify deliver lifecycle in/ok.json dirtarget.html
+The HTML artifact target is not a regular file.
+[output/target-not-regular-file] The HTML artifact target is not a regular file. Fix: choose an absent or regular-file target, then rerun deliver.
+[exit 1]
+
+=== G. 입력 경로를 meta.output으로 지정되는 경우: 입력 파일명이 .html 이고 meta.output 이 같은 이름
+
+$ archify deliver lifecycle selfmeta.html
+Output must not replace an input.
+[output/input-alias] Output must not replace an input, including through a symbolic-link or future-path alias. Fix: choose an output path that is distinct from every input path.
+[exit 1]
+
+=== H. 기존 삭제 후 provenance만 남은 상태에서 전달 / provenance가 입력과 같은 이름
+
+$ archify deliver lifecycle in/ok.json real.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/real.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+
+$ archify deliver lifecycle prov.delivery.json prov.html
+Output must not replace the delivery input.
+[output/input-alias] Output must not replace the delivery input, including through a symbolic-link or future-path alias. Fix: choose an output path that is distinct from every input path.
+[exit 1]
+-- ls .
+   alias.html
+   dirtarget.html
+   hard.html
+   in
+   legacy.delivery-pending.json
+   legacy.delivery.json
+   legacy.html
+   n
+   prov.delivery-pending.json
+   prov.delivery.json
+   real.delivery.json
+   real.html
+   selfmeta.html
+   t.delivery.json
+   t.html
+
+=== I. 잔여 journal이 다른 출력 경로 전달을 막는지
+
+$ archify deliver lifecycle in/bad-schema.json m1.html
+lifecycle schema validation failed:
+  / must have required property 'states' {"missingProperty":"states"}
+[schema/required] / must have required property 'states' Fix: add required property "states".
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json m2.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work2/m2.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+-- ls .
+   alias.html
+   dirtarget.html
+   hard.html
+   in
+   legacy.delivery-pending.json
+   legacy.delivery.json
+   legacy.html
+   m1.delivery-pending.json
+   m2.delivery.json
+   m2.html
+   n
+   prov.delivery-pending.json
+   prov.delivery.json
+   real.delivery.json
+   real.html
+   selfmeta.html
+   t.delivery.json
+   t.html

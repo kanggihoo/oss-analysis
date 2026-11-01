@@ -1,0 +1,2 @@
+This diagram declares source evidence. Pass --repo-root <repository> so Archify can verify it before rendering.
+[repository-evidence/root-required] This diagram declares source evidence. Pass --repo-root <repository> so Archify can verify it before rendering. Fix: pass --repo-root with the matching local Git checkout.

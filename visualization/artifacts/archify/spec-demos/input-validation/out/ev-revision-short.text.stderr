@@ -1,0 +1,3 @@
+architecture schema validation failed:
+  /meta/repository/revision must match pattern "^[a-fA-F0-9]{40}$" {"pattern":"^[a-fA-F0-9]{40}$"}
+[schema/pattern] /meta/repository/revision must match pattern "^[a-fA-F0-9]{40}$" Fix: match the required pattern "^[a-fA-F0-9]{40}$".

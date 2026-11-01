@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b16-image-missing.archify.md",
+  "error": "The image cannot be read safely inside the input directory.",
+  "diagnostics": [
+    {
+      "code": "explainer/asset-read",
+      "severity": "error",
+      "message": "The image cannot be read safely inside the input directory.",
+      "subject": {
+        "path": "/panels/0/blocks/0",
+        "component": "image",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b16-image-missing.archify.md",
+        "line": 7,
+        "column": 1
+      },
+      "evidence": {
+        "reason": "asset-read",
+        "example": "{\"id\":\"image\",\"type\":\"image\",\"path\":\"images/figure.png\",\"alt\":\"Figure\"}"
+      },
+      "supportedFixes": [
+        "Use an accessible regular image inside the input directory."
+      ]
+    }
+  ]
+}

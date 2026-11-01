@@ -1,0 +1,70 @@
+{
+ "schema_version": 1,
+ "diagram_type": "erd",
+ "meta": {
+  "title": "E",
+  "output": "x.html"
+ },
+ "layout": {
+  "mode": "grid"
+ },
+ "entities": [
+  {
+   "id": "a",
+   "label": "a",
+   "row": 0,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ],
+   "tag": "sales"
+  },
+  {
+   "id": "b",
+   "label": "b",
+   "row": 0,
+   "col": 1,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ],
+   "tag": "sales"
+  },
+  {
+   "id": "c",
+   "label": "c",
+   "row": 1,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ],
+   "tag": "ops"
+  }
+ ],
+ "relationships": [
+  {
+   "from": "a",
+   "to": "c",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "from": "b",
+   "to": "a",
+   "fromCardinality": "many",
+   "toCardinality": "one",
+   "label": "owns"
+  }
+ ]
+}

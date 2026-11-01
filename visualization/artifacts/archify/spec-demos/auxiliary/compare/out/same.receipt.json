@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "compare",
+  "type": "architecture",
+  "comparatorVersion": 1,
+  "canonicalVersion": 1,
+  "completeness": "complete",
+  "proofLevel": "authored",
+  "base": {
+    "title": "Checkout Platform — Baseline",
+    "rawSha256": "81d55a2e86fc39f6473b32dfba986a12d3b7a705a95821844865b1dc831c9fe7",
+    "semanticSha256": "5d2f362ed389af82b117a01d36201e27cb83503093b14c50f7cd8dada55f243a",
+    "bytes": 2279
+  },
+  "head": {
+    "title": "Checkout Platform — Baseline",
+    "rawSha256": "81d55a2e86fc39f6473b32dfba986a12d3b7a705a95821844865b1dc831c9fe7",
+    "semanticSha256": "5d2f362ed389af82b117a01d36201e27cb83503093b14c50f7cd8dada55f243a",
+    "bytes": 2279
+  },
+  "summary": {
+    "components": {
+      "added": 0,
+      "changed": 0,
+      "evidenceChanged": 0,
+      "removed": 0,
+      "moved": 0
+    },
+    "connections": {
+      "added": 0,
+      "changed": 0,
+      "removed": 0,
+      "rerouted": 0
+    },
+    "boundaries": {
+      "added": 0,
+      "changed": 0,
+      "removed": 0,
+      "geometryChanged": 0
+    },
+    "presentationChanged": false,
+    "provenanceChanged": false
+  },
+  "changes": {
+    "components": [],
+    "connections": [],
+    "boundaries": []
+  },
+  "identity": {
+    "components": "components[].id",
+    "connections": "connections[].id (required)",
+    "boundaries": "boundaries[].kind + boundaries[].label (derived)"
+  },
+  "view": {
+    "visualPreset": "signal-flow"
+  },
+  "limitations": [
+    "Authored Architecture IR only; no runtime impact, causality, risk, or mergeability is inferred.",
+    "Boundary identity is conservatively derived from kind + label."
+  ],
+  "artifact": {
+    "sha256": "dccf25b42a168c985940b2d9d621f54981b322b805376854e027b81d5f06615f",
+    "bytes": 2327208
+  },
+  "validation": {
+    "checksPassed": 28,
+    "checkCount": 28,
+    "baseComposition": "pass",
+    "headComposition": "pass"
+  }
+}

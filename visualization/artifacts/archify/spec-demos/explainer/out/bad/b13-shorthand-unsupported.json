@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b13-shorthand-unsupported.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/diagram-shorthand-unsupported",
+      "severity": "error",
+      "message": "The dataflow type uses native JSON instead of shorthand rows.",
+      "subject": {
+        "component": "diagram",
+        "line": 7,
+        "path": "/",
+        "diagram": "df",
+        "diagramType": "dataflow"
+      },
+      "evidence": {
+        "reason": "diagram-shorthand-unsupported",
+        "example": "Use spec with diagram_type: dataflow, or source: diagram.dataflow.json."
+      },
+      "supportedFixes": [
+        "Use this form: Use spec with diagram_type: dataflow, or source: diagram.dataflow.json."
+      ]
+    }
+  ]
+}

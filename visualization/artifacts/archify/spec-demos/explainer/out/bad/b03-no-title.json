@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b03-no-title.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-answer",
+      "severity": "error",
+      "message": "The document title must precede the short answer.",
+      "subject": {
+        "line": 1,
+        "column": 1,
+        "component": "answer",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b03-no-title.archify.md"
+      },
+      "evidence": {
+        "reason": "The document title must precede the short answer.",
+        "example": "# A title\n\nA direct answer."
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: # A title\n\nA direct answer."
+      ]
+    },
+    {
+      "code": "explainer/parse-title",
+      "severity": "error",
+      "message": "A document requires one # title.",
+      "subject": {
+        "line": 1,
+        "column": 1,
+        "component": "title",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b03-no-title.archify.md"
+      },
+      "evidence": {
+        "reason": "A document requires one # title.",
+        "example": "# What should we choose?"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: # What should we choose?"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+/meta/repository requires at least one /components source reference.
+[repository-evidence/source-required] /meta/repository requires at least one /components source reference. Fix: add at least one verified /components source or remove repository metadata.

@@ -1,0 +1,193 @@
+{
+ "ok": false,
+ "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/work/crossing_showcase.html",
+ "artifact": {
+  "sha256": "6f5af051fc14fe9836be8600d6fe6ffc02873b42ae98212fd24d248a314fac0a",
+  "bytes": 857068
+ },
+ "checks": [
+  {
+   "name": "single_svg",
+   "ok": true,
+   "details": [
+    "found 1 <svg> block(s)"
+   ]
+  },
+  {
+   "name": "finite_svg",
+   "ok": true,
+   "details": []
+  },
+  {
+   "name": "orthogonal_arrows",
+   "ok": true,
+   "details": []
+  },
+  {
+   "name": "label_route_clearance",
+   "ok": false,
+   "details": [
+    "[composition/label-route-clearance] showcase label \"brief\" on relationship id \"brief-to-claude\" (\"request\" -> \"claude\") is 0px from relationship id \"github-to-container\" (\"github\" -> \"container\") segment 0 [200, 250] -> [200, 340] with 14px hidden by the mask (minimum 4px) \u2014 use renderer-supported label controls (message y for sequence; otherwise labelAt, labelDx, labelDy, or labelSegment), or adjust the other relationship route/via/channel."
+   ]
+  },
+  {
+   "name": "relationship_crossings",
+   "ok": false,
+   "details": [
+    "[composition/proper-crossing] showcase relationship id \"brief-to-claude\" (\"request\" -> \"claude\") crosses relationship id \"github-to-container\" (\"github\" -> \"container\") at [200, 294]"
+   ]
+  },
+  {
+   "name": "relationship_corridors",
+   "ok": true,
+   "details": []
+  },
+  {
+   "name": "container_border_runs",
+   "ok": true,
+   "details": []
+  },
+  {
+   "name": "route_rhythm",
+   "ok": true,
+   "details": []
+  },
+  {
+   "name": "legend_clearance",
+   "ok": true,
+   "details": []
+  }
+ ],
+ "composition": {
+  "schemaVersion": 1,
+  "profile": "showcase",
+  "status": "fail",
+  "summary": {
+   "errors": 2,
+   "warnings": 0
+  },
+  "metrics": {
+   "properCrossings": 1,
+   "resolvedCrossovers": 0,
+   "ambiguousCorridors": 0,
+   "arrowheadCollisions": 0,
+   "containerBorderRuns": 0,
+   "labelRouteClearanceIssues": 1,
+   "labelCanvasOverflowIssues": 0,
+   "minLabelRouteClearance": 0,
+   "desktopReadabilityIssues": 0,
+   "viewportHeightIssues": 0,
+   "minProjectedNodeTextPx": 6.642857142857143,
+   "maxBends": 2,
+   "routesOverSuggestedBends": 0,
+   "maxStretch": 1,
+   "routesOverSuggestedStretch": 0,
+   "minSegmentPx": 44,
+   "minInteriorSegmentPx": 182,
+   "shortSegmentCount": 0,
+   "shortEndpointSegmentCount": 0,
+   "shortInteriorSegmentCount": 0,
+   "microSegmentCount": 0
+  },
+  "suggestedLimits": {
+   "bendsPerRelationship": 2,
+   "stretch": 1.35,
+   "segmentPx": 16,
+   "microSegmentPx": 8
+  },
+  "routeReview": {
+   "crossings": [],
+   "detours": []
+  },
+  "leadingSpace": {
+   "measured": false,
+   "reviewSuggested": false
+  },
+  "desktopReadability": {
+   "budgetBasis": "legacy-930",
+   "readerContract": "declared-wide-v1",
+   "availableDiagramWidth": 930,
+   "actualBudgetPx": 930,
+   "limit": "legacy",
+   "requestedTargetPx": null,
+   "requestedTargetMet": null,
+   "hardFloorPx": 6,
+   "hardFloorMet": true,
+   "minimumOwner": {
+    "kind": "edge",
+    "id": "brief-to-claude",
+    "from": "request",
+    "to": "claude"
+   },
+   "minimumSourceTextPx": 8,
+   "minimumProjectedTextPx": 6.642857142857143,
+   "semanticTextCount": 24
+  },
+  "issues": [
+   {
+    "severity": "error",
+    "code": "composition/label-route-clearance",
+    "label": "brief",
+    "labelRelationship": {
+     "id": "brief-to-claude",
+     "from": "request",
+     "to": "claude",
+     "label": "brief",
+     "collectionIndex": 0,
+     "artifactIndex": 1
+    },
+    "otherRelationship": {
+     "id": "github-to-container",
+     "from": "github",
+     "to": "container",
+     "label": "approved build",
+     "collectionIndex": 2,
+     "artifactIndex": 3
+    },
+    "segmentIndex": 0,
+    "labelRect": {
+     "x": 181,
+     "y": 274,
+     "width": 34,
+     "height": 14
+    },
+    "clearance": 0,
+    "intersectionLength": 14,
+    "threshold": 4,
+    "from": [
+     200,
+     250
+    ],
+    "to": [
+     200,
+     340
+    ]
+   },
+   {
+    "severity": "error",
+    "code": "composition/proper-crossing",
+    "relationship": {
+     "id": "brief-to-claude",
+     "from": "request",
+     "to": "claude",
+     "label": "brief",
+     "collectionIndex": 0,
+     "artifactIndex": 1
+    },
+    "otherRelationship": {
+     "id": "github-to-container",
+     "from": "github",
+     "to": "container",
+     "label": "approved build",
+     "collectionIndex": 2,
+     "artifactIndex": 3
+    },
+    "point": [
+     200,
+     294
+    ]
+   }
+  ]
+ },
+ "provenance": "unknown"
+}

@@ -1,0 +1,1 @@
+{"schema_version": 1, "diagram_type": "dataflow", "meta": {"title": "D", "output": "x.html"}, "stages": [{"label": "In"}, {"label": "Out"}], "nodes": [{"id": "a", "type": "backend", "label": "A", "stage": 0, "row": 0}, {"id": "b", "type": "backend", "label": "B", "stage": 1, "row": 3, "height": 300}], "flows": [{"from": "a", "to": "b", "label": "x"}]}

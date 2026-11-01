@@ -1,0 +1,2 @@
+/components/0/sources/0/path must stay inside the repository and may not address .git.
+[repository-evidence/path-escape] /components/0/sources/0/path must stay inside the repository and may not address .git. Fix: remove empty, dot, parent, or .git path segments.

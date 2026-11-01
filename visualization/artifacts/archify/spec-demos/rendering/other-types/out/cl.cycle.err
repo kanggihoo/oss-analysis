@@ -1,0 +1,7 @@
+Class diagram validation failed:
+- Inheritance forms a cycle: "p" -> "q" -> "p". A type cannot be its own supertype.
+- Type "p" shares its right side with 2 relationship ends 2px apart, under the 16px a relationship marker needs, so the markers overlap. Spread the relationships across sides or place the related types so they arrive from different directions.
+- Type "q" shares its left side with 2 relationship ends 2px apart, under the 16px a relationship marker needs, so the markers overlap. Spread the relationships across sides or place the related types so they arrive from different directions.
+[class/inheritance-cycle] Inheritance forms a cycle: "p" -> "q" -> "p". A type cannot be its own supertype. Fix: Remove or reverse one inheritance relationship in the cycle..
+[layout/marker-capacity] Type "p" shares its right side with 2 relationship ends 2px apart, under the 16px a relationship marker needs, so the markers overlap. Spread the relationships across sides or place the related types so they arrive from different directions. Fix: Spread the relationships across sides with room.; Move related types so they approach from different sides..
+[layout/marker-capacity] Type "q" shares its left side with 2 relationship ends 2px apart, under the 16px a relationship marker needs, so the markers overlap. Spread the relationships across sides or place the related types so they arrive from different directions. Fix: Spread the relationships across sides with room.; Move related types so they approach from different sides..

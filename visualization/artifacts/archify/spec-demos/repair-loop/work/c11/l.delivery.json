@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "f39ac6c8-7f94-468a-90ef-5ce5ba3b9531",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c11-leading-space.fixed.architecture.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c11/l.html",
+  "specification": {
+    "sha256": "0245548f9bf86447f5555ee727e92dfb09431ef6bffefcae9ec023053c7479be",
+    "bytes": 3627
+  },
+  "artifact": {
+    "sha256": "a90df93852240a81201d1cf57b9989da1e7eff2fc79e8c0f0e1d8c1d78946d2e",
+    "bytes": 846612
+  }
+}

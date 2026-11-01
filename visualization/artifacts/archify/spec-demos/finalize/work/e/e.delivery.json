@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "badabe93-4859-4efd-aad2-98150bfec1ff",
+  "status": "failed",
+  "command": "deliver",
+  "stage": "render",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/bad-schema.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/e/e.html",
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  },
+  "error": "lifecycle schema validation failed:\n  / must have required property 'states' {\"missingProperty\":\"states\"}"
+}

@@ -1,0 +1,107 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    886,
+    404
+  ],
+  "requiredViewBox": [
+    886,
+    404
+  ],
+  "columns": [
+    148,
+    332,
+    452,
+    572,
+    692,
+    812
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 0,
+      "x": 48,
+      "y": 93,
+      "width": 200,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 1,
+      "x": 286,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 2,
+      "x": 406,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": null,
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          248,
+          119
+        ],
+        [
+          286,
+          119
+        ]
+      ]
+    },
+    {
+      "id": null,
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          332,
+          145
+        ],
+        [
+          332,
+          243
+        ],
+        [
+          406,
+          243
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": null,
+      "label": "go",
+      "x": 267,
+      "y": 109,
+      "width": 30,
+      "height": 14
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Sublabel \"a very long sublabel that cannot fit in the node at all really\" needs ~224px at the 6px legible minimum, but node \"a\" provides 192px — shorten the sublabel or increase node.width.",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ],
+  "ok": false
+}

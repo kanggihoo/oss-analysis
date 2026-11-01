@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "A $& B </script>",
+    "output": "fr.html",
+    "subtitle": "sub <b>",
+    "visual_preset": "blueprint",
+    "locale": "fr"
+  },
+  "components": [
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        120,
+        60
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API",
+      "pos": [
+        280,
+        80
+      ],
+      "size": [
+        120,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "web",
+      "to": "api",
+      "label": "HTTPS"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "T & <x>",
+      "items": [
+        "i1 $'",
+        "i2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r14-bottom-margin-greedy",
+  "output": "r14-bottom-margin-greedy.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    440,
+    170
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    640,
+    170
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    240,
+    300
+   ]
+  },
+  {
+   "id": "d",
+   "type": "backend",
+   "label": "D",
+   "pos": [
+    40,
+    300
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "c",
+   "labelDx": 0
+  },
+  {
+   "from": "b",
+   "to": "a",
+   "labelDx": 0
+  },
+  {
+   "from": "b",
+   "to": "d",
+   "labelDx": 0
+  }
+ ]
+}

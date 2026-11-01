@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c21-diagram-source-missing.archify.md",
+  "error": "Diagram source cannot be read safely inside the input directory.",
+  "diagnostics": [
+    {
+      "code": "explainer/diagram-source-read",
+      "severity": "error",
+      "message": "Diagram source cannot be read safely inside the input directory.",
+      "subject": {
+        "component": "diagram",
+        "line": 7,
+        "path": "/panels/0/blocks/0/source",
+        "column": 1,
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c21-diagram-source-missing.archify.md",
+        "panelId": "p"
+      },
+      "evidence": {
+        "reason": "diagram-source-read",
+        "example": "request.sequence.json"
+      },
+      "supportedFixes": [
+        "Use this form: request.sequence.json"
+      ]
+    }
+  ]
+}

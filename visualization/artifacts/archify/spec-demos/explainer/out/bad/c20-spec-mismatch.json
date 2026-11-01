@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c20-spec-mismatch.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/diagram-type",
+      "severity": "error",
+      "message": "The native specification must match the declared diagram type.",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "diagram",
+        "path": "/panels/0/blocks/0/spec/diagram_type",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c20-spec-mismatch.archify.md"
+      },
+      "evidence": {
+        "reason": "The native specification must match the declared diagram type.",
+        "example": "@sequence source=request.sequence.json"
+      },
+      "supportedFixes": [
+        "Use a valid form, for example: @sequence source=request.sequence.json"
+      ]
+    },
+    {
+      "code": "explainer/native-schema/required",
+      "severity": "error",
+      "message": "/ must have required property 'nodes'",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "diagram",
+        "path": "/panels/0/blocks/0/spec",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c20-spec-mismatch.archify.md"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "nodes",
+        "reason": "/ must have required property 'nodes'",
+        "example": "Use valid native tree JSON."
+      },
+      "supportedFixes": [
+        "add required property \"nodes\""
+      ]
+    },
+    {
+      "code": "explainer/native-schema/additionalProperties",
+      "severity": "error",
+      "message": "/ must NOT have additional properties",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "diagram",
+        "path": "/panels/0/blocks/0/spec",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c20-spec-mismatch.archify.md"
+      },
+      "evidence": {
+        "keyword": "additionalProperties",
+        "additionalProperty": "participants",
+        "reason": "/ must NOT have additional properties",
+        "example": "Use valid native tree JSON."
+      },
+      "supportedFixes": [
+        "remove unsupported property \"participants\""
+      ]
+    },
+    {
+      "code": "explainer/native-schema/additionalProperties",
+      "severity": "error",
+      "message": "/ must NOT have additional properties",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "diagram",
+        "path": "/panels/0/blocks/0/spec",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c20-spec-mismatch.archify.md"
+      },
+      "evidence": {
+        "keyword": "additionalProperties",
+        "additionalProperty": "messages",
+        "reason": "/ must NOT have additional properties",
+        "example": "Use valid native tree JSON."
+      },
+      "supportedFixes": [
+        "remove unsupported property \"messages\""
+      ]
+    },
+    {
+      "code": "explainer/native-schema/const",
+      "severity": "error",
+      "message": "/diagram_type must be equal to constant",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "diagram",
+        "path": "/panels/0/blocks/0/spec/diagram_type",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c20-spec-mismatch.archify.md"
+      },
+      "evidence": {
+        "keyword": "const",
+        "allowedValue": "tree",
+        "reason": "/diagram_type must be equal to constant",
+        "example": "Use valid native tree JSON."
+      },
+      "supportedFixes": []
+    }
+  ]
+}

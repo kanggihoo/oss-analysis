@@ -1,0 +1,141 @@
+{
+ "schema_version": 3,
+ "diagram_type": "lifecycle",
+ "meta": {
+  "title": "L",
+  "output": "x.html"
+ },
+ "mainPath": [
+  "s0",
+  "s1",
+  "s2",
+  "s3",
+  "s4",
+  "s5",
+  "s6",
+  "s7",
+  "s8",
+  "s9",
+  "s10",
+  "s11"
+ ],
+ "states": [
+  {
+   "id": "s0",
+   "type": "active",
+   "label": "State name number 0 long"
+  },
+  {
+   "id": "s1",
+   "type": "active",
+   "label": "State name number 1 long"
+  },
+  {
+   "id": "s2",
+   "type": "active",
+   "label": "State name number 2 long"
+  },
+  {
+   "id": "s3",
+   "type": "active",
+   "label": "State name number 3 long"
+  },
+  {
+   "id": "s4",
+   "type": "active",
+   "label": "State name number 4 long"
+  },
+  {
+   "id": "s5",
+   "type": "active",
+   "label": "State name number 5 long"
+  },
+  {
+   "id": "s6",
+   "type": "active",
+   "label": "State name number 6 long"
+  },
+  {
+   "id": "s7",
+   "type": "active",
+   "label": "State name number 7 long"
+  },
+  {
+   "id": "s8",
+   "type": "active",
+   "label": "State name number 8 long"
+  },
+  {
+   "id": "s9",
+   "type": "active",
+   "label": "State name number 9 long"
+  },
+  {
+   "id": "s10",
+   "type": "active",
+   "label": "State name number 10 long"
+  },
+  {
+   "id": "s11",
+   "type": "active",
+   "label": "State name number 11 long"
+  }
+ ],
+ "transitions": [
+  {
+   "from": "s0",
+   "to": "s1",
+   "label": "step 0 is a long label"
+  },
+  {
+   "from": "s1",
+   "to": "s2",
+   "label": "step 1 is a long label"
+  },
+  {
+   "from": "s2",
+   "to": "s3",
+   "label": "step 2 is a long label"
+  },
+  {
+   "from": "s3",
+   "to": "s4",
+   "label": "step 3 is a long label"
+  },
+  {
+   "from": "s4",
+   "to": "s5",
+   "label": "step 4 is a long label"
+  },
+  {
+   "from": "s5",
+   "to": "s6",
+   "label": "step 5 is a long label"
+  },
+  {
+   "from": "s6",
+   "to": "s7",
+   "label": "step 6 is a long label"
+  },
+  {
+   "from": "s7",
+   "to": "s8",
+   "label": "step 7 is a long label"
+  },
+  {
+   "from": "s8",
+   "to": "s9",
+   "label": "step 8 is a long label"
+  },
+  {
+   "from": "s9",
+   "to": "s10",
+   "label": "step 9 is a long label"
+  },
+  {
+   "from": "s10",
+   "to": "s11",
+   "label": "step 10 is a long label"
+  }
+ ]
+}

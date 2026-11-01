@@ -1,0 +1,61 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/unexpected-root",
+      "severity": "error",
+      "message": "Workflow node \"a\" has no incoming edge and is not declared in semanticChecks.allowedRoots.",
+      "subject": {
+        "diagramType": "workflow",
+        "node": "a",
+        "path": "/semanticChecks/allowedRoots"
+      },
+      "evidence": {
+        "incomingEdges": 0,
+        "allowedRoots": [
+          "b"
+        ]
+      },
+      "supportedFixes": [
+        "add the missing incoming edge to \"a\"",
+        "declare \"a\" in semanticChecks.allowedRoots if it is an intentional source"
+      ]
+    },
+    {
+      "code": "workflow/required-edge",
+      "severity": "error",
+      "message": "Workflow semantic contract requires edge \"c\" -> \"a\", but no authored edge matches it.",
+      "subject": {
+        "diagramType": "workflow",
+        "from": "c",
+        "to": "a",
+        "path": "/semanticChecks/requiredEdges/0"
+      },
+      "evidence": {
+        "authoredEdgeCount": 2
+      },
+      "supportedFixes": [
+        "add an edge from \"c\" to \"a\" without deleting the semantic requirement"
+      ]
+    },
+    {
+      "code": "workflow/required-path",
+      "severity": "error",
+      "message": "Workflow semantic contract requires a directed path from \"c\" to \"a\", but none exists.",
+      "subject": {
+        "diagramType": "workflow",
+        "from": "c",
+        "to": "a",
+        "path": "/semanticChecks/requiredPaths/0"
+      },
+      "evidence": {
+        "reachableNodes": [
+          "c"
+        ]
+      },
+      "supportedFixes": [
+        "restore a directed path from \"c\" to \"a\" without weakening the semantic requirement"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+Timeline validation failed:
+- meta.timezone "Not/AZone" is not a recognised IANA time zone.
+[timeline/invalid-timezone] meta.timezone "Not/AZone" is not a recognised IANA time zone. Fix: Use an IANA zone such as "UTC", "Europe/Berlin", or "Asia/Shanghai"..

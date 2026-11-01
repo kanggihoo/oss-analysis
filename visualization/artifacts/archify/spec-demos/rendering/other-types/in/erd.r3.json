@@ -1,0 +1,57 @@
+{
+ "schema_version": 1,
+ "diagram_type": "erd",
+ "meta": {
+  "title": "E",
+  "output": "x.html"
+ },
+ "layout": {
+  "mode": "grid"
+ },
+ "entities": [
+  {
+   "id": "a",
+   "label": "a",
+   "row": 0,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "c0",
+     "type": "int"
+    }
+   ]
+  },
+  {
+   "id": "m",
+   "label": "m",
+   "row": 0,
+   "col": 1,
+   "attributes": [
+    {
+     "name": "c0",
+     "type": "int"
+    }
+   ]
+  },
+  {
+   "id": "c",
+   "label": "c",
+   "row": 0,
+   "col": 2,
+   "attributes": [
+    {
+     "name": "c0",
+     "type": "int"
+    }
+   ]
+  }
+ ],
+ "relationships": [
+  {
+   "from": "a",
+   "to": "c",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  }
+ ]
+}

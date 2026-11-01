@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    400,
+    168
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 240,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        240,
+        40
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          70
+        ],
+        [
+          240,
+          70
+        ]
+      ]
+    }
+  ],
+  "labels": []
+}

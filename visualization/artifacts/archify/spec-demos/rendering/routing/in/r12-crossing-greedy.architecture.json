@@ -1,0 +1,58 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r12-crossing-greedy",
+  "output": "r12-crossing-greedy.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    240,
+    200
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    240,
+    40
+   ]
+  },
+  {
+   "id": "d",
+   "type": "backend",
+   "label": "D",
+   "pos": [
+    40,
+    200
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "labelDx": 0
+  },
+  {
+   "from": "c",
+   "to": "d",
+   "labelDx": 0
+  }
+ ]
+}

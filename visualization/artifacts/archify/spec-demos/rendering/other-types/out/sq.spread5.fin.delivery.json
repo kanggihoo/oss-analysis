@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "ae1190af-22d6-4e9c-a552-8fa06a66cd6d",
+  "status": "current",
+  "command": "deliver",
+  "type": "sequence",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/other-types/in/sq.spread5.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/other-types/out/sq.spread5.fin.html",
+  "specification": {
+    "sha256": "9559e7870b90dee55f34cb778c072225f6e11c5270fc504041cc1fd3bc91813e",
+    "bytes": 530
+  },
+  "artifact": {
+    "sha256": "ab2985fc59bcd71729ef7500e16eb277aac14946e306f6db9a7e486eb494ad54",
+    "bytes": 823416
+  }
+}

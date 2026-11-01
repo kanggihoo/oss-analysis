@@ -1,0 +1,2 @@
+Evidence root "/private/tmp" is not a Git repository.
+[repository-evidence/git-command] Evidence root "/private/tmp" is not a Git repository. Fix: use the intended local Git repository and verify its origin and revision.

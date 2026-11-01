@@ -1,0 +1,21 @@
+== check-update (ARCHIFY_UPDATE_CHECK_DISABLED=1)
+{"status":"silent","reason":"disabled"}
+exit=0
+== check-update --snooze (disabled 모드: 상태 파일을 쓰지 않음)
+{"status":"silent","reason":"disabled"}
+exit=0
+== recover-output 인자 없음
+Usage: node bin/recover-output.mjs <private-recovery-directory> [--json]
+exit=64
+== recover-output --help
+Usage: node bin/recover-output.mjs <private-recovery-directory> [--json]
+exit=0
+== recover-output 잘못된 옵션
+Usage: node bin/recover-output.mjs <private-recovery-directory> [--json]
+exit=64
+== brands --json 전체 개수
+107 {"collaboration":10,"cloud":13,"framework":13,"engineering":18,"ai":13,"data":17,"channel":10,"language":5,"business":8} id,title,category,aliases,domains,viewBox,hex,provenance
+== brands 질의 'google' (부분 일치, 도메인/별칭)
+3 firebase,google-cloud,google-gemini
+== brands 대소문자·공백 질의 'Hugging Face'
+1 hugging-face

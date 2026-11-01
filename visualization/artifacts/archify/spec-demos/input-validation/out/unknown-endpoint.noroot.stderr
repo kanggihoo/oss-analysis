@@ -1,0 +1,5 @@
+Architecture layout validation failed:
+- Connection "HTTPS" references unknown target "ghost".
+- Connection "HTTPS" endpoint "ghost" does not name a declared component.
+[architecture/unknown-endpoint] Connection "HTTPS" references unknown target "ghost". Fix: set /connections/0/to to verified node id "api".
+[layout/constraint] Connection "HTTPS" endpoint "ghost" does not name a declared component.

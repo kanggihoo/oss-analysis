@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "patch",
+  "stage": "prepare",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch/base.html",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch/p4-adds-source.html",
+  "error": "The replacement changes content outside the selected panel.",
+  "diagnostics": [
+    {
+      "code": "explainer/patch-scope",
+      "severity": "error",
+      "message": "The replacement changes content outside the selected panel.",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/patch/p4-adds-source.md",
+        "panelId": "options",
+        "line": 1,
+        "component": "panel"
+      },
+      "evidence": {
+        "reason": "scope",
+        "example": "Replace only the target panel; preserve document metadata, sources and other panels."
+      },
+      "supportedFixes": [
+        "Replace only the target panel; preserve document metadata, sources and other panels."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+{'total': 10, 'shown': 8, 'truncated': True, 'omittedByCode': {'schema/required': 2}}
+['schema/required', 'schema/required', 'schema/required', 'schema/required', 'schema/required', 'schema/required', 'schema/required', 'schema/required']
+10

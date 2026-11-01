@@ -1,0 +1,1 @@
+{"schema_version": 1, "diagram_type": "architecture", "meta": {"title": "B", "output": "x.html"}, "components": [{"id": "a", "type": "backend", "label": "A", "pos": [40, 40], "size": [120, 60]}, {"id": "b", "type": "backend", "label": "B", "pos": [240, 40], "size": [120, 60]}], "connections": [{"from": "a", "to": "b", "label": "go"}]}

@@ -1,0 +1,31 @@
+{
+  "schema_version": 3,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "L",
+    "output": "l1.html"
+  },
+  "mainPath": [
+    "a",
+    "b"
+  ],
+  "states": [
+    {
+      "id": "a",
+      "type": "start",
+      "label": "A"
+    },
+    {
+      "id": "b",
+      "type": "success",
+      "label": "B"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "go"
+    }
+  ]
+}

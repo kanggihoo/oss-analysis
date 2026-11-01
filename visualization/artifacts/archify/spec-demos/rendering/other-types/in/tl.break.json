@@ -1,0 +1,36 @@
+{
+ "schema_version": 1,
+ "diagram_type": "timeline",
+ "meta": {
+  "title": "E",
+  "output": "x.html",
+  "evidence": "illustrative"
+ },
+ "events": [
+  {
+   "id": "a",
+   "at": "2026-10-01T10:00:00Z",
+   "title": "Ea"
+  },
+  {
+   "id": "b",
+   "at": "2026-10-01T10:05:00Z",
+   "title": "Eb"
+  },
+  {
+   "id": "c",
+   "at": "2026-10-01T10:10:00Z",
+   "title": "Ec"
+  },
+  {
+   "id": "d",
+   "at": "2026-10-05T10:10:00Z",
+   "title": "Ed"
+  },
+  {
+   "id": "e",
+   "at": "2026-10-05T10:15:00Z",
+   "title": "Ee"
+  }
+ ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "A $& B </script>",
+    "output": "ev.html",
+    "subtitle": "sub <b>",
+    "visual_preset": "blueprint",
+    "repository": {
+      "url": "https://github.com/tt-a1i/archify",
+      "revision": "a4065941f12be7967436261d9934784e381d423c"
+    }
+  },
+  "components": [
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Web",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": "archify/renderers/shared/utils.mjs",
+          "line": 150,
+          "end_line": 201
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API",
+      "pos": [
+        280,
+        80
+      ],
+      "size": [
+        120,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "web",
+      "to": "api",
+      "label": "HTTPS"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "T & <x>",
+      "items": [
+        "i1 $'",
+        "i2"
+      ]
+    }
+  ]
+}

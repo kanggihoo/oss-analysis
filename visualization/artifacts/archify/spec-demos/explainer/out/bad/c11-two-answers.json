@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c11-two-answers.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-answer",
+      "severity": "error",
+      "message": "The short answer is one paragraph before the panels.",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "answer",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c11-two-answers.archify.md"
+      },
+      "evidence": {
+        "reason": "The short answer is one paragraph before the panels.",
+        "example": "A direct answer in one paragraph.\n\n## Why?"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: A direct answer in one paragraph.\n\n## Why?"
+      ]
+    }
+  ]
+}

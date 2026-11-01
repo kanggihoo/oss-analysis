@@ -1,0 +1,95 @@
+{
+  "contract": "fixed-v1",
+  "viewBox": [
+    720,
+    528
+  ],
+  "requiredViewBox": [
+    720,
+    528
+  ],
+  "columns": [
+    88,
+    220,
+    300,
+    430,
+    500,
+    625
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 0,
+      "x": 42,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 1,
+      "x": 174,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 2,
+      "x": 254,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": null,
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          134,
+          119
+        ],
+        [
+          174,
+          119
+        ]
+      ]
+    },
+    {
+      "id": null,
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          220,
+          145
+        ],
+        [
+          220,
+          243
+        ],
+        [
+          254,
+          243
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": null,
+      "label": "go",
+      "x": 154,
+      "y": 109,
+      "width": 30,
+      "height": 14
+    }
+  ],
+  "diagnostics": []
+}

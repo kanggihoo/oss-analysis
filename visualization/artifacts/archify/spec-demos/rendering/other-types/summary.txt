@@ -1,0 +1,75 @@
+cl.bus exit=0 viewBox="0 0 852 260" codes=
+cl.cycle exit=1 viewBox= codes=[class/inheritance-cycle] [layout/marker-capacity] 
+cl.half exit=0 viewBox="0 0 672 250" codes=
+cl.kind exit=1 viewBox= codes=[class/inheritance-kind] 
+cl.real exit=1 viewBox= codes=[class/realization-target] 
+df.above exit=1 viewBox= codes=[dataflow/node-above-area] [layout/constraint] 
+df.badrow exit=1 viewBox= codes=[layout/constraint] 
+df.show exit=0 viewBox="0 0 638 512" codes=
+df.std exit=0 viewBox="0 0 638 720" codes=
+df.unknown exit=1 viewBox= codes=[dataflow/unknown-endpoint] 
+erd.band exit=0 viewBox="0 0 625 254" codes=
+erd.fan exit=1 viewBox= codes=[layout/marker-capacity] 
+erd.hdr exit=1 viewBox= codes=[erd/header-text-capacity] 
+erd.L exit=1 viewBox= codes=[erd/domain-not-drawn] 
+erd.nogrid exit=1 viewBox= codes=[erd/domain-not-drawn] 
+erd.self exit=1 viewBox= codes=[layout/constraint] 
+erd.trunk exit=0 viewBox="0 0 592 654" codes=
+lc.basic exit=0 viewBox="0 0 678 348" codes=
+lc.bracket exit=0 viewBox="0 0 677 348" codes=
+lc.crowded exit=1 viewBox= codes=[lifecycle/crowded-side-transitions] 
+lc.dup exit=1 viewBox= codes=[lifecycle/duplicate-state] 
+lc.gap exit=1 viewBox= codes=[lifecycle/main-path-gap] 
+lc.wide exit=1 viewBox= codes=[lifecycle/too-wide] 
+sq.borderrun exit=1 viewBox= codes=[layout/constraint] [sequence/segment-message-border-run] 
+sq.fixed3 exit=0 viewBox="0 0 920 327" codes=
+sq.fixed5 exit=0 viewBox="0 0 920 327" codes=
+sq.fixed5vb exit=0 viewBox="0 0 1000 480" codes=
+sq.longlabel exit=1 viewBox= codes=[sequence/participant-label-overflow] 
+sq.notelimit exit=1 viewBox= codes=[layout/constraint] [sequence/note-canvas-limit] 
+sq.noteoverlap exit=1 viewBox= codes=[layout/constraint] [sequence/note-overlap] 
+sq.self exit=1 viewBox= codes=[sequence/self-message-unsupported] 
+sq.spread3 exit=0 viewBox="0 0 560 327" codes=
+sq.spread5 exit=0 viewBox="0 0 920 327" codes=
+sq.wide exit=0 viewBox="0 0 920 327" codes=
+tl.badts exit=1 viewBox= codes=[timeline/invalid-timestamp] 
+tl.break exit=0 viewBox="0 0 1016 286" codes=
+tl.lanes exit=0 viewBox="0 0 1104 393" codes=
+tl.tz exit=1 viewBox= codes=[timeline/invalid-timezone] 
+tr.cycle exit=1 viewBox= codes=[tree/cycle] 
+tr.right exit=0 viewBox="0 0 404 314" codes=
+tr.roots exit=1 viewBox= codes=[tree/root-count] 
+tr.stack exit=0 viewBox="0 0 320 399" codes=
+tr.two exit=0 viewBox="0 0 372 246" codes=
+wf.bad exit=1 viewBox= codes=[waterfall/invalid-timing] [waterfall/missing-parent] 
+wf.cycle exit=1 viewBox= codes=[waterfall/cycle] 
+wf.inc exit=0 viewBox="0 0 1121 208" codes=
+--- bundled examples
+ex.orders.erd exit=0 viewBox="0 0 999 488" codes=
+ex.payments.class exit=0 viewBox="0 0 993 430" codes=
+ex.payment-processors.class exit=0 viewBox="0 0 1640 918" codes=
+ex.agent-run.lifecycle exit=0 viewBox="0 0 1152 500" codes=
+ex.deployment-release.lifecycle exit=0 viewBox="0 0 1284 680" codes=
+ex.async-job-roundtrip.sequence exit=0 viewBox="0 0 820 920" codes=
+ex.cache-miss-request.sequence exit=0 viewBox="0 0 1080 580" codes=
+ex.product-analytics.dataflow exit=0 viewBox="0 0 1080 520" codes=
+ex.event-stream.dataflow exit=0 viewBox="0 0 1080 780" codes=
+ex.payment-platform.tree exit=0 viewBox="0 0 1069 396" codes=
+ex.archify-repository.tree exit=0 viewBox="0 0 1841 926" codes=
+ex.payment-incident.timeline exit=0 viewBox="0 0 1123 485" codes=
+ex.archify-dev-activity.timeline exit=0 viewBox="0 0 1580 924" codes=
+ex.checkout-request.waterfall exit=0 viewBox="0 0 1089 308" codes=
+ex.example-rebuild.waterfall exit=0 viewBox="0 0 1216 783" codes=
+ex.subscription-billing.erd exit=0 viewBox="0 0 1230 678" codes=
+--- layout-json (installed renderer direct)
+erd.trunk layout-json exit=0 bytes=2579
+erd.band layout-json exit=0 bytes=1599
+cl.bus layout-json exit=0 bytes=1852
+cl.half layout-json exit=0 bytes=942
+tr.stack layout-json exit=0 bytes=1932
+tr.right layout-json exit=0 bytes=2167
+tl.break layout-json exit=0 bytes=2146
+wf.inc layout-json exit=0 bytes=946
+--- finalize sequence width advice
+sq.fixed5 finalize exit=0 True {"measured": true, "columnFit": "fixed", "participantCount": 5, "occupiedRight": 537, "viewBoxLeft": 0, "canvasWidth": 920, "emptyRightPx": 383, "emptyRightRatio": 0.416, "typicalParticipantWidth": 86, "reviewSuggested": true}
+sq.spread5 finalize exit=0 True null

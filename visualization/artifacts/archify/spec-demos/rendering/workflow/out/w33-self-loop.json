@@ -1,0 +1,39 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/solver-budget-exhausted",
+      "severity": "error",
+      "message": "Workflow edge \"self\" has no feasible readable-v2 automatic route.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "self",
+        "from": "a",
+        "to": "a"
+      },
+      "evidence": {
+        "attemptedCandidateFamilies": [
+          "facing-straight",
+          "horizontal-then-vertical",
+          "vertical-then-horizontal",
+          "lane-gap-corridor",
+          "column-gap-corridor",
+          "outside-left",
+          "outside-right",
+          "top-corridor",
+          "bottom-corridor",
+          "lane-gap-corridor",
+          "column-gap-corridor",
+          "lane-gap-corridor",
+          "column-gap-corridor",
+          "lane-gap-corridor",
+          "column-gap-corridor",
+          "lane-gap-corridor",
+          "column-gap-corridor"
+        ],
+        "candidateCount": 17
+      },
+      "supportedFixes": []
+    }
+  ]
+}

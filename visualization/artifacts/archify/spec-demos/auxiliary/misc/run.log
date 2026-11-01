@@ -1,0 +1,86 @@
+== doctor
+exit=0
+Archify doctor
+
+[ok] Node.js v26.10.0 (requires >=18)
+[ok] Core template
+[ok] Example renderer
+[ok] Live preview runtime
+[ok] Visual-check runtime
+[ok] Finalize runtime
+[ok] Output path safety runtime
+[ok] Atomic output safety runtime
+[ok] Physical path semantics runtime
+[ok] Sidecar path naming runtime
+[ok] Portable path contract runtime
+[ok] Scenario recipe guide
+[ok] Progressive authoring references
+[ok] Architecture compare runtime and proof fixtures
+[ok] Standalone schema validators
+[ok] architecture renderer, schema, and example
+[ok] workflow renderer, schema, and example
+[ok] sequence renderer, schema, and example
+[ok] dataflow renderer, schema, and example
+[ok] lifecycle renderer, schema, and example
+[ok] erd renderer, schema, and example
+[ok] tree renderer, schema, and example
+[ok] class renderer, schema, and example
+[ok] timeline renderer, schema, and example
+[ok] waterfall renderer, schema, and example
+[ok] explainer renderer, schema, and example
+[ok] Explainer runtime and reader assets
+
+Archify is ready.
+== demo (scratch dir)
+exit=0
+
+Demo ready: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/misc/out/demo/archify-demo.html
+Next: open the HTML in your browser, then render your own diagram:
+  archify render architecture <input.json> <output.html>
+archify-demo.html
+== demo 인자 2개
+exit=2
+== demo 알 수 없는 옵션
+exit=2
+== brands claude --json
+exit=0
+{"schemaVersion":1,"ok":true,"command":"brands","query":"claude","count":1,"marks":[{"id":"claude","title":"Claude","category":"ai","aliases":["claude-ai"],"domains":["claude.ai"],"viewBox":24,"hex":"D97757","provenance":{"provider":"Simple Icons","providerVersion":"16.28.0","source":"https://claude.ai"}}],"fallback":"Run \"archify brands capture <url> --json\", then use the returned digest-pinned brand value."}
+== brands (질의 없음, 텍스트)
+collaboration: airtable, asana, discord, figma, jira, linear, miro, notion, trello, zoom
+cloud: alibaba-cloud, cloudflare, cloudinary, digitalocean, firebase, fly-io, google-cloud, neon, netlify, railway, render, supabase, vercel
+framework: angular, django, dotnet, fastapi, flask, next-js, node-js, pytorch, react, spring, svelte, tensorflow, vue
+engineering: ansible, argo, bitbucket, circleci, datadog, docker, github, github-actions, gitlab, grafana, helm, jenkins, kubernetes, pagerduty, prometheus, pulumi, sentry, terraform
+ai: anthropic, claude, deepseek, google-gemini, hugging-face, meta, mistral-ai, ollama, openai, openrouter, perplexity, qwen, replicate
+data: apache-airflow, apache-kafka, clickhouse, databricks, elasticsearch, influxdb, mariadb, mongodb, mysql, opensearch, planetscale, postgresql, prisma, rabbitmq, redis, snowflake, sqlite
+channel: facebook, instagram, pinterest, reddit, telegram, tiktok, wechat, whatsapp, x, youtube
+language: go, javascript, python, rust, typescript
+...
+== brands 매칭 없음 (텍스트)
+No built-in brand matched "zzzznotabrand". Run "archify brands capture <url> --json", then use the returned digest-pinned brand value.
+exit=0
+== brands 알 수 없는 옵션
+exit=2
+== brands capture 인자 오류(네트워크 없음)
+exit=2
+== brands capture 비-HTTP URL(네트워크 전 단계에서 거부)
+brand capture requires one HTTP(S) URL
+exit=2
+== preview explainer
+Live preview supports the ten diagram types only. For explainer, run finalize explainer <draft.md> <output.html>, then open the HTML in your browser.
+exit=2
+== preview 알 수 없는 옵션
+Unknown preview option "--bogus".
+exit=2
+== preview 알 수 없는 타입(서버 전)
+exit=2
+Unknown diagram type "nope". Expected one of: architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer
+== help
+Usage:
+  archify render <type> <input.json> [output.html] [--quality standard|showcase] [--repo-root path]
+  archify compare architecture <base.json> <head.json> [output.html] [--receipt path] [--json] [--quality standard|showcase] [--repo-root path]
+exit=0
+unknown command exit=2
+== 명령별 --help
+Usage:
+  archify render <type> <input.json> [output.html] [--quality standard|showcase] [--repo-root path]
+  archify compare architecture <base.json> <head.json> [output.html] [--receipt path] [--json] [--quality standard|showcase] [--repo-root path]

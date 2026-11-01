@@ -1,0 +1,3 @@
+Architecture layout validation failed:
+- Component "api" falls outside the viewBox 320x240 — adjust pos/size or set a larger meta.viewBox.
+[layout/component-out-of-bounds] Component "api" falls outside the viewBox 320x240 — adjust pos/size or set a larger meta.viewBox. Fix: set meta.viewBox to at least [400, 240].

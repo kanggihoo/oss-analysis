@@ -1,0 +1,65 @@
+{
+  "diagram_type": "class",
+  "viewBox": [
+    672,
+    250
+  ],
+  "types": [
+    {
+      "id": "p",
+      "label": "p",
+      "kind": "class",
+      "x": 32,
+      "y": 40,
+      "width": 180,
+      "height": 34,
+      "row": 0,
+      "col": 0
+    },
+    {
+      "id": "q",
+      "label": "q",
+      "kind": "class",
+      "x": 468,
+      "y": 40,
+      "width": 180,
+      "height": 34,
+      "row": 0,
+      "col": 2
+    },
+    {
+      "id": "m",
+      "label": "m",
+      "kind": "class",
+      "x": 359,
+      "y": 158,
+      "width": 180,
+      "height": 34,
+      "row": 1
+    }
+  ],
+  "relationships": [
+    {
+      "from": "m",
+      "to": "p",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          359,
+          174
+        ],
+        [
+          196,
+          174
+        ],
+        [
+          196,
+          74
+        ]
+      ],
+      "kind": "association"
+    }
+  ]
+}

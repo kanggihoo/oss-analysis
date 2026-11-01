@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-11-01T21:51:49.433Z",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c12-crossing.architecture.json",
+    "sha256": "0e1d32ab9a5f4a756ca67e6bd1d374ac5bac9ef8cacf366b8b47e0f34772bafa",
+    "bytes": 4163
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c12/d.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "/opt/homebrew/Cellar/node/26.10.0_2/bin/node",
+        "/Users/kkh/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c12-crossing.architecture.json",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c12/d.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "24e75c3d-cd24-46f6-92ef-4e3af876535c",
+        "stage": "render",
+        "type": "architecture",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c12-crossing.architecture.json",
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c12/d.html",
+        "error": "Architecture layout validation failed:\n- [composition/proper-crossing] showcase architecture connections[6] id \"container-to-billing\" \"container\" -> \"billing\" crosses connections[8] id \"request-to-customer\" \"request\" -> \"customer\" at [653, 331] (segments 0 and 2) — if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connections use separate corridors.",
+        "diagnostics": [
+          {
+            "code": "composition/proper-crossing",
+            "severity": "error",
+            "message": "[composition/proper-crossing] showcase architecture connections[6] id \"container-to-billing\" \"container\" -> \"billing\" crosses connections[8] id \"request-to-customer\" \"request\" -> \"customer\" at [653, 331] (segments 0 and 2) — if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connections use separate corridors.",
+            "subject": {
+              "diagramType": "architecture",
+              "collection": "connections",
+              "index": 6,
+              "id": "container-to-billing",
+              "from": "container",
+              "to": "billing"
+            },
+            "evidence": {
+              "otherRelationship": {
+                "diagramType": "architecture",
+                "collection": "connections",
+                "index": 8,
+                "id": "request-to-customer",
+                "from": "request",
+                "to": "customer"
+              },
+              "point": [
+                653,
+                331
+              ],
+              "segmentIndex": 0,
+              "otherSegmentIndex": 2
+            },
+            "supportedFixes": [
+              "if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connections use separate corridors"
+            ]
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "composition/proper-crossing",
+      "severity": "error",
+      "message": "[composition/proper-crossing] showcase architecture connections[6] id \"container-to-billing\" \"container\" -> \"billing\" crosses connections[8] id \"request-to-customer\" \"request\" -> \"customer\" at [653, 331] (segments 0 and 2) — if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connections use separate corridors.",
+      "subject": {
+        "diagramType": "architecture",
+        "collection": "connections",
+        "index": 6,
+        "id": "container-to-billing",
+        "from": "container",
+        "to": "billing"
+      },
+      "evidence": {
+        "otherRelationship": {
+          "diagramType": "architecture",
+          "collection": "connections",
+          "index": 8,
+          "id": "request-to-customer",
+          "from": "request",
+          "to": "customer"
+        },
+        "point": [
+          653,
+          331
+        ],
+        "segmentIndex": 0,
+        "otherSegmentIndex": 2
+      },
+      "supportedFixes": [
+        "if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connections use separate corridors"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c12/d.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c12/d.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-11-01T21:51:49.646Z",
+  "durationMs": 213,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "disabled"
+  }
+}

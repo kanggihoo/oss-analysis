@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "input",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/broken-json.json",
+  "error": "Expected double-quoted property name in JSON at position 23 (line 1 column 24)",
+  "diagnostics": [
+    {
+      "code": "input/json-parse",
+      "severity": "error",
+      "message": "Input JSON could not be parsed: Expected double-quoted property name in JSON at position 23 (line 1 column 24)",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/broken-json.json"
+      },
+      "evidence": {
+        "reason": "Expected double-quoted property name in JSON at position 23 (line 1 column 24)"
+      },
+      "supportedFixes": [
+        "repair the JSON syntax and run validation again"
+      ]
+    }
+  ]
+}

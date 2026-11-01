@@ -1,0 +1,90 @@
+## E1 포트 예산 32+14(k-1): 허브 왼쪽 변에 k개, 라벨 없음. 변 길이 H
+fan_k4_H74             showcase render rc=0 [] | vb=0 0 460 342 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,44', '316,44', '316,200']), ('s1', ['120,110', '226,110', '226,230', '300,230']), ('s2', ['120,180', '210,180', '210,244', '300,244']), ('s3', ['120,250', '144,250', '144,274', '276,274', '276,258', '300,258'])]
+fan_k4_H66             showcase render rc=0 [] | vb=0 0 460 358 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,40', '346,40', '346,200']), ('s1', ['120,110', '360,110', '360,200']), ('s2', ['104,200', '104,216', '300,216']), ('s3', ['120,250', '144,250', '144,290', '360,290', '360,266'])]
+fan_k4_H50             showcase render rc=0 [] | vb=0 0 460 342 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,40', '346,40', '346,200']), ('s1', ['120,114', '316,114', '316,200']), ('s2', ['104,200', '104,216', '300,216']), ('s3', ['120,250', '144,250', '144,274', '360,274', '360,250'])]
+fan_k5_H88             showcase render rc=0 [] | vb=0 0 460 408 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,44', '316,44', '316,200']), ('s1', ['120,110', '226,110', '226,230', '300,230']), ('s2', ['120,180', '210,180', '210,244', '300,244']), ('s3', ['120,250', '144,250', '144,274', '276,274', '276,258', '300,258']), ('s4', ['120,316', '316,316', '316,288'])]
+fan_k5_H80             showcase render rc=0 [] | vb=0 0 460 408 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,40', '346,40', '346,200']), ('s1', ['120,110', '360,110', '360,200']), ('s2', ['120,184', '316,184', '316,200']), ('s3', ['104,230', '104,216', '300,216']), ('s4', ['120,320', '346,320', '346,280'])]
+## E1b 같은 조건 + 모든 연결에 toSide:left 고정(라우터가 변을 못 바꿈)
+pin_k4_H74             showcase render rc=0 [] | vb=0 0 460 342 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '226,110', '226,230', '300,230']), ('s2', ['120,180', '210,180', '210,244', '300,244']), ('s3', ['120,250', '144,250', '144,274', '276,274', '276,258', '300,258'])]
+pin_k4_H66             showcase render rc=0 [] | vb=0 0 460 338 check rc=0 issues=[] minProjected=11
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,227.333', '300,227.333']), ('s2', ['120,180', '210,180', '210,238.667', '300,238.667']), ('s3', ['120,250', '300,250'])]
+pin_k4_H62             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,226', '300,226']), ('s2', ['120,180', '210,180', '210,236', '300,236']), ('s3', ['120,246', '300,246'])]
+pin_k4_H58             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,224.667', '300,224.667']), ('s2', ['120,180', '210,180', '210,233.333', '300,233.333']), ('s3', ['120,250', '144,250', '144,266', '276,266', '276,242', '300,242'])]
+pin_k4_H56             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,224', '300,224']), ('s2', ['120,180', '210,180', '210,232', '300,232']), ('s3', ['120,250', '144,250', '144,266', '276,266', '276,240', '300,240'])]
+pin_k4_H54             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,223.333', '300,223.333']), ('s2', ['120,180', '210,180', '210,230.667', '300,230.667']), ('s3', ['120,250', '144,250', '144,266', '276,266', '276,238', '300,238'])]
+pin_k4_H52             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,222.667', '300,222.667']), ('s2', ['120,180', '210,180', '210,229.333', '300,229.333']), ('s3', ['120,250', '144,250', '144,266', '276,266', '276,236', '300,236'])]
+pin_k4_H50             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,222', '300,222']), ('s2', ['120,180', '210,180', '210,228', '300,228']), ('s3', ['120,250', '210,250', '210,234', '300,234'])]
+pin_k4_H40             showcase render rc=1 ['composition/arrowhead-collision']
+    ports: [('s0', ['120,40', '268,40', '268,216', '300,216']), ('s1', ['120,110', '276,110', '276,218.667', '300,218.667']), ('s2', ['120,180', '210,180', '210,221.333', '300,221.333']), ('s3', ['120,250', '210,250', '210,224', '300,224'])]
+## E2 라벨 간격 6.5*단위+21: 라벨 approve-order(13단위, 권고 105.5px), 가로 인접 두 노드 간격 g
+gap_60                 showcase render rc=1 ['layout/constraint']
+gap_66                 showcase render rc=1 ['layout/constraint']
+gap_70                 showcase render rc=0 [] | vb=0 0 390 228 check rc=0 issues=[] minProjected=8
+gap_72                 showcase render rc=0 [] | vb=0 0 392 228 check rc=0 issues=[] minProjected=8
+gap_74                 showcase render rc=0 [] | vb=0 0 394 228 check rc=0 issues=[] minProjected=8
+gap_76                 showcase render rc=0 [] | vb=0 0 396 228 check rc=0 issues=[] minProjected=8
+gap_80                 showcase render rc=0 [] | vb=0 0 400 228 check rc=0 issues=[] minProjected=8
+gap_106                showcase render rc=0 [] | vb=0 0 426 228 check rc=0 issues=[] minProjected=8
+## E3 캔버스 폭·비율: 가로 줄 n개(120폭, 간격 g, 좌우 40), 라벨 8px. 비율<1.55면 1240, >=1.55면 1790 근처
+lowratio_1236          showcase render rc=0 [] | vb=0 0 1236 968 check rc=0 issues=[] minProjected=6.02
+lowratio_1236          standard render rc=0 [] | vb=0 0 1236 968 check rc=0 issues=[] minProjected=6.02
+lowratio_1243          showcase render rc=0 [] | vb=0 0 1243 968 check rc=1 issues=[('composition/desktop-readability', 'error')] minProjected=5.99
+lowratio_1243          standard render rc=0 [] | vb=0 0 1243 968 check rc=0 issues=[('composition/desktop-readability', 'warning')] minProjected=5.99
+wide_1790              showcase render rc=0 [] | vb=0 0 1790 168 check rc=0 issues=[] minProjected=6.02
+wide_1790              standard render rc=0 [] | vb=0 0 1790 168 check rc=0 issues=[] minProjected=6.02
+wide_1800              showcase render rc=0 [] | vb=0 0 1800 168 check rc=1 issues=[('composition/desktop-readability', 'error')] minProjected=5.98
+wide_1800              standard render rc=0 [] | vb=0 0 1800 168 check rc=0 issues=[('composition/desktop-readability', 'warning')] minProjected=5.98
+## E4 프로파일별: 같은 입력을 standard로 / 실패 문장 첫 줄
+pin_k4_H50             standard render rc=0 [] | vb=0 0 460 338 check rc=0 issues=[('composition/arrowhead-collision', 'warning'), ('composition/arrowhead-collision', 'warning'), ('composition/arrowhead-collision', 'warning')] minProjected=11
+gap_66                 standard render rc=1 ['layout/constraint']
+   pin_k4_H50 showcase 첫 문장: - [composition/arrowhead-collision] automatic connections "s0" and "s1" into "hub" have arrowheads 6px apart (minimum 10.5px) — enlarge or reposition the destination, or choose separate toSide ports.
+   gap_66 showcase 첫 문장: - Label "approve-order" overlaps component "a" — adjust labelDx/labelDy/labelSegment or set labelAt.
+## E5 부제 예산 5.4*단위+8: 부제 20단위(권고 116px)를 폭 w 노드에, 9px 선호
+  w=120 render rc=0 sublabel font-size=['9']
+     check rc=0 issues=[]
+  w=116 render rc=0 sublabel font-size=['9']
+     check rc=0 issues=[]
+  w=100 render rc=0 sublabel font-size=['7.6']
+     check rc=0 issues=[]
+  w=80 render rc=0 sublabel font-size=['6']
+     check rc=0 issues=[]
+  w=70 render rc=1 - Sublabel "abcdefghijklmnopqrst" needs ~72px at the 6px legible minimum, but component "a" provides 62px — shorten the sublabel or widen size.
+  w=60 render rc=1 - Sublabel "abcdefghijklmnopqrst" needs ~72px at the 6px legible minimum, but component "a" provides 52px — shorten the sublabel or widen size.
+## E6 finalize 영수증: 1243px 저비율(showcase) / 앞쪽 여백 큰 배치 / 정상
+  lowratio_1243    showcase rc=1 ok=False stage=validate keys=['artifact', 'browserCheck', 'command', 'diagnosticSummary', 'diagnostics', 'durationMs', 'evidence', 'failedStage', 'gates', 'nextAction', 'ok', 'quality']
+      diagnostics [{"code": "composition/desktop-readability", "severity": "error", "message": "Final artifact failed composition/desktop-readability.", "subject": {"check": "composition"}, "evidence": {"owner": {"kind": "edge", "id": null, "from": "n0", "to": "n1"}, "viewportWidth": 1440, "viewportHeight": 900, "availableDiagramWidth": 930, "budgetBasis": "legacy-930", "readerContract": "declared-wide-v1", "requestedTargetPx": 7.5, "
+  lowratio_1243    standard rc=0 ok=True stage=None keys=['artifact', 'browserCheck', 'command', 'diagnosticSummary', 'diagnostics', 'durationMs', 'evidence', 'gates', 'ok', 'quality', 'schemaVersion', 'specification']
+  leading_space    showcase rc=0 ok=True stage=None keys=['artifact', 'browserCheck', 'command', 'diagnosticSummary', 'diagnostics', 'durationMs', 'evidence', 'gates', 'layoutReviewRecommendation', 'ok', 'quality', 'schemaVersion']
+      layoutReviewRecommendation {"action": "inspect-leading-space", "evidence": {"measured": true, "emptyTopPx": 300, "emptyTopRatio": 0.701, "occupiedTop": 300, "viewBoxTop": 0, "canvasHeight": 428, "typicalNodeHeight": 60, "reviewSuggested": true}, "reason": "Measured content, including routes and labels, leaves a large empty area above the diagram. This is a composition suggestion, not a failed gate.", "repair": "Check whether that leading space
+  plain            showcase rc=0 ok=True stage=None keys=['artifact', 'browserCheck', 'command', 'diagnosticSummary', 'diagnostics', 'durationMs', 'evidence', 'gates', 'ok', 'quality', 'schemaVersion', 'specification']
+## E8 경계 프레임 안 비구성원: 구성원 a(왼위)·b(오른아래)가 만드는 프레임 안 왼아래에 비구성원 c
+bnd_meta_showcase      showcase render rc=1 ['layout/boundary-encloses-non-member']
+bnd_meta_standard      showcase render rc=0 [] | vb=0 0 580 348 check rc=0 issues=[] minProjected=8
+bnd_meta_none          showcase render rc=0 [] | vb=0 0 580 348 check rc=0 issues=[] minProjected=8
+bnd_meta_none_std      standard render rc=0 [] | vb=0 0 580 348 check rc=0 issues=[] minProjected=8
+   bnd_meta_showcase 첫 문장: - Component "c" is not wrapped by boundary "Region" but sits inside its frame — move it outside the frame, place the wrapped members in one compact ax
+   bnd_meta_none 첫 문장: rc=0
+## E9 --quality 와 meta.quality_profile 불일치(R-19의 미확인): 경고·오류가 있는가
+  meta=standard --quality=showcase render   rc=0 stderr=''
+  meta=standard --quality=showcase validate rc=0 stderr='' ok=True quality=null diags=[]
+  meta=standard --quality=showcase finalize rc=0 stderr='' ok=True quality="showcase" diags=[]
+  meta=showcase --quality=standard render   rc=0 stderr=''
+  meta=showcase --quality=standard validate rc=0 stderr='' ok=True quality=null diags=[]
+  meta=showcase --quality=standard finalize rc=0 stderr='' ok=True quality="standard" diags=[]
+## E7 browser-check(Chrome 1440x900): standard로 렌더한 같은 입력
+  lowratio_1236  ok=True checks={'containment': 'pass', 'readability': 'pass', 'viewerChrome': 'pass', 'themeStates': 'pass', 'captures': 'not-requested'} diags=[] minProjected=[]
+  lowratio_1243  ok=True checks={'containment': 'pass', 'readability': 'pass', 'viewerChrome': 'pass', 'themeStates': 'pass', 'captures': 'not-requested'} diags=[] minProjected=[]
+  wide_1790      ok=True checks={'containment': 'pass', 'readability': 'pass', 'viewerChrome': 'pass', 'themeStates': 'pass', 'captures': 'not-requested'} diags=[] minProjected=[]
+  wide_1800      ok=False checks={'containment': 'pass', 'readability': 'fail', 'viewerChrome': 'pass', 'themeStates': 'pass', 'captures': 'not-requested'} diags=[('viewer/projected-text-readability', 'error')] minProjected=[5.98]

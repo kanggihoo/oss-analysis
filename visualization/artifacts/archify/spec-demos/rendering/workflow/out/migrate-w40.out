@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "command": "migrate",
+  "type": "workflow",
+  "source": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/workflow/in/w40-v1-via.json",
+    "sha256": "f759bd1decb249e275cdb3d6f786093863a002f911683ca99ba407007edccf38",
+    "bytes": 739
+  },
+  "destination": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/workflow/out/w40-migrated.json",
+    "sha256": "1a363ef1fe36375f96224d0c4f103e7db5c26788169fd7d5f02efceac1d9022c",
+    "bytes": 902
+  },
+  "fromSchemaVersion": 1,
+  "toSchemaVersion": 2,
+  "preExistingDiagnostics": [],
+  "migrationDiagnostics": [],
+  "newSchemaDiagnostics": [],
+  "changedCoordinates": [
+    {
+      "path": "/edges/1/via/0/0",
+      "from": 220,
+      "to": 224
+    },
+    {
+      "path": "/edges/1/via/1/0",
+      "from": 300,
+      "to": 344
+    }
+  ],
+  "oldRequiredViewBox": [
+    720,
+    404
+  ],
+  "newRequiredViewBox": [
+    778,
+    404
+  ]
+}

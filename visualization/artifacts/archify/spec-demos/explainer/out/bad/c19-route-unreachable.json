@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c19-route-unreachable.archify.md",
+  "error": "No directed route connects these nodes in the native diagram.",
+  "diagnostics": [
+    {
+      "code": "explainer/diagram-route-reference",
+      "severity": "error",
+      "message": "No directed route connects these nodes in the native diagram.",
+      "subject": {
+        "component": "diagram",
+        "line": 12,
+        "path": "/panels/0/blocks/1/text",
+        "column": 1,
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c19-route-unreachable.archify.md"
+      },
+      "evidence": {
+        "reason": "diagram-route-reference",
+        "example": "{diagram:\"sq\",route:[\"a\",\"b\"]}"
+      },
+      "supportedFixes": [
+        "Use this form: {diagram:\"sq\",route:[\"a\",\"b\"]}"
+      ]
+    }
+  ]
+}

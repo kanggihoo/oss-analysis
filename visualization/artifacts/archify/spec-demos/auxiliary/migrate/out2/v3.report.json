@@ -1,0 +1,63 @@
+{
+  "ok": false,
+  "command": "migrate",
+  "type": "workflow",
+  "source": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/v3.json",
+    "sha256": "9c78a053acab54376562c7e61a97d0454dfa4f6667ffc734fa39e47ff5984cd8",
+    "bytes": 425
+  },
+  "destination": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out2/v3.json"
+  },
+  "fromSchemaVersion": 3,
+  "toSchemaVersion": 2,
+  "preExistingDiagnostics": [
+    {
+      "code": "schema/enum",
+      "severity": "error",
+      "message": "/schema_version must be equal to one of the allowed values",
+      "subject": {
+        "diagramType": "workflow",
+        "path": "/schema_version"
+      },
+      "evidence": {
+        "keyword": "enum",
+        "allowedValues": [
+          1,
+          2
+        ]
+      },
+      "supportedFixes": [
+        "choose one of the allowed values"
+      ]
+    }
+  ],
+  "migrationDiagnostics": [],
+  "newSchemaDiagnostics": [],
+  "changedCoordinates": [],
+  "oldRequiredViewBox": null,
+  "newRequiredViewBox": null,
+  "diagnostics": [
+    {
+      "code": "schema/enum",
+      "severity": "error",
+      "message": "/schema_version must be equal to one of the allowed values",
+      "subject": {
+        "diagramType": "workflow",
+        "path": "/schema_version"
+      },
+      "evidence": {
+        "keyword": "enum",
+        "allowedValues": [
+          1,
+          2
+        ]
+      },
+      "supportedFixes": [
+        "choose one of the allowed values"
+      ]
+    }
+  ],
+  "error": "/schema_version must be equal to one of the allowed values"
+}

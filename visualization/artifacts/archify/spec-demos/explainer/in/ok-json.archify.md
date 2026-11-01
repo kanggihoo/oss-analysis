@@ -1,0 +1,1 @@
+{"schema_version":1,"diagram_type":"explainer","meta":{"id":"j","title":"JSON draft"},"answer":{"summary":"Direct answer."},"panels":[{"id":"p","title":"Why?","blocks":[{"id":"b1","type":"prose","text":"Because."}]}],"sources":[]}

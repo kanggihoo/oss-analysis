@@ -1,0 +1,4 @@
+first : a.html  inode=144371856 links=1
+second: a.html  inode=144371860 links=1  (inode가 바뀌면 rename 덮어쓰기와 같은 관찰 결과, 하드링크 교체)
+hardlinked target: exit=1 [output/target-hardlinked] Output already exists through multiple hard-link names. Fix: ch b.html=old
+render with delivery lock present: exit=0 c.html=out/work-r/c.html

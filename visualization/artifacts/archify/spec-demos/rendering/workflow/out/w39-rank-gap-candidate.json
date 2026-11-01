@@ -1,0 +1,66 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    772,
+    326
+  ],
+  "requiredViewBox": [
+    772,
+    326
+  ],
+  "columns": [
+    94,
+    218,
+    338,
+    458,
+    578,
+    698
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 0,
+      "x": 48,
+      "y": 86,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 1,
+      "x": 172,
+      "y": 146,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": "e",
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          140,
+          112
+        ],
+        [
+          156,
+          112
+        ],
+        [
+          156,
+          172
+        ],
+        [
+          172,
+          172
+        ]
+      ]
+    }
+  ],
+  "labels": [],
+  "diagnostics": []
+}

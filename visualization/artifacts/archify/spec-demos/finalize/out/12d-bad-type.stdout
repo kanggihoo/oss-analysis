@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "stage": "arguments",
+  "error": "Unknown diagram type \"nosuch\". Expected one of: architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer",
+  "diagnostics": [
+    {
+      "code": "cli/unknown-diagram-type",
+      "severity": "error",
+      "message": "Unknown diagram type \"nosuch\". Expected one of: architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer",
+      "subject": {
+        "command": "finalize",
+        "type": "nosuch"
+      },
+      "evidence": {
+        "supportedTypes": [
+          "architecture",
+          "workflow",
+          "sequence",
+          "dataflow",
+          "lifecycle",
+          "erd",
+          "tree",
+          "class",
+          "timeline",
+          "waterfall",
+          "explainer"
+        ]
+      },
+      "supportedFixes": [
+        "use one of: architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer"
+      ]
+    }
+  ]
+}

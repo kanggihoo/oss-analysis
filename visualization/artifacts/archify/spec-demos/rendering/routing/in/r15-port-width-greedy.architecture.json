@@ -1,0 +1,51 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r15-port-width-greedy",
+  "output": "r15-port-width-greedy.html"
+ },
+ "components": [
+  {
+   "id": "h",
+   "type": "backend",
+   "label": "H",
+   "pos": [
+    200,
+    40
+   ]
+  },
+  {
+   "id": "x",
+   "type": "backend",
+   "label": "X",
+   "pos": [
+    100,
+    220
+   ]
+  },
+  {
+   "id": "y",
+   "type": "backend",
+   "label": "Y",
+   "pos": [
+    300,
+    220
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "h",
+   "to": "x",
+   "width": 6,
+   "labelDx": 0
+  },
+  {
+   "from": "h",
+   "to": "y",
+   "width": 6,
+   "labelDx": 0
+  }
+ ]
+}

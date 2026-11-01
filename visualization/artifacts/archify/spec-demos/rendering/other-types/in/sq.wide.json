@@ -1,0 +1,66 @@
+{
+ "schema_version": 1,
+ "diagram_type": "sequence",
+ "meta": {
+  "title": "S",
+  "output": "x.html"
+ },
+ "participants": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "Participant a",
+   "sublabel": "sublabel text for a"
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "Participant b",
+   "sublabel": "sublabel text for b"
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "Participant c",
+   "sublabel": "sublabel text for c"
+  },
+  {
+   "id": "d",
+   "type": "backend",
+   "label": "Participant d",
+   "sublabel": "sublabel text for d"
+  },
+  {
+   "id": "e",
+   "type": "backend",
+   "label": "Participant e",
+   "sublabel": "sublabel text for e"
+  },
+  {
+   "id": "f",
+   "type": "backend",
+   "label": "Participant f",
+   "sublabel": "sublabel text for f"
+  },
+  {
+   "id": "g",
+   "type": "backend",
+   "label": "Participant g",
+   "sublabel": "sublabel text for g"
+  },
+  {
+   "id": "h",
+   "type": "backend",
+   "label": "Participant h",
+   "sublabel": "sublabel text for h"
+  }
+ ],
+ "messages": [
+  {
+   "from": "a",
+   "to": "h",
+   "y": 180,
+   "label": "x"
+  }
+ ]
+}

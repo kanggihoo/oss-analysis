@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b08-reasons-five.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/schema-maxItems",
+      "severity": "error",
+      "message": "/answer/reasons must NOT have more than 4 items",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "document",
+        "path": "/answer/reasons",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b08-reasons-five.archify.md"
+      },
+      "evidence": {
+        "reason": "/answer/reasons must NOT have more than 4 items",
+        "example": "@document id=example"
+      },
+      "supportedFixes": [
+        "Use a valid form, for example: @document id=example"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+workflow schema validation failed:
+  /nodes/2/col (id/label: "c") must be <= 5 {"comparison":"<=","limit":5}
+[schema/maximum] /nodes/2/col (id/label: "c") must be <= 5 Fix: use a value <= 5.

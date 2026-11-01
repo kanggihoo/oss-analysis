@@ -1,0 +1,2 @@
+meta.output must be a relative path resolved from the current working directory.
+[output/meta-absolute] meta.output must be a relative path resolved from the current working directory. Fix: set meta.output to a portable relative .html path such as reports/diagram.html.

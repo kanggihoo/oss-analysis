@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c05-strike.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/inline-decoration",
+      "severity": "error",
+      "message": "Strikethrough is unsupported; use a diff or an explicit change block.",
+      "subject": {
+        "line": 7,
+        "column": 7,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c05-strike.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Strikethrough is unsupported; use a diff or an explicit change block.",
+        "example": "Changed: **new behavior**"
+      },
+      "supportedFixes": [
+        "Use the supported form: Changed: **new behavior**"
+      ]
+    },
+    {
+      "code": "explainer/inline-decoration",
+      "severity": "error",
+      "message": "Strikethrough is unsupported; use a diff or an explicit change block.",
+      "subject": {
+        "line": 7,
+        "column": 12,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c05-strike.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Strikethrough is unsupported; use a diff or an explicit change block.",
+        "example": "Changed: **new behavior**"
+      },
+      "supportedFixes": [
+        "Use the supported form: Changed: **new behavior**"
+      ]
+    }
+  ]
+}

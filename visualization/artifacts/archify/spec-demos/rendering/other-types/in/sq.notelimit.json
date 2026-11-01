@@ -1,0 +1,39 @@
+{
+ "schema_version": 1,
+ "diagram_type": "sequence",
+ "meta": {
+  "title": "S",
+  "output": "x.html",
+  "quality_profile": "showcase",
+  "viewBox": [
+   560,
+   480
+  ]
+ },
+ "participants": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A"
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B"
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C"
+  }
+ ],
+ "messages": [
+  {
+   "from": "a",
+   "to": "b",
+   "y": 397,
+   "label": "call",
+   "note": "a very long note text that must wrap inside the gap between lifelines a very long note text that must wrap inside the gap between lifelines "
+  }
+ ]
+}

@@ -1,0 +1,6 @@
+rebuilt bytes  : 787334
+committed bytes: 787334
+byte-identical : true
+leftover JS/CSS markers: none
+HTML comment slots left in output: <!-- ARCHIFY:SOURCE_EVIDENCE_DATA -->, <!-- ARCHIFY:SVG_SLOT_START -->, <!-- ARCHIFY:SVG_SLOT_END -->, <!-- ARCHIFY:CARDS_SLOT_START -->, <!-- ARCHIFY:CARDS_SLOT_END -->
+guided-views.js used: false | "guided-view" in template.html: false

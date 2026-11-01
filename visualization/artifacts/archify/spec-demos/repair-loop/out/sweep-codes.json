@@ -1,0 +1,450 @@
+{
+ "runs": 204,
+ "passed": 24,
+ "codes": [
+  [
+   "layout/constraint",
+   78
+  ],
+  [
+   "schema/additionalProperties",
+   36
+  ],
+  [
+   "schema/type",
+   32
+  ],
+  [
+   "composition/label-canvas-containment",
+   28
+  ],
+  [
+   "relationship/duplicate-id",
+   21
+  ],
+  [
+   "schema/required",
+   19
+  ],
+  [
+   "dataflow/node-below-area",
+   12
+  ],
+  [
+   "layout/component-out-of-bounds",
+   11
+  ],
+  [
+   "composition/label-route-clearance",
+   9
+  ],
+  [
+   "layout/component-overlap",
+   7
+  ],
+  [
+   "architecture/unknown-endpoint",
+   6
+  ],
+  [
+   "layout/route-out-of-bounds",
+   6
+  ],
+  [
+   "lifecycle/unknown-endpoint",
+   3
+  ],
+  [
+   "workflow/unknown-edge-endpoint",
+   3
+  ],
+  [
+   "sequence/unknown-endpoint",
+   3
+  ],
+  [
+   "schema/enum",
+   3
+  ],
+  [
+   "schema/maxLength",
+   3
+  ],
+  [
+   "dataflow/unknown-endpoint",
+   3
+  ],
+  [
+   "clean-flow/endpoint-side-direction",
+   3
+  ],
+  [
+   "lifecycle/state-text-too-long",
+   2
+  ],
+  [
+   "sequence/participant-label-overflow",
+   2
+  ],
+  [
+   "tree/root-count",
+   2
+  ],
+  [
+   "output/meta-path-syntax",
+   2
+  ],
+  [
+   "clean-flow/edge-through-node",
+   2
+  ],
+  [
+   "composition/label-gap",
+   2
+  ],
+  [
+   "architecture/component-label-overflow",
+   2
+  ],
+  [
+   "composition/micro-segment",
+   2
+  ],
+  [
+   "lifecycle/too-wide",
+   1
+  ],
+  [
+   "lifecycle/label-unplaced",
+   1
+  ],
+  [
+   "workflow/explicit-pin-conflict",
+   1
+  ],
+  [
+   "waterfall/invalid-timing",
+   1
+  ],
+  [
+   "composition/container-border-run",
+   1
+  ],
+  [
+   "schema/oneOf",
+   1
+  ]
+ ],
+ "examples": {
+  "schema/required": {
+   "type": "lifecycle",
+   "mutation": "drop-key",
+   "file": "work/sweep/agent-run.lifecycle.drop-key.1.json",
+   "message": "/transitions/1 (id/label: \"planning-executing\") must have required property 'from'",
+   "supportedFixes": [
+    "add required property \"from\""
+   ]
+  },
+  "schema/additionalProperties": {
+   "type": "lifecycle",
+   "mutation": "extra-key",
+   "file": "work/sweep/agent-run.lifecycle.extra-key.0.json",
+   "message": "/meta must NOT have additional properties",
+   "supportedFixes": [
+    "remove unsupported property \"colour\""
+   ]
+  },
+  "schema/type": {
+   "type": "lifecycle",
+   "mutation": "wrong-type",
+   "file": "work/sweep/agent-run.lifecycle.wrong-type.0.json",
+   "message": "/states/2/sublabel (id/label: \"executing\") must be string",
+   "supportedFixes": [
+    "use \"string\" at /states/2/sublabel"
+   ]
+  },
+  "lifecycle/unknown-endpoint": {
+   "type": "lifecycle",
+   "mutation": "unknown-ref",
+   "file": "work/sweep/agent-run.lifecycle.unknown-ref.0.json",
+   "message": "Transition 6 references unknown target \"cancelled_typo\".",
+   "supportedFixes": [
+    "set /transitions/6/to to state id \"queued\"",
+    "set /transitions/6/to to state id \"planning\"",
+    "set /transitions/6/to to state id \"executing\""
+   ]
+  },
+  "lifecycle/state-text-too-long": {
+   "type": "lifecycle",
+   "mutation": "long-label",
+   "file": "work/sweep/agent-run.lifecycle.long-label.0.json",
+   "message": "Label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" of state \"failed\" is wider than the widest 220px state: it needs ~660px at the 10",
+   "supportedFixes": [
+    "shorten the label and move detail into a card"
+   ]
+  },
+  "lifecycle/too-wide": {
+   "type": "lifecycle",
+   "mutation": "long-label",
+   "file": "work/sweep/agent-run.lifecycle.long-label.2.json",
+   "message": "The lifecycle is 1778px wide; at 9px text it stays readable on a desktop only up to 1395px. Transition labels or notes widen their main-path gaps.",
+   "supportedFixes": [
+    "relieve the routes crowding \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \": those label/note boxes found no clear spot at the base spacing, so lower-row and route spacing grew; main-path gap growth is bounded by the text readability budget. Only equivalent exits with identical labels, notes and variants can share an arrow; keep distinct notes separate, or move a secondary transition elsewhere",
+    "review the width-driving main-path transition text: \"reviewing\" -> \"completed\" label (+626px), \"planning\" -> \"executing\" label (+26px), \"executing\" -> \"reviewing\" label (+26px); preserve every condition; shorten wording only, or move complete detail to a card explicitly associated with the same transition; shorter wording may not resolve other layout constraints",
+    "shorten state labels and sublabels",
+    "move secondary phases off mainPath or merge adjacent phases",
+    "split the lifecycle into two diagrams"
+   ]
+  },
+  "lifecycle/label-unplaced": {
+   "type": "lifecycle",
+   "mutation": "long-label",
+   "file": "work/sweep/agent-run.lifecycle.long-label.2.json",
+   "message": "Transition \"executing\" -> \"failed\" label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" cannot be placed clear of nearby routes.",
+   "supportedFixes": [
+    "review the transition label wording; preserve every condition; shorten wording only, or move complete detail to a card explicitly associated with the same transition; shorter wording may not resolve other layout constraints",
+    "only equivalent exits with identical labels, notes and variants can share one arrow; keep distinct notes on separate exits without removing them to force sharing"
+   ]
+  },
+  "relationship/duplicate-id": {
+   "type": "lifecycle",
+   "mutation": "dup-id",
+   "file": "work/sweep/agent-run.lifecycle.dup-id.0.json",
+   "message": "/transitions/1/id duplicates relationship id \"queued-planning\"",
+   "supportedFixes": []
+  },
+  "workflow/unknown-edge-endpoint": {
+   "type": "workflow",
+   "mutation": "unknown-ref",
+   "file": "work/sweep/agent-tool-call.workflow.unknown-ref.0.json",
+   "message": "Workflow edge \"write-trace-memory\" references unknown target \"trace_typo\".",
+   "supportedFixes": [
+    "set /edges/10/to to verified node id \"approval\"",
+    "set /edges/10/to to verified node id \"chat\"",
+    "set /edges/10/to to verified node id \"final\""
+   ]
+  },
+  "layout/constraint": {
+   "type": "workflow",
+   "mutation": "long-label",
+   "file": "work/sweep/agent-tool-call.workflow.long-label.0.json",
+   "message": "Label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" (~748px) is wider than component \"planner\" (132px) — shorten the label or increas",
+   "supportedFixes": []
+  },
+  "workflow/explicit-pin-conflict": {
+   "type": "workflow",
+   "mutation": "long-label",
+   "file": "work/sweep/agent-tool-call.workflow.long-label.2.json",
+   "message": "Workflow edge \"external-reply\" has explicit geometry that violates explicit route-route corridor clearance.",
+   "supportedFixes": []
+  },
+  "composition/label-canvas-containment": {
+   "type": "sequence",
+   "mutation": "shrink-viewbox",
+   "file": "work/sweep/async-job-roundtrip.sequence.shrink-viewbox.0.json",
+   "message": "[composition/label-canvas-containment] showcase sequence label \"job.completed\" on messages[8] \"worker\" -> \"notify\" extends past the right edge by 16.9px (label rect [493, 546, 98, 18]; viewBox 574x736",
+   "supportedFixes": [
+    "shorten the label, reorder participants, or enlarge meta.viewBox"
+   ]
+  },
+  "sequence/unknown-endpoint": {
+   "type": "sequence",
+   "mutation": "unknown-ref",
+   "file": "work/sweep/async-job-roundtrip.sequence.unknown-ref.0.json",
+   "message": "Message \"202 + job id\" references unknown target \"client_typo\".",
+   "supportedFixes": [
+    "set /messages/2/to to verified node id \"client\"",
+    "set /messages/2/to to verified node id \"queue\"",
+    "set /messages/2/to to verified node id \"worker\""
+   ]
+  },
+  "sequence/participant-label-overflow": {
+   "type": "sequence",
+   "mutation": "long-label",
+   "file": "work/sweep/async-job-roundtrip.sequence.long-label.0.json",
+   "message": "Label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" (~748px) is wider than component \"worker\" (86px) — shorten the label or widen the",
+   "supportedFixes": [
+    "shorten the participant label while preserving its role"
+   ]
+  },
+  "waterfall/invalid-timing": {
+   "type": "waterfall",
+   "mutation": "drop-key",
+   "file": "work/sweep/checkout-request.waterfall.drop-key.2.json",
+   "message": "Span \"auth\" has neither end nor duration. A span without a recorded end must be marked status \"incomplete\".",
+   "supportedFixes": [
+    "Add the recorded end or duration.",
+    "Set status to \"incomplete\" if the trace has no end for it."
+   ]
+  },
+  "schema/enum": {
+   "type": "waterfall",
+   "mutation": "wrong-type",
+   "file": "work/sweep/checkout-request.waterfall.wrong-type.0.json",
+   "message": "/meta/unit must be equal to one of the allowed values",
+   "supportedFixes": [
+    "choose one of the allowed values"
+   ]
+  },
+  "schema/maxLength": {
+   "type": "erd",
+   "mutation": "long-label",
+   "file": "work/sweep/orders.erd.long-label.0.json",
+   "message": "/meta/views/1/label (id/label: \"checkout\") must NOT have more than 48 characters",
+   "supportedFixes": [
+    "provide at most 48 character(s)"
+   ]
+  },
+  "tree/root-count": {
+   "type": "tree",
+   "mutation": "drop-key",
+   "file": "work/sweep/payment-platform.tree.drop-key.0.json",
+   "message": "A tree has one root, but 2 nodes have no parent: \"platform\", \"create_order\".",
+   "supportedFixes": [
+    "Give all but one of these nodes a parent.",
+    "Add a single root that the top-level nodes name as parent."
+   ]
+  },
+  "output/meta-path-syntax": {
+   "type": "tree",
+   "mutation": "wrong-type",
+   "file": "work/sweep/payment-platform.tree.wrong-type.1.json",
+   "message": "meta.output must be a portable POSIX-relative path.",
+   "supportedFixes": [
+    "set meta.output to a portable relative .html path such as reports/diagram.html"
+   ]
+  },
+  "dataflow/node-below-area": {
+   "type": "dataflow",
+   "mutation": "shrink-viewbox",
+   "file": "work/sweep/product-analytics.dataflow.shrink-viewbox.0.json",
+   "message": "Node \"mobile\" exceeds the readable diagram area — keep y within [104, 284] so that y + height does not pass 342. Raising meta.viewBox[1] to 488 would fit the node, but the page then reaches at least ~",
+   "supportedFixes": [
+    "lower yOffset on node \"mobile\""
+   ]
+  },
+  "dataflow/unknown-endpoint": {
+   "type": "dataflow",
+   "mutation": "unknown-ref",
+   "file": "work/sweep/product-analytics.dataflow.unknown-ref.0.json",
+   "message": "Flow \"identity map\" references unknown target \"pii_typo\".",
+   "supportedFixes": [
+    "set /flows/4/to to verified node id \"pii\"",
+    "set /flows/4/to to verified node id \"warehouse\"",
+    "set /flows/4/to to verified node id \"features\""
+   ]
+  },
+  "composition/label-route-clearance": {
+   "type": "dataflow",
+   "mutation": "long-label",
+   "file": "work/sweep/product-analytics.dataflow.long-label.0.json",
+   "message": "[composition/label-route-clearance] showcase dataflow label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" on flows[3] id \"accepted-ev",
+   "supportedFixes": [
+    "if the authored via/fromSide/toSide/labelAt are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust labelAt, labelDx, labelDy, or labelSegment; otherwise adjust the other flow route/via/channelX/channelY"
+   ]
+  },
+  "clean-flow/endpoint-side-direction": {
+   "type": "architecture",
+   "mutation": "jitter-pos",
+   "file": "work/sweep/web-app.architecture.jitter-pos.0.json",
+   "message": "[clean-flow/endpoint-side-direction] architecture connections[1] id \"jwt-verification\" \"auth\" -> \"api\" first segment 0 [40, 252] -> [620, 142] does not honor fromSide \"right\" — it must run horizontal ",
+   "supportedFixes": [
+    "keep automatic routing so the renderer can use a side-aware bridge, or set truthful fromSide/toSide with perpendicular via segments"
+   ]
+  },
+  "layout/component-out-of-bounds": {
+   "type": "architecture",
+   "mutation": "jitter-pos",
+   "file": "work/sweep/web-app.architecture.jitter-pos.0.json",
+   "message": "Component \"auth\" falls outside the viewBox 1080x614 — adjust pos/size or set a larger meta.viewBox.",
+   "supportedFixes": [
+    "move component \"auth\" right by 80px"
+   ]
+  },
+  "layout/component-overlap": {
+   "type": "architecture",
+   "mutation": "jitter-pos",
+   "file": "work/sweep/web-app.architecture.jitter-pos.0.json",
+   "message": "Components \"cdn\" and \"s3\" are less than 8px apart — move one or shrink its size.\n  \"cdn\" [310, 410, 130, 60]; \"s3\" [310, 350, 130, 60]\n  Suggested fix: move \"s3\" pos to [448, 350] (right of \"cdn\") or ",
+   "supportedFixes": [
+    "move component \"s3\" pos to [448, 350] (right of \"cdn\")",
+    "or move component \"s3\" pos to [310, 478] (below)",
+    "or shrink \"cdn\" or \"s3\" while keeping every label and sublabel readable"
+   ]
+  },
+  "clean-flow/edge-through-node": {
+   "type": "architecture",
+   "mutation": "jitter-pos",
+   "file": "work/sweep/web-app.architecture.jitter-pos.2.json",
+   "message": "[clean-flow/edge-through-node] architecture connections[3] id \"static-assets\" \"cdn\" -> \"s3\" crosses component \"lb\" (unrelated to this relationship) on segment 0 [465, 320] -> [465, 380] (2px clearance",
+   "supportedFixes": [
+    "if the authored fromSide/toSide/labelDy are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust fromSide/toSide, set route/via, or move the component"
+   ]
+  },
+  "composition/container-border-run": {
+   "type": "architecture",
+   "mutation": "jitter-pos",
+   "file": "work/sweep/web-app.architecture.jitter-pos.2.json",
+   "message": "[composition/container-border-run] architecture connections[3] id \"static-assets\" \"cdn\" -> \"s3\" follows security-group \"sg-api :443/:8000\" bottom border for 27px on segment 1 [438, 380] -> [465, 380] ",
+   "supportedFixes": [
+    "if the authored fromSide/toSide/labelDy are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connection crosses the boundary perpendicularly instead of following its border"
+   ]
+  },
+  "architecture/unknown-endpoint": {
+   "type": "architecture",
+   "mutation": "unknown-ref",
+   "file": "work/sweep/web-app.architecture.unknown-ref.0.json",
+   "message": "Connection \"enqueue\" references unknown target \"queue_typo\".",
+   "supportedFixes": [
+    "set /connections/7/to to verified node id \"auth\"",
+    "set /connections/7/to to verified node id \"cache\"",
+    "set /connections/7/to to verified node id \"db\""
+   ]
+  },
+  "composition/label-gap": {
+   "type": "architecture",
+   "mutation": "long-label",
+   "file": "work/sweep/web-app.architecture.long-label.0.json",
+   "message": "Label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" has only 90px between \"users\" and \"cdn\"; it needs at least 554px to stay beside i",
+   "supportedFixes": [
+    "increase the clear gap between the connected nodes to at least 554px",
+    "reposition the connected nodes together while preserving the full relationship label"
+   ]
+  },
+  "architecture/component-label-overflow": {
+   "type": "architecture",
+   "mutation": "long-label",
+   "file": "work/sweep/web-app.architecture.long-label.2.json",
+   "message": "Label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" (~726px) is wider than component \"lb\" (130px) — shorten the label or widen size.",
+   "supportedFixes": [
+    "shorten component \"lb\" label \"Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box \" while preserving its meaning",
+    "or widen component \"lb\" to at least 718px"
+   ]
+  },
+  "schema/oneOf": {
+   "type": "architecture",
+   "mutation": "wrong-type",
+   "file": "work/sweep/brand-aware-delivery.architecture.wrong-type.1.json",
+   "message": "/components/4/brand (id/label: \"edge\") must match exactly one schema in oneOf",
+   "supportedFixes": []
+  },
+  "composition/micro-segment": {
+   "type": "architecture",
+   "mutation": "jitter-pos",
+   "file": "work/sweep/brand-aware-delivery.architecture.jitter-pos.0.json",
+   "message": "[composition/micro-segment] showcase architecture connections[5] id \"container-to-database\" \"container\" -> \"database\" has a 1px source-stub segment 0 [653, 328] -> [653, 329] that is below the 8px mic",
+   "supportedFixes": [
+    "if the authored fromSide/toSide/labelAt are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and move route/via points into a wider corridor or move the component so every turn has room to read"
+   ]
+  },
+  "layout/route-out-of-bounds": {
+   "type": "architecture",
+   "mutation": "shrink-viewbox",
+   "file": "work/sweep/brand-aware-delivery.architecture.shrink-viewbox.0.json",
+   "message": "Connection \"edge-to-customer\" extends outside the viewBox — move the measured outside route points inward or enlarge an authored viewBox for right/bottom overflow.",
+   "supportedFixes": [
+    "move negative route coordinates inside the canvas; for right/bottom overflow, enlarge meta.viewBox or reroute inward; preserve endpoints, direction and labels, then revalidate"
+   ]
+  }
+ }
+}

@@ -1,0 +1,994 @@
+=== 1. 첫 전달 (CLI 경로 없음 -> meta.output)
+
+$ archify deliver lifecycle in/ok.json
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+-- ls .
+   in
+   meta-default.delivery.json
+   meta-default.html
+-- meta-default.delivery.json
+{
+  "schemaVersion": 1,
+  "receiptId": "2de24d55-0059-46f7-b1f8-fd9d9cc9b217",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/ok.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "specification": {
+    "sha256": "7df53378bdaf906c3cc7e95e59e090962e517def99dddfcc1ae03621e5278dd4",
+    "bytes": 4003
+  },
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  }
+}
+html sha ed4d735dc926b3c2
+
+=== 2. 같은 경로 재전달 (같은 입력)
+
+$ archify deliver lifecycle in/ok.json
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+html sha ed4d735dc926b3c2
+  "receiptId": "aae03846-e9ea-4e9d-95f2-b6b5f15ab62c",
+(1차   "receiptId": "2de24d55-0059-46f7-b1f8-fd9d9cc9b217",)
+-- ls .
+   in
+   meta-default.delivery.json
+   meta-default.html
+
+=== 3. CLI 인자 > meta.output
+
+$ archify deliver lifecycle in/ok.json cli/out.html --json
+{
+  "schemaVersion": 1,
+  "receiptId": "8cd00eb9-81ce-4d60-89cf-4a56f2c93b67",
+  "ok": true,
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/ok.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli/out.html",
+  "specification": {
+    "sha256": "7df53378bdaf906c3cc7e95e59e090962e517def99dddfcc1ae03621e5278dd4",
+    "bytes": 4003
+  },
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "disabled"
+  }
+}
+[exit 0]
+-- ls .
+   cli
+   in
+   meta-default.delivery.json
+   meta-default.html
+-- ls cli
+   out.delivery.json
+   out.html
+
+=== 4. 실패 시도: 스키마 오류 입력을 기존 출력 경로에 (직전 파일 보존?)
+
+$ archify deliver lifecycle in/bad-schema.json --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "7a400406-9912-45c2-9167-b00da432cccc",
+  "stage": "render",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/bad-schema.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "error": "lifecycle schema validation failed:\n  / must have required property 'states' {\"missingProperty\":\"states\"}",
+  "diagnostics": [
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/ must have required property 'states'",
+      "subject": {
+        "diagramType": "lifecycle",
+        "path": "/"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "states"
+      },
+      "supportedFixes": [
+        "add required property \"states\""
+      ]
+    }
+  ],
+  "provenance": "failed",
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "disabled"
+  }
+}
+[exit 1]
+html sha before ed4d735dc926b3c2 after ed4d735dc926b3c2
+-- meta-default.delivery.json (실패 후)
+{
+  "schemaVersion": 1,
+  "receiptId": "7a400406-9912-45c2-9167-b00da432cccc",
+  "status": "failed",
+  "command": "deliver",
+  "stage": "render",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/bad-schema.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  },
+  "error": "lifecycle schema validation failed:\n  / must have required property 'states' {\"missingProperty\":\"states\"}"
+}
+-- ls .
+   cli
+   in
+   meta-default.delivery-pending.json
+   meta-default.delivery.json
+   meta-default.html
+
+$ archify check meta-default.html --json --require-provenance
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "check",
+  "provenance": "failed",
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html"
+  },
+  "error": "A delivery attempt is unfinished or failed; complete a successful deliver before trusting this artifact.",
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "diagnostic": "A delivery attempt is unfinished or failed; complete a successful deliver before trusting this artifact.",
+  "diagnostics": [
+    {
+      "code": "delivery/provenance-failed",
+      "severity": "error",
+      "message": "A delivery attempt is unfinished or failed; complete a successful deliver before trusting this artifact.",
+      "subject": {
+        "artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+        "provenance": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.delivery.json"
+      },
+      "evidence": {
+        "pendingJournal": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.delivery-pending.json",
+        "found": true
+      },
+      "supportedFixes": [
+        "finish any active delivery, then rerun deliver successfully; retain the pending journal until recovery succeeds"
+      ]
+    }
+  ]
+}
+[exit 1]
+
+$ archify check meta-default.html
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "check",
+  "provenance": "failed",
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html"
+  },
+  "error": "A delivery attempt is unfinished or failed; complete a successful deliver before trusting this artifact.",
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "diagnostic": "A delivery attempt is unfinished or failed; complete a successful deliver before trusting this artifact.",
+  "diagnostics": [
+    {
+      "code": "delivery/provenance-failed",
+      "severity": "error",
+      "message": "A delivery attempt is unfinished or failed; complete a successful deliver before trusting this artifact.",
+      "subject": {
+        "artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+        "provenance": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.delivery.json"
+      },
+      "evidence": {
+        "pendingJournal": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.delivery-pending.json",
+        "found": true
+      },
+      "supportedFixes": [
+        "finish any active delivery, then rerun deliver successfully; retain the pending journal until recovery succeeds"
+      ]
+    }
+  ]
+}
+[exit 1]
+
+=== 5. 성공 재전달로 복구
+
+$ archify deliver lifecycle in/ok-v2.json
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html
+9/9 artifact checks; composition showcase: pass; sha256 f41b812b25c5
+[exit 0]
+{
+  "schemaVersion": 1,
+  "receiptId": "d3793869-44a4-40d0-9c5b-8945cfea10ef",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/ok-v2.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "specification": {
+    "sha256": "d921527e2058b4007228621956ce7ac9e3e53be930fa38c5aaec7abbd454831f",
+    "bytes": 4006
+  },
+  "artifact": {
+    "sha256": "f41b812b25c5c9fccb76663ef5b25c59167935378106cb4b180b12700788abdf",
+    "bytes": 847672
+  }
+}
+
+$ archify check meta-default.html --require-provenance
+{
+  "ok": true,
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/meta-default.html",
+  "artifact": {
+    "sha256": "f41b812b25c5c9fccb76663ef5b25c59167935378106cb4b180b12700788abdf",
+    "bytes": 847672
+  },
+  "checks": [
+    {
+      "name": "single_svg",
+      "ok": true,
+      "details": [
+        "found 1 <svg> block(s)"
+      ]
+    },
+    {
+      "name": "finite_svg",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "orthogonal_arrows",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "label_route_clearance",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "relationship_crossings",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "relationship_corridors",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "container_border_runs",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "route_rhythm",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "legend_clearance",
+      "ok": true,
+      "details": []
+    }
+  ],
+  "composition": {
+    "schemaVersion": 1,
+    "profile": "showcase",
+    "status": "pass",
+    "summary": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "metrics": {
+      "properCrossings": 0,
+      "resolvedCrossovers": 0,
+      "ambiguousCorridors": 0,
+      "arrowheadCollisions": 0,
+      "containerBorderRuns": 0,
+      "labelRouteClearanceIssues": 0,
+      "labelCanvasOverflowIssues": 0,
+      "minLabelRouteClearance": 26.4,
+      "desktopReadabilityIssues": 0,
+      "viewportHeightIssues": 0,
+      "minProjectedNodeTextPx": 7.265625,
+      "maxBends": 2,
+      "routesOverSuggestedBends": 0,
+      "maxStretch": 1,
+      "routesOverSuggestedStretch": 0,
+      "minSegmentPx": 34,
+      "minInteriorSegmentPx": 64,
+      "shortSegmentCount": 0,
+      "shortEndpointSegmentCount": 0,
+      "shortInteriorSegmentCount": 0,
+      "microSegmentCount": 0
+    },
+    "suggestedLimits": {
+      "bendsPerRelationship": 2,
+      "stretch": 1.35,
+      "segmentPx": 16,
+      "microSegmentPx": 8
+    },
+    "routeReview": {
+      "crossings": [],
+      "detours": []
+    },
+    "leadingSpace": {
+      "measured": false,
+      "reviewSuggested": false
+    },
+    "desktopReadability": {
+      "budgetBasis": "legacy-930",
+      "readerContract": "declared-wide-v1",
+      "availableDiagramWidth": 930,
+      "actualBudgetPx": 930,
+      "limit": "legacy",
+      "requestedTargetPx": null,
+      "requestedTargetMet": null,
+      "hardFloorPx": 6,
+      "hardFloorMet": true,
+      "minimumOwner": {
+        "kind": "node",
+        "id": "queued"
+      },
+      "minimumSourceTextPx": 9,
+      "minimumProjectedTextPx": 7.265625,
+      "semanticTextCount": 32
+    },
+    "issues": []
+  },
+  "provenance": "current",
+  "deliveryReceiptId": "d3793869-44a4-40d0-9c5b-8945cfea10ef"
+}
+[exit 0]
+
+=== 6. 처음 쓰는 경로에서 실패 (이전 산출물 없음) + 새 디렉터리
+
+$ archify deliver lifecycle in/bad-schema.json fresh/dir/never.html
+lifecycle schema validation failed:
+  / must have required property 'states' {"missingProperty":"states"}
+[schema/required] / must have required property 'states' Fix: add required property "states".
+[exit 1]
+-- ls .
+   cli
+   fresh
+   in
+   meta-default.delivery.json
+   meta-default.html
+-- ls fresh/dir
+   never.delivery-pending.json
+
+=== 7. 입력과 같은 경로
+
+$ archify deliver lifecycle same.html same.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "1dc3f303-7dea-4d16-8c7f-d1beaa0b8f57",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/same.html",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/same.html",
+  "error": "Output must not replace an input.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/same.html",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/same.html"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "choose an output path that is distinct from every input path"
+      ],
+      "code": "output/input-alias",
+      "message": "Output must not replace an input, including through a symbolic-link or future-path alias."
+    }
+  ]
+}
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json in/link.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "0768cfa2-ab84-4730-9ca1-1155f1a10b47",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/ok.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/link.html",
+  "error": "Output must not replace an input.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/link.html",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/ok.json"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "choose an output path that is distinct from every input path"
+      ],
+      "code": "output/input-alias",
+      "message": "Output must not replace an input, including through a symbolic-link or future-path alias."
+    }
+  ]
+}
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json ./in/../in/ok.json
+Output must not replace an input.
+[output/input-alias] Output must not replace an input, including through a symbolic-link or future-path alias. Fix: choose an output path that is distinct from every input path.
+[exit 1]
+-- ls in
+   bad-schema.json
+   link.html
+   meta-abs.json
+   meta-backslash.json
+   meta-con.json
+   meta-dotdot.json
+   meta-missing.json
+   meta-nodir-dotdot.json
+   meta-txt.json
+   ok-v2.json
+   ok.json
+
+=== 8. CLI 경로 종류
+
+$ archify deliver lifecycle in/ok.json out.txt
+CLI output must target a .html file.
+[output/cli-extension] CLI output must target a .html file. Fix: choose a path ending in .html whose symbolic-link target also ends in .html.
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json out.htm
+CLI output must target a .html file.
+[output/cli-extension] CLI output must target a .html file. Fix: choose a path ending in .html whose symbolic-link target also ends in .html.
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json dir/
+The output path is not a valid native filesystem path on this host.
+[output/native-path-syntax] The output path is not a valid native filesystem path on this host. Fix: choose an ordinary filesystem path without device names, alternate data streams, trailing dots or spaces, or overlong components.
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json up/../rel/x.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/rel/x.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+
+$ archify deliver lifecycle in/ok.json /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/abs/y.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/abs/y.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+
+$ archify deliver lifecycle ../in/ok.json ../up-out.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/up-out.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+-- ls .
+   abs
+   cli
+   fresh
+   in
+   meta-default.delivery.json
+   meta-default.html
+   outside
+   rel
+   same.html
+   up-out.delivery.json
+   up-out.html
+
+$ archify deliver lifecycle in/ok.json Mixed.HTML
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/Mixed.HTML
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+-- ls .
+   abs
+   cli
+   fresh
+   in
+   meta-default.delivery.json
+   meta-default.html
+   mixed.delivery.json
+   Mixed.HTML
+   outside
+   rel
+   same.html
+   up-out.delivery.json
+   up-out.html
+
+$ archify deliver lifecycle in/ok.json CamelCase.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/CamelCase.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+-- ls .
+   abs
+   camelcase.delivery.json
+   CamelCase.html
+   cli
+   fresh
+   in
+   meta-default.delivery.json
+   meta-default.html
+   mixed.delivery.json
+   Mixed.HTML
+   outside
+   rel
+   same.html
+   up-out.delivery.json
+   up-out.html
+
+$ archify deliver lifecycle in/ok.json lnk.html
+CLI output must resolve to a .html file.
+[output/cli-resolved-extension] CLI output must resolve to a .html file. Fix: choose a path ending in .html whose symbolic-link target also ends in .html.
+[exit 1]
+
+$ archify deliver lifecycle in/ok.json con.html
+delivered lifecycle /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/con.html
+9/9 artifact checks; composition showcase: pass; sha256 ed4d735dc926
+[exit 0]
+
+=== 9. meta.output 규칙 (CLI 인자를 줘도 meta.output을 먼저 검증)
+--- meta-abs
+
+$ archify deliver lifecycle in/meta-abs.json cli9/meta-abs.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "16758e36-d704-4eb7-a2af-708de39ca110",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-abs.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-abs.html",
+  "error": "meta.output must be a relative path resolved from the current working directory.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "/tmp/x.html",
+        "path": "/meta/output"
+      },
+      "evidence": {
+        "reason": "absolute"
+      },
+      "supportedFixes": [
+        "set meta.output to a portable relative .html path such as reports/diagram.html"
+      ],
+      "code": "output/meta-absolute",
+      "message": "meta.output must be a relative path resolved from the current working directory."
+    }
+  ]
+}
+[exit 1]
+--- meta-dotdot
+
+$ archify deliver lifecycle in/meta-dotdot.json cli9/meta-dotdot.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "d0750850-6361-48d0-ab99-05c66cd28afa",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-dotdot.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-dotdot.html",
+  "error": "meta.output must be a portable POSIX-relative path.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "../x.html",
+        "path": "/meta/output"
+      },
+      "evidence": {
+        "reason": "dot-segment",
+        "segmentIndex": 0,
+        "segment": ".."
+      },
+      "supportedFixes": [
+        "set meta.output to a portable relative .html path such as reports/diagram.html"
+      ],
+      "code": "output/meta-path-syntax",
+      "message": "meta.output must be a portable POSIX-relative path."
+    }
+  ]
+}
+[exit 1]
+--- meta-backslash
+
+$ archify deliver lifecycle in/meta-backslash.json cli9/meta-backslash.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "7e5a8c5e-c04d-44be-a0c7-e2411366fc13",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-backslash.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-backslash.html",
+  "error": "meta.output must be a portable POSIX-relative path.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "a\\b.html",
+        "path": "/meta/output"
+      },
+      "evidence": {
+        "reason": "backslash"
+      },
+      "supportedFixes": [
+        "set meta.output to a portable relative .html path such as reports/diagram.html"
+      ],
+      "code": "output/meta-path-syntax",
+      "message": "meta.output must be a portable POSIX-relative path."
+    }
+  ]
+}
+[exit 1]
+--- meta-con
+
+$ archify deliver lifecycle in/meta-con.json cli9/meta-con.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "8ef04ca2-ae18-4919-8222-3cb339c57e3b",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-con.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-con.html",
+  "error": "meta.output must be a portable POSIX-relative path.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "CON.html",
+        "path": "/meta/output"
+      },
+      "evidence": {
+        "reason": "windows-reserved-name",
+        "segmentIndex": 0,
+        "segment": "CON.html"
+      },
+      "supportedFixes": [
+        "set meta.output to a portable relative .html path such as reports/diagram.html"
+      ],
+      "code": "output/meta-path-syntax",
+      "message": "meta.output must be a portable POSIX-relative path."
+    }
+  ]
+}
+[exit 1]
+--- meta-txt
+
+$ archify deliver lifecycle in/meta-txt.json cli9/meta-txt.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "be8ef2ce-cbe5-4f06-9886-9adce09377f1",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-txt.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-txt.html",
+  "error": "meta.output must target an .html file.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "x.txt",
+        "path": "/meta/output"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "change meta.output to a portable path ending in .html"
+      ],
+      "code": "output/meta-extension",
+      "message": "meta.output must target an .html file."
+    }
+  ]
+}
+[exit 1]
+--- meta-nodir-dotdot
+
+$ archify deliver lifecycle in/meta-nodir-dotdot.json cli9/meta-nodir-dotdot.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "fcd78bee-8af9-4ee6-ac20-93f6fc5090e4",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-nodir-dotdot.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-nodir-dotdot.html",
+  "error": "meta.output must be a portable POSIX-relative path.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "a/../x.html",
+        "path": "/meta/output"
+      },
+      "evidence": {
+        "reason": "dot-segment",
+        "segmentIndex": 1,
+        "segment": ".."
+      },
+      "supportedFixes": [
+        "set meta.output to a portable relative .html path such as reports/diagram.html"
+      ],
+      "code": "output/meta-path-syntax",
+      "message": "meta.output must be a portable POSIX-relative path."
+    }
+  ]
+}
+[exit 1]
+--- meta-missing
+
+$ archify deliver lifecycle in/meta-missing.json cli9/meta-missing.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "5208ecf5-2509-4b49-90a4-3ef476e3cf18",
+  "stage": "prepare",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/meta-missing.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/cli9/meta-missing.html",
+  "error": "meta.output must be a portable POSIX-relative path.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "path": "/meta/output"
+      },
+      "evidence": {
+        "reason": "type"
+      },
+      "supportedFixes": [
+        "set meta.output to a portable relative .html path such as reports/diagram.html"
+      ],
+      "code": "output/meta-path-syntax",
+      "message": "meta.output must be a portable POSIX-relative path."
+    }
+  ]
+}
+[exit 1]
+-- ls .
+   abs
+   camelcase.delivery.json
+   CamelCase.html
+   cli
+   con.delivery.json
+   con.html
+   fresh
+   in
+   lnk.html
+   meta-default.delivery.json
+   meta-default.html
+   mixed.delivery.json
+   Mixed.HTML
+   outside
+   rel
+   same.html
+   up-out.delivery.json
+   up-out.html
+
+=== 10. 인자 오류
+
+$ archify deliver
+Usage:
+  archify render <type> <input.json> [output.html] [--quality standard|showcase] [--repo-root path]
+  archify compare architecture <base.json> <head.json> [output.html] [--receipt path] [--json] [--quality standard|showcase] [--repo-root path]
+  archify deliver <type> <input.json> [output.html] [--json] [--open] [--quality standard|showcase] [--repo-root path]
+  archify patch explainer <artifact.html> <panel-id> <replacement-file> <output.html> [--json] [--quality standard|showcase] [--repo-root path]
+  archify finalize <type> <input.json> <output.html> [--json] [--browser-check] [--receipt path] [--out-dir <dir>] [--quality standard|showcase] [--repo-root path] [--candidate-sha256 hex]
+  archify preview <diagram-type (excludes explainer)> <input.json> [output.html] [--no-open] [--quality standard|showcase] [--repo-root path]
+  archify validate <type> <input.json> [--json] [--layout-json] [--quality standard|showcase] [--repo-root path]
+  archify migrate workflow <old.json> <new.json> --to-schema 2 [--output portable.html] [--json] [--repo-root path]
+  archify inspect <type> <input.json>
+  archify check <output.html> [--json] [--require-provenance]
+  archify browser-check <output.html> [--json|--summary] [--require-provenance] [--out-dir <dir>]
+  archify visual-check <output.html> [--json|--summary] [--require-provenance] [--out-dir <dir>]
+  archify guide [scenario or question] [--json] [--lang en|zh]
+  archify brands [name, alias, domain, or category] [--json]
+  archify brands capture <url> [--json]
+  archify examples
+  archify doctor
+  archify demo [output-directory]
+  (finalize --out-dir relocates browser-check and default finalize receipts; HTML and its delivery receipt stay at the requested output path)
+
+Types:
+  architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer
+
+Explainer writing checks (validate, deliver, finalize, patch):
+  --writing warn|strict|off (default: warn)
+
+[exit 2]
+
+$ archify deliver lifecycle
+Usage:
+  archify render <type> <input.json> [output.html] [--quality standard|showcase] [--repo-root path]
+  archify compare architecture <base.json> <head.json> [output.html] [--receipt path] [--json] [--quality standard|showcase] [--repo-root path]
+  archify deliver <type> <input.json> [output.html] [--json] [--open] [--quality standard|showcase] [--repo-root path]
+  archify patch explainer <artifact.html> <panel-id> <replacement-file> <output.html> [--json] [--quality standard|showcase] [--repo-root path]
+  archify finalize <type> <input.json> <output.html> [--json] [--browser-check] [--receipt path] [--out-dir <dir>] [--quality standard|showcase] [--repo-root path] [--candidate-sha256 hex]
+  archify preview <diagram-type (excludes explainer)> <input.json> [output.html] [--no-open] [--quality standard|showcase] [--repo-root path]
+  archify validate <type> <input.json> [--json] [--layout-json] [--quality standard|showcase] [--repo-root path]
+  archify migrate workflow <old.json> <new.json> --to-schema 2 [--output portable.html] [--json] [--repo-root path]
+  archify inspect <type> <input.json>
+  archify check <output.html> [--json] [--require-provenance]
+  archify browser-check <output.html> [--json|--summary] [--require-provenance] [--out-dir <dir>]
+  archify visual-check <output.html> [--json|--summary] [--require-provenance] [--out-dir <dir>]
+  archify guide [scenario or question] [--json] [--lang en|zh]
+  archify brands [name, alias, domain, or category] [--json]
+  archify brands capture <url> [--json]
+  archify examples
+  archify doctor
+  archify demo [output-directory]
+  (finalize --out-dir relocates browser-check and default finalize receipts; HTML and its delivery receipt stay at the requested output path)
+
+Types:
+  architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer
+
+Explainer writing checks (validate, deliver, finalize, patch):
+  --writing warn|strict|off (default: warn)
+
+[exit 2]
+
+$ archify deliver nosuchtype in/ok.json
+Unknown diagram type "nosuchtype". Expected one of: architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer
+[exit 2]
+
+$ archify deliver lifecycle in/ok.json a.html b.html
+Usage:
+  archify render <type> <input.json> [output.html] [--quality standard|showcase] [--repo-root path]
+  archify compare architecture <base.json> <head.json> [output.html] [--receipt path] [--json] [--quality standard|showcase] [--repo-root path]
+  archify deliver <type> <input.json> [output.html] [--json] [--open] [--quality standard|showcase] [--repo-root path]
+  archify patch explainer <artifact.html> <panel-id> <replacement-file> <output.html> [--json] [--quality standard|showcase] [--repo-root path]
+  archify finalize <type> <input.json> <output.html> [--json] [--browser-check] [--receipt path] [--out-dir <dir>] [--quality standard|showcase] [--repo-root path] [--candidate-sha256 hex]
+  archify preview <diagram-type (excludes explainer)> <input.json> [output.html] [--no-open] [--quality standard|showcase] [--repo-root path]
+  archify validate <type> <input.json> [--json] [--layout-json] [--quality standard|showcase] [--repo-root path]
+  archify migrate workflow <old.json> <new.json> --to-schema 2 [--output portable.html] [--json] [--repo-root path]
+  archify inspect <type> <input.json>
+  archify check <output.html> [--json] [--require-provenance]
+  archify browser-check <output.html> [--json|--summary] [--require-provenance] [--out-dir <dir>]
+  archify visual-check <output.html> [--json|--summary] [--require-provenance] [--out-dir <dir>]
+  archify guide [scenario or question] [--json] [--lang en|zh]
+  archify brands [name, alias, domain, or category] [--json]
+  archify brands capture <url> [--json]
+  archify examples
+  archify doctor
+  archify demo [output-directory]
+  (finalize --out-dir relocates browser-check and default finalize receipts; HTML and its delivery receipt stay at the requested output path)
+
+Types:
+  architecture, workflow, sequence, dataflow, lifecycle, erd, tree, class, timeline, waterfall, explainer
+
+Explainer writing checks (validate, deliver, finalize, patch):
+  --writing warn|strict|off (default: warn)
+
+[exit 2]
+
+$ archify deliver lifecycle in/ok.json --bogus
+Unknown deliver option "--bogus".
+[exit 2]
+
+$ archify deliver lifecycle in/ok.json --bogus --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "stage": "arguments",
+  "error": "Unknown deliver option \"--bogus\".",
+  "diagnostics": [
+    {
+      "code": "cli/unknown-option",
+      "severity": "error",
+      "message": "Unknown deliver option \"--bogus\".",
+      "subject": {
+        "command": "deliver",
+        "option": "--bogus"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "remove the unknown option and retry"
+      ]
+    }
+  ]
+}
+[exit 2]
+
+$ archify deliver lifecycle in/nope.json x10.html --json
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "deliver",
+  "receiptId": "8aa331c8-9e50-48b2-a31e-d16e61ca852f",
+  "stage": "input",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/nope.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/x10.html",
+  "error": "Could not read delivery input \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/nope.json\": ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/nope.json'",
+  "diagnostics": [
+    {
+      "code": "input/read",
+      "severity": "error",
+      "message": "Input could not be read: ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/nope.json'",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/nope.json"
+      },
+      "evidence": {
+        "systemCode": "ENOENT",
+        "reason": "ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/nope.json'"
+      },
+      "supportedFixes": [
+        "provide one readable JSON input file"
+      ]
+    }
+  ],
+  "provenance": "absent"
+}
+[exit 1]
+
+$ archify deliver lifecycle in/badjson.json x10.html
+Could not read delivery input "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/delivery/work/in/badjson.json": Expected property name or '}' in JSON at position 1 (line 1 column 2)
+[input/json-parse] Input JSON could not be parsed: Expected property name or '}' in JSON at position 1 (line 1 column 2) Fix: repair the JSON syntax and run validation again.
+[exit 1]
+-- ls .
+   abs
+   camelcase.delivery.json
+   CamelCase.html
+   cli
+   con.delivery.json
+   con.html
+   fresh
+   in
+   lnk.html
+   meta-default.delivery.json
+   meta-default.html
+   mixed.delivery.json
+   Mixed.HTML
+   outside
+   rel
+   same.html
+   up-out.delivery.json
+   up-out.html
+   x10.delivery-pending.json

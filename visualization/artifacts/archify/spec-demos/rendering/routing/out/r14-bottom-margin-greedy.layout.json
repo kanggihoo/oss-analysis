@@ -1,0 +1,144 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    800,
+    428
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 440,
+      "y": 170,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        440,
+        170
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 640,
+      "y": 170,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        640,
+        170
+      ]
+    },
+    {
+      "id": "c",
+      "type": "backend",
+      "label": "C",
+      "x": 240,
+      "y": 300,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        240,
+        300
+      ]
+    },
+    {
+      "id": "d",
+      "type": "backend",
+      "label": "D",
+      "x": 40,
+      "y": 300,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        300
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "c",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          440,
+          200
+        ],
+        [
+          400,
+          200
+        ],
+        [
+          400,
+          330
+        ],
+        [
+          360,
+          330
+        ]
+      ]
+    },
+    {
+      "from": "b",
+      "to": "a",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          640,
+          193
+        ],
+        [
+          560,
+          193
+        ]
+      ]
+    },
+    {
+      "from": "b",
+      "to": "d",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          640,
+          207
+        ],
+        [
+          616,
+          207
+        ],
+        [
+          616,
+          297
+        ],
+        [
+          184,
+          297
+        ],
+        [
+          184,
+          330
+        ],
+        [
+          160,
+          330
+        ]
+      ]
+    }
+  ],
+  "labels": []
+}

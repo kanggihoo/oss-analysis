@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/brand-aware-delivery.v2.architecture.json",
+    "sha256": "00833cf37de60e86d90ebe3a56e91ea9bcd4fc8dccc73b45a3be4fdfd732169b",
+    "bytes": 3387
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.html",
+    "sha256": "1847ffbab6cf653707893f5a08051b07cfdecb08f293d382df1d84d15ffe7e82",
+    "bytes": 857110
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "fail"
+  },
+  "failedStage": "browser-check",
+  "diagnostics": [
+    {
+      "code": "viewer/evidence-path-conflict",
+      "severity": "error",
+      "message": "browser-check will not replace the existing unowned evidence path \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.browser-check.json\".",
+      "subject": {
+        "artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.html",
+        "evidencePath": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.browser-check.json"
+      },
+      "evidence": {
+        "reason": {
+          "code": "ownership-artifact-mismatch"
+        }
+      },
+      "supportedFixes": [
+        "move the conflicting file aside, or choose a separate --out-dir, then rerun browser-check"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov4/a.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 542,
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  }
+}

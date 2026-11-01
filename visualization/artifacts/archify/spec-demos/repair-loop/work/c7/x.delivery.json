@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e1dc98bb-a450-4ff7-830c-240655fa05aa",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c7-explainer.fixed.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c7/x.html",
+  "specification": {
+    "sha256": "ca11b44a99759a082da8921fd146e65a85cd5ea41e4f789d853b1f39a6d40639",
+    "bytes": 122
+  },
+  "artifact": {
+    "sha256": "74e1855067cd9e838943463fd6c87de6e3488f4e6a907fb7227d37f6988d76c5",
+    "bytes": 158400
+  },
+  "explainer": {
+    "preparedSha256": "33783c2345fa1a8af7dca128411ad1100e422e6a73200a31d5e2b504fe8724ba",
+    "dependencies": [
+      {
+        "kind": "repository",
+        "id": "s1",
+        "path": "archify/SKILL.md",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "1382cfb7108b05e500b82af93c04fd7b694430d3908039bd92d634f01c1e7181",
+        "bytes": 18877
+      }
+    ]
+  }
+}

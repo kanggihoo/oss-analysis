@@ -706,3 +706,28 @@
 ## [2026-10-30] workflow | "기능 지도" 용어를 "feature map"으로 변경
 - 사용자 요청: 직역보다 자연스러운 영어 명칭을 쓴다. `AGENTS.md`, `OSS_ANALYSIS_WORKFLOW.md`, `SCHEMA.md`, `README.md`, `templates/*`, `oss-repo-spec` 스킬, `scripts/check.py` 메시지, 주제 폴더 `GUIDE.md` 4개, `handoff.md`의 "기능 지도"·"지도"를 "feature map"으로 바꾸고 조사를 맞췄다.
 - 기존 `reports/` 문서와 이 로그의 이전 항목은 그대로 둔다. 워크플로 2장 4번에 "이전 문서의 '기능 지도'와 같다"를 적었다.
+
+## [2026-11-01] ingest | archify 초기 셋팅 (visualization/ 주제 폴더)
+- `visualization/` 주제 폴더 신설: `GUIDE.md`, `repos.lock.tsv`, `artifacts/archify/repo-metadata.txt`, 빈 `reports/archify/`. `.gitignore`에 `/visualization/repos/` 추가.
+- `https://github.com/tt-a1i/archify`를 `visualization/repos/archify/`에 clone(main, `a406594`, 2026-10-31, clean). 라이선스는 `LICENSE`(Apache-2.0)와 `LICENSE-MIT`를 열어 확인.
+- 분석 목적 미정이라 overview·feature map·`index.md` 행은 아직 만들지 않았다.
+
+## [2026-11-01] ingest | archify feature map(호출→전달 흐름)과 질문 3개
+- 읽은 것: `archify/SKILL.md` 전체, `bin/archify.mjs`(명령 표·`commandFinalize`·`commandDeliver`·`commandCheck`), `bin/finalize.mjs`(`runFinalize`), `renderers/shared/{cli,utils,validator,repository-evidence,output-path}.mjs`, `render-architecture.mjs` 끝부분, `scripts/check-render-output.mjs` 항목 이름, `schemas/*`, `references/*`, `recipes/scenarios.mjs`. 로컬 설치본과 레포 `archify/`는 `diff -rq` 차이 없음.
+- 썼다: `visualization/reports/archify/overview.md`(feature map 12행·공유 계약 3, 권장 범위 행 4~9 승인 전), `questions/q1~q3`, `next.md`, `diagrams/structure.json`, `index.md` 행, `handoff.md` 대기 행.
+- 한계: 레포 코드 실행(`finalize`)이 자동 승인에서 거부돼 `structure.json`은 렌더·검증하지 못했다(overview 3절에 표시). 모든 질문 답은 코드 읽기 기준이고 실행 확인은 grep·diff·스키마 파싱뿐이다.
+
+## [2026-11-01] workflow | archify 구조도 렌더와 동작 과정 explainer 추가
+- 설치된 archify 스킬로 `finalize`를 실행했다. `diagrams/structure.json` → `structure.html`(4개 게이트 통과), 새 `diagrams/trigger-flow.archify.md` → `trigger-flow.html`(explainer, 7패널, `deliver`·`check` 통과, `browser-check` 미실행). 둘 다 `--repo-root visualization/repos/archify`로 근거 줄을 검증했다.
+- `overview.md` 3절의 상태·표, `questions/q1`·`q2` 실행 관련 문장, `next.md`, `handoff.md`를 맞췄다. 시각 검토는 하지 않았다.
+
+## [2026-11-02] capability | archify 기능 스펙 12개(feature map 전체)
+- 사용자 요청으로 행 1~12 전체를 스펙으로 썼다(`visualization/reports/archify/capabilities/`): ready 3(artifact-choice, type-routing, input-validation) / draft 9. draft 사유는 선행 `rendering`의 미결정 M-01~M-06(architecture 자동 라우터 개선 스윕, workflow-compiler 제약 풀이, dataflow·lifecycle·erd·class 세부 배치)과 그 하위 의존 스펙, `auxiliary-commands`의 인터페이스 수준 항목, `authoring-contract` R-18이다.
+- 설치본 CLI로 deliver·check·browser-check·finalize·validate·compare·migrate·guide를 scratch에서 실행했고 입력·출력은 `visualization/artifacts/archify/spec-demos/`에 있다(레포 clone 코드는 직접 실행하지 않음). viewer는 headless Chrome으로 딥 링크·내보내기를 확인했다.
+- 실행으로 q1~q3와 overview를 정정했다: 관계 ID 중복만 `loadDiagram` 소관, `check`는 노드 겹침을 못 봄, 정적/브라우저 글자 하한 계산 차이, `check` 통과해도 `browser-check` 실패 가능, deliver 실패 시 provenance가 `failed`로 바뀜, `browser-check`는 in-process, `meta.views`는 화면에 반영되지 않음, 수리 한도는 코드가 세지 않음. 각 문서 끝 "기능 스펙 작성 후 정정" 절과 overview feature map 칸에 반영했다.
+- `diagrams/trigger-flow.archify.md`의 확인 항목을 갱신해 `trigger-flow.html`을 다시 렌더했다(`deliver`·`check` 통과).
+
+## [2026-11-02] capability | archify 스펙 하위 4개 추가, 정합 반영, 작업 중단
+- `rendering`의 미결정(M-01~M-05)을 하위 스펙 4개로 풀었다: `rendering-architecture-routing`, `rendering-workflow`, `rendering-other-types`, `rendering-contracts`. 출력 쓰기가 하드링크 백업 방식임, `meta.animation: none` 무효, `--quality` 소비처의 타입별 차이 등을 실행으로 확인해 `rendering`·`delivery`·`viewer`·`verification-gates`를 정정했다.
+- 상태: ready 13 / draft 3(`rendering-other-types` 정합 재검증, `authoring-contract` R-18, `auxiliary-commands` 인터페이스 수준 항목). 사용자 요청으로 여기서 중단했고 남은 일과 보정 제안은 `visualization/reports/archify/next.md`에 정리했다.
+- 재구현 검증과 통합 검토 중 대표 흐름 작성은 하지 않았다.

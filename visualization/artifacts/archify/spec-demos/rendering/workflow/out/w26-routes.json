@@ -1,0 +1,165 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    772,
+    404
+  ],
+  "requiredViewBox": [
+    772,
+    404
+  ],
+  "columns": [
+    94,
+    214,
+    334,
+    454,
+    578,
+    698
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 1,
+      "x": 168,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L2",
+      "col": 3,
+      "x": 408,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 4,
+      "x": 532,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": "auto",
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          214,
+          145
+        ],
+        [
+          214,
+          243
+        ],
+        [
+          408,
+          243
+        ]
+      ]
+    },
+    {
+      "id": "drop",
+      "from": "a",
+      "to": "c",
+      "points": [
+        [
+          214,
+          145
+        ],
+        [
+          214,
+          161
+        ],
+        [
+          578,
+          161
+        ],
+        [
+          578,
+          217
+        ]
+      ]
+    },
+    {
+      "id": "ret",
+      "from": "b",
+      "to": "a",
+      "points": [
+        [
+          408,
+          243
+        ],
+        [
+          140,
+          243
+        ],
+        [
+          140,
+          119
+        ],
+        [
+          168,
+          119
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": "auto",
+      "label": "auto",
+      "x": 311,
+      "y": 233,
+      "width": 30,
+      "height": 14
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "composition/ambiguous-corridor",
+      "severity": "warning",
+      "message": "[composition/ambiguous-corridor] standard workflow edges[0] id \"auto\" \"a\" -> \"b\" shares a 194px corridor with edges[2] id \"ret\" \"b\" -> \"a\" at [214, 243] -> [408, 243] (segments 1 and 0; minimum 8px) — if the authored route are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge.",
+      "subject": {
+        "diagramType": "workflow",
+        "collection": "edges",
+        "index": 0,
+        "id": "auto",
+        "from": "a",
+        "to": "b"
+      },
+      "evidence": {
+        "otherRelationship": {
+          "diagramType": "workflow",
+          "collection": "edges",
+          "index": 2,
+          "id": "ret",
+          "from": "b",
+          "to": "a"
+        },
+        "overlapLengthPx": 194,
+        "minimumPx": 8,
+        "from": [
+          214,
+          243
+        ],
+        "to": [
+          408,
+          243
+        ],
+        "segmentIndex": 1,
+        "otherSegmentIndex": 0
+      },
+      "supportedFixes": [
+        "if the authored route are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via, bias, or channel coordinates so unrelated edges do not visually merge"
+      ]
+    }
+  ]
+}

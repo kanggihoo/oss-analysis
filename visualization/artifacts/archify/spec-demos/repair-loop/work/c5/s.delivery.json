@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "fa837945-a34a-410a-84be-6e14eb9578a2",
+  "status": "failed",
+  "command": "deliver",
+  "stage": "check",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c5-seq-height.fixed.sequence.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c5/s.html",
+  "artifact": {
+    "sha256": "7e9b78297ebde6f09ae3f828596152e00b8688d473db79154b8b11c365815aa1",
+    "bytes": 841914
+  },
+  "error": "Final artifact check failed; the previous artifact was preserved."
+}

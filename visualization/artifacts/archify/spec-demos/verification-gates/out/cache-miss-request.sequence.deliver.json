@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "039042a6-f38b-47cb-81b7-3be623d06657",
+  "ok": true,
+  "command": "deliver",
+  "type": "sequence",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/cache-miss-request.sequence.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/out/cache-miss-request.sequence.html",
+  "specification": {
+    "sha256": "f8486daa803fff6c295cecca4604c561fbbf9acb2e83326022b5a87639e8afe6",
+    "bytes": 3805
+  },
+  "artifact": {
+    "sha256": "49e750c91bb8a21a63db5f80f147bf4867cf938f75cbdd5a5da1e11b36a3d3ba",
+    "bytes": 841568
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-valid"
+  }
+}

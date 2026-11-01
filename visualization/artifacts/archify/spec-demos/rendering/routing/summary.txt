@@ -1,0 +1,152 @@
+l01-label-gap-showcase rc=1 ok=False viewBox=[360, 168]
+  a->b 160,70;200,70 labelAt=[180, 60]
+  label LONGLABELTEXT x=144 y=50 w=72
+  DIAG composition/label-gap Label "LONGLABELTEXT" has only 40px between "a" and "b"; it needs at least 89px to stay beside its r
+l01-label-gap-standard rc=1 ok=False viewBox=[360, 168]
+  a->b 160,70;200,70 labelAt=[180, 60]
+  label LONGLABELTEXT x=144 y=50 w=72
+  DIAG layout/constraint Label "LONGLABELTEXT" overlaps component "a" — adjust labelDx/labelDy/labelSegment or set labelAt.
+ 
+  DIAG layout/constraint Label "LONGLABELTEXT" overlaps component "b" — adjust labelDx/labelDy/labelSegment or set labelAt.
+ 
+l01-label-gap rc=1 ok=False viewBox=[360, 168]
+  a->b 160,70;200,70 labelAt=[180, 60]
+  label LONGLABELTEXT x=144 y=50 w=72
+  DIAG layout/constraint Label "LONGLABELTEXT" overlaps component "a" — adjust labelDx/labelDy/labelSegment or set labelAt.
+ 
+  DIAG layout/constraint Label "LONGLABELTEXT" overlaps component "b" — adjust labelDx/labelDy/labelSegment or set labelAt.
+ 
+l02-reciprocal-labels-showcase rc=0 ok=True viewBox=[440, 168]
+  a->b 160,63;280,63 labelAt=[220, 53]
+  b->a 280,77;160,77 labelAt=[220, 97]
+  label request x=198 y=43 w=44
+  label response x=196 y=87 w=48
+l02-reciprocal-labels rc=0 ok=True viewBox=[440, 168]
+  a->b 160,63;280,63 labelAt=[220, 53]
+  b->a 280,77;160,77 labelAt=[220, 67]
+  label request x=198 y=43 w=44
+  label response x=196 y=57 w=48
+l03-label-vs-route-showcase rc=1 ok=False viewBox=[440, 214]
+  a->b 100,40;100,16;340,16;340,40 labelAt=[220, 36]
+  c->d 100,122;100,146;340,146;340,122 labelAt=None
+  label LABEL ONE x=193 y=26 w=53
+  DIAG layout/component-overlap Components "a" and "c" are less than 8px apart — move one or shrink its size.
+  "a" [40, 40, 120, 60
+  DIAG layout/component-overlap Components "b" and "d" are less than 8px apart — move one or shrink its size.
+  "b" [280, 40, 120, 6
+l03-label-vs-route rc=1 ok=False viewBox=[440, 214]
+  a->b 100,40;100,16;340,16;340,40 labelAt=[220, 6]
+  c->d 100,122;100,146;340,146;340,122 labelAt=None
+  label LABEL ONE x=193 y=-4 w=53
+  DIAG layout/component-overlap Components "a" and "c" are less than 8px apart — move one or shrink its size.
+  "a" [40, 40, 120, 60
+  DIAG layout/component-overlap Components "b" and "d" are less than 8px apart — move one or shrink its size.
+  "b" [280, 40, 120, 6
+r01-facing-greedy rc=0 ok=True viewBox=[400, 168]
+  a->b 160,70;240,70 labelAt=None
+r01-facing rc=0 ok=True viewBox=[400, 168]
+  a->b 160,70;240,70 labelAt=None
+r02-offset-h-greedy rc=0 ok=True viewBox=[400, 228]
+  a->b 160,70;200,70;200,130;240,130 labelAt=None
+r02-offset-h rc=0 ok=True viewBox=[400, 228]
+  a->b 160,84;256,84;256,100 labelAt=None
+r03-vertical-dogleg-greedy rc=0 ok=True viewBox=[220, 328]
+  a->b 100,100;100,150;120,150;120,200 labelAt=None
+r03-vertical-dogleg rc=0 ok=True viewBox=[220, 328]
+  a->b 100,100;100,200 labelAt=None
+r04-vertical-snap-greedy rc=0 ok=True viewBox=[210, 328]
+  a->b 100,100;100,200 labelAt=None
+r04-vertical-snap rc=0 ok=True viewBox=[210, 328]
+  a->b 100,100;100,200 labelAt=None
+r05-fanout-greedy rc=0 ok=True viewBox=[520, 348]
+  h->x 246,100;246,160;100,160;100,220 labelAt=None
+  h->y 260,100;260,220 labelAt=None
+  h->z 274,100;274,160;420,160;420,220 labelAt=None
+r05-fanout rc=0 ok=True viewBox=[520, 348]
+  h->x 200,84;144,84;144,220 labelAt=None
+  h->y 260,100;260,220 labelAt=None
+  h->z 320,84;376,84;376,220 labelAt=None
+r06-blocked-grid-greedy rc=0 ok=True viewBox=[600, 231]
+  a->c 160,130;237,130;237,163;416,163;416,130;440,130 labelAt=None
+r06-blocked-grid rc=0 ok=True viewBox=[600, 231]
+  a->c 160,130;237,130;237,163;416,163;416,130;440,130 labelAt=None
+r07-reciprocal-aligned-greedy rc=0 ok=True viewBox=[400, 168]
+  a->b 160,63;240,63 labelAt=None
+  b->a 240,77;160,77 labelAt=None
+r07-reciprocal-aligned rc=0 ok=True viewBox=[400, 168]
+  a->b 160,63;240,63 labelAt=None
+  b->a 240,77;160,77 labelAt=None
+r08-reciprocal-offset-greedy rc=0 ok=True viewBox=[400, 198]
+  a->b 160,63;200,63;200,93;240,93 labelAt=None
+  b->a 240,107;184,107;184,77;160,77 labelAt=None
+r08-reciprocal-offset rc=0 ok=True viewBox=[400, 198]
+  a->b 160,56;256,56;256,70 labelAt=None
+  b->a 240,114;144,114;144,100 labelAt=None
+r09-explicit-sides rc=0 ok=True viewBox=[400, 328]
+  a->b 100,100;100,150;300,150;300,200 labelAt=None
+r10-order-by-distance-greedy rc=0 ok=True viewBox=[600, 171]
+  a->c 160,77;237,77;237,103;416,103;416,70;440,70 labelAt=None
+  a->b 160,63;240,63 labelAt=None
+r10-order-by-distance rc=0 ok=True viewBox=[600, 171]
+  a->c 160,77;237,77;237,103;416,103;416,70;440,70 labelAt=None
+  a->b 160,63;240,63 labelAt=None
+r11-label-shared-greedy rc=0 ok=True viewBox=[600, 288]
+  a->b 160,70;200,70;200,130;240,130 labelAt=[200, 90]
+  b->c 360,130;400,130;400,190;440,190 labelAt=[400, 150]
+  label one x=185 y=80 w=30
+  label two x=385 y=140 w=30
+r11-label-shared rc=0 ok=True viewBox=[600, 288]
+  a->b 160,84;256,84;256,100 labelAt=[256, 82]
+  b->c 360,144;456,144;456,160 labelAt=[456, 142]
+  label one x=241 y=72 w=30
+  label two x=441 y=132 w=30
+r12-crossing-greedy rc=0 ok=True viewBox=[400, 328]
+  a->b 160,70;200,70;200,230;240,230 labelAt=None
+  c->d 300,100;300,197;184,197;184,230;160,230 labelAt=None
+r12-crossing rc=0 ok=True viewBox=[400, 328]
+  a->b 160,70;200,70;200,230;240,230 labelAt=None
+  c->d 300,100;300,150;100,150;100,200 labelAt=None
+r13-boundary-greedy rc=0 ok=True viewBox=[620, 228]
+  a->c 180,110;257,110;257,77;436,77;436,110;460,110 labelAt=None
+r13-boundary rc=0 ok=True viewBox=[620, 228]
+  a->c 180,110;257,110;257,77;436,77;436,110;460,110 labelAt=None
+r14-bottom-margin-fixedvb-greedy rc=0 ok=True viewBox=[800, 400]
+  a->c 440,200;400,200;400,330;360,330 labelAt=None
+  b->a 640,193;560,193 labelAt=None
+  b->d 640,207;616,207;616,297;184,297;184,330;160,330 labelAt=None
+r14-bottom-margin-fixedvb rc=0 ok=True viewBox=[800, 400]
+  a->c 440,200;300,200;300,300 labelAt=None
+  b->a 640,193;560,193 labelAt=None
+  b->d 700,230;700,265;100,265;100,300 labelAt=None
+r14-bottom-margin-greedy rc=0 ok=True viewBox=[800, 428]
+  a->c 440,200;400,200;400,330;360,330 labelAt=None
+  b->a 640,193;560,193 labelAt=None
+  b->d 640,207;616,207;616,297;184,297;184,330;160,330 labelAt=None
+r14-bottom-margin rc=0 ok=True viewBox=[800, 452]
+  a->c 440,200;300,200;300,300 labelAt=None
+  b->a 640,193;560,193 labelAt=None
+  b->d 700,230;700,384;100,384;100,360 labelAt=None
+r15-port-width-greedy rc=0 ok=True viewBox=[460, 348]
+  h->x 237.25,100;237.25,160;160,160;160,220 labelAt=None
+  h->y 282.75,100;282.75,160;360,160;360,220 labelAt=None
+r15-port-width rc=0 ok=True viewBox=[460, 348]
+  h->x 237.25,100;237.25,236;220,236 labelAt=None
+  h->y 282.75,100;282.75,236;300,236 labelAt=None
+r16-self-and-unknown-greedy rc=1 ok=False viewBox=[400, 192]
+  a->a 100,40;100,16;116,16;116,124;100,124;100,100 labelAt=None
+  a->b 160,70;240,70 labelAt=None
+  DIAG architecture/unknown-endpoint Connection "zzz" references unknown target "zzz".
+  DIAG layout/constraint Connection "zzz" endpoint "zzz" does not name a declared component.
+r16-self-and-unknown rc=1 ok=False viewBox=[400, 192]
+  a->a 100,40;100,16;116,16;116,124;100,124;100,100 labelAt=None
+  a->b 160,70;240,70 labelAt=None
+  DIAG architecture/unknown-endpoint Connection "zzz" references unknown target "zzz".
+  DIAG layout/constraint Connection "zzz" endpoint "zzz" does not name a declared component.
+r17-port-order-greedy rc=0 ok=True viewBox=[460, 368]
+  h->d 160,164;230,164;230,270;300,270 labelAt=None
+  h->u 160,136;230,136;230,50;300,50 labelAt=None
+  h->m 160,150;300,150 labelAt=None
+r17-port-order rc=0 ok=True viewBox=[460, 368]
+  h->d 144,180;144,256;300,256 labelAt=None
+  h->u 144,120;144,64;300,64 labelAt=None
+  h->m 160,150;300,150 labelAt=None

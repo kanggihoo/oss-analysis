@@ -1,0 +1,63 @@
+{
+ "schema_version": 2,
+ "diagram_type": "workflow",
+ "meta": {
+  "title": "R",
+  "output": "r.html"
+ },
+ "lanes": [
+  {
+   "id": "L1",
+   "label": "Top"
+  },
+  {
+   "id": "L2",
+   "label": "Bottom"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "a",
+   "lane": "L1",
+   "col": 1,
+   "type": "frontend",
+   "label": "A"
+  },
+  {
+   "id": "b",
+   "lane": "L2",
+   "col": 3,
+   "type": "backend",
+   "label": "B"
+  },
+  {
+   "id": "c",
+   "lane": "L2",
+   "col": 4,
+   "type": "database",
+   "label": "C"
+  }
+ ],
+ "edges": [
+  {
+   "id": "auto",
+   "from": "a",
+   "to": "b",
+   "label": "auto"
+  },
+  {
+   "id": "drop",
+   "from": "a",
+   "to": "c",
+   "route": "drop",
+   "bias": 0.25
+  },
+  {
+   "id": "ret",
+   "from": "b",
+   "to": "a",
+   "route": "return-left",
+   "role": "return"
+  }
+ ]
+}

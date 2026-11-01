@@ -1,0 +1,3 @@
+architecture schema validation failed:
+  /components/0/sources (id/label: "web") must NOT have fewer than 1 items {"limit":1}
+[schema/minItems] /components/0/sources (id/label: "web") must NOT have fewer than 1 items Fix: provide at least 1 item(s).

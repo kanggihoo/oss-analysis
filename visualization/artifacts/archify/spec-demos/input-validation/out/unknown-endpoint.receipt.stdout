@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/unknown-endpoint.json",
+  "error": "Architecture layout validation failed:\n- Connection \"HTTPS\" references unknown target \"ghost\".\n- Connection \"HTTPS\" endpoint \"ghost\" does not name a declared component.",
+  "diagnostics": [
+    {
+      "code": "architecture/unknown-endpoint",
+      "severity": "error",
+      "message": "Connection \"HTTPS\" references unknown target \"ghost\".",
+      "subject": {
+        "diagramType": "architecture",
+        "connection": "web-to-api",
+        "path": "/connections/0/to",
+        "from": "web",
+        "to": "ghost"
+      },
+      "evidence": {
+        "endpoint": "target",
+        "unknownNodeId": "ghost",
+        "availableNodeIds": [
+          "api",
+          "web"
+        ]
+      },
+      "supportedFixes": [
+        "set /connections/0/to to verified node id \"api\""
+      ]
+    },
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Connection \"HTTPS\" endpoint \"ghost\" does not name a declared component.",
+      "subject": {
+        "diagramType": "architecture"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ]
+}

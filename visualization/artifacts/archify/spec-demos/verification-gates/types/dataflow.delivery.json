@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "d487d33a-3ee0-4c2f-a3d0-25ac7644d8f1",
+  "status": "current",
+  "command": "deliver",
+  "type": "dataflow",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/event-stream.dataflow.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/dataflow.html",
+  "specification": {
+    "sha256": "3bdd77674282009c7c68d588cf8a3c495bc98a3be1b9c45327fd1801a6f83a23",
+    "bytes": 4769
+  },
+  "artifact": {
+    "sha256": "fdf8371fdcb7ed7c9bbd90cdabe18a14a36f2ccb68e2b6144b2e6f287699087e",
+    "bytes": 847775
+  }
+}

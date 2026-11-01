@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-bad-link-mode.json",
+  "error": "architecture schema validation failed:\n  /meta/repository/link_mode must be equal to one of the allowed values {\"allowedValues\":[\"web\",\"local-only\"]}",
+  "diagnostics": [
+    {
+      "code": "schema/enum",
+      "severity": "error",
+      "message": "/meta/repository/link_mode must be equal to one of the allowed values",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/meta/repository/link_mode"
+      },
+      "evidence": {
+        "keyword": "enum",
+        "allowedValues": [
+          "web",
+          "local-only"
+        ]
+      },
+      "supportedFixes": [
+        "choose one of the allowed values"
+      ]
+    }
+  ]
+}

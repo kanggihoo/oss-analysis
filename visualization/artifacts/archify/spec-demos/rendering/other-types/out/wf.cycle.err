@@ -1,0 +1,3 @@
+Waterfall validation failed:
+- Parent links form a cycle: "a" -> "b" -> "a".
+[waterfall/cycle] Parent links form a cycle: "a" -> "b" -> "a". Fix: Point one span in the cycle at a parent outside it..

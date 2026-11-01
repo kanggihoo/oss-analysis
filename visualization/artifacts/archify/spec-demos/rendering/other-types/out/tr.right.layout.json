@@ -1,0 +1,155 @@
+{
+  "diagram_type": "tree",
+  "direction": "right",
+  "viewBox": [
+    404,
+    314
+  ],
+  "nodes": [
+    {
+      "id": "r",
+      "parent": null,
+      "depth": 0,
+      "x": 32,
+      "y": 153,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": false
+    },
+    {
+      "id": "k0",
+      "parent": "r",
+      "depth": 1,
+      "x": 220,
+      "y": 64,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": false
+    },
+    {
+      "id": "k1",
+      "parent": "r",
+      "depth": 1,
+      "x": 220,
+      "y": 123,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": false
+    },
+    {
+      "id": "k2",
+      "parent": "r",
+      "depth": 1,
+      "x": 220,
+      "y": 182,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": false
+    },
+    {
+      "id": "k3",
+      "parent": "r",
+      "depth": 1,
+      "x": 220,
+      "y": 241,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "k0",
+      "points": [
+        [
+          172,
+          173.5
+        ],
+        [
+          196,
+          173.5
+        ],
+        [
+          196,
+          84.5
+        ],
+        [
+          220,
+          84.5
+        ]
+      ]
+    },
+    {
+      "from": "r",
+      "to": "k1",
+      "points": [
+        [
+          172,
+          173.5
+        ],
+        [
+          196,
+          173.5
+        ],
+        [
+          196,
+          143.5
+        ],
+        [
+          220,
+          143.5
+        ]
+      ]
+    },
+    {
+      "from": "r",
+      "to": "k2",
+      "points": [
+        [
+          172,
+          173.5
+        ],
+        [
+          196,
+          173.5
+        ],
+        [
+          196,
+          202.5
+        ],
+        [
+          220,
+          202.5
+        ]
+      ]
+    },
+    {
+      "from": "r",
+      "to": "k3",
+      "points": [
+        [
+          172,
+          173.5
+        ],
+        [
+          196,
+          173.5
+        ],
+        [
+          196,
+          261.5
+        ],
+        [
+          220,
+          261.5
+        ]
+      ]
+    }
+  ]
+}

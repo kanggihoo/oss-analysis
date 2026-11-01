@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b21-diagram-badrow.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/diagram-row",
+      "severity": "error",
+      "message": "Expected 3–4 pipe-separated fields.",
+      "subject": {
+        "component": "diagram",
+        "line": 9,
+        "path": "/",
+        "diagram": "sq",
+        "diagramType": "sequence"
+      },
+      "evidence": {
+        "reason": "diagram-row",
+        "example": "Client | API | 请求记录 | return"
+      },
+      "supportedFixes": [
+        "Use this form: Client | API | 请求记录 | return"
+      ]
+    }
+  ]
+}

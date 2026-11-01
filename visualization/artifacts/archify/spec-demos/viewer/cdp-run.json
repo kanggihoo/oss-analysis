@@ -1,0 +1,686 @@
+{
+ "steps": [
+  {
+   "step": "initial",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "dark",
+    "preset": "classic",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key ? (guide open)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": true,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "dark",
+    "preset": "classic",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key ? again (guide close via panel)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "dark",
+    "preset": "classic",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key t (theme toggle)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "classic",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key s (preset cycle)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key + x3",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "full",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key 0 (reset)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key - x2 (below 100% => map?)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "map",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key / (finder open)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": true,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Enter in finder (focus top result)",
+   "state": {
+    "hash": "#focus=cache",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "full",
+    "focus": "cache",
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape (clears focus)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key l (lens open)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": true,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape (lens close)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key m (radar toggle)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": true,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key m again",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key r (route probe start)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": "source",
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape (route clear)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "focus.set(api)",
+   "state": {
+    "hash": "#focus=api",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": "api",
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "click reach downstream",
+   "state": {
+    "hash": "#focus=api&reach=downstream",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "full",
+    "focus": "api",
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key f (present)",
+   "state": {
+    "hash": "#focus=api&reach=downstream",
+    "search": "?present=1",
+    "present": "true",
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "full",
+    "focus": "api",
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape #1 (focus first)",
+   "state": {
+    "hash": "",
+    "search": "?present=1",
+    "present": "true",
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": "api",
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape #2 (exit present?)",
+   "state": {
+    "hash": "",
+    "search": "?present=1",
+    "present": "true",
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape #3 (exit present?)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape #4",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "key e (export menu)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": true,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "Escape (menu has focus?)",
+   "state": {
+    "hash": "",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "read",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "hash set to #focus=db after load",
+   "state": {
+    "hash": "#focus=db",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "full",
+    "focus": "db",
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": null,
+    "intent": null,
+    "routeAttr": null
+   }
+  },
+  {
+   "step": "hash set to #route=users~worker",
+   "state": {
+    "hash": "#route=users~worker",
+    "search": "",
+    "present": null,
+    "guide": false,
+    "finder": false,
+    "exportOpen": false,
+    "theme": "light",
+    "preset": "signal-flow",
+    "motion": "still",
+    "detail": "full",
+    "focus": null,
+    "lens": null,
+    "lensOpen": false,
+    "radar": false,
+    "route": "result",
+    "intent": null,
+    "routeAttr": "users~worker"
+   }
+  }
+ ],
+ "downloads": [
+  {
+   "name": "sample-web-app.png",
+   "type": "image/png",
+   "size": 575375,
+   "head": "89504e470d0a1a0a",
+   "png": {
+    "w": 4736,
+    "h": 2968
+   }
+  },
+  {
+   "name": "sample-web-app.jpeg",
+   "type": "image/jpeg",
+   "size": 732387,
+   "head": "ffd8ffe000104a46"
+  },
+  {
+   "name": "sample-web-app.webp",
+   "type": "image/webp",
+   "size": 241148,
+   "head": "52494646f4ad0300"
+  },
+  {
+   "name": "sample-web-app.svg",
+   "type": "image/svg+xml;charset=utf-8",
+   "size": 195027,
+   "head": "3c3f786d6c207665",
+   "svgThemes": {
+    "lightVars": true,
+    "darkVars": true,
+    "prefers": true,
+    "len": 194993
+   }
+  },
+  {
+   "name": "sample-web-app-light.svg",
+   "type": "image/svg+xml;charset=utf-8",
+   "size": 191510,
+   "head": "3c3f786d6c207665",
+   "svgThemes": {
+    "lightVars": true,
+    "darkVars": true,
+    "prefers": false,
+    "len": 191476
+   }
+  },
+  {
+   "name": "sample-web-app-dark.svg",
+   "type": "image/svg+xml;charset=utf-8",
+   "size": 191531,
+   "head": "3c3f786d6c207665",
+   "svgThemes": {
+    "lightVars": true,
+    "darkVars": true,
+    "prefers": false,
+    "len": 191497
+   }
+  },
+  {
+   "name": "sample-web-app.webm",
+   "type": "video/webm;codecs=vp9",
+   "size": 1157560,
+   "head": "1a45dfa39f428681"
+  }
+ ]
+}

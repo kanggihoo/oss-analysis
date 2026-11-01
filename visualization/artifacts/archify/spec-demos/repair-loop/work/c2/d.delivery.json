@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "d95aeacd-f652-446d-9860-cdd3fe048b01",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c2-overlap.fixed3.architecture.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c2/d.html",
+  "specification": {
+    "sha256": "6a100431231180ad5bc01dfa5d10b227c40f7865bd9c0da1806b127ffd1d2a97",
+    "bytes": 4073
+  },
+  "artifact": {
+    "sha256": "9b4e54c4ef3b9475c4b669491037f0f00feb03d4d8ae0bb1531089361e463a08",
+    "bytes": 857321
+  }
+}

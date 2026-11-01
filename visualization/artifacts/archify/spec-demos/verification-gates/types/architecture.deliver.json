@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "0e20f83b-920f-4c89-9075-6f9b343e388e",
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/repos/archify/archify/examples/brand-aware-delivery.architecture.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/architecture.html",
+  "specification": {
+    "sha256": "211c126ebdc5f0124617b1067cecfb858143a1a18fd10621d01f5765c7de3b5d",
+    "bytes": 2789
+  },
+  "artifact": {
+    "sha256": "88ceda092f441afab4e86417f5e00f0b580d2a42669d52f890c2670b35097063",
+    "bytes": 857101
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-valid"
+  }
+}

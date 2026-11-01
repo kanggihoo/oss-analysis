@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b24-bad-ids.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-panel",
+      "severity": "error",
+      "message": "IDs must begin with an ASCII letter and contain letters, numbers, hyphens or underscores.",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "panel",
+        "path": "/panels/0/id",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b24-bad-ids.archify.md"
+      },
+      "evidence": {
+        "reason": "IDs must begin with an ASCII letter and contain letters, numbers, hyphens or underscores.",
+        "example": "id=cache-flow"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: id=cache-flow"
+      ]
+    },
+    {
+      "code": "explainer/parse-facts",
+      "severity": "error",
+      "message": "IDs must begin with an ASCII letter and contain letters, numbers, hyphens or underscores.",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "facts",
+        "path": "/panels/0/blocks/0/id",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b24-bad-ids.archify.md"
+      },
+      "evidence": {
+        "reason": "IDs must begin with an ASCII letter and contain letters, numbers, hyphens or underscores.",
+        "example": "id=cache-flow"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: id=cache-flow"
+      ]
+    }
+  ]
+}

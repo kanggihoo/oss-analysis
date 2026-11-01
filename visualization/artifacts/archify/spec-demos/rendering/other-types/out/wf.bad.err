@@ -1,0 +1,7 @@
+Waterfall validation failed:
+- Span "r" states end 100 and duration 5, which disagree with start 0.
+- Span "c" has neither end nor duration. A span without a recorded end must be marked status "incomplete".
+- Span "c" names parent "zz", which is not declared.
+[waterfall/invalid-timing] Span "r" states end 100 and duration 5, which disagree with start 0. Fix: Keep only one of end or duration..
+[waterfall/invalid-timing] Span "c" has neither end nor duration. A span without a recorded end must be marked status "incomplete". Fix: Add the recorded end or duration.; Set status to "incomplete" if the trace has no end for it..
+[waterfall/missing-parent] Span "c" names parent "zz", which is not declared. Fix: Declare the parent span.; Remove parent to make this a root span..

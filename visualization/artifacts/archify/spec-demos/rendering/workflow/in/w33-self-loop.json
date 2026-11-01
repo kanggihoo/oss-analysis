@@ -1,0 +1,41 @@
+{
+ "schema_version": 2,
+ "diagram_type": "workflow",
+ "meta": {
+  "title": "G",
+  "output": "g.html"
+ },
+ "lanes": [
+  {
+   "id": "L1",
+   "label": "Top"
+  },
+  {
+   "id": "L2",
+   "label": "Bottom"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "a",
+   "lane": "L1",
+   "col": 0,
+   "type": "frontend",
+   "label": "A"
+  },
+  {
+   "id": "d",
+   "lane": "L2",
+   "col": 3,
+   "type": "backend",
+   "label": "D"
+  }
+ ],
+ "edges": [
+  {
+   "id": "self",
+   "from": "a",
+   "to": "a"
+  }
+ ]
+}

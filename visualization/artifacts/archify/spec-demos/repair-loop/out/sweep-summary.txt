@@ -1,0 +1,82 @@
+runs=204 passed=24
+  78  layout/constraint  (supportedFixes 없음 78)  types={'workflow': 15, 'sequence': 18, 'erd': 3, 'class': 5, 'dataflow': 26, 'architecture': 11}
+  36  schema/additionalProperties  (supportedFixes 없음 0)  types={'lifecycle': 3, 'workflow': 6, 'sequence': 3, 'waterfall': 3, 'erd': 3, 'timeline': 3, 'tree': 3, 'class': 3, 'dataflow': 3, 'architecture': 6}
+        fix: remove unsupported property "colour"
+  32  schema/type  (supportedFixes 없음 0)  types={'lifecycle': 3, 'workflow': 6, 'sequence': 3, 'waterfall': 2, 'erd': 3, 'timeline': 3, 'tree': 2, 'class': 1, 'dataflow': 3, 'architecture': 6}
+        fix: use "string" at /states/2/sublabel
+        fix: use "string" at /transitions/7/label
+  28  composition/label-canvas-containment  (supportedFixes 없음 0)  types={'workflow': 1, 'sequence': 9, 'dataflow': 14, 'architecture': 4}
+        fix: shorten the label, reorder participants, or enlarge meta.viewBox
+        fix: if the authored route/labelAt are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust labelAt, labelDx, labelDy, 
+  21  relationship/duplicate-id  (supportedFixes 없음 21)  types={'lifecycle': 3, 'workflow': 3, 'erd': 3, 'class': 3, 'dataflow': 3, 'architecture': 6}
+  19  schema/required  (supportedFixes 없음 0)  types={'lifecycle': 1, 'workflow': 4, 'sequence': 2, 'erd': 1, 'timeline': 3, 'tree': 1, 'class': 1, 'dataflow': 1, 'architecture': 5}
+        fix: add required property "label"
+        fix: add required property "id"
+  12  dataflow/node-below-area  (supportedFixes 없음 0)  types={'dataflow': 12}
+        fix: lower yOffset on node "mobile"
+        fix: lower yOffset on node "stream"
+  11  layout/component-out-of-bounds  (supportedFixes 없음 0)  types={'architecture': 11}
+        fix: set meta.viewBox to at least [904, 512]
+        fix: set meta.viewBox to at least [1086, 512]
+   9  composition/label-route-clearance  (supportedFixes 없음 0)  types={'workflow': 3, 'dataflow': 4, 'architecture': 2}
+        fix: if the authored via/fromSide/toSide/labelAt are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust labelAt, labe
+        fix: if the authored route/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust labelAt, labelDx, l
+   7  layout/component-overlap  (supportedFixes 없음 0)  types={'architecture': 7}
+        fix: or move component "worker" pos to [760, 368] (below)
+        fix: move component "s3" pos to [448, 350] (right of "cdn")
+   6  architecture/unknown-endpoint  (supportedFixes 없음 0)  types={'architecture': 6}
+        fix: set /connections/7/to to verified node id "auth"
+        fix: set /connections/7/to to verified node id "cache"
+   6  layout/route-out-of-bounds  (supportedFixes 없음 0)  types={'architecture': 6}
+        fix: move negative route coordinates inside the canvas; for right/bottom overflow, enlarge meta.viewBox or reroute inward; preserve endpoints, direction and labels, then reval
+   3  lifecycle/unknown-endpoint  (supportedFixes 없음 0)  types={'lifecycle': 3}
+        fix: set /transitions/6/to to state id "queued"
+        fix: set /transitions/6/to to state id "planning"
+   3  workflow/unknown-edge-endpoint  (supportedFixes 없음 0)  types={'workflow': 3}
+        fix: set /edges/10/to to verified node id "approval"
+        fix: set /edges/10/to to verified node id "chat"
+   3  sequence/unknown-endpoint  (supportedFixes 없음 0)  types={'sequence': 3}
+        fix: set /messages/2/to to verified node id "client"
+        fix: set /messages/2/to to verified node id "queue"
+   3  schema/enum  (supportedFixes 없음 0)  types={'waterfall': 1, 'class': 1, 'architecture': 1}
+        fix: choose one of the allowed values
+   3  schema/maxLength  (supportedFixes 없음 0)  types={'erd': 3}
+        fix: provide at most 48 character(s)
+   3  dataflow/unknown-endpoint  (supportedFixes 없음 0)  types={'dataflow': 3}
+        fix: set /flows/3/to to verified node id "consent"
+        fix: set /flows/3/to to verified node id "stream"
+   3  clean-flow/endpoint-side-direction  (supportedFixes 없음 0)  types={'architecture': 3}
+        fix: keep automatic routing so the renderer can use a side-aware bridge, or set truthful fromSide/toSide with perpendicular via segments
+   2  lifecycle/state-text-too-long  (supportedFixes 없음 0)  types={'lifecycle': 2}
+        fix: shorten the label and move detail into a card
+   2  sequence/participant-label-overflow  (supportedFixes 없음 0)  types={'sequence': 2}
+        fix: shorten the participant label while preserving its role
+   2  tree/root-count  (supportedFixes 없음 0)  types={'tree': 2}
+        fix: Give all but one of these nodes a parent.
+        fix: Add a single root that the top-level nodes name as parent.
+   2  output/meta-path-syntax  (supportedFixes 없음 0)  types={'tree': 1, 'class': 1}
+        fix: set meta.output to a portable relative .html path such as reports/diagram.html
+   2  clean-flow/edge-through-node  (supportedFixes 없음 0)  types={'architecture': 2}
+        fix: if the authored fromSide/toSide/labelDy are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust fromSide/toSide, 
+        fix: if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust fromSide/toSide, set 
+   2  composition/label-gap  (supportedFixes 없음 0)  types={'architecture': 2}
+        fix: increase the clear gap between the connected nodes to at least 554px
+        fix: reposition the connected nodes together while preserving the full relationship label
+   2  architecture/component-label-overflow  (supportedFixes 없음 0)  types={'architecture': 2}
+        fix: shorten component "lb" label "Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box " while preserving its meaning
+        fix: or widen component "lb" to at least 718px
+   2  composition/micro-segment  (supportedFixes 없음 0)  types={'architecture': 2}
+        fix: if the authored fromSide/toSide/labelAt are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and move route/via points in
+   1  lifecycle/too-wide  (supportedFixes 없음 0)  types={'lifecycle': 1}
+        fix: relieve the routes crowding "Extremely long label text that does not fit in the box Extremely long label text that does not fit in the box ": those label/note boxes found
+        fix: review the width-driving main-path transition text: "reviewing" -> "completed" label (+626px), "planning" -> "executing" label (+26px), "executing" -> "reviewing" label (
+   1  lifecycle/label-unplaced  (supportedFixes 없음 0)  types={'lifecycle': 1}
+        fix: review the transition label wording; preserve every condition; shorten wording only, or move complete detail to a card explicitly associated with the same transition; sho
+        fix: only equivalent exits with identical labels, notes and variants can share one arrow; keep distinct notes on separate exits without removing them to force sharing
+   1  workflow/explicit-pin-conflict  (supportedFixes 없음 1)  types={'workflow': 1}
+   1  waterfall/invalid-timing  (supportedFixes 없음 0)  types={'waterfall': 1}
+        fix: Add the recorded end or duration.
+        fix: Set status to "incomplete" if the trace has no end for it.
+   1  composition/container-border-run  (supportedFixes 없음 0)  types={'architecture': 1}
+        fix: if the authored fromSide/toSide/labelDy are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or from
+   1  schema/oneOf  (supportedFixes 없음 1)  types={'architecture': 1}

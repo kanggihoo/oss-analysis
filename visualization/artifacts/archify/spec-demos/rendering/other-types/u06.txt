@@ -1,0 +1,28 @@
+## A. node-below-area: 노드 b에 yOffset 400 (b.y=242+400, 바닥 700 > 720-74=646)
+standard                           rc=1 vb= codes=['dataflow/node-below-area']
+    - Node "b" exceeds the readable diagram area — keep y within [104, 588] so that y + height does not pass 646. Raising meta.viewBox[1] to 774 would fit the node, but the page then reaches at least ~2296px in the 1440x900 viewport, so the raise cannot stand on its own — compact the node instead.
+## B. 같은 입력에 meta.viewBox [940,720] 고정(저자 캔버스) -> 높이 키우기 수정안이 나오는지
+viewBox 940x720                    rc=1 vb= codes=['dataflow/node-below-area']
+    - Node "b" exceeds the readable diagram area — keep y within [104, 588] so that y + height does not pass 646. Raising meta.viewBox[1] to 774 would fit the node, but the page then reaches at least ~1234px in the 1440x900 viewport, so the raise cannot stand on its own — compact the node instead.
+## B2. 저자 viewBox [1400,720] (넓은 캔버스) -> 높이 키우기 수정안 허용 구간
+viewBox 1400x720                   rc=1 vb= codes=['dataflow/node-below-area']
+    - Node "b" exceeds the readable diagram area — keep y within [104, 588] so that y + height does not pass 646. Raising meta.viewBox[1] to at least 774 and at most 903 also fits it and still fits the target viewport.
+## B3. 키가 큰 노드: row 3(y=470)에 height 300
+tall node row3                     rc=1 vb= codes=['dataflow/node-below-area']
+    - Node "b" exceeds the readable diagram area — keep y within [104, 346] so that y + height does not pass 646. Raising meta.viewBox[1] to 844 would fit the node, but the page then reaches at least ~2493px in the 1440x900 viewport, so the raise cannot stand on its own — compact the node instead.
+## C. 프로파일 입력 조합: 가운데 노드를 건너뛰는 흐름(showcase에서만 격자 우회)
+meta 없음                            rc=1 vb= codes=['clean-flow/edge-through-node', 'layout/constraint']
+meta standard + --quality showcase rc=0 vb=0 0 638 360 codes=[]
+meta showcase + --quality standard rc=1 vb= codes=['clean-flow/edge-through-node', 'layout/constraint']
+meta showcase                      rc=0 vb=0 0 638 360 codes=[]
+meta 없음 + --quality showcase       rc=0 vb=0 0 638 360 codes=[]
+meta 없음 + env=showcase             rc=0 vb=0 0 638 360 codes=[]
+## D. 교차 게이트 심각도: 두 흐름이 교차하는 입력(a:0→d:1행2, b:행2→c:행0)
+cross standard                     rc=1 vb= codes=['layout/constraint']
+cross meta 없음                      rc=1 vb= codes=['layout/constraint']
+cross showcase                     rc=0 vb=0 0 480 512 codes=[]
+cross standard + --quality showcase rc=0 vb=0 0 480 512 codes=[]
+## E. validate --json 의 node-below-area supportedFixes·evidence
+A auto ['lower yOffset on node "b"'] {'requiredViewBoxHeight': 774, 'requiredViewBoxFitsViewport': False, 'maximumViewBoxHeight': 309}
+B2 1400 ['lower yOffset on node "b"', 'raise meta.viewBox[1] to at least 774 and at most 903, then rerun deliver and visual-check'] {'requiredViewBoxHeight': 774, 'requiredViewBoxFitsViewport': True, 'maximumViewBoxHeight': 903}
+B3 tall ['lower yOffset on node "b"', 'reduce node "b" height to at most 176'] {'requiredViewBoxHeight': 844, 'requiredViewBoxFitsViewport': False, 'maximumViewBoxHeight': 309}

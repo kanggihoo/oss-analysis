@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-revision-short.json",
+  "error": "architecture schema validation failed:\n  /meta/repository/revision must match pattern \"^[a-fA-F0-9]{40}$\" {\"pattern\":\"^[a-fA-F0-9]{40}$\"}",
+  "diagnostics": [
+    {
+      "code": "schema/pattern",
+      "severity": "error",
+      "message": "/meta/repository/revision must match pattern \"^[a-fA-F0-9]{40}$\"",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/meta/repository/revision"
+      },
+      "evidence": {
+        "keyword": "pattern",
+        "pattern": "^[a-fA-F0-9]{40}$"
+      },
+      "supportedFixes": [
+        "match the required pattern \"^[a-fA-F0-9]{40}$\""
+      ]
+    }
+  ]
+}

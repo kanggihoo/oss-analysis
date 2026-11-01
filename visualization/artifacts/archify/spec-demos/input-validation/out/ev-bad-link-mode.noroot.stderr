@@ -1,0 +1,3 @@
+architecture schema validation failed:
+  /meta/repository/link_mode must be equal to one of the allowed values {"allowedValues":["web","local-only"]}
+[schema/enum] /meta/repository/link_mode must be equal to one of the allowed values Fix: choose one of the allowed values.

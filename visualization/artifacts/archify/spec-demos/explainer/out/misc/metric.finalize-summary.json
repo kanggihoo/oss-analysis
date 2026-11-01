@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c14-metric-empty.archify.md",
+    "sha256": "58d4d851168ad290e2b8ca477dc8ecab455bcff4d024dd73efb17e2cc17c93a5",
+    "bytes": 61
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/metric.html",
+    "sha256": "38ca47c302f64b98c523a2d2d204232c0130e7bdcd2074972c27b2ab6de496bf",
+    "bytes": 130160
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/metric.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/metric.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 537,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

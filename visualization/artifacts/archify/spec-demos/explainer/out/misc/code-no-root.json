@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b14-code-no-repo.archify.md",
+  "error": "Repository sources require a local repository.",
+  "diagnostics": [
+    {
+      "code": "explainer/repository-root",
+      "severity": "error",
+      "message": "Repository sources require a local repository.",
+      "subject": {
+        "path": "/meta/repository",
+        "component": "source",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b14-code-no-repo.archify.md",
+        "line": 1
+      },
+      "evidence": {
+        "reason": "repository-root",
+        "example": "--repo-root /absolute/path/to/repository"
+      },
+      "supportedFixes": [
+        "Pass --repo-root with the matching local Git checkout."
+      ]
+    }
+  ]
+}

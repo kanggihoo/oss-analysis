@@ -1,0 +1,49 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"a->b\" cannot satisfy route preset \"drop\": candidate violates perpendicular endpoint-side direction.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "a",
+        "to": "b",
+        "route": "drop"
+      },
+      "evidence": {
+        "invariant": "perpendicular endpoint-side direction",
+        "attemptedCandidateFamily": "drop",
+        "points": [
+          [
+            140,
+            119
+          ],
+          [
+            140,
+            104
+          ],
+          [
+            172,
+            104
+          ],
+          [
+            172,
+            119
+          ]
+        ],
+        "fromSide": "right",
+        "toSide": "left",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": [
+        "set edge \"a->b\" route to verified preset \"straight\"",
+        "set edge \"a->b\" route to verified preset \"bottom-channel\"",
+        "remove route from edge \"a->b\" so readable-v2 can use its verified automatic candidate"
+      ]
+    }
+  ]
+}

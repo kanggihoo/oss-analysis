@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c02-inline-emphasis.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/inline-emphasis",
+      "severity": "error",
+      "message": "Emphasis needs matching nonempty delimiters. Escape a literal asterisk.",
+      "subject": {
+        "line": 7,
+        "column": 3,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c02-inline-emphasis.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Emphasis needs matching nonempty delimiters. Escape a literal asterisk.",
+        "example": "**important** or \\*"
+      },
+      "supportedFixes": [
+        "Use the supported form: **important** or \\*"
+      ]
+    }
+  ]
+}

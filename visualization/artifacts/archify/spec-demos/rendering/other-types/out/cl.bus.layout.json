@@ -1,0 +1,125 @@
+{
+  "diagram_type": "class",
+  "viewBox": [
+    852,
+    260
+  ],
+  "types": [
+    {
+      "id": "base",
+      "label": "base",
+      "kind": "interface",
+      "x": 340,
+      "y": 40,
+      "width": 180,
+      "height": 44,
+      "row": 0,
+      "col": 1
+    },
+    {
+      "id": "x",
+      "label": "x",
+      "kind": "class",
+      "x": 32,
+      "y": 168,
+      "width": 180,
+      "height": 34,
+      "row": 1,
+      "col": 0
+    },
+    {
+      "id": "y",
+      "label": "y",
+      "kind": "class",
+      "x": 340,
+      "y": 168,
+      "width": 180,
+      "height": 34,
+      "row": 1,
+      "col": 1
+    },
+    {
+      "id": "z",
+      "label": "z",
+      "kind": "class",
+      "x": 648,
+      "y": 168,
+      "width": 180,
+      "height": 34,
+      "row": 1,
+      "col": 2
+    }
+  ],
+  "relationships": [
+    {
+      "from": "x",
+      "to": "base",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          122,
+          168
+        ],
+        [
+          122,
+          126
+        ],
+        [
+          430,
+          126
+        ],
+        [
+          430,
+          84
+        ]
+      ],
+      "kind": "realization"
+    },
+    {
+      "from": "y",
+      "to": "base",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          430,
+          168
+        ],
+        [
+          430,
+          84
+        ]
+      ],
+      "kind": "realization"
+    },
+    {
+      "from": "z",
+      "to": "base",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          738,
+          168
+        ],
+        [
+          738,
+          126
+        ],
+        [
+          430,
+          126
+        ],
+        [
+          430,
+          84
+        ]
+      ],
+      "kind": "realization"
+    }
+  ]
+}

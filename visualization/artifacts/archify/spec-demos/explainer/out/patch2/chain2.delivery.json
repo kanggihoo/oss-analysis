@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "fc959a44-741e-4b42-9c4a-4aa9785c6d29",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/private/var/folders/x4/q3lx4m6543l0cy_032mqjpsw0000gn/T/archify-explainer-patch-lP0y6I/patched-draft.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch2/chain2.html",
+  "specification": {
+    "sha256": "11ce13b01ef377d8ab5695b036f10f64e984e48e68d3e90a4010c0e95b506cfc",
+    "bytes": 1277
+  },
+  "artifact": {
+    "sha256": "998cbafe1dd7e7a84452ebf5908c8c3856d47794df73cb77c4b51c80bb9fc6a6",
+    "bytes": 506332
+  },
+  "explainer": {
+    "preparedSha256": "e0026b6fd5537af7c0cd85301801bed536b6df22b396e0acaef93471363ba812",
+    "dependencies": [
+      {
+        "kind": "repository",
+        "id": "router",
+        "path": "archify/explainer/layout.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "656232369fe0394e35f827c1b5295fb8f14d315e7fa53d5f16248440519736c8",
+        "bytes": 2571,
+        "retained": true
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "miss-flow",
+        "inline": true,
+        "sha256": "8f1fd4e3eb73d05127b2987d4c7b7978b1e6fea4927ca4650b8c240a952a1183",
+        "bytes": 580,
+        "retained": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,3 @@
+Sequence layout validation failed:
+- Message "me" is a self-message on participant "a"; this Sequence renderer supports only messages between distinct participants. Participant spacing cannot repair it. Preserve the internal step's meaning and order in a supported representation such as a note on a real message or a card; do not invent a participant.
+[sequence/self-message-unsupported] Message "me" is a self-message on participant "a"; this Sequence renderer supports only messages between distinct participants. Participant spacing cannot repair it. Preserve the internal step's meaning and order in a supported representation such as a note on a real message or a card; do not invent a participant.

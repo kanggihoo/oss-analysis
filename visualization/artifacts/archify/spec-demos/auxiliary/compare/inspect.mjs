@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+const j=f=>JSON.parse(fs.readFileSync(f,'utf8'));
+const r=j('out/delta.receipt.json');
+console.log(Object.keys(r).join(','));
+console.log(JSON.stringify(r.summary));
+console.log(JSON.stringify(r.validation));
+for (const k of ['components','connections','boundaries']) console.log(k, JSON.stringify(r.changes[k].map(c=>[c.id||c.key,c.status,c.classifications,c.changedFields])));
+const {changes,summary,...rest}=r; console.log(JSON.stringify(rest));
+console.log(Object.keys(j('out/stdout2.json')).join(','));
+console.log(JSON.stringify(j('out/same.receipt.json').summary));

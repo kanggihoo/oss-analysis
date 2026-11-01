@@ -1,0 +1,137 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    778,
+    404
+  ],
+  "requiredViewBox": [
+    778,
+    404
+  ],
+  "columns": [
+    94,
+    224,
+    344,
+    464,
+    584,
+    704
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 0,
+      "x": 48,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 1,
+      "x": 178,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 2,
+      "x": 298,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": null,
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          140,
+          119
+        ],
+        [
+          178,
+          119
+        ]
+      ]
+    },
+    {
+      "id": null,
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          224,
+          145
+        ],
+        [
+          224,
+          243
+        ],
+        [
+          298,
+          243
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": null,
+      "label": "go",
+      "x": 159,
+      "y": 109,
+      "width": 30,
+      "height": 14
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Phase \"p2\" (1..2) overlaps phase \"p1\" (0..1) — start at col 2 or later, or end the earlier phase at col 0.",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    },
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Group \"g\" does not contain any nodes — align its lane/columns with the parallel or branch work it frames.",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    },
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "mainPath step \"b\" -> \"a\" has no matching edge — add the edge or remove the pair from mainPath.",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    },
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "mainPath step \"b\" -> \"a\" moves backward from col 1 to 0 — use a return edge outside mainPath for loops.",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ],
+  "ok": false
+}

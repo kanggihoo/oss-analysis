@@ -1,0 +1,26 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/semantic-node-reference",
+      "severity": "error",
+      "message": "Workflow semantic contract references unknown node \"zzz\" at /semanticChecks/allowedRoots/0.",
+      "subject": {
+        "diagramType": "workflow",
+        "node": "zzz",
+        "path": "/semanticChecks/allowedRoots/0"
+      },
+      "evidence": {
+        "knownNodes": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "supportedFixes": [
+        "replace \"zzz\" with an existing node id",
+        "add the missing node before compiling"
+      ]
+    }
+  ]
+}

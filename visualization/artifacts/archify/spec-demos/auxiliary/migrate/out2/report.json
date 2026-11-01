@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "command": "migrate",
+  "type": "workflow",
+  "source": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/v1-min.json",
+    "sha256": "06de5c027f3b993de5e6b682165edfc40f12174ff79781d819f5375e478e3864",
+    "bytes": 533
+  },
+  "destination": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out2/min-v2b.json",
+    "sha256": "efba6cc36195d01b018e15d6d160e1148824b46f65144e8f47a23f18ad5aa6a5",
+    "bytes": 729
+  },
+  "fromSchemaVersion": 1,
+  "toSchemaVersion": 2,
+  "preExistingDiagnostics": [
+    {
+      "code": "workflow/column-capacity",
+      "severity": "error",
+      "message": "Workflow columns 1→2 place nodes \"n2\" and \"n3\" so they overlap by 12px under the fixed-v1 layout.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "n2",
+        "to": "n3",
+        "fromCol": 1,
+        "toCol": 2
+      },
+      "evidence": {
+        "centerDistancePx": 80,
+        "nodeWidthsPx": [
+          92,
+          92
+        ],
+        "actualSignedClearancePx": -12,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": [
+        "migrate this workflow to schema_version 2",
+        "move node \"n3\" to verified free column 3",
+        "set node widths \"n2\"=32px and \"n3\"=72px"
+      ],
+      "suppresses": [
+        "workflow/short-edge",
+        "clean-flow/endpoint-side-direction",
+        "workflow/label-node-overlap"
+      ]
+    }
+  ],
+  "migrationDiagnostics": [],
+  "newSchemaDiagnostics": [],
+  "changedCoordinates": [],
+  "oldRequiredViewBox": [
+    720,
+    404
+  ],
+  "newRequiredViewBox": [
+    772,
+    404
+  ]
+}

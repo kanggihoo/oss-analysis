@@ -1,0 +1,170 @@
+{
+  "diagram_type": "erd",
+  "viewBox": [
+    592,
+    654
+  ],
+  "layout": {
+    "margin": 24,
+    "legendH": 34,
+    "padX": 12,
+    "keyWidth": 30,
+    "keyFont": 9,
+    "headerFont": 13,
+    "headerFontMinimum": 10,
+    "rowFont": 11,
+    "rowFontMinimum": 9,
+    "typeFont": 10.5,
+    "typeFontMinimum": 9,
+    "minRelationshipLength": 24
+  },
+  "entities": [
+    {
+      "id": "p",
+      "label": "p",
+      "x": 328,
+      "y": 240,
+      "width": 240,
+      "height": 156,
+      "attributes": [
+        "id",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "row": 1,
+      "col": 1
+    },
+    {
+      "id": "c1",
+      "label": "c1",
+      "x": 32,
+      "y": 40,
+      "width": 240,
+      "height": 156,
+      "attributes": [
+        "id",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "row": 0,
+      "col": 0
+    },
+    {
+      "id": "c2",
+      "label": "c2",
+      "x": 32,
+      "y": 240,
+      "width": 240,
+      "height": 156,
+      "attributes": [
+        "id",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "row": 1,
+      "col": 0
+    },
+    {
+      "id": "c3",
+      "label": "c3",
+      "x": 32,
+      "y": 440,
+      "width": 240,
+      "height": 156,
+      "attributes": [
+        "id",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ],
+      "row": 2,
+      "col": 0
+    }
+  ],
+  "relationships": [
+    {
+      "from": "c1",
+      "to": "p",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          272,
+          118
+        ],
+        [
+          312,
+          118
+        ],
+        [
+          312,
+          294
+        ],
+        [
+          328,
+          294
+        ]
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "from": "c2",
+      "to": "p",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          272,
+          318
+        ],
+        [
+          328,
+          318
+        ]
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    },
+    {
+      "from": "c3",
+      "to": "p",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          272,
+          518
+        ],
+        [
+          312,
+          518
+        ],
+        [
+          312,
+          342
+        ],
+        [
+          328,
+          342
+        ]
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one"
+    }
+  ]
+}

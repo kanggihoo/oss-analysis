@@ -1,0 +1,3 @@
+architecture schema validation failed:
+  /meta/repository/provider must be equal to one of the allowed values {"allowedValues":["github","gitee","gitlab"]}
+[schema/enum] /meta/repository/provider must be equal to one of the allowed values Fix: choose one of the allowed values.

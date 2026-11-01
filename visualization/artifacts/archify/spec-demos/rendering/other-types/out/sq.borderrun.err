@@ -1,0 +1,5 @@
+Sequence layout validation failed:
+- [composition/container-border-run] sequence messages[0] "a" -> "b" follows segment "Phase" top border for 168.5px on segment 0 [122.5, 180] -> [291, 180] — move the message y so it crosses a segment boundary perpendicularly or stays clearly inside the segment.
+- Segment "Phase" top edge at y 180 runs along message "call" (arrow at y 180) — move the edge to at least 184 to leave the message above it, or to at most 176 to leave it below.
+[layout/constraint] [composition/container-border-run] sequence messages[0] "a" -> "b" follows segment "Phase" top border for 168.5px on segment 0 [122.5, 180] -> [291, 180] — move the message y so it crosses a segment boundary perpendicularly or stays clearly inside the segment.
+[sequence/segment-message-border-run] Segment "Phase" top edge at y 180 runs along message "call" (arrow at y 180) — move the edge to at least 184 to leave the message above it, or to at most 176 to leave it below. Fix: set /segments/0/from to at least 184 to leave the message above it; set /segments/0/from to at most 176 to leave the message below it.

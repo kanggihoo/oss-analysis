@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b05-no-panel.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-panel",
+      "severity": "error",
+      "message": "At least one question panel is required.",
+      "subject": {
+        "line": 1,
+        "column": 1,
+        "component": "panel",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b05-no-panel.archify.md"
+      },
+      "evidence": {
+        "reason": "At least one question panel is required.",
+        "example": "## Why does this happen?"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: ## Why does this happen?"
+      ]
+    }
+  ]
+}

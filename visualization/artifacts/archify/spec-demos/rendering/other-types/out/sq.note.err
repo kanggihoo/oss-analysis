@@ -1,0 +1,3 @@
+sequence schema validation failed:
+  /meta/viewBox/1 must be >= 480 {"comparison":">=","limit":480}
+[schema/minimum] /meta/viewBox/1 must be >= 480 Fix: use a value >= 480.

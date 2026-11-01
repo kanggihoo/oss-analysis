@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/loc/en.archify.md",
+    "sha256": "bd41ff32fd7a484b0a688f6d68d573f98e8797fca94dc43f2c96aa126cde0e78",
+    "bytes": 1346
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/deliver/loc-en.html",
+    "sha256": "51e9804a44938a6b66e4bedaaf28534aa9568b607a35606a83ca4925bc6fd722",
+    "bytes": 506962
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/deliver/loc-en.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/deliver/loc-en.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 672,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

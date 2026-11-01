@@ -1,0 +1,7 @@
+Architecture layout validation failed:
+- Components "web" and "api" are less than 8px apart — move one or shrink its size.
+  "web" [40, 80, 120, 60]; "api" [100, 80, 120, 60]
+  Suggested fix: move "api" pos to [168, 80] (right of "web") or [100, 148] (below)
+[layout/component-overlap] Components "web" and "api" are less than 8px apart — move one or shrink its size.
+  "web" [40, 80, 120, 60]; "api" [100, 80, 120, 60]
+  Suggested fix: move "api" pos to [168, 80] (right of "web") or [100, 148] (below) Fix: move component "api" pos to [168, 80] (right of "web"); or move component "api" pos to [100, 148] (below); or shrink "web" or "api" while keeping every label and sublabel readable.

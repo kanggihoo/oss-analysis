@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-four-sources.json",
+  "error": "architecture schema validation failed:\n  /components/0/sources (id/label: \"web\") must NOT have more than 3 items {\"limit\":3}",
+  "diagnostics": [
+    {
+      "code": "schema/maxItems",
+      "severity": "error",
+      "message": "/components/0/sources (id/label: \"web\") must NOT have more than 3 items",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/components/0/sources",
+        "identity": "web"
+      },
+      "evidence": {
+        "keyword": "maxItems",
+        "limit": 3
+      },
+      "supportedFixes": [
+        "provide at most 3 item(s)"
+      ]
+    }
+  ]
+}

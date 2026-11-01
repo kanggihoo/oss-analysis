@@ -1,0 +1,13 @@
+cache miss => {"conf":"medium","matched":["cache miss"],"rec":"api-request","type":"sequence","alts":[]}
+kafka topology => {"conf":"high","matched":["kafka topology"],"rec":"event-stream","type":"dataflow","alts":[]}
+components => {"conf":"low","matched":["components"],"rec":"system-overview","type":"architecture","alts":[]}
+region => {"conf":"medium","matched":["region"],"rec":"deployment-ownership","type":"architecture","alts":[]}
+services => {"conf":"low","matched":["services"],"rec":"system-overview","type":"architecture","alts":[]}
+state machine and er diagram => {"conf":"high","matched":["state machine"],"rec":"object-lifecycle","type":"lifecycle","alts":[["database-schema",15]]}
+approval gate rollback pull request => {"conf":"high","matched":["pull request","rollback"],"rec":"delivery-workflow","type":"workflow","alts":[["agent-tool-call",10]]}
+Kafka   Topology => {"conf":"high","matched":["kafka topology"],"rec":"event-stream","type":"dataflow","alts":[]}
+settled accounts => {"conf":"low","matched":[],"rec":"system-overview","type":"architecture","alts":[]}
+ER 图 => {"conf":"high","matched":["ER 图"],"rec":"database-schema","type":"erd","alts":[]}
+review the viable design => {"conf":"medium","matched":["via"],"rec":"layout-repair","type":"architecture","alts":[]}
+api gateway via cdn => {"conf":"medium","matched":["via"],"rec":"layout-repair","type":"architecture","alts":[]}
+layout overlap and crossing => {"conf":"high","matched":["overlap","crossing"],"rec":"layout-repair","type":"architecture","alts":[]}

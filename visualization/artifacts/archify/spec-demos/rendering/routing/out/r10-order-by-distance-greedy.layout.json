@@ -1,0 +1,106 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    600,
+    171
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 240,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        240,
+        40
+      ]
+    },
+    {
+      "id": "c",
+      "type": "backend",
+      "label": "C",
+      "x": 440,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        440,
+        40
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "c",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          77
+        ],
+        [
+          237,
+          77
+        ],
+        [
+          237,
+          103
+        ],
+        [
+          416,
+          103
+        ],
+        [
+          416,
+          70
+        ],
+        [
+          440,
+          70
+        ]
+      ]
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          63
+        ],
+        [
+          240,
+          63
+        ]
+      ]
+    }
+  ],
+  "labels": []
+}

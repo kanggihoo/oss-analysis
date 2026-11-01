@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "validate",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+  "candidate": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+    "sha256": "dc97279037c200ed8c71d45bb9c6fe3cfe9b1cfcbff70ece9861ef1e3473c5a0",
+    "bytes": 96
+  },
+  "candidateFrozen": true,
+  "nextAction": {
+    "command": "finalize",
+    "arguments": [
+      "explainer",
+      "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+      "<output.html>",
+      "--quality",
+      "standard",
+      "--repo-root",
+      "/Users/kkh/Desktop/oss-analysis/visualization/repos/archify",
+      "--candidate-sha256",
+      "dc97279037c200ed8c71d45bb9c6fe3cfe9b1cfcbff70ece9861ef1e3473c5a0",
+      "--json"
+    ]
+  },
+  "checks": [
+    {
+      "name": "explainer_structure",
+      "ok": true,
+      "details": [
+        "11 unique DOM IDs"
+      ]
+    },
+    {
+      "name": "explainer_payload_identity",
+      "ok": true,
+      "details": []
+    },
+    {
+      "name": "explainer_dependencies",
+      "ok": true,
+      "details": [
+        "0 frozen dependencies"
+      ]
+    },
+    {
+      "name": "explainer_native_diagrams",
+      "ok": true,
+      "details": []
+    }
+  ],
+  "composition": {
+    "schemaVersion": 1,
+    "profile": "standard",
+    "status": "pass",
+    "summary": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "issues": [],
+    "nativeDiagrams": []
+  },
+  "diagnostics": [
+    {
+      "code": "explainer/writing-plain-word",
+      "severity": "warning",
+      "message": "A longer word replaces a common one with the same meaning.",
+      "subject": {
+        "line": 7,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md"
+      },
+      "evidence": {
+        "rule": "plain-word",
+        "reason": "A longer word replaces a common one with the same meaning.",
+        "example": "utilize → use; prior to → before; in order to → to; due to the fact that → because",
+        "matched": "utilize"
+      },
+      "supportedFixes": [
+        "Use the shorter common word."
+      ]
+    },
+    {
+      "code": "explainer/writing-cliche",
+      "severity": "warning",
+      "message": "This stock phrase gives little information about the concrete outcome.",
+      "subject": {
+        "line": 7,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md"
+      },
+      "evidence": {
+        "rule": "cliche",
+        "reason": "This stock phrase gives little information about the concrete outcome.",
+        "example": "赋能业务 → 让客服查到订单状态; seamless → name what no longer needs a manual step",
+        "matched": "seamless"
+      },
+      "supportedFixes": [
+        "Replace the stock phrase with the specific action or outcome the reader needs."
+      ]
+    },
+    {
+      "code": "explainer/writing-vague-quantity",
+      "severity": "warning",
+      "message": "The quantity or comparison lacks a stated bound or measurement.",
+      "subject": {
+        "line": 7,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md"
+      },
+      "evidence": {
+        "rule": "vague-quantity",
+        "reason": "The quantity or comparison lacks a stated bound or measurement.",
+        "example": "大量请求 → 写明已知请求量或说明未测量；尽快 → 写明期限; significantly faster → give the measured comparison or say it is unmeasured",
+        "matched": "大量请求"
+      },
+      "supportedFixes": [
+        "Add a supported quantity, range, deadline or comparison basis; when unknown, state that it is unmeasured. Do not invent a number."
+      ]
+    },
+    {
+      "code": "explainer/writing-vague-quantity",
+      "severity": "warning",
+      "message": "The quantity or comparison lacks a stated bound or measurement.",
+      "subject": {
+        "line": 7,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md"
+      },
+      "evidence": {
+        "rule": "vague-quantity",
+        "reason": "The quantity or comparison lacks a stated bound or measurement.",
+        "example": "大量请求 → 写明已知请求量或说明未测量；尽快 → 写明期限; significantly faster → give the measured comparison or say it is unmeasured",
+        "matched": "尽快"
+      },
+      "supportedFixes": [
+        "Add a supported quantity, range, deadline or comparison basis; when unknown, state that it is unmeasured. Do not invent a number."
+      ]
+    }
+  ]
+}

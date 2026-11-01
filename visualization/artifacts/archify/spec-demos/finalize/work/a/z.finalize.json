@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "lifecycle",
+  "quality": "showcase",
+  "startedAt": "2026-11-01T21:34:48.900Z",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json"
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/a/z.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "/opt/homebrew/Cellar/node/26.10.0_2/bin/node",
+        "/Users/kkh/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "lifecycle",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json",
+        "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/a/z.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "47cf1a7d-1f24-4109-b321-54415e0c7f68",
+        "stage": "input",
+        "type": "lifecycle",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json",
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/a/z.html",
+        "error": "Could not read delivery input \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json\": ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json'",
+        "diagnostics": [
+          {
+            "code": "input/read",
+            "severity": "error",
+            "message": "Input could not be read: ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json'",
+            "subject": {
+              "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json"
+            },
+            "evidence": {
+              "systemCode": "ENOENT",
+              "reason": "ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json'"
+            },
+            "supportedFixes": [
+              "provide one readable JSON input file"
+            ]
+          }
+        ],
+        "provenance": "absent"
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "input/read",
+      "severity": "error",
+      "message": "Input could not be read: ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json'",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json"
+      },
+      "evidence": {
+        "systemCode": "ENOENT",
+        "reason": "ENOENT: no such file or directory, open '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/in/none.json'"
+      },
+      "supportedFixes": [
+        "provide one readable JSON input file"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/a/z.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/a/z.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-11-01T21:34:49.010Z",
+  "durationMs": 109,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "disabled"
+  }
+}

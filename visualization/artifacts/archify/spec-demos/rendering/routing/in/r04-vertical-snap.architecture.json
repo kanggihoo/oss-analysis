@@ -1,0 +1,34 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r04-vertical-snap",
+  "output": "r04-vertical-snap.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    50,
+    200
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b"
+  }
+ ]
+}

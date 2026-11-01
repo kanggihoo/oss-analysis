@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b06-dup-id.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-panel",
+      "severity": "error",
+      "message": "Duplicate ID \"p\": the panel on line 5 already uses it. Panels, blocks, diagrams and steps share one ID namespace.",
+      "subject": {
+        "line": 10,
+        "column": 1,
+        "component": "panel",
+        "path": "/panels/1/id",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b06-dup-id.archify.md"
+      },
+      "evidence": {
+        "reason": "Duplicate ID \"p\": the panel on line 5 already uses it. Panels, blocks, diagrams and steps share one ID namespace.",
+        "example": "## Another question? {#p-2}"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: ## Another question? {#p-2}"
+      ]
+    }
+  ]
+}

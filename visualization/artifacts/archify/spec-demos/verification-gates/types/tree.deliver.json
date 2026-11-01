@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "78b7d020-a0b8-447a-854e-320fbfc0b250",
+  "ok": true,
+  "command": "deliver",
+  "type": "tree",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/archify-repository.tree.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/tree.html",
+  "specification": {
+    "sha256": "970617ee844ecfb1bb792c677aa8b85688abfd2cf8ab2365dc03ea9e26e6b9c7",
+    "bytes": 4368
+  },
+  "artifact": {
+    "sha256": "e1a68b7c1ae795994f29c8c9a3efcb91f616e637d0c8d5b95c179c2597345683",
+    "bytes": 877360
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-valid"
+  }
+}

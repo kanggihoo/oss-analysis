@@ -1,0 +1,82 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    768,
+    452
+  ],
+  "requiredViewBox": [
+    768,
+    452
+  ],
+  "columns": [
+    94,
+    214,
+    334,
+    454,
+    574,
+    694
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "cage",
+      "col": 2,
+      "x": 288,
+      "y": 91,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "cage",
+      "col": 2,
+      "x": 288,
+      "y": 181,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "cage",
+      "col": 2,
+      "x": 288,
+      "y": 271,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": null,
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          334,
+          143
+        ],
+        [
+          334,
+          181
+        ]
+      ]
+    },
+    {
+      "id": null,
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          334,
+          233
+        ],
+        [
+          334,
+          271
+        ]
+      ]
+    }
+  ],
+  "labels": [],
+  "diagnostics": []
+}

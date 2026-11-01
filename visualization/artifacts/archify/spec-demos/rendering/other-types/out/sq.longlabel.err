@@ -1,0 +1,3 @@
+Sequence layout validation failed:
+- Label "A very long participant label here" (~231px) is wider than component "a" (86px) — shorten the label or widen the participant box.
+[sequence/participant-label-overflow] Label "A very long participant label here" (~231px) is wider than component "a" (86px) — shorten the label or widen the participant box. Fix: shorten the participant label while preserving its role; set meta.column_fit to "spread" if fixed coordinates are not required.

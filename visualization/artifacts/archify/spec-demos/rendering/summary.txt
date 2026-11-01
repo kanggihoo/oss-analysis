@@ -1,0 +1,38 @@
+agent-run.lifecycle exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1152 500" json_in_html=0 cards=2 nodes=16 edges=24
+agent-tool-call.workflow exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1108 684" json_in_html=0 cards=2 nodes=18 edges=16
+async-job-roundtrip.sequence exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 820 920" json_in_html=0 cards=3 nodes=13 edges=14
+checkout-request.waterfall exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1089 308" json_in_html=0 cards=0 nodes=12 edges=5
+orders.erd exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 999 488" json_in_html=0 cards=3 nodes=12 edges=6
+payment-incident.timeline exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1123 485" json_in_html=0 cards=0 nodes=11 edges=0
+payment-platform.tree exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1069 396" json_in_html=0 cards=0 nodes=16 edges=9
+payments.class exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 993 430" json_in_html=0 cards=0 nodes=11 edges=6
+product-analytics.dataflow exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1080 520" json_in_html=0 cards=3 nodes=16 edges=20
+web-app.architecture exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1080 588" json_in_html=0 cards=3 nodes=16 edges=15
+min.architecture exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 440 208" json_in_html=0 cards=1 nodes=8 edges=2
+t1.tree exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 372 246" json_in_html=0 cards=0 nodes=9 edges=2
+w1.waterfall exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1035 174" json_in_html=0 cards=0 nodes=8 edges=1
+e1.timeline exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 1016 237" json_in_html=0 cards=0 nodes=8 edges=0
+s1.sequence exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 560 327" json_in_html=0 cards=0 nodes=8 edges=2
+l1.lifecycle exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 640 170" json_in_html=0 cards=0 nodes=8 edges=2
+d1.dataflow exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 480 720" json_in_html=0 cards=0 nodes=8 edges=2
+boundary.architecture exit=0 stdout_is_abs_path=1 stderr_bytes=0 <svg viewBox="0 0 470 228" json_in_html=0 cards=1 nodes=8 edges=2
+fr.architecture exit=0 stdout_is_abs_path=1 stderr_bytes=138 <svg viewBox="0 0 440 208" json_in_html=0 cards=1 nodes=8 edges=2
+--- slots in min.architecture
+2:<html lang="ko" data-theme="dark" data-preset="blueprint">
+8:<title>A $&amp; B &lt;/script&gt; 다이어그램</title>
+5086:id="archify-software-notices"
+5197:<h1>A $&amp; B &lt;/script&gt;</h1>
+5199:<p class="subtitle">sub &lt;b&gt;</p>
+5203:id="archify-i18n-data"
+5264:<title>Web · 아키텍처 구성요소</title>
+5277:<title>API · 아키텍처 구성요소</title>
+overlap exit=1 keep.html=seed first_stderr=[layout/component-overlap] Components "web" and "api" are le
+oob exit=1 created=0 [layout/component-out-of-bounds] Component "api" falls outside the viewBox 320x240 — adjust pos/size or set a 
+dir-target exit=1 [output/target-not-regular-file] Output already exists and is not a re
+non-html exit=1 [output/cli-extension] CLI output must target a .html file. 
+mode kept: -rw-r----- leftover_tmp=0
+mkdir -p: x.html
+diag-json exit=1 False renderer layout/component-overlap
+layout-json(overlap) exit=1 keys=ok,diagram_type,layout,viewBox,components,boundaries,connections,labels,schemaVersion,source,error,diagnostics,contract
+evidence slot count=1 without_repo=0
+quality: min=data-quality-profile="standard" data-quality-gates="advisory" showcase=data-quality-profile="showcase"

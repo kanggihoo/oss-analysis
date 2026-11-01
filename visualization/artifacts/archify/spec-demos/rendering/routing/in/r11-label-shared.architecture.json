@@ -1,0 +1,49 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r11-label-shared",
+  "output": "r11-label-shared.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    240,
+    100
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    440,
+    160
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "label": "one"
+  },
+  {
+   "from": "b",
+   "to": "c",
+   "label": "two"
+  }
+ ]
+}

@@ -1,0 +1,3 @@
+Lifecycle validation failed:
+- mainPath step "b" -> "c" has no transition.
+[lifecycle/main-path-gap] mainPath step "b" -> "c" has no transition. Fix: add a transition from "b" to "c"; remove the state from mainPath if it is not on the happy path.

@@ -1,0 +1,3 @@
+Timeline validation failed:
+- Event "a" timestamp "2026-02-30T10:00:00Z" is not a valid date and time.
+[timeline/invalid-timestamp] Event "a" timestamp "2026-02-30T10:00:00Z" is not a valid date and time. Fix: Use ISO 8601 with an explicit offset, e.g. "2026-10-01T10:05:00+08:00"..

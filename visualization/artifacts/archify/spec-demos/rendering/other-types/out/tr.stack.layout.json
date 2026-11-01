@@ -1,0 +1,139 @@
+{
+  "diagram_type": "tree",
+  "direction": "down",
+  "viewBox": [
+    320,
+    399
+  ],
+  "nodes": [
+    {
+      "id": "r",
+      "parent": null,
+      "depth": 0,
+      "x": 32,
+      "y": 64,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": false
+    },
+    {
+      "id": "k0",
+      "parent": "r",
+      "depth": 1,
+      "x": 70,
+      "y": 161,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": true
+    },
+    {
+      "id": "k1",
+      "parent": "r",
+      "depth": 1,
+      "x": 70,
+      "y": 212,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": true
+    },
+    {
+      "id": "k2",
+      "parent": "r",
+      "depth": 1,
+      "x": 70,
+      "y": 263,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": true
+    },
+    {
+      "id": "k3",
+      "parent": "r",
+      "depth": 1,
+      "x": 70,
+      "y": 314,
+      "width": 140,
+      "height": 41,
+      "lines": 1,
+      "stacked": true
+    }
+  ],
+  "edges": [
+    {
+      "from": "r",
+      "to": "k0",
+      "points": [
+        [
+          54,
+          105
+        ],
+        [
+          54,
+          181.5
+        ],
+        [
+          70,
+          181.5
+        ]
+      ]
+    },
+    {
+      "from": "r",
+      "to": "k1",
+      "points": [
+        [
+          54,
+          105
+        ],
+        [
+          54,
+          232.5
+        ],
+        [
+          70,
+          232.5
+        ]
+      ]
+    },
+    {
+      "from": "r",
+      "to": "k2",
+      "points": [
+        [
+          54,
+          105
+        ],
+        [
+          54,
+          283.5
+        ],
+        [
+          70,
+          283.5
+        ]
+      ]
+    },
+    {
+      "from": "r",
+      "to": "k3",
+      "points": [
+        [
+          54,
+          105
+        ],
+        [
+          54,
+          334.5
+        ],
+        [
+          70,
+          334.5
+        ]
+      ]
+    }
+  ]
+}

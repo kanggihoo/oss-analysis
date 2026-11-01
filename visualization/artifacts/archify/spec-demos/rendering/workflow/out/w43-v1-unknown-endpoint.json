@@ -1,0 +1,15 @@
+{
+  "contract": "fixed-v1",
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Edge \"zz\" references unknown target \"zz\".",
+      "subject": {
+        "diagramType": "workflow"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "patch",
+  "stage": "prepare",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch/base.html",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch/p5-parse-error.html",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-directive",
+      "severity": "error",
+      "message": "Unsupported component @foo.",
+      "subject": {
+        "line": 29,
+        "column": 1,
+        "component": "directive",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/ok.archify.md"
+      },
+      "evidence": {
+        "reason": "Unsupported component @foo.",
+        "example": "@facts\n| key | value |"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: @facts\n| key | value |"
+      ]
+    }
+  ]
+}

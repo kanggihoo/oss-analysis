@@ -1,0 +1,127 @@
+{
+  "ok": false,
+  "command": "migrate",
+  "type": "workflow",
+  "source": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/v1.json",
+    "sha256": "630be98449925d2716ecb8439f404b2bff5fe65ba905b0ad0baea6d96890c526",
+    "bytes": 4723
+  },
+  "destination": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out/v1-migrated2.json"
+  },
+  "fromSchemaVersion": 1,
+  "toSchemaVersion": 2,
+  "preExistingDiagnostics": [],
+  "migrationDiagnostics": [],
+  "newSchemaDiagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"alert->page\" cannot satisfy route preset \"drop\": candidate violates lane/phase/group label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "alert",
+        "to": "page",
+        "route": "drop"
+      },
+      "evidence": {
+        "invariant": "lane/phase/group label clearance",
+        "attemptedCandidateFamily": "drop",
+        "points": [
+          [
+            94,
+            146
+          ],
+          [
+            94,
+            168
+          ],
+          [
+            214,
+            168
+          ],
+          [
+            214,
+            225
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "top",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "changedCoordinates": [
+    {
+      "path": "/edges/7/via/0/0",
+      "from": 430,
+      "to": 454
+    },
+    {
+      "path": "/edges/7/via/1/0",
+      "from": 20,
+      "to": 32.181818
+    },
+    {
+      "path": "/edges/7/via/2/0",
+      "from": 20,
+      "to": 32.181818
+    }
+  ],
+  "oldRequiredViewBox": [
+    720,
+    900
+  ],
+  "newRequiredViewBox": [
+    768,
+    918
+  ],
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"alert->page\" cannot satisfy route preset \"drop\": candidate violates lane/phase/group label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "alert",
+        "to": "page",
+        "route": "drop"
+      },
+      "evidence": {
+        "invariant": "lane/phase/group label clearance",
+        "attemptedCandidateFamily": "drop",
+        "points": [
+          [
+            94,
+            146
+          ],
+          [
+            94,
+            168
+          ],
+          [
+            214,
+            168
+          ],
+          [
+            214,
+            225
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "top",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "error": "Workflow edge \"alert->page\" cannot satisfy route preset \"drop\": candidate violates lane/phase/group label clearance."
+}

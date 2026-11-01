@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-path-invalid.json",
+  "error": "/components/0/sources/0/path must be a repo-relative POSIX path.",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/path-invalid",
+      "severity": "error",
+      "message": "/components/0/sources/0/path must be a repo-relative POSIX path.",
+      "subject": {
+        "surface": "repository-evidence",
+        "path": "/components/0/sources/0/path"
+      },
+      "evidence": {
+        "authoredPath": "/etc/passwd"
+      },
+      "supportedFixes": [
+        "use a repository-relative path with forward slashes"
+      ]
+    }
+  ]
+}

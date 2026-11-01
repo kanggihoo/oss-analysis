@@ -1,0 +1,43 @@
+{
+ "schema_version": 1,
+ "diagram_type": "sequence",
+ "meta": {
+  "title": "S",
+  "output": "x.html"
+ },
+ "participants": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "Pa"
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "Pb"
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "Pc"
+  },
+  {
+   "id": "d",
+   "type": "backend",
+   "label": "Pd"
+  },
+  {
+   "id": "e",
+   "type": "backend",
+   "label": "Pe"
+  }
+ ],
+ "messages": [
+  {
+   "from": "a",
+   "to": "e",
+   "y": 180,
+   "label": "long hop"
+  }
+ ]
+}

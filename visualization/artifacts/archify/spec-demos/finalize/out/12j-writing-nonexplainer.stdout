@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "stage": "arguments",
+  "error": "--writing is supported for explainer documents only.",
+  "diagnostics": [
+    {
+      "code": "cli/unsupported-option",
+      "severity": "error",
+      "message": "--writing is supported for explainer documents only.",
+      "subject": {
+        "command": "finalize",
+        "option": "--writing"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "Remove --writing or use an explainer document."
+      ]
+    }
+  ]
+}

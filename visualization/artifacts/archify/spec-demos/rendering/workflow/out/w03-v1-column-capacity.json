@@ -1,0 +1,37 @@
+{
+  "contract": "fixed-v1",
+  "diagnostics": [
+    {
+      "code": "workflow/column-capacity",
+      "severity": "error",
+      "message": "Workflow columns 1→2 place nodes \"b\" and \"c\" so they overlap by 12px under the fixed-v1 layout.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "b",
+        "to": "c",
+        "fromCol": 1,
+        "toCol": 2
+      },
+      "evidence": {
+        "centerDistancePx": 80,
+        "nodeWidthsPx": [
+          92,
+          92
+        ],
+        "actualSignedClearancePx": -12,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": [
+        "migrate this workflow to schema_version 2",
+        "move node \"c\" to verified free column 3",
+        "set node widths \"b\"=32px and \"c\"=72px"
+      ],
+      "suppresses": [
+        "workflow/short-edge",
+        "clean-flow/endpoint-side-direction",
+        "workflow/label-node-overlap"
+      ]
+    }
+  ]
+}

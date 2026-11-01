@@ -1,0 +1,111 @@
+{
+  "ok": false,
+  "command": "migrate",
+  "type": "workflow",
+  "source": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/v1b.json",
+    "sha256": "dbd5c174af66296caec372e7214cf4df7158b50a563508e16826b95ab8d1cd6c",
+    "bytes": 4510
+  },
+  "destination": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out/v1b-migrated.json"
+  },
+  "fromSchemaVersion": 1,
+  "toSchemaVersion": 2,
+  "preExistingDiagnostics": [],
+  "migrationDiagnostics": [],
+  "newSchemaDiagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"pull_request->build\" cannot satisfy route preset \"drop\": candidate violates lane/phase/group label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "pull_request",
+        "to": "build",
+        "route": "drop"
+      },
+      "evidence": {
+        "invariant": "lane/phase/group label clearance",
+        "attemptedCandidateFamily": "drop",
+        "points": [
+          [
+            218,
+            146
+          ],
+          [
+            218,
+            168
+          ],
+          [
+            338,
+            168
+          ],
+          [
+            338,
+            219
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "top",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "changedCoordinates": [],
+  "oldRequiredViewBox": [
+    720,
+    900
+  ],
+  "newRequiredViewBox": [
+    780,
+    926
+  ],
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"pull_request->build\" cannot satisfy route preset \"drop\": candidate violates lane/phase/group label clearance.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "from": "pull_request",
+        "to": "build",
+        "route": "drop"
+      },
+      "evidence": {
+        "invariant": "lane/phase/group label clearance",
+        "attemptedCandidateFamily": "drop",
+        "points": [
+          [
+            218,
+            146
+          ],
+          [
+            218,
+            168
+          ],
+          [
+            338,
+            168
+          ],
+          [
+            338,
+            219
+          ]
+        ],
+        "fromSide": "bottom",
+        "toSide": "top",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": []
+    }
+  ],
+  "error": "Workflow edge \"pull_request->build\" cannot satisfy route preset \"drop\": candidate violates lane/phase/group label clearance."
+}

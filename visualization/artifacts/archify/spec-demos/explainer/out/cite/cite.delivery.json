@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "fe5f9b6b-6931-414d-934c-569114d4afcb",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/cite-bad-lines.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/cite/cite.html",
+  "specification": {
+    "sha256": "1a3a04dfb1ec76f40a4028bb46bf81b994858a349e4e5252f745d7c3c706b3cf",
+    "bytes": 117
+  },
+  "artifact": {
+    "sha256": "b9b9cc78a04971970ac0585f42aa7b6f7e01930780048adbe4647872ee80bbb9",
+    "bytes": 130918
+  },
+  "explainer": {
+    "preparedSha256": "e4e1f533f9a913578b5fcae300b6588862c2c06d774aeec6cea7d8b970f66bb8",
+    "dependencies": []
+  }
+}

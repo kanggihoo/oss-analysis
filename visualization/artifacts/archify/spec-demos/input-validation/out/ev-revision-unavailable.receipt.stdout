@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-revision-unavailable.json",
+  "error": "Evidence revision 0000000000000000000000000000000000000000 is not available in the local repository.",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/revision-unavailable",
+      "severity": "error",
+      "message": "Evidence revision 0000000000000000000000000000000000000000 is not available in the local repository.",
+      "subject": {
+        "surface": "repository-evidence",
+        "repoRoot": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/repo"
+      },
+      "evidence": {
+        "revision": "0000000000000000000000000000000000000000"
+      },
+      "supportedFixes": [
+        "fetch the pinned commit or pin an available full commit SHA"
+      ]
+    }
+  ]
+}

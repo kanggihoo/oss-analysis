@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "a1edaa97-8ac2-496b-a92c-8e7dc3bf213c",
+  "ok": true,
+  "command": "deliver",
+  "type": "erd",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/orders.erd.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/erd.html",
+  "specification": {
+    "sha256": "1777a374647084466f4d7ce3a968004be6ab70ac9cf82459b96bed7c556cdfdd",
+    "bytes": 7321
+  },
+  "artifact": {
+    "sha256": "e97a501766ff355602f9e123ff2a11784d09ee473b9db296a79267a3508533d2",
+    "bytes": 861259
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-valid"
+  }
+}

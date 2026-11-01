@@ -1,0 +1,233 @@
+{
+  "ok": false,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    440,
+    214
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 280,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        280,
+        40
+      ]
+    },
+    {
+      "id": "c",
+      "type": "backend",
+      "label": "C",
+      "x": 40,
+      "y": 62,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        62
+      ]
+    },
+    {
+      "id": "d",
+      "type": "backend",
+      "label": "D",
+      "x": 280,
+      "y": 62,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        280,
+        62
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "LABEL ONE",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          100,
+          40
+        ],
+        [
+          100,
+          16
+        ],
+        [
+          340,
+          16
+        ],
+        [
+          340,
+          40
+        ]
+      ],
+      "labelAt": [
+        220,
+        36
+      ]
+    },
+    {
+      "from": "c",
+      "to": "d",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          100,
+          122
+        ],
+        [
+          100,
+          146
+        ],
+        [
+          340,
+          146
+        ],
+        [
+          340,
+          122
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "LABEL ONE",
+      "x": 193,
+      "y": 26,
+      "width": 53,
+      "height": 14,
+      "labelAt": [
+        220,
+        36
+      ]
+    }
+  ],
+  "schemaVersion": 1,
+  "source": "renderer",
+  "error": "Architecture layout validation failed:\n- Components \"a\" and \"c\" are less than 8px apart — move one or shrink its size.\n  \"a\" [40, 40, 120, 60]; \"c\" [40, 62, 120, 60]\n  Suggested fix: move \"c\" pos to [168, 62] (right of \"a\") or [40, 108] (below)\n- Components \"b\" and \"d\" are less than 8px apart — move one or shrink its size.\n  \"b\" [280, 40, 120, 60]; \"d\" [280, 62, 120, 60]\n  Suggested fix: move \"d\" pos to [408, 62] (right of \"b\") or [280, 108] (below)",
+  "diagnostics": [
+    {
+      "code": "layout/component-overlap",
+      "severity": "error",
+      "message": "Components \"a\" and \"c\" are less than 8px apart — move one or shrink its size.\n  \"a\" [40, 40, 120, 60]; \"c\" [40, 62, 120, 60]\n  Suggested fix: move \"c\" pos to [168, 62] (right of \"a\") or [40, 108] (below)",
+      "subject": {
+        "diagramType": "architecture",
+        "nodeId": "a"
+      },
+      "evidence": {
+        "otherId": "c",
+        "minimumGapPx": 8,
+        "boxes": [
+          {
+            "id": "a",
+            "type": "backend",
+            "label": "A",
+            "x": 40,
+            "y": 40,
+            "width": 120,
+            "height": 60,
+            "pos": [
+              40,
+              40
+            ]
+          },
+          {
+            "id": "c",
+            "type": "backend",
+            "label": "C",
+            "x": 40,
+            "y": 62,
+            "width": 120,
+            "height": 60,
+            "pos": [
+              40,
+              62
+            ]
+          }
+        ]
+      },
+      "supportedFixes": [
+        "move component \"c\" pos to [168, 62] (right of \"a\")",
+        "or move component \"c\" pos to [40, 108] (below)",
+        "or shrink \"a\" or \"c\" while keeping every label and sublabel readable"
+      ]
+    },
+    {
+      "code": "layout/component-overlap",
+      "severity": "error",
+      "message": "Components \"b\" and \"d\" are less than 8px apart — move one or shrink its size.\n  \"b\" [280, 40, 120, 60]; \"d\" [280, 62, 120, 60]\n  Suggested fix: move \"d\" pos to [408, 62] (right of \"b\") or [280, 108] (below)",
+      "subject": {
+        "diagramType": "architecture",
+        "nodeId": "b"
+      },
+      "evidence": {
+        "otherId": "d",
+        "minimumGapPx": 8,
+        "boxes": [
+          {
+            "id": "b",
+            "type": "backend",
+            "label": "B",
+            "x": 280,
+            "y": 40,
+            "width": 120,
+            "height": 60,
+            "pos": [
+              280,
+              40
+            ]
+          },
+          {
+            "id": "d",
+            "type": "backend",
+            "label": "D",
+            "x": 280,
+            "y": 62,
+            "width": 120,
+            "height": 60,
+            "pos": [
+              280,
+              62
+            ]
+          }
+        ]
+      },
+      "supportedFixes": [
+        "move component \"d\" pos to [408, 62] (right of \"b\")",
+        "or move component \"d\" pos to [280, 108] (below)",
+        "or shrink \"b\" or \"d\" while keeping every label and sublabel readable"
+      ]
+    }
+  ],
+  "contract": "archify-architecture-layout-v1"
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c03-link-target.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/inline-target",
+      "severity": "error",
+      "message": "Use a nonempty label and an HTTP(S), source, block, node, route or typical destination.",
+      "subject": {
+        "line": 7,
+        "column": 5,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c03-link-target.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Use a nonempty label and an HTTP(S), source, block, node, route or typical destination.",
+        "example": "[Redis](node:read-path.redis)"
+      },
+      "supportedFixes": [
+        "Use the supported form: [Redis](node:read-path.redis)"
+      ]
+    }
+  ]
+}

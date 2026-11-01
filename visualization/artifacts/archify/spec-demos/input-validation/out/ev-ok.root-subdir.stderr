@@ -1,0 +1,2 @@
+Evidence root must be the Git top-level directory: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/repo
+[repository-evidence/root-not-top-level] Evidence root must be the Git top-level directory: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/repo Fix: pass --repo-root /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/repo.

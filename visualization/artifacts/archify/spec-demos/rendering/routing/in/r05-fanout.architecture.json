@@ -1,0 +1,60 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r05-fanout",
+  "output": "r05-fanout.html"
+ },
+ "components": [
+  {
+   "id": "h",
+   "type": "backend",
+   "label": "H",
+   "pos": [
+    200,
+    40
+   ]
+  },
+  {
+   "id": "x",
+   "type": "backend",
+   "label": "X",
+   "pos": [
+    40,
+    220
+   ]
+  },
+  {
+   "id": "y",
+   "type": "backend",
+   "label": "Y",
+   "pos": [
+    200,
+    220
+   ]
+  },
+  {
+   "id": "z",
+   "type": "backend",
+   "label": "Z",
+   "pos": [
+    360,
+    220
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "h",
+   "to": "x"
+  },
+  {
+   "from": "h",
+   "to": "y"
+  },
+  {
+   "from": "h",
+   "to": "z"
+  }
+ ]
+}

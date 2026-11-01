@@ -1,0 +1,34 @@
+{
+ "schema_version": 1,
+ "diagram_type": "class",
+ "meta": {
+  "title": "C",
+  "output": "x.html"
+ },
+ "layout": {
+  "mode": "grid"
+ },
+ "types": [
+  {
+   "id": "a",
+   "label": "a",
+   "kind": "class",
+   "row": 0,
+   "col": 0
+  },
+  {
+   "id": "b",
+   "label": "b",
+   "kind": "class",
+   "row": 0,
+   "col": 1
+  }
+ ],
+ "relationships": [
+  {
+   "from": "a",
+   "to": "b",
+   "kind": "association"
+  }
+ ]
+}

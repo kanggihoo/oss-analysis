@@ -1,0 +1,39 @@
+{
+ "schema_version": 1,
+ "diagram_type": "class",
+ "meta": {
+  "title": "C",
+  "output": "x.html"
+ },
+ "layout": {
+  "mode": "grid"
+ },
+ "types": [
+  {
+   "id": "p",
+   "label": "p",
+   "kind": "class",
+   "row": 0,
+   "col": 0
+  },
+  {
+   "id": "q",
+   "label": "q",
+   "kind": "class",
+   "row": 0,
+   "col": 1
+  }
+ ],
+ "relationships": [
+  {
+   "from": "p",
+   "to": "q",
+   "kind": "inheritance"
+  },
+  {
+   "from": "q",
+   "to": "p",
+   "kind": "inheritance"
+  }
+ ]
+}

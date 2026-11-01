@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "9b455383-c633-4164-b68e-f92f8a2f20c0",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/brand-aware-delivery.v2.architecture.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov3/a.html",
+  "specification": {
+    "sha256": "00833cf37de60e86d90ebe3a56e91ea9bcd4fc8dccc73b45a3be4fdfd732169b",
+    "bytes": 3387
+  },
+  "artifact": {
+    "sha256": "1847ffbab6cf653707893f5a08051b07cfdecb08f293d382df1d84d15ffe7e82",
+    "bytes": 857110
+  }
+}

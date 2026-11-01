@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c24-source-lines-reversed.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/source-lines",
+      "severity": "error",
+      "message": "The repository line range must be ordered.",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "source",
+        "path": "/sources/0/lines",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c24-source-lines-reversed.archify.md"
+      },
+      "evidence": {
+        "reason": "The repository line range must be ordered.",
+        "example": "lines=10:20"
+      },
+      "supportedFixes": [
+        "Use a valid form, for example: lines=10:20"
+      ]
+    }
+  ]
+}

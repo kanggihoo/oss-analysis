@@ -1,0 +1,106 @@
+{
+  "ok": false,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    360,
+    168
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 200,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        200,
+        40
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "LONGLABELTEXT",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          70
+        ],
+        [
+          200,
+          70
+        ]
+      ],
+      "labelAt": [
+        180,
+        60
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "LONGLABELTEXT",
+      "x": 144,
+      "y": 50,
+      "width": 72,
+      "height": 14,
+      "labelAt": [
+        180,
+        60
+      ]
+    }
+  ],
+  "schemaVersion": 1,
+  "source": "renderer",
+  "error": "Architecture layout validation failed:\n- Label \"LONGLABELTEXT\" has only 40px between \"a\" and \"b\"; it needs at least 89px to stay beside its route — increase that clear gap or place the connected nodes on another readable row, preserving the label.",
+  "diagnostics": [
+    {
+      "code": "composition/label-gap",
+      "severity": "error",
+      "message": "Label \"LONGLABELTEXT\" has only 40px between \"a\" and \"b\"; it needs at least 89px to stay beside its route — increase that clear gap or place the connected nodes on another readable row, preserving the label.",
+      "subject": {
+        "diagramType": "architecture",
+        "collection": "connections",
+        "from": "a",
+        "to": "b"
+      },
+      "evidence": {
+        "clearGapPx": 40,
+        "minimumGapPx": 89,
+        "labelWidthPx": 72.4,
+        "obstacles": [
+          "a",
+          "b"
+        ]
+      },
+      "supportedFixes": [
+        "increase the clear gap between the connected nodes to at least 89px",
+        "reposition the connected nodes together while preserving the full relationship label"
+      ]
+    }
+  ],
+  "contract": "archify-architecture-layout-v1"
+}

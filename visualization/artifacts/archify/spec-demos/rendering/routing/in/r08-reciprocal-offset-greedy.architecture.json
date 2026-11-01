@@ -1,0 +1,40 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r08-reciprocal-offset-greedy",
+  "output": "r08-reciprocal-offset-greedy.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    240,
+    70
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "labelDx": 0
+  },
+  {
+   "from": "b",
+   "to": "a",
+   "labelDx": 0
+  }
+ ]
+}

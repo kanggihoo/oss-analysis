@@ -1,0 +1,5 @@
+Sequence layout validation failed:
+- Note on message "call" wraps to 5 lines and ends at y=463, below the canvas content limit y=435 — set meta.viewBox[1] to at least 561, move the message up, or shorten the note.
+- Sequence content ends at y=463, leaving no room for the legend below it — set meta.viewBox[1] to at least 561 or omit meta.viewBox so the canvas grows.
+[sequence/note-canvas-limit] Note on message "call" wraps to 5 lines and ends at y=463, below the canvas content limit y=435 — set meta.viewBox[1] to at least 561, move the message up, or shorten the note. Fix: set /meta/viewBox/1 to 561.
+[layout/constraint] Sequence content ends at y=463, leaving no room for the legend below it — set meta.viewBox[1] to at least 561 or omit meta.viewBox so the canvas grows.

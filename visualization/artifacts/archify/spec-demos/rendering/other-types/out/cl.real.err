@@ -1,0 +1,3 @@
+Class diagram validation failed:
+- Relationship 0 "p" realizes "q", but realization runs from a non-interface type to an interface (here class -> class). Use inheritance for class-to-class or interface-to-interface extension.
+[class/realization-target] Relationship 0 "p" realizes "q", but realization runs from a non-interface type to an interface (here class -> class). Use inheritance for class-to-class or interface-to-interface extension. Fix: Use kind "inheritance" for extension between two classes or two interfaces.; Point the realization at the interface it implements..

@@ -1,0 +1,7 @@
+Sequence layout validation failed:
+- Messages "call" and "next" are less than 28px apart and share horizontal space — spread their y values.
+- [composition/label-route-clearance] showcase sequence label "next" on messages[1] "a" -> "b" label "next" is 0px from messages[0] "a" -> "b" label "call" segment 0 [122.5, 180] -> [291, 180] (label rect [188, 180, 38, 18]; minimum 4px) — spread the message y values, shorten the label, or reorder participants so the adjacent route stays visible.
+- Note on message "call" wraps to 5 lines (down to y=246) and reaches message "next" at y=200 — move "next" and later messages down so it sits at y=268 or below, or shorten the note.
+[layout/constraint] Messages "call" and "next" are less than 28px apart and share horizontal space — spread their y values.
+[layout/constraint] [composition/label-route-clearance] showcase sequence label "next" on messages[1] "a" -> "b" label "next" is 0px from messages[0] "a" -> "b" label "call" segment 0 [122.5, 180] -> [291, 180] (label rect [188, 180, 38, 18]; minimum 4px) — spread the message y values, shorten the label, or reorder participants so the adjacent route stays visible.
+[sequence/note-overlap] Note on message "call" wraps to 5 lines (down to y=246) and reaches message "next" at y=200 — move "next" and later messages down so it sits at y=268 or below, or shorten the note. Fix: set /messages/1/y to 268.

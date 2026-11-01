@@ -1,0 +1,137 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    600,
+    288
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 240,
+      "y": 100,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        240,
+        100
+      ]
+    },
+    {
+      "id": "c",
+      "type": "backend",
+      "label": "C",
+      "x": 440,
+      "y": 160,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        440,
+        160
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "one",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          70
+        ],
+        [
+          200,
+          70
+        ],
+        [
+          200,
+          130
+        ],
+        [
+          240,
+          130
+        ]
+      ],
+      "labelAt": [
+        200,
+        90
+      ]
+    },
+    {
+      "from": "b",
+      "to": "c",
+      "label": "two",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          360,
+          130
+        ],
+        [
+          400,
+          130
+        ],
+        [
+          400,
+          190
+        ],
+        [
+          440,
+          190
+        ]
+      ],
+      "labelAt": [
+        400,
+        150
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "one",
+      "x": 185,
+      "y": 80,
+      "width": 30,
+      "height": 14,
+      "labelAt": [
+        200,
+        90
+      ]
+    },
+    {
+      "text": "two",
+      "x": 385,
+      "y": 140,
+      "width": 30,
+      "height": 14,
+      "labelAt": [
+        400,
+        150
+      ]
+    }
+  ]
+}

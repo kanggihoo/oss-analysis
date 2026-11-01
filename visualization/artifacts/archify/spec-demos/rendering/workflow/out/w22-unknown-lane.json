@@ -1,0 +1,26 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/unknown-node-lane",
+      "severity": "error",
+      "message": "Workflow node \"c\" uses unknown lane \"nope\".",
+      "subject": {
+        "diagramType": "workflow",
+        "node": "c",
+        "path": "/nodes/2/lane"
+      },
+      "evidence": {
+        "unknownLaneId": "nope",
+        "availableLaneIds": [
+          "L1",
+          "L2"
+        ]
+      },
+      "supportedFixes": [
+        "set /nodes/2/lane to verified lane id \"L1\"",
+        "set /nodes/2/lane to verified lane id \"L2\""
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/out-ext.json",
+  "error": "meta.output must target an .html file.",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "subject": {
+        "output": "x.txt",
+        "path": "/meta/output"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "change meta.output to a portable path ending in .html"
+      ],
+      "code": "output/meta-extension",
+      "message": "meta.output must target an .html file."
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+Lifecycle validation failed:
+- 6 transitions between the neighbouring states "d" and "e" cannot spread apart on the shared edge; at most five stay legible.
+[lifecycle/crowded-side-transitions] 6 transitions between the neighbouring states "d" and "e" cannot spread apart on the shared edge; at most five stay legible. Fix: merge the triggers into one transition label.

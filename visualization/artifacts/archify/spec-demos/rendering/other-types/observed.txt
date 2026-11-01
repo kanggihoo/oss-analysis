@@ -1,0 +1,7 @@
+== sq.spread3
+== sq.fixed3
+== erd.band
+band sales x="20" y="22" width="593" height="82" rx="12" class="c-lane er-band" stroke-width="1"/
+band ops x="20" y="122" width="264" height="82" rx="12" class="c-lane er-band" stroke-width="1"/
+== tr.stack
+== wf.inc

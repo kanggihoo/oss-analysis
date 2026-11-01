@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/schema-bad.json",
+  "error": "architecture schema validation failed:\n  /meta must have required property 'title' {\"missingProperty\":\"title\"}\n  /components/0 (id/label: \"web\") must NOT have additional properties {\"additionalProperty\":\"colour\"}\n  /components/1/type (id/label: \"api\") must be equal to one of the allowed values {\"allowedValues\":[\"frontend\",\"backend\",\"database\",\"cloud\",\"security\",\"messagebus\",\"external\"]}",
+  "diagnostics": [
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "/meta must have required property 'title'",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/meta"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "title"
+      },
+      "supportedFixes": [
+        "add required property \"title\""
+      ]
+    },
+    {
+      "code": "schema/additionalProperties",
+      "severity": "error",
+      "message": "/components/0 (id/label: \"web\") must NOT have additional properties",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/components/0",
+        "identity": "web"
+      },
+      "evidence": {
+        "keyword": "additionalProperties",
+        "additionalProperty": "colour"
+      },
+      "supportedFixes": [
+        "remove unsupported property \"colour\""
+      ]
+    },
+    {
+      "code": "schema/enum",
+      "severity": "error",
+      "message": "/components/1/type (id/label: \"api\") must be equal to one of the allowed values",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/components/1/type",
+        "identity": "api"
+      },
+      "evidence": {
+        "keyword": "enum",
+        "allowedValues": [
+          "frontend",
+          "backend",
+          "database",
+          "cloud",
+          "security",
+          "messagebus",
+          "external"
+        ]
+      },
+      "supportedFixes": [
+        "choose one of the allowed values"
+      ]
+    }
+  ]
+}

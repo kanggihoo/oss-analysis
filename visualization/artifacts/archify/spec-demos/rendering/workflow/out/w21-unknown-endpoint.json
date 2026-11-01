@@ -1,0 +1,31 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/unknown-edge-endpoint",
+      "severity": "error",
+      "message": "Workflow edge \"b->zz\" references unknown target \"zz\".",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": null,
+        "path": "/edges/1/to",
+        "from": "b",
+        "to": "zz"
+      },
+      "evidence": {
+        "endpoint": "target",
+        "unknownNodeId": "zz",
+        "availableNodeIds": [
+          "a",
+          "b",
+          "c"
+        ],
+        "fixVerification": "each candidate was verified by applying every listed repoint together and recompiling"
+      },
+      "supportedFixes": [
+        "set /edges/1/to to verified node id \"a\"",
+        "set /edges/1/to to verified node id \"c\""
+      ]
+    }
+  ]
+}

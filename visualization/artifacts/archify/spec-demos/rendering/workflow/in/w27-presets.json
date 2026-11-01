@@ -1,0 +1,61 @@
+{
+ "schema_version": 2,
+ "diagram_type": "workflow",
+ "meta": {
+  "title": "R",
+  "output": "r.html"
+ },
+ "lanes": [
+  {
+   "id": "L1",
+   "label": "Top"
+  },
+  {
+   "id": "L2",
+   "label": "Bottom"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "a",
+   "lane": "L1",
+   "col": 1,
+   "type": "frontend",
+   "label": "A"
+  },
+  {
+   "id": "b",
+   "lane": "L2",
+   "col": 3,
+   "type": "backend",
+   "label": "B"
+  },
+  {
+   "id": "c",
+   "lane": "L2",
+   "col": 4,
+   "type": "database",
+   "label": "C"
+  }
+ ],
+ "edges": [
+  {
+   "id": "o",
+   "from": "a",
+   "to": "b",
+   "route": "outside-right"
+  },
+  {
+   "id": "bc",
+   "from": "b",
+   "to": "c",
+   "route": "bottom-channel"
+  },
+  {
+   "id": "uc",
+   "from": "c",
+   "to": "a",
+   "route": "up-channel"
+  }
+ ]
+}

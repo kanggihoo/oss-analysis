@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b10-nested-list.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-list",
+      "severity": "error",
+      "message": "Nested lists are unsupported.",
+      "subject": {
+        "line": 8,
+        "column": 1,
+        "component": "list",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b10-nested-list.archify.md"
+      },
+      "evidence": {
+        "reason": "Nested lists are unsupported.",
+        "example": "- One flat item"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: - One flat item"
+      ]
+    }
+  ]
+}

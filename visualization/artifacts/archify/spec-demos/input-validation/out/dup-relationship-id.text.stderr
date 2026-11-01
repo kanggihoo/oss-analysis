@@ -1,0 +1,3 @@
+Relationship identity validation failed:
+- /connections/1/id duplicates relationship id "web-to-api"
+[relationship/duplicate-id] /connections/1/id duplicates relationship id "web-to-api"

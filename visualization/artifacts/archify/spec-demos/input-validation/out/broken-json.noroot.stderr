@@ -1,0 +1,2 @@
+Expected double-quoted property name in JSON at position 23 (line 1 column 24)
+[input/json-parse] Input JSON could not be parsed: Expected double-quoted property name in JSON at position 23 (line 1 column 24) Fix: repair the JSON syntax and run validation again.

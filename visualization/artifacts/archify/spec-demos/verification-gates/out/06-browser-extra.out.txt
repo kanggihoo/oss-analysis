@@ -1,0 +1,26 @@
+== readability: static check (legacy 930px budget) vs browser (real svg width)
+font_5.9 check exit=1 [4.899] | browser exit=1 fail [('viewer/projected-text-readability', 1440), ('viewer/projected-text-readability', 1600)]
+font_6 check exit=1 [4.982] | browser exit=0 pass []
+font_7.2 check exit=1 [5.979] | browser exit=0 pass []
+font_7.3 check exit=0 [] | browser exit=0 pass []
+== stale receipt: redeliver changed bytes to same path, rerun browser-check
+run1 exit=0
+fail [('viewer/evidence-path-conflict', {'code': 'ownership-artifact-mismatch'})]
+with fresh --out-dir: pass
+== finalize twice to same output with changed input
+f1 exit=0
+f2 exit=1
+browser-check {'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'fail'} ['viewer/evidence-path-conflict']
+== forms and capture names
+automated browser evidence pass: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov3/a.html
+browser-check containment pass; captures not-requested; perceptual visual review not-requested
+receipt /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/out/bc-human/a.browser-check.json
+exit=0
+{"schemaVersion":1,"command":"browser-check","ok":true,"status":"pass","evidenceKind":"automated-browser","visualReview":"not-requested","artifact":{"path":"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov3/a.html","sha256":"1847ffbab6cf653707893f5a0
+visual-check exit=0
+a.visual-check.1440x900.dark.png
+a.visual-check.1440x900.light.png
+a.visual-check.2048x1320.dark.png
+a.visual-check.2048x1320.light.png
+a.visual-check.html
+a.visual-check.json

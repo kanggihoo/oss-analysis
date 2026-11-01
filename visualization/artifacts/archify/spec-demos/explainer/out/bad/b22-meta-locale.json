@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b22-meta-locale.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/schema-pattern",
+      "severity": "error",
+      "message": "/meta/locale must match pattern \"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$\"",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "document",
+        "path": "/meta/locale",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b22-meta-locale.archify.md"
+      },
+      "evidence": {
+        "reason": "/meta/locale must match pattern \"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$\"",
+        "example": "id=request-path"
+      },
+      "supportedFixes": [
+        "Use a valid form, for example: id=request-path"
+      ]
+    }
+  ]
+}

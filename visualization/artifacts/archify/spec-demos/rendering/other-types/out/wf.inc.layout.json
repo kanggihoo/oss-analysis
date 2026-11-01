@@ -1,0 +1,69 @@
+{
+  "diagram_type": "waterfall",
+  "unit": "ms",
+  "viewBox": [
+    1121,
+    208
+  ],
+  "origin": 0,
+  "wall": 100,
+  "pxPerUnit": 7.6,
+  "axis": {
+    "x0": 196,
+    "x1": 956
+  },
+  "ticks": [
+    {
+      "t": 0,
+      "x": 196
+    },
+    {
+      "t": 20,
+      "x": 348
+    },
+    {
+      "t": 40,
+      "x": 500
+    },
+    {
+      "t": 60,
+      "x": 652
+    },
+    {
+      "t": 80,
+      "x": 804
+    },
+    {
+      "t": 100,
+      "x": 956
+    }
+  ],
+  "rows": [
+    {
+      "id": "r",
+      "parent": null,
+      "depth": 0,
+      "start": 0,
+      "end": 100,
+      "open": false,
+      "x0": 196,
+      "x1": 956,
+      "y": 88,
+      "label": "100 ms",
+      "placement": "after"
+    },
+    {
+      "id": "c",
+      "parent": "r",
+      "depth": 1,
+      "start": 20,
+      "end": 100,
+      "open": true,
+      "x0": 348,
+      "x1": 956,
+      "y": 113,
+      "label": "incomplete, ≥ 80 ms",
+      "placement": "after"
+    }
+  ]
+}

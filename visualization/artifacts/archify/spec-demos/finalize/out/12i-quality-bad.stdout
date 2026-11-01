@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "stage": "arguments",
+  "error": "Unknown quality profile \"gold\". Expected standard or showcase.",
+  "diagnostics": [
+    {
+      "code": "cli/invalid-option-value",
+      "severity": "error",
+      "message": "Unknown quality profile \"gold\". Expected standard or showcase.",
+      "subject": {
+        "command": "finalize",
+        "option": "--quality"
+      },
+      "evidence": {
+        "value": "gold",
+        "supportedValues": [
+          "standard",
+          "showcase"
+        ]
+      },
+      "supportedFixes": [
+        "use --quality standard or --quality showcase"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+Evidence repository origin "https://github.com/example/demo.git" does not match "https://github.com/example/other".
+[repository-evidence/origin-mismatch] Evidence repository origin "https://github.com/example/demo.git" does not match "https://github.com/example/other". Fix: use the matching local checkout or correct the authored repository URL.

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c11-leading-space.fixed.architecture.json",
+    "sha256": "0245548f9bf86447f5555ee727e92dfb09431ef6bffefcae9ec023053c7479be",
+    "bytes": 3627
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c11/l.html",
+    "sha256": "a90df93852240a81201d1cf57b9989da1e7eff2fc79e8c0f0e1d8c1d78946d2e",
+    "bytes": 846612
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c11/review-2/l.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c11/review-2/l.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c11/review-2/l.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 1906,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

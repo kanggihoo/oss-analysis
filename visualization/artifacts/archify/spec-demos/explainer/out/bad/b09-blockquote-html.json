@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b09-blockquote-html.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-prose",
+      "severity": "error",
+      "message": "This Markdown block is outside the restricted author grammar.",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "prose",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b09-blockquote-html.archify.md"
+      },
+      "evidence": {
+        "reason": "This Markdown block is outside the restricted author grammar.",
+        "example": "## What happens?\nA short paragraph."
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: ## What happens?\nA short paragraph."
+      ]
+    }
+  ]
+}

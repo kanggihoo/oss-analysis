@@ -1,0 +1,25 @@
+architecture/boundaries+labels: root(cli-showcase)==root(meta-showcase)? true | body diff lines 8/328
+   cli : <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="AWS us-east-
+   meta: <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="AWS us-east-
+   cli : <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="1" data-composition-frame-label="priv
+   meta: <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="1" data-composition-frame-label="priv
+   cli : <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="2" data-composition-frame-label="AWS eu-west-
+   meta: <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="2" data-composition-frame-label="AWS eu-west-
+   [cli standard + meta showcase] vs [meta standard]: root attr data-quality-profile="standard" vs data-quality-profile="standard" | body diff lines 0/328
+architecture/web-app: root(cli-showcase)==root(meta-showcase)? true | body diff lines 2/275
+   cli : <rect data-graph-role="structural-frame-label-mask" x="224" y="130" width="123.39999999999999" height="16" rx="3" class="c-mask"/>
+   meta: <rect data-graph-role="structural-frame-label-mask" x="628" y="130" width="123.39999999999999" height="16" rx="3" class="c-mask"/>
+   cli : <text data-boundary-label="" x="228" y="143" class="t-cloud" font-size="9" font-weight="600">AWS Region: us-west-2</text>
+   meta: <text data-boundary-label="" x="632" y="143" class="t-cloud" font-size="9" font-weight="600">AWS Region: us-west-2</text>
+   [cli standard + meta showcase] vs [meta standard]: root attr data-quality-profile="standard" vs data-quality-profile="standard" | body diff lines 0/275
+sequence/sequence: root(cli-showcase)==root(meta-showcase)? true | body diff lines 24/279
+   cli : <rect x="161.1833333333333" y="140" width="58.800000000000004" height="16" rx="3" class="c-mask"/>
+   meta: <rect x="154.88333333333333" y="140" width="71.4" height="18" rx="3" class="c-mask"/>
+   cli : <text x="190.58333333333331" y="150" class="t-muted" font-size="9" text-anchor="middle">open page</text>
+   meta: <text x="190.58333333333331" y="150" class="t-muted" font-size="11" text-anchor="middle">open page</text>
+   cli : <rect x="292.35" y="165" width="84.8" height="16" rx="3" class="c-mask"/>
+   meta: <rect x="282.55" y="165" width="104.39999999999999" height="18" rx="3" class="c-mask"/>
+   [cli standard + meta showcase] vs [meta standard]: root attr data-quality-profile="standard" vs data-quality-profile="standard" | body diff lines 24/279
+CLI --quality foo: exit=2 stderr=Unknown quality profile "foo". Expected standard or showcase.
+direct renderer ARCHIFY_QUALITY_PROFILE=foo: exit=0 root=data-quality-profile="standard"
+direct renderer env=standard + meta=showcase: exit=0 root=data-quality-profile="standard"

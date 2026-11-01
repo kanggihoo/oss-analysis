@@ -1,0 +1,434 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    1080,
+    588
+  ],
+  "components": [
+    {
+      "id": "users",
+      "type": "external",
+      "label": "Users",
+      "x": 40,
+      "y": 300,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        300
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Auth Provider",
+      "x": 40,
+      "y": 110,
+      "width": 120,
+      "height": 64,
+      "pos": [
+        40,
+        110
+      ]
+    },
+    {
+      "id": "cdn",
+      "type": "cloud",
+      "label": "CloudFront",
+      "x": 250,
+      "y": 300,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        250,
+        300
+      ]
+    },
+    {
+      "id": "lb",
+      "type": "cloud",
+      "label": "Load Balancer",
+      "x": 460,
+      "y": 300,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        460,
+        300
+      ]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API Server",
+      "x": 670,
+      "y": 300,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        670,
+        300
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "database",
+      "label": "Redis",
+      "x": 670,
+      "y": 150,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        670,
+        150
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "PostgreSQL",
+      "x": 880,
+      "y": 300,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        880,
+        300
+      ]
+    },
+    {
+      "id": "s3",
+      "type": "cloud",
+      "label": "S3",
+      "x": 250,
+      "y": 440,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        250,
+        440
+      ]
+    },
+    {
+      "id": "queue",
+      "type": "messagebus",
+      "label": "SQS",
+      "x": 670,
+      "y": 440,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        670,
+        440
+      ]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "Worker",
+      "x": 880,
+      "y": 440,
+      "width": 130,
+      "height": 60,
+      "pos": [
+        880,
+        440
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "AWS Region: us-west-2",
+      "x": 220,
+      "y": 120,
+      "width": 820,
+      "height": 400,
+      "wraps": [
+        "cdn",
+        "lb",
+        "api",
+        "cache",
+        "db",
+        "s3",
+        "queue",
+        "worker"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "sg-api :443/:8000",
+      "x": 430,
+      "y": 270,
+      "width": 400,
+      "height": 110,
+      "wraps": [
+        "lb",
+        "api"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "users",
+      "to": "cdn",
+      "label": "HTTPS",
+      "variant": "emphasis",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          330
+        ],
+        [
+          250,
+          330
+        ]
+      ],
+      "labelAt": [
+        205,
+        320
+      ]
+    },
+    {
+      "from": "auth",
+      "to": "api",
+      "label": "verify JWT",
+      "variant": "security",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          142
+        ],
+        [
+          620,
+          142
+        ],
+        [
+          620,
+          246
+        ],
+        [
+          735,
+          246
+        ],
+        [
+          735,
+          300
+        ]
+      ],
+      "labelAt": [
+        620,
+        184
+      ]
+    },
+    {
+      "from": "cdn",
+      "to": "lb",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          380,
+          330
+        ],
+        [
+          460,
+          330
+        ]
+      ]
+    },
+    {
+      "from": "cdn",
+      "to": "s3",
+      "label": "static",
+      "variant": "dashed",
+      "route": "auto",
+      "points": [
+        [
+          315,
+          360
+        ],
+        [
+          315,
+          440
+        ]
+      ],
+      "labelAt": [
+        315,
+        408
+      ]
+    },
+    {
+      "from": "lb",
+      "to": "api",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          590,
+          330
+        ],
+        [
+          670,
+          330
+        ]
+      ]
+    },
+    {
+      "from": "api",
+      "to": "cache",
+      "label": "read-through",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          735,
+          300
+        ],
+        [
+          735,
+          210
+        ]
+      ],
+      "labelAt": [
+        735,
+        222
+      ]
+    },
+    {
+      "from": "api",
+      "to": "db",
+      "label": "SQL",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          800,
+          330
+        ],
+        [
+          880,
+          330
+        ]
+      ],
+      "labelAt": [
+        840,
+        320
+      ]
+    },
+    {
+      "from": "api",
+      "to": "queue",
+      "label": "enqueue",
+      "variant": "dashed",
+      "route": "auto",
+      "points": [
+        [
+          735,
+          360
+        ],
+        [
+          735,
+          440
+        ]
+      ],
+      "labelAt": [
+        735,
+        408
+      ]
+    },
+    {
+      "from": "queue",
+      "to": "worker",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          800,
+          470
+        ],
+        [
+          880,
+          470
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "HTTPS",
+      "x": 188,
+      "y": 310,
+      "width": 34,
+      "height": 14,
+      "labelAt": [
+        205,
+        320
+      ]
+    },
+    {
+      "text": "verify JWT",
+      "x": 591,
+      "y": 174,
+      "width": 58,
+      "height": 14,
+      "labelAt": [
+        620,
+        184
+      ]
+    },
+    {
+      "text": "static",
+      "x": 296,
+      "y": 398,
+      "width": 39,
+      "height": 14,
+      "labelAt": [
+        315,
+        408
+      ]
+    },
+    {
+      "text": "read-through",
+      "x": 701,
+      "y": 212,
+      "width": 68,
+      "height": 14,
+      "labelAt": [
+        735,
+        222
+      ]
+    },
+    {
+      "text": "SQL",
+      "x": 825,
+      "y": 310,
+      "width": 30,
+      "height": 14,
+      "labelAt": [
+        840,
+        320
+      ]
+    },
+    {
+      "text": "enqueue",
+      "x": 713,
+      "y": 398,
+      "width": 44,
+      "height": 14,
+      "labelAt": [
+        735,
+        408
+      ]
+    }
+  ]
+}

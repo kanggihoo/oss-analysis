@@ -1,0 +1,3 @@
+Entity-relationship layout validation failed:
+- Relationship 0 connects entity "a" to itself — draw it between two entities or describe the self-reference in a card.
+[layout/constraint] Relationship 0 connects entity "a" to itself — draw it between two entities or describe the self-reference in a card.

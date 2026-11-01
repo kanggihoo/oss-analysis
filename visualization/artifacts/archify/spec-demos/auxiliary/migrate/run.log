@@ -1,0 +1,67 @@
+== 1. v1 -> v2 정상
+Workflow edge "alert->page" cannot satisfy route preset "drop": candidate violates lane/phase/group label clearance.
+[workflow/route-preset-conflict] Workflow edge "alert->page" cannot satisfy route preset "drop": candidate violates lane/phase/group label clearance.
+exit=1
+== 2. --json
+exit=1
+== 3. 이미 v2
+verified workflow schema v2 migration: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/v2.json → /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out/v2-same.json
+exit=0
+v2.json out/v2-same.json differ: char 293, line 12
+== 4. --to-schema 3
+Usage: archify migrate workflow <old.json> <new.json> --to-schema 2 [--output portable.html] [--json] [--repo-root path]
+exit=2
+== 4b exit
+exit=2
+== 5. 소스==목적지
+Workflow migration source and destination must be different files.
+[migration/source-destination] Workflow migration source and destination must be different files. Fix: choose a different destination path and keep the source unchanged.
+exit=1
+source untouched
+== 6. 소스 없음
+exit=1
+== 7. --output 로 meta.output 교체
+exit=1
+== 8. release-delivery v1 -> v2
+exit=1
+false 1 2 lysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out/v1b-migrated.json"} changed: 0 [ 720, 900 ] [ 780, 926 ] pre: 0 ok,command,type,source,destination,fromSchemaVersion,toSchemaVersion,preExistingDiagnostics,migrationDiagnostics,newSchemaDiagnostics,changedCoordinates,oldRequiredViewBox,newRequiredViewBox,diagnostics,error
+node:internal/modules/cjs/loader:1595
+  throw err;
+  ^
+
+Error: Cannot find module './out/v1b-migrated.json'
+Require stack:
+- /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/[eval]
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1591:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1145:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1169:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1196:12)
+    at Module._load (node:internal/modules/cjs/loader:1368:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.require (node:internal/modules/cjs/loader:1701:12)
+    at require (node:internal/modules/helpers:318:16)
+    at [eval]:1:33
+    at runScriptInThisContext (node:internal/vm:219:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/[eval]'
+  ]
+}
+
+Node.js v26.10.0
+nope.json.out o.report.json report-b.json report.json same-src.json v2-same.json 
+== 9. 재실행 결정성
+Workflow edge "pull_request->build" cannot satisfy route preset "drop": candidate violates lane/phase/group label clearance.
+[workflow/route-preset-conflict] Workflow edge "pull_request->build" cannot satisfy route preset "drop": candidate violates lane/phase/group label clearance.
+cmp: out/v1b-migrated.json: No such file or directory
+== 10. 목적지 덮어쓰기(기존 파일 있음)
+Workflow edge "pull_request->build" cannot satisfy route preset "drop": candidate violates lane/phase/group label clearance.
+[workflow/route-preset-conflict] Workflow edge "pull_request->build" cannot satisfy route preset "drop": candidate violates lane/phase/group label clearance.
+exit=1
+{"keep":"old"}
+
+== 11. 실패 시 기존 목적지 유지
+exit=1
+{"keep":"old"}
+== 12. v1 output 필드 오류 후 --output
+0

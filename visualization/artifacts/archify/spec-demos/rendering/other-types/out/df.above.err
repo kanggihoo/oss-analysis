@@ -1,0 +1,11 @@
+Data-flow layout validation failed:
+- Node "b" starts above the readable diagram area — keep y at or above 104.
+- Label "skip" overlaps node "b" — adjust labelDx/labelDy/labelSegment or set labelAt.
+  label rect: [298, 145, 34, 16]
+  node "b" rect: [259, 92, 112, 58]
+  Suggested fix: set labelAt [315, 165] or set labelDy 9 (below); or set labelAt [315, 83] or set labelDy -73 (above)
+[dataflow/node-above-area] Node "b" starts above the readable diagram area — keep y at or above 104. Fix: raise or remove the negative yOffset on node "b".
+[layout/constraint] Label "skip" overlaps node "b" — adjust labelDx/labelDy/labelSegment or set labelAt.
+  label rect: [298, 145, 34, 16]
+  node "b" rect: [259, 92, 112, 58]
+  Suggested fix: set labelAt [315, 165] or set labelDy 9 (below); or set labelAt [315, 83] or set labelDy -73 (above)

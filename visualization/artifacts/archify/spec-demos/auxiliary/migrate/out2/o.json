@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Minimal Flow",
+    "output": "portable.html"
+  },
+  "lanes": [
+    {
+      "id": "a",
+      "label": "Lane A"
+    },
+    {
+      "id": "b",
+      "label": "Lane B"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n1",
+      "lane": "a",
+      "col": 0,
+      "type": "frontend",
+      "label": "Start"
+    },
+    {
+      "id": "n2",
+      "lane": "b",
+      "col": 1,
+      "type": "backend",
+      "label": "Work"
+    },
+    {
+      "id": "n3",
+      "lane": "b",
+      "col": 2,
+      "type": "database",
+      "label": "Store"
+    }
+  ],
+  "edges": [
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "n3"
+    }
+  ]
+}

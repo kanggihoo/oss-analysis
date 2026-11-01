@@ -1,0 +1,2 @@
+Repository evidence requires /meta/repository.
+[repository-evidence/repository-required] Repository evidence requires /meta/repository. Fix: add the pinned repository metadata or remove /components sources.

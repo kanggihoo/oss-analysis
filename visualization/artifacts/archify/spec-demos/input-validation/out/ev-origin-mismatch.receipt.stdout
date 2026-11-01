@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-origin-mismatch.json",
+  "error": "Evidence repository origin \"https://github.com/example/demo.git\" does not match \"https://github.com/example/other\".",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/origin-mismatch",
+      "severity": "error",
+      "message": "Evidence repository origin \"https://github.com/example/demo.git\" does not match \"https://github.com/example/other\".",
+      "subject": {
+        "surface": "repository-evidence",
+        "repoRoot": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/repo"
+      },
+      "evidence": {
+        "localOrigin": "https://github.com/example/demo.git",
+        "authoredRepository": "https://github.com/example/other"
+      },
+      "supportedFixes": [
+        "use the matching local checkout or correct the authored repository URL"
+      ]
+    }
+  ]
+}

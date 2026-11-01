@@ -1,0 +1,53 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r13-boundary",
+  "output": "r13-boundary.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    60,
+    80
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    260,
+    80
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    460,
+    80
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "c"
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "Zone",
+   "wraps": [
+    "a",
+    "b"
+   ]
+  }
+ ]
+}

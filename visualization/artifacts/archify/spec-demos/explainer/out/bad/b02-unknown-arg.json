@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b02-unknown-arg.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-facts",
+      "severity": "error",
+      "message": "Unsupported argument bogus.",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "facts",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b02-unknown-arg.archify.md"
+      },
+      "evidence": {
+        "reason": "Unsupported argument bogus.",
+        "example": "@facts id=..."
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: @facts id=..."
+      ]
+    }
+  ]
+}

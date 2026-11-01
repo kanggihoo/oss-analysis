@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "patch",
+  "stage": "prepare",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch2/native.html",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch2/b.html",
+  "error": "Embedded native diagram payload cannot be inflated.",
+  "diagnostics": [
+    {
+      "code": "explainer/patch-payload",
+      "severity": "error",
+      "message": "Embedded native diagram payload cannot be inflated.",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch2/native.html",
+        "panelId": "options",
+        "line": 1,
+        "component": "panel"
+      },
+      "evidence": {
+        "reason": "payload",
+        "example": "Rebuild the original artifact before patching."
+      },
+      "supportedFixes": [
+        "Rebuild the original artifact before patching."
+      ]
+    }
+  ]
+}

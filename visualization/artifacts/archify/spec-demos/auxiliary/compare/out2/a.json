@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "compare",
+  "type": "architecture",
+  "stage": "compare",
+  "error": "head connections require authored stable ids for comparison.",
+  "diagnostics": [
+    {
+      "code": "delta/relationship-id-required",
+      "severity": "error",
+      "message": "head connections require authored stable ids for comparison.",
+      "subject": {
+        "side": "head"
+      },
+      "evidence": {
+        "paths": [
+          "/connections/0/id"
+        ]
+      },
+      "supportedFixes": [
+        "add a unique id to every connections item"
+      ]
+    }
+  ]
+}

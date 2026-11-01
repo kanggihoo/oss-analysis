@@ -1,0 +1,41 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "l02-reciprocal-labels-showcase",
+  "output": "l02-reciprocal-labels-showcase.html",
+  "quality_profile": "showcase"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    280,
+    40
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "label": "request"
+  },
+  {
+   "from": "b",
+   "to": "a",
+   "label": "response"
+  }
+ ]
+}

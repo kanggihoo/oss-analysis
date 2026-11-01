@@ -1,0 +1,15 @@
+06:24:27.670340 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+06:24:27.670602 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+06:24:27.670757 git.c:476               trace: built-in: git rev-parse --show-toplevel
+06:24:27.680810 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+06:24:27.681144 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+06:24:27.681532 git.c:476               trace: built-in: git remote get-url origin
+06:24:27.692153 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+06:24:27.692452 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+06:24:27.692791 git.c:476               trace: built-in: git cat-file -e '0147eb22a7af41b58c218f2d2be4cbe3b366c87b^{commit}'
+06:24:27.702332 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+06:24:27.702529 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+06:24:27.702852 git.c:476               trace: built-in: git cat-file --batch-check
+06:24:27.712233 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+06:24:27.712396 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+06:24:27.712671 git.c:476               trace: built-in: git cat-file --batch

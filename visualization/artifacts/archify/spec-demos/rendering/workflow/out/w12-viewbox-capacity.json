@@ -1,0 +1,136 @@
+{
+  "contract": "readable-v2",
+  "viewBox": [
+    700,
+    240
+  ],
+  "requiredViewBox": [
+    778,
+    404
+  ],
+  "columns": [
+    94,
+    224,
+    344,
+    464,
+    584,
+    704
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "lane": "L1",
+      "col": 0,
+      "x": 48,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "b",
+      "lane": "L1",
+      "col": 1,
+      "x": 178,
+      "y": 93,
+      "width": 92,
+      "height": 52
+    },
+    {
+      "id": "c",
+      "lane": "L2",
+      "col": 2,
+      "x": 298,
+      "y": 217,
+      "width": 92,
+      "height": 52
+    }
+  ],
+  "edges": [
+    {
+      "id": null,
+      "from": "a",
+      "to": "b",
+      "points": [
+        [
+          140,
+          119
+        ],
+        [
+          178,
+          119
+        ]
+      ]
+    },
+    {
+      "id": null,
+      "from": "b",
+      "to": "c",
+      "points": [
+        [
+          224,
+          145
+        ],
+        [
+          224,
+          243
+        ],
+        [
+          298,
+          243
+        ]
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "edge": null,
+      "label": "go",
+      "x": 159,
+      "y": 109,
+      "width": 30,
+      "height": 14
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "workflow/viewbox-capacity",
+      "severity": "error",
+      "message": "Workflow viewBox 700×240 cannot contain the readable-v2 layout; minimum 778×404.",
+      "subject": {
+        "diagramType": "workflow",
+        "path": "/meta/viewBox"
+      },
+      "evidence": {
+        "actualViewBox": [
+          700,
+          240
+        ],
+        "requiredViewBox": [
+          778,
+          404
+        ],
+        "contentBounds": [
+          20,
+          27,
+          762,
+          342
+        ],
+        "contributors": [
+          "legend title",
+          "workflow top padding",
+          "workflow lanes",
+          "legend",
+          "edge a->b label mask",
+          "node a width 92px",
+          "node b width 92px",
+          "rank 0→1 direct clearance"
+        ]
+      },
+      "supportedFixes": [
+        "set meta.viewBox to at least [778, 404]",
+        "omit meta.viewBox so the compiler can use its measured intrinsic canvas"
+      ]
+    }
+  ],
+  "ok": false
+}

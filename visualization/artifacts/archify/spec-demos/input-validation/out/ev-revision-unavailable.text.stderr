@@ -1,0 +1,2 @@
+Evidence revision 0000000000000000000000000000000000000000 is not available in the local repository.
+[repository-evidence/revision-unavailable] Evidence revision 0000000000000000000000000000000000000000 is not available in the local repository. Fix: fetch the pinned commit or pin an available full commit SHA.

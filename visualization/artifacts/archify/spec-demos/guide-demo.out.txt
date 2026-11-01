@@ -1,0 +1,58 @@
+$ archify guide ci/cd release workflow with rollback --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["ci/cd","release workflow","rollback"],"rec":["delivery-workflow","workflow"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide kafka topology with consumer group and dlq --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["kafka topology","consumer group","dlq"],"rec":["event-stream","dataflow"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide hello --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"low","matchedSignals":[],"rec":["system-overview","architecture"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide  --json  (slim)
+{"ok":true,"mode":"list","lang":"en","keys":["ok","mode","lang","recipes"]}
+
+$ archify guide system-overview --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["system-overview"],"rec":["system-overview","architecture"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide database schema --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["database-schema"],"rec":["database-schema","erd"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide API 请求 调用链 --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"zh","confidence":"high","matchedSignals":["api 请求","调用链"],"rec":["api-request","sequence"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide api request --lang zh --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"zh","confidence":"high","matchedSignals":["api-request"],"rec":["api-request","sequence"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide data lineage etl --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["data lineage","etl"],"rec":["data-lineage","dataflow"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide viewport overflow --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["viewport overflow","overflow"],"rec":["layout-repair","architecture"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide Deployment Lifecycle --json  (slim)
+{"ok":true,"mode":"recommendation","lang":"en","confidence":"high","matchedSignals":["deployment-lifecycle"],"rec":["deployment-lifecycle","lifecycle"],"alts":[],"keys":["ok","mode","lang","query","confidence","matchedSignals","recommendation","alternatives"],"recKeys":["id","type","proof","presentation","title","question","summary","useWhen","avoidWhen","include","prompt"]}
+
+$ archify guide --json (list, slim)
+list en 13 id,type,proof,presentation,title,question,summary,useWhen,avoidWhen,include,prompt
+
+$ archify guide api request
+Recommendation: API request chain  [sequence]
+Confidence: high
+Question answered: Who calls whom, in what order, and what returns?
+
+Use when: API documentation, debugging request latency, auth reviews, or explaining cache fallback.
+Avoid when: Order is unimportant and the audience only needs the stable service topology.
+Must include: callers and callees; request and return messages; fallback or error path; async side effects
+Presentation: classic · trace
+
+Copy-ready prompt:
+Use Archify sequence mode to show this request from caller to final response. Include authentication, cache hit or miss, persistence fallback, return messages, and asynchronous trace or event emission. Keep message labels short and order unambiguous.
+[exit 0]
+
+$ archify guide --bogus
+Unknown guide option "--bogus".
+[exit 2]
+
+$ archify guide x --lang fr
+--lang must be "en" or "zh".
+[exit 2]
+

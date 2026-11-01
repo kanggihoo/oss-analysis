@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c16-diff-bad.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/diff-hunk-count",
+      "severity": "error",
+      "message": "Hunk declares 2 old and 2 new lines, but contains 2 old and 1 new lines.",
+      "subject": {
+        "line": 9,
+        "column": 1,
+        "component": "diff",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c16-diff-bad.archify.md",
+        "panelId": "p",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Hunk declares 2 old and 2 new lines, but contains 2 old and 1 new lines.",
+        "example": "@@ -1,2 +1,2 @@\n unchanged\n-old value\n+new value"
+      },
+      "supportedFixes": [
+        "Use a valid unified diff, for example:\n@@ -1,2 +1,2 @@\n unchanged\n-old value\n+new value"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "patch",
+  "stage": "prepare",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch/base.html",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/patch/p7-dup-block-id.html",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-facts",
+      "severity": "error",
+      "message": "Duplicate ID \"miss-steps\": the steps on line 23 already uses it. Panels, blocks, diagrams and steps share one ID namespace.",
+      "subject": {
+        "line": 29,
+        "column": 1,
+        "component": "facts",
+        "path": "/panels/1/blocks/0/id",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/ok.archify.md"
+      },
+      "evidence": {
+        "reason": "Duplicate ID \"miss-steps\": the steps on line 23 already uses it. Panels, blocks, diagrams and steps share one ID namespace.",
+        "example": "omit id=, or use id=miss-steps-facts"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: omit id=, or use id=miss-steps-facts"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+
+## 사전 산출물 없음
+- stale (valid v1, dead pid): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-stale
+    files before: .archify-delivery-lock.json
+    files after : .archify-delivery-lock.json
+    evidence: {"reason":"A stale delivery lock remains at \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/contracts/out/work-n-0/.archify-delivery-lock.json\"; recover it seri
+    render in same dir: exit=0 created r.html=true leftovers=-
+- concurrent (valid v1, live pid): exit=1 ok=false stage=prepare provenance=- code=delivery/concurrent-attempt
+    files before: .archify-delivery-lock.json
+    files after : .archify-delivery-lock.json
+- invalid (not JSON): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-invalid
+    files before: .archify-delivery-lock.json
+    files after : .archify-delivery-lock.json
+- invalid (directory): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-invalid
+    files before: .archify-delivery-lock.json/
+    files after : .archify-delivery-lock.json/
+- invalid (empty file): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-invalid
+    files before: .archify-delivery-lock.json
+    files after : .archify-delivery-lock.json
+- legacy lock a.delivery-lock.json (dead pid): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-stale
+    files before: a.delivery-lock.json
+    files after : a.delivery-lock.json
+    evidence: {"reason":"A stale delivery lock remains at \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/contracts/out/work-n-5/a.delivery-lock.json\"; recover it serially be
+
+## 사전 산출물 있음(HTML+current provenance)
+- stale (valid v1, dead pid): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-stale
+    files before: .archify-delivery-lock.json a.delivery.json a.html
+    files after : .archify-delivery-lock.json a.delivery.json a.html
+    html=ed4d735dc9 prov=5d27cded07 -> html=ed4d735dc9 prov=5d27cded07 (불변)
+    evidence: {"reason":"A stale delivery lock remains at \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/contracts/out/work-p-0/.archify-delivery-lock.json\"; recover it seri
+    render in same dir: exit=0 created r.html=true leftovers=-
+- concurrent (valid v1, live pid): exit=1 ok=false stage=prepare provenance=- code=delivery/concurrent-attempt
+    files before: .archify-delivery-lock.json a.delivery.json a.html
+    files after : .archify-delivery-lock.json a.delivery.json a.html
+    html=ed4d735dc9 prov=13fbe88ac6 -> html=ed4d735dc9 prov=13fbe88ac6 (불변)
+- invalid (not JSON): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-invalid
+    files before: .archify-delivery-lock.json a.delivery.json a.html
+    files after : .archify-delivery-lock.json a.delivery.json a.html
+    html=ed4d735dc9 prov=8fc022ca43 -> html=ed4d735dc9 prov=8fc022ca43 (불변)
+- invalid (directory): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-invalid
+    files before: .archify-delivery-lock.json/ a.delivery.json a.html
+    files after : .archify-delivery-lock.json/ a.delivery.json a.html
+    html=ed4d735dc9 prov=87e3f00aff -> html=ed4d735dc9 prov=87e3f00aff (불변)
+- invalid (empty file): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-invalid
+    files before: .archify-delivery-lock.json a.delivery.json a.html
+    files after : .archify-delivery-lock.json a.delivery.json a.html
+    html=ed4d735dc9 prov=8b4e4d0d7a -> html=ed4d735dc9 prov=8b4e4d0d7a (불변)
+- legacy lock a.delivery-lock.json (dead pid): exit=1 ok=false stage=prepare provenance=- code=delivery/lock-stale
+    files before: a.delivery-lock.json a.delivery.json a.html
+    files after : a.delivery-lock.json a.delivery.json a.html
+    html=ed4d735dc9 prov=fd111d79eb -> html=ed4d735dc9 prov=fd111d79eb (불변)
+    evidence: {"reason":"A stale delivery lock remains at \"/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/rendering/contracts/out/work-p-5/a.delivery-lock.json\"; recover it serially be

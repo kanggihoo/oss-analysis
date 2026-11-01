@@ -1,0 +1,44 @@
+== 1. 정상 (기본 receipt)
+compared architecture /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/compare/out/delta.html
+28/28 checks; completeness complete; authored; sha256 03a1f32e20d2
+receipt /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/compare/out/delta.receipt.json
+exit=0
+delta.html
+delta.receipt.json
+== 2. --json
+exit=0
+== 3. 같은 입력(변화 없음)
+exit=0
+== 4. 공유 id 없음
+exit=1
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "compare",
+  "type": "architecture",
+  "stage": "compare",
+  "error": "The snapshots share no component id, so Archify cannot prove that they describe the same system.",
+  "diagnostics": [
+    {
+      "code": "delta/no-shared-component-id",
+      "severity": "error",
+      "message": "The snapshots share no component id, so Archify cannot prove that they describe the same system.",
+      "subject": {},
+      "evidence": {},
+      "supportedFixes": [
+        "preserve at least one authored component id across snapshots"
+      ]
+    }
+  ]
+}
+== 5. 사용법 오류
+exit=2
+Usage:
+  archify render <type> <input.json> [output.html] [--quality standard|showcase] [--repo-root path]
+== 6. receipt가 다른 디렉터리
+exit=1
+The compare receipt must be written beside the HTML artifact.
+[delta/receipt-directory] The compare receipt must be written beside the HTML artifact. Fix: choose a --receipt path in the same directory as output.html.
+== 7. 알 수 없는 옵션
+Unknown compare option "--bogus".
+exit=0

@@ -1,0 +1,13 @@
+Engineering profile "deployment-ownership" failed:
+- Deployment ownership requires at least one region boundary.
+- Deployment ownership requires at least one security-group boundary.
+- Deployment component "web" does not name its owner in tag.
+- Deployment component "web" is not assigned to a region boundary.
+- Deployment component "api" does not name its owner in tag.
+- Deployment component "api" is not assigned to a region boundary.
+[engineering/deployment-boundary-kind] Deployment ownership requires at least one region boundary. Fix: add one region boundary with an explicit wraps list.
+[engineering/deployment-boundary-kind] Deployment ownership requires at least one security-group boundary. Fix: add one security-group boundary with an explicit wraps list.
+[engineering/deployment-owner-missing] Deployment component "web" does not name its owner in tag. Fix: set /components/0/tag to the responsible team or owner.
+[engineering/deployment-region-scope] Deployment component "web" is not assigned to a region boundary. Fix: add the component id to the real region boundary wraps list.
+[engineering/deployment-owner-missing] Deployment component "api" does not name its owner in tag. Fix: set /components/1/tag to the responsible team or owner.
+[engineering/deployment-region-scope] Deployment component "api" is not assigned to a region boundary. Fix: add the component id to the real region boundary wraps list.

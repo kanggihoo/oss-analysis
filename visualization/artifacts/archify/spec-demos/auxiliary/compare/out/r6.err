@@ -1,0 +1,2 @@
+The compare receipt must be written beside the HTML artifact.
+[delta/receipt-directory] The compare receipt must be written beside the HTML artifact. Fix: choose a --receipt path in the same directory as output.html.

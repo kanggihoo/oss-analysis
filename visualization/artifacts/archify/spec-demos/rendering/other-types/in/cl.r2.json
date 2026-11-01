@@ -1,0 +1,48 @@
+{
+ "schema_version": 1,
+ "diagram_type": "class",
+ "meta": {
+  "title": "C",
+  "output": "x.html"
+ },
+ "layout": {
+  "mode": "grid"
+ },
+ "types": [
+  {
+   "id": "a",
+   "label": "a",
+   "kind": "class",
+   "row": 0,
+   "col": 0
+  },
+  {
+   "id": "b",
+   "label": "b",
+   "kind": "class",
+   "row": 0,
+   "col": 1,
+   "attributes": [
+    {
+     "name": "x",
+     "type": "int"
+    },
+    {
+     "name": "y",
+     "type": "int"
+    },
+    {
+     "name": "z",
+     "type": "int"
+    }
+   ]
+  }
+ ],
+ "relationships": [
+  {
+   "from": "a",
+   "to": "b",
+   "kind": "association"
+  }
+ ]
+}

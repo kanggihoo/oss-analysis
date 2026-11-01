@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-directory.json",
+  "error": "/components/0/sources/0/path does not identify a file at revision 0147eb22a7af41b58c218f2d2be4cbe3b366c87b.",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/file-missing",
+      "severity": "error",
+      "message": "/components/0/sources/0/path does not identify a file at revision 0147eb22a7af41b58c218f2d2be4cbe3b366c87b.",
+      "subject": {
+        "surface": "repository-evidence",
+        "path": "/components/0/sources/0/path",
+        "diagramType": "architecture",
+        "collection": "components",
+        "nodeId": "web",
+        "componentId": "web"
+      },
+      "evidence": {
+        "sourcePath": "src",
+        "revision": "0147eb22a7af41b58c218f2d2be4cbe3b366c87b"
+      },
+      "supportedFixes": [
+        "use a file path that exists at the pinned revision"
+      ]
+    }
+  ]
+}

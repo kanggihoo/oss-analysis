@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "lifecycle",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/cand.json",
+    "sha256": "7df53378bdaf906c3cc7e95e59e090962e517def99dddfcc1ae03621e5278dd4",
+    "bytes": 4003
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/r.html",
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "failedStage": "finalize",
+  "diagnostics": [
+    {
+      "code": "finalize/candidate-changed",
+      "severity": "error",
+      "message": "The frozen candidate changed before the final handoff.",
+      "subject": {
+        "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/cand.json"
+      },
+      "evidence": {
+        "expected": {
+          "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/cand.json",
+          "sha256": "7df53378bdaf906c3cc7e95e59e090962e517def99dddfcc1ae03621e5278dd4",
+          "bytes": 4003
+        },
+        "actual": {
+          "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/cand.json",
+          "sha256": "6f9a162168d0397b5e344b4c7cd8d406db4420fdc50fd9e2ca5d2fdcab28f9cf",
+          "bytes": 4004
+        }
+      },
+      "supportedFixes": [
+        "restore the frozen candidate, or finalize the edited candidate as a new attempt"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/r.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/r.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.3/r.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 1869,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

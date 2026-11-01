@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c10-two-titles.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-heading",
+      "severity": "error",
+      "message": "Use one document title before all panels.",
+      "subject": {
+        "line": 9,
+        "column": 1,
+        "component": "heading",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c10-two-titles.archify.md"
+      },
+      "evidence": {
+        "reason": "Use one document title before all panels.",
+        "example": "# What should we choose? {#choice}"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: # What should we choose? {#choice}"
+      ]
+    }
+  ]
+}

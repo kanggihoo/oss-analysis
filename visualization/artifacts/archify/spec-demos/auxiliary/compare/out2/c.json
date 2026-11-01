@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "compare",
+  "type": "architecture",
+  "stage": "input",
+  "error": "Head snapshot failed validation: architecture schema validation failed:\n  /components/0 (id/label: \"buyers\") must have required property 'type' {\"missingProperty\":\"type\"}",
+  "diagnostics": [
+    {
+      "code": "schema/required",
+      "severity": "error",
+      "message": "Head snapshot failed validation: architecture schema validation failed:\n  /components/0 (id/label: \"buyers\") must have required property 'type' {\"missingProperty\":\"type\"}",
+      "subject": {
+        "side": "head",
+        "path": "/components/0"
+      },
+      "evidence": {
+        "keyword": "required",
+        "missingProperty": "type"
+      },
+      "supportedFixes": [
+        "add required property \"type\""
+      ]
+    }
+  ]
+}

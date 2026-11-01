@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "compare",
+  "type": "architecture",
+  "stage": "prepare",
+  "error": "Output must not replace an input.",
+  "diagnostics": [
+    {
+      "code": "output/input-alias",
+      "severity": "error",
+      "message": "Output must not replace an input.",
+      "subject": {},
+      "evidence": {
+        "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/compare/base.json",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/compare/base.json"
+      },
+      "supportedFixes": [
+        "choose an output path that is distinct from every input path"
+      ]
+    }
+  ]
+}

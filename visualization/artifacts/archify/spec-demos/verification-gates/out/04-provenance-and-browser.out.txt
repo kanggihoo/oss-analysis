@@ -1,0 +1,56 @@
+deliver exit=0
+a.delivery.json
+a.html
+P0 pristine: check --require-provenance
+  ok= True status= None provenance= current codes= [] chrome= None
+  exit=0
+  exit=0
+P1 one byte appended: check --require-provenance
+  ok= False status= None provenance= mismatch codes= ['delivery/provenance-mismatch'] chrome= None
+  exit=1
+P1b same without the flag
+  ok= False status= None provenance= mismatch codes= ['delivery/provenance-mismatch'] chrome= None
+  exit=1
+P1c browser-check --require-provenance (must fail before Chrome)
+  ok= False status= fail provenance= mismatch codes= ['delivery/provenance-mismatch'] chrome= None
+  exit=1
+a.browser-check.json
+a.delivery.json
+a.html
+a.orig.html
+  persisted receipt keys: ['artifact', 'captures', 'command', 'containment', 'deliveryReceiptId', 'diagnostics', 'error', 'evidenceKind', 'ok', 'provenance', 'schemaVersion', 'sidecars', 'status', 'visualReview']
+  diagnostics[0].evidence: {'expectedSha256': '88ceda092f441afab4e86417f5e00f0b580d2a42669d52f890c2670b35097063', 'actualSha256': '4fc0b4a2c609e859d8c4ee48285dd1fba0d2489de2ed75927978c2b4709d2bb1', 'expectedBytes': 857101, 'actualBytes': 857102}
+P2 sidecar deleted, artifact restored
+  ok= True status= None provenance= unknown codes= [] chrome= None
+  no flag exit=0
+  ok= False status= None provenance= unknown codes= ['delivery/provenance-required'] chrome= None
+  flag exit=1
+  ok= False status= fail provenance= unknown codes= ['delivery/provenance-required', 'viewer/evidence-path-conflict'] chrome= None
+  browser-check flag exit=1
+P2b sidecar status=failed? (hand-edit sidecar)
+  ok= False status= None provenance= mismatch codes= ['delivery/provenance-mismatch'] chrome= None
+  exit=1
+P3 ARCHIFY_CHROME=/nonexistent -> skipped
+  ok= False status= skipped provenance= unknown codes= ['viewer/chrome-unavailable'] chrome= unavailable
+  exit=2
+font_7.3.browser-check.json
+P4 unreadable file
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "check",
+  "provenance": "unknown",
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/prov/missing.html"
+  },
+  "error": "Could not read the HTML artifact: The artifact is not a stable regular file (delivery-artifact-inspection-failed).",
+  "file": "/Users/kkh/Desktop/oss-an  check exit=1
+  ok= False status= fail provenance= unknown codes= ['input/artifact-unreadable', 'viewer/evidence-path-conflict'] chrome= None
+  browser-check exit=1
+P5 usage
+  check (no args) exit=2
+  check 2 files exit=2
+  check --bogus exit=2
+  browser-check --bogus exit=1
+  browser-check (no args) exit=1
+  check x.html --json (missing file) exit=1

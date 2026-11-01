@@ -1,0 +1,2 @@
+Evidence repository must have an origin remote.
+[repository-evidence/git-command] Evidence repository must have an origin remote. Fix: use the intended local Git repository and verify its origin and revision.

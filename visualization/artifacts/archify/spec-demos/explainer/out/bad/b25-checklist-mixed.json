@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b25-checklist-mixed.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-list",
+      "severity": "error",
+      "message": "Write every checklist item as \"- [ ] item\" in one unordered list.",
+      "subject": {
+        "line": 7,
+        "column": 1,
+        "component": "list",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b25-checklist-mixed.archify.md"
+      },
+      "evidence": {
+        "reason": "Write every checklist item as \"- [ ] item\" in one unordered list.",
+        "example": "- [ ] Check the deposit terms\n- [ ] Photograph the meter readings"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: - [ ] Check the deposit terms\n- [ ] Photograph the meter readings"
+      ]
+    }
+  ]
+}

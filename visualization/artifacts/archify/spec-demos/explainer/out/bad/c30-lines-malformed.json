@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c30-lines-malformed.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-source",
+      "severity": "error",
+      "message": "Repository lines require start:end.",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "source",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c30-lines-malformed.archify.md"
+      },
+      "evidence": {
+        "reason": "Repository lines require start:end.",
+        "example": "lines=10:20"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: lines=10:20"
+      ]
+    }
+  ]
+}

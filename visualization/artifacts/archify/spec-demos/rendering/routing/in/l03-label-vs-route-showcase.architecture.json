@@ -1,0 +1,58 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "l03-label-vs-route-showcase",
+  "output": "l03-label-vs-route-showcase.html",
+  "quality_profile": "showcase"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    280,
+    40
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    40,
+    62
+   ]
+  },
+  {
+   "id": "d",
+   "type": "backend",
+   "label": "D",
+   "pos": [
+    280,
+    62
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "b",
+   "label": "LABEL ONE"
+  },
+  {
+   "from": "c",
+   "to": "d"
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c06-footnote.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/inline-footnote",
+      "severity": "error",
+      "message": "Arbitrary Markdown footnotes are unsupported. Use a source or typical-value reference.",
+      "subject": {
+        "line": 7,
+        "column": 6,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c06-footnote.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Arbitrary Markdown footnotes are unsupported. Use a source or typical-value reference.",
+        "example": "[Claim](source:trace)"
+      },
+      "supportedFixes": [
+        "Use the supported form: [Claim](source:trace)"
+      ]
+    }
+  ]
+}

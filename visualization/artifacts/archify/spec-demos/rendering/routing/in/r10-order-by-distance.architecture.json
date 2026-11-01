@@ -1,0 +1,47 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r10-order-by-distance",
+  "output": "r10-order-by-distance.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    40
+   ]
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B",
+   "pos": [
+    240,
+    40
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    440,
+    40
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "c"
+  },
+  {
+   "from": "a",
+   "to": "b"
+  }
+ ]
+}

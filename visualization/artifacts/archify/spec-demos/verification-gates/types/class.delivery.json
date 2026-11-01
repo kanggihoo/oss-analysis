@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "dfe56d7c-c341-45e0-9a3d-61462662a519",
+  "status": "current",
+  "command": "deliver",
+  "type": "class",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/payments.class.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/class.html",
+  "specification": {
+    "sha256": "afba837f97a041e14687cbe8893523232c4afad7afd922d9b128606d1b3f12c8",
+    "bytes": 2828
+  },
+  "artifact": {
+    "sha256": "4749922e51166b7f855fd4f2070459a27641a1b429d52d5bcbdb9fa8e641d152",
+    "bytes": 840775
+  }
+}

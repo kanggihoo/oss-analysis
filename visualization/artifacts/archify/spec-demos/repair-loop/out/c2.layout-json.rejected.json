@@ -1,0 +1,402 @@
+{
+  "ok": false,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    1120,
+    640
+  ],
+  "components": [
+    {
+      "id": "request",
+      "type": "external",
+      "label": "Product request",
+      "x": 38,
+      "y": 260,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        38,
+        260
+      ]
+    },
+    {
+      "id": "claude",
+      "type": "frontend",
+      "label": "Claude",
+      "x": 220,
+      "y": 260,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        220,
+        260
+      ]
+    },
+    {
+      "id": "github",
+      "type": "messagebus",
+      "label": "GitHub",
+      "x": 402,
+      "y": 270,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        402,
+        270
+      ]
+    },
+    {
+      "id": "container",
+      "type": "backend",
+      "label": "Docker service",
+      "x": 584,
+      "y": 260,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        584,
+        260
+      ]
+    },
+    {
+      "id": "edge",
+      "type": "cloud",
+      "label": "Cloudflare",
+      "x": 766,
+      "y": 260,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        766,
+        260
+      ]
+    },
+    {
+      "id": "customer",
+      "type": "external",
+      "label": "Customers",
+      "x": 948,
+      "y": 260,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        948,
+        260
+      ]
+    },
+    {
+      "id": "database",
+      "type": "database",
+      "label": "PostgreSQL",
+      "x": 584,
+      "y": 420,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        584,
+        420
+      ]
+    },
+    {
+      "id": "billing",
+      "type": "external",
+      "label": "Stripe",
+      "x": 766,
+      "y": 420,
+      "width": 138,
+      "height": 68,
+      "pos": [
+        766,
+        420
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "request",
+      "to": "claude",
+      "label": "brief",
+      "variant": "emphasis",
+      "route": "auto",
+      "points": [
+        [
+          176,
+          294
+        ],
+        [
+          220,
+          294
+        ]
+      ],
+      "labelAt": [
+        198,
+        284
+      ]
+    },
+    {
+      "from": "claude",
+      "to": "github",
+      "label": "change set",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          358,
+          294
+        ],
+        [
+          402,
+          294
+        ]
+      ],
+      "labelAt": [
+        380,
+        256
+      ]
+    },
+    {
+      "from": "github",
+      "to": "container",
+      "label": "approved build",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          540,
+          304
+        ],
+        [
+          584,
+          304
+        ]
+      ],
+      "labelAt": [
+        562,
+        266
+      ]
+    },
+    {
+      "from": "container",
+      "to": "edge",
+      "label": "deploy",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          722,
+          294
+        ],
+        [
+          766,
+          294
+        ]
+      ],
+      "labelAt": [
+        744,
+        284
+      ]
+    },
+    {
+      "from": "edge",
+      "to": "customer",
+      "label": "HTTPS",
+      "variant": "emphasis",
+      "route": "auto",
+      "points": [
+        [
+          904,
+          294
+        ],
+        [
+          948,
+          294
+        ]
+      ],
+      "labelAt": [
+        926,
+        284
+      ]
+    },
+    {
+      "from": "container",
+      "to": "database",
+      "label": "SQL",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          653,
+          328
+        ],
+        [
+          653,
+          420
+        ]
+      ],
+      "labelAt": [
+        625,
+        370
+      ]
+    },
+    {
+      "from": "container",
+      "to": "billing",
+      "label": "create charge",
+      "variant": "dashed",
+      "route": "auto",
+      "points": [
+        [
+          653,
+          328
+        ],
+        [
+          653,
+          374
+        ],
+        [
+          835,
+          374
+        ],
+        [
+          835,
+          420
+        ]
+      ],
+      "labelAt": [
+        744,
+        364
+      ]
+    },
+    {
+      "from": "billing",
+      "to": "database",
+      "label": "webhook",
+      "variant": "dashed",
+      "route": "auto",
+      "points": [
+        [
+          766,
+          454
+        ],
+        [
+          722,
+          454
+        ]
+      ],
+      "labelAt": [
+        744,
+        444
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "brief",
+      "x": 181,
+      "y": 274,
+      "width": 34,
+      "height": 14,
+      "labelAt": [
+        198,
+        284
+      ]
+    },
+    {
+      "text": "change set",
+      "x": 351,
+      "y": 246,
+      "width": 58,
+      "height": 14,
+      "labelAt": [
+        380,
+        256
+      ]
+    },
+    {
+      "text": "approved build",
+      "x": 523,
+      "y": 256,
+      "width": 77,
+      "height": 14,
+      "labelAt": [
+        562,
+        266
+      ]
+    },
+    {
+      "text": "deploy",
+      "x": 725,
+      "y": 274,
+      "width": 39,
+      "height": 14,
+      "labelAt": [
+        744,
+        284
+      ]
+    },
+    {
+      "text": "HTTPS",
+      "x": 909,
+      "y": 274,
+      "width": 34,
+      "height": 14,
+      "labelAt": [
+        926,
+        284
+      ]
+    },
+    {
+      "text": "SQL",
+      "x": 610,
+      "y": 360,
+      "width": 30,
+      "height": 14,
+      "labelAt": [
+        625,
+        370
+      ]
+    },
+    {
+      "text": "create charge",
+      "x": 708,
+      "y": 354,
+      "width": 72,
+      "height": 14,
+      "labelAt": [
+        744,
+        364
+      ]
+    },
+    {
+      "text": "webhook",
+      "x": 722,
+      "y": 434,
+      "width": 44,
+      "height": 14,
+      "labelAt": [
+        744,
+        444
+      ]
+    }
+  ],
+  "schemaVersion": 1,
+  "source": "renderer",
+  "error": "Architecture layout validation failed:\n- Label \"approved build\" overlaps component \"container\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [523, 256, 77, 14]\n  component \"container\" rect: [584, 260, 138, 68]\n  Suggested fix: set labelAt [562, 252] or set labelDy -42 (above)",
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Label \"approved build\" overlaps component \"container\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [523, 256, 77, 14]\n  component \"container\" rect: [584, 260, 138, 68]\n  Suggested fix: set labelAt [562, 252] or set labelDy -42 (above)",
+      "subject": {
+        "diagramType": "architecture"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ],
+  "contract": "archify-architecture-layout-v1"
+}

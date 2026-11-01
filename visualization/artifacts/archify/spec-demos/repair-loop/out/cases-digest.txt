@@ -1,0 +1,141 @@
+## c1.1-bad  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 3, "shown": 3, "truncated": false}
+  - [error] schema/required subject={"diagramType": "architecture", "path": "/components/0", "identity": "request"}
+      message: '/components/0 (id/label: "request") must have required property \'label\''
+      fix: add required property "label"
+  - [error] schema/additionalProperties subject={"diagramType": "architecture", "path": "/components/1", "identity": "claude"}
+      message: '/components/1 (id/label: "claude") must NOT have additional properties'
+      fix: remove unsupported property "colour"
+  - [error] schema/type subject={"diagramType": "architecture", "path": "/components/2/size/0", "identity": "github"}
+      message: '/components/2/size/0 (id/label: "github") must be number'
+      fix: use "number" at /components/2/size/0
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c1-schema.bad.architecture.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+## c1.2-fixed  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+## c2.1-bad  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 2, "shown": 2, "truncated": false}
+  - [error] composition/label-route-clearance subject={"diagramType": "architecture", "collection": "connections", "index": 0, "id": "brief-to-claude", "from": "request", "to": "claude"}
+      message: '[composition/label-route-clearance] showcase architecture label "brief" on connections[0] id "brief-to-claude" "request" -> "claude" label "brief" is 2px from connections[1] id "claude-to-github" "claude" -> "github" label "change'
+      fix: if the authored labelDy are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust labelAt, labelDx, labelDy, or labelSegment; otherwise adjust the other relationship route/via/channel
+  - [error] layout/component-overlap subject={"diagramType": "architecture", "nodeId": "claude"}
+      message: 'Components "claude" and "github" are less than 8px apart — move one or shrink its size.\n  "claude" [220, 260, 138, 68]; "github" [240, 270, 138, 68]\n  Suggested fix: move "github" pos to [366, 270] (right of "claude") or [240, 336'
+      fix: move component "github" pos to [366, 270] (right of "claude")
+      fix: or move component "github" pos to [240, 336] (below)
+      fix: or shrink "claude" or "github" while keeping every label and sublabel readable
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c2-overlap.bad.architecture.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+applied: ['move component "github" pos to [366, 270] (right of "claude")']
+## c2.2-fixed  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] layout/constraint subject={"diagramType": "architecture"}
+      message: 'Connection "change set" is too short (8px; minimum 24px) — place its components farther apart.'
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c2-overlap.fixed.architecture.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+## c2.3-fixed2  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] layout/constraint subject={"diagramType": "architecture"}
+      message: 'Label "approved build" overlaps component "container" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [523, 256, 77, 14]\n  component "container" rect: [584, 260, 138, 68]\n  Suggested fix: set labelAt [562, 252]'
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c2-overlap.fixed2.architecture.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+labelAt set on github-to-container [562, 252]
+## c2.4-fixed3  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+  visualReviewRecommendation: {"action": "inspect-route-readability", "signals": {"routesOverSuggestedBends": 1, "routesOverSuggestedStretch": 1}, "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.", "affectedRoutes": {"crossings": [], "detours": [{"relationship": {"id": "github-to-container", "from": "github", "to": "container", "label": "approved build", "collectionIndex": 2, "artifactIndex": 3}, "bends": 4, "stretch": 1.593}], "truncated": false}, "hints": ["github → container needs 4 bends: move node github or container so they share a row or column with matching centers, or sit diagonally with a clear corner."], "repair": "Trace these relationship
+## c3.1-bad  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] repository-evidence/line-out-of-range subject={"surface": "repository-evidence", "path": "/components/0/sources/0", "diagramType": "architecture", "collection": "components", "nodeId": "web", "com
+      message: '/components/0/sources/0 requests line 5, but src/a.txt has 3 lines at revision 0147eb22a7af41b58c218f2d2be4cbe3b366c87b.'
+      fix: use a line range that exists at the pinned revision
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c3-evidence.bad.architecture.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+## c3.1b-bad-no-root  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] repository-evidence/root-required subject={"surface": "repository-evidence", "path": "/meta/repository"}
+      message: 'This diagram declares source evidence. Pass --repo-root <repository> so Archify can verify it before rendering.'
+      fix: pass --repo-root with the matching local Git checkout
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c3-evidence.fixed.architecture.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+## c3.2-fixed  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+## c4.1-first  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+  visualReviewRecommendation: {"action": "inspect-route-readability", "signals": {"resolvedCrossovers": 1}, "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.", "affectedRoutes": {"crossings": [{"left": {"id": "jwt-verification", "from": "auth", "to": "api", "label": "verify JWT", "collectionIndex": 1, "artifactIndex": 2}, "right": {"id": "cache-read-through", "from": "api", "to": "cache", "label": "read-through", "collectionIndex": 5, "artifactIndex": 6}, "point": [775, 158], "sharedNode": "api"}], "detours": [], "truncated": false}, "hints": ["auth → api and api → cache cross next to api: move node auth or cache so the two reach api from different si
+## c4.2-same-dir  (exit 1)
+  status=fail ok=False failedStage=browser-check gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'fail'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] viewer/evidence-path-conflict subject={"artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c4/d.html", "evidencePath": "/Users/kkh/Desk
+      message: 'browser-check will not replace the existing unowned evidence path "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c4/d.browser-check.json".'
+      fix: move the conflicting file aside, or choose a separate --out-dir, then rerun browser-check
+## c4.3-review-2  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+## c5.1-bad  (exit 1)
+  status=fail ok=False failedStage=deliver gates={'validate': 'not-run', 'deliver': 'fail', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] composition/viewport-height subject={"stage": "deliver", "check": "composition"}
+      message: 'Showcase delivery reported composition/viewport-height; zero warnings are required.'
+      fix: Preserve every node, relationship, and label. This 820x920 canvas (ratio 0.89) declares no intrinsic-height fit and is below the 1.55 wide ratio, so the desktop Reader can neither narrow it nor accept vertical scroll: it renders 1510px tall at the full 1346px 
+## c5.2-widen  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] composition/desktop-readability subject={"check": "composition", "nodeId": "client"}
+      message: 'Final artifact failed composition/desktop-readability.'
+      fix: Preserve the semantic text and any supplied coordinates, routes, sides, channels, and labels. Compactly reflow automatic spacing and empty corridors so the complete viewBox width is at most 1085px (current 1440px; 7px source text at 930px desktop budget). If s
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c5-seq-height.fixed.sequence.json", "constraint": "Preserve unaffected semantics and geometry; apply each diagnostic's supportedFixes, or the fix its message names, and do not replace the whole candidate.", "then": "finalize-once"}
+## c6.1-standard-workflow  (exit 1)
+  status=fail ok=False failedStage=browser-check gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'fail'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] viewer/viewport-overflow subject={}
+      message: 'The rendered artifact overflows 6 viewport/theme combinations.'
+      fix: contain the rendered layout within 1440x900 (smallest reported viewport), then rerun browser-check
+## c7.1-bad  (exit 1)
+  status=fail ok=False failedStage=None gates={'validate': 'not-run', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  - [error] explainer/unresolved-reference subject={"line": 7, "column": 1, "component": "prose", "path": "/panels/0/blocks/0/text", "panelId": "p", "input": "/Users/kkh/Desktop/oss-analysis/visualizat
+      message: 'The referenced identity does not exist or has the wrong component type.'
+      fix: Use a valid form, for example: [Evidence](source:known-source)
+## c7.2-fixed  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+## c8.1-no-chrome  (exit 2)
+  status=skipped ok=False failedStage=browser-check gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'skipped'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [warning] viewer/chrome-unavailable subject={"artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c8/d.html"}
+      message: 'No supported browser found. Install Chrome/Chromium (or Microsoft Edge), or set ARCHIFY_CHROME to its executable path.'
+      fix: set ARCHIFY_CHROME to a Chrome/Chromium executable (or Microsoft Edge) and rerun browser-check
+## c9.1-check-tampered  (exit 1)
+  status=None ok=False failedStage=None gates=None
+  - [error] delivery/provenance-mismatch subject={"artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c9/d.html", "provenance": "/Users/kkh/Deskto
+      message: 'The artifact bytes do not match their delivery provenance.'
+      fix: restore the delivered artifact or rerun deliver to create a matching artifact and provenance pair
+## c11.1-leading  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+  layoutReviewRecommendation: {"action": "inspect-leading-space", "evidence": {"measured": true, "emptyTopPx": 370, "emptyTopRatio": 0.436, "occupiedTop": 370, "viewBoxTop": 0, "canvasHeight": 848, "typicalNodeHeight": 60, "reviewSuggested": true}, "reason": "Measured content, including routes and labels, leaves a large empty area above the diagram. This is a composition suggestion, not a failed gate.", "repair": "Check whether that leading space is intentional. If not, reposition the connected scene nearer the canvas origin while retaining room for its actual boundaries, labels and return routes. Preserve all meaning and user-fixed geometry, then rerun finalize. No screenshot is required."}
+## c11.2-moved-up  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+## c12.1-crossing  (exit 1)
+  status=fail ok=False failedStage=validate gates={'validate': 'fail', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  diagnosticSummary {"total": 1, "shown": 1, "truncated": false}
+  - [error] composition/proper-crossing subject={"diagramType": "architecture", "collection": "connections", "index": 6, "id": "container-to-billing", "from": "container", "to": "billing"}
+      message: '[composition/proper-crossing] showcase architecture connections[6] id "container-to-billing" "container" -> "billing" crosses connections[8] id "request-to-customer" "request" -> "customer" at [653, 331] (segments 0 and 2) — if th'
+      fix: if the authored via/fromSide/toSide are not required by the user, remove them so the renderer can re-plan; otherwise preserve that intent and adjust route/via or fromSide/toSide so the connections use separate corridors
+  nextAction: {"action": "edit-in-place", "candidate": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c12-crossing.architecture.json", "constraint": "Preserve all semantics and user-fixed geometry. Use references/architecture-layout-repair.md to choose a local repair or connected-scene reflow; edit the existing candidate.", "then": "finalize-once"}
+## c10.1-validate  ok=True candidateFrozen=True
+  candidate: {'path': '/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c1-schema.fixed.architecture.json', 'sha256': '703cb55b1f1f70747081bf93e31435c06a30442f9334adae5e7374f7d5d58c22', 'bytes': 4042}
+  nextAction: {"command": "finalize", "arguments": ["architecture", "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c1-schema.fixed.architecture.json", "<output.html>", "--quality", "showcase", "--candidate-sha256", "703cb55b1f1f70747081bf93e31435c06a30442f9334adae5e7374f7d5d58c22", "--json"]}
+## c10.2-next-action  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}
+## c10.3-stale-hash  (exit 1)
+  status=fail ok=False failedStage=None gates={'validate': 'not-run', 'deliver': 'not-run', 'check': 'not-run', 'browser-check': 'not-run'}
+  - [error] finalize/candidate-changed subject=null
+      message: 'The candidate changed after validation: expected sha256 703cb55b1f1f70747081bf93e31435c06a30442f9334adae5e7374f7d5d58c22, found 92876075cb6e13145c8284dfa3e363b1337c372d076447a1df37a32adb338c86.'
+## c10.4-no-hash  (exit 0)
+  status=pass ok=True failedStage=None gates={'validate': 'pass', 'deliver': 'pass', 'check': 'pass', 'browser-check': 'pass'}
+  diagnosticSummary {"total": 0, "shown": 0, "truncated": false}

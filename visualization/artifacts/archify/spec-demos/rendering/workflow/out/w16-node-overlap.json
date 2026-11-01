@@ -1,0 +1,46 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/node-overlap",
+      "severity": "error",
+      "message": "Workflow nodes \"a\" and \"b\" are less than 8px apart in lane \"L1\".",
+      "subject": {
+        "diagramType": "workflow",
+        "node": "b",
+        "path": "/nodes/1"
+      },
+      "evidence": {
+        "lane": "L1",
+        "minimumClearancePx": 8,
+        "nodes": [
+          {
+            "id": "a",
+            "rect": {
+              "x": 48,
+              "y": 93,
+              "width": 92,
+              "height": 52
+            }
+          },
+          {
+            "id": "b",
+            "rect": {
+              "x": 48,
+              "y": 93,
+              "width": 92,
+              "height": 52
+            }
+          }
+        ]
+      },
+      "supportedFixes": [
+        "set /nodes/1/col to verified free column 1",
+        "set /nodes/1/col to verified free column 2",
+        "set /nodes/1/col to verified free column 3",
+        "set /nodes/1/col to verified free column 4",
+        "set /nodes/1/col to verified free column 5"
+      ]
+    }
+  ]
+}

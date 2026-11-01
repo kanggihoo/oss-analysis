@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "1f10cd80-52cb-43ca-8815-6da152b93332",
+  "ok": true,
+  "command": "deliver",
+  "type": "waterfall",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/checkout-request.waterfall.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/waterfall.html",
+  "specification": {
+    "sha256": "55a5f74699a0f0e44018a4a000556d43c90430b95f39accac6141af8318b5133",
+    "bytes": 1209
+  },
+  "artifact": {
+    "sha256": "74cb226d2a44be1482a824d08e6ca21d3b0353065118623c692ea651cd9e9759",
+    "bytes": 833386
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "cache-valid"
+  }
+}

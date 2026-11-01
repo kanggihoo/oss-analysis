@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c31-pipe-row-blank-cell.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/schema-minLength",
+      "severity": "error",
+      "message": "/panels/0/blocks/0/entries/0/key must NOT have fewer than 1 characters",
+      "subject": {
+        "line": 8,
+        "column": 1,
+        "component": "facts",
+        "path": "/panels/0/blocks/0/entries/0/key",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c31-pipe-row-blank-cell.archify.md"
+      },
+      "evidence": {
+        "reason": "/panels/0/blocks/0/entries/0/key must NOT have fewer than 1 characters",
+        "example": "text=\"A direct explanation.\""
+      },
+      "supportedFixes": [
+        "Use a valid form, for example: text=\"A direct explanation.\""
+      ]
+    }
+  ]
+}

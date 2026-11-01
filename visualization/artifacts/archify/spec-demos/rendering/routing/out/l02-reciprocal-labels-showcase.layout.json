@@ -1,0 +1,108 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    440,
+    168
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 280,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        280,
+        40
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "request",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          63
+        ],
+        [
+          280,
+          63
+        ]
+      ],
+      "labelAt": [
+        220,
+        53
+      ]
+    },
+    {
+      "from": "b",
+      "to": "a",
+      "label": "response",
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          280,
+          77
+        ],
+        [
+          160,
+          77
+        ]
+      ],
+      "labelAt": [
+        220,
+        97
+      ]
+    }
+  ],
+  "labels": [
+    {
+      "text": "request",
+      "x": 198,
+      "y": 43,
+      "width": 44,
+      "height": 14,
+      "labelAt": [
+        220,
+        53
+      ]
+    },
+    {
+      "text": "response",
+      "x": 196,
+      "y": 87,
+      "width": 48,
+      "height": 14,
+      "labelAt": [
+        220,
+        97
+      ]
+    }
+  ]
+}

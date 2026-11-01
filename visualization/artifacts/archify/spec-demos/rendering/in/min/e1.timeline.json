@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "timeline",
+  "meta": {
+    "title": "E",
+    "output": "e1.html",
+    "evidence": "illustrative"
+  },
+  "events": [
+    {
+      "id": "a",
+      "at": "2026-10-01T10:00:00Z",
+      "title": "Start"
+    },
+    {
+      "id": "b",
+      "at": "2026-10-01T10:30:00Z",
+      "title": "End"
+    }
+  ]
+}

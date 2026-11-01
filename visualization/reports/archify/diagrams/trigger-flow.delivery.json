@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "6b02fc36-8cf6-45da-8db2-7f12e75f0451",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/reports/archify/diagrams/trigger-flow.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/reports/archify/diagrams/trigger-flow.html",
+  "specification": {
+    "sha256": "b68b0127d1411d4b14556f9bb9a8154508daf5c428d704b4643684a32a567198",
+    "bytes": 9578
+  },
+  "artifact": {
+    "sha256": "af9b7fd9a22bc11ac717bd22d5f364add7466cab4fcdeeb490ead74e6ac59bc1",
+    "bytes": 2329911
+  },
+  "explainer": {
+    "preparedSha256": "d6e43bb91fbf4e97984802eceb1a4a13f853db15b757dd680d9153acdf22b8b5",
+    "dependencies": [
+      {
+        "kind": "repository",
+        "id": "skill-choose",
+        "path": "archify/SKILL.md",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "1382cfb7108b05e500b82af93c04fd7b694430d3908039bd92d634f01c1e7181",
+        "bytes": 18877
+      },
+      {
+        "kind": "repository",
+        "id": "guide-score",
+        "path": "archify/recipes/scenarios.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "1e93ba15d0782be535251bfb406cf8cc056291d84d77d33ca9dca01df743528f",
+        "bytes": 41520
+      },
+      {
+        "kind": "repository",
+        "id": "finalize-loop",
+        "path": "archify/bin/finalize.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "766e053afaeaca8045b8a0558f50cb6b685dfe21cb9d00e7776d407d6db364e8",
+        "bytes": 50052
+      },
+      {
+        "kind": "repository",
+        "id": "showcase-fail",
+        "path": "archify/bin/finalize.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "766e053afaeaca8045b8a0558f50cb6b685dfe21cb9d00e7776d407d6db364e8",
+        "bytes": 50052
+      },
+      {
+        "kind": "repository",
+        "id": "no-browser",
+        "path": "archify/bin/finalize.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "766e053afaeaca8045b8a0558f50cb6b685dfe21cb9d00e7776d407d6db364e8",
+        "bytes": 50052
+      },
+      {
+        "kind": "repository",
+        "id": "deliver-run",
+        "path": "archify/bin/archify.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "3cebcee3fa339e3b98deacae8cb9a5570525e003d8823368d304d904ba9ceecd",
+        "bytes": 288781
+      },
+      {
+        "kind": "repository",
+        "id": "load-diagram",
+        "path": "archify/renderers/shared/cli.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "039c3fbb0d46436d387629ce16b737a7c3247dfb79a9e77c1487ca49c0afbbe0",
+        "bytes": 19047
+      },
+      {
+        "kind": "repository",
+        "id": "evidence",
+        "path": "archify/renderers/shared/repository-evidence.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "d1e14f82ba07eb4df9fb0986b4d0c02110d1eaa05a4454f33e92bd1e5dfdc8d3",
+        "bytes": 20342
+      },
+      {
+        "kind": "repository",
+        "id": "apply-template",
+        "path": "archify/renderers/shared/utils.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "d0e8692b8acdc6993578c5d4aeb67065effdf5bf4cf2cd127bf561c677af38f5",
+        "bytes": 12972
+      },
+      {
+        "kind": "repository",
+        "id": "output-order",
+        "path": "archify/renderers/shared/output-path.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "7422139101abd93493918898a97bed06f2212bfd411d3514cd229b6d57a3797e",
+        "bytes": 19029
+      },
+      {
+        "kind": "repository",
+        "id": "viewports",
+        "path": "archify/bin/visual-check.mjs",
+        "revision": "a4065941f12be7967436261d9934784e381d423c",
+        "sha256": "72a8eec9793588552da4013f228eb3fb5ad4936a3d3cf31920de883b77ca3dfd",
+        "bytes": 120537
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "choose-flow",
+        "inline": true,
+        "sha256": "b1c6d25cdf78f4bc85ddd41842824b7950a066e03123c257c43f348c1e48e7d2",
+        "bytes": 1221
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "pipeline-flow",
+        "inline": true,
+        "sha256": "b1954648af08e7abf3e6308a18dd80eacbebce5c12f1919c720a94b1511ec2fe",
+        "bytes": 1549
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "validate-flow",
+        "inline": true,
+        "sha256": "b0d4b5dcaad961a9c4ed6b8a18d8fa8f8bff8184e505f77a88eb9ac87eee6c18",
+        "bytes": 1311
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+== A. v1-min -> v2
+migrated workflow schema v1→v2: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/v1-min.json → /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/migrate/out2/min-v2.json
+exit=0
+min-v2.json
+== B. --json 보고서
+exit=0
+{"ok":true,"command":"migrate","type":"workflow","fromSchemaVersion":1,"toSchemaVersion":2,"preExistingDiagnostics":[{"code":"workflow/column-capacity","severity":"error","message":"Workflow columns 1→2 place nodes \"n2\" and \"n3\" so they overlap by 12px under the fixed-v1 layout.","subject":{"diagramType":"workflow","edge":null,"from":"n2","to":"n3","fromCol":1,"toCol":2},"evidence":{"centerDistancePx":80,"nodeWidthsPx":[92,92],"actualSignedClearancePx":-12,"requiredDirectClearancePx":28},"supportedFixes":["migrate this workflow to schema_version 2","move node \"n3\" to verified free column 3","set node widths \"n2\"=32px and \"n3\"=72px"],"suppresses":["workflow/short-edge","clean-flow/endpoint-side-direction","workflow/label-node-overlap"]}],"migrationDiagnostics":[],"newSchemaDiagnostics":[],"changedCoordinates":[],"oldRequiredViewBox":[720,404],"newRequiredViewBox":[772,404]}
+[ 'path', 'sha256', 'bytes' ] [ 'path', 'sha256', 'bytes' ]
+schema 1 -> 2
+["schema_version","diagram_type","meta","lanes","nodes","edges"] {"title":"Minimal Flow","output":"min.html"}
+== C. 결정성
+identical
+== D. v2 결과를 다시 migrate (멱등)
+exit=0
+idempotent
+== E. 기존 목적지 교체
+exit=0
+{
+  "schema_version": 2,
+  "diagram_type
+== F. 렌더 가능 확인(render)
+exit=0
+out2/min-v2.html
+== G. --output 으로 meta.output 교체
+exit=0
+portable.html
+== H. schema_version 3 소스
+exit=1
+[["schema/enum"],[]]

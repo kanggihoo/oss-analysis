@@ -1,0 +1,132 @@
+{
+  "ok": false,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    400,
+    192
+  ],
+  "components": [
+    {
+      "id": "a",
+      "type": "backend",
+      "label": "A",
+      "x": 40,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        40
+      ]
+    },
+    {
+      "id": "b",
+      "type": "backend",
+      "label": "B",
+      "x": 240,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        240,
+        40
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "a",
+      "to": "a",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          100,
+          40
+        ],
+        [
+          100,
+          16
+        ],
+        [
+          116,
+          16
+        ],
+        [
+          116,
+          124
+        ],
+        [
+          100,
+          124
+        ],
+        [
+          100,
+          100
+        ]
+      ]
+    },
+    {
+      "from": "a",
+      "to": "b",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          160,
+          70
+        ],
+        [
+          240,
+          70
+        ]
+      ]
+    }
+  ],
+  "labels": [],
+  "schemaVersion": 1,
+  "source": "renderer",
+  "error": "Architecture layout validation failed:\n- Connection \"zzz\" references unknown target \"zzz\".\n- Connection \"zzz\" endpoint \"zzz\" does not name a declared component.",
+  "diagnostics": [
+    {
+      "code": "architecture/unknown-endpoint",
+      "severity": "error",
+      "message": "Connection \"zzz\" references unknown target \"zzz\".",
+      "subject": {
+        "diagramType": "architecture",
+        "connection": null,
+        "path": "/connections/1/to",
+        "from": "a",
+        "to": "zzz"
+      },
+      "evidence": {
+        "endpoint": "target",
+        "unknownNodeId": "zzz",
+        "availableNodeIds": [
+          "a",
+          "b"
+        ]
+      },
+      "supportedFixes": [
+        "set /connections/1/to to verified node id \"b\""
+      ]
+    },
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Connection \"zzz\" endpoint \"zzz\" does not name a declared component.",
+      "subject": {
+        "diagramType": "architecture"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ],
+  "contract": "archify-architecture-layout-v1"
+}

@@ -1,0 +1,1 @@
+archify: meta.locale "en-US" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English.

@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/profile-fail.json",
+  "error": "Engineering profile \"deployment-ownership\" failed:\n- Deployment ownership requires at least one region boundary.\n- Deployment ownership requires at least one security-group boundary.\n- Deployment component \"web\" does not name its owner in tag.\n- Deployment component \"web\" is not assigned to a region boundary.\n- Deployment component \"api\" does not name its owner in tag.\n- Deployment component \"api\" is not assigned to a region boundary.",
+  "diagnostics": [
+    {
+      "code": "engineering/deployment-boundary-kind",
+      "severity": "error",
+      "message": "Deployment ownership requires at least one region boundary.",
+      "subject": {
+        "diagramType": "architecture",
+        "profile": "deployment-ownership",
+        "collection": "boundaries",
+        "index": -1
+      },
+      "evidence": {
+        "requiredKind": "region",
+        "found": 0
+      },
+      "supportedFixes": [
+        "add one region boundary with an explicit wraps list"
+      ]
+    },
+    {
+      "code": "engineering/deployment-boundary-kind",
+      "severity": "error",
+      "message": "Deployment ownership requires at least one security-group boundary.",
+      "subject": {
+        "diagramType": "architecture",
+        "profile": "deployment-ownership",
+        "collection": "boundaries",
+        "index": -1
+      },
+      "evidence": {
+        "requiredKind": "security-group",
+        "found": 0
+      },
+      "supportedFixes": [
+        "add one security-group boundary with an explicit wraps list"
+      ]
+    },
+    {
+      "code": "engineering/deployment-owner-missing",
+      "severity": "error",
+      "message": "Deployment component \"web\" does not name its owner in tag.",
+      "subject": {
+        "diagramType": "architecture",
+        "profile": "deployment-ownership",
+        "collection": "components",
+        "index": 0,
+        "id": "web"
+      },
+      "evidence": {
+        "componentType": "frontend",
+        "ownerField": "tag"
+      },
+      "supportedFixes": [
+        "set /components/0/tag to the responsible team or owner"
+      ]
+    },
+    {
+      "code": "engineering/deployment-region-scope",
+      "severity": "error",
+      "message": "Deployment component \"web\" is not assigned to a region boundary.",
+      "subject": {
+        "diagramType": "architecture",
+        "profile": "deployment-ownership",
+        "collection": "components",
+        "index": 0,
+        "id": "web"
+      },
+      "evidence": {
+        "componentType": "frontend",
+        "regionMemberships": 0
+      },
+      "supportedFixes": [
+        "add the component id to the real region boundary wraps list"
+      ]
+    },
+    {
+      "code": "engineering/deployment-owner-missing",
+      "severity": "error",
+      "message": "Deployment component \"api\" does not name its owner in tag.",
+      "subject": {
+        "diagramType": "architecture",
+        "profile": "deployment-ownership",
+        "collection": "components",
+        "index": 1,
+        "id": "api"
+      },
+      "evidence": {
+        "componentType": "backend",
+        "ownerField": "tag"
+      },
+      "supportedFixes": [
+        "set /components/1/tag to the responsible team or owner"
+      ]
+    },
+    {
+      "code": "engineering/deployment-region-scope",
+      "severity": "error",
+      "message": "Deployment component \"api\" is not assigned to a region boundary.",
+      "subject": {
+        "diagramType": "architecture",
+        "profile": "deployment-ownership",
+        "collection": "components",
+        "index": 1,
+        "id": "api"
+      },
+      "evidence": {
+        "componentType": "backend",
+        "regionMemberships": 0
+      },
+      "supportedFixes": [
+        "add the component id to the real region boundary wraps list"
+      ]
+    }
+  ]
+}

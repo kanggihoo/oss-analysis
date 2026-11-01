@@ -1,0 +1,2 @@
+Output must not replace an input.
+[output/input-alias] Output must not replace an input, including through a symbolic-link or future-path alias. Fix: choose an output path that is distinct from every input path.

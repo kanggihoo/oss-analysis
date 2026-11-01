@@ -1,0 +1,16 @@
+{
+ "schema_version": 1,
+ "diagram_type": "timeline",
+ "meta": {
+  "title": "E",
+  "output": "x.html",
+  "evidence": "illustrative"
+ },
+ "events": [
+  {
+   "id": "a",
+   "at": "2026-02-30T10:00:00Z",
+   "title": "Ea"
+  }
+ ]
+}

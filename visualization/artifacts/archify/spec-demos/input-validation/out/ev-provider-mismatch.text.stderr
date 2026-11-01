@@ -1,0 +1,2 @@
+Repository provider must match its supported public host (github.com, gitee.com or gitlab.com); gitlab also names a self-managed GitLab host.
+[repository-evidence/provider-invalid] Repository provider must match its supported public host (github.com, gitee.com or gitlab.com); gitlab also names a self-managed GitLab host. Fix: use the matching provider or omit provider and select link_mode: local-only.

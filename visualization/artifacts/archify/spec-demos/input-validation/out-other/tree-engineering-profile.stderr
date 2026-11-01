@@ -1,0 +1,3 @@
+tree schema validation failed:
+  /meta must NOT have additional properties {"additionalProperty":"engineering_profile"}
+[schema/additionalProperties] /meta must NOT have additional properties Fix: remove unsupported property "engineering_profile".

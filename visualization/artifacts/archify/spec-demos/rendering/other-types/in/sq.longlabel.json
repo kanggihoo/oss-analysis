@@ -1,0 +1,33 @@
+{
+ "schema_version": 1,
+ "diagram_type": "sequence",
+ "meta": {
+  "title": "S",
+  "output": "x.html",
+  "column_fit": "fixed",
+  "viewBox": [
+   480,
+   480
+  ]
+ },
+ "participants": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A very long participant label here"
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B"
+  }
+ ],
+ "messages": [
+  {
+   "from": "a",
+   "to": "b",
+   "y": 180,
+   "label": "call"
+  }
+ ]
+}

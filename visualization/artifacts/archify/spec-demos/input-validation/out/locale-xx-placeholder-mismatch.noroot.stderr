@@ -1,0 +1,2 @@
+archify: meta.translations for locale "xx" has 1 unusable entry (0 unknown, 1 placeholder mismatch); each keeps its English message.
+archify: meta.locale "xx" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English.

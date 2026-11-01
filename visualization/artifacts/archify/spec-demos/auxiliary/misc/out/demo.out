@@ -1,0 +1,5 @@
+/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/misc/out/demo/archify-demo.html
+
+Demo ready: /Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/misc/out/demo/archify-demo.html
+Next: open the HTML in your browser, then render your own diagram:
+  archify render architecture <input.json> <output.html>

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/dup-relationship-id.json",
+  "error": "Relationship identity validation failed:\n- /connections/1/id duplicates relationship id \"web-to-api\"",
+  "diagnostics": [
+    {
+      "code": "relationship/duplicate-id",
+      "severity": "error",
+      "message": "/connections/1/id duplicates relationship id \"web-to-api\"",
+      "subject": {
+        "diagramType": "architecture",
+        "collection": "connections"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ]
+}

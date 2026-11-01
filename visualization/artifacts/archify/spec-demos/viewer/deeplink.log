@@ -1,0 +1,51 @@
+## file://demo.html
+  html: data-theme=dark data-motion=still
+  svg : data-animation=trace
+## file://demo.html#focus=api
+  html: data-theme=dark data-motion=still
+  svg : data-focus-active=api data-animation=trace
+## file://demo.html#focus=api&reach=downstream
+  html: data-theme=dark data-motion=still
+  svg : data-focus-active=api data-reach-active=downstream data-animation=trace
+## file://demo.html#focus=api&reach=upstream
+  html: data-theme=dark data-motion=still
+  svg : data-focus-active=api data-reach-active=upstream data-animation=trace
+## file://demo.html#focus=nope
+  html: data-theme=dark data-motion=still
+  svg : data-animation=trace
+## file://demo.html#route=users~worker
+  html: data-theme=dark data-motion=still
+  svg : data-route-active=users~worker data-animation=trace
+## file://demo.html#route=worker~users
+  html: data-theme=dark data-motion=still
+  svg : data-animation=trace
+## file://demo.html#route=users~nope
+  html: data-theme=dark data-motion=still
+  svg : data-animation=trace
+## file://demo.html#lens=backend~database
+  html: data-theme=dark data-motion=still
+  svg : data-lens-active=backend database data-animation=trace
+## file://demo.html#lens=backend~database~cloud
+  html: data-theme=dark data-motion=still
+  svg : data-lens-active=backend database data-animation=trace
+## file://demo.html#relation=nope
+  html: data-theme=dark data-motion=still
+  svg : data-animation=trace
+## file://demo.html#focus=api&route=users~worker
+  html: data-theme=dark data-motion=still
+  svg : data-route-active=users~worker data-animation=trace
+## file://demo.html#lens=backend&focus=api
+  html: data-theme=dark data-motion=still
+  svg : data-lens-active=backend data-animation=trace
+## file://demo.html#view=d1
+  html: data-theme=dark data-motion=still
+  svg : data-animation=trace
+## file://demo.html?present=1
+  html: data-theme=dark data-present=true data-motion=still
+  svg : data-animation=trace
+## file://demo.html?embed=1#focus=api
+  html: data-theme=dark data-embed=true data-motion=still
+  svg : data-focus-active=api data-animation=trace
+## file://demo.html?theme=light
+  html: data-theme=light data-motion=still
+  svg : data-animation=trace

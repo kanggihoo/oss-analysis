@@ -1,0 +1,5 @@
+Data-flow layout validation failed:
+- Node "b" uses invalid row 9 — valid rows are 0..4.
+- Node "b" produced non-finite coordinates — check stage, row, width, height, and yOffset are numbers.
+[layout/constraint] Node "b" uses invalid row 9 — valid rows are 0..4.
+[layout/constraint] Node "b" produced non-finite coordinates — check stage, row, width, height, and yOffset are numbers.

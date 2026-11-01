@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-provider-mismatch.json",
+  "error": "Repository provider must match its supported public host (github.com, gitee.com or gitlab.com); gitlab also names a self-managed GitLab host.",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/provider-invalid",
+      "severity": "error",
+      "message": "Repository provider must match its supported public host (github.com, gitee.com or gitlab.com); gitlab also names a self-managed GitLab host.",
+      "subject": {
+        "surface": "repository-evidence",
+        "path": "/meta/repository/provider"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "use the matching provider or omit provider and select link_mode: local-only"
+      ]
+    }
+  ]
+}

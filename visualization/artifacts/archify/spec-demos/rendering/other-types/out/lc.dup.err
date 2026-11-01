@@ -1,0 +1,3 @@
+Lifecycle validation failed:
+- State ids must be unique.
+[lifecycle/duplicate-state] State ids must be unique. Fix: give every state a unique id.

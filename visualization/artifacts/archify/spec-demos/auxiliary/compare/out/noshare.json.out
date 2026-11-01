@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "compare",
+  "type": "architecture",
+  "stage": "compare",
+  "error": "The snapshots share no component id, so Archify cannot prove that they describe the same system.",
+  "diagnostics": [
+    {
+      "code": "delta/no-shared-component-id",
+      "severity": "error",
+      "message": "The snapshots share no component id, so Archify cannot prove that they describe the same system.",
+      "subject": {},
+      "evidence": {},
+      "supportedFixes": [
+        "preserve at least one authored component id across snapshots"
+      ]
+    }
+  ]
+}

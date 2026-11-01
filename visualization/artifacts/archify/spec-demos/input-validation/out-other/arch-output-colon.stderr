@@ -1,0 +1,2 @@
+meta.output must be a portable POSIX-relative path.
+[output/meta-path-syntax] meta.output must be a portable POSIX-relative path. Fix: set meta.output to a portable relative .html path such as reports/diagram.html.

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "f4e6e4b9-fdac-43ef-9874-d8061d140034",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c4-crossover.fixed.architecture.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c4/d.html",
+  "specification": {
+    "sha256": "d742a7b429732154ba0c5a4fda60eecf2f22df8b986e1b61879f92daac251e14",
+    "bytes": 3627
+  },
+  "artifact": {
+    "sha256": "5b5b850d47a7fa4fe1abc1fa2b45409aaeab7d4b1bb7b4a05aac3854afc5c0d9",
+    "bytes": 846786
+  }
+}

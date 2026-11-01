@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+    "sha256": "dc97279037c200ed8c71d45bb9c6fe3cfe9b1cfcbff70ece9861ef1e3473c5a0",
+    "bytes": 96
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/warn.html",
+    "sha256": "5f6434e0d864886c680f04d4fda52385c85e46d50b482a106c214b73403deaaa",
+    "bytes": 135190
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [
+    {
+      "code": "explainer/writing-plain-word",
+      "severity": "warning",
+      "message": "A longer word replaces a common one with the same meaning.",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+        "line": 7,
+        "component": "prose",
+        "panelId": "p"
+      },
+      "evidence": {
+        "reason": "A longer word replaces a common one with the same meaning.",
+        "example": "utilize → use; prior to → before; in order to → to; due to the fact that → because",
+        "rule": "plain-word",
+        "matched": "utilize"
+      },
+      "supportedFixes": [
+        "Use the shorter common word."
+      ]
+    },
+    {
+      "code": "explainer/writing-cliche",
+      "severity": "warning",
+      "message": "This stock phrase gives little information about the concrete outcome.",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+        "line": 7,
+        "component": "prose",
+        "panelId": "p"
+      },
+      "evidence": {
+        "reason": "This stock phrase gives little information about the concrete outcome.",
+        "example": "赋能业务 → 让客服查到订单状态; seamless → name what no longer needs a manual step",
+        "rule": "cliche",
+        "matched": "seamless"
+      },
+      "supportedFixes": [
+        "Replace the stock phrase with the specific action or outcome the reader needs."
+      ]
+    },
+    {
+      "code": "explainer/writing-vague-quantity",
+      "severity": "warning",
+      "message": "The quantity or comparison lacks a stated bound or measurement.",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+        "line": 7,
+        "component": "prose",
+        "panelId": "p"
+      },
+      "evidence": {
+        "reason": "The quantity or comparison lacks a stated bound or measurement.",
+        "example": "大量请求 → 写明已知请求量或说明未测量；尽快 → 写明期限; significantly faster → give the measured comparison or say it is unmeasured",
+        "rule": "vague-quantity",
+        "matched": "大量请求"
+      },
+      "supportedFixes": [
+        "Add a supported quantity, range, deadline or comparison basis; when unknown, state that it is unmeasured. Do not invent a number."
+      ]
+    },
+    {
+      "code": "explainer/writing-vague-quantity",
+      "severity": "warning",
+      "message": "The quantity or comparison lacks a stated bound or measurement.",
+      "subject": {
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/d02-cliche-quality.archify.md",
+        "line": 7,
+        "component": "prose",
+        "panelId": "p"
+      },
+      "evidence": {
+        "reason": "The quantity or comparison lacks a stated bound or measurement.",
+        "example": "大量请求 → 写明已知请求量或说明未测量；尽快 → 写明期限; significantly faster → give the measured comparison or say it is unmeasured",
+        "rule": "vague-quantity",
+        "matched": "尽快"
+      },
+      "supportedFixes": [
+        "Add a supported quantity, range, deadline or comparison basis; when unknown, state that it is unmeasured. Do not invent a number."
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 4,
+    "shown": 4,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/warn.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/out/misc/warn.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 465,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

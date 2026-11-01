@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-no-sources.json",
+  "error": "/meta/repository requires at least one /components source reference.",
+  "diagnostics": [
+    {
+      "code": "repository-evidence/source-required",
+      "severity": "error",
+      "message": "/meta/repository requires at least one /components source reference.",
+      "subject": {
+        "surface": "repository-evidence",
+        "path": "/meta/repository",
+        "diagramType": "architecture",
+        "collection": "components"
+      },
+      "evidence": {},
+      "supportedFixes": [
+        "add at least one verified /components source or remove repository metadata"
+      ]
+    }
+  ]
+}

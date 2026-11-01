@@ -1,0 +1,136 @@
+{
+  "ok": true,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "free"
+  },
+  "viewBox": [
+    520,
+    348
+  ],
+  "components": [
+    {
+      "id": "h",
+      "type": "backend",
+      "label": "H",
+      "x": 200,
+      "y": 40,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        200,
+        40
+      ]
+    },
+    {
+      "id": "x",
+      "type": "backend",
+      "label": "X",
+      "x": 40,
+      "y": 220,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        40,
+        220
+      ]
+    },
+    {
+      "id": "y",
+      "type": "backend",
+      "label": "Y",
+      "x": 200,
+      "y": 220,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        200,
+        220
+      ]
+    },
+    {
+      "id": "z",
+      "type": "backend",
+      "label": "Z",
+      "x": 360,
+      "y": 220,
+      "width": 120,
+      "height": 60,
+      "pos": [
+        360,
+        220
+      ]
+    }
+  ],
+  "boundaries": [],
+  "connections": [
+    {
+      "from": "h",
+      "to": "x",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          246,
+          100
+        ],
+        [
+          246,
+          160
+        ],
+        [
+          100,
+          160
+        ],
+        [
+          100,
+          220
+        ]
+      ]
+    },
+    {
+      "from": "h",
+      "to": "y",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          260,
+          100
+        ],
+        [
+          260,
+          220
+        ]
+      ]
+    },
+    {
+      "from": "h",
+      "to": "z",
+      "label": null,
+      "variant": "default",
+      "route": "auto",
+      "points": [
+        [
+          274,
+          100
+        ],
+        [
+          274,
+          160
+        ],
+        [
+          420,
+          160
+        ],
+        [
+          420,
+          220
+        ]
+      ]
+    }
+  ],
+  "labels": []
+}

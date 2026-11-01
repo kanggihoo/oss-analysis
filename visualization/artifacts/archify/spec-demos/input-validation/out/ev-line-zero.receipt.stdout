@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-line-zero.json",
+  "error": "architecture schema validation failed:\n  /components/0/sources/0/line (id/label: \"web\") must be >= 1 {\"comparison\":\">=\",\"limit\":1}",
+  "diagnostics": [
+    {
+      "code": "schema/minimum",
+      "severity": "error",
+      "message": "/components/0/sources/0/line (id/label: \"web\") must be >= 1",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/components/0/sources/0/line",
+        "identity": "web"
+      },
+      "evidence": {
+        "keyword": "minimum",
+        "comparison": ">=",
+        "limit": 1
+      },
+      "supportedFixes": [
+        "use a value >= 1"
+      ]
+    }
+  ]
+}

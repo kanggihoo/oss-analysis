@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "D",
+    "output": "d1.html"
+  },
+  "stages": [
+    {
+      "label": "In"
+    },
+    {
+      "label": "Out"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "frontend",
+      "label": "A",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "b",
+      "type": "database",
+      "label": "B",
+      "stage": 1,
+      "row": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "a",
+      "to": "b",
+      "label": "rows"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+git.c:476               trace: built-in: git rev-parse --show-toplevel
+git.c:476               trace: built-in: git remote get-url origin
+git.c:476               trace: built-in: git cat-file -e '0147eb22a7af41b58c218f2d2be4cbe3b366c87b^{commit}'
+git.c:476               trace: built-in: git cat-file --batch-check
+git.c:476               trace: built-in: git cat-file --batch

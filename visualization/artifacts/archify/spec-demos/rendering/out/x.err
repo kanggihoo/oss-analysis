@@ -1,0 +1,2 @@
+CLI output must target a .html file.
+[output/cli-extension] CLI output must target a .html file. Fix: choose a path ending in .html whose symbolic-link target also ends in .html.

@@ -1,0 +1,4 @@
+Relationship identity validation failed:
+- /connections/1/id duplicates relationship id "web-to-api"
+[i18n/locale-fallback] meta.locale "xx" has no bundled catalog and no usable meta.translations; the Viewer chrome and <html lang> fall back to English. Fix: Supply meta.translations for this locale.; Use a bundled locale: en, zh-CN, zh-TW, es, ko, ar..
+[relationship/duplicate-id] /connections/1/id duplicates relationship id "web-to-api"

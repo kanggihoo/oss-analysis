@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c12-block-before-panel.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-facts",
+      "severity": "error",
+      "message": "Blocks must follow a question panel heading.",
+      "subject": {
+        "line": 5,
+        "column": 1,
+        "component": "facts",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c12-block-before-panel.archify.md"
+      },
+      "evidence": {
+        "reason": "Blocks must follow a question panel heading.",
+        "example": "## What should I know?"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: ## What should I know?"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+ "schema_version": 1,
+ "diagram_type": "sequence",
+ "meta": {
+  "title": "S",
+  "output": "x.html",
+  "column_fit": "fixed"
+ },
+ "participants": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A"
+  },
+  {
+   "id": "b",
+   "type": "backend",
+   "label": "B"
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C"
+  }
+ ],
+ "messages": [
+  {
+   "from": "a",
+   "to": "b",
+   "y": 180,
+   "label": "call"
+  },
+  {
+   "from": "b",
+   "to": "c",
+   "y": 220,
+   "label": "next"
+  }
+ ]
+}

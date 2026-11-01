@@ -1,0 +1,2 @@
+/components/0/sources/0/path must be a repo-relative POSIX path.
+[repository-evidence/path-invalid] /components/0/sources/0/path must be a repo-relative POSIX path. Fix: use a repository-relative path with forward slashes.

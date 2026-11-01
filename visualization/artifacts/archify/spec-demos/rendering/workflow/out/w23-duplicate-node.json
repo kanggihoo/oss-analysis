@@ -1,0 +1,21 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/duplicate-node-id",
+      "severity": "error",
+      "message": "Workflow node id \"a\" is duplicated.",
+      "subject": {
+        "diagramType": "workflow",
+        "node": "a",
+        "path": "/nodes/2/id"
+      },
+      "evidence": {
+        "duplicateNodeId": "a",
+        "firstPath": "/nodes/0/id",
+        "duplicatePath": "/nodes/2/id"
+      },
+      "supportedFixes": []
+    }
+  ]
+}

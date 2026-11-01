@@ -1,0 +1,5 @@
+brand-aware-delivery connections=8 ok=[True, True, True] route_points_equal_across_profiles=True labels_equal=True viewBox=[1120, 640]
+checkout-platform.base connections=7 ok=[True, True, True] route_points_equal_across_profiles=True labels_equal=True viewBox=[1020, 548]
+checkout-platform.head connections=7 ok=[True, True, True] route_points_equal_across_profiles=True labels_equal=True viewBox=[1020, 568]
+production-deployment connections=12 ok=[True, True, True] route_points_equal_across_profiles=True labels_equal=True viewBox=[1376, 790]
+web-app connections=9 ok=[True, True, True] route_points_equal_across_profiles=True labels_equal=True viewBox=[1080, 588]

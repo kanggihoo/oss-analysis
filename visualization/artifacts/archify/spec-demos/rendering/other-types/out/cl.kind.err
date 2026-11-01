@@ -1,0 +1,3 @@
+Class diagram validation failed:
+- Relationship 0 "p" inherits from "i" across an interface boundary (class -> interface). A class implementing an interface is a realization.
+[class/inheritance-kind] Relationship 0 "p" inherits from "i" across an interface boundary (class -> interface). A class implementing an interface is a realization. Fix: Use kind "realization" for a class implementing an interface..

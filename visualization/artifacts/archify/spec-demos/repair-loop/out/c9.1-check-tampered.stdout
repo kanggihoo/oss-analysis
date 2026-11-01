@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "check",
+  "provenance": "mismatch",
+  "deliveryReceiptId": "05db58f4-6bba-4604-a72e-be2546bb86df",
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c9/d.html"
+  },
+  "error": "The artifact bytes do not match their delivery provenance.",
+  "file": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c9/d.html",
+  "diagnostic": "The artifact bytes do not match their delivery provenance.",
+  "diagnostics": [
+    {
+      "code": "delivery/provenance-mismatch",
+      "severity": "error",
+      "message": "The artifact bytes do not match their delivery provenance.",
+      "subject": {
+        "artifact": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c9/d.html",
+        "provenance": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c9/d.delivery.json"
+      },
+      "evidence": {
+        "expectedSha256": "88ceda092f441afab4e86417f5e00f0b580d2a42669d52f890c2670b35097063",
+        "actualSha256": "ae1c118e854b02c731684d1ab5776bc27263a9c4a5e9f61c29608bc4d4a478c5",
+        "expectedBytes": 857101,
+        "actualBytes": 857119
+      },
+      "supportedFixes": [
+        "restore the delivered artifact or rerun deliver to create a matching artifact and provenance pair"
+      ]
+    }
+  ]
+}

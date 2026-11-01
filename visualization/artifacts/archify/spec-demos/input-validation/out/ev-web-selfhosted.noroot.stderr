@@ -1,0 +1,2 @@
+Web source links require a canonical GitHub, Gitee, or GitLab HTTPS repository URL.
+[repository-evidence/links-unsupported] Web source links require a canonical GitHub, Gitee, or GitLab HTTPS repository URL. Fix: use a canonical GitHub, Gitee, or GitLab HTTPS URL; declare provider: gitlab for a self-managed GitLab host; select link_mode: local-only to retain local verification without web links.

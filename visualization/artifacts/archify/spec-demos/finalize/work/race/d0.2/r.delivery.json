@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "d5718b3e-7843-4b84-b52e-4df8b51686cd",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.2/cand.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/finalize/work/race/d0.2/r.html",
+  "specification": {
+    "sha256": "7df53378bdaf906c3cc7e95e59e090962e517def99dddfcc1ae03621e5278dd4",
+    "bytes": 4003
+  },
+  "artifact": {
+    "sha256": "ed4d735dc926b3c27324d0c174fe0607377722674d150b34a2fedce47459e111",
+    "bytes": 847663
+  }
+}

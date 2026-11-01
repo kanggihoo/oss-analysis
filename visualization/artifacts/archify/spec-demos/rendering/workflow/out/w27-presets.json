@@ -1,0 +1,51 @@
+{
+  "contract": "readable-v2",
+  "diagnostics": [
+    {
+      "code": "workflow/route-preset-conflict",
+      "severity": "error",
+      "message": "Workflow edge \"o\" cannot satisfy route preset \"outside-right\": candidate violates perpendicular endpoint-side direction.",
+      "subject": {
+        "diagramType": "workflow",
+        "edge": "o",
+        "from": "a",
+        "to": "b",
+        "route": "outside-right"
+      },
+      "evidence": {
+        "invariant": "perpendicular endpoint-side direction",
+        "attemptedCandidateFamily": "outside-right",
+        "points": [
+          [
+            260,
+            119
+          ],
+          [
+            768,
+            119
+          ],
+          [
+            768,
+            243
+          ],
+          [
+            408,
+            243
+          ]
+        ],
+        "fromSide": "right",
+        "toSide": "left",
+        "requiredEndpointStubPx": 8,
+        "requiredInteriorSegmentPx": 16,
+        "requiredDirectClearancePx": 28
+      },
+      "supportedFixes": [
+        "set edge \"o\" route to verified preset \"drop\"",
+        "set edge \"o\" route to verified preset \"return-left\"",
+        "set edge \"o\" route to verified preset \"bottom-channel\"",
+        "set edge \"o\" route to verified preset \"up-channel\"",
+        "remove route from edge \"o\" so readable-v2 can use its verified automatic candidate"
+      ]
+    }
+  ]
+}

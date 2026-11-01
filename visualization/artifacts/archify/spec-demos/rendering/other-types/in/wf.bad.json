@@ -1,0 +1,25 @@
+{
+ "schema_version": 1,
+ "diagram_type": "waterfall",
+ "meta": {
+  "title": "W",
+  "output": "x.html",
+  "unit": "ms",
+  "evidence": "illustrative"
+ },
+ "spans": [
+  {
+   "id": "r",
+   "name": "root",
+   "start": 0,
+   "end": 100,
+   "duration": 5
+  },
+  {
+   "id": "c",
+   "name": "child",
+   "start": 20,
+   "parent": "zz"
+  }
+ ]
+}

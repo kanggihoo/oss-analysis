@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/input-validation/inputs/ev-sources-empty-array.json",
+  "error": "architecture schema validation failed:\n  /components/0/sources (id/label: \"web\") must NOT have fewer than 1 items {\"limit\":1}",
+  "diagnostics": [
+    {
+      "code": "schema/minItems",
+      "severity": "error",
+      "message": "/components/0/sources (id/label: \"web\") must NOT have fewer than 1 items",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/components/0/sources",
+        "identity": "web"
+      },
+      "evidence": {
+        "keyword": "minItems",
+        "limit": 1
+      },
+      "supportedFixes": [
+        "provide at least 1 item(s)"
+      ]
+    }
+  ]
+}

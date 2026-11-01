@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "cb983af6-04a5-4bd7-b5d7-e95adae2d9ac",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/in/c10-edited.architecture.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/repair-loop/work/c10/d.html",
+  "specification": {
+    "sha256": "92876075cb6e13145c8284dfa3e363b1337c372d076447a1df37a32adb338c86",
+    "bytes": 4045
+  },
+  "artifact": {
+    "sha256": "1b5c8a8fff66fcfea5facad4bd6daab20c5eee7b80329f27f4e87095d77de80c",
+    "bytes": 857113
+  }
+}

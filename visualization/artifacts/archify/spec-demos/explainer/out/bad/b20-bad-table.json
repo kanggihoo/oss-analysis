@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b20-bad-table.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-comparison",
+      "severity": "error",
+      "message": "All table rows must match the header width.",
+      "subject": {
+        "line": 9,
+        "column": 1,
+        "component": "comparison",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b20-bad-table.archify.md"
+      },
+      "evidence": {
+        "reason": "All table rows must match the header width.",
+        "example": "| Cost | Low {good} | High {bad} |"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: | Cost | Low {good} | High {bad} |"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c01-inline-html.archify.md",
+  "error": "Explainer draft is invalid.",
+  "diagnostics": [
+    {
+      "code": "explainer/inline-html",
+      "severity": "error",
+      "message": "Raw HTML is not part of the explainer inline language.",
+      "subject": {
+        "line": 7,
+        "column": 5,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c01-inline-html.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Raw HTML is not part of the explainer inline language.",
+        "example": "**Important** or `[literal <tag>]`"
+      },
+      "supportedFixes": [
+        "Use the supported form: **Important** or `[literal <tag>]`"
+      ]
+    },
+    {
+      "code": "explainer/inline-html",
+      "severity": "error",
+      "message": "Raw HTML is not part of the explainer inline language.",
+      "subject": {
+        "line": 7,
+        "column": 12,
+        "component": "prose",
+        "panelId": "p",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/c01-inline-html.archify.md",
+        "path": "/panels/0/blocks/0/text"
+      },
+      "evidence": {
+        "reason": "Raw HTML is not part of the explainer inline language.",
+        "example": "**Important** or `[literal <tag>]`"
+      },
+      "supportedFixes": [
+        "Use the supported form: **Important** or `[literal <tag>]`"
+      ]
+    }
+  ]
+}

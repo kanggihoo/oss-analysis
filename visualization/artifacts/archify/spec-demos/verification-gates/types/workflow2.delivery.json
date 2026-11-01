@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "d485e7d1-b929-49d4-8265-db98ea7b1c9d",
+  "status": "current",
+  "command": "deliver",
+  "type": "workflow",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/inputs/alltypes/agent-tool-call.workflow.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/verification-gates/types/workflow2.html",
+  "specification": {
+    "sha256": "d67965d50872c97e4ff3476271e645bf19fab6b3ab44e111bdb44b063e3aa36f",
+    "bytes": 4939
+  },
+  "artifact": {
+    "sha256": "6ee1999c899c2b7bed3b69b14e23dfbf9c7ff096441870361c690b469ad43e29",
+    "bytes": 851280
+  }
+}

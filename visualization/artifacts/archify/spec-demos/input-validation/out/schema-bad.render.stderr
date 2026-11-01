@@ -1,0 +1,7 @@
+architecture schema validation failed:
+  /meta must have required property 'title' {"missingProperty":"title"}
+  /components/0 (id/label: "web") must NOT have additional properties {"additionalProperty":"colour"}
+  /components/1/type (id/label: "api") must be equal to one of the allowed values {"allowedValues":["frontend","backend","database","cloud","security","messagebus","external"]}
+[schema/required] /meta must have required property 'title' Fix: add required property "title".
+[schema/additionalProperties] /components/0 (id/label: "web") must NOT have additional properties Fix: remove unsupported property "colour".
+[schema/enum] /components/1/type (id/label: "api") must be equal to one of the allowed values Fix: choose one of the allowed values.

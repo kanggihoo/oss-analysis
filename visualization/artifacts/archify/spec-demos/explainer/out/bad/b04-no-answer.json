@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "validate",
+  "stage": "render",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b04-no-answer.archify.md",
+  "error": "Explainer draft could not be parsed.",
+  "diagnostics": [
+    {
+      "code": "explainer/parse-answer",
+      "severity": "error",
+      "message": "A short answer is required before question panels.",
+      "subject": {
+        "line": 1,
+        "column": 1,
+        "component": "answer",
+        "path": "/",
+        "input": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/explainer/in/bad/b04-no-answer.archify.md"
+      },
+      "evidence": {
+        "reason": "A short answer is required before question panels.",
+        "example": "# A title\n\nA direct answer.\n\n## Why?"
+      },
+      "supportedFixes": [
+        "Use the documented syntax, for example: # A title\n\nA direct answer.\n\n## Why?"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "compare",
+  "type": "architecture",
+  "stage": "prepare",
+  "error": "CLI output must target a .html file.",
+  "diagnostics": [
+    {
+      "code": "output/cli-extension",
+      "severity": "error",
+      "message": "CLI output must target a .html file.",
+      "subject": {},
+      "evidence": {
+        "output": "out2/x.txt",
+        "resolvedOutput": "/Users/kkh/Desktop/oss-analysis/visualization/artifacts/archify/spec-demos/auxiliary/compare/out2/x.txt",
+        "requiredExtension": ".html"
+      },
+      "supportedFixes": [
+        "choose a path ending in .html whose symbolic-link target also ends in .html"
+      ]
+    }
+  ]
+}

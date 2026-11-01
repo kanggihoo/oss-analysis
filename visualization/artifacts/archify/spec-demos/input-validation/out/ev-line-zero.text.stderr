@@ -1,0 +1,3 @@
+architecture schema validation failed:
+  /components/0/sources/0/line (id/label: "web") must be >= 1 {"comparison":">=","limit":1}
+[schema/minimum] /components/0/sources/0/line (id/label: "web") must be >= 1 Fix: use a value >= 1.

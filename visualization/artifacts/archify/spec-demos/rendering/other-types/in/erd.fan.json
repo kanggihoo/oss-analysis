@@ -1,0 +1,85 @@
+{
+ "schema_version": 1,
+ "diagram_type": "erd",
+ "meta": {
+  "title": "E",
+  "output": "x.html"
+ },
+ "layout": {
+  "mode": "grid"
+ },
+ "entities": [
+  {
+   "id": "p",
+   "label": "p",
+   "row": 0,
+   "col": 1,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ]
+  },
+  {
+   "id": "c1",
+   "label": "c1",
+   "row": 0,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ]
+  },
+  {
+   "id": "c2",
+   "label": "c2",
+   "row": 1,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ]
+  },
+  {
+   "id": "c3",
+   "label": "c3",
+   "row": 2,
+   "col": 0,
+   "attributes": [
+    {
+     "name": "id",
+     "type": "int",
+     "key": "pk"
+    }
+   ]
+  }
+ ],
+ "relationships": [
+  {
+   "from": "c1",
+   "to": "p",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "from": "c2",
+   "to": "p",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  },
+  {
+   "from": "c3",
+   "to": "p",
+   "fromCardinality": "many",
+   "toCardinality": "one"
+  }
+ ]
+}

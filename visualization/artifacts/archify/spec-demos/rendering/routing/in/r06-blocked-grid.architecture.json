@@ -1,0 +1,43 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "r06-blocked-grid",
+  "output": "r06-blocked-grid.html"
+ },
+ "components": [
+  {
+   "id": "a",
+   "type": "backend",
+   "label": "A",
+   "pos": [
+    40,
+    100
+   ]
+  },
+  {
+   "id": "m",
+   "type": "backend",
+   "label": "M",
+   "pos": [
+    240,
+    100
+   ]
+  },
+  {
+   "id": "c",
+   "type": "backend",
+   "label": "C",
+   "pos": [
+    440,
+    100
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "from": "a",
+   "to": "c"
+  }
+ ]
+}

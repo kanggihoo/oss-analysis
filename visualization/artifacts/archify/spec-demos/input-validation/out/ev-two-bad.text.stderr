@@ -1,0 +1,3 @@
+/components/0/sources/0/path does not identify a file at revision 0147eb22a7af41b58c218f2d2be4cbe3b366c87b.
+[repository-evidence/file-missing] /components/0/sources/0/path does not identify a file at revision 0147eb22a7af41b58c218f2d2be4cbe3b366c87b. Fix: use a file path that exists at the pinned revision.
+[repository-evidence/line-out-of-range] /components/0/sources/1 requests line 9, but src/a.txt has 3 lines at revision 0147eb22a7af41b58c218f2d2be4cbe3b366c87b. Fix: use a line range that exists at the pinned revision.
