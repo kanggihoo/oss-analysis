@@ -44,7 +44,6 @@ sources:
   - site/docs/configuration/expected-outputs/model-graded/index.md
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 기본 provider 선택 규칙

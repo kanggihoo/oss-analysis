@@ -16,7 +16,6 @@ sources:
   - repos/DeepTutor/deeptutor/utils/text_display.py
 depends: []
 status: ready
-reimplementation: "Python 3 표준 라이브러리, 두 스펙의 전 R-ID(SQLite 대신 메모리 저장소, 제외 범위 미구현). 스펙 T-ID 45개와 추가 6개 51개 통과. 순수 계산 함수는 원본(기준 SHA 복사본)과 같은 입력으로 비교해 불일치 0(compute_mastery 2000, grade_answer 231, 초기 상태 400, schedule_review 1822, retrievability 1822, replay 400, forgetting_risk 800, next_objective 600사례, 고정 시드, 변이 3종으로 비교의 검출력 확인; 영수증·저장소·evidence_id 등 service.py 경로는 원본과 비교하지 않음). 결과: ../../../artifacts/DeepTutor/reimplementation/RESULT.md, 비교: ../../../artifacts/DeepTutor/mastery-demos/diff_test.py. 재검증 필요: 이 판에서 보강한 R-07의 reason 문구·pending_question 투영(비교는 action·대상·status·gate·mastery·threshold·forgetting_risk만 봤고 재구현의 투영 필드는 원본과 다르다), R-14 evidence_id·래퍼, R-15, R-17·R-22~R-24의 순서·영수증·활성 상호작용, R-18 시도 정렬은 위 비교 범위 밖이다(순수 계산 규칙의 의미는 바꾸지 않음)"
 ---
 
 # 마스터리 엔진: 학습 상태·게이트·다음 목표·증거 기록

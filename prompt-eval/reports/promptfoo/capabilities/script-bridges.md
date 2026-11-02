@@ -51,7 +51,6 @@ sources:
   - site/docs/configuration/reference.md
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 스크립트 브리지·확장 훅

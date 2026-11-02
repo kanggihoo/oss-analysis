@@ -731,3 +731,20 @@
 - `rendering`의 미결정(M-01~M-05)을 하위 스펙 4개로 풀었다: `rendering-architecture-routing`, `rendering-workflow`, `rendering-other-types`, `rendering-contracts`. 출력 쓰기가 하드링크 백업 방식임, `meta.animation: none` 무효, `--quality` 소비처의 타입별 차이 등을 실행으로 확인해 `rendering`·`delivery`·`viewer`·`verification-gates`를 정정했다.
 - 상태: ready 13 / draft 3(`rendering-other-types` 정합 재검증, `authoring-contract` R-18, `auxiliary-commands` 인터페이스 수준 항목). 사용자 요청으로 여기서 중단했고 남은 일과 보정 제안은 `visualization/reports/archify/next.md`에 정리했다.
 - 재구현 검증과 통합 검토 중 대표 흐름 작성은 하지 않았다.
+
+## [2026-11-02] update | TradingAgents v0.7.1 갱신·feature map 재작성
+- 원격 main을 fetch하고 clean 원본을 `1394a3f`에서 `c4544913a14ed3df5f1ed7b9e8483270ce20682a`(v0.7.1, 2026-10-27)로 detached 고정했다. `trading/repos.lock.tsv`, 메타데이터, 변경 파일 목록을 갱신했다.
+- `trading/reports/TradingAgents/overview.md`에 기능 17행·공유 계약 2개, 이전 기준 대비 변경, 코드 근거·미탐색 범위, archify 구조도·해설을 작성했다. 기존 상세 문서는 이전 SHA를 유지하고 최신 입구 링크와 기준 주의문을 붙였다. `next.md`, 루트 `index.md` 갱신. feature map 요청이므로 기능 스펙·승인 대기는 생성하지 않았다.
+- 구조도 finalize의 validate·deliver·check·browser-check 통과(육안 검토 없음). 원본은 설치·실행하지 않았다. 문서 검사 결과는 아래에 기록한다.
+- 최종 확인: `python3 scripts/check.py TradingAgents` → ERROR 0 / NOTE 0. `ls-remote origin refs/heads/main`이 고정 SHA와 일치하고 원본 작업트리 clean 확인.
+
+## [2026-11-02] capability | TradingAgents 핵심14개·공유계약2개 원본 스펙
+- 사용자가 앞서 제안한 메인+서브3개 배분으로 진행 승인했다. 미장 분석도 고려해 원본 동작을 그대로 스펙화하고 국장 변경은 적용 메모 의견으로만 남겼다. SHA `c454491` 고정·원본 설치/실행 없이 코드 직접 열람.
+- `trading/reports/TradingAgents/capabilities/`에 ready16개 작성: 메인 공통5개, 데이터2개, AI6개, 메모리3개. `overview.md` 1·2·5·6절의 승인범위/선행/상태/대표 흐름·단위·비용 근사를 정합화했고 `next.md`, 루트 `index.md`를 갱신했다. 부속15~17은 미작성3개로 유지.
+- 검토에서 날짜 기준은 호스트 로컬 `date.today()`(정산 시계만 UTC), REVIEW도 기록·정산되나 집계 제외, 정상 보류문은 벤더 폴백하지 않음, Yahoo 직접 호출3경로, 같은 run_id의 설정 미구분 skip 등을 확인·반영했다. 공통5개는 메모리 담당이 원본과 교차검토했다.
+- `python3 scripts/check.py TradingAgents` ERROR0 / NOTE0. `trading/artifacts/TradingAgents/spec-audit.json`에 16개 스펙·152개 원본 인용 범위·sources 존재·선행 비순환 검사 결과 기록. 구조도는 기존 자동 검사본 유지. 실제 모델/API·원본 코드 실행·육안 검토 없음. 승인 범위 문서 재현 준비 완료, 외부 연동 구동 확인과 구현은 별도.
+
+## [2026-11-03] workflow | 미커밋 변경 통합 저장
+- 사용자 요청으로 기존 절차·템플릿 정리(실행 확인/재구현 검증 절차 및 reimplementation 메타데이터 제거)와 TradingAgents 갱신·스펙·구조도 산출물을 함께 커밋·push한다. 이전 절차 정리는 이번 저장 과정에서 새로 변경한 내용이 아니라 작업 공간에 남아 있던 diff다.
+- 변경 대상 레포 10개를 `python3 scripts/check.py`로 검사해 ERROR0 / NOTE8. 전체 검사는 ERROR2 / NOTE19이며 오류는 이번에 변경하지 않은 mitmproxy·pi의 기존 깨진 링크다. `git diff --check` 통과. 원본 클론·추적 제외 파일은 커밋 대상에서 제외한다.
+- 신규 파일을 stage한 뒤 발견한 스펙2개의 행끝 공백을 제거했다. 생성 HTML의 기존 공백은 검증 영수증 해시를 보존하기 위해 유지했다. HTML 외 staged diff 공백 검사는 통과했다.

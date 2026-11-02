@@ -24,7 +24,6 @@ sources:
 depends:
   - ../capabilities/skill-source-metadata.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 스킬 원본 변경 확인 (update check)

@@ -10,7 +10,6 @@ sources:
   - archify/references/delivery-contract.md
 depends: [delivery.md, verification-gates.md]
 status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, 선행 스펙 ready
-reimplementation: 미실행
 ---
 
 # finalize 오케스트레이션 (`archify finalize`)

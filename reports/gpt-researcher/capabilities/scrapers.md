@@ -25,7 +25,6 @@ sources:
   - docs/docs/gpt-researcher/gptr/config.md
 depends: []
 status: draft
-reimplementation: 미실행
 ---
 
 # 스크래퍼 패밀리

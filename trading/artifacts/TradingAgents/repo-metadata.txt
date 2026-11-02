@@ -1,0 +1,8 @@
+url=https://github.com/TauricResearch/TradingAgents
+branch=main
+commit=c4544913a14ed3df5f1ed7b9e8483270ce20682a
+commit_date=2026-10-27T01:38:40-07:00
+fetched=2026-11-02
+worktree=clean
+checkout=detached HEAD
+previous_commit=1394a3f72aa4393e1a98f51b382434c4b4c2d972

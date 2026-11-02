@@ -23,7 +23,6 @@ sources:
 depends:
   - ../capabilities/research-pipeline.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 보고서 작성

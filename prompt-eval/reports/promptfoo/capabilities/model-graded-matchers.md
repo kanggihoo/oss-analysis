@@ -60,7 +60,6 @@ depends:
   - ./default-providers.md
   - ./provider-contract.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 모델 채점 매처와 기본 grader 프롬프트

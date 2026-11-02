@@ -34,7 +34,6 @@ sources:
 depends:
   - ../capabilities/template-rendering.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 프롬프트 최적화

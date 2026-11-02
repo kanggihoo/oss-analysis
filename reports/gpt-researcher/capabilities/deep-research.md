@@ -32,7 +32,6 @@ depends:
   - ../capabilities/retrievers.md
   - ../capabilities/research-pipeline.md
 status: draft
-reimplementation: 미실행
 ---
 
 # Deep Research

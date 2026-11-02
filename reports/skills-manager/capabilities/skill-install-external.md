@@ -28,7 +28,6 @@ sources:
 depends:
   - ../capabilities/skill-source-metadata.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 외부 스킬 설치 (Git 저장소 · skills.sh · well-known 사이트)

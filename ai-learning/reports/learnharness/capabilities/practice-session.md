@@ -33,7 +33,6 @@ sources:
 depends:
   - ./question-answer-contract.md
 status: ready
-reimplementation: "Python 3 표준 라이브러리, [강제] R-01~R-15(36개 테스트 통과, 원본과 출력 비교는 안 함), 결과: ../../../artifacts/learnharness/reimplementation/practice/RESULT.md"
 ---
 
 # 연습 세션

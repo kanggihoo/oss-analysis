@@ -26,7 +26,6 @@ depends:
   - ../capabilities/skill-update-check.md
   - ../capabilities/skill-install-external.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 스킬 원본 변경 적용·출처 재연결 (update apply / re-point)

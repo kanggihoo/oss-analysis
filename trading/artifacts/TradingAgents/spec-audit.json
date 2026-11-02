@@ -1,0 +1,30 @@
+{
+  "sha": "c4544913a14ed3df5f1ed7b9e8483270ce20682a",
+  "spec_count": 16,
+  "statuses": {
+    "fundamentals-analysis": "ready",
+    "run-state": "ready",
+    "decision-memory": "ready",
+    "decision-contract": "ready",
+    "decision-backtest": "ready",
+    "run-input": "ready",
+    "point-in-time": "ready",
+    "analysis-orchestration": "ready",
+    "market-analysis": "ready",
+    "configuration": "ready",
+    "checkpoint-resume": "ready",
+    "investment-decision": "ready",
+    "sentiment-analysis": "ready",
+    "news-analysis": "ready",
+    "vendor-routing": "ready",
+    "risk-decision": "ready"
+  },
+  "checked_ranges": 152,
+  "issues": [],
+  "checks": [
+    "source existence",
+    "cited range bounds",
+    "dependency presence and cycle"
+  ],
+  "limitations": "줄 범위의 의미는 자동 검증하지 않는다. 원본 실행 없음. 의미 검토는 코드 직접 열람으로 별도 수행."
+}

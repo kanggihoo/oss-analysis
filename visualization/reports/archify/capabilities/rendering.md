@@ -41,7 +41,6 @@ sources:
   - archify/schemas/common.schema.json
 depends: [input-validation.md]
 status: ready        # 이 스펙 자체의 미결정 없음(이전 M-01~M-05는 하위 스펙으로 이관·해소, M-06은 확인 한계로 이동, 하단 "미결정" 절). 선행 input-validation.md는 ready. 하위 스펙(rendering-architecture-routing, rendering-workflow, rendering-other-types, rendering-contracts)의 draft 여부는 이 status에 영향을 주지 않는다(이 문서는 공통 계층과 architecture 배치·경계·진단만 소유)
-reimplementation: 미실행
 ---
 
 # 렌더링 (검증된 JSON → 타입별 SVG → template.html 슬롯 → HTML 한 파일)

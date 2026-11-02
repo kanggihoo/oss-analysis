@@ -75,7 +75,6 @@ depends:
   - ./engine-and-schema.md
   - ./ai-gateway.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 페이지 저장·쓰기 저널과 마크다운 import·embed·export

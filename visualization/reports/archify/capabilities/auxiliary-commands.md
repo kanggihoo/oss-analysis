@@ -21,7 +21,6 @@ sources:
   - README.md
 depends: []
 status: draft            # compare·migrate·preview는 깊이 조사했으나, brands capture·update 확인·recover·examples는 요청에 따라 인터페이스 수준만 확인해 내부가 미결정
-reimplementation: 미실행
 ---
 
 # 보조 명령 (compare architecture · migrate · preview · brands · doctor · demo · examples, update 확인, recover)

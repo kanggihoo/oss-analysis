@@ -12,7 +12,6 @@ sources:
   - archify/renderers/shared/utils.mjs
 depends: [rendering.md]
 status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, 선행 스펙 ready
-reimplementation: 미실행
 ---
 
 # architecture 자동 라우팅 (포트 → 후보 경로 → 격자 탐색 → 개선 스윕 → 라벨 위치)

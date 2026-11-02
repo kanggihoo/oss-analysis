@@ -41,7 +41,6 @@ sources:
   - tests/test_research_conductor_retrieval.py
 depends: []
 status: draft
-reimplementation: 미실행
 ---
 
 # 검색 Retriever 패밀리

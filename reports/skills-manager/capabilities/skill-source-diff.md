@@ -19,7 +19,6 @@ sources:
 depends:
   - ../capabilities/skill-source-metadata.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 스킬 원본과 내 사본의 차이 보기 (source diff)

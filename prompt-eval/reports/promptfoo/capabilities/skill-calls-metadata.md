@@ -19,7 +19,6 @@ sources:
   - site/docs/providers/opencode-sdk.md
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # SkillCallEntry 메타데이터 계약 (`response.metadata.skillCalls`)

@@ -1,6 +1,6 @@
 # 기능 스펙 요청 템플릿 (Capability Request Template)
 
-feature map의 한 행을 스펙으로 쓰게 하거나, 쓴 스펙으로 재구현을 검증할 때 쓴다. 단계와 완료 조건은 [OSS_ANALYSIS_WORKFLOW.md 4장](../OSS_ANALYSIS_WORKFLOW.md#4-기능-스펙), 섹션별 작성 규칙은 [capability-spec-template.md](capability-spec-template.md) 주석에 있다. 아래 블록을 복사해 `<...>`만 채운다. 서브에이전트에 맡기든 한 세션에서 순서대로 쓰든 같은 항목을 쓴다.
+feature map의 한 행을 스펙으로 쓰게 할 때 쓴다. 단계와 완료 조건은 [OSS_ANALYSIS_WORKFLOW.md 4장](../OSS_ANALYSIS_WORKFLOW.md#4-기능-스펙), 섹션별 작성 규칙은 [capability-spec-template.md](capability-spec-template.md) 주석에 있다. 아래 블록을 복사해 `<...>`만 채운다. 서브에이전트에 맡기든 한 세션에서 순서대로 쓰든 같은 항목을 쓴다.
 
 ---
 
@@ -24,26 +24,3 @@ AGENTS.md와 OSS_ANALYSIS_WORKFLOW.md 4장대로 원본 동작을 스펙으로 �
 1. status와 남은 미결정
 2. feature map 보정 제안: 경계 변경 / 새 기능 후보 / 새 선행 관계 (각각 근거 위치)
 ```
-
----
-
-## 2. 재구현 검증 요청
-
-제공물은 스펙 1부, 기준 SHA, 선행 스펙, 1.5의 코드 범위다. 적용 메모를 반영한 구현을 검증할 때만 적용 메모도 준다.
-
-- 기본: 재구현자가 `repos/<repo>`에서 기준 SHA의 지정 범위만 읽는다(`git -C repos/<repo> show <SHA>:<path> | sed -n '<L1>,<L2>p'`).
-- 선택: 저장소를 함께 줄 수 없거나 범위를 고정해야 하면 같은 범위를 발췌해 `artifacts/<repo>/<검증주제>/`에 두고 준다. 코드 복사이므로 overview 1절의 라이선스와 고지를 함께 전달한다.
-
-```text
-<스펙 파일>의 1부, 선행 스펙 <목록>, 1.5 코드 참조만 읽고 <언어>로 이 기능을 구현해.
-원본 코드는 repos/<repo>의 <SHA>에서 1.5에 적힌 줄 범위만 읽어(git show 사용, 작업트리 HEAD 아님).
-검증 대상: <원본 재현(기본) | 적용 메모 반영>
-작업 폴더: <작업 폴더>. 그 밖의 oss-analysis 파일(reports/, artifacts/, 루트 문서)은 읽지 마.
-
-1. 1.6 수락 사례를 먼저 테스트로 작성하고, 그다음 구현해.
-2. 스펙이 모호하거나 빠져서 추측한 부분을 목록으로 남겨 (R-ID, 무엇을 추측했는지, 어떻게 정했는지).
-3. 1.5 범위 밖에서 추가로 연 원본 파일과 이유를 남겨.
-4. 끝나면 테스트 결과, 추측 목록, 추가로 연 파일을 보고해.
-```
-
-결과 반영은 [OSS_ANALYSIS_WORKFLOW.md 4장](../OSS_ANALYSIS_WORKFLOW.md#4-기능-스펙) 6번을 따른다. 수락 사례 통과는 스펙과 구현이 서로 맞다는 뜻이다. 원본과 같다고 말하려면 같은 입력으로 원본과 재구현의 출력·사후 상태를 비교하고, 비교한 사례만큼만 적는다.

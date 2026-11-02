@@ -28,7 +28,6 @@ sources:
   - repos/learnharness/src/agent/prompts/shared/16-mental-model.md
 depends: []
 status: ready
-reimplementation: "Python 3 표준 라이브러리, [강제] R-ID의 순수 검증·변환 로직만(권고 규칙과 UI는 제외). 4개 스펙(question-answer-contract, probe-measurement, plan-tree, teaching-cycle)의 1.6 T-ID 전부를 포함해 83개 테스트 통과. 원본과 같은 입력으로 비교하지 않음(원본은 TypeScript이고 실행하지 않았다). 결과: ../../../artifacts/learnharness/reimplementation/core/RESULT.md"
 ---
 
 # 질문·답변 계약 (공유 계약 S2)

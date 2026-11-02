@@ -60,7 +60,6 @@ depends:
   - ./provider-contract.md
   - ./skill-calls-metadata.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 어서션 패밀리와 어서션 핸들러 계약

@@ -10,7 +10,6 @@ sources:
 depends:
   - artifact-choice.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 타입 선택과 `guide`

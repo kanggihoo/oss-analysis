@@ -21,7 +21,6 @@ sources:
 depends:
   - type-routing.md
 status: draft
-reimplementation: 미실행
 ---
 
 # 근거 수집과 초안 작성 규칙

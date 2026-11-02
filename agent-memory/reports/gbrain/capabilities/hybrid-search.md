@@ -70,7 +70,6 @@ depends:
   - ./ai-gateway.md
   - ./page-storage-and-import.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 하이브리드 검색 (search · query · search_exact · 이미지 질의)

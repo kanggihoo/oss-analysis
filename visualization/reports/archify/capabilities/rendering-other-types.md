@@ -25,7 +25,6 @@ sources:
   - archify/schemas/sequence.schema.json
 depends: [rendering.md, rendering-architecture-routing.md]
 status: draft          # 2026-11-02: U-01~U-06 해소 문구를 썼으나 작업이 편집 도중에 중단돼 C-ID·T-ID·2.1 정합을 검증하지 못함. 다시 확인 후 ready
-reimplementation: 미실행
 ---
 
 # 렌더링 (나머지 8개 타입: dataflow·lifecycle·erd·class는 깊게, sequence·tree·timeline·waterfall은 입력→배치→출력)

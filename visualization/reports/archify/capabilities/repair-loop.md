@@ -14,7 +14,6 @@ sources:
   - archify/renderers/shared/validator.mjs
 depends: [finalize-orchestration.md, verification-gates.md]
 status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, 선행 스펙 ready
-reimplementation: 미실행
 ---
 
 # 실패 진단·수리 루프

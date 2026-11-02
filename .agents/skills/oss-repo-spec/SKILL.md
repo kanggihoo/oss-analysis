@@ -36,9 +36,8 @@ description: 레포 하나를 받아 이 작업 공간의 절차대로 처음부
    - 병렬: 선행이 없는 행끼리는 서브에이전트에 맡겨도 된다. 지시문은 [capability-request-template.md](../../../templates/capability-request-template.md) 1번을 행마다 채워 쓴다. 작업자는 자기 스펙 파일만 쓰고, 메인 세션이 그들의 "feature map 보정 제안"을 feature map에 반영한다.
    - 분량: 규칙마다 글과 C-ID(코드 위치) 중 구현자가 더 짧고 정확하게 읽을 쪽을 고른다. 짧고 자기완결적인 함수는 C-ID 한 줄과 경계 설명이면 된다.
    - 완료: 승인된 모든 행에 스펙 파일이 있고, `python scripts/check.py <repo>`에 `[status]` ERROR가 없다(feature map·index 상태 = 스펙 `status`).
-6. **통합 검토와 보고.** 워크플로 4장 5번(통합 검토 4항목)과 7번(연결·보고)을 하고, 6장대로 `next.md`·`index.md`·`log.md`를 갱신한다.
+6. **통합 검토와 보고.** 워크플로 4장 5번(통합 검토 4항목)과 6번(연결·보고)을 하고, 6장대로 `next.md`·`index.md`·`log.md`를 갱신한다.
    - 보고: "재현 준비 완료" 또는 "조사·초안 작성 종료", `ready M / draft K / 미작성 N`, 남은 미결정, 바꾼 파일.
-   - 재구현 검증(4장 6번)은 사용자가 요청할 때만 한다.
 
 ## 세션이 끊길 때
 

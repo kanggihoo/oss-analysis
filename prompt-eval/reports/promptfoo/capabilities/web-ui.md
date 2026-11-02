@@ -67,7 +67,6 @@ depends:
   - results-store.md
   - eval-records.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 웹 UI·로컬 서버 — `promptfoo view`의 결과 조회·비교 (범위 제한판)

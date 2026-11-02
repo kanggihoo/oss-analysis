@@ -46,7 +46,6 @@ depends:
   - ./eval-records.md
   - ./response-cache.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 평가 실행 파이프라인 (`promptfoo eval`)

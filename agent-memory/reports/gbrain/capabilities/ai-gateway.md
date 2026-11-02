@@ -54,7 +54,6 @@ sources:
   - src/commands/pricing.ts
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # AI 게이트웨이·설정·예산

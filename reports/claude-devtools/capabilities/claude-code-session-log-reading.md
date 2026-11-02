@@ -15,7 +15,6 @@ sources:
   - test/main/utils/pathDecoder.test.ts
   - test/main/services/discovery/ProjectScanner.cwdSplit.test.ts
 status: draft
-reimplementation: 미실행
 ---
 
 # Claude Code 세션 로그 탐색과 읽기

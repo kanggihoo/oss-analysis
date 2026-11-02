@@ -58,7 +58,6 @@ sources:
   - docs/architecture/system-of-record.md
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 엔진 선택·스키마·마이그레이션

@@ -32,7 +32,6 @@ sources:                      # questions/, <패키지>/NN-주제.md, capabiliti
 depends:                      # capabilities/만. 선행 스펙 (이 파일 기준 상대 경로)
   - <../capabilities/<slug>.md>
 status: draft | ready         # capabilities/만
-reimplementation: 미실행      # capabilities/만. 실행하면 언어·범위·결과 링크
 ---
 ```
 
@@ -43,8 +42,7 @@ reimplementation: 미실행      # capabilities/만. 실행하면 언어·범위
 | `updated` | 내용이 바뀌거나 코드·실행으로 다시 확인했을 때 바꾼다. 링크·오타·형식만 고칠 때는 바꾸지 않는다. |
 | `sources` | 본문에서 인용하거나 판단 근거로 쓴 원본 파일을 적는다. 테스트·설정·문서도 근거로 썼으면 넣고, 열어 보기만 한 파일은 넣지 않는다. 레포가 업데이트됐을 때 다시 볼 문서를 찾는 기준이다(`OSS_ANALYSIS_WORKFLOW.md` 5장). |
 | `depends` | 재구현에 필요한 계약을 가진 다른 스펙. 런타임 호출 관계 전체가 아니고, 스펙 안에서 경계만 정의한 의존은 넣지 않는다. 선행 스펙이 바뀌면 재검토 대상이다. 없으면 `[]`. |
-| `status` | `ready` = 선언한 범위에서 행동 규칙이 정해졌고, 1.5 코드 참조와 선행 스펙이 해소됐고(선행 스펙도 `ready`), 구현을 막는 모순·미결정이 없음. 실행으로 원본과 같은지 검증했다는 뜻은 아니다. 이전 형식(A/B, "채택" 열) 스펙의 `ready`는 우리가 정한 계약 기준이다. |
-| `reimplementation` | `templates/capability-request-template.md` 2번 요청으로 검증한 결과 링크. 결과 문서에는 제공 범위, 테스트 결과, 원본과 비교한 사례, 관찰한 차이, 미검증 범위를 적는다. |
+| `status` | `ready` = 선언한 범위에서 행동 규칙이 정해졌고, 1.5 코드 참조와 선행 스펙이 해소됐고(선행 스펙도 `ready`), 구현을 막는 모순·미결정이 없음. 이전 형식(A/B, "채택" 열) 스펙의 `ready`는 우리가 정한 계약 기준이다. |
 
 넣지 않는 것: `title`(본문 첫 제목), `type`(파일 이름·폴더), `repo`(경로), `url`(`artifacts/<repo>/repo-metadata.txt`), 문서 전체 검증 수준(주장마다, 기능 스펙은 R-ID마다 본문에 붙임).
 

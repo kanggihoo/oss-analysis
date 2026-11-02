@@ -28,7 +28,6 @@ sources:
   - backend/report_type/detailed_report/detailed_report.py
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 연구 파이프라인
