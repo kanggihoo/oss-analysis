@@ -20,7 +20,6 @@ sources:
   - archify/examples/release-delivery.workflow.json
 depends: [rendering.md]
 status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, 선행 스펙 ready
-reimplementation: 미실행
 ---
 
 # 렌더링: workflow 렌더러 (입력 정규화 → 열·레인 배치 → 라우트 선택 → 검증 → SVG)

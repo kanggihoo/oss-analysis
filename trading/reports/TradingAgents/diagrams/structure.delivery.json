@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "99273e75-f59f-4c5b-84bb-93a03f451afa",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.html",
+  "specification": {
+    "sha256": "6f0c65538978e144dc9f0e668f783b70e25aa21e034bacc3bee55515e2e77807",
+    "bytes": 4043
+  },
+  "artifact": {
+    "sha256": "c7a2839f8254882f1a825b673035e37a79691ffd9185386de5dbb93b23a7445d",
+    "bytes": 844883
+  }
+}

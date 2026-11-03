@@ -37,7 +37,6 @@ depends:
   - skill-calls-metadata.md
   - response-cache.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 에이전트 SDK 프로바이더 (Claude Agent SDK · Codex SDK/app-server · OpenCode SDK)

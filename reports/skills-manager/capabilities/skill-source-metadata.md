@@ -15,7 +15,6 @@ sources:
   - src/views/MySkills.tsx
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 스킬 출처 메타데이터 (skill source metadata)

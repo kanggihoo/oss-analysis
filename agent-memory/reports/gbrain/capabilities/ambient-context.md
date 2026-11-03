@@ -61,7 +61,6 @@ depends:
   - ./page-storage-and-import.md
   - ./engine-and-schema.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 주변 맥락 push (훅 주입 · volunteer_context · watch · compile-context)

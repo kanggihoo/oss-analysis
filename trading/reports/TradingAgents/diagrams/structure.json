@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "TradingAgents v0.7.1 모듈 구조",
+    "locale": "ko",
+    "output": "trading/reports/TradingAgents/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/TauricResearch/TradingAgents",
+      "revision": "c4544913a14ed3df5f1ed7b9e8483270ce20682a"
+    }
+  },
+  "components": [
+    {
+      "id": "input",
+      "type": "frontend",
+      "label": "실행 입력",
+      "sublabel": "CLI · Python API",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "cli/main.py",
+          "line": 36,
+          "end_line": 104
+        }
+      ]
+    },
+    {
+      "id": "graph",
+      "type": "backend",
+      "label": "실행 그래프",
+      "sublabel": "상태 · 모델 · 체크포인트",
+      "pos": [
+        340,
+        40
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "tradingagents/graph/trading_graph.py",
+          "line": 167,
+          "end_line": 200
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "type": "database",
+      "label": "판단 메모리",
+      "sublabel": "정산 · 교훈",
+      "pos": [
+        340,
+        260
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "tradingagents/graph/trading_graph.py",
+          "line": 308,
+          "end_line": 345
+        }
+      ]
+    },
+    {
+      "id": "analysts",
+      "type": "backend",
+      "label": "병렬 분석",
+      "sublabel": "시장 · 재무 · 뉴스 · 감성",
+      "pos": [
+        680,
+        40
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "tradingagents/graph/setup.py",
+          "line": 144,
+          "end_line": 166
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "type": "cloud",
+      "label": "데이터 접근",
+      "sublabel": "도구 · 벤더 · 날짜 제한",
+      "pos": [
+        1000,
+        40
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "tradingagents/agents/tools.py",
+          "line": 1,
+          "end_line": 35
+        }
+      ]
+    },
+    {
+      "id": "invest",
+      "type": "backend",
+      "label": "투자 판단",
+      "sublabel": "Bull/Bear · 매니저 · Trader",
+      "pos": [
+        680,
+        260
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "tradingagents/graph/setup.py",
+          "line": 168,
+          "end_line": 176
+        }
+      ]
+    },
+    {
+      "id": "risk",
+      "type": "backend",
+      "label": "리스크 판단",
+      "sublabel": "3자 토론 · PM 등급",
+      "pos": [
+        1000,
+        260
+      ],
+      "size": [
+        190,
+        80
+      ],
+      "sources": [
+        {
+          "path": "tradingagents/graph/setup.py",
+          "line": 177,
+          "end_line": 185
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "input",
+      "to": "graph",
+      "label": "분석 요청"
+    },
+    {
+      "from": "graph",
+      "to": "analysts",
+      "label": "병렬 조립"
+    },
+    {
+      "from": "graph",
+      "to": "memory",
+      "label": "정산·교훈"
+    },
+    {
+      "from": "analysts",
+      "to": "data",
+      "label": "데이터 조회"
+    },
+    {
+      "from": "analysts",
+      "to": "invest",
+      "label": "보고서 합류"
+    },
+    {
+      "from": "invest",
+      "to": "risk",
+      "label": "계획·제안"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "범위",
+      "items": [
+        "호출·조립 관계를 나타낸 모듈 구조다.",
+        "메모리는 분석가와 병렬 실행하며 PM에 교훈을 제공한다.",
+        "최종 등급은 판단 결과이며 주문 체결 경로는 포함하지 않는다."
+      ]
+    }
+  ]
+}

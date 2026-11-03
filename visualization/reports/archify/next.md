@@ -29,7 +29,6 @@ updated: 2026-11-02
 **아직 하지 않은 것**
 
 - 통합 검토(워크플로 4장 5번) 4항목 중 4번: 기능을 가로지르는 대표 흐름 하나를 입력부터 결과까지 글로 잇기. 스펙 간 교차 정합도 q1~q3·overview 반영 수준에서 끝났고 12개 문서 전체를 서로 대조하지는 않았다.
-- 재구현 검증(4장 6번): 어느 스펙도 하지 않았다(`reimplementation: 미실행`). 시작점 후보는 ready인 `input-validation`. workflow 재구현은 R-13(수리 후보)·R-21(피드백 루프)이 막히기 쉽다.
 
 **feature map 보정 제안 (판단 대기, 미반영)**
 
@@ -61,7 +60,6 @@ updated: 2026-11-02
 1. 이 문서와 overview 2절 상태 칸을 읽는다.
 2. `rendering-other-types` 정합 확인 → `authoring-contract` R-18 → `auxiliary-commands` 내부 순서로 draft를 닫는다.
 3. 통합 검토 4번(대표 흐름)을 쓰고 feature map 보정 제안의 판단을 받는다.
-4. 필요하면 재구현 검증.
 
 ## 4. 참고
 

@@ -40,7 +40,6 @@ sources:
   - src/app/src/pages/eval/components/utils.ts
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 평가 결과 레코드 (`Eval`, `EvalResult`, `EvaluateResult`, `CompletedPrompt.metrics`)

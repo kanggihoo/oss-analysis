@@ -30,7 +30,6 @@ sources:
   - packages/core/tests/unit/template/builtin-template-id-consistency.test.ts
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 템플릿 렌더링 규칙

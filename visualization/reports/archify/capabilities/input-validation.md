@@ -31,7 +31,6 @@ sources:
   - archify/renderers/waterfall/render-waterfall.mjs
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 입력 로드·검증

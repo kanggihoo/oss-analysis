@@ -76,7 +76,6 @@ depends:
   - ./page-storage-and-import.md
   - ./hybrid-search.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 메모리 verbs 7개와 프로토콜 (remember · recall · entity · synthesize · forget · context_pack · delta)

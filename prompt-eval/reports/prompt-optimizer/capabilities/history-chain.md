@@ -19,7 +19,6 @@ sources:
   - packages/ui/src/types/evaluation.ts
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 히스토리·버전 체인 (데이터 모델 중심)

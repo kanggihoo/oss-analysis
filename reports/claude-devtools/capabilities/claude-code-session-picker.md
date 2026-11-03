@@ -15,7 +15,6 @@ sources:
   - test/main/services/discovery/WorktreeGrouper.test.ts
   - test/main/services/parsing/GitIdentityResolver.test.ts
 status: draft
-reimplementation: 미실행
 ---
 
 # Claude Code 세션 선택 목록

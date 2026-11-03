@@ -34,7 +34,6 @@ sources:
   - viewer/template.source.html
 depends: [rendering.md]
 status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, 선행 스펙 ready
-reimplementation: 미실행
 ---
 
 # 렌더링 계약 점검 (SVG `data-*` 훅의 쓰는 쪽·읽는 쪽, 품질 프로파일 비대칭, 출력 쓰기 두 경로)

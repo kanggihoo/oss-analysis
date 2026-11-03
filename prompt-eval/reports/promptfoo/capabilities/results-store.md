@@ -52,7 +52,6 @@ depends:
   - eval-records.md
   - provider-contract.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 결과 저장·출력·결과 관리 명령 (SQLite 영속화, `-o` 출력, `list/show/export/import/delete/retry`)

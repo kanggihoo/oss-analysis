@@ -29,7 +29,6 @@ sources:
 depends:
   - ./template-rendering.md
 status: ready
-reimplementation: 미실행
 ---
 
 # LLM 평가 (결과 평가·비교 평가·구조화 비교, 요청·응답 계약 포함)

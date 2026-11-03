@@ -24,7 +24,6 @@ depends:
   - ./llm-evaluation.md
   - ./iterate-rewrite.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 구조화 비교 보정 스크립트 (부속, 개발자용)

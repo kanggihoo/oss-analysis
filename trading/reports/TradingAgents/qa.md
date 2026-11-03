@@ -1,3 +1,12 @@
+---
+sha: "1394a3f72aa4393e1a98f51b382434c4b4c2d972"
+created: 2026-10-09
+updated: 2026-10-09
+---
+
+
+> 이전 SHA 기준 상세 분석입니다. 현재 코드의 feature map은 [최신 overview](overview.md)를 보세요. 이 문서의 상세 주장은 새 SHA에서 전부 재검증하지 않았습니다.
+
 # TradingAgents — 질문·답변 검증 기록
 
 - 분석 SHA: `1394a3f72aa4393e1a98f51b382434c4b4c2d972`

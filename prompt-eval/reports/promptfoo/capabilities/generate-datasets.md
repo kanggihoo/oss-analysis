@@ -32,7 +32,6 @@ depends:
   - ./default-providers.md
   - ./config-loading.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 테스트·어서션 합성 (`promptfoo generate dataset` / `generate assertions`)

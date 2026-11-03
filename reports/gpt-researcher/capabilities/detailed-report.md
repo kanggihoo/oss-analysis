@@ -27,7 +27,6 @@ depends:
   - ../capabilities/research-pipeline.md
   - ../capabilities/report-writing.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 상세 보고서

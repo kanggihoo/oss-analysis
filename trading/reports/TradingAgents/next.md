@@ -1,47 +1,31 @@
-# TradingAgents — 다음 세션 메모
+---
+sha: "c4544913a14ed3df5f1ed7b9e8483270ce20682a"
+created: 2026-11-02
+updated: 2026-11-02
+---
 
-- 분석 SHA: `1394a3f72aa4393e1a98f51b382434c4b4c2d972` (repos.lock.tsv와 일치)
-- 분석일: 2026-10-09
-- 관련 공통 항목: 전체
-- 검증 수준 요약: 코드 확인 0 / 추론 1 / 미확인 3
+# TradingAgents — 다음 작업
 
-## 확인한 범위
+## 1. 확인한 범위
 
-정독(전체 열람, 라인 번호 확인):
-- `tradingagents/graph/` : `setup.py`, `conditional_logic.py`, `trading_graph.py`, `analyst_execution.py`, `propagation.py`, `checkpointer.py`(앞 80줄)
-- `tradingagents/agents/` : 분석가 4종 + `turn.py`, 불/베어, `research_manager.py`, `trader.py`, `portfolio_manager.py`, 리스크 3인(공격적 전문, 나머지는 프롬프트 첫 문장), `schemas.py`, `rating.py`, `structured.py`, `state.py`, `context.py`, `tools.py`, `post_screen.py`
-- `tradingagents/memory/` 3개 전부, `tradingagents/backtest.py`, `tradingagents/portfolio.py`
-- `tradingagents/dataflows/` : `router.py`, `date_window.py`, `errors.py`, `config.py`, `symbols.py`, `net.py`, `vendors/yahoo/*`(전부), `sec_edgar.py`, `fred.py`(핵심 구간), `polymarket.py`(핵심 구간), `stocktwits.py`, `reddit.py`
-- `default_config.py`, `main.py`, `cli/main.py`·`cli/run.py`(진입·REVIEW 처리), `cli/models.py`, `cli/prompts.py`(분석가 필터), `reporting.py`(앞부분), `README.md`, `CHANGELOG.md`(앞부분), `pyproject.toml`, `.github/workflows/ci.yml`
-- grep 근거: 스케줄러·WebSocket·주문·한도·코인 전용 지표·미사용 함수
+[overview](overview.md) 행1~14와 공유계약 S1·S2를 사용자 진행 승인에 따라 원본 동작으로 스펙화했다. ready16 / draft0 / 미작성3(부속15~17). 메인이 공통5개, 데이터 담당2개, AI 담당6개, 메모리 담당3개를 작성했고 공통 계약 교차검토·대표 흐름 통합 검토를 마쳤다. 국장용으로 원본을 변경하지 않았다.
 
-## 미확인 항목 체크리스트
+- 스펙·읽는 순서: overview 2절 선행 열. S1·S2·configuration부터 읽고 run-input·point-in-time·analysis-orchestration·vendor-routing, 분석가·판단·메모리/재개·백테스트로 이어간다.
+- 대표 입력→결정→정산 연결, 호출 수 근사 및 주요 한계: overview 6절.
+- 이전 Q1~Q7 상세 보고서는 `1394a3f` 기록으로 유지한다. 최신 동작의 원본은 현재 capabilities이며 예전 숫자·주장을 혼용하지 않는다.
 
-- [ ] Alpha Vantage 벤더 내부(`dataflows/vendors/alpha_vantage/*.py` 5개): 캐시 유무, look-ahead 필터 구현(CHANGELOG는 있다고 함)
-- [ ] LangGraph `ToolNode`의 도구 예외 기본 처리(예외가 런을 끝내는지) — 라이브러리 소관, 설치 금지라 미열람
-- [ ] stockstats 지표 기본 파라미터(RSI 14, boll 20/2σ, ATR 14, MACD 12/26/9) — 라이브러리 소관(추론으로만 표기)
-- [ ] `llm_clients/*`(공급자별 구조화 출력 지원, temperature·재시도 전달, `capabilities.py`/`model_catalog.py`) 내부
-- [ ] `cli/prompts.py`·`cli/selections.py`·`cli/display.py` 전체(UI는 패널 이름 수준만 확인)
-- [ ] `report_html.py` 렌더링 세부
-- [ ] `tests/`의 의도 문서화 가치가 큰 테스트(`test_rating_integrity.py`, `test_memory_pointintime.py`, `test_structured_agents.py`, `test_graph_end_to_end.py`)로 동작 보증 범위 교차 확인
-- [ ] 보수적·중립 리스크 토론 프롬프트 전문(첫 문장과 상태 갱신만 확인)
-- [ ] Jev(TypeSafe) 외부 API 실제 응답 형식(레포 코드 기준으로만 확인)
-- [ ] 실행 검증은 하지 않음(설치·실행 금지). 모든 "실행 확인"은 0건
+## 2. 남은 질문·확인 한계
 
-## 다음에 볼 파일과 함수
+선언한 스펙 범위의 구현을 막는 미결정은 없다. 외부 모델·API·LangGraph·stockstats 내부 기본값·실제 성능은 실행 검증하지 않았다. 원본 설치·실행 금지 규칙을 유지했다.
 
-| 목적 | 파일 / 함수 |
-|---|---|
-| 한국 벤더 삽입 프로토타입 설계 | `tradingagents/dataflows/router.py` `VENDOR_METHODS`·`route_to_vendor`, `tradingagents/dataflows/errors.py`, `tradingagents/dataflows/symbols.py` `normalize_symbol` |
-| 정산 가격 소스 교체 | `tradingagents/memory/settlement.py` `fetch_returns`, `tradingagents/dataflows/vendors/yahoo/market.py` `get_closes` |
-| 코드 게이트를 붙일 위치 | `tradingagents/graph/trading_graph.py` `_run_graph`→`record_decision` 직전, 또는 `portfolio_manager.py:80-86` 직후 |
-| 비용 정밀화 | `cli/stats_handler.py`(`StatsCallbackHandler`)로 실제 호출 수 측정 방식 확인 |
-| 다른 레포 비교용 | `agents/schemas.py`(출력 스키마), `agents/rating.py`(`REVIEW` 규약) |
+특히 검증 스냅샷·종목 identity·정산 종가는 Yahoo 직접 경로다. 벤더 등록만 추가해 전부 교체됐다고 볼 수 없다. 날짜 guard·교훈 resolved 제한이 모델 사전학습 지식이나 현 다운로드 조정주가의 과거 개정을 되돌리지는 않는다(각 스펙 코드 확인·확인 한계).
 
-## 분석 중 생긴 질문
+## 3. 다음 후보
 
-1. RM·Trader·PM 등급이 충돌한 실제 빈도는? (코드는 강제하지 않음. 백테스트 로그로 측정 가능한지)
-2. 5거래일 알파 정산이 5일 짜리 교훈을 PM에 주입하는 것이 의사결정 품질에 도움이 되는가? 레포는 창이 짧다고 인정만 함.
-3. Sentiment의 point-in-time 불가를 인정하는데, 백테스트에서 소셜을 끄는 공식 권장 방법은? (`--analysts market,news,fundamentals` 사용 가능은 코드로 확인, 권장 여부는 미확인)
-4. `get_stock_data`(비캐시)와 지표(캐시) 간 장중 불일치가 실제로 문제가 되는가?
-5. 프롬프트 인젝션 방어를 위해 레포가 의도적으로 안 한 것인가, 아직 없는 것인가? (이슈 트래커는 미확인)
+- 사용자가 원하면 미국주식 대표 종목의 입력·도구·보고서·교훈을 스펙 순서로 설명한다.
+- 국장 설계를 요청하면 수집 계약을 유지하며 종목 식별·검증 스냅샷·정산·공시/수급·뉴스 소스를 각각 어디서 바꿀지 설계한다. 국내 API 매핑은 아직 검증하지 않았다.
+- 미작성 부속15~17(CLI/보고서, ChatGPT 인증, CLI 기억/업데이트)은 추가 요청 범위다. 현재 승인 대기 항목 없음.
+
+## 4. 재개 지점·검증
+
+문서 정합 검사 `python3 scripts/check.py TradingAgents` → ERROR0 / NOTE0. [별도 감사 기록](../../artifacts/TradingAgents/spec-audit.json)은 스펙16개·원본 인용 범위152개, sources 존재·줄 경계·depends 존재/순환을 검사했다. 이 감사는 원본 의미의 자동 검증이 아니며 의미는 직접 열람·교차검토했다. 원본 worktree clean, 고정 SHA 유지. 구조도는 이전 자동 검사 통과본을 유지했고 이번에는 다시 렌더링하거나 육안 검토하지 않았다.

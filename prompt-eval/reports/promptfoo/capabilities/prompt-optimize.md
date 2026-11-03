@@ -43,7 +43,6 @@ depends:
   - ./eval-records.md
   - ./response-cache.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 프롬프트 최적화 (`promptfoo optimize`)

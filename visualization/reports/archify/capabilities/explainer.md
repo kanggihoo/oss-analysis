@@ -28,7 +28,6 @@ sources:
   - archify/references/explainer-authoring.md
 depends: [delivery.md]    # delivery.md 는 다른 작업자가 작성 중이며 2026-11-02 현재 파일이 없다
 status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, 선행 스펙 ready
-reimplementation: 미실행
 ---
 
 # explainer 경로 (Markdown 초안 → 검증된 단일 HTML 페이지, 패널 단위 수정)

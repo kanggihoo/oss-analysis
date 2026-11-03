@@ -69,7 +69,6 @@ depends:
   - ./hybrid-search.md
   - ./memory-verbs.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 사실 추출·자동 캡처 (extract_facts · facts-backstop · 캡처 레인 · 대화 사실 배치)

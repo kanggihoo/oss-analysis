@@ -37,7 +37,6 @@ sources:
 depends:
   - ../capabilities/research-pipeline.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 소스 모드

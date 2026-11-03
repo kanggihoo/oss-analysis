@@ -40,7 +40,6 @@ depends:
   - ../capabilities/prompt-optimize.md
   - ../capabilities/llm-evaluation.md
 status: ready
-reimplementation: 미실행
 ---
 
 # 반복 개선·평가 기반 재작성

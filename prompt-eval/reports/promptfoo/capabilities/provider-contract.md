@@ -43,7 +43,6 @@ sources:
   - site/docs/providers/custom-api.md
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 프로바이더 계약 (ApiProvider·ProviderResponse·접두어 디스패치)

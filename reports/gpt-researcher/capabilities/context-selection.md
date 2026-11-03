@@ -22,7 +22,6 @@ sources:
 depends:
   - ../capabilities/scrapers.md
 status: draft
-reimplementation: 미실행
 ---
 
 # 컨텍스트 선별

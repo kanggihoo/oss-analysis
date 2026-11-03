@@ -54,7 +54,6 @@ sources:
   - test/prompts/fileMetadata.test.ts
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 설정·프롬프트·테스트 로딩 (+ 설정 스키마 계약)

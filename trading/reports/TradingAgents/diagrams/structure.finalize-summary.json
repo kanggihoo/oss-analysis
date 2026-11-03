@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.json",
+    "sha256": "6f0c65538978e144dc9f0e668f783b70e25aa21e034bacc3bee55515e2e77807",
+    "bytes": 4043
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.html",
+    "sha256": "c7a2839f8254882f1a825b673035e37a79691ffd9185386de5dbb93b23a7445d",
+    "bytes": 844883
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/trading/reports/TradingAgents/diagrams/structure.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-02T11:08:04.190Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 4133,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

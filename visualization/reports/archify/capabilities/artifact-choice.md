@@ -7,7 +7,6 @@ sources:
   - archify/references/explainer-authoring.md
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 산출물 선택

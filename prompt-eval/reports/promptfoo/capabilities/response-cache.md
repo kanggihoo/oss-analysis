@@ -27,7 +27,6 @@ sources:
   - test/providers/claude-agent-sdk.test.ts
 depends: []
 status: ready
-reimplementation: 미실행
 ---
 
 # 응답 캐시 (response-cache)
