@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.json",
+    "sha256": "0044bbab1713bc29c143b7fa3f7e599644fc4565eb31b800460143d518975dfe",
+    "bytes": 7650
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.html",
+    "sha256": "2121baf3f6c5f36ffb45c30fc0edd16ccc0fe31b54ef51c7e6332f6afc6cf18e",
+    "bytes": 869925
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-02T11:08:04.190Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3353,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

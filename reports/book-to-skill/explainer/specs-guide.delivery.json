@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "948c0550-d497-4703-99a5-d882c9eb054f",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "/Users/kkh/Desktop/oss-analysis/.archify/explainer-book-to-skill-specs-20261105-002646/candidate.archify.md",
+  "output": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/explainer/specs-guide.html",
+  "specification": {
+    "sha256": "26ba13e45af7cac3938559cc6a6ae7d4952d855e15a4982d0ed4c352dd3cba33",
+    "bytes": 19837
+  },
+  "artifact": {
+    "sha256": "29ccaa9e70355b8fd14d2f52deb9b1ab041444469bd8fc50045dd20fcc125e71",
+    "bytes": 1867077
+  },
+  "explainer": {
+    "preparedSha256": "6effb8df332b5fd765eed944d44d870cc15a2cbd4c02586da068020ce614cb35",
+    "dependencies": [
+      {
+        "kind": "diagram-spec",
+        "id": "overall-flow",
+        "inline": true,
+        "sha256": "72f2a595dec12448e9ee33e1a03c4b333fd04c4553f99aa959e53aa49fda5e61",
+        "bytes": 1711
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "engine-flow",
+        "inline": true,
+        "sha256": "e59ac74956aab0eab285fe7c2815775e5d1f18824c1914cae56134cd25ff3f6b",
+        "bytes": 1598
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "structure-flow",
+        "inline": true,
+        "sha256": "e6fd11377c36786bf72144d884053fbf2daadcbf678d591fc38d314486f48d2d",
+        "bytes": 1800
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "skill-folder",
+        "inline": true,
+        "sha256": "981446977f684388de7517a850c7103af242fd0c0672e5e25908ee20703a93fc",
+        "bytes": 529
+      }
+    ]
+  }
+}

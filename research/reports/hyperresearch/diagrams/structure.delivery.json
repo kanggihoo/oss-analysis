@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "9193b399-5dda-4e6f-a90d-19244ccacc72",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/research/reports/hyperresearch/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/research/reports/hyperresearch/diagrams/structure.html",
+  "specification": {
+    "sha256": "4c79279562e9c677a642f56c4a0c9faf9f972c0060d51c3a7eb9f0895707d08f",
+    "bytes": 11898
+  },
+  "artifact": {
+    "sha256": "eb3790862d23325a8b33fbe667215a9b8b1269f24e7e00bece7d645ce6ea412a",
+    "bytes": 871463
+  }
+}

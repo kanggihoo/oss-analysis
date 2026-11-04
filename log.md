@@ -748,3 +748,48 @@
 - 사용자 요청으로 기존 절차·템플릿 정리(실행 확인/재구현 검증 절차 및 reimplementation 메타데이터 제거)와 TradingAgents 갱신·스펙·구조도 산출물을 함께 커밋·push한다. 이전 절차 정리는 이번 저장 과정에서 새로 변경한 내용이 아니라 작업 공간에 남아 있던 diff다.
 - 변경 대상 레포 10개를 `python3 scripts/check.py`로 검사해 ERROR0 / NOTE8. 전체 검사는 ERROR2 / NOTE19이며 오류는 이번에 변경하지 않은 mitmproxy·pi의 기존 깨진 링크다. `git diff --check` 통과. 원본 클론·추적 제외 파일은 커밋 대상에서 제외한다.
 - 신규 파일을 stage한 뒤 발견한 스펙2개의 행끝 공백을 제거했다. 생성 HTML의 기존 공백은 검증 영수증 해시를 보존하기 위해 유지했다. HTML 외 staged diff 공백 검사는 통과했다.
+
+## [2026-11-03] trading/TradingAgents | 재구현 순서 합의
+- Claude·Codex 토론(9턴)으로 기능별 재구현 순서·완료 기준·마일스톤을 합의하고 `next.md` 5절에 기록했다. 사용자 결정: 교체 가능한 구조로 미국 주식 먼저, LangGraph 미사용, 구현 위치 `~/Desktop/vps/trading`.
+- 옛 보고서 6개(`00-overview.md`~`05`) 삭제는 사용자 의도로 확인했다. `overview.md` 4절의 끊긴 링크를 삭제 안내로 바꿨다.
+- 같은 날 구현 레포 `~/Desktop/vps/trading-agents`를 초기화했다(AGENTS.md·README·`docs/progress.md`, 스펙 16개·overview·SEC/FRED API 문서 사본, 원본 LICENSE). 진행 방식 A, 동기·스레드, 별도 레포로 결정. `next.md` 5절 갱신.
+
+## [2026-11-04] ingest | book-to-skill 초기 셋팅
+- `repos/book-to-skill` clone(master, `e7bb659`, MIT, clean). `artifacts/book-to-skill/repo-metadata.txt`, `reports/book-to-skill/overview.md`(1절만), `index.md` 행 추가.
+- feature map·구조도·범위 승인은 하지 않았다. 목적 미정.
+
+## [2026-11-04] ingest | book-to-skill feature map·구조도
+- 읽은 것: `utils.py`(`main`, `extract_single_file`, 구조 감지), `parsers/pdf.py`, `pdf_inspector_integration.py`, `sanitize.py`, `config.py`, `dependencies.py`(일부), `SKILL.md` 주요 단계, `docs/architecture.md`. 실행은 하지 않았다(권한 거부).
+- `reports/book-to-skill/overview.md` 1~3절(feature map 15행·공유 계약 3), `diagrams/structure.{json,html}`(archify 자동 검사 통과), `next.md`. 목적을 "PDF 전처리 + AI 빠른 설명"으로 기록. 스펙 범위 승인은 받지 않음(feature map만 요청).
+
+## [2026-11-04] capability | book-to-skill 기능 스펙 8개 (모두 ready)
+- 범위 승인(권장안 + 8·9 병합으로 feature map 12행): 행 1~5, 8, 9와 공유 계약 S1. 메인 세션이 S1(`extract-artifacts`)을 쓰고, 서브에이전트 4개가 병렬로 입력·추출, 정리·정화, 구조 감지, 생성 준비·스킬 작성을 썼다. 코드는 실행하지 않았다(정적 읽기).
+- 통합 검토: C-ID 188개가 파일 길이 안에 있음, depends 순환 없음, `chapter_ranges`·`pages`·`pdf_inspector` 정의를 스펙 사이에서 맞춤(S1에 EPUB `pages`, `sources[].pdf_inspector`, 작업 디렉터리 점검 실패의 트레이스백을 추가). overview 정정: 북마크 채택 조건, 줄 범위 계산 위치, 스캔본 차단 조건, 정화 거부 조건, 소수 표기 표시를 행 6으로 이동.
+- 남은 미확인: Step 10 삭제와 `output_text` 경로의 의도, `chapter_ranges` 줄 번호 기준, Mode 3 소유 행 없음. `check.py book-to-skill` ERROR 0.
+
+## [2026-11-04] move | gpt-researcher를 research/ 주제 폴더로 이동
+- `reports/gpt-researcher` → `research/reports/gpt-researcher`, `artifacts/gpt-researcher` → `research/artifacts/gpt-researcher`(`git mv`). `research/GUIDE.md`·`repos.lock.tsv`를 만들고 `.gitignore`에 `/research/repos/`를 추가, `index.md` 행을 `gpt-researcher (research/)`로 바꿨다. 이전 log 항목의 옛 경로는 기록이라 그대로 둔다.
+- reports 안 상대 링크(`../../../artifacts/...`)와 데모의 `repos/` 상대 경로는 한 단계 깊어진 구조에서도 그대로 맞는다. 데모의 `C:\Users\SSAFY\...` 절대 경로 6곳은 이동 전부터 이 머신에서 안 맞던 값이라 손대지 않았다. `repos/gpt-researcher` clone은 이 머신에 없다. `check.py gpt-researcher` ERROR 0.
+
+## [2026-11-04] ingest | hyperresearch를 research/에 추가 (초기 셋팅만)
+- `research/repos/hyperresearch`를 `--depth 50`으로 clone(SHA `aece65f`, main, 2026-10-28, 작업트리 clean). `research/artifacts/hyperresearch/repo-metadata.txt`, `research/repos.lock.tsv` 행, `research/GUIDE.md` 분석 대상 표를 갱신했다. 라이선스 MIT(LICENSE·pyproject.toml). feature map·overview는 아직 없고, 분석 범위는 사용자 지시 대기라 `index.md` 행도 overview를 쓸 때 추가한다.
+
+## [2026-11-04] ingest | hyperresearch feature map과 구조도 (범위 승인 대기)
+- `oss-repo-spec`으로 새 레포 분석 시작(`research/`, feature map까지만). README 전문, `pyproject.toml`, 진입 스킬 `skills/hyperresearch.md` 전문, 단계 스킬 18개의 설명·절 제목, `cli/__init__.py`, `core/runs.py`·`codex.py`·`hooks.py`·`fetcher.py`, `cli/fetch.py`, `web/base.py`, 학술·OA·검증 모듈의 진입 함수를 읽었다. 단계 스킬·서브에이전트 프롬프트 본문은 읽지 않았다. 코드는 실행하지 않았다.
+- 확인한 구조: Python 패키지는 LLM SDK를 import하지 않는다(grep 0건). 순서·판단은 설치되는 스킬·에이전트 프롬프트에 있고, 호스트 에이전트가 CLI를 Bash로 부른다. 문서와 구현 차이 3건(Python 3.14 경고, dissertation 설정 미연결 표기 vs 로드맵 완료 표기, `hooks.py:3667` "as of v7")은 overview 2절에 기록.
+- 쓴 것: `research/reports/hyperresearch/overview.md`(feature map 20행·공유 계약 3개·그림 해설), `diagrams/structure.json`·`.html`(archify finalize 4게이트 통과, 1차 교차 권고에 노드 위치만 바꿔 재실행, 시각 검토 미실시), `next.md`. `index.md` 행, `handoff.md` 대기 행, `research/GUIDE.md` 추가. 스펙 범위는 사용자 승인 전이라 기능 스펙은 쓰지 않음.
+
+## [2026-11-05] update | hyperresearch 분석 목적 확인과 권장 범위 수정
+- 사용자 답: gpt-researcher와 비교하지 않고 독립 분석하며, 알고 싶은 것은 "어떤 식으로 조사하는가"와 "결과를 어떻게 전처리해 결과물을 만드는가". overview 1절 목적과 권장 범위, `handoff.md` 행, `research/GUIDE.md`, `next.md` 질문을 이에 맞췄다.
+- 권장 범위 변경: 볼트 저장(15)·소스 품질(16)을 새로 넣고 검증 배터리(10)를 뺐다. 행 3~9, 11~17. 범위 승인은 아직 받지 않아 기능 스펙은 쓰지 않았다.
+
+## [2026-11-05] explainer | book-to-skill 기능 스펙 8개 읽기 가이드
+- 쓴 것: `reports/book-to-skill/explainer/specs-guide.html`(archify explainer, 한국어. 다이어그램 4개: 전체 흐름·엔진 선택·구조 감지·스킬 폴더). 스펙 8개의 규칙을 사람이 읽기 쉽게 다시 정리한 것이고 새 사실은 더하지 않았다. 원고는 `reports/book-to-skill/explainer/specs-guide.archify.md`.
+- 검증: finalize 자동 게이트(validate·deliver·check) 통과, 브라우저 검사·시각 검토 미실시.
+
+## [2026-11-05] spec | hyperresearch 기능 스펙 15개 (행 3~17, ready 12 / draft 3)
+- 사용자가 행 3~17 승인(권장안에 검증 배터리 10을 더함). 스펙 파일은 `research/reports/hyperresearch/capabilities/`. 서브에이전트(sonnet, effort high/medium) 8명이 2웨이브로 썼다: 웨이브 1은 9·4 / 12·14·11 / 13 / 15·17·16, 웨이브 2는 3 / 5·6 / 7·8 / 10. 작업자는 자기 스펙 파일만 썼고 feature map·index·log·next는 메인 세션이 고쳤다.
+- ready: run-manifest-gate(S1), vault-store(S2), web-providers(S3), scholar-search, oa-recovery, fetch-engine, source-quality, claims-store, subagent-roster, verification-battery, draft-synthesis, critique-patch-polish. draft: entry-decompose(미결정 2), width-sweep(8), depth-analysis(8). draft 사유는 원본이 정하지 않은 형식과 4행 → 5행 → 6행 선행 사슬이다.
+- 통합 검토: `depends`에 순환 없음(ready 스펙은 ready 스펙에만 의존하도록 맞췄다). C-ID 등 코드 참조 151건의 파일·줄 범위를 확인해 1건(`citecheck.py` 끝 범위)을 고쳤다. S1 JSON 파일 이름은 스펙끼리 일치한다.
+- feature map 정정: 10행(필수 제목·길이·인용 밀도·스캐폴드 누출은 lint가 아니라 `verify_run`, 실질 lint 규칙 24개), 11행(정크 판정·에스컬레이션은 `fetch`와 MCP에만), 12행(SSRF 관문은 builtin 경로에만), 13행(검색 가능 소스 7개), 선행 관계 다수. 구조도 라벨 두 곳을 고쳐 finalize 재실행(4게이트 통과). 이전 overview의 "모든 외부 요청이 SSRF 관문을 지남"은 틀린 서술이었다.
+- 새 기능 후보 `research/wrapper_contract.json`은 사용자 결정 대기(overview 4절). 재구현 검증은 하지 않았다.

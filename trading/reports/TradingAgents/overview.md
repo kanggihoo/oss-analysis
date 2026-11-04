@@ -1,7 +1,7 @@
 ---
 sha: "c4544913a14ed3df5f1ed7b9e8483270ce20682a"
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-03
 ---
 # TradingAgents — 최신 feature map
 
@@ -89,7 +89,7 @@ PM 판단 기준 원문: “Ground every conclusion in specific evidence from th
 
 ## 4. 기존 질문·상세 분석
 
-- [기존 개요와 Q1~Q7 링크](00-overview.md): `1394a3f` 기준 기록.
+- 기존 개요와 Q1~Q7 보고서(`00-overview.md`~`05-boundary-and-fit.md`, `1394a3f` 기준)는 2026-11-03 사용자 결정으로 삭제했다. 내용은 Git 기록(`2b66149` 이전)에 남아 있다.
 - [질문 검증 기록](qa.md): 이전 SHA 기준이며 새 코드에서 전부 재검증하지 않았다.
 
 ## 5. 다음 작업

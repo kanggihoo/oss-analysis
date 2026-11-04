@@ -14,6 +14,7 @@
 | learnharness (`ai-learning/`) | 29행(핵심 19/부속 10), 공유 계약 6 | 범위 승인. 제안: 프로버·계획·교사·연습·추출·그래프 원장·도구 레지스트리 + 세션 턴 파이프라인과 공유 계약. 연습 세션은 문서와 실제가 달라 코드 기준으로 쓴다(확인 필요) | [overview](ai-learning/reports/learnharness/overview.md) 2절, [next](ai-learning/reports/learnharness/next.md) |
 | claude-video | 11행(핵심 10/부속 1), 공유 계약 4 | 범위 승인. 결정 사항은 1.2 | [overview](reports/claude-video/overview.md), [next](reports/claude-video/next.md) |
 | agentmemory (`agent-memory/`) | 38행(핵심 30/부속 8), 공유 계약 6 | 범위 승인 | [overview](agent-memory/reports/agentmemory/overview.md), [next](agent-memory/reports/agentmemory/next.md) |
+| hyperresearch (`research/`) | 기능 스펙 15개(ready 12 / draft 3), 공유 계약 3 | (1) `wrapper_contract.json`(하니스 외부 계약, 소유 스펙 없음)을 스펙 후보로 올릴지. (2) draft 3개(4·5·6행)의 미결정 18건을 "구현자가 정해야 하는 값"으로 닫고 ready로 올릴지. 원본이 정하지 않은 형식이 대부분이다. (3) 재구현 검증을 할지 | [overview](research/reports/hyperresearch/overview.md) 4절, [next](research/reports/hyperresearch/next.md) |
 | teamai-cli | — | 기능 스펙 후보 "배포 대상 제어"(q1 근거, 새 SHA `a44493f` 재확인 필요) 승인 여부, q2(packages·mcp) 결과를 스펙 후보로 올릴지 | [next](reports/teamai-cli/next.md) 3절 |
 
 ### 1.1 DeepTutor·learnharness 승인 요청 (2026-10-25 제안, 아직 답 없음)
