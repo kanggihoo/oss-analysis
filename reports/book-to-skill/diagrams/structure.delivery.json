@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "0740c824-4405-4d04-a2af-d58acf2c270e",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/reports/book-to-skill/diagrams/structure.html",
+  "specification": {
+    "sha256": "0044bbab1713bc29c143b7fa3f7e599644fc4565eb31b800460143d518975dfe",
+    "bytes": 7650
+  },
+  "artifact": {
+    "sha256": "2121baf3f6c5f36ffb45c30fc0edd16ccc0fe31b54ef51c7e6332f6afc6cf18e",
+    "bytes": 869925
+  }
+}

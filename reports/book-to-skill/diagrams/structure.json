@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "book-to-skill: PDF 전처리부터 AI 설명까지",
+    "locale": "ko",
+    "output": "reports/book-to-skill/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/virgiliojr94/book-to-skill",
+      "revision": "e7bb659d3261491c8b28793dcb9102fa64a46c22"
+    }
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "PDF 책 + 사용자", "sublabel": "/book-to-skill book.pdf", "pos": [40, 40], "size": [150, 64],
+      "sources": [{ "path": "SKILL.md", "line": 116, "end_line": 135 }, { "path": "SKILL.md", "line": 242, "end_line": 242 }] },
+    { "id": "cli", "type": "backend", "label": "추출 러너", "sublabel": "cli.main → utils.main", "pos": [300, 40], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/cli.py", "line": 17, "end_line": 30 }, { "path": "book_to_skill/utils.py", "line": 1804, "end_line": 1830 }] },
+    { "id": "inspector", "type": "security", "label": "pdf-inspector 판정", "sublabel": "선택 설치 · text 모드만", "pos": [560, 40], "size": [150, 64], "tag": "신뢰 시 빠른 길",
+      "sources": [{ "path": "book_to_skill/pdf_inspector_integration.py", "line": 47, "end_line": 100 }, { "path": "book_to_skill/pdf_inspector_integration.py", "line": 196, "end_line": 236 }] },
+    { "id": "scan", "type": "backend", "label": "스캔본 차단", "sublabel": "앞 5쪽에 텍스트 없음", "pos": [820, 40], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/parsers/pdf.py", "line": 101, "end_line": 117 }, { "path": "book_to_skill/utils.py", "line": 1507, "end_line": 1514 }] },
+    { "id": "docling", "type": "cloud", "label": "Docling", "sublabel": "technical 모드 · OCR 끔", "pos": [820, 200], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/parsers/pdf.py", "line": 257, "end_line": 277 }, { "path": "book_to_skill/utils.py", "line": 1515, "end_line": 1541 }] },
+    { "id": "chain", "type": "backend", "label": "텍스트 체인 + 정리", "sublabel": "pdftotext→pypdf→pdfminer", "pos": [820, 360], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/utils.py", "line": 1543, "end_line": 1573 }, { "path": "book_to_skill/parsers/pdf.py", "line": 38, "end_line": 98 }] },
+    { "id": "sanitize", "type": "security", "label": "텍스트 정화", "sublabel": "보이지 않는 문자 제거", "pos": [560, 360], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/sanitize.py", "line": 228, "end_line": 248 }, { "path": "book_to_skill/utils.py", "line": 1615, "end_line": 1626 }] },
+    { "id": "structure", "type": "backend", "label": "구조 감지", "sublabel": "outline 우선, 없으면 패턴", "pos": [300, 360], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/utils.py", "line": 1106, "end_line": 1130 }, { "path": "book_to_skill/utils.py", "line": 1198, "end_line": 1219 }, { "path": "book_to_skill/utils.py", "line": 1066, "end_line": 1103 }] },
+    { "id": "outputs", "type": "database", "label": "작업 디렉터리", "sublabel": "full_text · metadata.json", "pos": [40, 360], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/utils.py", "line": 1861, "end_line": 1863 }, { "path": "book_to_skill/utils.py", "line": 1995, "end_line": 1997 }, { "path": "book_to_skill/config.py", "line": 21, "end_line": 24 }] },
+    { "id": "sidecar", "type": "database", "label": "pdf_pages.json", "sublabel": "쪽별 텍스트 · 옵션", "pos": [300, 200], "size": [150, 64],
+      "sources": [{ "path": "book_to_skill/utils.py", "line": 1689, "end_line": 1750 }, { "path": "book_to_skill/utils.py", "line": 2000, "end_line": 2001 }, { "path": "book_to_skill/parsers/pdf.py", "line": 141, "end_line": 185 }] },
+    { "id": "generator", "type": "frontend", "label": "에이전트 생성", "sublabel": "SKILL.md 2.5~9단계", "pos": [40, 520], "size": [150, 64],
+      "sources": [{ "path": "SKILL.md", "line": 261, "end_line": 270 }, { "path": "SKILL.md", "line": 298, "end_line": 322 }, { "path": "SKILL.md", "line": 439, "end_line": 470 }] },
+    { "id": "skillout", "type": "database", "label": "생성된 스킬", "sublabel": "SKILL.md + chapters/", "pos": [300, 520], "size": [150, 64],
+      "sources": [{ "path": "SKILL.md", "line": 555, "end_line": 625 }] },
+    { "id": "skillscan", "type": "security", "label": "스킬 스캔", "sublabel": "주입 문구 점검 9.5", "pos": [300, 680], "size": [150, 64],
+      "sources": [{ "path": "SKILL.md", "line": 627, "end_line": 638 }, { "path": "tools/scan_generated_skill.py", "line": 1, "end_line": 20 }] },
+    { "id": "qa", "type": "frontend", "label": "질문 → 장 로드", "sublabel": "색인으로 장 파일만 읽음", "pos": [560, 520], "size": [150, 64],
+      "sources": [{ "path": "SKILL.md", "line": 573, "end_line": 583 }, { "path": "SKILL.md", "line": 594, "end_line": 606 }] }
+  ],
+  "connections": [
+    { "id": "user-cli", "from": "user", "to": "cli", "label": "PDF 경로", "variant": "emphasis" },
+    { "id": "cli-inspector", "from": "cli", "to": "inspector", "label": "PDF 판정" },
+    { "id": "inspector-scan", "from": "inspector", "to": "scan", "label": "그 외" },
+    { "id": "inspector-sanitize", "from": "inspector", "to": "sanitize", "label": "신뢰 시 Markdown", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "id": "scan-docling", "from": "scan", "to": "docling", "label": "technical", "fromSide": "bottom", "toSide": "top" },
+    { "id": "scan-chain", "from": "scan", "to": "chain", "label": "text 모드", "fromSide": "right", "toSide": "right", "via": [[1010, 72], [1010, 392]] },
+    { "id": "docling-chain", "from": "docling", "to": "chain", "label": "실패 시 폴백", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "chain-sanitize", "from": "chain", "to": "sanitize", "label": "정리된 텍스트" },
+    { "id": "sanitize-structure", "from": "sanitize", "to": "structure", "label": "정화 텍스트" },
+    { "id": "structure-outputs", "from": "structure", "to": "outputs", "label": "텍스트+구조" },
+    { "id": "cli-sidecar", "from": "cli", "to": "sidecar", "label": "쪽별 근거(옵션)", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "outputs-generator", "from": "outputs", "to": "generator", "label": "grep·sed로 읽기", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "id": "generator-skillout", "from": "generator", "to": "skillout", "label": "작성" },
+    { "id": "skillout-skillscan", "from": "skillout", "to": "skillscan", "label": "점검", "fromSide": "bottom", "toSide": "top" },
+    { "id": "skillout-qa", "from": "skillout", "to": "qa", "label": "질문 시", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "추출기 (결정적 Python)", "items": ["입력은 PDF 경로, 출력은 full_text.txt와 metadata.json", "BOOK_TYPE이 technical이면 Docling, text면 pdftotext 계열", "metadata.json에 extraction_method와 fallback_reason 기록"] },
+    { "dot": "rose", "title": "PDF에서 깨지기 쉬운 곳", "items": ["스캔 PDF는 OCR하지 않고 ocrmypdf 안내 후 중단", "머리말·쪽번호 제거는 pdftotext·pypdf·pdfminer 경로에만 적용", "Docling·pdf-inspector 결과에는 이 정리를 거치지 않음"] },
+    { "dot": "emerald", "title": "생성기 (에이전트가 SKILL.md를 따름)", "items": ["장 범위는 chapter_ranges로 sed 읽기", "장별 요약을 만들고 SKILL.md에는 색인만 둠", "생성 후 Step 10에서 작업 디렉터리를 삭제"] }
+  ]
+}

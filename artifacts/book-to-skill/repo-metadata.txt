@@ -1,0 +1,8 @@
+repo_dir=repos/book-to-skill
+name=book-to-skill
+date=2026-11-04
+commit=e7bb659d3261491c8b28793dcb9102fa64a46c22
+commit_date=2026-11-03T13:53:10-04:00
+origin=https://github.com/virgiliojr94/book-to-skill
+branch=master
+worktree=clean

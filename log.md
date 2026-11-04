@@ -748,3 +748,20 @@
 - 사용자 요청으로 기존 절차·템플릿 정리(실행 확인/재구현 검증 절차 및 reimplementation 메타데이터 제거)와 TradingAgents 갱신·스펙·구조도 산출물을 함께 커밋·push한다. 이전 절차 정리는 이번 저장 과정에서 새로 변경한 내용이 아니라 작업 공간에 남아 있던 diff다.
 - 변경 대상 레포 10개를 `python3 scripts/check.py`로 검사해 ERROR0 / NOTE8. 전체 검사는 ERROR2 / NOTE19이며 오류는 이번에 변경하지 않은 mitmproxy·pi의 기존 깨진 링크다. `git diff --check` 통과. 원본 클론·추적 제외 파일은 커밋 대상에서 제외한다.
 - 신규 파일을 stage한 뒤 발견한 스펙2개의 행끝 공백을 제거했다. 생성 HTML의 기존 공백은 검증 영수증 해시를 보존하기 위해 유지했다. HTML 외 staged diff 공백 검사는 통과했다.
+
+## [2026-11-04] ingest | book-to-skill 초기 셋팅
+- `repos/book-to-skill` clone(master, `e7bb659`, MIT, clean). `artifacts/book-to-skill/repo-metadata.txt`, `reports/book-to-skill/overview.md`(1절만), `index.md` 행 추가.
+- feature map·구조도·범위 승인은 하지 않았다. 목적 미정.
+
+## [2026-11-04] ingest | book-to-skill feature map·구조도
+- 읽은 것: `utils.py`(`main`, `extract_single_file`, 구조 감지), `parsers/pdf.py`, `pdf_inspector_integration.py`, `sanitize.py`, `config.py`, `dependencies.py`(일부), `SKILL.md` 주요 단계, `docs/architecture.md`. 실행은 하지 않았다(권한 거부).
+- `reports/book-to-skill/overview.md` 1~3절(feature map 15행·공유 계약 3), `diagrams/structure.{json,html}`(archify 자동 검사 통과), `next.md`. 목적을 "PDF 전처리 + AI 빠른 설명"으로 기록. 스펙 범위 승인은 받지 않음(feature map만 요청).
+
+## [2026-11-04] capability | book-to-skill 기능 스펙 8개 (모두 ready)
+- 범위 승인(권장안 + 8·9 병합으로 feature map 12행): 행 1~5, 8, 9와 공유 계약 S1. 메인 세션이 S1(`extract-artifacts`)을 쓰고, 서브에이전트 4개가 병렬로 입력·추출, 정리·정화, 구조 감지, 생성 준비·스킬 작성을 썼다. 코드는 실행하지 않았다(정적 읽기).
+- 통합 검토: C-ID 188개가 파일 길이 안에 있음, depends 순환 없음, `chapter_ranges`·`pages`·`pdf_inspector` 정의를 스펙 사이에서 맞춤(S1에 EPUB `pages`, `sources[].pdf_inspector`, 작업 디렉터리 점검 실패의 트레이스백을 추가). overview 정정: 북마크 채택 조건, 줄 범위 계산 위치, 스캔본 차단 조건, 정화 거부 조건, 소수 표기 표시를 행 6으로 이동.
+- 남은 미확인: Step 10 삭제와 `output_text` 경로의 의도, `chapter_ranges` 줄 번호 기준, Mode 3 소유 행 없음. `check.py book-to-skill` ERROR 0.
+
+## [2026-11-05] explainer | book-to-skill 기능 스펙 8개 읽기 가이드
+- 쓴 것: `reports/book-to-skill/explainer/specs-guide.html`(archify explainer, 한국어. 다이어그램 4개: 전체 흐름·엔진 선택·구조 감지·스킬 폴더). 스펙 8개의 규칙을 사람이 읽기 쉽게 다시 정리한 것이고 새 사실은 더하지 않았다. 원고는 `reports/book-to-skill/explainer/specs-guide.archify.md`.
+- 검증: finalize 자동 게이트(validate·deliver·check) 통과, 브라우저 검사·시각 검토 미실시.
