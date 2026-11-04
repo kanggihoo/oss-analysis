@@ -1,0 +1,8 @@
+repo_dir=research/repos/hyperresearch
+name=hyperresearch
+date=2026-11-04
+commit=aece65f9307197119629beacf8aeaf8cc80e999a
+origin=https://github.com/jordan-gibbs/hyperresearch
+worktree=clean
+clone=shallow(--depth 50)
+license=MIT (LICENSE, pyproject.toml)

@@ -1,0 +1,557 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "hyperresearch 주요 모듈 구조",
+    "output": "research/reports/hyperresearch/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "locale": "ko",
+    "repository": {
+      "url": "https://github.com/jordan-gibbs/hyperresearch",
+      "provider": "github",
+      "revision": "aece65f9307197119629beacf8aeaf8cc80e999a"
+    }
+  },
+  "components": [
+    {
+      "id": "installer",
+      "type": "backend",
+      "label": "설치기",
+      "sublabel": "install · 렌더링",
+      "pos": [
+        40,
+        120
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/cli/install.py",
+          "line": 19,
+          "label": "install 명령"
+        },
+        {
+          "path": "src/hyperresearch/core/hooks.py",
+          "line": 3655,
+          "end_line": 3697,
+          "label": "install_hooks"
+        },
+        {
+          "path": "src/hyperresearch/core/render.py",
+          "line": 85,
+          "label": "render_prompt"
+        }
+      ]
+    },
+    {
+      "id": "user",
+      "type": "external",
+      "label": "사용자",
+      "sublabel": "/hyperresearch 질문",
+      "pos": [
+        40,
+        310
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/skills/hyperresearch.md",
+          "line": 114,
+          "end_line": 120,
+          "label": "질문이 canonical query"
+        }
+      ]
+    },
+    {
+      "id": "prompts",
+      "type": "backend",
+      "label": "스킬·에이전트",
+      "sublabel": "설치된 프롬프트",
+      "pos": [
+        240,
+        120
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/skills/hyperresearch.md",
+          "line": 59,
+          "end_line": 80,
+          "label": "16개 단계 스킬"
+        },
+        {
+          "path": "src/hyperresearch/core/hooks.py",
+          "line": 3616,
+          "end_line": 3643,
+          "label": "서브에이전트 설치 목록"
+        },
+        {
+          "path": "src/hyperresearch/core/hooks.py",
+          "line": 4388,
+          "end_line": 4407,
+          "label": "단계 스킬 목록"
+        }
+      ]
+    },
+    {
+      "id": "host",
+      "type": "external",
+      "label": "호스트 에이전트",
+      "sublabel": "Claude Code · Codex",
+      "pos": [
+        240,
+        310
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/skills/hyperresearch.md",
+          "line": 25,
+          "end_line": 37,
+          "label": "오케스트레이터 역할"
+        },
+        {
+          "path": "src/hyperresearch/core/codex.py",
+          "line": 359,
+          "end_line": 398,
+          "label": "Stop 훅 판정"
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "type": "backend",
+      "label": "hyperresearch CLI",
+      "sublabel": "typer 명령 모음",
+      "pos": [
+        440,
+        60
+      ],
+      "size": [
+        120,
+        560
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/cli/__init__.py",
+          "line": 44,
+          "end_line": 152,
+          "label": "명령·하위 앱 등록"
+        },
+        {
+          "path": "pyproject.toml",
+          "line": 65,
+          "end_line": 67,
+          "label": "hyperresearch·hpr 진입점"
+        }
+      ]
+    },
+    {
+      "id": "scholar",
+      "type": "backend",
+      "label": "학술 검색",
+      "sublabel": "소스 7개 검색·병합",
+      "pos": [
+        650,
+        60
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/cli/scholar_cmd.py",
+          "line": 42,
+          "label": "scholar search"
+        },
+        {
+          "path": "src/hyperresearch/scholar/registry.py",
+          "line": 22,
+          "end_line": 31,
+          "label": "제공자 등록부"
+        },
+        {
+          "path": "src/hyperresearch/scholar/dedup.py",
+          "line": 143,
+          "label": "merge_papers"
+        }
+      ]
+    },
+    {
+      "id": "fetch",
+      "type": "backend",
+      "label": "fetch 엔진",
+      "sublabel": "provider · 정크 게이트",
+      "pos": [
+        650,
+        260
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/cli/fetch.py",
+          "line": 207,
+          "label": "fetch 명령"
+        },
+        {
+          "path": "src/hyperresearch/core/fetcher.py",
+          "line": 86,
+          "end_line": 107,
+          "label": "fetch_and_save"
+        },
+        {
+          "path": "src/hyperresearch/web/base.py",
+          "line": 185,
+          "end_line": 242,
+          "label": "get_provider"
+        }
+      ]
+    },
+    {
+      "id": "oa",
+      "type": "backend",
+      "label": "OA 전문 복구",
+      "sublabel": "Unpaywall·EuropePMC·CORE",
+      "pos": [
+        650,
+        160
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/core/oa.py",
+          "line": 835,
+          "label": "recover_full_text"
+        },
+        {
+          "path": "src/hyperresearch/core/oa.py",
+          "line": 859,
+          "label": "rescue_full_text"
+        }
+      ]
+    },
+    {
+      "id": "runs",
+      "type": "backend",
+      "label": "런·ship gate",
+      "sublabel": "manifest · resume",
+      "pos": [
+        650,
+        360
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/core/runs.py",
+          "line": 97,
+          "label": "init_run"
+        },
+        {
+          "path": "src/hyperresearch/core/runs.py",
+          "line": 649,
+          "label": "verify_run"
+        },
+        {
+          "path": "src/hyperresearch/core/runs.py",
+          "line": 847,
+          "label": "finish_run"
+        }
+      ]
+    },
+    {
+      "id": "verify",
+      "type": "security",
+      "label": "검증 배터리",
+      "sublabel": "인용·인용문·철회",
+      "pos": [
+        650,
+        460
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/cli/lint.py",
+          "line": 110,
+          "label": "quote-integrity"
+        },
+        {
+          "path": "src/hyperresearch/cli/lint.py",
+          "line": 200,
+          "label": "retracted-citations"
+        },
+        {
+          "path": "src/hyperresearch/core/citecheck.py",
+          "line": 178,
+          "label": "extract_pairs"
+        }
+      ]
+    },
+    {
+      "id": "rank",
+      "type": "backend",
+      "label": "소스 품질",
+      "sublabel": "랭킹·독립성·클레임",
+      "pos": [
+        650,
+        560
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/core/quality.py",
+          "line": 56,
+          "label": "compute_quality_scores"
+        },
+        {
+          "path": "src/hyperresearch/core/independence.py",
+          "line": 61,
+          "label": "compute_independence"
+        },
+        {
+          "path": "src/hyperresearch/core/claims.py",
+          "line": 208,
+          "label": "ingest_claims_dir"
+        }
+      ]
+    },
+    {
+      "id": "net",
+      "type": "external",
+      "label": "웹 · 학술 API",
+      "sublabel": "페이지, 검색, 논문 DB",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        130,
+        250
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/web/safe_http.py",
+          "line": 354,
+          "label": "safe_get (builtin 경로 관문)"
+        }
+      ]
+    },
+    {
+      "id": "vault",
+      "type": "database",
+      "label": "볼트",
+      "sublabel": "마크다운 + SQLite 인덱스",
+      "pos": [
+        880,
+        360
+      ],
+      "size": [
+        130,
+        260
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/core/vault.py",
+          "line": 48,
+          "label": "Vault"
+        },
+        {
+          "path": "src/hyperresearch/core/db.py",
+          "line": 230,
+          "label": "get_connection"
+        },
+        {
+          "path": "src/hyperresearch/core/sync.py",
+          "line": 84,
+          "label": "compute_sync_plan"
+        }
+      ]
+    },
+    {
+      "id": "access",
+      "type": "frontend",
+      "label": "MCP · 웹 UI",
+      "sublabel": "볼트 읽기 입구",
+      "pos": [
+        1090,
+        460
+      ],
+      "size": [
+        120,
+        60
+      ],
+      "sources": [
+        {
+          "path": "src/hyperresearch/mcp/server.py",
+          "line": 13,
+          "label": "FastMCP 서버"
+        },
+        {
+          "path": "src/hyperresearch/serve/server.py",
+          "line": 605,
+          "label": "run_server"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-host",
+      "from": "user",
+      "to": "host",
+      "label": "질문",
+      "variant": "emphasis"
+    },
+    {
+      "id": "installer-prompts",
+      "from": "installer",
+      "to": "prompts",
+      "label": "설치"
+    },
+    {
+      "id": "host-prompts",
+      "from": "host",
+      "to": "prompts",
+      "label": "Skill 호출 · spawn"
+    },
+    {
+      "id": "host-cli",
+      "from": "host",
+      "to": "cli",
+      "label": "Bash",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cli-scholar",
+      "from": "cli",
+      "to": "scholar"
+    },
+    {
+      "id": "cli-fetch",
+      "from": "cli",
+      "to": "fetch"
+    },
+    {
+      "id": "cli-runs",
+      "from": "cli",
+      "to": "runs"
+    },
+    {
+      "id": "cli-verify",
+      "from": "cli",
+      "to": "verify"
+    },
+    {
+      "id": "cli-rank",
+      "from": "cli",
+      "to": "rank"
+    },
+    {
+      "id": "runs-verify",
+      "from": "runs",
+      "to": "verify",
+      "label": "게이트"
+    },
+    {
+      "id": "fetch-oa",
+      "from": "fetch",
+      "to": "oa",
+      "label": "OA"
+    },
+    {
+      "id": "scholar-net",
+      "from": "scholar",
+      "to": "net",
+      "label": "API"
+    },
+    {
+      "id": "fetch-net",
+      "from": "fetch",
+      "to": "net",
+      "label": "HTTP"
+    },
+    {
+      "id": "oa-net",
+      "from": "oa",
+      "to": "net",
+      "label": "OA API"
+    },
+    {
+      "id": "fetch-vault",
+      "from": "fetch",
+      "to": "vault",
+      "label": "노트 저장",
+      "variant": "emphasis"
+    },
+    {
+      "id": "verify-vault",
+      "from": "verify",
+      "to": "vault",
+      "label": "읽기"
+    },
+    {
+      "id": "rank-vault",
+      "from": "rank",
+      "to": "vault",
+      "label": "점수 기록"
+    },
+    {
+      "id": "access-vault",
+      "from": "access",
+      "to": "vault",
+      "label": "조회"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "읽는 순서",
+      "items": [
+        "사용자 → 호스트 에이전트 → 설치된 스킬을 읽고 서브에이전트를 spawn한다.",
+        "계산·저장·검증은 에이전트가 Bash로 부르는 CLI가 맡는다."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Python 코드가 하지 않는 일",
+      "items": [
+        "LLM SDK를 import하지 않는다. 서브에이전트 호출은 호스트 몫이다.",
+        "단계 순서와 프롬프트는 스킬·에이전트 텍스트에 있다."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "그림에서 뺀 것",
+      "items": [
+        "에스컬레이션 큐와 브라우저 레인, 프로필·레버, Stop 훅, 플러그인 부트스트랩 스킬",
+        "웹 프로바이더 6종은 fetch 엔진 안에 묶었다."
+      ]
+    }
+  ]
+}

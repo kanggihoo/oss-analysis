@@ -24,6 +24,7 @@ artifacts/**/node_modules/
 /agent-memory/repos/
 /ai-learning/repos/
 /visualization/repos/
+/research/repos/
 
 # archify 스펙 조사용 임시 git 저장소(setup-repo.sh로 재생성)
 visualization/artifacts/archify/spec-demos/**/.git/
