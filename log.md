@@ -793,3 +793,7 @@
 - 통합 검토: `depends`에 순환 없음(ready 스펙은 ready 스펙에만 의존하도록 맞췄다). C-ID 등 코드 참조 151건의 파일·줄 범위를 확인해 1건(`citecheck.py` 끝 범위)을 고쳤다. S1 JSON 파일 이름은 스펙끼리 일치한다.
 - feature map 정정: 10행(필수 제목·길이·인용 밀도·스캐폴드 누출은 lint가 아니라 `verify_run`, 실질 lint 규칙 24개), 11행(정크 판정·에스컬레이션은 `fetch`와 MCP에만), 12행(SSRF 관문은 builtin 경로에만), 13행(검색 가능 소스 7개), 선행 관계 다수. 구조도 라벨 두 곳을 고쳐 finalize 재실행(4게이트 통과). 이전 overview의 "모든 외부 요청이 SSRF 관문을 지남"은 틀린 서술이었다.
 - 새 기능 후보 `research/wrapper_contract.json`은 사용자 결정 대기(overview 4절). 재구현 검증은 하지 않았다.
+
+## [2026-11-05] update | research 내부 로직 비교
+
+gpt-researcher·hyperresearch 기존 스펙을 비교해 각 questions/q1-internal-logic-comparison.md와 overview 4절에 연결했다. 원본 clone 부재로 이번 세션 원본 재검증은 미확인으로 표시했다.
