@@ -797,3 +797,27 @@
 ## [2026-11-05] update | research 내부 로직 비교
 
 gpt-researcher·hyperresearch 기존 스펙을 비교해 각 questions/q1-internal-logic-comparison.md와 overview 4절에 연결했다. 원본 clone 부재로 이번 세션 원본 재검증은 미확인으로 표시했다.
+
+## [2026-11-06] ingest | ai-pentest/ 주제 폴더 신설, shannon·artex-global·strix 초기 수집
+- 사용자 요청: shannon(`8c75a9b`, AGPL-3.0), artex-global(`fdfb7a1`, AGPL-3.0, `web/LICENSE`는 MIT, 상류 Autumn-27/ARTEX 포크), strix(`0601550`, Apache-2.0)를 한 디렉터리에 두고 초기 작업. 모두 `--depth 50` clone, main, clean.
+- 만든 것: `ai-pentest/GUIDE.md`(잠정 목적·비교 축·분석 대상), `repos.lock.tsv`, 레포별 `artifacts/<repo>/repo-metadata.txt`, 빈 `reports/<repo>/`, `.gitignore`의 `/ai-pentest/repos/`, `index.md` 행 3개.
+- 하지 않은 것: README·코드 읽기, overview·feature map, 실행. 목적이 사용자 확인 전이다. 라이선스는 LICENSE 파일 첫머리만 읽어 적었다.
+
+## [2026-11-06] analysis | ai-pentest 세 레포 feature map
+- 서브 에이전트 세 명이 기준 SHA의 원본을 읽고 shannon 16행, artex-global 15행, strix 17행의 feature map과 레포별 next·구조도를 작성했다. 기능 스펙은 요청 범위 밖으로 미작성이다.
+- 구조도 자동 검증과 브라우저 점검을 수행했고 시각 검토는 하지 않았다. 각 도구 실행·대상 접속은 하지 않았다. 메인 세션은 에이전트의 코드 근거를 전수 재검증하지 않았다.
+
+## [2026-11-07] question | shannon feature map 설명
+- q1-feature-map에 읽는 순서와 분석 → 결과 조정 → 조건부 시도 흐름을 기록하고 overview 4절에 연결했다. workflows.ts의 해당 경로를 다시 확인했다.
+
+## [2026-11-07] question | shannon source 접근 방식
+- q1-feature-map에 source 입력과 worker 전달 경로를 추가했다.
+
+## [2026-11-07] question | shannon 코드 규모
+- q1-feature-map에 추적 소스 파일 물리적 줄 수(218파일·53,059줄)와 프롬프트(80파일·6,209줄), 집계 기준을 기록했다.
+
+## [2026-11-07] capability | shannon 핵심 기능 14개 스펙
+- 사용자 승인: 핵심 행 1~14, 부속 15·16 제외. GPT-6.1-terra 서브 에이전트 6개에 분담: 사용자 입구 medium, 나머지 5개 작업 high. 최대 3개 병렬 실행. 기준 SHA `8c75a9b` 유지, 원본 실행·빌드·대상 접속 없음.
+- `ai-pentest/reports/shannon/capabilities/`에 14개 스펙을 작성했다(모두 ready, 미결정 없음). 상태·실패·취소·재개·collector·queue·SARIF·report manifest의 원본 코드와 helper를 추적했다.
+- 메인 및 담당자의 통합 검토로 staging/commit 범위, session/resume identity 차이, misc admission과 producer/consumer ID를 교정했다. overview 1~2절·공유 계약, next 1~4절, GUIDE 승인 범위와 index를 갱신했다. 기존 분석 문서와 원본 도구·의존성의 실제 동작은 실행 검증하지 않았다.
+- 최종 검사: `python3 scripts/check.py shannon` ERROR 0 / NOTE 0. 코드 참조 374개 범위·필수 절·SHA·source·선행 DAG·원본 clean 검사 오류 0. `ai-pentest/artifacts/shannon/spec-validation.txt`에 기록했다.

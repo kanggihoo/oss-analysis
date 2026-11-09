@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-11-04
+> Last updated: 2026-11-07
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -47,6 +47,9 @@
 | DeepTutor (ai-learning/) | `a31d826` | [overview](ai-learning/reports/DeepTutor/overview.md), [next](ai-learning/reports/DeepTutor/next.md) | [mastery-engine](ai-learning/reports/DeepTutor/capabilities/mastery-engine.md) ready, [review-scheduler](ai-learning/reports/DeepTutor/capabilities/review-scheduler.md) ready (지도 53행 + 스킬화 관점 지도) |
 | learnharness (ai-learning/) | `b277ee3` | [overview](ai-learning/reports/learnharness/overview.md), [next](ai-learning/reports/learnharness/next.md) | [question-answer-contract](ai-learning/reports/learnharness/capabilities/question-answer-contract.md), [probe-measurement](ai-learning/reports/learnharness/capabilities/probe-measurement.md), [plan-tree](ai-learning/reports/learnharness/capabilities/plan-tree.md), [teaching-cycle](ai-learning/reports/learnharness/capabilities/teaching-cycle.md), [practice-session](ai-learning/reports/learnharness/capabilities/practice-session.md) 모두 ready (지도 29행 + 스킬화 관점 지도) |
 | roast-room | `e40f406` | [overview](reports/roast-room/overview.md) | — |
+| shannon (ai-pentest/) | `8c75a9b` | [overview](ai-pentest/reports/shannon/overview.md) | [scan-launch](ai-pentest/reports/shannon/capabilities/scan-launch.md) (ready) · [scan-controls](ai-pentest/reports/shannon/capabilities/scan-controls.md) (ready) · [pipeline-orchestration](ai-pentest/reports/shannon/capabilities/pipeline-orchestration.md) (ready) · [preflight-authentication](ai-pentest/reports/shannon/capabilities/preflight-authentication.md) (ready) · [reconnaissance](ai-pentest/reports/shannon/capabilities/reconnaissance.md) (ready) · [vulnerability-analysis](ai-pentest/reports/shannon/capabilities/vulnerability-analysis.md) (ready) · [exploitation](ai-pentest/reports/shannon/capabilities/exploitation.md) (ready) · [agent-execution](ai-pentest/reports/shannon/capabilities/agent-execution.md) (ready) · [capella-sast](ai-pentest/reports/shannon/capabilities/capella-sast.md) (ready) · [findings-reconciliation](ai-pentest/reports/shannon/capabilities/findings-reconciliation.md) (ready) · [reporting](ai-pentest/reports/shannon/capabilities/reporting.md) (ready) · [checkpoint-resume](ai-pentest/reports/shannon/capabilities/checkpoint-resume.md) (ready) · [model-credentials](ai-pentest/reports/shannon/capabilities/model-credentials.md) (ready) · [configuration](ai-pentest/reports/shannon/capabilities/configuration.md) (ready) |
+| artex-global (ai-pentest/) | `fdfb7a1` | [overview](ai-pentest/reports/artex-global/overview.md) | 미작성 |
+| strix (ai-pentest/) | `0601550` | [overview](ai-pentest/reports/strix/overview.md) | 미작성 |
 
 ## 첫 수집만 한 레포 (overview 없음)
 
