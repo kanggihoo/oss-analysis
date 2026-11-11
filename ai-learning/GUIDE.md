@@ -38,5 +38,5 @@ ai-learning/
 
 | 레포 | 상태 |
 |---|---|
-| DeepTutor | feature map 53행·구조도 완료(2026-10-25). 2026-10-27 목적을 "Claude Code 안의 가벼운 학습 스킬"로 재정의하고 스킬화 관점 feature map 추가. 스펙 ready 2(mastery-engine, review-scheduler), 재구현 검증 완료 |
+| DeepTutor | feature map 53행·구조도 완료(2026-10-25). 2026-10-27 목적을 "Claude Code 안의 가벼운 학습 스킬"로 재정의하고 스킬화 관점 feature map 추가. 스펙 ready 2(mastery-engine, review-scheduler), 재구현 검증 완료(이전 SHA 기준). **2026-11-06 기준을 v1.7.2(`60fb3bd`)로 갱신**: 지도 59행(코스 삭제, 모듈식 설치 등 7행 추가), 스펙 2개 갱신(복습 전략·숙달 필터·보충 설명). 새 SHA 실행 확인·재구현 검증은 남음 |
 | learnharness | feature map 29행·구조도 완료(2026-10-25). 2026-10-27 스킬화 관점 feature map 추가. 스펙 ready 5(S2 + 행 2·3·4·5), 재구현 검증 완료 |
