@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e3e3407f-1367-4c85-bdc7-2e9cfca6b750",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/reports/K-Humanizer/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/reports/K-Humanizer/diagrams/structure.html",
+  "specification": {
+    "sha256": "6b7eae1aef13139b0af997a88e821ebf58dfd0f65c72034e3f718ce485afc3da",
+    "bytes": 6502
+  },
+  "artifact": {
+    "sha256": "b919c7da458b4746082d628c23250ea7704e2b05bbd88fa3efd4be60c3408458",
+    "bytes": 859382
+  }
+}
