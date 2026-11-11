@@ -31,6 +31,8 @@ herdr-plugin/
 | herdr-mobile-relay | https://github.com/0cv/herdr-mobile-relay | 폰에서 에이전트 모니터링·승인 응답·터미널 보기, E2EE 전송, 푸시 |
 | ovis | https://github.com/devswha/ovis | 폰·웹에서 herdr 레이아웃·채팅·승인 카드·알림, 원격 PC, 푸시 릴레이 |
 | collie | https://github.com/AltanS/collie | 웹 대시보드(답장·Ask 카드·STT·히스토리), 멀티플렉서 어댑터, 푸시 |
+| herdr-dagr | https://github.com/aemrebarut/herdr-dagr | 에이전트 군집을 DAG로 보여 주는 herdr pane |
+| herdr-board | https://github.com/nelsonPires5/herdr-board | 칸반 카드를 herdr pane의 AI 코딩 에이전트로 실행(계획·실행·리뷰·사람 승인 단계) |
 
 기준 SHA는 `repos.lock.tsv`, 각 overview의 frontmatter `sha`와 같다.
 
