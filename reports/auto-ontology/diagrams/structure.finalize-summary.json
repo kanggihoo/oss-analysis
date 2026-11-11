@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.json",
+    "sha256": "d3d951c2c42054d7127b5bbc61f7f92cf82b4dcce05d90bea244b9c31add1a5b",
+    "bytes": 5818
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.html",
+    "sha256": "6d7b69ccf78755840eb1a5fe8c4efc15c5939d646edb839044d612c9b4c6ba8f",
+    "bytes": 857421
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-02T11:08:04.190Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3233,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}
