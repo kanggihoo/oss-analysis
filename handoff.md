@@ -10,12 +10,15 @@
 
 | 레포 | feature map | 해야 할 것 | 시작점 |
 |---|---|---|---|
-| DeepTutor (`ai-learning/`) | 53행(핵심 33/부속 20), 공유 계약 8 | 범위 승인. 제안: 1~4(턴·루프·도구·컨텍스트), 10·11(마스터리), 14·15(메모리·저널), 17·18(KB·RAG), 부속은 전부 제외 | [overview](ai-learning/reports/DeepTutor/overview.md) 2절, [next](ai-learning/reports/DeepTutor/next.md) |
+| DeepTutor (`ai-learning/`) | 59행(핵심 35/부속 24, 2026-11-06 v1.7.2로 갱신하며 54~60행 추가·13행 삭제), 공유 계약 8. 스펙 ready 2(새 SHA로 갱신, 새 SHA 실행 확인은 실행 허용 대기) | 범위 승인(새 54~60행 포함 여부도 결정). 제안: 1~4(턴·루프·도구·컨텍스트), 10·11(마스터리), 14·15(메모리·저널), 17·18(KB·RAG), 부속은 전부 제외 | [overview](ai-learning/reports/DeepTutor/overview.md) 2절, [next](ai-learning/reports/DeepTutor/next.md) |
 | learnharness (`ai-learning/`) | 29행(핵심 19/부속 10), 공유 계약 6 | 범위 승인. 제안: 프로버·계획·교사·연습·추출·그래프 원장·도구 레지스트리 + 세션 턴 파이프라인과 공유 계약. 연습 세션은 문서와 실제가 달라 코드 기준으로 쓴다(확인 필요) | [overview](ai-learning/reports/learnharness/overview.md) 2절, [next](ai-learning/reports/learnharness/next.md) |
 | claude-video | 11행(핵심 10/부속 1), 공유 계약 4 | 범위 승인. 결정 사항은 1.2 | [overview](reports/claude-video/overview.md), [next](reports/claude-video/next.md) |
 | agentmemory (`agent-memory/`) | 38행(핵심 30/부속 8), 공유 계약 6 | 범위 승인 | [overview](agent-memory/reports/agentmemory/overview.md), [next](agent-memory/reports/agentmemory/next.md) |
 | hyperresearch (`research/`) | 기능 스펙 15개(ready 12 / draft 3), 공유 계약 3 | (1) `wrapper_contract.json`(하니스 외부 계약, 소유 스펙 없음)을 스펙 후보로 올릴지. (2) draft 3개(4·5·6행)의 미결정 18건을 "구현자가 정해야 하는 값"으로 닫고 ready로 올릴지. 원본이 정하지 않은 형식이 대부분이다. (3) 재구현 검증을 할지 | [overview](research/reports/hyperresearch/overview.md) 4절, [next](research/reports/hyperresearch/next.md) |
 | teamai-cli | — | 기능 스펙 후보 "배포 대상 제어"(q1 근거, 새 SHA `a44493f` 재확인 필요) 승인 여부, q2(packages·mcp) 결과를 스펙 후보로 올릴지 | [next](reports/teamai-cli/next.md) 3절 |
+| auto-ontology | 20행(핵심 17/부속 3), 공유 계약 4. 목적: 온톨로지 구현 이해. 온톨로지 행 1~10은 세분, 11~20은 패밀리. [Q1](reports/auto-ontology/questions/q1-ontology-implementation.md)로 구현 설명 완료 | 범위 승인(스펙을 쓸지). 권장: 행 1~10 + 공유 계약 S1(별도 스펙)·S2, 3·5·10 먼저. 설명만 더 원하면 질문 문서(Q2~)로 | [overview](reports/auto-ontology/overview.md) 2절 "권장 범위", [next](reports/auto-ontology/next.md) |
+
+> **2026-11-06 DeepTutor 기준 갱신**: `a31d826` → `60fb3bd`(v1.7.2). 코스 기능 삭제, 모듈식 설치·영상 수업·캘린더·데스크톱 앱 등 추가, 복습 전략·숙달 필터 등 마스터리 코어 변경(스펙 2개 갱신). 아래 1.1의 행 번호·행 수는 이전 SHA(53행) 기준이다. 새 SHA에서 스크립트를 실행해 검증하려면 실행 허용이 필요하다([next](ai-learning/reports/DeepTutor/next.md) 1·4절).
 
 ### 1.1 DeepTutor·learnharness 승인 요청 (2026-10-25 제안, 아직 답 없음)
 
