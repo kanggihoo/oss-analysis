@@ -1,0 +1,18 @@
+$ python3 scripts/check.py daily_stock_analysis
+
+ERROR 0 / NOTE 0
+exit=0
+
+$ python3 trading/artifacts/daily_stock_analysis/check-specs.py
+Static spec audit: 2026-11-11
+SHA: ce364e457aab288863a5707e7b3df79786ad07f2 clean: True
+agent-decision.md 82 code ranges
+analysis-context.md 27 code ranges
+data-collection.md 119 code ranges
+decision-output.md 52 code ranges
+llm-decision.md 65 code ranges
+research.md 41 code ranges
+scheduling.md 76 code ranges
+specs: 7 code ranges: 462 DAG: checked
+ERROR 0
+exit=0

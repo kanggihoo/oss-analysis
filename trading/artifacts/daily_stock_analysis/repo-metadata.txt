@@ -1,0 +1,5 @@
+url=https://github.com/ZhuLinsen/daily_stock_analysis
+sha=ce364e457aab288863a5707e7b3df79786ad07f2
+checked=2026-11-11
+worktree=clean
+mode=read-only; existing checkout retained

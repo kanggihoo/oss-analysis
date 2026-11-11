@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "e80240e7-20d3-452f-9240-612e8a1670f5",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.html",
+  "specification": {
+    "sha256": "14d7c6bfd56f05466b77e8aa6d368099aefe68bb772daea7763f8bc7002772f2",
+    "bytes": 2568
+  },
+  "artifact": {
+    "sha256": "e7e932d5c38a46b93cac4a8aa662197bfe0ce9e0fcd6d54c8ef2ca89ed98b81c",
+    "bytes": 836894
+  }
+}
