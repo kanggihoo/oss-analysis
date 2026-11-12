@@ -879,3 +879,43 @@ gpt-researcher·hyperresearch 기존 스펙을 비교해 각 questions/q1-intern
 - `trading/reports/daily_stock_analysis/capabilities/`에 spec7개(모두 ready)를 작성했다. 수집·컨텍스트·뉴스·기본 LLM·Agent·결과 보정/저장/신호·스케줄 계약과 R-ID/C-ID·수락 사례를 원본 코드로 대조했다. 검토 중 수급 부재 강등, report score와 calibration score 우선순위, confidence 한국어 추출 누락, Agent 검색/사후 검색 구분을 반영했다.
 - overview1~2·5절의 승인·상태·공유 계약·선행·종단 흐름, next 전절, index와 handoff 대기 행을 갱신했다. 행3/7의 수집 선행 제거와 행4 생성/행6 후처리 소유 분리로 순환을 피했다. 기존 사용자 변경은 보존했다.
 - `python3 scripts/check.py daily_stock_analysis` ERROR0/NOTE0, 추가 감사에서 spec7개·코드범위462개·sources·필수절·선행DAG·동일SHA·원본clean ERROR0. 결과와 감사 스크립트는 `trading/artifacts/daily_stock_analysis/`에 저장. 수락 사례는 실행하지 않은 구현 도출 사례다.
+
+## [2026-11-13] update | strix 기능 스펙 범위 제안
+
+- 기존 overview·next·구조도 산출물과 GUIDE를 확인하고, 고정 SHA `0601550` 및 clean 작업트리를 확인했다. upstream 갱신과 도구 실행은 하지 않았다.
+- runner·factory의 연결과 등록 import를 재확인하고 overview 1·2절에 핵심 1~13 권장, 핵심 14·부속 15~17 기본 제외 제안을 기록했다. 상세 규칙은 미검증이며 공유 계약 소유자는 스펙 단계에서 확정한다.
+- next·handoff·index에 승인 대기를 반영했다. `python` 실행 파일이 없어 같은 검사 스크립트를 `python3 scripts/check.py strix`로 실행한다.
+
+## [2026-11-13] update | strix 실행 흐름 질문
+
+- CLI·runner·execution·factory·finish 도구의 호출 흐름을 코드로 확인하고 questions/q1-runtime-flow.md에 기록했다. 실제 스캔은 실행하지 않았다.
+- overview 4절과 next 확인 범위에 연결했다. 기존 스펙 범위 승인 대기를 유지한다.
+
+## [2026-11-13] update | strix 조사 목적 구체화
+
+- 사용자 관심을 취약점 발견 방법·실제 도구·스킬로 기록하고 기존 1~13 일괄 권장안을 대체했다. 구체적인 스펙 분할은 미승인이다.
+- MCP loader·연결 계약, 이미지 설치 구성, 스킬 로딩과 대표 스킬을 확인했다. Q2·overview·next·handoff·index에 반영했다. 도구·대상은 실행하지 않았다.
+
+## [2026-11-13] update | strix 도구·스킬 기반 발견 과정
+
+- 설치 구성·도구별 playbook·root/standard/counterevidence/SAST/의존성 CVE 지침·스킬 로더·프록시와 보고 등록 경로를 조사했다.
+- Q3에 도구 대응표, 자동/동적 스킬 로딩, IDOR 설명용 흐름, 지침 간 PoC 요구 차이와 보고 필드 검사의 한계를 기록하고 overview 4절·next에 연결했다. 실제 스캔은 실행하지 않았다.
+
+## [2026-11-13] update | strix 최종 조사 feature map 재선정
+
+- 사용자 요청에 따라 기존 제품 전체 17행을 목적 중심 15행으로 재구성했다. 새 1~12행은 도구·스킬·후보 탐지·검증·역할 인계·MCP 보충·기록·보고이며 13~15는 기본 제외 제안이다.
+- overview 1·2절에 진입점·선행·상태·검증 수준·기존 행 대응·공유 계약 소유·패밀리 경계를 기록했다. source-aware discovery 본문과 각 도구 진입점도 확인했다.
+- next의 낡은 권장안을 교체하고 handoff·index를 동기화했다. 기능 스펙 승인 전이며 도구·대상은 실행하지 않았다.
+
+## [2026-11-13] capability | strix 1차 기능 스펙 1~4
+
+- 사용자 진행 요청을 새 행 1~12 승인으로 기록하고 범위 대기 행을 handoff에서 제거했다. GUIDE의 승인 현황도 갱신했다. 이번 차수는 1~4이며 5~12는 후속 작업이다.
+- 메인이 skill-selection을 작성하고 gpt-6.1-terra/high subagent 3개가 surface-discovery·browser-http-investigation·scanner-triage를 작성했다. 메인은 파일을 읽고 원본 주요 경로와 코드 참조를 재검토해 4개 ready로 통합했다.
+- overview 2절에 경계·선행·대표 흐름과 PoC/증거 검증 한계를 기록하고 index·next를 동기화했다. 실제 도구·대상·컨테이너는 실행하지 않았다. 문서 검사와 C-ID 파일/줄 범위 점검을 수행했다.
+
+## [2026-11-13] capability | strix 승인 범위 1~12 최종 완료
+
+- 사용자 요청에 따라 남은 5~12를 순차 작성하고 메인이 12개 전체를 검토·통합했다. subagent 3개를 재사용했으며 모두 gpt-6.1-terra/high였다. 전문 스킬 50개 본문과 코드/지침을 대조했다.
+- 신규 스펙 8개는 소스 탐지·dependency CVE·전문 playbook·검증/반증·역할 인계·MCP·coverage·최종 보고다. 모두 ready, 미결정 없음. 12행 선행에 HTTP ID 계약인 3행을 추가하고 S1/S2 소유자를 확정했다.
+- overview 2절의 대조 범위·최종 통합 검토·IDOR 전체 흐름·지침/코드 차이와 next·index·GUIDE를 최종 상태로 갱신했다. 코드 참조 sources 누락과 표의 shell OR 표기를 보정했다. handoff에 Strix 결정 대기는 없다.
+- python3 scripts/check.py strix와 source/C-ID 줄 범위·표·선행 정적 검사를 수행하고 artifacts/strix/spec-validation.json에 남겼다. 원본·스캔·CLI·MCP·대상·컨테이너·SDK는 실행하지 않았다. 승인 범위 ready 12 / draft 0 / 미작성 0, 제외 행 13~15는 미작성이다.

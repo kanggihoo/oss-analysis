@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-11-11
+> Last updated: 2026-11-13
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -53,8 +53,7 @@
 | learnharness (ai-learning/) | `b277ee3` | [overview](ai-learning/reports/learnharness/overview.md), [next](ai-learning/reports/learnharness/next.md) | [question-answer-contract](ai-learning/reports/learnharness/capabilities/question-answer-contract.md), [probe-measurement](ai-learning/reports/learnharness/capabilities/probe-measurement.md), [plan-tree](ai-learning/reports/learnharness/capabilities/plan-tree.md), [teaching-cycle](ai-learning/reports/learnharness/capabilities/teaching-cycle.md), [practice-session](ai-learning/reports/learnharness/capabilities/practice-session.md) 모두 ready (지도 29행 + 스킬화 관점 지도) |
 | shannon (ai-pentest/) | `8c75a9b` | [overview](ai-pentest/reports/shannon/overview.md) | [scan-launch](ai-pentest/reports/shannon/capabilities/scan-launch.md) (ready) · [scan-controls](ai-pentest/reports/shannon/capabilities/scan-controls.md) (ready) · [pipeline-orchestration](ai-pentest/reports/shannon/capabilities/pipeline-orchestration.md) (ready) · [preflight-authentication](ai-pentest/reports/shannon/capabilities/preflight-authentication.md) (ready) · [reconnaissance](ai-pentest/reports/shannon/capabilities/reconnaissance.md) (ready) · [vulnerability-analysis](ai-pentest/reports/shannon/capabilities/vulnerability-analysis.md) (ready) · [exploitation](ai-pentest/reports/shannon/capabilities/exploitation.md) (ready) · [agent-execution](ai-pentest/reports/shannon/capabilities/agent-execution.md) (ready) · [capella-sast](ai-pentest/reports/shannon/capabilities/capella-sast.md) (ready) · [findings-reconciliation](ai-pentest/reports/shannon/capabilities/findings-reconciliation.md) (ready) · [reporting](ai-pentest/reports/shannon/capabilities/reporting.md) (ready) · [checkpoint-resume](ai-pentest/reports/shannon/capabilities/checkpoint-resume.md) (ready) · [model-credentials](ai-pentest/reports/shannon/capabilities/model-credentials.md) (ready) · [configuration](ai-pentest/reports/shannon/capabilities/configuration.md) (ready) |
 | artex-global (ai-pentest/) | `fdfb7a1` | [overview](ai-pentest/reports/artex-global/overview.md) | 미작성 |
-| strix (ai-pentest/) | `0601550` | [overview](ai-pentest/reports/strix/overview.md) | 미작성 |
-| roast-room | `e40f406` | [overview](reports/roast-room/overview.md) | — |
+| strix (ai-pentest/) | `0601550` | [overview](ai-pentest/reports/strix/overview.md) | [스킬](ai-pentest/reports/strix/capabilities/skill-selection.md) (ready); [대상 탐색](ai-pentest/reports/strix/capabilities/surface-discovery.md) (ready); [브라우저·HTTP](ai-pentest/reports/strix/capabilities/browser-http-investigation.md) (ready); [스캐너](ai-pentest/reports/strix/capabilities/scanner-triage.md) (ready); [소스 탐지](ai-pentest/reports/strix/capabilities/source-discovery.md) (ready); [의존성 CVE](ai-pentest/reports/strix/capabilities/dependency-investigation.md) (ready); [조사 스킬](ai-pentest/reports/strix/capabilities/vulnerability-playbooks.md) (ready); [검증·반증](ai-pentest/reports/strix/capabilities/finding-validation.md) (ready); [역할 분담](ai-pentest/reports/strix/capabilities/investigation-delegation.md) (ready); [MCP](ai-pentest/reports/strix/capabilities/mcp-investigation-tools.md) (ready); [조사 범위](ai-pentest/reports/strix/capabilities/investigation-coverage.md) (ready); [최종 보고](ai-pentest/reports/strix/capabilities/finding-reporting.md) (ready); 승인 범위 12개 완료 |
 
 ## 첫 수집만 한 레포 (overview 없음)
 
