@@ -21,6 +21,7 @@ artifacts/**/cache/
 __pycache__/
 artifacts/**/node_modules/
 
+/ai-pentest/repos/
 /agent-memory/repos/
 /ai-learning/repos/
 /visualization/repos/

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "c6247d45-84c8-49fa-aab9-326e725fa9f6",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/reports/auto-ontology/diagrams/structure.html",
+  "specification": {
+    "sha256": "d3d951c2c42054d7127b5bbc61f7f92cf82b4dcce05d90bea244b9c31add1a5b",
+    "bytes": 5818
+  },
+  "artifact": {
+    "sha256": "6d7b69ccf78755840eb1a5fe8c4efc15c5939d646edb839044d612c9b4c6ba8f",
+    "bytes": 857421
+  }
+}

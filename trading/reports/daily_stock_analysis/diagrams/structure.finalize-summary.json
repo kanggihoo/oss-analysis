@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.json",
+    "sha256": "14d7c6bfd56f05466b77e8aa6d368099aefe68bb772daea7763f8bc7002772f2",
+    "bytes": 2568
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.html",
+    "sha256": "e7e932d5c38a46b93cac4a8aa662197bfe0ce9e0fcd6d54c8ef2ca89ed98b81c",
+    "bytes": 836894
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/trading/reports/daily_stock_analysis/diagrams/structure.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-02T11:08:04.190Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 3987,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

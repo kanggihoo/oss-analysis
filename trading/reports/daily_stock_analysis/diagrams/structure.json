@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "daily_stock_analysis 기본 종목 분석 경로",
+    "locale": "ko",
+    "output": "trading/reports/daily_stock_analysis/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+      "revision": "ce364e457aab288863a5707e7b3df79786ad07f2"
+    }
+  },
+  "components": [
+    {
+      "id": "quotes",
+      "type": "backend",
+      "label": "시세·칩 수집",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/core/pipeline.py",
+          "line": 509,
+          "end_line": 559
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "type": "backend",
+      "label": "뉴스 검색",
+      "pos": [
+        370,
+        40
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/core/pipeline.py",
+          "line": 683,
+          "end_line": 755
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "type": "backend",
+      "label": "컨텍스트 조립",
+      "pos": [
+        700,
+        40
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/core/pipeline.py",
+          "line": 758,
+          "end_line": 798
+        }
+      ]
+    },
+    {
+      "id": "llm",
+      "type": "backend",
+      "label": "LLM 분석",
+      "pos": [
+        700,
+        260
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/core/pipeline.py",
+          "line": 835,
+          "end_line": 853
+        }
+      ]
+    },
+    {
+      "id": "save",
+      "type": "backend",
+      "label": "최종 액션·저장",
+      "pos": [
+        370,
+        260
+      ],
+      "size": [
+        180,
+        70
+      ],
+      "sources": [
+        {
+          "path": "src/core/pipeline.py",
+          "line": 930,
+          "end_line": 985
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "edge0",
+      "from": "quotes",
+      "to": "research",
+      "label": "수집 후 검색"
+    },
+    {
+      "id": "edge1",
+      "from": "research",
+      "to": "context",
+      "label": "문맥 결합"
+    },
+    {
+      "id": "edge2",
+      "from": "context",
+      "to": "llm",
+      "label": "분석 요청"
+    },
+    {
+      "id": "edge3",
+      "from": "llm",
+      "to": "save",
+      "label": "결과 보존"
+    }
+  ]
+}

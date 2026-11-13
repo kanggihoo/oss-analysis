@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Auto Ontology 모듈 구조: 질문 경로와 온톨로지 구축 경로",
+    "output": "reports/auto-ontology/diagrams/structure.html",
+    "locale": "ko",
+    "quality_profile": "showcase",
+    "repository": { "url": "https://github.com/NVIDIA/auto-ontology", "revision": "c447003f72a822301e927196a4ecb5b597c308d5" }
+  },
+  "components": [
+    { "id": "users", "type": "external", "label": "사용자·REST 클라이언트", "sublabel": "브라우저, API 토큰", "pos": [40, 190], "size": [170, 60] },
+    { "id": "agents", "type": "external", "label": "에이전트 하니스", "sublabel": "Cursor, Claude Desktop", "pos": [40, 340], "size": [170, 60] },
+    { "id": "gateway", "type": "frontend", "label": "Next.js 게이트웨이", "sublabel": "인증·RBAC·프록시 :3000", "pos": [300, 190], "size": [170, 60],
+      "sources": [
+        { "path": "frontend/auth/proxy-backend.ts", "line": 44, "end_line": 60, "label": "proxyToBackend" },
+        { "path": "frontend/app/api/chat/completions/route.ts", "line": 49, "end_line": 70, "label": "chat 프록시" }
+      ] },
+    { "id": "mcp", "type": "backend", "label": "MCP 서버", "sublabel": "읽기 전용 도구 :3003", "pos": [300, 340], "size": [170, 60],
+      "sources": [
+        { "path": "mcp/auto_ontology_mcp/tools.py", "line": 60, "end_line": 134, "label": "CURATED 도구" },
+        { "path": "mcp/auto_ontology_mcp/server.py", "line": 187, "end_line": 235, "label": "build_server" }
+      ] },
+    { "id": "backend", "type": "backend", "label": "FastAPI 백엔드", "sublabel": "/api 라우터 :3001", "pos": [560, 190], "size": [170, 60],
+      "sources": [
+        { "path": "auto_ontology/server/__main__.py", "line": 74, "end_line": 116, "label": "create_app" },
+        { "path": "auto_ontology/server/identity.py", "line": 17, "end_line": 20, "label": "내부 사용자 헤더" }
+      ] },
+    { "id": "worker", "type": "backend", "label": "채팅 워커·질의 그래프", "sublabel": "LangGraph text-to-SQL", "pos": [820, 190], "size": [170, 60],
+      "sources": [
+        { "path": "auto_ontology/server/chat/worker.py", "line": 214, "end_line": 340, "label": "PrewarmedWorker·WarmPool" },
+        { "path": "auto_ontology/retrieval/text_to_sql/text_to_sql_graph.py", "line": 329, "end_line": 612, "label": "create_graph" }
+      ] },
+    { "id": "nim", "type": "external", "label": "모델 엔드포인트", "sublabel": "NIM, OpenAI 호환", "pos": [1080, 40], "size": [150, 60],
+      "sources": [ { "path": "auto_ontology/utils/model_config.py", "line": 26, "end_line": 60, "label": "역할별 기본 모델" } ] },
+    { "id": "sourcedb", "type": "database", "label": "원본 데이터베이스", "sublabel": "커넥터 10종", "pos": [1080, 190], "size": [150, 60],
+      "sources": [ { "path": "auto_ontology/connectors/registry.py", "line": 44, "end_line": 57, "label": "CONNECTOR_REGISTRY" } ] },
+    { "id": "postgres", "type": "database", "label": "Postgres + pgvector", "sublabel": "카탈로그·온톨로지·벡터", "pos": [560, 340], "size": [170, 60],
+      "sources": [
+        { "path": "auto_ontology/dal/schema.py", "line": 456, "end_line": 470, "label": "term 테이블" },
+        { "path": "auto_ontology/vdb/postgres.py", "line": 137, "end_line": 160, "label": "PostgresVDB" }
+      ] },
+    { "id": "ingestion", "type": "backend", "label": "수집·컴파일 서비스", "sublabel": "스케줄러, 시맨틱 컴파일 :3002", "pos": [820, 490], "size": [170, 60],
+      "sources": [
+        { "path": "auto_ontology/ingestion_service/router.py", "line": 74, "end_line": 130, "label": "ingest·compile 라우트" },
+        { "path": "auto_ontology/semantic/compile.py", "line": 33, "end_line": 110, "label": "run_semantic_compilation" }
+      ] }
+  ],
+  "connections": [
+    { "id": "users-to-gateway", "from": "users", "to": "gateway", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "agents-to-mcp", "from": "agents", "to": "mcp", "label": "MCP" },
+    { "id": "mcp-to-gateway", "from": "mcp", "to": "gateway", "label": "공개 API" },
+    { "id": "gateway-to-backend", "from": "gateway", "to": "backend", "label": "사용자 헤더", "variant": "security" },
+    { "id": "backend-to-worker", "from": "backend", "to": "worker", "label": "SSE 질문", "variant": "emphasis" },
+    { "id": "worker-to-sourcedb", "from": "worker", "to": "sourcedb", "label": "SQL 실행" },
+    { "id": "worker-to-nim", "from": "worker", "to": "nim", "label": "LLM", "fromSide": "top", "toSide": "left" },
+    { "id": "backend-to-postgres", "from": "backend", "to": "postgres", "label": "DAL" },
+    { "id": "worker-to-postgres", "from": "worker", "to": "postgres", "label": "후보 검색", "fromSide": "bottom", "toSide": "right" },
+    { "id": "ingestion-to-postgres", "from": "ingestion", "to": "postgres", "label": "기록", "fromSide": "left", "toSide": "bottom" },
+    { "id": "ingestion-to-sourcedb", "from": "ingestion", "to": "sourcedb", "label": "스키마 추출", "variant": "dashed", "fromSide": "right", "toSide": "bottom" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "신뢰 경계", "items": ["FastAPI는 게이트웨이가 만든 x-auto-ontology-user-id 헤더를 믿는다", "수집 서비스 엔드포인트는 자체 인증이 없다 (README)"] },
+    { "dot": "emerald", "title": "구축 경로", "items": ["수집 → 시맨틱 컴파일 → 임베딩 기록은 24시간 주기 또는 API 트리거", "컴파일도 모델 엔드포인트를 호출하지만 선은 생략"] },
+    { "dot": "amber", "title": "그림에서 뺀 것", "items": ["KumoRFM 예측, Vault, PII 탐지, 시각화는 본문 표에서 다룸", "retrieval/interactive는 서버에서 호출하는 곳을 찾지 못함"] }
+  ]
+}

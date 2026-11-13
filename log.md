@@ -805,3 +805,125 @@ gpt-researcher·hyperresearch 기존 스펙을 비교해 각 questions/q1-intern
 ## [2026-11-10] explainer | stack-diagram 워크플로 설명 페이지
 - 사용자 요청: 비교보다 "하나의 architecture 그림이 어떤 순서로 만들어지는지" 설명. archify `explainer` 타입으로 `visualization/reports/stack-diagram/explainer/workflow.archify.md`를 쓰고 `finalize explainer`로 `workflow.html`을 만들었다(validate·deliver·check 통과, writing 경고 없음, 브라우저 gate는 explainer에서 실행하지 않음).
 - 근거는 `SKILL.md`, `fetch_icons.py`, `build.py`, `render_png.py`, `geometry.md`(SHA `5af3b09`)를 읽은 것이고 스크립트는 실행하지 않았다. overview 5절에 링크를 추가했다.
+
+## [2026-11-06] update | DeepTutor 기준을 v1.6.15(`a31d826`)에서 v1.7.2(`60fb3bd`)로 갱신
+- `ai-learning/repos/DeepTutor`를 `git pull --ff-only`(871커밋, 1,825파일)로 올리고 `git diff --name-status`와 지도가 인용한 파일 286개의 존재(9개 사라짐: 코스 6·플러그인 RFC·예제·`tools-surface.md`), 모듈 매니페스트 25개 집계(도구 103·턴 캡빌리티 11·루프 15), 어댑터 디렉터리 증감, 새 후보 7개의 진입점 독스트링을 확인했다. 새 SHA에서 스크립트·원본 테스트는 실행하지 않았다(순수 모듈 복사 실행은 자동 모드 분류기에 거부됨, 우회하지 않음).
+- `overview.md`: frontmatter·1절 기준 SHA와 "이전 기준 대비 달라진 점" 표 추가, 지도 행 3·10·11·13(삭제)·16·38·41~45·47·49 갱신, I 그룹에 54~60행(모듈식 설치·영상 수업·캘린더·만들기·핸드오프·TS 채팅 엔진·데스크톱 앱, 전부 `미작성`) 추가, 집계 59행(핵심 35·부속 24), 스킬화 지도 6·7행·대표 흐름·재구현 검증 절에 새 SHA 주의 표시. 구조도는 이전 SHA 기준 그대로(미갱신 표시).
+- `capabilities/mastery-engine.md`·`review-scheduler.md`: C-ID 56건을 `git diff` hunk 오프셋으로 새 줄 번호로 옮기고 파일·범위 존재를 확인, `learning/` 변경 20파일을 diff로 읽어 규칙을 추가·수정(복습 전략 R-19~R-21, 숙달 필터 R-15·R-07, 보충 설명 R-25, T-14·T-09 수정, T-27~T-31·T-47·T-48 손 계산 추가). `status: ready` 유지. 새 SHA 실행 확인·재구현 검증은 남음(`next.md`).
+- `artifacts/DeepTutor/repo-metadata.txt`, `repos.lock.tsv`, `index.md`, `next.md`, `handoff.md`, `GUIDE.md`를 새 SHA에 맞췄다.
+
+## [2026-11-06] ingest | herdr-plugin에 herdr-dagr, herdr-board overview 추가 (지도만)
+- `herdr-plugin/`에 herdr-dagr(`52991f9`, MIT OR Apache-2.0, `LICENSE-MIT`·`LICENSE-APACHE`)와 herdr-board(`7a215a1`)를 `--depth 50`으로 clone. 둘 다 main, clean. herdr-board는 LICENSE 파일이 추적되지 않고 `Cargo.toml:14`에 `license = "MIT"` 선언만 있다(overview 1절에 그대로 기록). `repos.lock.tsv`, `artifacts/<repo>/repo-metadata.txt`, `GUIDE.md` 분석 대상 표, `index.md` 행을 갱신.
+- GUIDE 규칙대로 기능 스펙·archify 구조도는 만들지 않고, 레포마다 `reports/<repo>/overview.md`(feature map, 공유 계약, 글로 쓴 구조 해설)만 서브에이전트(sonnet) 2개로 병렬 작성. feature map 행: herdr-dagr 10(핵심 9/부속 1), herdr-board 18(핵심 13/부속 5). 읽기만 했고 빌드·실행 없음, herdr 서버 쪽 동작은 미확인.
+- 메인 세션 점검: 두 레포의 `herdr-plugin.toml` 항목(둘 다 `[[events]]`·`[[startup]]` 없음, 소켓 직접 구독)과 라이선스 파일을 직접 확인해 보고와 일치함을 봤다. 줄 번호는 서브에이전트 자체 점검이고 메인 세션은 전수 재검증하지 않았다. `python3 scripts/check.py herdr-dagr herdr-board` ERROR 0.
+
+## [2026-11-06] ingest | ai-pentest/ 주제 폴더 신설, shannon·artex-global·strix 초기 수집
+- 사용자 요청: shannon(`8c75a9b`, AGPL-3.0), artex-global(`fdfb7a1`, AGPL-3.0, `web/LICENSE`는 MIT, 상류 Autumn-27/ARTEX 포크), strix(`0601550`, Apache-2.0)를 한 디렉터리에 두고 초기 작업. 모두 `--depth 50` clone, main, clean.
+- 만든 것: `ai-pentest/GUIDE.md`(잠정 목적·비교 축·분석 대상), `repos.lock.tsv`, 레포별 `artifacts/<repo>/repo-metadata.txt`, 빈 `reports/<repo>/`, `.gitignore`의 `/ai-pentest/repos/`, `index.md` 행 3개.
+- 하지 않은 것: README·코드 읽기, overview·feature map, 실행. 목적이 사용자 확인 전이다. 라이선스는 LICENSE 파일 첫머리만 읽어 적었다.
+
+## [2026-11-06] analysis | ai-pentest 세 레포 feature map
+- 서브 에이전트 세 명이 기준 SHA의 원본을 읽고 shannon 16행, artex-global 15행, strix 17행의 feature map과 레포별 next·구조도를 작성했다. 기능 스펙은 요청 범위 밖으로 미작성이다.
+- 구조도 자동 검증과 브라우저 점검을 수행했고 시각 검토는 하지 않았다. 각 도구 실행·대상 접속은 하지 않았다. 메인 세션은 에이전트의 코드 근거를 전수 재검증하지 않았다.
+
+## [2026-11-07] question | shannon feature map 설명
+- q1-feature-map에 읽는 순서와 분석 → 결과 조정 → 조건부 시도 흐름을 기록하고 overview 4절에 연결했다. workflows.ts의 해당 경로를 다시 확인했다.
+
+## [2026-11-07] question | shannon source 접근 방식
+- q1-feature-map에 source 입력과 worker 전달 경로를 추가했다.
+
+## [2026-11-07] question | shannon 코드 규모
+- q1-feature-map에 추적 소스 파일 물리적 줄 수(218파일·53,059줄)와 프롬프트(80파일·6,209줄), 집계 기준을 기록했다.
+
+## [2026-11-07] capability | shannon 핵심 기능 14개 스펙
+- 사용자 승인: 핵심 행 1~14, 부속 15·16 제외. GPT-6.1-terra 서브 에이전트 6개에 분담: 사용자 입구 medium, 나머지 5개 작업 high. 최대 3개 병렬 실행. 기준 SHA `8c75a9b` 유지, 원본 실행·빌드·대상 접속 없음.
+- `ai-pentest/reports/shannon/capabilities/`에 14개 스펙을 작성했다(모두 ready, 미결정 없음). 상태·실패·취소·재개·collector·queue·SARIF·report manifest의 원본 코드와 helper를 추적했다.
+- 메인 및 담당자의 통합 검토로 staging/commit 범위, session/resume identity 차이, misc admission과 producer/consumer ID를 교정했다. overview 1~2절·공유 계약, next 1~4절, GUIDE 승인 범위와 index를 갱신했다. 기존 분석 문서와 원본 도구·의존성의 실제 동작은 실행 검증하지 않았다.
+- 최종 검사: `python3 scripts/check.py shannon` ERROR 0 / NOTE 0. 코드 참조 374개 범위·필수 절·SHA·source·선행 DAG·원본 clean 검사 오류 0. `ai-pentest/artifacts/shannon/spec-validation.txt`에 기록했다.
+
+## [2026-11-10] ingest | auto-ontology
+- `https://github.com/NVIDIA/auto-ontology`를 `repos/auto-ontology/`에 shallow clone(SHA `c447003`, Apache-2.0). 목적 미지정이라 기본 목적(기능 스펙화)으로 feature map까지만 진행했고 범위 승인은 받지 않았다. 실행·빌드·외부 호출 없음.
+- README 전문, `AGENTS.md`, 서버·수집 서비스·질의 그래프·MCP·게이트웨이 진입점과 모듈 docstring을 읽어 `reports/auto-ontology/overview.md`에 feature map 22행(핵심 17/부속 5)·공유 계약 5·README와 코드의 차이(모델 기본값 폴백, 서비스 표)를 썼다. 구조도는 archify 자동 검사 통과(시각 검토 없음).
+- `next.md`, `artifacts/auto-ontology/repo-metadata.txt`, `index.md` 행, `handoff.md` 대기 행(목적 확인·범위 승인)을 추가했다.
+
+## [2026-11-10] question | auto-ontology 온톨로지 구현
+- 사용자 목적 확인("온톨로지를 어떻게 구현하는지"). `dal/schema.py`(term·column_attribute·column__semantic_fk·sql_attribute·join_path_edge), `semantic/`(compile·pipeline·visit_enter·term_extractor·deterministic·semantic_fk·sql_attribute_suggester·bridge_tables·embed), `dal/attributes.py` 조인 경로 BFS, 질의 쪽 candidates_retrieval·candidates_preparation·sql_from_semantic을 읽었다. 실행 없음.
+- `reports/auto-ontology/questions/q1-ontology-implementation.md` 작성, overview 1절 목적·스펙 범위 권장안·4절 링크, next.md, handoff.md 갱신. 확인한 결과: 테이블당 Term 1개의 평평한 시맨틱 레이어(관계형 저장), `_usage_score`가 항상 0.0, certify 플래그는 검색·SQL 생성 경로에서 읽히지 않음.
+
+## [2026-11-10] ingest | K-Humanizer
+- `https://github.com/evergreentree97/K-Humanizer`를 `repos/K-Humanizer/`에 clone(SHA `916a0e1`, MIT, v0.5.0). 목적 미지정이라 기본 목적(기능 스펙화)으로 feature map까지만 진행했고 범위 승인은 받지 않았다. 지침 문서가 본체인 레포라 스펙은 "에이전트가 따르는 판단 규칙" 단위가 된다.
+- 두 `SKILL.md` 전문과 references 9개 전문, 매니페스트 4개, 검증 스크립트 4개, CI, `docs/validation-plan.md`를 읽어 `reports/K-Humanizer/overview.md`에 feature map 16행(핵심 13/부속 3)·공유 계약 4를 썼다. 문서와 구현의 차이 4건을 적었다(`evaluation.md`의 fixture 30건 표기가 실제 32건, `CHANGELOG`의 옛 파일명 `use-cases.md`, 영어 요청에 영어 노트가 안 나오는 기지의 한계, 플러그인의 스킬 자동 탐색은 추론). 구조도는 archify `finalize` 통과(교차 권고 1회 반영, 시각 검토 없음).
+- 검증 스크립트·unittest 실행은 권한 설정으로 거부돼 우회하지 않았고(정적 읽기만), LLM 호출도 없다. `next.md`, `artifacts/K-Humanizer/repo-metadata.txt`, `index.md` 행, `handoff.md` 대기 행(목적 확인·범위 승인)을 추가했다.
+
+## [2026-11-10] update | auto-ontology feature map 재분할
+- 사용자 요청("feature map 작성", `/oss-repo-spec`)에 따라 기존 22행 초안을 목적(온톨로지 구현 이해)에 맞춰 20행으로 다시 잘랐다. 구 4행(term 컴파일)을 프로파일링·FK 탐지 / Term 생성 / 오케스트레이션으로, 구 5행을 FK 해석 / SQL attribute 제안 / bridge table로 나누고 벡터 저장을 공유 계약에서 행 8로 올렸다. 목적 밖 영역(소스·수집·PII, 거버넌스, 서빙, 인터페이스)은 패밀리 행으로 묶었다. 공유 계약은 5개에서 4개(S1~S4).
+- 추가 확인: hub-sibling 확장은 환경변수 기본값이 `false`(`candidates_preparation.py:117`). Q1에 반영. overview 1절 스펙 범위 권장안(행 1~10, S1 별도 스펙), 2절 권장 범위 표, 3절 행 번호 참조, next.md, handoff.md 갱신. 구조도는 그대로(재분할은 표만 바꿈).
+
+## [2026-11-10] capability | K-Humanizer 스펙 8개 (행 1~7, 9)
+- 사용자 승인("진행", 권장 범위): 행 1~7, 9. 제외: 8·10~13(사용자 제외), 14~16(부속). 서브에이전트 없이 메인 세션이 직접 썼다(레포가 작고 이미 전문을 읽은 뒤라 위임 비용이 더 컸다). 원본 실행 없음.
+- `reports/K-Humanizer/capabilities/`에 8개 스펙을 썼다(모두 ready): input-mode-and-authority(S1), fact-protection(S2), pattern-diagnosis, situation-defaults-and-questions, edit-and-stop-rule, response-format(S4), business-channel-rules, evaluation-rubric(S3). 이 레포의 "코드"는 지침 문장이라 C-ID는 줄 범위이고 R-ID는 에이전트가 해야 할 행동이다. 모든 검증 수준은 "지침 문장을 읽음"이며 LLM 실제 출력은 확인하지 못했다.
+- feature map 보정: 행 9에서 이력서 확장 루브릭을 행 10으로 옮기고 선행을 `1, 5`로, 행 3 선행을 `1, 4, 5`로, 행 6 선행을 `1, 5`로 고쳤다. 발견한 문서 차이: `SKILL.md`는 충돌 시 질문 또는 미해결 표시라고만 쓰지만 `docs/validation-plan.md`·fixture는 "영어가 기본 원문, 질문 하나 + 두 값 병기"를 기대한다(입력 모드 스펙 R-10, 2.1).
+- 통합 검토 4항목을 overview 2절에 적었다. `python3 scripts/check.py K-Humanizer` ERROR 0 / NOTE 0, 줄 범위 C-ID는 파일 길이 안에 있음을 스크립트로 확인했다. `handoff.md`의 K-Humanizer 대기 행은 삭제했고(범위 승인 완료) 분석 목적 확인은 `next.md` 2절에 남겼다.
+
+## [2026-11-10] capability | K-Humanizer 스펙 7개 추가 (행 8, 10~13, 15, 16)
+- 사용자가 다음 작업으로 "이력서 스킬 10~13, 일반 글쓰기 8, 평가 도구 15·16"을 선택해 범위를 확장했다(행 14는 부속이라 제외 유지). 서브에이전트 없이 메인 세션이 썼다. 원본 실행·빌드 없음, 검증 스크립트와 unittest도 실행하지 않았다(권한 거부 유지).
+- 추가로 읽은 것: `scripts/test_validate_golden_set.py`·`test_validate_model_baseline.py` 전문, `test_validate_business_set.py` 1-60·137-210줄, `docs/validation-plan.md` 전체, `business-review.md`·`model-baseline.md` 전문, 이력서 references 전문.
+- `reports/K-Humanizer/capabilities/`에 7개 스펙을 썼다(모두 ready): native-writing-genres, resume-evidence-rewrite, resume-workflow, resume-role-context, application-motivation, eval-fixtures-and-validators, eval-procedure-and-records. 행 10에 이력서 확장 루브릭(하드 페일·전용 채점)을 넣고 행 12에 직무별 채점 점검을 넣었다. 1차 스펙의 "business-review.md 일부만 읽음" 문구 3곳을 전문 확인 후 고쳤다.
+- overview의 feature map 상태·링크, 스펙 범위, 2차 통합 검토(경계, 문서 차이, 선행, 이력서 대표 흐름), `next.md`, `index.md`를 갱신했다. 수치(점수·충족 건수)는 보고서 값을 옮긴 것이며 원자료로 재계산하지 않았다.
+
+## [2026-11-10] capability | K-Humanizer 스펙 1개 추가 (행 14)
+- 사용자 "14만 진행"으로 행 14(스킬 메타데이터·플러그인 배포, 부속)를 승인받아 `reports/K-Humanizer/capabilities/plugin-packaging.md`를 썼다(ready). 매니페스트 4개, `openai.yaml` 2개, `SKILL.md` frontmatter, README 설치 절, CI의 YAML 검사 범위를 근거로 했다. 설치 동작은 외부 시스템이라 확인하지 못했고(스킬 자동 탐색은 추론) 실행도 없다.
+- 발견한 차이 3건을 2.1에 적었다: 매니페스트마다 `description`이 다르다, 버전은 루트 `plugin.json`(`0.5.0`)에만 있고 패키징은 `CHANGELOG`의 Unreleased인데 버전이 마지막 릴리스 태그와 같다, CI가 JSON 매니페스트를 검사하지 않는다.
+- feature map 16행이 모두 ready가 됐고 overview·next·index를 갱신했다.
+
+## [2026-11-11] update | daily_stock_analysis 초기 feature map 보완
+기존 trading 분석과 clean checkout ce364e4를 유지했다. pipeline 호출부·LICENSE·앱 manifest를 확인하고 overview(feature map·공유 계약·구조도 해설), next, metadata, index, handoff를 갱신했다. 기능 스펙은 행 1~7 승인 대기이며 원본 설치·실행은 하지 않았다.
+
+## [2026-11-11] update | daily_stock_analysis 기능 용어·규모 Q1
+시장 복기·스크리닝·백테스트·포트폴리오 위험 구현을 확인하고 Q1 문서, overview, next를 갱신했다. 런타임 소스 537파일 241,169물리 줄 집계 원자료를 artifacts에 저장했다. screening 하위 Apache-2.0 라이선스를 추가 확인했다.
+
+## [2026-11-11] capability | daily_stock_analysis 핵심 1~7 스펙
+- 사용자 승인 범위 행1~7, 부속8~11 제외. subagent3개 모두 `gpt-6.1-terra` / effort `medium`으로 작성했고 메인이 수집·공통 후처리·통합을 담당했다. 스케줄 담당은 후속으로 수집 provider 패밀리를 보강했다. 기준 SHA ce364e4 유지, 원본 설치·빌드·실행 및 외부 API 호출 없음.
+- `trading/reports/daily_stock_analysis/capabilities/`에 spec7개(모두 ready)를 작성했다. 수집·컨텍스트·뉴스·기본 LLM·Agent·결과 보정/저장/신호·스케줄 계약과 R-ID/C-ID·수락 사례를 원본 코드로 대조했다. 검토 중 수급 부재 강등, report score와 calibration score 우선순위, confidence 한국어 추출 누락, Agent 검색/사후 검색 구분을 반영했다.
+- overview1~2·5절의 승인·상태·공유 계약·선행·종단 흐름, next 전절, index와 handoff 대기 행을 갱신했다. 행3/7의 수집 선행 제거와 행4 생성/행6 후처리 소유 분리로 순환을 피했다. 기존 사용자 변경은 보존했다.
+- `python3 scripts/check.py daily_stock_analysis` ERROR0/NOTE0, 추가 감사에서 spec7개·코드범위462개·sources·필수절·선행DAG·동일SHA·원본clean ERROR0. 결과와 감사 스크립트는 `trading/artifacts/daily_stock_analysis/`에 저장. 수락 사례는 실행하지 않은 구현 도출 사례다.
+
+## [2026-11-13] update | strix 기능 스펙 범위 제안
+
+- 기존 overview·next·구조도 산출물과 GUIDE를 확인하고, 고정 SHA `0601550` 및 clean 작업트리를 확인했다. upstream 갱신과 도구 실행은 하지 않았다.
+- runner·factory의 연결과 등록 import를 재확인하고 overview 1·2절에 핵심 1~13 권장, 핵심 14·부속 15~17 기본 제외 제안을 기록했다. 상세 규칙은 미검증이며 공유 계약 소유자는 스펙 단계에서 확정한다.
+- next·handoff·index에 승인 대기를 반영했다. `python` 실행 파일이 없어 같은 검사 스크립트를 `python3 scripts/check.py strix`로 실행한다.
+
+## [2026-11-13] update | strix 실행 흐름 질문
+
+- CLI·runner·execution·factory·finish 도구의 호출 흐름을 코드로 확인하고 questions/q1-runtime-flow.md에 기록했다. 실제 스캔은 실행하지 않았다.
+- overview 4절과 next 확인 범위에 연결했다. 기존 스펙 범위 승인 대기를 유지한다.
+
+## [2026-11-13] update | strix 조사 목적 구체화
+
+- 사용자 관심을 취약점 발견 방법·실제 도구·스킬로 기록하고 기존 1~13 일괄 권장안을 대체했다. 구체적인 스펙 분할은 미승인이다.
+- MCP loader·연결 계약, 이미지 설치 구성, 스킬 로딩과 대표 스킬을 확인했다. Q2·overview·next·handoff·index에 반영했다. 도구·대상은 실행하지 않았다.
+
+## [2026-11-13] update | strix 도구·스킬 기반 발견 과정
+
+- 설치 구성·도구별 playbook·root/standard/counterevidence/SAST/의존성 CVE 지침·스킬 로더·프록시와 보고 등록 경로를 조사했다.
+- Q3에 도구 대응표, 자동/동적 스킬 로딩, IDOR 설명용 흐름, 지침 간 PoC 요구 차이와 보고 필드 검사의 한계를 기록하고 overview 4절·next에 연결했다. 실제 스캔은 실행하지 않았다.
+
+## [2026-11-13] update | strix 최종 조사 feature map 재선정
+
+- 사용자 요청에 따라 기존 제품 전체 17행을 목적 중심 15행으로 재구성했다. 새 1~12행은 도구·스킬·후보 탐지·검증·역할 인계·MCP 보충·기록·보고이며 13~15는 기본 제외 제안이다.
+- overview 1·2절에 진입점·선행·상태·검증 수준·기존 행 대응·공유 계약 소유·패밀리 경계를 기록했다. source-aware discovery 본문과 각 도구 진입점도 확인했다.
+- next의 낡은 권장안을 교체하고 handoff·index를 동기화했다. 기능 스펙 승인 전이며 도구·대상은 실행하지 않았다.
+
+## [2026-11-13] capability | strix 1차 기능 스펙 1~4
+
+- 사용자 진행 요청을 새 행 1~12 승인으로 기록하고 범위 대기 행을 handoff에서 제거했다. GUIDE의 승인 현황도 갱신했다. 이번 차수는 1~4이며 5~12는 후속 작업이다.
+- 메인이 skill-selection을 작성하고 gpt-6.1-terra/high subagent 3개가 surface-discovery·browser-http-investigation·scanner-triage를 작성했다. 메인은 파일을 읽고 원본 주요 경로와 코드 참조를 재검토해 4개 ready로 통합했다.
+- overview 2절에 경계·선행·대표 흐름과 PoC/증거 검증 한계를 기록하고 index·next를 동기화했다. 실제 도구·대상·컨테이너는 실행하지 않았다. 문서 검사와 C-ID 파일/줄 범위 점검을 수행했다.
+
+## [2026-11-13] capability | strix 승인 범위 1~12 최종 완료
+
+- 사용자 요청에 따라 남은 5~12를 순차 작성하고 메인이 12개 전체를 검토·통합했다. subagent 3개를 재사용했으며 모두 gpt-6.1-terra/high였다. 전문 스킬 50개 본문과 코드/지침을 대조했다.
+- 신규 스펙 8개는 소스 탐지·dependency CVE·전문 playbook·검증/반증·역할 인계·MCP·coverage·최종 보고다. 모두 ready, 미결정 없음. 12행 선행에 HTTP ID 계약인 3행을 추가하고 S1/S2 소유자를 확정했다.
+- overview 2절의 대조 범위·최종 통합 검토·IDOR 전체 흐름·지침/코드 차이와 next·index·GUIDE를 최종 상태로 갱신했다. 코드 참조 sources 누락과 표의 shell OR 표기를 보정했다. handoff에 Strix 결정 대기는 없다.
+- python3 scripts/check.py strix와 source/C-ID 줄 범위·표·선행 정적 검사를 수행하고 artifacts/strix/spec-validation.json에 남겼다. 원본·스캔·CLI·MCP·대상·컨테이너·SDK는 실행하지 않았다. 승인 범위 ready 12 / draft 0 / 미작성 0, 제외 행 13~15는 미작성이다.

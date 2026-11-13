@@ -1,0 +1,11 @@
+repo_dir=repos/K-Humanizer
+name=K-Humanizer
+date=2026-11-10
+commit=916a0e1cd5f4a84de4ec7e485386c7d9941d7e00
+commit_date=2026-11-09T23:58:00+09:00
+origin=https://github.com/evergreentree97/K-Humanizer
+branch=main
+worktree=clean
+clone=full (44 commits)
+version=0.5.0 (plugin.json)
+executed=none (validators·unittest 실행은 권한 거부, LLM 호출 없음)

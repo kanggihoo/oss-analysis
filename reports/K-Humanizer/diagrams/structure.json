@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "K-Humanizer 구조: 스킬 지침 파일과 평가 도구",
+    "output": "reports/K-Humanizer/diagrams/structure.html",
+    "locale": "ko",
+    "quality_profile": "showcase",
+    "repository": { "url": "https://github.com/evergreentree97/K-Humanizer", "revision": "916a0e1cd5f4a84de4ec7e485386c7d9941d7e00" }
+  },
+  "components": [
+    { "id": "users", "type": "external", "label": "글 쓰는 사람", "sublabel": "영어·한국어 초안 입력", "pos": [40, 190], "size": [170, 60] },
+    { "id": "plugin", "type": "cloud", "label": "플러그인 매니페스트", "sublabel": "Claude Code·Codex 설치", "pos": [300, 340], "size": [170, 60],
+      "sources": [
+        { "path": ".claude-plugin/marketplace.json", "line": 1, "end_line": 14, "label": "Claude Code 마켓플레이스" },
+        { "path": "plugin.json", "line": 1, "end_line": 30, "label": "플러그인 정의 0.5.0" },
+        { "path": ".agents/plugins/marketplace.json", "line": 1, "end_line": 20, "label": "Codex 마켓플레이스" }
+      ] },
+    { "id": "host", "type": "external", "label": "호스트 에이전트", "sublabel": "Claude Code, Codex, Cursor", "pos": [300, 190], "size": [170, 60] },
+    { "id": "main", "type": "backend", "label": "k-humanizer SKILL.md", "sublabel": "모드 판별 · 작성 · 보호 · 응답", "pos": [560, 190], "size": [170, 60],
+      "sources": [
+        { "path": "skills/k-humanizer/SKILL.md", "line": 1, "end_line": 4, "label": "스킬 이름·설명" },
+        { "path": "skills/k-humanizer/SKILL.md", "line": 13, "end_line": 40, "label": "입력 모드와 원문 권위" },
+        { "path": "skills/k-humanizer/SKILL.md", "line": 164, "end_line": 199, "label": "참조 선택과 응답 형식" }
+      ] },
+    { "id": "evaluation", "type": "database", "label": "evaluation.md", "sublabel": "채점 루브릭·하드 페일", "pos": [560, 40], "size": [170, 60],
+      "sources": [
+        { "path": "skills/k-humanizer/references/evaluation.md", "line": 22, "end_line": 37, "label": "모드별 채점" },
+        { "path": "skills/k-humanizer/references/evaluation.md", "line": 181, "end_line": 211, "label": "비즈니스 하드 페일" }
+      ] },
+    { "id": "evals", "type": "backend", "label": "평가셋·검증 스크립트", "sublabel": "fixture, validate_*.py, CI", "pos": [300, 40], "size": [170, 60],
+      "sources": [
+        { "path": "scripts/validate_business_set.py", "line": 58, "end_line": 183, "label": "비즈니스 fixture 검증" },
+        { "path": "evals/fixtures/business_korean.v1.jsonl", "line": 1, "end_line": 1, "label": "fixture 한 줄 형식" },
+        { "path": ".github/workflows/validate.yml", "line": 1, "end_line": 37, "label": "CI 검증 단계" }
+      ] },
+    { "id": "business", "type": "database", "label": "business-korean.md", "sublabel": "5개 채널 기본값·사례 17개", "pos": [860, 190], "size": [170, 60],
+      "sources": [ { "path": "skills/k-humanizer/references/business-korean.md", "line": 22, "end_line": 43, "label": "채널별 기본값 시작부" } ] },
+    { "id": "patterns", "type": "database", "label": "patterns.md", "sublabel": "번역투·어미·흐름 진단표", "pos": [860, 40], "size": [170, 60],
+      "sources": [ { "path": "skills/k-humanizer/references/patterns.md", "line": 1, "end_line": 46, "label": "사용 규칙과 번역투 표" } ] },
+    { "id": "native", "type": "database", "label": "native-writing.md", "sublabel": "문서·채팅·메일 등 7개 장르", "pos": [860, 340], "size": [170, 60],
+      "sources": [ { "path": "skills/k-humanizer/references/native-writing.md", "line": 24, "end_line": 40, "label": "장르별 목표와 규칙" } ] },
+    { "id": "resume", "type": "backend", "label": "k-humanizer-resume SKILL.md", "sublabel": "증거 경계 · 소유 · 상태", "pos": [560, 340], "size": [190, 60],
+      "sources": [ { "path": "skills/k-humanizer-resume/SKILL.md", "line": 1, "end_line": 60, "label": "이력서 스킬 전문" } ] },
+    { "id": "resumerefs", "type": "database", "label": "이력서 참조 5개", "sublabel": "resume·workflow·roles·application·evaluation", "pos": [560, 490], "size": [170, 60],
+      "sources": [
+        { "path": "skills/k-humanizer-resume/references/resume.md", "line": 22, "end_line": 68, "label": "증거 확인과 재작성 표" },
+        { "path": "skills/k-humanizer-resume/references/resume-workflow.md", "line": 18, "end_line": 48, "label": "작업 유형과 증거 기록" },
+        { "path": "skills/k-humanizer-resume/references/resume-roles.md", "line": 31, "end_line": 42, "label": "직무별 맥락 표" }
+      ] }
+  ],
+  "connections": [
+    { "id": "users-to-host", "from": "users", "to": "host", "label": "요청", "variant": "emphasis" },
+    { "id": "plugin-to-host", "from": "plugin", "to": "host", "label": "설치" },
+    { "id": "host-to-main", "from": "host", "to": "main", "label": "스킬 로드", "variant": "emphasis" },
+    { "id": "main-to-business", "from": "main", "to": "business", "label": "채널별 사례" },
+    { "id": "main-to-patterns", "from": "main", "to": "patterns", "label": "문구 진단" },
+    { "id": "main-to-native", "from": "main", "to": "native", "label": "일반 글쓰기" },
+    { "id": "main-to-evaluation", "from": "main", "to": "evaluation", "label": "검토 요청 시", "variant": "dashed" },
+    { "id": "main-to-resume", "from": "main", "to": "resume", "label": "이력서·지원서 위임" },
+    { "id": "resume-to-refs", "from": "resume", "to": "resumerefs", "label": "참조 로드" },
+    { "id": "evaluation-to-evals", "from": "evaluation", "to": "evals", "label": "채점 기준", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "코드가 아니라 지침", "items": ["스킬 본체는 Markdown이고 호스트 모델이 읽어 따른다", "실행 코드는 검증 스크립트 4개와 그 테스트 3개뿐이며 스킬이 호출하지 않는다"] },
+    { "dot": "emerald", "title": "스킬 간 연결", "items": ["k-humanizer는 이력서·지원서를 resume 스킬로 넘긴다", "resume 스킬은 k-humanizer가 설치돼 있으면 그 patterns.md를 진단에 쓴다 (선은 생략)"] },
+    { "dot": "amber", "title": "그림에서 뺀 것", "items": ["모델 호출 harness는 레포에 없고 보고서 문서에만 있다", "golden set v0 본문, 평가 보고서 본문, 영어 README는 본문 표에서 다룸"] }
+  ]
+}

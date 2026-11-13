@@ -1,0 +1,8 @@
+repo_dir=repos/auto-ontology
+name=auto-ontology
+date=2026-11-10
+commit=c447003f72a822301e927196a4ecb5b597c308d5
+commit_date=2026-11-06
+origin=https://github.com/NVIDIA/auto-ontology
+worktree=clean
+clone=shallow (--depth 50)
