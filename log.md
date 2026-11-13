@@ -927,3 +927,25 @@ gpt-researcher·hyperresearch 기존 스펙을 비교해 각 questions/q1-intern
 - 신규 스펙 8개는 소스 탐지·dependency CVE·전문 playbook·검증/반증·역할 인계·MCP·coverage·최종 보고다. 모두 ready, 미결정 없음. 12행 선행에 HTTP ID 계약인 3행을 추가하고 S1/S2 소유자를 확정했다.
 - overview 2절의 대조 범위·최종 통합 검토·IDOR 전체 흐름·지침/코드 차이와 next·index·GUIDE를 최종 상태로 갱신했다. 코드 참조 sources 누락과 표의 shell OR 표기를 보정했다. handoff에 Strix 결정 대기는 없다.
 - python3 scripts/check.py strix와 source/C-ID 줄 범위·표·선행 정적 검사를 수행하고 artifacts/strix/spec-validation.json에 남겼다. 원본·스캔·CLI·MCP·대상·컨테이너·SDK는 실행하지 않았다. 승인 범위 ready 12 / draft 0 / 미작성 0, 제외 행 13~15는 미작성이다.
+
+## [2026-11-13] update | artex-global 조사 내용 설명
+
+기존 overview·next·metadata를 읽고 questions/q1-investigation-summary.md에 구조, 조사 범위, 미확인을 정리했다. 원본 clone 부재로 이번 코드 재검증은 하지 않았다.
+overview 4절과 next 6절에 연결했다. 기능 스펙은 시작하지 않았다.
+
+## [2026-11-13] update | artex-global 고정 SHA clone·feature map 재검증
+
+전체 이력 clone 후 fdfb7a17b7da5e2de716c0e98475ec77a41c64c6에 detached HEAD로 고정했다. 파일 791개·중첩 매니페스트·등록부와 주요 호출을 읽고 feature map을 20행(핵심 18/부속 2), 공유 계약 4개로 갱신했다.
+Q2에 Strix 기존 스펙과의 비교 및 지침/코드 강제 경계를 기록하고 Q1의 시점 한계를 명시했다. overview·next·index·metadata와 source-inventory를 갱신했다. 기능 스펙은 사용자 요청 범위 밖이라 시작하지 않았다.
+기존 구조도를 --repo-root로 다시 archify finalize하여 validate/deliver/check/browser-check pass. 시각 검토·도구/대상 실행은 하지 않았다.
+
+## [2026-11-13] update | artex-global 취약점 탐색 중심 feature map 재구성
+
+사용자 목적을 도구·skill/지침·판별·증거·보고/출력으로 정정했다. 고정 SHA에서 Dockerfile, API 정적/런타임 skill/script 입출력, worker/solo pentest/reporter 지침, 관찰/발견/증거/출력 경계를 다시 읽었다.
+overview 2절을 16행(조사 중심 1~13, 실행 기반 14, UI 15, 부속 16)·공유 계약 4개로 재구성하고 도구 목록·기존 행 대응·대표 흐름을 적었다. Q3·next·GUIDE·index를 갱신했다. 기능 스펙·실제 도구 실행은 하지 않았다.
+
+## [2026-11-13] capability | artex-global 조사 중심 스펙 13개 완료
+
+사용자 진행 요청에 따라 feature map 1~13행을 승인 범위로 확정했다. gpt-6.1-terra / high subagent 3개를 재사용해 도구·정적/런타임 탐색·외부연결·판별·관찰·coverage·traffic·발견/증거·재검증·보고/출력 스펙 13개를 작성하고 모두 ready로 확정했다. 실제 도구·DB·모델·대상은 실행하지 않았다.
+메인은 전체 spec과 주요 원본 경계를 읽고 선행·ID/status·증거 version·대표 흐름을 통합 검토했다. 내부 helper 참조 누락·줄 범위 초과, export staging 오류 status/검사 순서, Markdown TrimSpace와 JSON 보존 차이를 보완했다.
+overview·next·GUIDE·index·Q3와 artifacts/spec-agents.json·spec-validation.json을 갱신했다. 정적 검사 13개·193 source 범위 그룹 오류 0, python scripts/check.py artex-global ERROR 0 / NOTE 0. 승인 밖 14~16행은 미작성이다.
