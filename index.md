@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-11-04
+> Last updated: 2026-11-10
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -11,6 +11,7 @@
 | book-to-skill | `e7bb659` | [overview](reports/book-to-skill/overview.md), [next](reports/book-to-skill/next.md), [스펙 읽기 가이드](reports/book-to-skill/explainer/specs-guide.html) | [extract-artifacts](reports/book-to-skill/capabilities/extract-artifacts.md), [input-and-env](reports/book-to-skill/capabilities/input-and-env.md), [pdf-extraction](reports/book-to-skill/capabilities/pdf-extraction.md), [pdf-text-cleanup](reports/book-to-skill/capabilities/pdf-text-cleanup.md), [text-sanitize](reports/book-to-skill/capabilities/text-sanitize.md), [structure-detection](reports/book-to-skill/capabilities/structure-detection.md), [generation-setup](reports/book-to-skill/capabilities/generation-setup.md), [skill-authoring](reports/book-to-skill/capabilities/skill-authoring.md) (모두 ready) |
 | ai-job-search | `e16acee` | [overview](reports/ai-job-search/overview.md) | — |
 | archify (visualization/) | `a406594` | [overview](visualization/reports/archify/overview.md), [next](visualization/reports/archify/next.md) | [artifact-choice](visualization/reports/archify/capabilities/artifact-choice.md) (ready), [type-routing](visualization/reports/archify/capabilities/type-routing.md) (ready), [authoring-contract](visualization/reports/archify/capabilities/authoring-contract.md) (draft), [finalize-orchestration](visualization/reports/archify/capabilities/finalize-orchestration.md) (ready), [input-validation](visualization/reports/archify/capabilities/input-validation.md) (ready), [rendering](visualization/reports/archify/capabilities/rendering.md) (ready), [delivery](visualization/reports/archify/capabilities/delivery.md) (ready), [verification-gates](visualization/reports/archify/capabilities/verification-gates.md) (ready), [repair-loop](visualization/reports/archify/capabilities/repair-loop.md) (ready), [explainer](visualization/reports/archify/capabilities/explainer.md) (ready), [viewer](visualization/reports/archify/capabilities/viewer.md) (ready), [auxiliary-commands](visualization/reports/archify/capabilities/auxiliary-commands.md) (draft) |
+| stack-diagram (visualization/) | `5af3b09` | [overview](visualization/reports/stack-diagram/overview.md), [next](visualization/reports/stack-diagram/next.md) | — (feature map 14행, 범위 승인 대기) |
 | claude-code-history-viewer | `9d86b46` | [overview](reports/claude-code-history-viewer/overview.md) | — |
 | claude-devtools | `1486f20` | [overview](reports/claude-devtools/overview.md) | [claude-code-session-log-reading](reports/claude-devtools/capabilities/claude-code-session-log-reading.md) (draft), [claude-code-session-picker](reports/claude-devtools/capabilities/claude-code-session-picker.md) (draft) |
 | agent-skills | `aeac41d` | [overview](reports/agent-skills/overview.md) | — |

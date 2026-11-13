@@ -16,6 +16,7 @@
 | agentmemory (`agent-memory/`) | 38행(핵심 30/부속 8), 공유 계약 6 | 범위 승인 | [overview](agent-memory/reports/agentmemory/overview.md), [next](agent-memory/reports/agentmemory/next.md) |
 | hyperresearch (`research/`) | 기능 스펙 15개(ready 12 / draft 3), 공유 계약 3 | (1) `wrapper_contract.json`(하니스 외부 계약, 소유 스펙 없음)을 스펙 후보로 올릴지. (2) draft 3개(4·5·6행)의 미결정 18건을 "구현자가 정해야 하는 값"으로 닫고 ready로 올릴지. 원본이 정하지 않은 형식이 대부분이다. (3) 재구현 검증을 할지 | [overview](research/reports/hyperresearch/overview.md) 4절, [next](research/reports/hyperresearch/next.md) |
 | teamai-cli | — | 기능 스펙 후보 "배포 대상 제어"(q1 근거, 새 SHA `a44493f` 재확인 필요) 승인 여부, q2(packages·mcp) 결과를 스펙 후보로 올릴지 | [next](reports/teamai-cli/next.md) 3절 |
+| stack-diagram (`visualization/`) | 14행(핵심 7/부속 7), 공유 계약 4 | 범위 승인. 제안: 핵심 1~7(콘텐츠 설계, 로고 수집 2종, 레이아웃·템플릿, 빌드, PNG 렌더, 전달 형식)과 공유 계약 C1·C2. 부속 8~14(갤러리 클라이언트와 `site/`)는 제외. 분석 목적도 미정이라 함께 정한다 | [overview](visualization/reports/stack-diagram/overview.md) 2절, [next](visualization/reports/stack-diagram/next.md) |
 
 ### 1.1 DeepTutor·learnharness 승인 요청 (2026-10-25 제안, 아직 답 없음)
 

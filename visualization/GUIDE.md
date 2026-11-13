@@ -5,10 +5,10 @@
 
 ## 목적과 범위
 
-다이어그램·설명 페이지를 만드는 시각화 도구를 분석한다. 첫 대상은 **archify**이고, 이 작업 공간이 구조도(`reports/<repo>/diagrams/`)를 그릴 때 쓰는 `archify` 스킬의 원본 레포다.
+다이어그램·설명 페이지를 만드는 시각화 도구를 분석한다. 첫 대상은 **archify**, 두 번째는 **stack-diagram**이다. archify는 이 작업 공간이 구조도(`reports/<repo>/diagrams/`)를 그릴 때 쓰는 `archify` 스킬의 원본 레포다. stack-diagram은 로고와 템플릿으로 스택 다이어그램을 만드는 스킬이고 갤러리 사이트(`site/`)를 함께 배포한다.
 
 - 분석 목적(스펙을 어디에 쓸지): **미정**. 사용자가 정하면 여기에 적는다(예: "스킬이 내부에서 어떻게 검증·렌더링하는지 이해", "재구현"). feature map 세밀도와 권장 범위가 이 목적으로 정해진다.
-- 현재 단계: **초기 셋팅만 끝남**(clone, 기준 SHA, 라이선스 기록). `overview.md`·feature map은 아직 없다.
+- 현재 단계: archify는 기능 스펙까지 있다. stack-diagram은 2026-11-10에 feature map 14행과 구조도까지 썼고 범위 승인을 기다린다.
 
 ## 디렉터리
 
@@ -28,8 +28,9 @@ visualization/
 | 이름 | URL | 라이선스 (파일 확인) |
 |---|---|---|
 | archify | https://github.com/tt-a1i/archify | Apache-2.0 (`repos/archify/LICENSE`). 과거 MIT 부여분은 `LICENSE-MIT`·`NOTICE`에 유지(README 484~488행 기준) |
+| stack-diagram | https://github.com/caru-ini/stack-diagram | MIT (`repos/stack-diagram/LICENSE`). 폰트는 OFL 1.1(`skills/stack-diagram/assets/fonts/OFL-*.txt`) |
 
-기준 SHA는 `repos.lock.tsv`와 같다(main, 2026-10-31).
+기준 SHA는 `repos.lock.tsv`와 같다(archify main 2026-10-31, stack-diagram main 2026-11-09).
 
 ## 먼저 볼 곳 (후보, 코드로 확인 전)
 

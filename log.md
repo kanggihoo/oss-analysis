@@ -797,3 +797,11 @@
 ## [2026-11-05] update | research 내부 로직 비교
 
 gpt-researcher·hyperresearch 기존 스펙을 비교해 각 questions/q1-internal-logic-comparison.md와 overview 4절에 연결했다. 원본 clone 부재로 이번 세션 원본 재검증은 미확인으로 표시했다.
+
+## [2026-11-10] ingest | stack-diagram (visualization/) feature map
+- `visualization/repos/stack-diagram`에 clone(SHA `5af3b09`, MIT, clean). 스킬 `skills/stack-diagram/` 전체(SKILL.md, scripts 4개, references 2개, template)와 갤러리 `site/`의 제출 경로(intake·submit·moderation·files)를 읽었다. 스크립트·네트워크·Playwright는 실행하지 않았다.
+- `visualization/reports/stack-diagram/overview.md`에 feature map 14행(핵심 7/부속 7)과 공유 계약 4개, archify 구조도(`diagrams/structure.*`, finalize 4 gate 통과, 시각 검토 미실시)를 썼다. 범위 승인 대기라 `handoff.md`에 행을 추가했다.
+
+## [2026-11-10] explainer | stack-diagram 워크플로 설명 페이지
+- 사용자 요청: 비교보다 "하나의 architecture 그림이 어떤 순서로 만들어지는지" 설명. archify `explainer` 타입으로 `visualization/reports/stack-diagram/explainer/workflow.archify.md`를 쓰고 `finalize explainer`로 `workflow.html`을 만들었다(validate·deliver·check 통과, writing 경고 없음, 브라우저 gate는 explainer에서 실행하지 않음).
+- 근거는 `SKILL.md`, `fetch_icons.py`, `build.py`, `render_png.py`, `geometry.md`(SHA `5af3b09`)를 읽은 것이고 스크립트는 실행하지 않았다. overview 5절에 링크를 추가했다.

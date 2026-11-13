@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "stack-diagram 구조: 스킬 파이프라인과 갤러리",
+    "output": "visualization/reports/stack-diagram/diagrams/structure.html",
+    "locale": "ko",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/caru-ini/stack-diagram",
+      "provider": "github",
+      "revision": "5af3b095fff7109c905c5284dc510dc06588bade"
+    }
+  },
+  "components": [
+    {
+      "id": "agent",
+      "type": "external",
+      "label": "사용자 + 코딩 에이전트",
+      "sublabel": "스택을 문장으로 설명",
+      "pos": [40, 60],
+      "size": [140, 60]
+    },
+    {
+      "id": "skill",
+      "type": "backend",
+      "label": "SKILL.md",
+      "sublabel": "7단계 워크플로",
+      "pos": [250, 60],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/SKILL.md", "line": 18, "end_line": 26, "label": "Workflow" }
+      ]
+    },
+    {
+      "id": "fetch",
+      "type": "backend",
+      "label": "fetch_icons.py",
+      "sublabel": "로고 수집",
+      "pos": [450, 60],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/scripts/fetch_icons.py", "line": 304, "end_line": 332, "label": "sources()" },
+        { "path": "skills/stack-diagram/scripts/fetch_icons.py", "line": 334, "end_line": 399, "label": "main()" }
+      ]
+    },
+    {
+      "id": "build",
+      "type": "backend",
+      "label": "build.py",
+      "sublabel": "폰트·아이콘 inline",
+      "pos": [650, 60],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/scripts/build.py", "line": 21, "end_line": 48, "label": "main()" }
+      ]
+    },
+    {
+      "id": "render",
+      "type": "backend",
+      "label": "render_png.py",
+      "sublabel": "Playwright 캡처",
+      "pos": [850, 60],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/scripts/render_png.py", "line": 27, "end_line": 95, "label": "main()" }
+      ]
+    },
+    {
+      "id": "share",
+      "type": "backend",
+      "label": "share.py",
+      "sublabel": "submit / delete / list",
+      "pos": [1050, 60],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/scripts/share.py", "line": 140, "end_line": 185, "label": "submit()" },
+        { "path": "skills/stack-diagram/scripts/share.py", "line": 187, "end_line": 198, "label": "delete()" }
+      ]
+    },
+    {
+      "id": "icons",
+      "type": "cloud",
+      "label": "로고 출처",
+      "sublabel": "svgl, devicon, AWS 등",
+      "pos": [450, 220],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/scripts/fetch_icons.py", "line": 304, "end_line": 332, "label": "출처 순서" }
+      ]
+    },
+    {
+      "id": "template",
+      "type": "frontend",
+      "label": "template.html",
+      "sublabel": "에이전트가 복사해 편집",
+      "pos": [650, 220],
+      "size": [130, 60],
+      "sources": [
+        { "path": "skills/stack-diagram/assets/template.html", "line": 1, "end_line": 259, "label": "템플릿" },
+        { "path": "skills/stack-diagram/references/geometry.md", "line": 1, "end_line": 67, "label": "좌표 규칙" }
+      ]
+    },
+    {
+      "id": "gallery",
+      "type": "backend",
+      "label": "갤러리 Worker",
+      "sublabel": "site/ · POST /api/stacks",
+      "pos": [1050, 220],
+      "size": [130, 60],
+      "sources": [
+        { "path": "site/src/features/submit/server/submit.ts", "line": 80, "end_line": 138, "label": "publish()" },
+        { "path": "site/src/features/submit/server/submit.ts", "line": 140, "end_line": 155, "label": "handleSubmit()" }
+      ]
+    },
+    {
+      "id": "moderation",
+      "type": "security",
+      "label": "Workers AI 심사",
+      "sublabel": "4개 점수 → 게시 또는 보류",
+      "pos": [850, 220],
+      "size": [130, 60],
+      "sources": [
+        { "path": "site/src/features/submit/server/moderation.ts", "line": 47, "end_line": 55, "label": "decide()" },
+        { "path": "site/src/features/submit/server/submit.ts", "line": 97, "end_line": 102, "label": "classify 호출" }
+      ]
+    },
+    {
+      "id": "r2",
+      "type": "database",
+      "label": "Cloudflare R2",
+      "sublabel": "WebP, 미리보기, 아이콘",
+      "pos": [1050, 380],
+      "size": [130, 60],
+      "sources": [
+        { "path": "site/src/features/submit/server/submit.ts", "line": 106, "end_line": 116, "label": "BUCKET.put" }
+      ]
+    },
+    {
+      "id": "neon",
+      "type": "database",
+      "label": "Neon Postgres",
+      "sublabel": "stacks, votes, reports",
+      "pos": [1250, 220],
+      "size": [130, 60],
+      "sources": [
+        { "path": "site/src/lib/db/schema.ts", "line": 26, "end_line": 53, "label": "stacks 테이블" },
+        { "path": "site/src/features/submit/server/submit.ts", "line": 117, "end_line": 132, "label": "db.insert" }
+      ]
+    }
+  ],
+  "connections": [
+    { "id": "agent-skill", "from": "agent", "to": "skill", "label": "로드", "variant": "emphasis" },
+    { "id": "skill-fetch", "from": "skill", "to": "fetch", "label": "2단계", "variant": "emphasis" },
+    { "id": "fetch-build", "from": "fetch", "to": "build", "label": "icons dir", "variant": "emphasis" },
+    { "id": "build-render", "from": "build", "to": "render", "label": "HTML", "variant": "emphasis" },
+    { "id": "render-share", "from": "render", "to": "share", "label": "PNG 쌍", "variant": "dashed" },
+    { "id": "fetch-icons", "from": "fetch", "to": "icons", "label": "GET" },
+    { "id": "template-build", "from": "template", "to": "build", "label": "초안", "fromSide": "top", "toSide": "bottom" },
+    { "id": "share-gallery", "from": "share", "to": "gallery", "label": "POST", "variant": "dashed" },
+    { "id": "gallery-moderation", "from": "gallery", "to": "moderation", "label": "심사" },
+    { "id": "gallery-r2", "from": "gallery", "to": "r2", "label": "put" },
+    { "id": "gallery-neon", "from": "gallery", "to": "neon", "label": "SQL" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "스킬 (핵심)",
+      "items": [
+        "에이전트가 SKILL.md 순서대로 스크립트를 실행한다.",
+        "HTML이 원본이고 PNG, TSX는 여기서 파생한다.",
+        "TSX 변환은 references/tsx.md를 읽은 에이전트가 직접 한다."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "갤러리 (부속)",
+      "items": [
+        "share.py는 사용자가 두 번 승인한 뒤에만 호출한다(SKILL.md 7단계).",
+        "site/는 투표, 신고, 관리자, 내 글 화면도 갖지만 이 그림에서 뺐다."
+      ]
+    }
+  ]
+}

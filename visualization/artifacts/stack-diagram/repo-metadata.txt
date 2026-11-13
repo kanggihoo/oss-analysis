@@ -1,0 +1,7 @@
+repo_dir=visualization/repos/stack-diagram
+name=stack-diagram
+date=2026-11-10
+commit=5af3b095fff7109c905c5284dc510dc06588bade
+commit_date=2026-11-09
+origin=https://github.com/caru-ini/stack-diagram
+worktree=clean

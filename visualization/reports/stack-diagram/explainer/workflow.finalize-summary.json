@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\visualization\\reports\\stack-diagram\\explainer\\workflow.archify.md",
+    "sha256": "4c2fb061fea6d10428b4b32468d07409b95312d8f85fcbfeb776aef131d27f9d",
+    "bytes": 10007
+  },
+  "artifact": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\visualization\\reports\\stack-diagram\\explainer\\workflow.html",
+    "sha256": "d62d470b9170c7e733c10bf6b7ac1512f39326709a2f32fb6d21fe290ece6a7b",
+    "bytes": 985717
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\visualization\\reports\\stack-diagram\\explainer\\workflow.finalize.json",
+    "summaryReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\visualization\\reports\\stack-diagram\\explainer\\workflow.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 7476,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

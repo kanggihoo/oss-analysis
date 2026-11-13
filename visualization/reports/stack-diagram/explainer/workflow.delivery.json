@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "3a2fae56-676d-40d4-93ca-f3dbee5563d3",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\visualization\\reports\\stack-diagram\\explainer\\workflow.archify.md",
+  "output": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\visualization\\reports\\stack-diagram\\explainer\\workflow.html",
+  "specification": {
+    "sha256": "4c2fb061fea6d10428b4b32468d07409b95312d8f85fcbfeb776aef131d27f9d",
+    "bytes": 10007
+  },
+  "artifact": {
+    "sha256": "d62d470b9170c7e733c10bf6b7ac1512f39326709a2f32fb6d21fe290ece6a7b",
+    "bytes": 985717
+  },
+  "explainer": {
+    "preparedSha256": "a80ea2763a366083301da9c007c0d2a0d26947032f3c34cce13f57e1fd6e1e05",
+    "dependencies": [
+      {
+        "kind": "diagram-spec",
+        "id": "make-flow",
+        "inline": true,
+        "sha256": "ee34fb6f57a050bf4f20cced15f2643ef5e624672784a5bab03997b4aa10757d",
+        "bytes": 1488
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "file-data",
+        "inline": true,
+        "sha256": "1189b22497a729365cb8cf01bdb8626fb73ca24153770e24acac3ed4b4e5c432",
+        "bytes": 1117
+      }
+    ]
+  }
+}
