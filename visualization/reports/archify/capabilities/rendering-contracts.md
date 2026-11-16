@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-16
 sources:
   - archify/renderers/shared/cli.mjs
   - archify/renderers/shared/legend.mjs
@@ -132,7 +132,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | **architecture 본문** | 경계 제목 조합 켜짐(`Boolean(meta.quality_profile)`), 라벨 재배치·`route-out-of-bounds`·`boundary-encloses-non-member`·`label-gap`·`excessive-route-detour`: **`meta.quality_profile`만**. 예외로 `arrowhead-collision`은 환경 → `meta` | render-architecture.mjs:99,457,769,830,904,963 |
 | **sequence 본문** | 메시지 라벨 글자 크기·폭 단위(showcase 6.6 / 그 외 5.2, 글자 11/9), `readableMessages`, 범례 높이 오류: **`meta.quality_profile`만** | render-sequence.mjs:67,117,846,919 |
 | lifecycle·tree·timeline·waterfall | 본문에서 보지 않음(루트 속성만) | — |
-| 정적 검사 | SVG 루트 `data-quality-profile`(환경 변수는 보지 않음), `data-quality-gates` | check-render-output.mjs:122-124 |
+| 정적 검사 | SVG 루트 `data-quality-profile`(환경 변수는 보지 않음), `data-quality-gates` | check-render-output.mjs:126-128 |
 
 **C. 어긋남 목록 (기존 스펙 ↔ 코드)**
 
@@ -257,8 +257,8 @@ Apache-2.0(overview 1절).
 | R-05 | sequence 1066, dataflow 1552, lifecycle 1101, timeline 497, waterfall 346, `motion-governor.js:28-36,412-442`, T-07 | 실행 + 코드 |
 | R-06 | architecture 1138-1150, workflow 5478-5488, 나머지 각 렌더러 줄, `reader-layout.js:12-16,32-36`, `visual-check.mjs:1969`, T-07 | 코드 + 예제 실행 |
 | R-07 | `viewer.css:4076-4120`, `reader-layout.js:89-95`, `export-cleanup.js:137-139`, 렌더러 `data-detail` 값(`"context"`·`"fine"`, lifecycle 삼항) | 코드 확인 |
-| R-08 | 1.3 A "composition" 표의 각 렌더러 줄, `check-render-output.mjs:484-529,562,870` | 코드 확인 |
-| R-09 | `viewer/template.source.html:7`, `check-render-output.mjs:1205-1216,1279` | 코드 확인 |
+| R-08 | 1.3 A "composition" 표의 각 렌더러 줄, `check-render-output.mjs:488-533,566,874` | 코드 확인 |
+| R-09 | `viewer/template.source.html:7`, `check-render-output.mjs:1209-1220,1283` | 코드 확인 |
 | R-10 | `delta/architecture-delta.mjs:456-457,507,567`, `explainer/diagrams.mjs:408-412`, `render-architecture.mjs:1046,1051` | 코드 확인 |
 | R-11 | T-08 T-09 | 실행 확인 |
 | R-12 | C-08, C-05 | 코드 확인 |
@@ -295,3 +295,7 @@ feature map 보정 제안: (1) rendering 행의 상태 칸에 "M-04·M-05는 ren
 
 ## 적용 메모
 없음.
+
+## 기준 SHA 갱신 (2026-11-16)
+
+- `a4065941`→`a7ed6fd`: 이 문서의 `sources` 중 `archify/scripts/check-render-output.mjs`가 바뀌었다(`7e45f36c`, explainer 분기 44~48행이 44~52행으로 늘어 49행부터 +4). explainer HTML이면 영수증 JSON을 `console.log` 뒤 곧바로 `process.exit`하던 것을, `process.stdout.write` 콜백 안에서 종료하고 아래 일반 경로가 두 번째 영수증을 내지 못하게 대기하는 것으로 바꿨다. 영수증 내용·검사 순서·종료 코드는 같아서 규칙(R-ID)은 고치지 않고 `check-render-output.mjs` 줄 번호 인용만 새 SHA 기준으로 옮겼다(`코드 확인`, diff 읽음. 새 SHA의 스크립트 실행은 하지 않았다).

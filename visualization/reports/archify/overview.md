@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-16
 ---
 
 # archify Analysis Overview
@@ -14,7 +14,21 @@ updated: 2026-11-01
 - **라이선스**: Apache-2.0 — `repos/archify/LICENSE`. 과거 MIT 부여분은 `LICENSE-MIT`·`NOTICE`에 유지
 - **분석 대상 제품**: 스킬 패키지 `archify/`(CLI + 렌더러 + 뷰어 템플릿). 제외(부속): `website/`, `docs/`, `journal/`, `experiments/`, `benchmarks/`, `integrations/`, `test/`, `tools/`
 - **스펙 범위**: 승인됨 — 행 1~12 전체 (사용자 요청 2026-11-02 "12개의 feature map에 대해서 조사 진행"). 부속 행 11·12도 사용자가 포함시킴. 제외 행 없음
-- **로컬 설치본**: `~/.agents/skills/archify`(`~/.claude/skills/archify`가 가리킴)와 레포의 `archify/` 디렉터리는 `diff -rq` 결과 차이가 없다(`실행 확인`, 2026-11-01).
+- **로컬 설치본**: `~/.agents/skills/archify`(`~/.claude/skills/archify`가 가리킴)와 레포의 `archify/` 디렉터리는 `diff -rq` 결과 차이가 없다(`실행 확인`, 2026-11-01). 이는 `a406594` 기준이고, 2026-11-16에 `repos/archify`를 `a7ed6fd`로 올렸으므로 새 SHA와는 `check-render-output.mjs` 1개가 다르다(미확인: 설치본은 갱신하지 않음).
+
+### 이전 기준 대비 달라진 점 (2026-11-16 갱신)
+
+기준을 `a406594`(2026-10-31)에서 `a7ed6fd`(2026-11-15, main)로 올렸다. 사이에 11개 commit, 61개 파일(+2183/-194)이 바뀌었고 분석 대상 제품(`archify/` 스킬 패키지)에서는 1개 파일만 바뀌었다(`git diff --name-status a406594..a7ed6fd -- archify`, `코드 확인`).
+
+| 영역 | 변경 | 이 분석에 미치는 영향 |
+|---|---|---|
+| `archify/scripts/check-render-output.mjs` | explainer HTML 검사 시 영수증을 stdout에 다 쓴 뒤 종료(+6/-2줄, `7e45f36c`). 파이프 stdout이 비동기인 macOS에서 영수증이 잘리던 문제 수정 | 동작 규칙은 그대로. 이 파일을 `sources`로 가진 스펙 4개와 [Q2](./questions/q2-verification.md)의 줄 번호 인용(49행부터 +4)과 `sha`만 갱신 |
+| `website/`(src 24·test 13·scripts 2), `journal/geo-2026-11`, `llms.txt`, README 4종, `community/`, `integrations/deepseek-harness`, `.github/workflows`, `archify.zip` | 배포 사이트, GEO 문서·홍보, 설치 패키지, CI | 제외한 부속 영역. 반영 안 함 |
+| `test/` 2개 | `explainer-check.test.mjs`(파이프 영수증 사례 추가), `cloudflare-output.test.mjs` | 테스트. 반영 안 함 |
+| `renderers/`, `explainer/`, `schemas/`, `assets/template.html`, `bin/`, `viewer/` | 변경 없음 | 나머지 스펙은 기준 `sha`를 `a406594`로 둔다(`sources`가 바뀐 파일과 겹치지 않음) |
+
+- [구조도](./diagrams/structure.json)와 [설명 페이지](./diagrams/trigger-flow.archify.md)는 `a406594`로 만든 산출물이라 다시 만들지 않았다. 구조도의 `check-render-output.mjs` 근거 줄(111~126)은 그 SHA 기준으로 맞고, 새 SHA에서는 115~130이다.
+- 새 SHA의 스크립트는 실행하지 않았다. 위 판단은 diff를 읽은 `코드 확인`이다.
 
 ---
 
@@ -86,7 +100,7 @@ LLM 에이전트가 **정해진 JSON 스키마(또는 explainer용 Markdown 초�
 | template.html | 뷰어 코드·스타일이 들어 있는 고정 껍데기. 제목·SVG·카드·언어 데이터 슬롯만 채워짐 | 슬롯 | `renderers/shared/utils.mjs:150` `applyTemplate` | 코드 확인 |
 | 대상 Git 레포 | `sources`의 파일·줄이 고정 커밋에 있는지 대조당한다 | 파일 존재·줄 수 | `renderers/shared/repository-evidence.mjs:155` | 코드 확인(존재만 확인, 내용 일치는 미확인) |
 | output.html + provenance | 산출 HTML과 그 해시를 묶은 사이드 파일 | 한 쌍으로 교체 | `bin/archify.mjs:3236` `commitDeliveryPair`, `:5124` | 코드 확인(호출), 내부 미확인 |
-| check | 산출 HTML의 SVG를 정적으로 검사 | HTML → 통과/진단 | `scripts/check-render-output.mjs:111` | 코드 확인(구조) |
+| check | 산출 HTML의 SVG를 정적으로 검사 | HTML → 통과/진단 | `scripts/check-render-output.mjs:115` | 코드 확인(구조) |
 | browser-check | Chrome으로 열어 4개 뷰포트에서 측정 | HTML → 통과/진단 | `bin/archify.mjs:5663`, `references/delivery-contract.md:416` | 코드 확인(호출)·문서 |
 | finalize receipt | 단계별 결과와 진단을 담은 JSON | 영수증 | `bin/finalize.mjs:586` `compactFinalizeReceipt` | 코드 확인 |
 

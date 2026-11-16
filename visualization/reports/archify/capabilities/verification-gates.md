@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-16
 sources:
   - archify/scripts/check-render-output.mjs
   - archify/bin/archify.mjs
@@ -128,7 +128,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | R-02 | provenance 대조 순서(`check`·`browser-check` 공통). 1) `<stem>.delivery-pending.json`(및 호환 이름)이 있다 → `delivery/provenance-failed`(status `failed`, `evidence.pendingJournal`). 2) delivery 잠금 파일이 있다 → `delivery/provenance-locked`(status `locked`). 3) sidecar 후보(기본 이름, raw-head 이름, 확장자 호환 이름 순)가 하나도 없다 → `--require-provenance`가 없으면 통과(status `unknown`), 있으면 `delivery/provenance-required`(`evidence:{required:true, found:false}`). 4) sidecar를 안정한 일반 파일(하드링크 1개)로 못 읽거나 JSON·스키마(1.3)가 어긋난다 → `delivery/provenance-invalid`(하드링크는 `delivery/provenance-hardlink-unsupported`). 5) sidecar의 `output`이 검사 중인 HTML과 같은 파일인지 판정할 수 없다 → `delivery/provenance-output-indeterminate`, 같은 파일이 아니다 → `delivery/provenance-invalid`(사유 "recorded delivery output does not identify this artifact"). 6) sidecar `status:'failed'` → `delivery/provenance-failed`(`evidence:{stage, deliveryReceiptId}`). 7) HTML의 SHA-256 또는 바이트 수가 `artifact`와 다르다 → `delivery/provenance-mismatch`(`evidence:{expectedSha256, actualSha256, expectedBytes, actualBytes}`). 8) 모두 같다 → status `current` | 앞 단계에서 걸리면 이후는 보지 않는다. 앞의 HTML 자체 읽기: HTML이 안정한 일반 파일이 아니거나 읽을 수 없다 → `input/artifact-unreadable`, 하드링크 → `output/target-hardlinked`. 검사 도중 HTML 바인딩이 바뀌면 `delivery/provenance-mismatch`(사유 "changed while ... inspected") | 코드 확인 전체. 1)·2)·4)~6)의 분기는 실행하지 않음. 3), 7), `input/artifact-unreadable`은 실행 확인 (T-02, T-04, T-18) |
 | R-03 | 대조가 실패(위 어느 code든) | 이 게이트는 아래 정적/브라우저 단계로 가지 않는다. 종료 코드 1. `check`는 stdout에 provenance 실패 영수증(1.3)을 낸다. sidecar가 있으면 `--require-provenance` 없이도 검증한다(없을 때만 플래그가 의미를 가진다) | 실행 확인 (T-02, T-04) |
 | R-04 | `check`가 대조를 통과 | 스크립트를 `child_process.spawnSync`(stdout pipe, 버퍼 상한 기본 64MiB, 환경변수 `ARCHIFY_CHECK_MAX_BUFFER`로 변경)로 실행한다. 버퍼 초과로 중단되면 판정 없이 `artifact/check-output-limit` 진단과 종료 코드 1. 자식이 JSON이 아닌 stdout을 내면 그대로 출력한다. JSON이면: provenance `current`인데 `(type==='explainer') !== (receipt.family==='explainer')`이면 `ok=false`와 진단 `delivery/artifact-family-mismatch`를 덧붙이고 종료 코드 1. 그다음 sidecar·HTML이 도중에 바뀌지 않았는지 다시 확인해 바뀌었으면 `delivery/provenance-mismatch` 실패 영수증과 종료 코드 1. 통과하면 `provenance`, `deliveryReceiptId`를 덧붙여 출력. 종료 코드는 자식의 코드(0/1). 자식의 stderr는 그대로 전달 | 코드 확인. 정상 경로만 실행 확인 (T-01) |
-| R-06 | HTML이 explainer(`data-archify-artifact="explainer"` 또는 `archify-explainer-prepared` 스크립트) | 스크립트가 아래 R-05~R-20을 건너뛰고 `explainer/check.mjs`의 `checkExplainerHtml` 결과를 출력(`ok`면 0, 아니면 1). `browser-check`도 explainer는 `EXPLAINER_VIEWPORTS`와 explainer 판정을 쓴다 | 코드 확인 (내용은 범위 밖) |
+| R-06 | HTML이 explainer(`data-archify-artifact="explainer"` 또는 `archify-explainer-prepared` 스크립트) | 스크립트가 아래 R-05~R-20을 건너뛰고 `explainer/check.mjs`의 `checkExplainerHtml` 결과를 출력(`ok`면 0, 아니면 1. `a7ed6fd`부터는 stdout 쓰기 콜백 안에서 종료하고 아래 일반 경로가 두 번째 영수증을 내지 못하게 대기한다. 영수증과 종료 코드는 같다). `browser-check`도 explainer는 `EXPLAINER_VIEWPORTS`와 explainer 판정을 쓴다 | 코드 확인 (내용은 범위 밖) |
 
 **정적 검사 (`check-render-output.mjs`)**
 
@@ -150,7 +150,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | R-19 | 오류·경고와 profile | `profile` = `<svg data-quality-profile>`(없으면 `standard`). **루트 속성만 보고 환경 변수 `ARCHIFY_QUALITY_PROFILE`·`meta.quality_profile`은 보지 않는다.** 렌더러가 `--quality`만으로 루트를 showcase로 만들었지만 본문은 standard 경로인 산출물(architecture·sequence는 본문이 `meta.quality_profile`만 본다)도 이 검사는 showcase 기준으로 판정하므로, 렌더러 본문 게이트와의 불일치를 이 검사가 잡지 못한다([rendering-contracts.md](rendering-contracts.md) R-03, [rendering.md](rendering.md) 1.3 I). 오류 수 = containerBorderRuns(`data-quality-gates≠advisory`일 때) + (showcase일 때) 교차 + 회랑·화살촉 + 라벨 여유 + 라벨 캔버스 + 리듬 + 데스크톱 가독성(있으면 1). `composition.status`는 오류 수>0이면 `fail`. 이름 있는 검사는 showcase에서만 `ok:false`가 될 수 있다(`single_svg`·`finite_svg`·`orthogonal_arrows`·`legend_clearance`·`svg_path_data`는 profile 무관). 같은 위반이 standard에서는 `composition.issues`에 `severity:'warning'`으로만 남고 `ok:true`·종료 코드 0 | 실행 확인 (T-06) |
 | R-20 | 타입별 차이 | 임계값·검사 목록은 타입(`data-diagram-type`)으로 갈리지 않는다. 입력 SVG의 속성이 동작을 바꾼다: `data-quality-profile`, `data-quality-gates`, `data-layout-contract="readable-v2"`, `data-composition-*`, `data-reader-fit`, `data-reader-min-text`, `data-diagram-type`(**architecture + 저자 `meta.viewBox`일 때만** 렌더러가 쓴다. R-18의 architecture 예외와 R-21 `crowdedSides` 증거용이고, 자동 viewBox인 architecture는 이 속성이 없는 대신 `data-reader-primary-text="14"`가 같은 증거 역할을 한다), 메타 `archify-reader-contract`. `data-edge-role`(workflow v2만 쓴다)은 검사가 읽어 객체에 담지만 판정·증거에 쓰이지 않는다. 화살표(`a-*` + `marker-end`)가 없는 타입(트리·타임라인 등)은 관계 검사가 모두 빈 입력으로 통과 | 코드 확인 + 실행 확인 (`05-all-types`: 10개 타입 모두 9개 검사). 훅을 쓰는 타입은 [rendering-contracts.md](rendering-contracts.md) 1.3 A·D-06 |
 | R-21 | 판정에 영향 없는 증거 | `composition.metrics`(`maxBends`, `routesOverSuggestedBends`(굽힘 2 초과), `maxStretch`·`routesOverSuggestedStretch`(비율 1.35 초과), `minSegmentPx`, `shortSegmentCount`(16 미만), `microSegmentCount`(8 미만) 등), `suggestedLimits {bendsPerRelationship:2, stretch:1.35, segmentPx:16, microSegmentPx:8}`, `routeReview`(해소된 교차, 우회 경로, `crowdedSides`: architecture 또는 `data-reader-primary-text="14"`에서 한 변이 향하는 관계 수 n>1일 때 변 길이 < `32+14(n−1)`), `leadingSpace`(위쪽 빈 공간 > 2×중앙 노드 높이 and 비율 > 0.2면 `reviewSuggested`), `sequenceColumnSpace`(R-38), `sequenceNoteBorders`는 오류·경고 개수에 들어가지 않는다. 노드 겹침 검사는 `check`에 없다 | 코드 확인 + 실행 확인 (T-12) |
-| R-38 | `composition.sequenceColumnSpace`와 `finalize`의 `inspect-sequence-width` 권고 | `check`가 SVG 루트 `data-sequence-column-fit`이 `fixed`·`spread`일 때 `sequenceColumnSpace`를 만든다. 측정 불가(루트·요소 `transform`, 노드 수와 노드 사각형 수 불일치, 관계 경로 없는 의미 화살표, `dx` 있는 글자, 비유한 값)면 `{measured:false, reviewSuggested:false, columnFit}`. 측정하면 `occupiedRight` = 노드 오른쪽 끝·관계 경로 점 x·`c-mask` 라벨판 오른쪽 끝·글자 상자 오른쪽 끝의 최댓값, `emptyRightPx = max(0, viewBox 왼쪽+폭 − occupiedRight)`, `emptyRightRatio = emptyRightPx/viewBox 폭`, `typicalParticipantWidth` = 노드 폭을 정렬한 `[floor(n/2)]`번째 값. **`reviewSuggested` = `columnFit==='fixed'` ∧ 참가자 4명 이상 ∧ `emptyRightPx > 2×typicalParticipantWidth` ∧ `emptyRightRatio > 0.25`**. `spread`는 항상 false. 오류·경고가 아니고 `ok`·종료 코드에 영향이 없다. `finalize`는 영수증이 `ok`이고 `type==='sequence'`이며 `reviewSuggested`일 때 영수증에 `layoutReviewRecommendation{action:"inspect-sequence-width", evidence, reason, repair}`를 싣는다. 렌더러는 이 권고를 만들지 않는다 | 코드 확인(`check-render-output.mjs:958-1033` `collectSequenceColumnSpace`, `bin/finalize.mjs:700-709`) / 실행 확인(5명 fixed 사례: `emptyRightPx 383`, `ratio 0.416`, `typicalParticipantWidth 86`, `reviewSuggested:true`, spread 같은 입력은 권고 없음. [rendering-other-types.md](rendering-other-types.md) T-17, R-29) |
+| R-38 | `composition.sequenceColumnSpace`와 `finalize`의 `inspect-sequence-width` 권고 | `check`가 SVG 루트 `data-sequence-column-fit`이 `fixed`·`spread`일 때 `sequenceColumnSpace`를 만든다. 측정 불가(루트·요소 `transform`, 노드 수와 노드 사각형 수 불일치, 관계 경로 없는 의미 화살표, `dx` 있는 글자, 비유한 값)면 `{measured:false, reviewSuggested:false, columnFit}`. 측정하면 `occupiedRight` = 노드 오른쪽 끝·관계 경로 점 x·`c-mask` 라벨판 오른쪽 끝·글자 상자 오른쪽 끝의 최댓값, `emptyRightPx = max(0, viewBox 왼쪽+폭 − occupiedRight)`, `emptyRightRatio = emptyRightPx/viewBox 폭`, `typicalParticipantWidth` = 노드 폭을 정렬한 `[floor(n/2)]`번째 값. **`reviewSuggested` = `columnFit==='fixed'` ∧ 참가자 4명 이상 ∧ `emptyRightPx > 2×typicalParticipantWidth` ∧ `emptyRightRatio > 0.25`**. `spread`는 항상 false. 오류·경고가 아니고 `ok`·종료 코드에 영향이 없다. `finalize`는 영수증이 `ok`이고 `type==='sequence'`이며 `reviewSuggested`일 때 영수증에 `layoutReviewRecommendation{action:"inspect-sequence-width", evidence, reason, repair}`를 싣는다. 렌더러는 이 권고를 만들지 않는다 | 코드 확인(`check-render-output.mjs:962-1037` `collectSequenceColumnSpace`, `bin/finalize.mjs:700-709`) / 실행 확인(5명 fixed 사례: `emptyRightPx 383`, `ratio 0.416`, `typicalParticipantWidth 86`, `reviewSuggested:true`, spread 같은 입력은 권고 없음. [rendering-other-types.md](rendering-other-types.md) T-17, R-29) |
 
 **브라우저 게이트 (`browser-check`)**
 
@@ -183,17 +183,17 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | C-ID | 파일:줄 범위 · 심볼 | 가져올 규칙 | 관련 R-ID |
 |---|---|---|---|
 | C-01 | `archify/renderers/shared/desktop-readability.mjs:1-132` | 상수(6, 960, 30, 1.55, 1920, 64), `projectedNodeTextPx`, `declaredWideReadabilityBudget`, `DESKTOP_FIXED_VERTICAL_CHROME_PX`, `predictedFixedWidthOverflow` | R-17, R-18, R-30 |
-| C-02 | `archify/scripts/check-render-output.mjs:21-52,111-452` | 인자·종료 코드, 검사 순서, profile별 오류/경고 계산, `ok` 식 | R-05, R-19 |
-| C-03 | `check-render-output.mjs:454-537` `collectArrows` | 관계 화살표 선택 조건, `authoredStraight`, halo 검증, `independentPorts` | R-08, R-09, R-10 |
-| C-04 | `check-render-output.mjs:737-767,1325-1345` | 교차 검출(끝점 공유 예외, `properSegmentIntersection`) | R-10 |
+| C-02 | `archify/scripts/check-render-output.mjs:21-56,115-456` | 인자·종료 코드, 검사 순서, profile별 오류/경고 계산, `ok` 식 | R-05, R-19 |
+| C-03 | `check-render-output.mjs:458-541` `collectArrows` | 관계 화살표 선택 조건, `authoredStraight`, halo 검증, `independentPorts` | R-08, R-09, R-10 |
+| C-04 | `check-render-output.mjs:741-771,1329-1349` | 교차 검출(끝점 공유 예외, `properSegmentIntersection`) | R-10 |
 | C-05 | `archify/renderers/shared/geometry.mjs:730-860,1440-1458` | 회랑 겹침(8px), 짧은 trunk 면제, 화살촉 충돌, `collinearAxisOverlap` | R-11 |
 | C-06 | `geometry.mjs:918-960,1397-1438` | 테두리 겹침, 프레임 변 계산(반지름), 구간 병합 | R-12 |
 | C-07 | `geometry.mjs:1006-1105,1316-1320,1351-1395` | 경로 정규화, 예산 지표(16/8/2/1.35), 리듬 이슈(`composition/micro-segment`, `short-interior-segment`) | R-13, R-21 |
 | C-08 | `geometry.mjs:62-100,206-270` | 라벨-경로 거리, `collectLabelRouteClearance`(임계 비교 `+0.0001 >= threshold`) | R-14 |
 | C-09 | `geometry.mjs:1221-1262` | 라벨 캔버스 넘침(0.5px) | R-15 |
-| C-10 | `check-render-output.mjs:1131-1193,1319-1323` | 범례 상자, 글자 상자·폭 추정, 충돌 판정 | R-16 |
-| C-11 | `check-render-output.mjs:1210-1317` `collectDesktopReadability` | 의미 글자 수집·declared-wide 적격·증거 필드 | R-17 |
-| C-12 | `check-render-output.mjs:1403-1430`, `91-109` | `finite_svg` 대상 속성 목록 | R-07 |
+| C-10 | `check-render-output.mjs:1135-1197,1323-1327` | 범례 상자, 글자 상자·폭 추정, 충돌 판정 | R-16 |
+| C-11 | `check-render-output.mjs:1214-1321` `collectDesktopReadability` | 의미 글자 수집·declared-wide 적격·증거 필드 | R-17 |
+| C-12 | `check-render-output.mjs:1407-1434`, `91-109` | `finite_svg` 대상 속성 목록 | R-07 |
 | C-13 | `archify/renderers/shared/svg-path-analysis.mjs:1-135` | 지원 명령 `M L H V Q Z`, 오류 code, `Q` 처리 | R-08 |
 | C-14 | `archify/bin/archify.mjs:1904-2185` `inspectDeliveryProvenance`, `invalidProvenance` | provenance 판정 순서와 code | R-02 |
 | C-15 | `archify.mjs:5420-5535` `inspectArtifactDeliveryProvenance`, `5537-5580` `verifyDeliveryUnchanged`·`provenanceFailureReceipt` | HTML 읽기 오류 code, 재확인, 실패 영수증 모양 | R-02~R-04, R-24 |
@@ -206,7 +206,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | C-22 | `visual-check.mjs:2168-2277` `observationDiagnostics` | 진단 code와 증거 | R-29~R-32 |
 | C-23 | `visual-check.mjs:2279-2310`, `2444-2767` `baseReceipt`, `runBrowserEvidence` | 영수증 기본 모양, 실행·skipped·실패 경로, 총 판정 | R-24~R-26, R-33~R-36 |
 | C-24 | `visual-check.mjs:193-236`, `613-812` | 영수증 파일 이름, 기존 영수증 소유권 검사 | R-34, R-35 |
-| C-25 | `check-render-output.mjs:958-1033` `collectSequenceColumnSpace`, `archify/bin/finalize.mjs:700-709` | 측정 조건·`reviewSuggested` 식, `finalize` 권고 | R-38 |
+| C-25 | `check-render-output.mjs:962-1037` `collectSequenceColumnSpace`, `archify/bin/finalize.mjs:700-709` | 측정 조건·`reviewSuggested` 식, `finalize` 권고 | R-38 |
 
 ### 1.6 수락 사례 [필수]
 출처: 모두 **원본 실행 관찰**(설치본 `~/.claude/skills/archify`, 레포 `archify/`와 `diff -rq` 차이 없음 확인, 2026-11-02). 입력은 `archify/examples/*.json`을 DEMO `inputs/`에 복사한 것. 스크립트·출력은 DEMO 아래: [`01-baseline.sh`](../../../artifacts/archify/spec-demos/verification-gates/01-baseline.sh), [`02-tamper-check.py`](../../../artifacts/archify/spec-demos/verification-gates/02-tamper-check.py), [`03-label-clearance-boundary.py`](../../../artifacts/archify/spec-demos/verification-gates/03-label-clearance-boundary.py)(출력 `out/03-...out.txt`), [`04-provenance-and-browser.sh`](../../../artifacts/archify/spec-demos/verification-gates/04-provenance-and-browser.sh)(출력 `out/04-...out.txt`), [`05-all-types.sh`](../../../artifacts/archify/spec-demos/verification-gates/05-all-types.sh)(출력 `out/05-all-types.out.txt`), [`06-browser-extra.sh`](../../../artifacts/archify/spec-demos/verification-gates/06-browser-extra.sh)(출력 `out/06-...out.txt`). "아키텍처 샘플" = `brand-aware-delivery.architecture.json`을 `deliver architecture ... --json`한 HTML(857101바이트, viewBox 1120×640, `data-quality-profile="showcase"`, `data-reader-fit="authored-height"`).
@@ -242,24 +242,24 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | R-01 | C-16 `archify.mjs:5581-5592`(`knownOptions`, `fail(usage())`), `archify.mjs:2227` `fail`(기본 코드 2), C-17 `:5747-5751`(`fail(..., 1)`) | 코드 읽기, T-15 실행 |
 | R-02, R-03 | C-14, C-15. 판정 순서는 `archify.mjs:1904-2179`. `specification`은 `identityValid`로 형식만 검사(`:2048,2058`)하고 대조에 쓰이지 않음 | 코드 읽기. 3)·7)·읽기 오류는 T-02, T-04, T-18 실행 |
 | R-04 | C-16. 버퍼 `archify.mjs:2257,2281-2288`, `checkerOutputLimitDiagnostics :2290` | 코드 읽기. 버퍼 초과·family 불일치는 실행하지 못함 |
-| R-05 | C-02 `check-render-output.mjs:115-445`(`addCheck` 호출 순서). 타입별 검사 수는 `05-all-types` | 실행 (T-01, T-11, 10개 타입) |
-| R-06 | `check-render-output.mjs:44-48`, `explainer/check.mjs`의 `isExplainerHtml`, `visual-check.mjs:2468-2471` | 이름·분기만 읽음. explainer 내용은 읽지 않음 |
+| R-05 | C-02 `check-render-output.mjs:119-449`(`addCheck` 호출 순서). 타입별 검사 수는 `05-all-types` | 실행 (T-01, T-11, 10개 타입) |
+| R-06 | `check-render-output.mjs:44-52`, `explainer/check.mjs`의 `isExplainerHtml`, `visual-check.mjs:2468-2471` | 이름·분기만 읽음. explainer 내용은 읽지 않음 |
 | R-07 | C-12 | 코드 읽기, T-10 |
 | R-08 | C-03, C-13 | 코드 읽기. 지원 명령 밖 경로(`A` 등)는 실행하지 않음 |
-| R-09 | `check-render-output.mjs:139-144,1122-1129`, C-03 | 코드 읽기, T-05. 0.01은 코드 상수 |
+| R-09 | `check-render-output.mjs:143-148,1126-1133`, C-03 | 코드 읽기, T-05. 0.01은 코드 상수 |
 | R-10 | C-04, C-03, `render-architecture.mjs:1066`, `render-lifecycle.mjs:1048`·`dataflow-compiler.mjs:1472`의 `data-composition-*` 쓰기 | 코드 읽기, T-06. halo 해소 경로는 실행 안 함. 속성을 쓰는 타입은 grep으로 확인(rendering-contracts R-08) |
 | R-11 | C-05 | 코드 읽기. 8px·24px·3.5×폭 경계는 실행 안 함 |
 | R-12 | C-06 | 코드 읽기. 실행 안 함 |
 | R-13 | C-07 | 코드 읽기. 실행 안 함 |
-| R-14 | C-08, `check-render-output.mjs:190-200,671-716` | 코드 읽기, T-07 경계 실행 |
-| R-15 | C-09, `check-render-output.mjs:204-207` | 코드 읽기. 실행 안 함 |
-| R-16 | C-10, `check-render-output.mjs:431-442` | 코드 읽기. 실행 안 함 |
-| R-17 | C-01, C-11, `check-render-output.mjs:129-130` | 코드 읽기, T-08·T-09 실행. 가용폭 930은 `DESKTOP_READER_DIAGRAM_WIDTH`(960−30) |
-| R-18 | C-01 `:88-132`, `check-render-output.mjs:132-137,215,382-390` | 코드 읽기, T-13 실행 |
-| R-19 | `check-render-output.mjs:122-124,190,208-231,447` | 코드 읽기, T-06·T-08 |
-| R-20 | `check-render-output.mjs:122-124,169,184-188,522`, 전체에서 `data-diagram-type`·`readerFit`·`data-edge-role` 참조 위치, `render-architecture.mjs:1143`(`data-diagram-type`을 쓰는 유일한 곳) | 코드 읽기 + 10개 타입 실행 |
-| R-21 | `check-render-output.mjs:79,254-282,824-848,904-953,958-1033` | 코드 읽기 |
-| R-38 | C-25, `check-render-output.mjs:188,281`(`composition`에 포함), `finalize.mjs:700-709` | 코드 확인 + 실행 확인은 rendering-other-types T-17(`finalize sequence`). 참가자 3명 이하·비율 0.25 이하 경계는 코드만 |
+| R-14 | C-08, `check-render-output.mjs:194-204,675-720` | 코드 읽기, T-07 경계 실행 |
+| R-15 | C-09, `check-render-output.mjs:208-211` | 코드 읽기. 실행 안 함 |
+| R-16 | C-10, `check-render-output.mjs:435-446` | 코드 읽기. 실행 안 함 |
+| R-17 | C-01, C-11, `check-render-output.mjs:133-134` | 코드 읽기, T-08·T-09 실행. 가용폭 930은 `DESKTOP_READER_DIAGRAM_WIDTH`(960−30) |
+| R-18 | C-01 `:88-132`, `check-render-output.mjs:136-141,219,386-394` | 코드 읽기, T-13 실행 |
+| R-19 | `check-render-output.mjs:126-128,194,212-235,451` | 코드 읽기, T-06·T-08 |
+| R-20 | `check-render-output.mjs:126-128,173,188-192,526`, 전체에서 `data-diagram-type`·`readerFit`·`data-edge-role` 참조 위치, `render-architecture.mjs:1143`(`data-diagram-type`을 쓰는 유일한 곳) | 코드 읽기 + 10개 타입 실행 |
+| R-21 | `check-render-output.mjs:83,258-286,828-852,908-957,962-1037` | 코드 읽기 |
+| R-38 | C-25, `check-render-output.mjs:192,285`(`composition`에 포함), `finalize.mjs:700-709` | 코드 확인 + 실행 확인은 rendering-other-types T-17(`finalize sequence`). 참가자 3명 이하·비율 0.25 이하 경계는 코드만 |
 | R-22 | `visual-check.mjs:2457`(확장자), `archify.mjs:5693-5742`(`viewer/browser-check-input`) | 코드 읽기 |
 | R-23 | `archify.mjs:2376-2394` `extractOutDirArgs`, `5755-5783` | 코드 읽기, T-14·T-16 |
 | R-24 | C-15, C-17 `:5663-5742`, `finalize` 호출 `archify.mjs:5952-5954`, `visual-check.mjs:2535`(측정 전 재확인), `:2646`(측정 후 재확인) | 코드 읽기, T-03 실행 |
@@ -285,7 +285,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 
 ### 2.2 코드 읽는 순서 [선택]
 1. `archify.mjs` `commandCheck`(5581) → `inspectArtifactDeliveryProvenance`(5420) → `inspectDeliveryProvenance`(1904): provenance 판정.
-2. `check-render-output.mjs:111-452`(흐름·severity) → `collectArrows`(454) → geometry 함수들(교차 737, 회랑·테두리·리듬·라벨은 geometry.mjs).
+2. `check-render-output.mjs:115-456`(흐름·severity) → `collectArrows`(454) → geometry 함수들(교차 737, 회랑·테두리·리듬·라벨은 geometry.mjs).
 3. `archify.mjs` `executeBrowserEvidence`(5663) → `visual-check.mjs` `runBrowserEvidence`(2444) → `ChromeVisualBrowser.inspect`(1659) → `observation`(1942) → `observationDiagnostics`(2168).
 
 구현 전략: 정적 검사는 SVG를 DOM 없이 정규식 토큰(`SVG_TAG_TOKEN`)으로 파싱하고, 같은 경로 분석 결과를 `pathAnalyses` 맵으로 캐시한다. 브라우저 쪽은 측정 JS를 한 문자열로 Chrome에 보내 값을 받고 판정은 Node에서 한다. 영수증은 임시 폴더에서 만든 뒤 원자 교체한다.
@@ -295,3 +295,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 
 ## 적용 메모 [선택]
 없음(재구현 계획 없음).
+
+## 기준 SHA 갱신 (2026-11-16)
+
+- `a4065941`→`a7ed6fd`: 이 문서의 `sources` 중 `archify/scripts/check-render-output.mjs`가 바뀌었다(`7e45f36c`, explainer 분기 44~48행이 44~52행으로 늘어 49행부터 +4). explainer HTML이면 영수증 JSON을 `console.log` 뒤 곧바로 `process.exit`하던 것을, `process.stdout.write` 콜백 안에서 종료하고 아래 일반 경로가 두 번째 영수증을 내지 못하게 대기하는 것으로 바꿨다. 영수증 내용·검사 순서·종료 코드는 같아서 규칙(R-ID)은 고치지 않고 `check-render-output.mjs` 줄 번호 인용만 새 SHA 기준으로 옮겼다(`코드 확인`, diff 읽음. 새 SHA의 스크립트 실행은 하지 않았다).

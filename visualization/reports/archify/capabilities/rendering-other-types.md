@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-16
 sources:
   - archify/renderers/dataflow/render-dataflow.mjs
   - archify/renderers/dataflow/dataflow-compiler.mjs
@@ -366,7 +366,7 @@ status: draft          # 2026-11-02: U-01~U-06 해소 문구를 썼으나 작업
 | C-20 | `sequence/render-sequence.mjs:13-165` | 자동 폭·spread 기하·fixed | R-25, R-26 |
 | C-21 | `sequence/render-sequence.mjs:167-337` | 노트 접기·자동 높이·캔버스 상수 | R-27 |
 | C-22 | `sequence/render-sequence.mjs:554-930` `validateSequence` | 진단 | R-28 |
-| C-23 | `archify/scripts/check-render-output.mjs:955-1032`, `archify/bin/finalize.mjs:700-708` | 폭 권고 조건과 영수증 필드 | R-29 |
+| C-23 | `archify/scripts/check-render-output.mjs:959-1036`, `archify/bin/finalize.mjs:700-708` | 폭 권고 조건과 영수증 필드 | R-29 |
 | C-24 | `tree/render-tree.mjs:28-322` | 상수·구조 검증·접기·쌓기·폭·띠·배치 | R-30~R-32 |
 | C-25 | `tree/render-tree.mjs:319-390` | viewBox·간선·캔버스 검사 | R-32 |
 | C-26 | `timeline/render-timeline.mjs:34-66,136-295` | 상수·입력 정렬·휴지기·척도·눈금 | R-33, R-34 |
@@ -467,3 +467,7 @@ status: draft          # 2026-11-02: U-01~U-06 해소 문구를 썼으나 작업
 ## 미결정
 
 없음. 이전 U-01~U-06은 1.4 미결정 줄에 해소 위치를 적었다. 남은 것은 1.4 확인 한계(후처리 일부의 채택 입력 미실행, 스윕 단계별 기여 미추적, 라벨·마커 박스 경계값 미관측, 브랜드 마크 범위 밖)뿐이다. 이 스펙 자체의 미결정이 비어 `status: ready`이고, 선행 [rendering.md](rendering.md)·[rendering-architecture-routing.md](rendering-architecture-routing.md)의 status는 메인이 확인한다.
+
+## 기준 SHA 갱신 (2026-11-16)
+
+- `a4065941`→`a7ed6fd`: 이 문서의 `sources` 중 `archify/scripts/check-render-output.mjs`가 바뀌었다(`7e45f36c`, explainer 분기 44~48행이 44~52행으로 늘어 49행부터 +4). explainer HTML이면 영수증 JSON을 `console.log` 뒤 곧바로 `process.exit`하던 것을, `process.stdout.write` 콜백 안에서 종료하고 아래 일반 경로가 두 번째 영수증을 내지 못하게 대기하는 것으로 바꿨다. 영수증 내용·검사 순서·종료 코드는 같아서 규칙(R-ID)은 고치지 않고 `check-render-output.mjs` 줄 번호 인용만 새 SHA 기준으로 옮겼다(`코드 확인`, diff 읽음. 새 SHA의 스크립트 실행은 하지 않았다).

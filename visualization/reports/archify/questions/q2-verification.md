@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-16
 sources:
   - archify/SKILL.md
   - archify/bin/archify.mjs
@@ -87,7 +87,7 @@ Chrome/Chromium(없으면 Edge)을 DevTools 파이프로 띄워 **1440×900, 160
 | showcase 경고 실패 | `archify/bin/finalize.mjs:926` | `runFinalize` | 경고 있으면 실패 |
 | 스키마 | `archify/renderers/shared/validator.mjs:38` | `validateSchema` | ajv 생성 검증기 호출 |
 | 근거 대조 | `archify/renderers/shared/repository-evidence.mjs:155` | `verifyRepositoryEvidence` | git으로 파일·줄 존재 확인 |
-| 정적 검사 | `archify/scripts/check-render-output.mjs:111` | `addCheck` | 항목별 통과/실패 |
+| 정적 검사 | `archify/scripts/check-render-output.mjs:115` | `addCheck` | 항목별 통과/실패 |
 | 뷰포트 | `archify/bin/visual-check.mjs:37` | `VISUAL_CHECK_VIEWPORTS` | 4개 해상도 |
 | 브라우저 게이트 | `archify/bin/archify.mjs:5663` | `executeBrowserEvidence` | 측정 실행 |
 
@@ -114,3 +114,7 @@ Chrome/Chromium(없으면 Edge)을 DevTools 파이프로 띄워 **1440×900, 160
 - **실패 후 상태**: `deliver`가 실패하면 HTML 바이트는 유지되지만 provenance가 `failed` 표지로 바뀌어 이후 `check`가 실패한다. 2.1의 "직전에 성공한 HTML이 남는다"는 HTML 바이트에만 맞는다. `showcase` 경고 실패는 교체 뒤에 일어나 새 HTML이 남는다 ([finalize-orchestration](../capabilities/finalize-orchestration.md) R-16, R-22).
 - **`browser-check`는 자식 프로세스가 아니다**: `finalize` 안에서 같은 프로세스로 실행된다(`execution: in-process`). 마지막 변조 확인은 초안과 HTML·provenance 둘을 본다.
 - **임계값(해소)**: 직각 허용 0.01, 회랑 겹침 8px, 라벨 여유 showcase 4px/standard 2px, 글자 하한 6px. 5절 첫 항목과 3번째 항목(변조 실험)은 스펙에서 해소됐다.
+
+## 기준 SHA 갱신 (2026-11-16)
+
+- `a4065941`→`a7ed6fd`: 이 문서의 `sources` 중 `archify/scripts/check-render-output.mjs`가 바뀌었다(`7e45f36c`, explainer 분기 44~48행이 44~52행으로 늘어 49행부터 +4). explainer HTML이면 영수증 JSON을 `console.log` 뒤 곧바로 `process.exit`하던 것을, `process.stdout.write` 콜백 안에서 종료하고 아래 일반 경로가 두 번째 영수증을 내지 못하게 대기하는 것으로 바꿨다. 영수증 내용·검사 순서·종료 코드는 같아서 규칙(R-ID)은 고치지 않고 `check-render-output.mjs` 줄 번호 인용만 새 SHA 기준으로 옮겼다(`코드 확인`, diff 읽음. 새 SHA의 스크립트 실행은 하지 않았다).

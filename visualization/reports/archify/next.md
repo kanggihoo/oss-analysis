@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-01
-updated: 2026-11-02
+updated: 2026-11-16
 ---
 
 # Next Session Plan: archify
@@ -65,3 +65,8 @@ updated: 2026-11-02
 
 - `../../artifacts/archify/spec-demos/input-validation/`의 임시 git 저장소는 `setup-repo.sh`로 재생성된다(`.gitignore`에서 제외).
 - 로컬 설치본: `node ~/.claude/skills/archify/bin/archify.mjs ... --repo-root visualization/repos/archify`.
+
+## 기준 SHA 갱신 (2026-11-16)
+
+- `repos/archify`를 `a7ed6fd`로 올렸다. 스킬 본체 변경은 `check-render-output.mjs` 1개이고 규칙은 바뀌지 않았다([overview 1절 변경 표](./overview.md)).
+- `repos/archify`는 최신 HEAD 상태다. 기준 SHA 원본을 다시 읽으려면 `a406594`(대부분의 스펙 `sha`)를 checkout한다.

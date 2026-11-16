@@ -978,3 +978,9 @@ craft-anything 비교(A~M)와 Codex 의견을 합쳐 `OSS_ANALYSIS_WORKFLOW.md`(
 `security/` 주제 폴더를 만들고(`GUIDE.md`, `repos.lock.tsv`, `.gitignore`에 `/security/repos/`) `openai/codex-security`를 전체 이력으로 clone했다. 기준 SHA `173483d`(main, 2026-11-13), 작업트리 clean.
 루트·`sdk/typescript/` 두 `LICENSE` 첫머리로 Apache-2.0 확인. README 전문, 두 `package.json`·`plugin.json`, `git ls-files` 상위 경로 집계를 읽었고 코드 본문은 열지 않았다. 실행(`cs`, SDK, Docker)은 하지 않았다.
 `artifacts/codex-security/repo-metadata.txt`, `reports/codex-security/overview.md`·`next.md`, `index.md` 행, `handoff.md` 대기 행(분석 목적 결정)을 추가했다. feature map·구조도·스펙은 시작하지 않았다.
+
+## [2026-11-16] update | archify 기준 SHA 갱신 (a406594 → a7ed6fd)
+
+`visualization/repos/archify`를 새로 clone(blobless)하고 기준 SHA와 비교했다. 11개 commit, 61개 파일이 바뀌었고 스킬 본체(`archify/`)는 `scripts/check-render-output.mjs` 1개(explainer 검사 영수증을 stdout에 다 쓴 뒤 종료, +6/-2줄)뿐이다. 나머지는 `website/`·GEO 문서·README·CI 등 제외한 부속 영역이다.
+동작 규칙은 그대로라서 이 파일을 `sources`로 가진 스펙 4개(`explainer`, `rendering-contracts`, `rendering-other-types`, `verification-gates`)와 `q2-verification`은 `sha`·`updated`를 올리고 `check-render-output.mjs` 줄 번호 인용 28곳을 49행부터 +4로 옮겼다. `verification-gates` R-06에는 종료 시점 차이를 한 줄 적었다. 나머지 스펙은 `a406594` 기준으로 뒀다. `overview.md` 1절에 변경 표를 쓰고 `overview`·`next`의 `sha`, `repo-metadata.txt`, `repos.lock.tsv`, `index.md` SHA를 새 값으로 바꿨다.
+새 SHA의 스크립트는 실행하지 않았다(권한 거부). 영향 판단은 diff를 읽은 `코드 확인`이다. 구조도·설명 페이지는 다시 만들지 않았다.

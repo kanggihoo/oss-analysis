@@ -1,7 +1,7 @@
 ---
-sha: "a4065941f12be7967436261d9934784e381d423c"
+sha: "a7ed6fd6657da90414831d1d42cf95987188750c"
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-16
 sources:
   - archify/explainer/parse.mjs
   - archify/explainer/validate.mjs
@@ -254,7 +254,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 | R-16 | C-14; `out/deliver/ok.delivery.json`의 `explainer` | 필드는 실행, 불일치 분기는 코드 |
 | R-17 | C-20 `archify.mjs:5925,5944`, `prepare.mjs:33`; `in/q-standard.archify.md` | 실행(T-13) |
 | R-18 | `archify.mjs:6968-7140` `commandValidate`; `out/ok.validate.json` | 실행 |
-| R-19 | C-15, `archify.mjs:4480-4490,4859-4873,5120-5126,5017`, `scripts/check-render-output.mjs:44-48` | 코드 + provenance 실행 |
+| R-19 | C-15, `archify.mjs:4480-4490,4859-4873,5120-5126,5017`, `scripts/check-render-output.mjs:44-52` | 코드 + provenance 실행 |
 | R-20 | C-20, `finalize.mjs:746,148-156`, `archify.mjs:5967`; `out/misc/finalize-*.json`, `out/deliver/ok.finalize-summary.json` | 실행 |
 | R-21 | C-17; `out/patch2/tampered*.check.json` | 실행 |
 | R-22 | C-16, C-21; `out/deliver/ok.html` | 구조·id는 실행, 레이아웃 수치는 코드 |
@@ -267,3 +267,7 @@ status: ready            # 2026-11-02: 이 스펙 자체의 미결정 없음, �
 ### 2.2 코드 읽는 순서
 
 `bin/archify.mjs:5888` `commandFinalize` → `prepareExplainerInput:2416` → `explainer/prepare.mjs:29` `prepareExplainer` → `parse.mjs:18` → `validate.mjs:17` → `sources.mjs:171` → `diagrams.mjs:448` → `render-explainer.mjs` → `render.mjs:37` → `check.mjs:57`. 패치는 `archify.mjs:5304` → `patch.mjs:21`. Ask는 `reader.js:530`. 구현 전략: 자식 프로세스로 native 렌더러를 재사용하고(언어 경계), 모든 외부 바이트를 해시와 함께 동결해 bundle 하나로 만들며, 그 bundle을 HTML 안에도 넣어 patch가 원본 파일 없이 다시 쓸 수 있게 한다.
+
+## 기준 SHA 갱신 (2026-11-16)
+
+- `a4065941`→`a7ed6fd`: 이 문서의 `sources` 중 `archify/scripts/check-render-output.mjs`가 바뀌었다(`7e45f36c`, explainer 분기 44~48행이 44~52행으로 늘어 49행부터 +4). explainer HTML이면 영수증 JSON을 `console.log` 뒤 곧바로 `process.exit`하던 것을, `process.stdout.write` 콜백 안에서 종료하고 아래 일반 경로가 두 번째 영수증을 내지 못하게 대기하는 것으로 바꿨다. 영수증 내용·검사 순서·종료 코드는 같아서 규칙(R-ID)은 고치지 않고 `check-render-output.mjs` 줄 번호 인용만 새 SHA 기준으로 옮겼다(`코드 확인`, diff 읽음. 새 SHA의 스크립트 실행은 하지 않았다).
