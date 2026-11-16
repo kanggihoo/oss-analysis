@@ -949,3 +949,9 @@ overview 2절을 16행(조사 중심 1~13, 실행 기반 14, UI 15, 부속 16)·
 사용자 진행 요청에 따라 feature map 1~13행을 승인 범위로 확정했다. gpt-6.1-terra / high subagent 3개를 재사용해 도구·정적/런타임 탐색·외부연결·판별·관찰·coverage·traffic·발견/증거·재검증·보고/출력 스펙 13개를 작성하고 모두 ready로 확정했다. 실제 도구·DB·모델·대상은 실행하지 않았다.
 메인은 전체 spec과 주요 원본 경계를 읽고 선행·ID/status·증거 version·대표 흐름을 통합 검토했다. 내부 helper 참조 누락·줄 범위 초과, export staging 오류 status/검사 순서, Markdown TrimSpace와 JSON 보존 차이를 보완했다.
 overview·next·GUIDE·index·Q3와 artifacts/spec-agents.json·spec-validation.json을 갱신했다. 정적 검사 13개·193 source 범위 그룹 오류 0, python scripts/check.py artex-global ERROR 0 / NOTE 0. 승인 밖 14~16행은 미작성이다.
+
+## [2026-11-16] ingest | codex-security (security/ 신설)
+
+`security/` 주제 폴더를 만들고(`GUIDE.md`, `repos.lock.tsv`, `.gitignore`에 `/security/repos/`) `openai/codex-security`를 전체 이력으로 clone했다. 기준 SHA `173483d`(main, 2026-11-13), 작업트리 clean.
+루트·`sdk/typescript/` 두 `LICENSE` 첫머리로 Apache-2.0 확인. README 전문, 두 `package.json`·`plugin.json`, `git ls-files` 상위 경로 집계를 읽었고 코드 본문은 열지 않았다. 실행(`cs`, SDK, Docker)은 하지 않았다.
+`artifacts/codex-security/repo-metadata.txt`, `reports/codex-security/overview.md`·`next.md`, `index.md` 행, `handoff.md` 대기 행(분석 목적 결정)을 추가했다. feature map·구조도·스펙은 시작하지 않았다.

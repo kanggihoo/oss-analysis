@@ -1,0 +1,10 @@
+repo_dir=security/repos/codex-security
+name=codex-security
+date=2026-11-16
+commit=173483d7c658be7a512c93d9559bf01a05d5b196
+commit_date=2026-11-13T18:38:24-08:00
+origin=https://github.com/openai/codex-security
+branch=main
+worktree=clean
+clone=full history (shallow 아님)
+tracked_files=1607
