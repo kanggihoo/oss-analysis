@@ -984,3 +984,13 @@ craft-anything 비교(A~M)와 Codex 의견을 합쳐 `OSS_ANALYSIS_WORKFLOW.md`(
 `visualization/repos/archify`를 새로 clone(blobless)하고 기준 SHA와 비교했다. 11개 commit, 61개 파일이 바뀌었고 스킬 본체(`archify/`)는 `scripts/check-render-output.mjs` 1개(explainer 검사 영수증을 stdout에 다 쓴 뒤 종료, +6/-2줄)뿐이다. 나머지는 `website/`·GEO 문서·README·CI 등 제외한 부속 영역이다.
 동작 규칙은 그대로라서 이 파일을 `sources`로 가진 스펙 4개(`explainer`, `rendering-contracts`, `rendering-other-types`, `verification-gates`)와 `q2-verification`은 `sha`·`updated`를 올리고 `check-render-output.mjs` 줄 번호 인용 28곳을 49행부터 +4로 옮겼다. `verification-gates` R-06에는 종료 시점 차이를 한 줄 적었다. 나머지 스펙은 `a406594` 기준으로 뒀다. `overview.md` 1절에 변경 표를 쓰고 `overview`·`next`의 `sha`, `repo-metadata.txt`, `repos.lock.tsv`, `index.md` SHA를 새 값으로 바꿨다.
 새 SHA의 스크립트는 실행하지 않았다(권한 거부). 영향 판단은 diff를 읽은 `코드 확인`이다. 구조도·설명 페이지는 다시 만들지 않았다.
+
+## [2026-11-16] update | archify SKILL.md 한국어 번역
+
+`archify/SKILL.md`(137줄, `a7ed6fd`. `a406594`와 동일함을 `git diff`로 확인)를 요약 없이 한국어로 옮겨 `visualization/reports/archify/translations/SKILL.ko.md`에 썼다. 명령·경로·필드는 원문 그대로 두고 상대 링크는 `archify/` 기준 경로 표기로 바꿨다.
+`overview.md` 5절과 `index.md` archify 행에 링크를 추가했다. 번역 문서이며 지시문대로 코드가 동작하는지는 확인하지 않았다.
+
+## [2026-11-16] update | archify 커스텀을 위한 읽기 계획
+
+대화에서 정리한 `archify/` 구조(디렉터리별 역할, `viewer/`·`scripts/`·`archify/scripts/`의 차이, `template.html` 생성 방식, `package.json` 명령 분류)를 바탕으로 `visualization/reports/archify/next.md`에 5절(읽기 순서 9단계, 미확인 질문 8개, 결정 대기, 보지 않아도 되는 곳)을 추가하고 3절 시작 순서에 연결했다.
+`handoff.md`에 archify 행(분석 목적·방식·링크 범위·뷰어 유지 여부)을 올렸다. 새로 코드를 읽지는 않았고, 5.2의 질문은 모두 `미확인`으로 남겼다.

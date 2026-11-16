@@ -119,4 +119,5 @@ LLM 에이전트가 **정해진 JSON 스키마(또는 explainer용 Markdown 초�
 ## 5. 다음 작업 및 연계 링크
 
 - **다음 세션 계획**: [next.md](./next.md)
+- **SKILL.md 한국어 번역**: [translations/SKILL.ko.md](./translations/SKILL.ko.md) (원문 `archify/SKILL.md`, `a7ed6fd` 기준)
 - **기능 스펙**: 2절 feature map의 "스펙·상태" 칸 (16개 작성(12행 + 하위 4): ready 13 / draft 3)
