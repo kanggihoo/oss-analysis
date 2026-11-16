@@ -114,9 +114,22 @@ updated: 2026-11-16
 
 ### 5.4 만들 문서
 
-- `questions/q4-drill-down-links.md`: 5.2의 질문 중 5~9번 읽기로 풀린 것만 `코드 확인`으로 쓴다.
+- `questions/q7-drill-down-links.md`: 5.2의 질문 중 5~9번 읽기로 풀린 것만 `코드 확인`으로 쓴다.
 - AI 지침(`SKILL.md`·`AGENTS.md` 수정본)은 `reports/`가 아니라 vendoring한 위치에 둔다. `reports/`는 특정 SHA의 사실을 적는 곳이라 지침과 섞지 않는다.
 
 ### 5.5 지금 보지 않아도 되는 것
 
 `archify/` 안: `locales/`, `brand-marks/`, `recipes/`, `delta/`, `migrations/`, `renderers/`의 나머지 9개 타입 폴더, `explainer/`의 `charts.mjs`·`patch.mjs`·`reader.js`, `bin/` 대부분. 루트: `docs/`, `website/`, `experiments/`, `benchmarks/`, `journal/`, `integrations/`, `community/`, `tools/`, `.agents/`, `.github/`, `scripts/`(`generate-viewer.mjs`·`run-tests.mjs` 제외). `package.json`의 `build:*`, `test:webm`, `test:browser`, `*:brand-marks`, `render:examples`, `check:release-identity`.
+
+### 5.6 수정 지점 탐색 결과 (2026-11-17, `a7ed6fd`, 읽기만 함)
+
+| 하고 싶은 것 | 손볼 곳 | 확인한 사실 |
+|---|---|---|
+| 노드에 필드 추가(예: `link`) | `schemas/<type>.schema.json` → `generate:validators`로 `renderers/shared/generated-validators.mjs` 재생성 | architecture `components[]` 노드는 `additionalProperties:false`이고 키는 `id,type,label,sublabel,tag,icon,brand,sources,row,col,pos,size`뿐이라 새 키는 스키마를 고치지 않으면 거부된다(코드 확인). 타입마다 노드 스키마가 따로라 타입 수만큼 고쳐야 한다(추론) |
+| 그 값을 SVG 노드에 싣기 | `renderers/shared/cli.mjs:393` `focusNodeAttrs`(공유)와 각 `render-<type>.mjs`의 호출부(architecture는 `render-architecture.mjs:1098`) | 노드 `<g>`는 `tabindex="0" role="button" aria-pressed` 속성과 `data-node-*`로 그려진다(코드 확인). `<a>`로 감싸면 role=button과 겹치므로, `data-node-link` 같은 속성을 추가하고 뷰어가 읽게 하는 쪽이 충돌이 적다(추론) |
+| 클릭 시 보이는 곳에 링크 표시 | `viewer/focus.js:336-376` `renderSourceEvidence`와 `:380-381` `setPassportValue`, 마크업은 `viewer/template.source.html:495-540`(Passport) | Passport는 `data-node-*` 속성(kind·context·tag·brand)을 읽어 칸에 채우고, 소스 근거는 `<a target=_blank rel=noopener>`로 만든다(코드 확인). 같은 방식으로 링크 칸을 하나 더 넣을 수 있다(추론) |
+| 뷰어 수정 반영 | `viewer/*` 수정 후 `archify/`에서 `npm run generate:viewer` | `archify/assets/template.html`은 생성물이고 `check:viewer`가 최신 여부를 검사한다(`viewer/README.md`, `package.json`). 생성기 `scripts/generate-viewer.mjs`는 `archify/` 밖에 있다 |
+| explainer 본문 링크 대상 확장 | `explainer/inline.mjs`(대상 해석, `http(s)`·`source:`·`block:`·`#`·`typical:`·`node:`·`route:`) | 상대 `.html` 같은 새 대상은 여기서 `null`이 되어 `explainer/target` 오류가 난다(코드 확인). 렌더 쪽은 `render.mjs`의 `inline`이 `kind`별로 HTML을 만든다 |
+
+풀린 질문(5.2): 스키마가 새 필드를 거부하는 것은 확인했다. `<a>` 감싸기와 포커스 충돌은 `role="button"` 때문에 가능성이 높지만 실행은 안 했다. `check-render-output.mjs`가 SVG 안 `<a href>`를 거부하는지는 `href`·`<a`·`external` 검색에 걸리는 규칙을 못 찾았다(미확인, 다른 규칙이 막을 수 있음). 명령행 `finalize`와 `check`로 실제로 통과하는지 돌려 봐야 한다.
+

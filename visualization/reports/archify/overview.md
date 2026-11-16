@@ -113,6 +113,9 @@ LLM 에이전트가 **정해진 JSON 스키마(또는 explainer용 Markdown 초�
 - [Q1: JSON과 HTML은 어떻게 연결되고, 무엇을 쓸지는 누가 정하나](./questions/q1-json-to-html-and-authoring.md) - *HTML에는 원본 JSON이 없다. 내용은 LLM이 정하고 코드는 모양과 근거 존재만 확인한다*
 - [Q2: 만들어진 결과물은 어떻게 검증하나](./questions/q2-verification.md) - *스키마 → 레이아웃·근거 → 정적 검사 → 브라우저 측정 순. 인용한 줄의 내용이 주장과 맞는지는 코드가 확인하지 않는다*
 - [Q3: 타입별·출력 위치 커스터마이징 여지](./questions/q3-customization-and-output.md) - *색은 못 바꾸고 프리셋 4종·언어·범례·레이아웃 수치·출력 경로는 바꿀 수 있다*
+- [Q4: 지원하는 시각화 타입](./questions/q4-supported-diagram-types.md) - *native 10종(architecture·workflow·sequence·dataflow·lifecycle·erd·class·tree·timeline·waterfall) + 페이지형 explainer. `guide`는 class·tree·timeline·waterfall을 추천하지 않고, delta 비교는 architecture만 받는다*
+- [Q5: 타입별로 AI가 만들어야 하는 것](./questions/q5-what-ai-writes-per-type.md) - *AI는 HTML 대신 타입별 JSON(explainer는 `.archify.md`)만 쓰고 `finalize` 한 줄이 렌더·검사를 돌린다. sequence는 메시지 `y`, workflow는 `lane`+`col`, dataflow는 `stage`+`row`를 직접 줘야 하고 lifecycle·tree는 위치 값이 없다*
+- [Q6: candidate.json의 구조와 모든 key·value (의미·사용 시점 포함)](./questions/q6-json-schema-reference.md) - *10종은 `schema_version`+`diagram_type`+`meta`+타입별 본문 배열+선택 `cards` 뼈대를 공유하고 모든 객체가 `additionalProperties:false`. 스키마에서 생성한 전체 키·enum·제약 표에 README·references·렌더러 코드에서 찾은 의미·사용 시점을 붙임(맨 위에 읽은 곳 표). `meta.views`는 폐기, `meta.output`은 5종만 필수, architecture는 `layout` 생략 시 `pos` 필수*
 
 ---
 

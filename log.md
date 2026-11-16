@@ -1004,3 +1004,40 @@ CLI 명령 등록부(`cli.ts`), `CodexSecurity` 공개 메서드, `scanPrompt`·
 
 대화에서 정리한 `archify/` 구조(디렉터리별 역할, `viewer/`·`scripts/`·`archify/scripts/`의 차이, `template.html` 생성 방식, `package.json` 명령 분류)를 바탕으로 `visualization/reports/archify/next.md`에 5절(읽기 순서 9단계, 미확인 질문 8개, 결정 대기, 보지 않아도 되는 곳)을 추가하고 3절 시작 순서에 연결했다.
 `handoff.md`에 archify 행(분석 목적·방식·링크 범위·뷰어 유지 여부)을 올렸다. 새로 코드를 읽지는 않았고, 5.2의 질문은 모두 `미확인`으로 남겼다.
+
+## [2026-11-16] update | archify 지원 시각화 타입 정리 (Q4)
+
+`repos/archify`를 기준 SHA `a7ed6fd`로 맞추고(이 PC clone은 `a406594`였음), `schemas/*.schema.json` 11개를 파싱해 `visualization/reports/archify/questions/q4-supported-diagram-types.md`를 썼다. native 10종과 페이지형 explainer의 필수 키·enum·배치 방식, `guide` 레시피 미보유 타입 4종, delta의 architecture 한정(`delta/architecture-delta.mjs:114`)을 적었다.
+`overview.md` 4절과 `index.md` archify 행에 링크를 추가했고, `next.md` 5.4의 예정 문서 이름을 `q5-drill-down-links.md`로 바꿨다. 화면 모양은 렌더링하지 않아 `미확인`.
+
+## [2026-11-16] update | archify 타입별 AI 작성물 정리 (Q5)
+
+`visualization/reports/archify/questions/q5-what-ai-writes-per-type.md`를 썼다. `SKILL.md:32-49` 절차와 10종 스키마의 `required`를 근거로, AI가 만드는 것(타입별 JSON, explainer는 `.archify.md` 초안)과 스크립트가 계산하는 것(기하·라우팅·viewBox)을 타입별로 나눴다. `finalize` 한 줄이 렌더·검사를 돌린다는 점과 `browser-check` 때문에 "빠르다"는 이해에는 단서가 붙는다는 점을 적었다.
+`overview.md` 4절, `index.md`에 링크를 추가했고 `next.md`의 예정 문서 이름을 `q6-drill-down-links.md`로 바꿨다. 실행은 하지 않았다.
+
+## [2026-11-16] update | archify candidate.json 구조와 전체 key·value (Q6)
+
+`visualization/reports/archify/questions/q6-json-schema-reference.md`를 썼다. `schemas/*.schema.json` 11개를 스크립트로 파싱해(`$ref`를 풀어) 최상위 구조 비교, 공통 `$defs`, 공통 `meta`(타입별 존재 표), `legend.entries` 키, `cards`, 10종 본문 키, explainer 정규 모델과 블록 13종의 필수·enum·길이 제약을 표로 만들었다. 표는 손으로 쓰지 않았다.
+발견: `meta.views`는 폐기된 키로 스키마만 받고 렌더러는 읽지 않는다(`schemas/README.md`, 소스 grep). 이를 근거로 Q4·Q5에서 `views`를 선택 기능으로 적은 부분을 고쳤다. `meta.output`은 5종만 필수라 `schemas/README.md`의 "모두 필수"와 다르다. `next.md`의 예정 문서 이름은 `q7-drill-down-links.md`로 바꿨다.
+
+## [2026-11-16] update | archify Q6에 키·값 의미와 사용 시점 추가
+
+`visualization/reports/archify/questions/q6-json-schema-reference.md`에 모든 키 행의 "의미·언제 쓰나" 열을 추가하고 맨 위(0절)에 읽은 곳 표를 넣었다. 읽은 것: `schemas/README.md`, `references/{authoring-defaults,authoring-contract,explainer-authoring}.md` 전문, 타입별 `renderers/*/README.md` 9개 전문, `brand-marks.md`·`repository-authoring.md` 앞부분, architecture `grid.mjs`·`render-architecture.mjs`, workflow·dataflow 컴파일러, `shared/geometry.mjs`·`utils.mjs`의 해당 줄, `locales/en.json` 범례 이름. `delivery-contract.md`·`viewer-runtime.md` 등은 읽지 않았다.
+enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architecture는 `layout`을 생략하면 모든 컴포넌트에 `pos`가 필수(`render-architecture.mjs:496-504`)라서 Q5의 "row/col/pos는 필수 아님" 표를 고쳤다. 같은 type 값이 workflow에서는 User UI·Agent logic·Policy·Tool action 등 다른 범례 이름을 갖는다. 문서에 설명이 없는 항목은 `미확인`/`추론`으로 표시했다.
+
+## [2026-11-16] update | archify Q5에 explainer의 다이어그램 입력 방식 추가
+
+`questions/q5-what-ai-writes-per-type.md` 4절에 explainer 본문 다이어그램 10종의 입력 방식을 표로 추가했다. 약식 행 6종(architecture·workflow·sequence·tree·timeline·erd), 별도 spec 파일 4종(dataflow·lifecycle·class·waterfall), JSON 초안은 `diagram` 블록의 `diagramType`+`spec`으로 10종 전부. `explainer-authoring.md`를 읽은 내용이며 실행은 하지 않았다.
+
+## [2026-11-16] update | archify Q5에 finalize 후속 과정 추가
+
+`questions/q5-what-ai-writes-per-type.md`에 5.1절을 추가했다. AI가 파일을 만든 뒤 `finalize`가 내부에서 `deliver`→`check`→`browser-check`→최종 확인을 호출하는 순서와 각 단계 산출물(HTML, `.delivery.json`, `.finalize.json`, `.finalize-summary.json`)을 표로 정리했다. 기존 finalize-orchestration·delivery·Q2 스펙을 읽어 옮긴 것이며 새로 실행하지 않았다. `deliver` 실패 시 HTML 바이트 유지와 provenance 실패 표지는 delivery 스펙(T-04)을 따랐고 Q2의 표현이 덜 정확함을 적었다.
+
+## [2026-11-16] archify Q5 5.2·5.3 추가
+- visualization/reports/archify/questions/q5-what-ai-writes-per-type.md: 5.2 브라우저 검증 판정 방식(스크립트 측정, AI는 진단만 읽고 수정), 5.3 candidate.json 역할
+
+## [2026-11-17] archify Q5 5.4 추가
+- visualization/reports/archify/questions/q5-what-ai-writes-per-type.md: 5.4 explainer steps용 다이어그램 입력 방식, 이미지 경로 규칙, 좌우 guided 배치
+
+## [2026-11-17] archify next.md 5.6 추가
+- visualization/reports/archify/next.md: 5.6 커스텀 수정 지점 탐색 결과(스키마·focusNodeAttrs·Passport·viewer 재생성·explainer inline)
