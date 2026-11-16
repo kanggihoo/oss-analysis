@@ -979,6 +979,16 @@ craft-anything 비교(A~M)와 Codex 의견을 합쳐 `OSS_ANALYSIS_WORKFLOW.md`(
 루트·`sdk/typescript/` 두 `LICENSE` 첫머리로 Apache-2.0 확인. README 전문, 두 `package.json`·`plugin.json`, `git ls-files` 상위 경로 집계를 읽었고 코드 본문은 열지 않았다. 실행(`cs`, SDK, Docker)은 하지 않았다.
 `artifacts/codex-security/repo-metadata.txt`, `reports/codex-security/overview.md`·`next.md`, `index.md` 행, `handoff.md` 대기 행(분석 목적 결정)을 추가했다. feature map·구조도·스펙은 시작하지 않았다.
 
+## [2026-11-16] update | codex-security feature map
+
+CLI 명령 등록부(`cli.ts`), `CodexSecurity` 공개 메서드, `scanPrompt`·`skillNameFor`, `runDeepScan`, `scan-executor.ts`, 플러그인 skill 20개와 `core-scan.md`, MCP 도구 이름(`server.ts`), `action.yml`·`docker/`를 읽고 `overview.md` 2절에 feature map 21행(핵심 17/부속 4)과 공유 계약 S1~S4를 썼다. 분석 목적은 잠정으로 가정했다.
+권장 범위(행 1~9, S1·S2)를 `승인 전`으로 overview 1절과 `handoff.md`에 올렸다. `next.md`, `index.md`, `GUIDE.md`를 갱신했다. 구조도·질문·기능 스펙은 하지 않았고, 코드 본문 대부분은 열지 않았다. 실행은 하지 않았다.
+
+## [2026-11-16] update | codex-security feature map 재구성 (skill → 호출 코드 기준)
+
+사용자가 목적을 "보안 검증 skill과 그 skill이 호출하는 코드의 소스 이해"로 정정해 feature map을 SDK 기능 기준 21행에서 skill → MCP 도구·helper·Python 기준 17행(핵심 14/부속 3)으로 다시 나눴다. `finding-discovery`·`validation`·`attack-path-analysis` SKILL.md 전문, `compact-artifact-tools.ts` 110~215행, `artifact-candidate-ledger.ts` 앞부분, helper 목록을 추가로 읽었다. 정적 분석 코드가 없고 판단 기준이 skill 문서에 있음을 확인했다. Standard·Deep worker는 phase skill을 호출하지 않는다는 점과 호출자별 완료 책임(`final-report.md` 표)을 읽는 법에 적었다.
+`overview.md`(1·2절, 권장 범위 행 1~10·S1~S3), `next.md`, `GUIDE.md`, `index.md`, `handoff.md`를 갱신했다. 구조도·질문·기능 스펙은 하지 않았고 실행도 하지 않았다.
+
 ## [2026-11-16] update | archify 기준 SHA 갱신 (a406594 → a7ed6fd)
 
 `visualization/repos/archify`를 새로 clone(blobless)하고 기준 SHA와 비교했다. 11개 commit, 61개 파일이 바뀌었고 스킬 본체(`archify/`)는 `scripts/check-render-output.mjs` 1개(explainer 검사 영수증을 stdout에 다 쓴 뒤 종료, +6/-2줄)뿐이다. 나머지는 `website/`·GEO 문서·README·CI 등 제외한 부속 영역이다.
