@@ -8,11 +8,15 @@
   index   index.md에 레포 행이 있고, 그 행의 SHA가 overview sha와 같다
   status  스펙 frontmatter status == overview feature map의 상태 == index.md의 상태(적혀 있을 때)
   link    reports 문서의 상대 링크가 가리키는 파일이 있다
+  cite    스펙이 `경로/파일.ext:줄` 또는 `:L1-L2`로 인용한 위치가 그 스펙 frontmatter sha의 파일 줄 수 안에 있다(경로에 `/`가 있는 인용만, 경로를 찾지 못한 인용은 건너뛰고 NOTE로 개수만 낸다)
+
+통과는 형식과 위치 확인일 뿐이다. 그 위치가 주장을 뒷받침하는지는 검사하지 않으며, 사람이 본다(워크플로 4장 5번).
 
 ERROR는 값이 서로 다르거나 링크가 깨진 것, NOTE는 값이 비어 비교하지 못한 것(이전 문서는 소급하지 않는다, SCHEMA.md).
 ERROR가 하나라도 있으면 종료 코드 1.
 """
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -88,6 +92,49 @@ def map_statuses(overview_text):
     return out
 
 
+CITE = re.compile(r"`([\w.\-]+(?:/[\w.\-]+)+\.\w+):L?(\d+)(?:-L?(\d+))?")
+_lines, _tree = {}, {}
+
+
+def file_lines(repo_dir, sha, path):
+    """sha 시점 파일의 줄 수. 파일이 없으면 None."""
+    key = (repo_dir, sha, path)
+    if key not in _lines:
+        r = subprocess.run(["git", "-C", str(repo_dir), "show", f"{sha}:{path}"], capture_output=True)
+        _lines[key] = None if r.returncode else r.stdout.count(b"\n") + (0 if r.stdout.endswith(b"\n") or not r.stdout else 1)
+    return _lines[key]
+
+
+def resolve(repo_dir, sha, path):
+    """인용 경로를 sha 시점 파일 경로로. 그대로 없으면 끝이 같은 파일이 하나뿐일 때만 그것을 쓴다(생략 표기). 못 찾으면 None."""
+    if file_lines(repo_dir, sha, path) is not None:
+        return path
+    if (repo_dir, sha) not in _tree:
+        r = subprocess.run(["git", "-C", str(repo_dir), "ls-tree", "-r", "--name-only", sha], capture_output=True, text=True)
+        _tree[(repo_dir, sha)] = r.stdout.splitlines() if r.returncode == 0 else []
+    hits = [f for f in _tree[(repo_dir, sha)] if f.endswith("/" + path)]
+    return hits[0] if len(hits) == 1 else None
+
+
+def bad_citations(spec, repo_dir):
+    """(범위 밖 인용 목록, 경로를 못 찾아 건너뛴 수). 경로를 못 찾은 인용은 오류로 세지 않는다(표기 방식이 다양하다)."""
+    fm, text = frontmatter(spec)
+    sha = fm.get("sha", "")
+    bad, skipped = [], 0
+    if not sha or not (repo_dir / ".git").exists():
+        return bad, skipped
+    for m in sorted(set(CITE.findall(text))):
+        a, b = int(m[1]), int(m[2] or m[1])
+        real = resolve(repo_dir, sha, m[0])
+        if real is None:
+            skipped += 1
+            continue
+        n = file_lines(repo_dir, sha, real)
+        if a < 1 or b < a or b > n:
+            bad.append((f"{m[0]}:{a}" + (f"-{b}" if m[2] else ""), n))
+    return bad, skipped
+
+
 def broken_links(md):
     text = md.read_text(encoding="utf-8", errors="replace")
     text = re.sub(r"```.*?```|`[^`\n]*`", "", text, flags=re.S)  # 코드 블록·인라인 코드 안의 예시 링크 제외
@@ -140,6 +187,14 @@ def main(only):
             for slug, st in mapped.items():
                 if st != "미작성" and not (ov.parent / "capabilities" / f"{slug}.md").is_file():
                     errors.append(f"[status] {name}/{slug}: feature map에 {st}인데 파일 없음")
+
+            for spec in sorted((ov.parent / "capabilities").glob("*.md")):
+                bad, skipped = bad_citations(spec, ws / "repos" / repo)
+                rel = spec.relative_to(ROOT).as_posix()
+                for cite, n in bad:
+                    errors.append(f"[cite] {rel}: {cite} 줄 범위 밖 (파일 {n}줄)")
+                if skipped:
+                    notes.append(f"[cite] {rel}: 경로를 못 찾아 건너뛴 인용 {skipped}개")
 
             for md in sorted(ov.parent.rglob("*.md")):
                 for target in broken_links(md):

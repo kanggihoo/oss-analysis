@@ -950,6 +950,29 @@ overview 2절을 16행(조사 중심 1~13, 실행 기반 14, UI 15, 부속 16)·
 메인은 전체 spec과 주요 원본 경계를 읽고 선행·ID/status·증거 version·대표 흐름을 통합 검토했다. 내부 helper 참조 누락·줄 범위 초과, export staging 오류 status/검사 순서, Markdown TrimSpace와 JSON 보존 차이를 보완했다.
 overview·next·GUIDE·index·Q3와 artifacts/spec-agents.json·spec-validation.json을 갱신했다. 정적 검사 13개·193 source 범위 그룹 오류 0, python scripts/check.py artex-global ERROR 0 / NOTE 0. 승인 밖 14~16행은 미작성이다.
 
+## [2026-11-14] ingest | craft-anything 초기 분석 (feature map까지)
+
+`https://github.com/storytold/craft-anything.git`을 `repos/craft-anything`에 clone하고 `8374ad71544f2cc44698ea74ef990aa31600bac6`로 기준을 고정했다. 라이선스는 MIT OR Apache-2.0(LICENSE-MIT, LICENSE-APACHE), 로고는 별도 상표.
+README, AGENTS.md, 워크스페이스 Cargo.toml, docs/tools.md 툴셋 제목, crate별 파일 목록과 머리 주석, CLI Command를 읽고 feature map 25행(핵심 17/부속 8), 공유 계약 3개를 썼다. 구조도·스펙·빌드·실행은 하지 않았다. 목적 미정.
+
+## [2026-11-14] update | craft-anything feature map을 "우리 절차 보완" 목적으로 재구성
+
+사용자가 목적을 "AI 분석→스펙 문서화 절차의 보완·개선점 찾기"로 정했다. 증거 레코드(`evidence/lib.rs`), `unknown.rs`, `investigation_tools.rs`, `skill.md`, `mcp/prompts.rs`, `rebuild/brief.rs`, `js_ledger.rs` 머리와 `compare_tools.rs`·`kinds/mod.rs`·`clean_room.rs` 등을 읽었다.
+overview 2절을 20행(우리 절차 대응 1~11 세분, 15~20 묶음)으로 바꾸고 "우리 절차와 맞대어 볼 후보" 표(가설, 미확정)를 추가했다. next·index·handoff를 갱신했다. 구조도·스펙·실행은 하지 않았다.
+
+## [2026-11-15] capability | craft-anything 우리 절차 대응 스펙 11개 완료
+
+사용자 승인 범위(행 1~11)를 서브에이전트 6개(Opus high 4, Sonnet medium 2)로 나눠 3단계로 작성했다. 코드만 읽었고 빌드·테스트·실행은 하지 않았다. 9→8, 1→2→3→4, 6, 10을 병렬로 쓰고, 7(선행 8·9·10)과 5·11(선행 3·1)을 이어서 썼다. person-inbox·rebuild-ledger의 미결정은 같은 에이전트에 후속을 보내 닫았다(U-2는 메인이 clean_room.rs로 확인).
+overview 2절을 스펙 결과로 보정(1·2·3·4·5·6·7·8·9·10·11행)하고 "우리 절차와 맞대어 본 결과" 표 A~M을 확정본으로 바꿨다. 대표 흐름과 통합 검토를 추가했다. 원본 버그(game-self-test 판정 반대 등)와 문서-구현 차이는 각 스펙 2.1에 있다. `python3 scripts/check.py craft-anything` ERROR 0.
+
+## [2026-11-15] update | 분석 절차 개선 반영 (craft-anything 비교 + Codex 검토)
+
+craft-anything 비교(A~M)와 Codex 의견을 합쳐 `OSS_ANALYSIS_WORKFLOW.md`(1장 check.py 행, 4장 3·4번 완료 조건, 4장 5번 원본 대조 점검 신설과 통합 검토·연결 보고 번호 이동, 선택 재구현 검증, 5장 3번 sources, 7장 부재 주장), `.claude/skills/oss-repo-spec/SKILL.md`(5·6단계, 낡은 4장 번호 참조 수정), `templates/capability-spec-template.md`(미결정 U-ID 표, 2.1 부재 주장, 2.4 검토 기록, frontmatter 주석), `templates/capability-request-template.md`, `SCHEMA.md`(status 정의), `scripts/check.py`(`cite` 점검: 인용 줄 범위)를 고쳤다. 재구현 검증은 기본 미수행(사용자 승인 시). 기존 스펙은 소급하지 않았다. `check.py cite`는 다른 레포의 기존 스펙에서 줄 범위 밖 인용 34건을 새로 보고한다(이번 변경 이전부터 있던 문제, 수정하지 않음).
+
+## [2026-11-15] update | P2 중 E 반영, craft-anything 범위 확정
+
+사용자 결정: P2 중 E만 반영(`templates/next-template.md` 4절에 "막힌 경로" 표, 워크플로 6장 1번, 스킬 "세션이 끊길 때"). J·M은 보류. craft-anything 행 12~14와 승인 정책 분리는 범위 제외로 확정해 `handoff.md`의 craft-anything 행을 지웠다. `reports/craft-anything/next.md`·overview 갱신.
+
 ## [2026-11-16] ingest | codex-security (security/ 신설)
 
 `security/` 주제 폴더를 만들고(`GUIDE.md`, `repos.lock.tsv`, `.gitignore`에 `/security/repos/`) `openai/codex-security`를 전체 이력으로 clone했다. 기준 SHA `173483d`(main, 2026-11-13), 작업트리 clean.
