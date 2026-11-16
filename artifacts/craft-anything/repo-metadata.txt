@@ -1,0 +1,7 @@
+repo_dir=repos/craft-anything
+name=craft-anything
+date=2026-11-14
+commit=8374ad71544f2cc44698ea74ef990aa31600bac6
+commit_date=2026-11-14T17:42:46+07:00
+origin=https://github.com/storytold/craft-anything.git
+worktree=clean
