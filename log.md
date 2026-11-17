@@ -1087,3 +1087,9 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 ## [2026-11-17] capability | hyperframes 스펙 3개 ready 승격 (독립 검토 후)
 - 사용자 결정: 독립 검토 후 ready. 미결정 0건이고 선행이 ready인 composition-contract, runtime-seek, audio-mix-fx를 대상으로 읽기 전용 검토자가 1차 이후 바뀐 부분(미결정을 닫으며 추가한 R-27~R-29, R-35, R-40~R-49 등)을 코드와 대조. composition-contract 2차 검토에서 서술 오류 4건(R-27 namespace, R-29 `<`, R-04 fallback, R-13 producer `mediaStart` 이상), audio-mix-fx 2차에서 R-06 루트 호스트 예외·R-07 `<img>` 거부 규칙, runtime-seek 2·3차에서 R-45·R-46·R-40·R-42·R-02·R-49 등을 찾아 작성자가 반영. 메인이 R-27 keeper·R-29·R-04·R-06·R-45·R-46·R-42·R-48 등을 코드로 재확인.
 - 각 스펙 frontmatter `status: ready`, 2.4 검토 기록 작성(대조한 R-ID, 대조하지 않은 부분, 재구현 미수행), `overview.md` feature map 상태 칸과 `index.md` 상태 표시 갱신. 낡은 문장 3건 정정(runtime-adapters R-02 4572·`5906`→`5907`, capture-encode-engine R-18 보충). render-orchestration은 선행 capture-encode-engine이 draft라 승격하지 못함.
+
+## [2026-11-17] approve | archify 분석 목적·커스텀 방향 결정
+- 사용자 결정: 목적=내부 흐름 이해+fork 후 커스텀, fork는 GitHub에 생성(이 PC clone 전), 링크 범위는 explainer만. 뷰어 유지 여부는 미정. `visualization/reports/archify/next.md` 5.3에 결정과 "뷰어가 무엇인가"(코드 확인: 렌더된 HTML에 인라인된 런타임, explainer 페이지는 `reader.js`, native 다이어그램 dialog에서만 뷰어 사용) 추가, `visualization/GUIDE.md` 목적 갱신, `handoff.md` archify 행 갱신.
+
+## [2026-11-17] query | archify explainer 페이지 구조 Q&A
+- `visualization/reports/archify/questions/q7-explainer-page-structure.md` 추가: explainer와 `template.html`의 관계(바깥 `render.mjs`+`reader.js`, 안쪽 native 다이어그램만 일반 렌더 HTML을 gzip+iframe으로 로드, `diagrams.mjs:482`), `@facts`(범위·일반 표와의 차이), 제목 `{#id span=N}`, 노드 이름 점선 밑줄(`linkTerms`), `@steps` guided 좌우 배치와 id 세 가지. `overview.md` 4절에 링크, `next.md` 5.4의 예정 문서명을 q8로 변경. 바깥 `reader.js`의 `node:`·`route:` 처리는 끝까지 읽지 않아 미확인으로 남김.

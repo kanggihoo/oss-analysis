@@ -116,6 +116,7 @@ LLM 에이전트가 **정해진 JSON 스키마(또는 explainer용 Markdown 초�
 - [Q4: 지원하는 시각화 타입](./questions/q4-supported-diagram-types.md) - *native 10종(architecture·workflow·sequence·dataflow·lifecycle·erd·class·tree·timeline·waterfall) + 페이지형 explainer. `guide`는 class·tree·timeline·waterfall을 추천하지 않고, delta 비교는 architecture만 받는다*
 - [Q5: 타입별로 AI가 만들어야 하는 것](./questions/q5-what-ai-writes-per-type.md) - *AI는 HTML 대신 타입별 JSON(explainer는 `.archify.md`)만 쓰고 `finalize` 한 줄이 렌더·검사를 돌린다. sequence는 메시지 `y`, workflow는 `lane`+`col`, dataflow는 `stage`+`row`를 직접 줘야 하고 lifecycle·tree는 위치 값이 없다*
 - [Q6: candidate.json의 구조와 모든 key·value (의미·사용 시점 포함)](./questions/q6-json-schema-reference.md) - *10종은 `schema_version`+`diagram_type`+`meta`+타입별 본문 배열+선택 `cards` 뼈대를 공유하고 모든 객체가 `additionalProperties:false`. 스키마에서 생성한 전체 키·enum·제약 표에 README·references·렌더러 코드에서 찾은 의미·사용 시점을 붙임(맨 위에 읽은 곳 표). `meta.views`는 폐기, `meta.output`은 5종만 필수, architecture는 `layout` 생략 시 `pos` 필수*
+- [Q7: explainer 페이지는 어떻게 만들어지나 (template.html, `@facts`, 밑줄, 좌우 배치, `@steps`)](./questions/q7-explainer-page-structure.md) - *explainer 페이지는 `template.html`이 아니라 `render.mjs`+`reader.js`로 돌고, 안쪽 native 다이어그램만 일반 렌더 HTML(뷰어 포함)을 gzip으로 담아 iframe으로 연다. `@facts`는 2열 라벨 목록, 밑줄은 노드 이름 자동 연결, 좌우 배치는 `@steps`가 그림을 가리킬 때의 guided 레이아웃, `@steps`는 explainer 전용이다.*
 
 ---
 

@@ -103,18 +103,22 @@ updated: 2026-11-16
 - 프로젝트의 `.claude/skills/archify`와 설치본 `~/.agents/skills/archify`가 겹칠 때 어느 쪽이 쓰이는가.
 - (q3에서 이어짐) 프리셋 4종의 실제 화면 차이.
 
-### 5.3 결정 대기
+### 5.3 결정 (2026-11-17 사용자 답)
 
-[handoff.md](../../../handoff.md)의 archify 행에 올렸다.
+- **분석 목적**: "내부 흐름 이해 + fork 후 커스텀"으로 확정.
+- **방식**: GitHub에서 fork는 만들어 뒀고, 이 PC에는 아직 clone하지 않았다. 커스텀 작업은 fork clone의 `custom` branch에서 한다(`repos/archify`는 upstream 분석용으로 둔다). fork URL은 사용자에게서 받아 `repos.lock.tsv`에 적는다.
+- **링크 범위**: explainer만. native 노드 링크(5.6 앞 3행)는 하지 않는다.
+- **뷰어 유지 여부**: 사용자가 뷰어의 의미를 몰라 미정. 아래 "뷰어가 무엇인가"를 읽고 정한다.
 
-- 분석 목적 확정(`visualization/GUIDE.md`는 아직 "미정"): 지금은 "내부 흐름 이해"가 `overview.md`의 목적이고, 커스텀 목적은 이 절에서 추가됐다.
-- 방식: vendoring / fork 후 `custom` branch / `sparse-checkout`.
-- 링크 범위: native 노드 → 상세 페이지 / explainer 본문 링크 / 둘 다.
-- 뷰어 유지 여부.
+**뷰어가 무엇인가** (`코드 확인`, `a7ed6fd`, 상세는 [viewer](./capabilities/viewer.md))
+
+뷰어는 별도 앱이 아니라 렌더된 다이어그램 HTML 안에 인라인으로 들어 있는 JS·CSS 런타임이다. 원본은 `viewer/*.js` 14개와 `viewer.css`, 셸 `template.source.html`이고, `scripts/generate-viewer.mjs`가 이를 `archify/assets/template.html` 한 파일로 합친다. 렌더러는 이 template의 슬롯에 SVG만 채운다. 그래서 `archify render`로 만든 모든 HTML을 브라우저에서 열면 노드 클릭 Passport, Route·Reach, 검색(`/`), 테마, 내보내기(PNG·SVG·WebM)가 이미 동작한다.
+
+explainer와의 관계: explainer 페이지 자체는 뷰어가 아니라 `explainer/reader.js`와 `reader.css`로 돈다. 하지만 `@architecture` 같은 native 다이어그램은 페이지 안에서 `viewer-dialog`로 열리고, 그 안에서는 이 뷰어가 돈다. 본문 링크 `[x](node:…)`, `[x](route:…)`는 뷰어를 `#focus=`, `#route=` 해시로 여는 딥 링크다. 따라서 explainer 본문 링크만 확장하면 `explainer/inline.mjs`, `render.mjs`, `check.mjs`만 고치면 되고 뷰어는 건드리지 않아도 된다(추론, 실행 전). 뷰어를 고칠 때만 `npm run generate:viewer`가 필요하다.
 
 ### 5.4 만들 문서
 
-- `questions/q7-drill-down-links.md`: 5.2의 질문 중 5~9번 읽기로 풀린 것만 `코드 확인`으로 쓴다.
+- `questions/q8-explainer-link-extension.md`: 5.2의 질문 중 5~9번 읽기로 풀린 것만 `코드 확인`으로 쓴다.
 - AI 지침(`SKILL.md`·`AGENTS.md` 수정본)은 `reports/`가 아니라 vendoring한 위치에 둔다. `reports/`는 특정 SHA의 사실을 적는 곳이라 지침과 섞지 않는다.
 
 ### 5.5 지금 보지 않아도 되는 것
