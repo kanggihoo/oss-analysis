@@ -1041,3 +1041,49 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 
 ## [2026-11-17] archify next.md 5.6 추가
 - visualization/reports/archify/next.md: 5.6 커스텀 수정 지점 탐색 결과(스키마·focusNodeAttrs·Passport·viewer 재생성·explainer inline)
+
+## [2026-11-17] update | hyperframes 재clone, 기준 SHA 갱신 (b7fa007 → 5979991)
+- `repos/hyperframes` clone(0.9.59, 1,634 commit 진행). `artifacts/hyperframes/repo-metadata.txt`, `reports/hyperframes/overview.md` 1절·스킬 행(21→9개)·registry 컴포넌트(238→239)·패키지 구성, `index.md` SHA 갱신. 나머지 2절 행은 재검증 전.
+
+## [2026-11-17] ingest | hyperframes feature map 작성 (18행)
+- `reports/hyperframes/overview.md` 1절(분석 대상·스펙 범위 승인 전)과 2절 "주요 기능" 표를 feature map 18행(핵심 16/부속 2)과 공유 계약 3으로 교체. `cli.ts` 등록부·`package.json`·`skills/`·`registry/` 대조, 본문 흐름은 미열람. `handoff.md`에 범위 승인 행 추가. 구조도(3절)는 미작성.
+
+## [2026-11-17] update | hyperframes feature map 수정
+- `reports/hyperframes/overview.md` 2절: 행 3을 FrameAdapter 패밀리에서 런타임 어댑터 패밀리로 정정(`RuntimeDeterministicAdapter`와 `FrameAdapter`는 별개 타입, `runtime/types.ts` 412행 확인), 행 8 이름 변경(`cli-entry-init`), 행 1·2·9·10·11 설명 보강, 행 13 참고용·스펙 제외(사용자 결정). 행 10의 "Studio·에이전트 공유"는 근거 없어 미확인으로 정정.
+
+## [2026-11-17] update | hyperframes frame.md 참고용 표시
+- `reports/hyperframes/overview.md` 행 14에 `frame.md`(디자인 입력 형식, 프리셋 13개)를 참고용으로 한 줄 추가. 스펙 제외.
+
+## [2026-11-17] approve | hyperframes 스펙 범위 승인 (행 1~8)
+- 사용자 승인: 행 1~8. 13·`frame.md` 참고용, 9~12·14~16 범위 밖, 17·18 부속 제외. `overview.md` 1절 갱신, `handoff.md` hyperframes 대기 행 삭제. wave 1(행 1) 시작.
+
+## [2026-11-17] capability | hyperframes 행 1 컴포지션 계약·컴파일 스펙 draft
+- `reports/hyperframes/capabilities/composition-contract.md` 작성(R-01~R-26, T-01~T-14). 독립 검토자 1명이 전 R-ID를 대조해 R-04·R-13·R-18·T-04 불일치와 누락을 찾았고, 작성자가 반영한 뒤 메인이 R-04·R-18·R-22를 코드로 재확인. `overview.md` 행 1 진입점을 producer `compileForRender` 중심으로 보정하고 `timingResolver.ts`(미연결)를 제외. 미결정 U-01(SVG id 이름 규칙·script wrapper 뒷부분)·U-02(인라인 템플릿 마운트, 행 2에서 닫을 후보)가 남아 status는 draft.
+
+## [2026-11-17] capability | hyperframes wave 2 스펙 draft (행 2·6·7)
+- `reports/hyperframes/capabilities/{runtime-seek,audio-mix-fx,lint-check}.md` 작성(모두 draft). 행 7·6은 독립 검토 후 불일치(표 칸 어긋남, R-13 data-volume 적용 순서, audio_lowered 경고 소유자, 그룹 경로 재시도 검사 범위, 렌더 밖 린트 호출처 등)를 작성자에게 돌려 반영했고 메인이 R-04·R-13·R-16·R-17·R-19·R-22·R-29·R-30 등을 코드로 재확인. 행 2는 독립 검토 중.
+- 행 1의 미결정 U-02(인라인 템플릿 마운트)를 행 2 R-10으로 닫음(`init.ts:1204-1222`, `compositionLoader.ts`). `overview.md` 행 2·6·7 상태 draft, 행 5 선행에 6 추가, 행 7 경계 보정(렌더 차단은 CLI `runRenderLint`), 행 6 설명 보정(렌더 true-peak·LUFS 없음). 표 구조 점검 스크립트에 섹션 키 버그가 있었고 고쳐서 네 스펙을 다시 점검.
+
+## [2026-11-17] capability | hyperframes 행 2 검토 반영, wave 3 시작
+- 행 2 독립 검토(불일치 12건: discover 호출 시점, keepPlaying 분기, 렌더 replay 조건 등)를 작성자가 반영해 draft 확정, 메인이 R-08·R-20·R-22 코드 재확인. 남은 미결정 U-02·U-03. wave 3 시작: 행 3(runtime-adapters.md)·행 4(capture-encode-engine.md) 작성 중. 페이지 주입 스크립트(`buildRenderModeScript`, `HF_BRIDGE_SCRIPT`)는 행 4가 소유. init.ts:4572(재바인딩 시 discover)가 행 2 스펙에 없어 행 3 작성자가 확인.
+
+## [2026-11-17] capability | hyperframes wave 3 스펙 draft (행 3·4), wave 4 시작
+- `reports/hyperframes/capabilities/{runtime-adapters,capture-encode-engine}.md` 작성(draft). 행 4 독립 검토에서 CLI 로컬 기본 `browserGpuMode`가 `auto`라 BeginFrame을 쓰는 점(R-03·R-04), `onSubTimelineScriptFailure` hook 누락(R-12·R-50) 등 불일치를 작성자가 반영했고 메인이 `plan.ts:706-716`, `render.ts:1172-1183`, `frameCapture.ts:2747`을 코드로 재확인. 행 3은 행 2의 R-09(gsap 어댑터 건너뛰기 범위)·R-08(discover 호출 4곳)·R-22(seek 대기 timeout) 오류를 찾아 행 2가 정정.
+- `overview.md` 행 3·4 상태 draft, 행 4 진입점에 페이지 주입 스크립트(producer `fileServer.ts`) 소유 반영. wave 4: 행 5(render-orchestration.md) 작성 시작.
+
+## [2026-11-17] capability | hyperframes 행 5 렌더 오케스트레이션 스펙 draft, wave 5 시작
+- `reports/hyperframes/capabilities/render-orchestration.md` 작성(R-01~R-46, draft, 미결정 0). 독립 검토에서 R-22 디스크 사전 거부 서술 오류(실제는 첫 10프레임 측정 뒤 투영), R-17 segment 디렉터리 위치(`renders/.hf-segments`), R-15 mov 오기, layered 판정, studio·benchmark 직접 호출자 누락, audio-mix-fx R-19/R-31 링크 오류 등을 작성자가 반영했고 메인이 `captureStage.ts:298`, `segmentManifest.ts:88`, `studioServer.ts:689-734` 재확인. 지시문의 "알려진 사실" 일부(5405-5420은 로그 문구, 20초는 CLI auto 한정, parallelCoordinator는 producer 14줄 re-export)가 틀렸음을 작성자가 바로잡음.
+- `overview.md` 행 5 draft, 행 8 진입점 보정(오케스트레이터 호출은 `render.ts:1012-1260 executeLocalRender`). wave 5: 행 8(cli-entry-init.md) 작성 시작.
+
+## [2026-11-17] capability | hyperframes 행 8 스펙 draft, 통합 검토, 세션 마무리
+- `reports/hyperframes/capabilities/cli-entry-init.md` 작성(R-01~R-56, draft, 미결정 2). 첫 작성자가 읽기 단계에서 멈춰 파일을 못 남겨 스켈레톤 우선 방식으로 재시도해 완성. 메인이 등록 명령 56개, `execute.ts:148` 선택, R-12 종료 코드, R-45 init 덮어쓰기를 코드로 확인. 소유 행이 없는 명령 14개는 overview에 새 행 후보로 기록.
+- 통합 검토(워크플로 4장 6번): 8개 스펙 `sha` 일치·선행 순환 없음·R-ID 교차 링크 점검·대표 흐름(`overview.md`)을 글로 이음. 공유 정의는 부분 대조.
+- `reports/hyperframes/next.md` 작성, `index.md` 기능 스펙 칸 연결, `handoff.md` 대기 행 추가.
+
+## [2026-11-17] capability | hyperframes 미결정 9개 읽어서 닫기
+- 사용자 요청: "더 읽기만 하면 닫히는" 미결정만 확인하고 실행·범위 결정 항목은 제외. 스펙 파일당 작성자 1명씩 5명이 병렬로 처리. composition-contract U-01(R-27~R-29, C-17~C-19), runtime-seek U-02·U-03(R-40~R-46, C-23~C-26), capture-encode-engine U-01·U-02·U-04·U-05(R-55~R-58, C-22~C-24), audio-mix-fx U-02(R-35, C-18, T-14), lint-check U-02(부록 A 규칙 카탈로그 136행).
+- 기존 서술 정정: audio-mix-fx R-06(길이 미정 트랙의 `end`), lint-check `distributed` 옵션·structure severity 예외, runtime-seek R-22 `styleClipsDueVisibleOnce`·1.3.4 `previewSeek` 분기·불변식 예외, capture-encode-engine R-08(병렬 워커는 브라우저 풀 비공유). 메인이 표 구조(R-ID 집합 일치, 칸 수)와 교차 링크를 재점검하고 `distributed`·SVG keeper·`placeAudio`·`previewSeek.commit`·병렬 워커 풀 비활성화를 코드로 확인. 남은 미결정 6개는 `next.md`.
+
+## [2026-11-17] capability | hyperframes 스펙 3개 ready 승격 (독립 검토 후)
+- 사용자 결정: 독립 검토 후 ready. 미결정 0건이고 선행이 ready인 composition-contract, runtime-seek, audio-mix-fx를 대상으로 읽기 전용 검토자가 1차 이후 바뀐 부분(미결정을 닫으며 추가한 R-27~R-29, R-35, R-40~R-49 등)을 코드와 대조. composition-contract 2차 검토에서 서술 오류 4건(R-27 namespace, R-29 `<`, R-04 fallback, R-13 producer `mediaStart` 이상), audio-mix-fx 2차에서 R-06 루트 호스트 예외·R-07 `<img>` 거부 규칙, runtime-seek 2·3차에서 R-45·R-46·R-40·R-42·R-02·R-49 등을 찾아 작성자가 반영. 메인이 R-27 keeper·R-29·R-04·R-06·R-45·R-46·R-42·R-48 등을 코드로 재확인.
+- 각 스펙 frontmatter `status: ready`, 2.4 검토 기록 작성(대조한 R-ID, 대조하지 않은 부분, 재구현 미수행), `overview.md` feature map 상태 칸과 `index.md` 상태 표시 갱신. 낡은 문장 3건 정정(runtime-adapters R-02 4572·`5906`→`5907`, capture-encode-engine R-18 보충). render-orchestration은 선행 capture-encode-engine이 draft라 승격하지 못함.
