@@ -1057,12 +1057,21 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 ## [2026-11-17] approve | hyperframes 스펙 범위 승인 (행 1~8)
 - 사용자 승인: 행 1~8. 13·`frame.md` 참고용, 9~12·14~16 범위 밖, 17·18 부속 제외. `overview.md` 1절 갱신, `handoff.md` hyperframes 대기 행 삭제. wave 1(행 1) 시작.
 
+## [2026-11-17] approve | archify 분석 목적·커스텀 방향 결정
+- 사용자 결정: 목적=내부 흐름 이해+fork 후 커스텀, fork는 GitHub에 생성(이 PC clone 전), 링크 범위는 explainer만. 뷰어 유지 여부는 미정. `visualization/reports/archify/next.md` 5.3에 결정과 "뷰어가 무엇인가"(코드 확인: 렌더된 HTML에 인라인된 런타임, explainer 페이지는 `reader.js`, native 다이어그램 dialog에서만 뷰어 사용) 추가, `visualization/GUIDE.md` 목적 갱신, `handoff.md` archify 행 갱신.
+
 ## [2026-11-17] capability | hyperframes 행 1 컴포지션 계약·컴파일 스펙 draft
 - `reports/hyperframes/capabilities/composition-contract.md` 작성(R-01~R-26, T-01~T-14). 독립 검토자 1명이 전 R-ID를 대조해 R-04·R-13·R-18·T-04 불일치와 누락을 찾았고, 작성자가 반영한 뒤 메인이 R-04·R-18·R-22를 코드로 재확인. `overview.md` 행 1 진입점을 producer `compileForRender` 중심으로 보정하고 `timingResolver.ts`(미연결)를 제외. 미결정 U-01(SVG id 이름 규칙·script wrapper 뒷부분)·U-02(인라인 템플릿 마운트, 행 2에서 닫을 후보)가 남아 status는 draft.
+
+## [2026-11-17] ingest | sure feature map 작성 (20행)
+- `repos/sure` clone(`1cd94e6`, AGPL-3.0), `artifacts/sure/repo-metadata.txt`, `reports/sure/overview.md` 1·2절(feature map 20행: 핵심 16/부속 4, 공유 계약 4), `index.md` 행 추가. `routes.rb`·모델/컨트롤러 디렉터리·`Provider::Registry`·`Import::TYPES`·docs 대조, 본문 흐름은 미열람. 분석 목적 미정(기능 파악이 먼저), 위치는 루트 `reports/sure/` 임시. 구조도 미작성.
 
 ## [2026-11-17] capability | hyperframes wave 2 스펙 draft (행 2·6·7)
 - `reports/hyperframes/capabilities/{runtime-seek,audio-mix-fx,lint-check}.md` 작성(모두 draft). 행 7·6은 독립 검토 후 불일치(표 칸 어긋남, R-13 data-volume 적용 순서, audio_lowered 경고 소유자, 그룹 경로 재시도 검사 범위, 렌더 밖 린트 호출처 등)를 작성자에게 돌려 반영했고 메인이 R-04·R-13·R-16·R-17·R-19·R-22·R-29·R-30 등을 코드로 재확인. 행 2는 독립 검토 중.
 - 행 1의 미결정 U-02(인라인 템플릿 마운트)를 행 2 R-10으로 닫음(`init.ts:1204-1222`, `compositionLoader.ts`). `overview.md` 행 2·6·7 상태 draft, 행 5 선행에 6 추가, 행 7 경계 보정(렌더 차단은 CLI `runRenderLint`), 행 6 설명 보정(렌더 true-peak·LUFS 없음). 표 구조 점검 스크립트에 섹션 키 버그가 있었고 고쳐서 네 스펙을 다시 점검.
+
+## [2026-11-17] update | sure 한국 사용 가정 feature map 추가
+- `reports/sure/overview.md` 2절에 "한국 사용 가정의 feature map" 추가(A 그대로/B CSV/C 업비트·키움·한국 시세 신규/D 제외). 코드 확인: 업비트·키움·KB 코드 없음, `ko.yml` 없음, `COMMON_ENCODINGS`에 CP949 없음, 금액 컬럼 전략 2종, API v1에 trades·transactions·valuations·security_prices create 있음. KB 파일 실물과 한국 종목 시세 동작은 미확인.
 
 ## [2026-11-17] capability | hyperframes 행 2 검토 반영, wave 3 시작
 - 행 2 독립 검토(불일치 12건: discover 호출 시점, keepPlaying 분기, 렌더 replay 조건 등)를 작성자가 반영해 draft 확정, 메인이 R-08·R-20·R-22 코드 재확인. 남은 미결정 U-02·U-03. wave 3 시작: 행 3(runtime-adapters.md)·행 4(capture-encode-engine.md) 작성 중. 페이지 주입 스크립트(`buildRenderModeScript`, `HF_BRIDGE_SCRIPT`)는 행 4가 소유. init.ts:4572(재바인딩 시 discover)가 행 2 스펙에 없어 행 3 작성자가 확인.
@@ -1075,10 +1084,19 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - `reports/hyperframes/capabilities/render-orchestration.md` 작성(R-01~R-46, draft, 미결정 0). 독립 검토에서 R-22 디스크 사전 거부 서술 오류(실제는 첫 10프레임 측정 뒤 투영), R-17 segment 디렉터리 위치(`renders/.hf-segments`), R-15 mov 오기, layered 판정, studio·benchmark 직접 호출자 누락, audio-mix-fx R-19/R-31 링크 오류 등을 작성자가 반영했고 메인이 `captureStage.ts:298`, `segmentManifest.ts:88`, `studioServer.ts:689-734` 재확인. 지시문의 "알려진 사실" 일부(5405-5420은 로그 문구, 20초는 CLI auto 한정, parallelCoordinator는 producer 14줄 re-export)가 틀렸음을 작성자가 바로잡음.
 - `overview.md` 행 5 draft, 행 8 진입점 보정(오케스트레이터 호출은 `render.ts:1012-1260 executeLocalRender`). wave 5: 행 8(cli-entry-init.md) 작성 시작.
 
+## [2026-11-17] fix | sure feature map에서 소스에 없는 행 제거
+- `reports/sure/overview.md` 2절: "한국 사용 가정" 절의 C행(업비트·키움·한국 시세 신규)과 D행을 삭제하고 "가져올 범위"로 교체. 사용자 결정: 연동 구현은 직접 하고 기존 구조·연동 밖 기능만 가져온다. 소스에 없는 것은 feature map에 넣지 않는다. 1절 분석 목적 갱신.
+
+## [2026-11-17] update | sure 코드 양 집계
+- `reports/sure/overview.md` 2절 "가져올 범위"에 코드 양 표 추가(제외 후 앱 코드 358,500 → 188,769줄, 행별 모델·컨트롤러·job 합계 약 92,900줄). 파일 이름 규칙으로 센 값.
+
 ## [2026-11-17] capability | hyperframes 행 8 스펙 draft, 통합 검토, 세션 마무리
 - `reports/hyperframes/capabilities/cli-entry-init.md` 작성(R-01~R-56, draft, 미결정 2). 첫 작성자가 읽기 단계에서 멈춰 파일을 못 남겨 스켈레톤 우선 방식으로 재시도해 완성. 메인이 등록 명령 56개, `execute.ts:148` 선택, R-12 종료 코드, R-45 init 덮어쓰기를 코드로 확인. 소유 행이 없는 명령 14개는 overview에 새 행 후보로 기록.
 - 통합 검토(워크플로 4장 6번): 8개 스펙 `sha` 일치·선행 순환 없음·R-ID 교차 링크 점검·대표 흐름(`overview.md`)을 글로 이음. 공유 정의는 부분 대조.
 - `reports/hyperframes/next.md` 작성, `index.md` 기능 스펙 칸 연결, `handoff.md` 대기 행 추가.
+
+## [2026-11-17] decide | sure 분석 목적 재구현(Ruby 아님), 권장 범위 제안
+- 사용자 결정: 다른 언어로 재구현, 스펙 문서로 동작을 남김. `reports/sure/overview.md` 1절 목적·스펙 범위(승인 전 권장안: 행 1·2·3·4·8·10·11·13 + 공유 계약 2) 갱신, `handoff.md` sure 대기 행 추가.
 
 ## [2026-11-17] capability | hyperframes 미결정 9개 읽어서 닫기
 - 사용자 요청: "더 읽기만 하면 닫히는" 미결정만 확인하고 실행·범위 결정 항목은 제외. 스펙 파일당 작성자 1명씩 5명이 병렬로 처리. composition-contract U-01(R-27~R-29, C-17~C-19), runtime-seek U-02·U-03(R-40~R-46, C-23~C-26), capture-encode-engine U-01·U-02·U-04·U-05(R-55~R-58, C-22~C-24), audio-mix-fx U-02(R-35, C-18, T-14), lint-check U-02(부록 A 규칙 카탈로그 136행).
@@ -1088,8 +1106,11 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - 사용자 결정: 독립 검토 후 ready. 미결정 0건이고 선행이 ready인 composition-contract, runtime-seek, audio-mix-fx를 대상으로 읽기 전용 검토자가 1차 이후 바뀐 부분(미결정을 닫으며 추가한 R-27~R-29, R-35, R-40~R-49 등)을 코드와 대조. composition-contract 2차 검토에서 서술 오류 4건(R-27 namespace, R-29 `<`, R-04 fallback, R-13 producer `mediaStart` 이상), audio-mix-fx 2차에서 R-06 루트 호스트 예외·R-07 `<img>` 거부 규칙, runtime-seek 2·3차에서 R-45·R-46·R-40·R-42·R-02·R-49 등을 찾아 작성자가 반영. 메인이 R-27 keeper·R-29·R-04·R-06·R-45·R-46·R-42·R-48 등을 코드로 재확인.
 - 각 스펙 frontmatter `status: ready`, 2.4 검토 기록 작성(대조한 R-ID, 대조하지 않은 부분, 재구현 미수행), `overview.md` feature map 상태 칸과 `index.md` 상태 표시 갱신. 낡은 문장 3건 정정(runtime-adapters R-02 4572·`5906`→`5907`, capture-encode-engine R-18 보충). render-orchestration은 선행 capture-encode-engine이 draft라 승격하지 못함.
 
-## [2026-11-17] approve | archify 분석 목적·커스텀 방향 결정
-- 사용자 결정: 목적=내부 흐름 이해+fork 후 커스텀, fork는 GitHub에 생성(이 PC clone 전), 링크 범위는 explainer만. 뷰어 유지 여부는 미정. `visualization/reports/archify/next.md` 5.3에 결정과 "뷰어가 무엇인가"(코드 확인: 렌더된 HTML에 인라인된 런타임, explainer 페이지는 `reader.js`, native 다이어그램 dialog에서만 뷰어 사용) 추가, `visualization/GUIDE.md` 목적 갱신, `handoff.md` archify 행 갱신.
+## [2026-11-17] approve | sure 스펙 범위 승인
+- 사용자 승인: 행 1·2·3·4·8·10·11·12·13·14·15 + 공유 계약 3(금액·통화 규칙, Sync 파이프라인, Provider 어댑터 계약), 14개. 제외 5~7·9·16~20. `overview.md` 1절·feature map 스펙 경로 갱신, `handoff.md` sure 대기 행 삭제. wave 0(공유 계약 3개) 시작.
 
 ## [2026-11-17] query | archify explainer 페이지 구조 Q&A
 - `visualization/reports/archify/questions/q7-explainer-page-structure.md` 추가: explainer와 `template.html`의 관계(바깥 `render.mjs`+`reader.js`, 안쪽 native 다이어그램만 일반 렌더 HTML을 gzip+iframe으로 로드, `diagrams.mjs:482`), `@facts`(범위·일반 표와의 차이), 제목 `{#id span=N}`, 노드 이름 점선 밑줄(`linkTerms`), `@steps` guided 좌우 배치와 id 세 가지. `overview.md` 4절에 링크, `next.md` 5.4의 예정 문서명을 q8로 변경. 바깥 `reader.js`의 `node:`·`route:` 처리는 끝까지 읽지 않아 미확인으로 남김.
+
+## [2026-11-17] capability | sure wave 0 공유 계약 3개 draft
+- `reports/sure/capabilities/money-currency-rules.md`(R-01~R-42), `sync-pipeline.md`(R-01~R-34), `provider-import-adapter.md`(R-01~R-74) 작성. 독립 검토자 3명이 전 R-ID를 대조해 구현을 막는 불일치를 찾았고(`stale` 덮어쓰기, 삭제된 syncable 분기, 3단 취소, "뉴욕 오늘" 미구현, `CreditCard` 분기 없음 등) 작성자가 반영했다. 메인이 표본을 원본에서 확인하고 2.4 기록을 채웠다. 미결정이 남아(U-01~U-03 / U-01~U-06 / U-01) 모두 `draft`. `reports/sure/next.md` 작성, `index.md` 갱신.
