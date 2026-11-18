@@ -1251,3 +1251,22 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 ## [2026-11-17] pi | ai/01-types 코드 대조 (실행 없음)
 - `reports/pi/ai/01-types.md`: `types.ts`(925줄)·`index.ts` diff를 읽고 헤더, §2.1~2.10, §2.11 줄 번호, §3(9~10 신설) 갱신. 정의가 `providers/compat-schema.ts`·`model-schema.ts`로 이동한 점, TypeBox 제거, 새 필드(`identity`, `disableContinuation`, `argumentsError`, `totalFromProvider`, `durationMs` 등), `lazyStream`의 `aborted` 구분 반영.
 - 미확인: compat 필드별 의미 전체, `NestedToolCalls`를 채우는 곳, deferred 구현 provider.
+
+## [2026-11-18] ingest | rea-video feature map
+- `video/repos/rea-video`가 이 환경에 없어 `538eb3a`로 다시 clone했다(`repos.lock.tsv`·`repo-metadata.txt`와 같은 SHA). README, AGENTS.md, pyproject, docs 일부, SKILL.md 앞부분, CLI 서브커맨드 등록부 26개, `pipeline.decompose` 앞부분, 모든 모듈의 docstring·함수 이름을 읽었다. 함수 본문은 열지 않았다.
+- `video/reports/rea-video/overview.md`(feature map 20행: 핵심 19/부속 1, 공유 계약 5), `next.md` 추가. 분석 목적은 미정, 구조도와 범위 승인은 아직이다.
+
+## [2026-11-18] question | rea-video Q1~Q5
+- feature map 3·4·6·8번과 코드 양에 관한 질문 5건을 `video/reports/rea-video/questions/q1~q5`에 답했다(`vlm.py`, `review.py`/`survey.py`, `assets.py` 전체, `speech.py`/`speakers.py`/`stems.py` 관련부, `wc -l`). 결론: agent 리뷰 루프는 API 없이 동작, 음성 인식·화자 분리는 CPU 로컬(GPU 경로 없음), Python 약 22,000줄. 실행은 하지 않았다.
+- Q6 추가: `questions/q6-remake-stages.md`(10~16번 과정 설명, 진입 함수 본문까지 읽음, 실행 없음). 세션 종료, 목적 결정과 범위 승인이 남음.
+
+## [2026-11-18] ingest | gcalcli feature map
+- `repos/gcalcli`(insanum, `405639c`, v4.5.1 이후 8커밋, MIT)를 clone하고 README 앞부분, ChangeLog, pyproject, `docs/api-auth.md` 앞부분, `cli.py`·`argparsers.py` 서브커맨드 등록부, `gcal.py` 메서드 목록과 `_select_cals`·`_get_cached`·`_GetAllEvents`·`Remind`·`ImportICS` 앞부분·`AgendaUpdate`, 모든 모듈의 최상위 정의를 읽었다. 목적은 미정.
+- `reports/gcalcli/overview.md`(feature map 11행: 핵심 11, 공유 계약 3), `next.md`, `artifacts/gcalcli/repo-metadata.txt`, `index.md` 행 추가. 구조도·범위 승인·실행(OAuth 필요)은 하지 않았다. README에 없는 서브커맨드 6종(delete, search, conflicts, agendaupdate, config, util)을 코드에서 확인해 overview에 기록했다.
+- Q1 추가: `reports/gcalcli/questions/q1-tsv-ics-remind.md`(TSV·ICS 가져오기·remind 설명, `_tsv`·`ImportICS`·`Remind` 본문 읽음, 실행 없음).
+
+## [2026-11-18] capability | gcalcli 기능 스펙 9개(draft)
+- 사용자가 feature map 행 10(ICS 가져오기)·11(리마인드)을 제외하고 1~9를 승인했다. 서브에이전트 8회(W1: 설정·입력 파싱, W2: 인증→캘린더 선택, W3: 조회·추가, W4: 출력·수정삭제, W5: TSV 왕복)로 `config-resolution`, `oauth-auth`, `calendar-selection`, `event-query`, `input-parsing`, `event-create`, `output-rendering`, `event-modify`, `agenda-tsv-roundtrip`을 작성했다(모두 `draft`).
+- 독립 검토(읽기 전용 서브에이전트)는 `input-parsing`, `calendar-selection`, `event-query`에 했다. 반증된 R-ID 없음, 누락·인용 줄 오차는 스펙에 반영했다. 나머지 6개는 메인 점검만(각 스펙 2.4). 재구현은 하지 않았다.
+- 스펙 작업 중 feature map 정정: camelCase 옵션은 변환이 아니라 무시, `--noauth_local_server`(밑줄), 인증은 캐시 미스 시에만, 행 5의 `_tsv`·`_json`을 행 9로 이동, edit에는 `allday`·`default_reminders` 옵션이 없음 등. 원본 이상 동작 목록은 `reports/gcalcli/next.md` 2.1절.
+- 일부 서브에이전트가 `/tmp` 임시 venv에서 스텁 API로 원본을 실행해 확인했다(`repos/gcalcli`는 변경 없음). 남은 미결정은 대부분 Google API·외부 라이브러리 동작이라 설치·실행 허용이 필요하다.

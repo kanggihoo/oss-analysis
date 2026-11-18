@@ -1,0 +1,9 @@
+repo_dir=repos/gcalcli
+name=gcalcli
+date=2026-11-18
+commit=405639c27639a82a13538ad72ae012e76942530c
+commit_date=2025-10-24T19:39:53-06:00
+origin=https://github.com/insanum/gcalcli
+worktree=clean
+clone=full
+describe=v4.5.1-8-g405639c

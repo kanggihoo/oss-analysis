@@ -13,7 +13,7 @@
 `rea-video`의 README는 분해 결과를 `capsule-cinema`로 넘겨 재제작한다고 설명한다. 그래서 두 축이 이어지는 지점(읽은 결과를 만드는 쪽이 받는 형식)이 비교의 관심사다. 이 연결은 README 기준이라 `미확인`이고, 코드로 확인하면 여기에 적는다.
 
 - 분석 목적: 레포마다 다르다. `hyperframes`는 학습, `claude-video`는 요청 때 기본값(기능 스펙화), `rea-video`는 **미정**이다. 사용자가 정하면 여기에 적는다.
-- 현재 단계: `claude-video`는 feature map과 구조도까지 있고 범위 승인을 기다린다. `hyperframes`는 기능 스펙 8개가 있다. `rea-video`와 `capsule-cinema`는 clone만 했고 overview는 아직 없다.
+- 현재 단계: `claude-video`는 feature map과 구조도까지 있고 범위 승인을 기다린다. `hyperframes`는 기능 스펙 8개가 있다. `rea-video`는 feature map 20행(핵심 19/부속 1)까지 있고 목적은 미정이다. `capsule-cinema`는 clone만 했고 overview는 아직 없다.
 
 ## 디렉터리
 
@@ -36,7 +36,7 @@ video/
 |---|---|---|---|
 | claude-video | https://github.com/bradautomates/claude-video | MIT (`overview.md` 1절) | 분석함. 로컬 clone 없음(`repos/claude-video` 없음) |
 | hyperframes | https://github.com/heygen-com/hyperframes | Apache-2.0 (`overview.md` 1절) | 분석함 |
-| rea-video | https://github.com/JuneYaooo/rea-video | Apache-2.0 (`repos/rea-video/LICENSE`) | clone 완료(`538eb3a`, 2026-11-18). 분석 시작 전 |
+| rea-video | https://github.com/JuneYaooo/rea-video | Apache-2.0 (`repos/rea-video/LICENSE`) | clone 완료(`538eb3a`, 2026-11-18). feature map 20행(overview), 범위 승인 전 |
 | capsule-cinema | https://github.com/JuneYaooo/capsule-cinema | Apache-2.0 (`repos/capsule-cinema/LICENSE`) | clone 완료(`7dc9161`, 2026-11-18). 분석 시작 전 |
 
 기준 SHA는 `repos.lock.tsv`와 같다.
