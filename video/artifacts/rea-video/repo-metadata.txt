@@ -1,0 +1,7 @@
+repo_dir=repos/rea-video
+name=rea-video
+date=2026-11-18
+commit=538eb3a757db94826cb90c4297279e50c5dd0f83
+commit_date=2026-11-17T23:47:39-08:00
+origin=https://github.com/JuneYaooo/rea-video.git
+worktree=clean

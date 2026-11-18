@@ -12,14 +12,14 @@
 |---|---|---|---|
 | DeepTutor (`ai-learning/`) | 59행(핵심 35/부속 24, 2026-11-06 v1.7.2로 갱신하며 54~60행 추가·13행 삭제), 공유 계약 8. 스펙 ready 2(새 SHA로 갱신, 새 SHA 실행 확인은 실행 허용 대기) | 범위 승인(새 54~60행 포함 여부도 결정). 제안: 1~4(턴·루프·도구·컨텍스트), 10·11(마스터리), 14·15(메모리·저널), 17·18(KB·RAG), 부속은 전부 제외 | [overview](ai-learning/reports/DeepTutor/overview.md) 2절, [next](ai-learning/reports/DeepTutor/next.md) |
 | learnharness (`ai-learning/`) | 29행(핵심 19/부속 10), 공유 계약 6 | 범위 승인. 제안: 프로버·계획·교사·연습·추출·그래프 원장·도구 레지스트리 + 세션 턴 파이프라인과 공유 계약. 연습 세션은 문서와 실제가 달라 코드 기준으로 쓴다(확인 필요) | [overview](ai-learning/reports/learnharness/overview.md) 2절, [next](ai-learning/reports/learnharness/next.md) |
-| claude-video | 11행(핵심 10/부속 1), 공유 계약 4 | 범위 승인. 결정 사항은 1.2 | [overview](reports/claude-video/overview.md), [next](reports/claude-video/next.md) |
+| claude-video (video/) | 11행(핵심 10/부속 1), 공유 계약 4 | 범위 승인. 결정 사항은 1.2 | [overview](video/reports/claude-video/overview.md), [next](video/reports/claude-video/next.md) |
 | agentmemory (`agent-memory/`) | 38행(핵심 30/부속 8), 공유 계약 6 | 범위 승인 | [overview](agent-memory/reports/agentmemory/overview.md), [next](agent-memory/reports/agentmemory/next.md) |
 | hyperresearch (`research/`) | 기능 스펙 15개(ready 12 / draft 3), 공유 계약 3 | (1) `wrapper_contract.json`(하니스 외부 계약, 소유 스펙 없음)을 스펙 후보로 올릴지. (2) draft 3개(4·5·6행)의 미결정 18건을 "구현자가 정해야 하는 값"으로 닫고 ready로 올릴지. 원본이 정하지 않은 형식이 대부분이다. (3) 재구현 검증을 할지 | [overview](research/reports/hyperresearch/overview.md) 4절, [next](research/reports/hyperresearch/next.md) |
 | teamai-cli | — | 기능 스펙 후보 "배포 대상 제어"(q1 근거, 새 SHA `a44493f` 재확인 필요) 승인 여부, q2(packages·mcp) 결과를 스펙 후보로 올릴지 | [next](reports/teamai-cli/next.md) 3절 |
 | archify (`visualization/`) | 기능 스펙 16개(ready 13 / draft 3). 2026-11-16에 `a7ed6fd`로 갱신. 2026-11-17 사용자 결정: 목적=내부 흐름 이해+fork 커스텀, fork는 GitHub에 있고 PC clone 전, 링크는 explainer만 | (1) fork URL 전달과 clone 위치 결정. (2) 뷰어 유지 여부(뷰어 설명은 next.md 5.3 읽고 결정, explainer만 고치면 뷰어는 안 건드려도 됨). (3) `q7`과 `<a href>` 통과 확인은 explainer 전용으로 범위 축소 | [next](visualization/reports/archify/next.md) 5절 |
 | stack-diagram (`visualization/`) | 14행(핵심 7/부속 7), 공유 계약 4 | 범위 승인. 제안: 핵심 1~7(콘텐츠 설계, 로고 수집 2종, 레이아웃·템플릿, 빌드, PNG 렌더, 전달 형식)과 공유 계약 C1·C2. 부속 8~14(갤러리 클라이언트와 `site/`)는 제외. 분석 목적도 미정이라 함께 정한다 | [overview](visualization/reports/stack-diagram/overview.md) 2절, [next](visualization/reports/stack-diagram/next.md) |
 | auto-ontology | 20행(핵심 17/부속 3), 공유 계약 4. 목적: 온톨로지 구현 이해. 온톨로지 행 1~10은 세분, 11~20은 패밀리. [Q1](reports/auto-ontology/questions/q1-ontology-implementation.md)로 구현 설명 완료 | 범위 승인(스펙을 쓸지). 권장: 행 1~10 + 공유 계약 S1(별도 스펙)·S2, 3·5·10 먼저. 설명만 더 원하면 질문 문서(Q2~)로 | [overview](reports/auto-ontology/overview.md) 2절 "권장 범위", [next](reports/auto-ontology/next.md) |
-| hyperframes | 기능 스펙 8개(ready 3 / draft 5, 행 1~8). 읽어서 닫을 수 있는 미결정 9개는 닫았고 남은 6개는 실행·외부 소스·범위 결정(runtime-adapters 2, capture-encode-engine 1, lint-check 1, cli-entry-init 2). 목적: 학습. 구조도(archify) 미작성, 렌더 미실행 | (1) 나머지 5개 스펙의 `ready` 승격: 3개(composition-contract, runtime-seek, audio-mix-fx)는 독립 검토 후 `ready` 완료. 남은 건 미결정 6개(실행·외부 소스·범위 결정 필요)와 선행 관계(render-orchestration은 capture-encode-engine의 U-03 때문에 막힘). 실행을 허용해 닫을지 / 범위 제한으로 닫을지(실행이 필요한 것은 정직하지 않은 닫기가 됨) / `draft` 유지. (2) 범위 확장: 행 9~12(Studio·편집 엔진·Player·색보정)나 소유 행 없는 명령군을 새 행으로. (3) 구조도를 그릴지. (4) `LINT_RULE_COUNT` 등 실행 확인(의존성 설치·빌드 실행 허용) | [overview](reports/hyperframes/overview.md) 2절, [next](reports/hyperframes/next.md) |
+| hyperframes (video/) | 기능 스펙 8개(ready 3 / draft 5, 행 1~8). 읽어서 닫을 수 있는 미결정 9개는 닫았고 남은 6개는 실행·외부 소스·범위 결정(runtime-adapters 2, capture-encode-engine 1, lint-check 1, cli-entry-init 2). 목적: 학습. 구조도(archify) 미작성, 렌더 미실행 | (1) 나머지 5개 스펙의 `ready` 승격: 3개(composition-contract, runtime-seek, audio-mix-fx)는 독립 검토 후 `ready` 완료. 남은 건 미결정 6개(실행·외부 소스·범위 결정 필요)와 선행 관계(render-orchestration은 capture-encode-engine의 U-03 때문에 막힘). 실행을 허용해 닫을지 / 범위 제한으로 닫을지(실행이 필요한 것은 정직하지 않은 닫기가 됨) / `draft` 유지. (2) 범위 확장: 행 9~12(Studio·편집 엔진·Player·색보정)나 소유 행 없는 명령군을 새 행으로. (3) 구조도를 그릴지. (4) `LINT_RULE_COUNT` 등 실행 확인(의존성 설치·빌드 실행 허용) | [overview](video/reports/hyperframes/overview.md) 2절, [next](video/reports/hyperframes/next.md) |
 
 > **2026-11-06 DeepTutor 기준 갱신**: `a31d826` → `60fb3bd`(v1.7.2). 코스 기능 삭제, 모듈식 설치·영상 수업·캘린더·데스크톱 앱 등 추가, 복습 전략·숙달 필터 등 마스터리 코어 변경(스펙 2개 갱신). 아래 1.1의 행 번호·행 수는 이전 SHA(53행) 기준이다. 새 SHA에서 스크립트를 실행해 검증하려면 실행 허용이 필요하다([next](ai-learning/reports/DeepTutor/next.md) 1·4절).
 
@@ -64,7 +64,7 @@
 
 ### 1.2 claude-video 승인 요청 (2026-10-25 요청, 아직 답 없음)
 
-`/watch`(영상 URL·파일 → 프레임·전사문·Gemini 답)를 분석한 것이다. 기준 `03ceb42`(v0.3.2), MIT. 행 이름은 [overview](reports/claude-video/overview.md) 2절 "기능" 칸 그대로다.
+`/watch`(영상 URL·파일 → 프레임·전사문·Gemini 답)를 분석한 것이다. 기준 `03ceb42`(v0.3.2), MIT. 행 이름은 [overview](video/reports/claude-video/overview.md) 2절 "기능" 칸 그대로다.
 
 **사용자가 정할 것 3가지**
 
@@ -87,7 +87,7 @@
 | 11 | 패키징·배포 | 부속 | 없음 |
 
 - 공유 계약 4건(전사 세그먼트, 프레임 레코드, 설정 dict, 보고서 형식)은 별도 스펙 없이 소유 행(3, 4, 1, 8)의 1.3에 둔다(제안).
-- 승인되면 overview 1절 "스펙 범위"에 승인 행·제외 행을 적고 4장으로 간다. 선행이 없는 1~4는 서브에이전트로 병렬 작성 가능하다([next](reports/claude-video/next.md) 4절).
+- 승인되면 overview 1절 "스펙 범위"에 승인 행·제외 행을 적고 4장으로 간다. 선행이 없는 1~4는 서브에이전트로 병렬 작성 가능하다([next](video/reports/claude-video/next.md) 4절).
 - **주의**: `watch.py`·`config.py`·`SKILL.md`만 전문을 읽었고 나머지 스크립트 본문은 일부만 읽었다. 행 2~7·9의 `코드 확인`은 진입점 수준이므로 스펙 단계에서 다시 읽는다. 외부 도구(yt-dlp, ffmpeg)와 API는 실행하지 않았다.
 
 ## 2. 이번에 정리한 변경 (git status 기준, 모두 `log.md`에 기록됨)
@@ -95,7 +95,7 @@
 | 묶음 | 변경 | log.md 항목 |
 |---|---|---|
 | ai-learning/ 신설 | `GUIDE.md`, `repos.lock.tsv`, DeepTutor·learnharness `overview`·`next`·`diagrams/`·`artifacts/` (24개 파일), `.gitignore`에 `/ai-learning/repos/` | 2026-10-25 ingest ai-learning |
-| claude-video 신규 | `reports/claude-video/`, `artifacts/claude-video/` (11개 파일) | 2026-10-25 ingest claude-video |
+| claude-video 신규 | `video/reports/claude-video/`, `video/artifacts/claude-video/` (11개 파일) | 2026-10-25 ingest claude-video |
 | agent-memory/ 신설 + gbrain 이동 | `agent-memory/`(46개 파일, agentmemory 신규 포함). 루트 `reports|artifacts/gbrain` 11개 파일 삭제 = 이동이며 `agent-memory/reports/gbrain/`에 있음 | 2026-10-25 workflow gbrain 이동, ingest agentmemory |
 | skills-manager | `reports/skills-manager/capabilities/`(스펙 5개 ready), `overview`·`next` 수정, `artifacts/skills-manager/skill-*-demos/`, `repo-metadata.txt`(SHA `7a22192`) | 2026-10-24 capability |
 | teamai-cli | `questions/q2-packages-and-mcp-sync.md`, `packages-mcp-demos/`, `overview`·`next` 수정, `repo-metadata.txt`(SHA `a44493f`) | 2026-10-24 ingest |

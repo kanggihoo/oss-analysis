@@ -1,0 +1,7 @@
+repo_dir=repos/capsule-cinema
+name=capsule-cinema
+date=2026-11-18
+commit=7dc916106adf785ee84ddcd96cdb64abb724f110
+commit_date=2026-11-17T22:28:44-08:00
+origin=https://github.com/JuneYaooo/capsule-cinema.git
+worktree=clean

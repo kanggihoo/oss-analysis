@@ -1163,3 +1163,11 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - 검토에서 나온 중요 오류: Plan 읽기 전용 주장, pledge 대조 우회 경로(Kraken), 숨김 위젯 복원 순서, 빈 응답 오류 조건, 도메인 R-ID 링크 오류(`account-balances` R-15). 이 스펙들이 `budgets` U-01(`IncomeStatement` 계약)과 U-02(`Goal.backing_within`)를 닫아 `budgets.md`를 정정(기타 투자 합이 항상 0).
 - overview feature map 행 12·14·15를 `draft`로. 사용자 결정: 가족 데이터 export·import(Sure NDJSON)는 제외. 승인 범위 14개 전부 작성 완료, 통합 검토가 남음.
 
+## [2026-11-18] update | video/ 주제 폴더 신설, claude-video·hyperframes 이동
+- `video/`(GUIDE.md, repos.lock.tsv)를 만들고 `claude-video`, `hyperframes`의 `reports/`·`artifacts/`·`repos/`를 `video/` 아래로 옮겼다(`git mv`, clone은 `mv`). `.gitignore`에 `/video/repos/` 추가.
+- `index.md` 두 행과 `handoff.md`의 경로를 `video/...`로 고치고 행 이름을 `<repo> (video/)`로 바꿨다. 이 파일의 이전 항목에 적힌 옛 경로(`reports/hyperframes/` 등)는 기록이라 그대로 둔다.
+- 후보로 `rea-video`, `capsule-cinema`를 GUIDE에 올렸다. 둘 다 README만 읽었고 clone·분석은 하지 않았다.
+
+## [2026-11-18] ingest | rea-video, capsule-cinema clone
+- `video/repos/`에 `rea-video`(`538eb3a`), `capsule-cinema`(`7dc9161`)를 clone했다(둘 다 main, 2026-11-17, worktree clean, Apache-2.0 `LICENSE` 파일 확인).
+- `video/artifacts/<repo>/repo-metadata.txt`, `video/repos.lock.tsv` 행, `video/GUIDE.md` 상태를 갱신했다. overview·feature map은 아직 쓰지 않았다(분석 목적 미정).
