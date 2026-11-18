@@ -49,7 +49,7 @@ export { setDefaultStreamFn } from "./stream-fn.ts";     // getDefaultStreamFn �
 export * from "./types.ts";            // 타입들
 ```
 - `package.json`의 `exports`는 루트(`.`)와 `./package.json`뿐이라 하위 경로 import는 없다.
-- 의존성은 `@earendil-works/pi-ai`와 `typebox`(도구 스키마 타입) 둘뿐이다(`package.json`).
+- 의존성은 `@earendil-works/pi-ai`와 `@earendil-works/pi-schema`(도구 스키마 타입) 둘뿐이다(`package.json:27`, 2026-11-17 `4afe78de` 기준. 이전에는 `typebox`였고, v1.5.0에서 `pi-ai`가 TypeBox를 re-export하지 않게 되면서 바뀌었다. `코드 확인`).
 
 ### 2.3 예전에는 훨씬 컸다: harness 삭제 (`코드 확인`, `CHANGELOG.md`)
 `CHANGELOG.md [1.0.0] - 2026-10-01`: "Removed the experimental harness from `@earendil-works/pi-agent-core`: `AgentHarness`, sessions and session storage, the durable runtime, pico3, harness tools, compaction, skills, prompt templates, system prompt helpers, telemetry schemas, the search service types, and the `uuidv7` and pi-telemetry re-exports. ... The package now contains only `Agent`, the agent loop, the proxy stream, and their types. Use `@earendil-works/pi-durable` for durable sessions."
@@ -65,7 +65,7 @@ export * from "./types.ts";            // 타입들
 | 대상 | 어디서 | 쓰는 것 |
 |---|---|---|
 | `@earendil-works/pi-ai` | `agent.ts`, `agent-loop.ts`, `types.ts`, `proxy.ts` (모두 루트 import 4곳, 하위 경로 없음) | 타입(`Message`, `Model`, `AssistantMessage`, `AssistantMessageEventStream`, `SimpleStreamOptions` 등), `normalizeContext`(`agent-loop.ts:397`), `validateToolArguments`(`:726`). `proxy.ts`는 `EventStream`과 `parseStreamingJson`을 직접 import해서 ai 03-0의 스트림 클래스를 자기 스트림(`ProxyMessageEventStream`)의 부모로 쓴다(`proxy.ts:7-14`, `:17-28`) |
-| `typebox` | `types.ts` | `Static`, `TSchema`(도구 매개변수 스키마 타입) |
+| `@earendil-works/pi-schema` | `types.ts` | `Static`(도구 매개변수 스키마 타입). 이전 SHA는 `typebox`의 `Static`, `TSchema`였다 |
 - provider 목록, 인증, 카탈로그를 전혀 모른다. `types.ts:20`의 `StreamFn` 주석은 "`Models.streamSimple`이 이 모양을 만족한다"고 적고 있다. 호출은 주입받은 `streamFn`으로만 한다.
 
 ### 3.2 `agent`를 쓰는 곳 (`코드 확인`)

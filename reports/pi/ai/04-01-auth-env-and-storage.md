@@ -1,5 +1,7 @@
 # ai 04-01: 인증 보충 — API 키 환경변수와 로그인 저장 위치
 
+> **[2026-11-17]** `env-api-keys.ts`가 한 provider에 환경변수 여러 개를 허용하게 바뀌었고(앞의 것이 우선) Qwen Token Plan 계열 변수가 늘었다. 자세한 내용은 [04-auth §5.3](./04-auth.md). 이 문서의 표(주요 provider만)는 그대로 유효하다.
+
 - **기준 commit**: `3874b3e98` / **분석일**: 2026-10-05
 - **선행 문서**: [04-auth](./04-auth.md)(인증 전체 구조, 특히 §4 해석 순서, §5 두 가지 방식, §6 로그인 흐름)
 - **읽은 파일**: `ai/src/env-api-keys.ts`(195줄), `ai/src/auth/context.ts`, `ai/src/models.ts`(`login`, `logout`), `coding-agent/src/config.ts`(`:537-613`), `coding-agent/src/core/auth-storage.ts`(`:1-200`, `:327-506`), `coding-agent/src/core/resolve-config-value.ts`(앞부분), `coding-agent/docs/providers.md`, `docs/configuration.md`, `docs/environment-variables.md`. 줄 번호는 모두 이 commit 기준이다.

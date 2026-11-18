@@ -1,5 +1,7 @@
 # agent 06: `agent`와 `coding-agent`의 관계, 계층을 나눈 이유
 
+> **[2026-11-17 갱신 메모]** 아래 "중단 시 `toolResult` 짝 불일치"는 `agent`가 이제 직접 메운다(02 §7.5, `4438c58ba`). 나머지 구멍(압축 후 `state.messages` 갱신 등)은 이 갱신에서 다시 보지 않았다.
+
 - 기준 commit: `28dcce2ba` (`packages/agent/src`는 `3874b3e98`과 같다). 작성일: 2026-10-14
 - 선행 문서: [00-role](./00-role.md), [01-types](./01-types.md), [02-agent-loop](./02-agent-loop.md), [03-agent-class](./03-agent-class.md), [04-proxy](./04-proxy.md)
 - 훅 상세: [07-hooks](./07-hooks.md)

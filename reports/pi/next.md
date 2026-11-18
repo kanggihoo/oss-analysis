@@ -1,7 +1,9 @@
 # Next Session Plan / Handoff: pi
 
+- **2026-11-17 줄 수 집계**: [Q9](./questions/q9-source-line-count.md). `src` 기준 테스트·평가·표시된 생성 파일 제외 약 29.5만 줄.
 - **상위 개요**: [overview.md](./overview.md)
-- **현재 기준 Commit SHA**: `28dcce2ba` (v1.0.4, 2026-10-05). `ai` 문서는 `3874b3e98` 기준이며 `packages/agent/src`는 두 SHA가 동일(`git diff`는 `CHANGELOG.md`/`package.json`뿐). `packages/ai`는 2026-10-06에 diff를 읽고 문서를 보정했다(`ai/*` 머리의 NOTE 참고). `coding-agent`는 `agent-session.ts`(+54/−19), `sdk.ts`(+12/−6) 등을 새 SHA 기준으로 읽을 것
+- **2026-11-17 최신화**: `repos/pi`를 `4afe78de`(v1.5.2)로 올렸다. 변경점은 [overview §1.1](./overview.md), 문서별 상태는 각 문서 머리의 "2026-11-17 갱신 메모". 아래는 그 이전(`28dcce2ba`) 기준 기록이다. **agent 코드 변경 4파일은 반영 완료**(00·01·02·03·04·05·06 메모), **ai는 메모만 추가**(본문 재확인은 아래 §재개 지점), **coding-agent는 시작 전이며 222개 src 변경이 쌓여 있다**.
+- **이전 현재 기준 Commit SHA**: `28dcce2ba` (v1.0.4, 2026-10-05). `ai` 문서는 `3874b3e98` 기준이며 `packages/agent/src`는 두 SHA가 동일(`git diff`는 `CHANGELOG.md`/`package.json`뿐). `packages/ai`는 2026-10-06에 diff를 읽고 문서를 보정했다(`ai/*` 머리의 NOTE 참고). `coding-agent`는 `agent-session.ts`(+54/−19), `sdk.ts`(+12/−6) 등을 새 SHA 기준으로 읽을 것
 - **작성/갱신 일자**: `2026-10-06` (agent 00~05 완료 후 handoff)
 - **이전 기준 SHA**: `4259686d9290c0d73ae7192b796aee3e530a9779` (Q1~Q8과 learning-guide, 다이어그램이 이 기준)
 - **분석 목표**: pi를 완벽하게 이해한다. 순서는 `ai` → `agent` → `coding-agent`. 기준은 항상 `repos/pi`의 최신 commit.
@@ -104,3 +106,12 @@
 - DeepWiki(`artifacts/pi/deepwiki/`)는 2069 commits 전 기준: second opinion으로만.
 - 이전 분석 `reports/pi/agent/package-file-roles.md`(commit `ff6181f` 기준)는 작업트리에서 삭제된 상태. 필요하면 `git restore`.
 - 상세 절차와 스타일: `OSS_ANALYSIS_WORKFLOW.md` (§7 사용자 맞춤 스타일), `AGENTS.md`.
+
+
+---
+
+## 2026-11-17 최신화 후 재개 지점
+1. `ai` 본문 재확인(우선순위순): 05-utils(`streaming-json.ts`, `validation.ts`가 pi-schema로 바뀜) → 02-models-registry(`catalog/` 구조로 §6 재작성) → 03-1(message threads) → 04-auth(lazy-oauth, `trusted-url.ts`) → 01-types(`src/index.ts` 재대조). 각 문서 머리의 갱신 메모가 어디가 낡았는지 적어 두었다.
+2. `agent`: 실험 `artifacts/pi/agent-demos/`가 `typebox`·`parseStreamingJson`·`pi-ai-shim.ts`에 의존해 새 SHA에서 그대로 돌지 않을 수 있다. 중단 시 도구 결과 짝(02 §7.5)을 새 코드로 재실행해 `실행 확인`으로 올릴지 사용자 결정이 필요하다(실행·설치 허락 필요).
+3. `coding-agent` 단계 시작 전, 변경이 큰 곳부터: `core/agent-session.ts`, `core/sdk.ts` 외 `extensions/`, `modes/`. `chord` 의존이 빠졌으므로 overview 구조도(`diagrams/structure.json`)의 `chord`·원격 3종 노드를 고쳐야 한다.
+4. 새 패키지·앱(`schema`, `env`, `apps/p2`·`p2-mac`·`p3`)은 분석 범위에 넣을지 사용자 결정 대기(범위 승인 전, 기능 스펙은 쓰지 않는다).

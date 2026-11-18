@@ -1,13 +1,19 @@
 # ai 01: `types.ts` — pi-ai의 공용 서식 모음
 
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de`(v1.5.2)의 `types.ts`(925줄 전체)와 `index.ts` diff를 읽고 본문을 고쳤다(`코드 확인`, 실행 없음). 줄 번호는 **현재 `types.ts` 기준**으로 갱신했고, 이전 SHA 기준 번호는 남기지 않았다. 큰 변화 네 가지:
+> 1. **`*Compat`·`ModelCost`·`ThinkingLevel` 등 정의가 `types.ts`를 떠났다.** `providers/compat-schema.ts`(721줄)와 `providers/model-schema.ts`(115줄)에서 `@earendil-works/pi-schema` 빌더로 만들고 `Static<>`으로 타입을 뽑아, `types.ts`는 import 후 re-export만 한다(`types.ts:12-61`). §2.4, §2.5, §2.6 참고.
+> 2. **TypeBox 제거.** `Tool<TParameters extends object>`는 임의의 JSON Schema 객체를 받고, `index.ts`가 `Type`/`Static`/`TSchema`를 re-export하지 않는다(v1.5.0 Breaking).
+> 3. **새 필드**: `StreamOptions.disableContinuation`, `onProviderStreamEvent`; `ProviderRequestOptions.identity`/`telemetry`(`TelemetrySpan`); `Usage.cost.totalFromProvider`; `ToolCall.argumentsError`; `AssistantMessage.durationMs`/`responseModel`/`providerThinkingLevel`/`thinkingLevel`; `ToolResultMessage.durationMs`.
+> 4. **새 계약 타입**: `DeferredFetchOptions`, `ClassifierOptions`, `ClassifierModel.compat`(`SystemOneCompat`), `ModelTypeMap`/`ModelType`/`AnyModel`, `ImagesOptions`.
+
 - **기준 commit**: `3874b3e98` (2026-10-02, worktree clean) / **분석일**: 2026-10-04
 - **선행 문서**: [00-role](./00-role.md) (ai 패키지의 역할)
-- **대상**: `repos/pi/packages/ai/src/types.ts` (1168줄 전체 읽음). 줄 번호는 모두 이 파일 기준이다.
+- **대상**: `repos/pi/packages/ai/src/types.ts` (이제 925줄, 전체 읽음). 줄 번호는 이 파일 기준이다. 아래 본문의 줄 번호는 2026-11-17 현재 위치다.
 - **검증 수준**: 타입 정의는 `코드 확인`이다. 런타임 동작은 `미확인`이며 다음 단계에서 본다. `추론`은 따로 표시한다.
 - 이 파일은 타입만 정의한다. 로직은 `utils/transcript.ts`, `utils/event-stream.ts`, `api/*`에 있다.
 
 > [!NOTE]
-> **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): `Model`에 `samplingParamsByThinkingLevel`, 타입 `SamplingParams`/`SamplingParamsByThinkingLevel`이 추가되었고 `KnownProvider`의 `azure-openai-responses`가 `azure`로 바뀌었다(`types.ts`). 그 밖의 줄 번호는 ±수 줄 어긋날 수 있다.
+> **2026-10-06 갱신**(`28dcce2ba` 시점): `Model`에 `samplingParamsByThinkingLevel`, 타입 `SamplingParams`/`SamplingParamsByThinkingLevel` 추가, `KnownProvider`의 `azure-openai-responses`를 `azure`로 변경. 둘 다 현재 코드에 그대로 있다(`types.ts:137-138`, `:884`, `:97`).
 
 ## 0. 이 파일은 무엇인가
 pi-ai는 Claude, GPT, Gemini 같은 여러 AI 회사의 서비스를 같은 방식으로 호출하게 해 주는 "통역사"다. `types.ts`는 그 통역사가 쓰는 **공용 서식 모음**이다.
@@ -33,24 +39,24 @@ Context(입력) --normalizeContext()--> TranscriptContext(다듬은 입력)
 
 ## 2. 주요 타입 카탈로그
 
-### 2.1 대화 한 줄: `Message` (610줄)
+### 2.1 대화 한 줄: `Message` (`types.ts:667`)
 `Message = SystemMessage | UserMessage | AssistantMessage | ToolResultMessage`. `role` 값으로 구분한다.
 
 | 타입 | role | 역할 | 주요 인자 |
 |---|---|---|---|
-| `SystemMessage` (522) | `"system"` | AI에게 주는 지침과 도구 목록 | `content`(지침 글), `sections`(이름 붙은 지침 조각, `null`이면 삭제), `toolsAdded`, `toolsRemoved`, `timestamp` |
-| `UserMessage` (540) | `"user"` | 사용자가 한 말 | `content`(글 또는 글+이미지), `timestamp` |
-| `AssistantMessage` (546) | `"assistant"` | AI의 답 (최종본) | `content`(글/생각/도구호출 배열), `api`, `provider`, `model`, `usage`, `stopReason`, `errorMessage`, `timestamp` |
-| `ToolResultMessage` (594) | `"toolResult"` | 도구를 실행한 결과 | `toolCallId`(어떤 호출의 결과인지), `toolName`, `content`, `isError`, `details`, `timestamp` |
+| `SystemMessage` (569) | `"system"` | AI에게 주는 지침과 도구 목록 | `content`(지침 글), `sections`(이름 붙은 지침 조각, `null`이면 삭제), `toolsAdded`, `toolsRemoved`, `timestamp` |
+| `UserMessage` (587) | `"user"` | 사용자가 한 말 | `content`(글 또는 글+이미지), `timestamp` |
+| `AssistantMessage` (593) | `"assistant"` | AI의 답 (최종본) | `content`(글/생각/도구호출 배열), `api`, `provider`, `model`, `usage`, `stopReason`, `errorMessage`, `timestamp`. **새로 보이는 선택 필드**: `responseModel`(provider가 알려 준 실제 모델), `providerThinkingLevel`(provider 고유 effort 값), `thinkingLevel`(agent loop가 요청한 pi 수준), `diagnostics`, `durationMs`(`AssistantMessageEventStream`이 단조 시계로 채움, 03-0 §2.2) |
+| `ToolResultMessage` (648) | `"toolResult"` | 도구를 실행한 결과 | `toolCallId`(어떤 호출의 결과인지), `toolName`, `content`, `isError`, `details`, `timestamp`, 선택: `usage`(도구 자체 사용량), `nestedCalls`, `durationMs` |
 
-### 2.2 메시지 안의 조각: content 타입 (389~425)
+### 2.2 메시지 안의 조각: content 타입 (`types.ts:430-465`)
 **어느 메시지에 어떤 조각이 들어가는가**가 중요하다.
 
 | 메시지 | 들어갈 수 있는 조각 | 줄 |
 |---|---|---|
-| `UserMessage` (사용자) | 글(`TextContent`), 이미지(`ImageContent`) | 542 |
-| `AssistantMessage` (AI의 답) | 글(`TextContent`), 추론(`ThinkingContent`), 도구 호출(`ToolCall`). **이미지는 없다.** | 548 |
-| `ToolResultMessage` (도구 결과) | 글(`TextContent`), 이미지(`ImageContent`) | 599 |
+| `UserMessage` (사용자) | 글(`TextContent`), 이미지(`ImageContent`) | 589 |
+| `AssistantMessage` (AI의 답) | 글(`TextContent`), 추론(`ThinkingContent`), 도구 호출(`ToolCall`). **이미지는 없다.** | 595 |
+| `ToolResultMessage` (도구 결과) | 글(`TextContent`), 이미지(`ImageContent`) | 653 |
 
 AI는 chat 답변으로 이미지를 만들지 않는다. 이미지를 **보는** 것(입력)은 되고, **만드는** 것은 별도 기능이다(§2.10의 `generateImages`, 결과는 `AssistantImages`).
 
@@ -61,15 +67,15 @@ AI의 답 한 번은 이 셋이 섞인 배열이다. 예: `[추론, 글("파일�
 | `TextContent` | `"text"` | 일반 글 | `text` |
 | `ThinkingContent` | `"thinking"` | AI의 추론 과정 | `thinking`, `thinkingSignature`(다음 요청에 되돌려 보낼 서명), `redacted`(안전 필터로 가려졌는지) |
 | `ImageContent` | `"image"` | 이미지 (사용자/도구 결과 쪽에서만 사용) | `data`(base64), `mimeType` |
-| `ToolCall` | `"toolCall"` | "이 도구를 이 인자로 실행해 줘"라는 요청 | `id`, `name`, `arguments`(JSON 객체) |
+| `ToolCall` | `"toolCall"` | "이 도구를 이 인자로 실행해 줘"라는 요청 | `id`, `name`, `arguments`(JSON 객체), 선택: `thoughtSignature`(Google), `namespace`(OpenAI Responses), **`argumentsError`**(모델이 보낸 최종 인자 텍스트가 유효한 JSON 객체가 아닐 때 설명을 담는다. 이때 `arguments`는 `{}`. `parseToolCallArguments`가 채우고 도구 검증이 이를 모델에게 돌려준다. `utils/json-parse.ts:106-120`) |
 
-### 2.3 보낼 묶음: `Context`, `TranscriptContext`, `Tool` (715~749)
+### 2.3 보낼 묶음: `Context`, `TranscriptContext`, `Tool` (`types.ts:775-813`)
 
 | 타입 | 역할 | 주요 인자 |
 |---|---|---|
 | `Context` | 호출하는 쪽이 만드는 입력 | `systemPrompt`, `messages`, `tools` |
 | `TranscriptContext` | `Context`를 다듬은 내부용 입력. 만드는 함수는 `normalizeContext()`(`utils/transcript.ts:30`)뿐이다(brand 타입). | `messages`만. 시스템 프롬프트와 도구는 맨 앞 `SystemMessage` 안에 들어간다. |
-| `Tool` | AI가 쓸 수 있는 도구 한 개의 설명서 | `name`, `description`, `parameters`(인자 형식, typebox 스키마), `constrainedSampling` |
+| `Tool` | AI가 쓸 수 있는 도구 한 개의 설명서 | `name`, `description`, `parameters`(인자의 JSON Schema. pi-schema 빌더, TypeBox, 임의 JSON Schema 객체 모두 가능. `Tool<TParameters extends object = object>`, `types.ts:775-784`), `constrainedSampling` |
 
 **`Context`와 `TranscriptContext`의 차이** (`utils/transcript.ts:30-34`, `코드 확인`)
 - 같은 내용을 담은 두 가지 모양이다. 달라지는 것은 지침(`systemPrompt`)과 도구(`tools`)를 두는 위치뿐이다.
@@ -96,49 +102,53 @@ Anthropic식: system: "지침", messages: [ {user: "질문"} ]        ← 지침
 
 ### 2.4 호출 옵션 (상속 구조)
 ```
-ProviderRequestOptions (132)  ← 통신 공통
-   └ StreamOptions (187)        ← 생성 방식
-        └ SimpleStreamOptions (350)  ← 추론 수준 등 간편 옵션
+ProviderRequestOptions (161)  ← 통신 공통        (ImagesOptions, ClassifierOptions, DeferredFetchOptions도 이것을 상속)
+   └ StreamOptions (221)        ← 생성 방식
+        └ SimpleStreamOptions (385)  ← 추론 수준 등 간편 옵션
 ```
 
 | 타입 | 역할 | 주요 인자 |
 |---|---|---|
-| `ProviderRequestOptions` | 인증과 HTTP 설정 | `signal`(취소), `apiKey`, `fetch`, `env`, `headers`, `timeoutMs`, `maxRetries`, `maxRetryDelayMs`, `onPayload`, `onResponse` |
-| `StreamOptions` | 생성 방식 | `temperature`, `maxTokens`, `cacheRetention`, `sessionId`, `transport`, `samplingParams`(타입 `SamplingParams`), `metadata` |
+| `ProviderRequestOptions` | 인증과 HTTP 설정 | `signal`(취소), `telemetry`(부모 `TelemetrySpan`), `apiKey`, `fetch`, `env`, `headers`(값이 `null`이면 기본 헤더 제거), **`identity`**(`ClientIdentity`, `User-Agent`와 attribution 헤더, `utils/identity.ts`), `timeoutMs`, `maxRetries`, `maxRetryDelayMs`, `onPayload`, `onResponse` |
+| `StreamOptions` | 생성 방식 | `temperature`, `maxTokens`, `cacheRetention`, `sessionId`, `transport`, `samplingParams`(타입 `SamplingParams`), `metadata`, **`disableContinuation`**(서버 쪽 이어가기 상태를 쓰거나 기록하지 않는다. Anthropic message threads 같은 경우, cache warming 재생이 실제 대화 상태를 덮지 않게 하려는 용도. 03-1 §12), `websocketConnectTimeoutMs`, **`onProviderStreamEvent`**(provider 스트림 이벤트 관찰용, 지원하는 adapter만 호출) |
 | `SimpleStreamOptions` | 통일된 간편 옵션 | `reasoning`(추론 수준), `toolChoice`, `thinkingBudgets`, `deferred` |
 
-작은 타입: `ThinkingLevel`(85, `minimal`/`low`/`medium`/`high`/`xhigh`/`max`), `CacheRetention`(110, `none`/`short`/`long`), `Transport`(118, `sse`/`websocket`/`websocket-cached`/`auto`), `ToolChoice`(84, `auto`/`none`).
+작은 타입: `ThinkingLevel`(`minimal`/`low`/`medium`/`high`/`xhigh`/`max`)과 `CacheRetention`(`none`/`short`/`long`)은 **`providers/model-schema.ts:16-19`가 정의**하고 `types.ts:20-29, 48-61`이 re-export한다. `ModelThinkingLevel`은 여기에 `"off"`가 붙은 7종이다(`:17`). `Transport`(148, `sse`/`websocket`/`websocket-cached`/`auto`), `ToolChoice`(136, `auto`/`none`)는 `types.ts`에 그대로 있다.
 
-### 2.5 모델 명세서: `Model` (1056~1168)
+### 2.5 모델 명세서: `Model` (`types.ts:849-925`)
 
 | 타입 | 역할 | 주요 인자 |
 |---|---|---|
-| `BaseModel` (1097) | 모든 모델의 공통 필드 | `id`, `name`, `api`, `provider`, `baseUrl`, `input`(text/image), `inputLimits`, `cost`, `headers` |
-| `Model` (1111) | 대화용 모델 | 공통 필드 + `reasoning`(추론 지원 여부), `thinkingLevelMap`, `promptCache`, `contextWindow`, `maxTokens`, `samplingParams`, **`samplingParamsByThinkingLevel`**(추론 수준별 덮어쓰기, 새 필드), `compat` |
-| `ImageModel` (1145) | 이미지 생성 모델 | 공통 필드 + `output` |
-| `ClassifierModel` (1152) | 분류 모델 | 공통 필드 + `contextWindow` |
-| `ModelCost` (1068) | 가격 ($/백만 토큰) | `input`, `output`, `cacheRead`, `cacheWrite`, `tiers`(입력 토큰 구간별 가격) |
+| `BaseModel` (850) | 모든 모델의 공통 필드 | `id`, `name`, `api`, `provider`, `baseUrl`, `input`(text/image), `inputLimits`, `cost`, `headers` |
+| `Model` (864) | 대화용 모델 | 공통 필드 + `reasoning`(추론 지원 여부), `thinkingLevelMap`, `promptCache`, `contextWindow`, `maxTokens`, `samplingParams`, **`samplingParamsByThinkingLevel`**(추론 수준별 덮어쓰기, 새 필드), `compat` |
+| `ImageModel` (900) | 이미지 생성 모델 | 공통 필드 + `output` |
+| `ClassifierModel` (907) | 분류 모델 | 공통 필드 + `contextWindow` + `compat`(`SystemOneCompat`) |
+| `ModelCost` (`model-schema.ts:67`) | 가격 ($/백만 토큰). 스키마에서 만든 타입 | `input`, `output`, `cacheRead`, `cacheWrite`, `tiers`(`inputTokensAbove`로 구간을 나누고 요청 전체에 가장 높은 구간 가격 적용) |
 
 `api`와 `provider`는 다른 값이다.
-- `KnownApi`(17): 통신 방식 10종. 예: `anthropic-messages`, `openai-completions`
-- `KnownProvider`(39): 회사 약 40종. 예: `anthropic`, `openai`
-- 둘 다 `| (string & {})`가 붙어 있어 임의 문자열도 허용한다(확장 가능).
+- `KnownApi`(64): 통신 방식 10종(이전과 같음). 예: `anthropic-messages`, `openai-completions`
+- `KnownProvider`(90): 회사 43종(이전 약 40종). 예: `anthropic`, `openai`. 새로 보이는 것: `radius`, `typesafe`, `meta`, `ant-ling`, `baseten`, `xiaomi*` 4종, `qwen-token-plan*` 4종 등
+- 둘 다 `| (string & {})`가 붙어 있어 임의 문자열도 허용한다(확장 가능). 이미지·분류 쪽도 같은 방식이다: `KnownImageApi`(`openrouter-images` 1종), `KnownClassifierApi`(4종, §2.10).
+- `Model`은 `BaseModel`을 상속하는 3종 중 하나이고, `ModelTypeMap`(`chat`/`image`/`classifier`), `ModelType`, `AnyModel`(`types.ts:914-925`)이 이를 묶는다. 목록을 가르는 함수는 `isModelType()`이다(`utils/model-operations.ts:23`, 주석 `types.ts:866-869`).
 
-### 2.6 방언 메모: `*Compat` (789~967)
-같은 api를 쓰는 모델끼리도 세부 동작이 다를 수 있어서, 그 차이(방언)를 `Model.compat`에 적어 둔다. api에 따라 타입이 하나씩 정해지고(1131-1141), 해당 없는 api는 `never`다.
+### 2.6 방언 메모: `*Compat` (정의는 `providers/compat-schema.ts`, `types.ts:885-896`에서 선택)
+같은 api를 쓰는 모델끼리도 세부 동작이 다를 수 있어서, 그 차이(방언)를 `Model.compat`에 적어 둔다. api에 따라 타입이 하나씩 정해지고(`types.ts:885-896`), 해당 없는 api는 `never`다.
+
+**[2026-11-17] 정의 위치가 바뀌었다.** 예전에는 `types.ts`에 인터페이스로 직접 있었다(789~967줄). 지금은 `compat-schema.ts`에서 `openObject(...Properties)` 스키마를 만들고 `export interface XCompat extends Static<typeof XCompatSchema> {}`로 타입을 얻는다(`compat-schema.ts:711-721`). 스키마가 먼저라서 같은 정의가 타입 검사와 카탈로그 검증(`compat.ts` 쪽) 양쪽에 쓰일 수 있다. 이 후자는 `추론`이다. `CompatSchemasByApi`(`:668`)가 api별 스키마 대응표다. `SystemOneCompat`은 chat이 아니라 `ClassifierModel`용이다.
 
 | 타입 | 대상 api | 대표 인자 |
 |---|---|---|
-| `OpenAICompletionsCompat` | `openai-completions` | `supportsDeveloperRole`, `maxTokensField`, `thinkingFormat`, `requiresToolResultName` (약 40개) |
-| `OpenAIResponsesCompat` | `openai-responses` 외 2종 | `supportsLongCacheRetention`, `supportsStrictMode` |
-| `AnthropicMessagesCompat` | `anthropic-messages` | `supportsTemperature`, `forceAdaptiveThinking`, `supportsCacheControlOnTools` |
-| `BedrockCompat` | `bedrock-converse-stream` | `supportsStrictMode` |
-| `MistralConversationsCompat` | `mistral-conversations` | `supportsMidConvoSystemMessages` |
+| `OpenAICompletionsCompat` | `openai-completions` | `supportsDeveloperRole`, `maxTokensField`, `thinkingFormat`, `requiresToolResultName` (속성 약 41개, `compat-schema.ts:196-368`) |
+| `OpenAIResponsesCompat` | `openai-responses` 외 2종 | `supportsLongCacheRetention`, `supportsStrictMode`, `supportsMidConvoSystemMessages` (`:375-440`) |
+| `AnthropicMessagesCompat` | `anthropic-messages` | `supportsTemperature`, `forceAdaptiveThinking`, `supportsCacheControlOnTools` (`:445-532`) |
+| `BedrockCompat` | `bedrock-converse-stream` | `supportsStrictMode` (`:537-544`) |
+| `MistralConversationsCompat` | `mistral-conversations` | `supportsMidConvoSystemMessages` (`:549-561`) |
+| `SystemOneCompat` | 분류 모델 `typesafe-system-one`, `cloudflare-workers-ai-system-one` | `ClassifierModel.compat`용(`types.ts:911`) |
 
-대부분 "미지정이면 baseUrl로 자동 감지"라고 주석에 적혀 있다. 감지 코드는 아직 안 읽었다(`미확인`).
+대부분 "미지정이면 baseUrl로 자동 감지"라고 주석에 적혀 있다(`types.ts:885`). 감지 코드는 이 문서에서 읽지 않았다(`미확인`). 어느 필드가 어느 api 스키마에 있는지는 위 표의 줄 범위 `grep`으로 확인했고, 필드별 의미 전체는 읽지 않았다.
 
 ### 중간 정리: 호출은 `model` + `context` + `options`로 이루어진다
-2.1~2.6의 타입이 호출에서 어디에 쓰이는지 한 장으로 묶었다. 근거는 `StreamFunction`의 시그니처(`types.ts:371-375`)이고, `코드 확인`이다.
+2.1~2.6의 타입이 호출에서 어디에 쓰이는지 한 장으로 묶었다. 근거는 `StreamFunction`의 시그니처(`types.ts:406-410`)이고, `코드 확인`이다. 단 `StreamFunction`은 `TranscriptContext`를 받고, 공개 진입점 `Models.stream*`은 `Context`를 받아 안에서 `normalizeContext`를 부른다(§2.11).
 
 ```
 streamSimple(model, context, options)  →  AssistantMessageEventStream (2.7, 알림 스트림)
@@ -159,7 +169,7 @@ streamSimple(model, context, options)  →  AssistantMessageEventStream (2.7, �
 - **`stream` vs `streamSimple`**: `streamSimple`은 `reasoning: "high"` 같은 통일된 옵션을 받고 회사별 설정으로 바꿔 준다. 변환 코드는 아직 읽지 않았다(`미확인`).
 - **`api` vs `provider`**: 통신 방식과 회사는 다른 값이다.
 
-### 2.7 답변 도착 알림: `AssistantMessageEvent` (767)
+### 2.7 답변 도착 알림: `AssistantMessageEvent` (`types.ts:831-847`)
 12종이고, `done`과 `error`를 제외하고 모두 `partial`(지금까지 온 답)을 함께 가진다.
 
 | 이벤트 | 시점 |
@@ -177,38 +187,43 @@ streamSimple(model, context, options)  →  AssistantMessageEventStream (2.7, �
 
 | 타입 | 역할 | 값 / 인자 |
 |---|---|---|
-| `StopReason` (450) | 답이 끝난 이유 | `pending`, `stop`(정상), `length`(길이 초과), `toolUse`(도구 호출을 요청했음), `error`, `aborted`, `deferred` |
-| `Usage` (427) | 사용량과 비용 | `input`, `output`, `cacheRead`, `cacheWrite`, `cacheWrite1h`, `reasoning`, `totalTokens`, `cost` |
+| `StopReason` (497) | 답이 끝난 이유 | `pending`, `stop`(정상), `length`(길이 초과), `toolUse`(도구 호출을 요청했음), `error`, `aborted`, `deferred` |
+| `Usage` (467) | 사용량과 비용 | `input`, `output`, `cacheRead`, `cacheWrite`, `cacheWrite1h`, `reasoning`, `totalTokens`, `cost`(`input`/`output`/`cacheRead`/`cacheWrite` 카탈로그 기준 + `total` + **`totalFromProvider`**) |
+
+**`Usage.cost.total`의 의미가 바뀌었다** (`types.ts:490-493`). `input`~`cacheWrite`는 항상 카탈로그 단가로 계산한 값이고, `total`은 "쓸 수 있는 최선의 합계"다. provider가 청구액을 알려 주면(예: OpenRouter, 03-1 §12) 그 값이고 `totalFromProvider: true`가 된다. 아니면 카탈로그 추정치이고 `false`이거나 필드가 없다. 따라서 네 항목의 합이 `total`과 다를 수 있다.
 
 ### 2.9 함수 계약
 
 | 타입 | 역할 |
 |---|---|
-| `StreamFunction` (371) | `(model, context, options) → AssistantMessageEventStream` 모양의 함수 타입 |
-| `ProviderStreams` (286) | api 구현 모듈이 내보내야 하는 `stream`과 `streamSimple` (선택: `fetchDeferred`, `cancelDeferred`) |
-| `ApiOptionsMap` (257) | api 이름별 전용 옵션 타입 대응표 |
+| `StreamFunction` (406) | `(model, context, options) → AssistantMessageEventStream` 모양의 함수 타입 |
+| `ProviderStreams` (327) | api 구현 모듈이 내보내야 하는 `stream`과 `streamSimple` (선택: `fetchDeferred`, `cancelDeferred`) |
+| `ApiOptionsMap` (298) | api 이름별 전용 옵션 타입 대응표. `ApiStreamOptions<TApi>`(315)가 이를 풀어 준다(알 수 없는 api는 `StreamOptions & Record<string, unknown>`) |
+| `ImagesFunction`, `ClassifierFunction` (412, 418) | 이미지·분류 쪽의 같은 함수 타입 |
+| `ProviderImages`, `ProviderClassifier` (348, 357) | 이미지는 `generateImages`, 분류는 `classify` 하나씩만 내보내는 모듈 계약 |
 
 ### 2.10 부가 기능 타입 (대화와 무관)
-- **이미지 생성**: `ImagesContext`, `ImagesOptions`, `AssistantImages`, `ProviderImages`
-- **분류**: `ClassifierContext`(질문 3종: choice, score, bool), `ClassifierResult`, `ProviderClassifier`. `KnownClassifierApi`는 `typesafe-system-one`, `cloudflare-workers-ai-system-one`, `llama-cpp-classify`.
-- **비동기 응답**: `DeferredHandle`(나중에 결과를 가져오기 위한 영수증)
-- **도구 중첩 기록**: `NestedToolCalls`(572-592, 도구가 내부에서 다른 도구를 부른 기록. 모델에게는 보내지 않는다)
+- **이미지 생성**: `ImagesContext`(672), `ImagesOptions`(374), `AssistantImages`(678), `ProviderImages`(348)
+- **분류**: `ClassifierContext`(710, 질문 3종: choice, score, bool, 선택 `images`), `ClassifierResult`(741, 선택 `usage`), `ClassifierOptions`(365, `temperature`), `ProviderClassifier`(357). `KnownClassifierApi`(82)는 `typesafe-system-one`, `cloudflare-workers-ai-system-one`, `llama-cpp-classify`, **`openai-decisions`**(새로 보임).
+- **비동기 응답**: `DeferredHandle`(547, 나중에 결과를 가져오기 위한 영수증), `DeferredFetchOptions`(282, `wait`: long-poll 최대 시간), `DeferredCancelOptions`(291)
+- **도구 중첩 기록**: `NestedToolCalls`(642), `NestedToolCallRecord`(627). 도구가 내부에서 다른 도구를 부른 기록이고 모델에게는 보내지 않는다. 한도를 넘으면 `arguments`를 빼고 `argumentsBytes`만 남기며, 덜 끝났으면 `complete: false`다. 이 기록을 채우는 곳(codemode 등)은 읽지 않았다(`미확인`).
+- **구조화 샘플링**: `ConstrainedSamplingConfig`(765, `json_schema` 또는 `grammar`)와 `GrammarVariants`(756)가 `Tool.constrainedSampling`에 들어간다.
 
 ### 2.11 최종 정리: 타입과 함수로 본 호출 흐름
 위에서 나온 타입과 함수를 한 번의 호출 순서로 엮었다. 함수 이름과 순서는 `models.ts`, `api/lazy.ts`, `utils/event-stream.ts`, README Quick Start에서 직접 확인했다(`코드 확인`). 각 단계의 내부 동작은 이후 문서에서 읽는다.
 
 #### (1) 준비: `Model`을 구한다
 ```ts
-const models = builtinModels();                        // providers/all.ts:184, 모든 내장 provider를 모은 Models
-const model  = models.getModel("openai", "gpt-4o-mini"); // models.ts:472, → Model (2.5)
+const models = builtinModels();                        // providers/all.ts:186, 모든 내장 provider를 모은 Models
+const model  = models.getModel("openai", "gpt-4o-mini"); // models.ts:498(구현), 280(인터페이스), → Model (2.5)
 ```
-`Models`는 모델 목록과 호출 진입점을 가진 객체다. 아직 이 문서의 카탈로그에는 없는 타입이며 `models.ts` 단계에서 다룬다.
+`Models`는 모델 목록과 호출 진입점을 가진 객체다. 이 문서의 카탈로그에는 없는 타입이며 [02-models-registry](./02-models-registry.md)에서 다룬다. `getModel`은 chat 모델만 돌려주고, 이미지·분류는 `getModelsOfType` 같은 `*OfType` 접근자가 따로 있다(`models.ts:263-284`).
 
 #### (2) 입력을 만든다: `Context`
 ```ts
 const context: Context = {                   // 2.3
   systemPrompt: "You are a helpful assistant.",
-  tools: [ { name: "get_time", description: "...", parameters: Type.Object({...}) } ],   // Tool
+  tools: [ { name: "get_time", description: "...", parameters: /* JSON Schema 객체(TypeBox 불필요) */ {...} } ],   // Tool
   messages: [ { role: "user", content: "지금 몇 시야?", timestamp: Date.now() } ],       // UserMessage (2.1)
 };
 ```
@@ -219,9 +234,9 @@ const context: Context = {                   // 2.3
 | api 전용 옵션 | `models.stream(model, context, options)` | `models.complete(...)` |
 | 간편 옵션 (`SimpleStreamOptions`) | `models.streamSimple(...)` | `models.completeSimple(...)` |
 
-반환 타입: `stream*`은 `AssistantMessageEventStream`, `complete*`는 `Promise<AssistantMessage>` (`models.ts:310-323`). `complete*`는 내부에서 `stream*(...).result()`를 부르는 포장이다(`models.ts:887-889, 904-911`).
+반환 타입: `stream*`은 `AssistantMessageEventStream`, `complete*`는 `Promise<AssistantMessage>` (`models.ts:340-345`). `complete*`는 내부에서 `stream*(...).result()`를 부르는 포장이다(`completeSimple`: `models.ts:972-978`, 같은 구조로 `complete`도 있다).
 
-#### (4) 내부에서 일어나는 일 (`models.ts:880-915`, `api/lazy.ts`)
+#### (4) 내부에서 일어나는 일 (`models.ts:928-970`, `api/lazy.ts`)
 ```
 models.streamSimple(model, context, options)
  1. normalizeContext(context)        Context → TranscriptContext   (지침과 도구를 맨 앞 SystemMessage로)
@@ -230,10 +245,10 @@ models.streamSimple(model, context, options)
          a. requireChatProvider(model)   model.provider에 해당하는 provider를 찾는다
          b. applyAuth(model, options)    API 키 등 인증을 확정한다
          c. provider.streamSimple(...)   provider가 model.api에 해당하는 통신 코드(api/*.ts)를 불러 호출한다
-      └ 안쪽 스트림의 이벤트를 바깥 스트림으로 전달(forwardStream)하고 끝나면 end()
+      └ 안쪽 스트림의 이벤트를 바깥 스트림으로 전달(forwardStream, `lazy.ts:42-58`)하고 끝나면 end()
 ```
 - 호출한 쪽은 반환된 스트림을 곧바로 `for await`로 기다릴 수 있다. 인증과 통신 코드 불러오기는 그 뒤에서 일어난다.
-- 준비 중 실패(인증 오류, 코드 로딩 오류)는 예외로 던지지 않고, `stopReason: "error"`인 `AssistantMessage`를 담은 `error` 이벤트로 스트림에 넣는다(`lazy.ts:5-23, 44-56`).
+- 준비 중 실패(인증 오류, 코드 로딩 오류)는 예외로 던지지 않고 `error` 이벤트로 스트림에 넣는다(`lazy.ts:5-28, 82-90`). **[2026-11-17]** `signal`이 이미 abort 상태였으면 `reason`이 `"aborted"`이고 아니면 `"error"`다(`lazy.ts:83`). 예전 문서의 "`stopReason: \"error\"`"는 이제 둘 중 하나다. `lazyStream`은 `observer`(`onEvent`/`onResult`)와 `signal` 인자도 받는다(03-0 §8.3).
 
 #### (5) 응답: 이벤트가 도착한다 (2.7)
 ```
@@ -241,13 +256,13 @@ start → text_start → text_delta × N → text_end
       → toolcall_start → toolcall_delta × N → toolcall_end
       → done(reason, message)  또는  error(reason, error)
 ```
-- 스트림은 `AsyncIterable`이라 `for await (const event of s)`로 받는다(`event-stream.ts:68-82`).
-- `done` 또는 `error` 이벤트가 오면 스트림이 끝나고, 그 안의 `AssistantMessage`가 최종 결과가 된다(`event-stream.ts:91-104`).
-- `await s.result()`는 그 최종 `AssistantMessage`를 준다. 이 Promise는 reject하지 않고 resolve만 한다(`event-stream.ts:86`, `finalResultPromise`는 resolve 함수만 갖는다). 실패한 경우에도 `stopReason: "error"`, `errorMessage`가 담긴 메시지가 반환된다. 그래서 `complete*`도 실패를 예외가 아니라 메시지의 `stopReason`으로 알린다. 앞에서 `미확인`으로 남겼던 질문의 답이다.
+- 스트림은 `AsyncIterable`이라 `for await (const event of s)`로 받는다(`event-stream.ts:72-84`).
+- `done` 또는 `error` 이벤트가 오면 스트림이 끝나고, 그 안의 `AssistantMessage`가 최종 결과가 된다(`event-stream.ts:43-58`의 `push`, 클래스 `AssistantMessageEventStream`은 `:97` 이후). 이 클래스가 최종 메시지에 `durationMs`를 채운다.
+- `await s.result()`는 그 최종 `AssistantMessage`를 준다. 이 Promise는 reject하지 않고 resolve만 한다(`event-stream.ts:86-88`, `finalResultPromise`는 resolve 함수만 갖는다). 실패한 경우에도 `stopReason: "error"`, `errorMessage`가 담긴 메시지가 반환된다. 그래서 `complete*`도 실패를 예외가 아니라 메시지의 `stopReason`으로 알린다. 앞에서 `미확인`으로 남겼던 질문의 답이다.
 
 #### (6) 도구 호출이 오면: `ai`는 여기까지
 - `stopReason`이 `"toolUse"`이면 답에 `ToolCall`이 들어 있다는 뜻이다. `ai`는 이 답을 돌려주는 데까지만 한다.
-- 도구를 실행하고 결과(`ToolResultMessage`)를 붙여 다시 호출하는 반복은 `agent` 패키지가 한다. 자세한 내용은 [Q5](../questions/q5-agent-loop.md)를 참고하되, 이 commit에서 `agent`가 크게 바뀌었으므로 재검증이 필요하다([00-role](./00-role.md) §7).
+- 도구를 실행하고 결과(`ToolResultMessage`)를 붙여 다시 호출하는 반복은 `agent` 패키지가 한다. 자세한 내용은 [Q5](../questions/q5-agent-loop.md)를 참고하되, `agent`는 2026-11-17에 대조해 고쳤다([agent/02](../agent/02-agent-loop.md)).
 - README Quick Start는 `ai`만 쓸 때 이 반복을 직접 하는 예시를 보여 준다.
 
 #### 전체 한 장 요약
@@ -270,21 +285,23 @@ start → text_start → text_delta × N → text_end
 
 ## 3. 설계 포인트
 
-1. **api와 provider는 별개 축이다.** `Model`과 `AssistantMessage`가 둘 다 기록한다(1097-1108, 547-549). 모델을 바꿔도 이전 답의 출처를 알 수 있다는 점은 코드에서 읽은 구조이고, 그것이 설계 의도라는 해석은 `추론`이다.
-2. **`TranscriptContext`는 brand 타입이다.** `unique symbol` 필드(738-749) 때문에 `normalizeContext()`만 만들 수 있다. 다듬지 않은 입력이 provider 코드로 들어가는 실수를 타입이 막는다.
-3. **시스템 프롬프트와 도구는 대화 안에서 바뀐다.** 모든 system 메시지를 순서대로 재생하면 현재 지침과 도구 집합이 된다(522-538). 중간 system 메시지를 못 받는 모델은 `supportsMidConvoSystemMessages` 플래그가 false이고, 이때 맨 앞 메시지를 재구성한다고 주석에 적혀 있다. 폴백 구현은 `미확인`이다.
-4. **오류도 스트림으로 전달한다.** 스트림이 반환된 뒤의 실패는 `error` 이벤트와 `stopReason: "error" | "aborted"`로 표현한다. 인증 누락만 동기 throw가 허용된다(360-370, 751-766). 단 이것은 **통신 코드 모듈의 `streamSimple`을 직접 부를 때**의 규칙이다. `Models.streamSimple`을 거치면 인증 확정이 `lazyStream` 안에서 일어나서 인증이 없어도 던지지 않고 `error` 이벤트가 된다([06 §4](./06-call-flow.md), [03-1 §3](./03-1-api-anthropic.md)).
-5. **`partial`은 공유 참조다.** "이벤트 시점의 스냅샷이 아니라 live helper"라고 명시되어 있다(760-761). 이벤트를 저장해 두면 나중에 값이 바뀔 수 있다.
-6. **`Usage.reasoning`은 `output`의 부분집합이다**(435-439). 출력 100토큰 중 40이 추론이면 `output=100, reasoning=40`이다. 더하면 이중 계산이 된다. `cacheWrite1h`도 `cacheWrite`의 부분집합이다(432-433).
-7. **`ToolResultMessage<TDetails>`는 JSON 직렬화 가능성을 타입으로 강제한다.** `TDetails`가 JSON이 아니면 `never`가 된다(455-485, 594). 세션 저장을 전제로 한 설계로 보이며 이는 `추론`이다.
-8. **Deferred 응답**: `SimpleStreamOptions.deferred`, `StopReason "deferred"`, `DeferredHandle`, `ProviderStreams.fetchDeferred`/`cancelDeferred`가 한 세트다. 이 commit에서 실제 구현 provider는 확인하지 않았다(`미확인`).
+1. **api와 provider는 별개 축이다.** `Model`과 `AssistantMessage`가 둘 다 기록한다(`types.ts:850-855`, `:596-598`). 모델을 바꿔도 이전 답의 출처를 알 수 있다는 점은 코드에서 읽은 구조이고, 그것이 설계 의도라는 해석은 `추론`이다.
+2. **`TranscriptContext`는 brand 타입이다.** `unique symbol` 필드(`types.ts:802-813`) 때문에 `normalizeContext()`만 만들 수 있다. 다듬지 않은 입력이 provider 코드로 들어가는 실수를 타입이 막는다.
+3. **시스템 프롬프트와 도구는 대화 안에서 바뀐다.** 모든 system 메시지를 순서대로 재생하면 현재 지침과 도구 집합이 된다(`types.ts:559-585`). 중간 system 메시지를 못 받는 모델은 `supportsMidConvoSystemMessages` 플래그가 false이고, 이때 맨 앞 메시지를 재구성한다고 주석에 적혀 있다. 폴백 구현은 `미확인`이다.
+4. **오류도 스트림으로 전달한다.** 스트림이 반환된 뒤의 실패는 `error` 이벤트와 `stopReason: "error" | "aborted"`로 표현한다. 인증 누락만 동기 throw가 허용된다(`types.ts:395-405`, `:815-823`). 단 이것은 **통신 코드 모듈의 `streamSimple`을 직접 부를 때**의 규칙이다. `Models.streamSimple`을 거치면 인증 확정이 `lazyStream` 안에서 일어나서 인증이 없어도 던지지 않고 `error` 이벤트가 된다([06 §4](./06-call-flow.md), [03-1 §3](./03-1-api-anthropic.md)).
+5. **`partial`은 공유 참조다.** "이벤트 시점의 스냅샷이 아니라 live helper"라고 명시되어 있다(`types.ts:824-829`). 이벤트를 저장해 두면 나중에 값이 바뀔 수 있다.
+6. **`Usage.reasoning`은 `output`의 부분집합이다**(`types.ts:474-479`). 출력 100토큰 중 40이 추론이면 `output=100, reasoning=40`이다. 더하면 이중 계산이 된다. `cacheWrite1h`도 `cacheWrite`의 부분집합이다(`:472`).
+7. **`ToolResultMessage<TDetails>`는 JSON 직렬화 가능성을 타입으로 강제한다.** `TDetails`가 JSON이 아니면 `never`가 된다(`types.ts:502-532, 648`). 세션 저장을 전제로 한 설계로 보이며 이는 `추론`이다.
+8. **Deferred 응답**: `SimpleStreamOptions.deferred`(`boolean | { window: "15m" | "1h" | "24h" }`, `types.ts:390`), `StopReason "deferred"`, `DeferredHandle`, `ProviderStreams.fetchDeferred`/`cancelDeferred`, `Models.streamDeferred`(`models.ts:980` 부근)가 한 세트다. 실제로 구현한 provider는 확인하지 않았다(`미확인`).
+9. **[2026-11-17] 타입의 원천이 스키마가 됐다.** `Compat`, `ModelCost`, `ThinkingLevel`, `CacheRetention` 등은 스키마(`compat-schema.ts`, `model-schema.ts`)에서 `Static<>`으로 나온다. 값 목록(`THINKING_LEVELS` 등)도 스키마 파일에 있어서(`model-schema.ts:16-20`) 문서와 코드 대조는 `types.ts`가 아니라 이 두 파일에서 해야 한다.
+10. **`JsonRepresentation`/`IsJsonCompatible`**(`types.ts:502-545`)은 `ToolResultMessage.details`에 쓰이는 조건부 타입 묶음이다. 선택 속성은 선택으로 남기고, `any`/`unknown`/함수가 섞이면 `never`로 막는다. 규칙의 세부는 읽었지만 컴파일러로 확인하지는 않았다(`추론`).
 
 ## 4. 기존 Q4와의 대조
-- Q4의 `TranscriptContext` brand 설명과 일치한다(`types.ts:744-747`).
+- Q4의 `TranscriptContext` brand 설명과 일치한다(`types.ts:802-813`). Q4 본문의 TypeBox 서술과 줄 번호는 낡았다(`미확인`).
 - Q4에 없던 내용: `SystemMessage`의 `sections`/`toolsAdded`/`toolsRemoved`, `NestedToolCalls`, `Model.inputLimits`, `ModelCost.tiers`.
 
 ## 5. 남은 질문 (다음 단계)
 - `normalizeContext`는 `systemPrompt`와 `tools`를 어떻게 system 메시지로 접는가? → `utils/transcript.ts`
 - `AssistantMessageEventStream`은 어떻게 구현되는가? → `utils/event-stream.ts`
-- compat 자동 감지는 어디서 일어나는가? → `compat.ts`, `api/openai-completions.ts`
+- compat 자동 감지는 어디서 일어나는가? → `compat.ts`, `api/openai-completions.ts`, 그리고 스키마 검증이 어디서 쓰이는지 → `compat-schema.ts`의 사용처
 - 중간 system 메시지를 지원하지 않는 provider는 어떻게 합치는가?

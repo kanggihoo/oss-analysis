@@ -7,6 +7,8 @@
 
 > [!NOTE]
 > **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): Azure provider가 `azure`(api 2개)로 바뀌었다. `api/azure-openai-responses.ts`는 351줄에서 줄었고(설정 분리 `azure-openai-config.ts` 신규) 이 문서의 provider 수(`openai-completions` 26개 등)는 **2026-10-04 생성 데이터 기준이라 새 SHA에서는 `azure`가 추가되어 달라졌을 수 있다**(`미확인`, 재생성 필요).
+>
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de` 기준으로 `api/openai-completions.ts`(1726 → 1741줄)와 `openai-responses.ts`·`openai-responses-shared.ts`의 diff 전체를 읽고 대조했다(`openai-codex-responses.ts` diff는 03-4에서 확인하며 이 문서 표의 codex 열은 03-4의 갱신 메모를 따른다). 실행은 하지 않았다(`코드 확인`). 바뀐 것: ① **빈 `tools: []`를 이제 기본으로 보내지 않는다**(§3.3 도구 목록 행, 새 compat `requiresToolsWithToolHistory`) ② `prompt_cache_key` 조건이 `promptCacheKeyMode`로 바뀜(§3.1) ③ 도구 인자를 `ToolCallArgumentsStream`으로 모음(임시 필드 `partialArgs`·`customInput`·`streamIndex` 제거, §4.2) ④ 추론(`reasoning`, `reasoning_details`)을 글보다 **먼저** 처리(§4.2) ⑤ `detectCompat`에 새 필드 2개(§6) ⑥ OpenRouter 청구 비용과 `reasoning_tokens`(§4.4) ⑦ 도구 결과 텍스트의 공백뿐 처리(§3.3). **본문의 `openai-completions.ts` 줄 번호는 이전 SHA 기준이고 최대 +60줄 밀렸다.** 현재 위치: `hasToolHistory` `:99`, `stream` `:312`, `streamSimple` `:720`, `createClient` `:741`, `buildParams` `:787`, `getCompatCacheControl` `:1068`, `convertMessages` `:1184`, `convertTools` `:1477`, `parseChunkUsage` `:1514`, `mapStopReason` `:1563`, `detectCompat` `:1594`, `getCompat` `:1699`. §6.3의 실행 결과(2026-10-05)는 이전 `detectCompat`로 돌린 것이고, 새 필드 2개 외 판정 규칙은 diff에 없다.
 
 ## 0. 한 줄 답
 세 파일은 모두 "OpenAI 쪽 서버와 통신하는 코드"이지만 **서버의 API 종류가 다르다.**
@@ -65,7 +67,7 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 | 최대 출력 | `max_completion_tokens` 또는 `max_tokens`(compat로 선택, `:837-844`) | `max_output_tokens`, 최소 16 (`:340-342`) | **보내지 않음** |
 | 스트리밍 | `stream: true` + (지원하면) `stream_options: { include_usage: true }` (`:818-831`) | `stream: true` | `stream: true` |
 | 저장 안 함 | `store: false`, **compat가 허용할 때만** (`:833-835`) | `store: false` 항상 (`:337`) | `store: false` 항상 (`:555`) |
-| 프롬프트 캐시 | `prompt_cache_key`(조건부), `prompt_cache_retention: "24h"` (`:821-826`), Anthropic식 `cache_control` 표시(compat, `:860-862`) | `prompt_cache_key`, `prompt_cache_retention`/`prompt_cache_options` (`:334-336`) | `prompt_cache_key`(세션 ID) |
+| 프롬프트 캐시 | `prompt_cache_key`(조건부, **[2026-11-17]** `compat.promptCacheKeyMode`: `"enabled"`면 항상, `"auto"`(기본)면 주소가 `api.openai.com`이거나 보존이 `long`이고 `supportsLongCacheRetention`일 때, `"disabled"`면 안 보냄. 모두 `cacheRetention !== "none"`이어야 함, `:808-826`), `prompt_cache_retention: "24h"` (`:821-826`), Anthropic식 `cache_control` 표시(compat, `:860-862`) | `prompt_cache_key`, `prompt_cache_retention`/`prompt_cache_options` (`:334-336`) | `prompt_cache_key`(세션 ID) |
 | 추론 설정 | **`thinkingFormat` 11가지에 따라 다른 필드** (§3.2) | `reasoning: { effort, summary }` + `include: ["reasoning.encrypted_content"]` (`:363-379`) | 위와 같음 + `text.verbosity`, 항상 `include` (`:559-597`) |
 | 도구 형식 | `tools: [{ type: "function", function: { name, description, parameters, strict? } }]` 또는 문법 제약 `type: "custom"` (`:1474-1509`) | `convertResponsesTools` (공용, 모양은 읽지 않음) | 위와 같음 |
 | 도구 호출 병렬 | 지정하지 않음 | 지정하지 않음 | `parallel_tool_calls: true` (`:563`) |
@@ -99,13 +101,15 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 |---|---|---|
 | **지침 역할** | `:1225` | 추론 모델이고 `supportsDeveloperRole`이면 `developer`, 아니면 `system` |
 | **도구 호출 ID 정규화** | `:1194-1218` | Responses 계열이 만든 `call_id|item_id` 형식의 긴 ID(400자 이상, 특수문자)를 `call_id_item_id`로 바꾸고 40자로 줄인다(넘으면 해시). OpenAI는 40자로 자른다. **모델을 Responses 계열에서 completions 계열로 바꿔도 이전 도구 호출이 이어진다**(01의 hand-off). |
+| **[2026-11-17] 도구 결과 텍스트** | `:1416-1418` | 공백뿐인 텍스트는 텍스트 없음으로 본다(`textResult.trim().length > 0`). 이미지만 있으면 `"(see attached image)"`, 아무것도 없으면 `"(no tool output)"` |
+| **[2026-11-17] assistant 내용이 빈 경우** | `:1288-1291` | 도구 호출만 있는 assistant 메시지의 `content`: `requiresAssistantAfterToolResult` **또는 새 `requiresNonNullAssistantContent`**이면 `""`, 아니면 `null`. `null`을 거부하는 OpenAI 호환 엔드포인트용(CHANGELOG v1.5.1) |
 | **도구 결과 뒤 보강** | `:1233-1238` | `requiresAssistantAfterToolResult`이면 도구 결과 직후 `user`가 오기 전에 가짜 `assistant` 메시지 `"I have processed the tool results."`를 끼워 넣는다. |
 | **assistant 내용은 문자열** | `:1322-1329` | 배열(`[{type:"text",...}]`)이 아니라 문자열로 보낸다. 주석: 배열로 보내면 DeepSeek V3.2(NVIDIA NIM) 같은 모델이 그 구조를 그대로 흉내 내서 출력이 재귀적으로 중첩된다. |
 | **추론 내용 되돌리기** | `:1302-1341` | 이전 응답의 추론을 다음 요청에 돌려보낼 때: `requiresThinkingAsText`이면 일반 글로, 아니면 응답에서 쓴 필드 이름(`reasoning_content`, `reasoning`, `reasoning_text`)이나 `reasoning_details`로 돌려보낸다. |
 | **빈 `assistant` 건너뛰기** | `:1385-1396` | 내용도 도구 호출도 없는 `assistant`(중단된 응답)는 뺀다. |
 | **도구 결과 이름** | `:1421-1423` | `requiresToolResultName`이면 `name` 필드를 넣는다. |
 | **도구 결과의 이미지** | `:1426-1459` | 도구 결과는 글만 보내고, 이미지는 별도의 `user` 메시지(`"Attached image(s) from tool result:"`)로 보낸다. |
-| **도구 목록 비어 있을 때** | `:855-858` | 대화에 도구 호출 기록이 있는데 도구가 없으면 `tools: []`를 보낸다. 주석: LiteLLM 같은 프록시 뒤의 Anthropic이 요구한다. |
+| **도구 목록 비어 있을 때** | `:855-858` | **[2026-11-17 변경]** 대화에 도구 호출 기록이 있는데 도구가 없을 때 **`compat.requiresToolsWithToolHistory`가 `true`일 때만** `tools: []`를 보낸다(`:852-854`, 기본 `false`, `detectCompat` `:1656`). 이전에는 조건 없이 보냈다(주석: LiteLLM 같은 프록시 뒤의 Anthropic이 요구). 비어 있는 `tools`를 거부하는 서버의 400을 피하려고 기본이 "생략"이 됐다(CHANGELOG v1.5.1 Breaking). 새 `catalog/`에서 어느 모델이 이 compat를 `true`로 갖는지는 읽지 않아 `미확인` |
 
 ## 4. 응답이 어떻게 다른가
 
@@ -120,6 +124,7 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 | 종료 | `finish_reason` 필드 (`:576-584`) | `response.completed`/`incomplete`의 `status` |
 
 ### 4.2 completions에서 눈에 띄는 점 두 가지 (`코드 확인`)
+> **[2026-11-17 변경 요약]** (a) 도구 호출 블록 안의 임시 필드 `partialArgs`, `customInput`, `streamIndex`가 없어졌다. 상태는 블록 밖 `toolCallStates: Map<ToolCall, { streamIndex, input }>`에 있고 `input`은 `{ kind: "json", arguments: ToolCallArgumentsStream }` 또는 `{ kind: "custom", property, buffer }`다(`:394-432`). `finishBlock`은 `Object.assign(block, input.arguments.finish())`로 한 번 완전 파싱한다(깨졌으면 `argumentsError`). 이전: `partialArgs` 이어붙임 + `parseStreamingJson`. (b) **한 청크 안의 처리 순서가 바뀌었다**: 이전에는 `delta.content`(글)를 먼저 처리했는데, 지금은 **추론(`reasoning_content`/`reasoning`/`reasoning_text`와 `reasoning_details`)을 먼저, 글을 그다음, 도구 호출을 마지막**에 처리한다(`:577-670`). 이유(주석): LiteLLM 같은 프록시가 추론과 답을 한 delta로 합쳐 보내면 thinking 블록이 text 블록보다 앞에 와야 한다. (c) `catch`에서 임시 필드를 지우는 반복문이 없어졌다.
 **(1) `*_end` 이벤트가 모든 블록에 대해 스트림이 끝난 뒤 한꺼번에 나온다.** Chat Completions에는 "이 블록이 끝났다"는 신호가 없어서, 반복문이 끝난 뒤 `for (const block of blocks) finishBlock(block)`(`:680-682`)에서 `text_end`, `thinking_end`, `toolcall_end`를 한꺼번에 낸다. Claude(블록마다 `content_block_stop`)와 Responses(블록마다 `output_item.done`)는 블록이 끝나는 즉시 `*_end`를 낸다. 호출한 쪽에서는 completions의 도구 호출이 **응답 끝에서야 확정**된다는 뜻이다.
 
 **(2) 글 블록과 추론 블록이 각각 하나뿐이다.** `textBlock`, `thinkingBlock` 변수가 하나씩이고(`:398-399`) `ensureTextBlock`/`ensureThinkingBlock`이 이미 있으면 재사용한다(`:474-493`). 글과 추론이 번갈아 와도 각각 한 블록에 이어 붙는다. 도구 호출만 여러 블록이 된다.
@@ -135,6 +140,7 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 `finish_reason`을 보내지 않는 서버를 위한 처리도 있다: `compat.supportsFinishReason`이 `false`이면 도구 호출이 있으면 `toolUse`, 없으면 `stop`으로 **추정**한다(`:690-692`). `true`인데 끝까지 안 오면 "Stream ended without finish_reason"으로 실패한다(`:696-698`).
 
 ### 4.4 사용량
+> **[2026-11-17]** `parseChunkUsage`(`:1514-1560`)가 OpenRouter 청구 필드를 처리한다: `isOpenRouterModel(model)`이면 `calculateCost` 다음에 `applyOpenRouterReportedCost`로 보고된 비용을 덮어쓴다(`utils/openrouter-cost.ts`는 읽지 않음, 03-1 §12.4와 같은 함수). `reasoning` 토큰은 `completion_tokens_details.reasoning_tokens`가 없으면 최상위 `reasoning_tokens`를 쓴다(OpenRouter가 이 위치로 줄 때).
 - completions의 `parseChunkUsage`(`:1511-1552`)는 서버마다 캐시 토큰을 다른 이름으로 주는 것을 한곳에서 흡수한다: `prompt_tokens_details.cached_tokens`(OpenAI, OpenRouter), `prompt_cache_hit_tokens`(DeepSeek), 최상위 `cached_tokens`(Kimi). 일부 서버(Moonshot)는 `usage`를 `choice.usage`에 넣어서 그것도 읽는다(`:570-574`). 그 안에서 `calculateCost`를 부른다(`:1550`).
 - responses와 codex는 `response.completed`에서 `input_tokens - cached - cache_write`로 계산하고 `calculateCost`를 한 번 부른다(03-2 §5.3, 03-4 §7.3).
 
@@ -144,7 +150,8 @@ README도 같은 구분을 적는다: "Anthropic models use `anthropic-messages`
 ## 6. compat 자동 감지: 서버가 달라도 한 코드로 (`코드 확인`, `실행 확인`)
 completions 코드가 서버마다 다른 점을 처리하는 방식이다. 01 §2.6에서 "미지정이면 baseUrl로 자동 감지한다"고 한 부분이 이 코드다.
 
-### 6.1 두 단계 (`:1585-1726`)
+### 6.1 두 단계 (`:1585-1726`, **[2026-11-17]** 현재 `detectCompat` `:1594`, `getCompat` `:1699-`)
+> **[2026-11-17]** `detectCompat`의 기본값에 `requiresNonNullAssistantContent: false`, `requiresToolsWithToolHistory: false`가 추가됐고(`:1655-1656`) `getCompat`이 `model.compat` 값을 우선해 합친다(`:1713-1715`). `promptCacheKeyMode`는 감지하지 않고 `model.compat`의 값을 그대로 넘긴다(미지정이면 `buildParams`가 `"auto"`로 처리). 서버 이름·주소별 감지 규칙(`:1589-1603` 등)은 diff에 없다.
 ```
 getCompat(model)
  ① detectCompat(model)      provider 이름과 baseUrl 문자열을 보고 기본 설정을 정한다     (:1585-1682)

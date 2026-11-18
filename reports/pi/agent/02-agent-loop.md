@@ -125,13 +125,13 @@ prepareArguments?(args)        ← 스키마 검증 전 보정
 validateToolArguments(tool, call)   ← 스키마 검증 (throw 가능)
 beforeToolCall({assistantMessage, toolCall, args(검증됨), context}, signal)
    → block 이면 에러 결과 (reason), terminate 도 같이 줄 수 있음
-(abort 확인)
+(abort 확인: 맨 앞과 beforeToolCall 뒤, 4afe78de 기준)
 tool.execute(id, args, signal, onUpdate)   ← 실패는 catch 하여 에러 결과로
 afterToolCall({..., result, isError}, signal)  → 결과 덮어쓰기, throw 하면 에러 결과로
 ```
 - throw 금지와 허용의 구분(01의 질문): 루프는 도구 쪽(`execute`, `prepareArguments`, 검증, `beforeToolCall`, `afterToolCall`)을 전부 try/catch로 감싸고, 잡은 예외를 `isError: true`인 결과로 바꾼다(`:724-775`, `:841-847`, `:892-895`). 계약은 "throw해도 된다, 루프가 에러 결과로 바꿔 준다"이다. 반대로 `convertToLlm`, `transformContext`, `getApiKey`, 큐 훅, `finishTurn`, `prepareRequest`, `prepareNextTurn`은 try/catch가 없다. 던지면 `runLoop`가 reject되어 `agent_end`가 나가지 않는다(`코드 확인`, 처리는 03의 `Agent`에서 볼 일).
 - `beforeToolCall`에는 검증된 값(`validatedArgs`)이 `args`로 가지만, `toolCall`은 보정 전 원본이다(`preparedToolCall`이 아님, `:730-731`). 실행되는 `prepared.toolCall`도 원본 `toolCall`이다(`:765`). 그래서 `prepareArguments`로 보정한 인자는 `args`(검증 후)에만 반영되고 `toolCall.arguments`는 보정 전 값이다. `tool_execution_start`의 `args`도 보정 전 값이다(`코드 확인`).
-- `beforeToolCall` 이후 `signal.aborted`를 두 번 확인한다(`:737`, `:756`). 훅이 오래 걸려 그 사이 중단되면 실행하지 않고 `"Operation aborted"` 에러 결과를 낸다.
+- [2026-11-17 `4afe78de` 기준] `prepareToolCall`은 맨 앞에서 `signal.aborted`를 먼저 확인해, 중단됐으면 훅(`beforeToolCall`)과 도구 조회 전에 `"Operation aborted"` 에러 결과를 낸다(`agent-loop.ts:716-723`, `코드 확인`). `beforeToolCall`이 끝난 뒤에도 한 번 더 확인한다(`:747-753`). 훅이 오래 걸려 그 사이 중단되면 실행하지 않고 같은 에러 결과를 낸다. (이전 SHA에는 앞쪽 검사가 없었다.)
 - 도구 업데이트 이벤트: `onUpdate`로 들어온 부분 결과는 `tool_execution_update`로 나간다. `execute`가 끝나면 `acceptingUpdates = false`가 되어 늦게 도착한 업데이트는 버린다(`:834`, `:838`). 끝나기 전에 쌓인 업데이트 이벤트는 모두 `await`한다(`:839`, `:843`). 따라서 `tool_execution_end`는 항상 모든 `update`보다 뒤다.
 - `afterToolCall`의 덮어쓰기(`:877-890`): `content`, `details`, `usage`, `terminate`, `isError`는 `??`로 필드별 대체한다. `structuredContent`는 `content`를 바꾸면서 새 `structuredContent`를 주지 않으면 지운다(내용이 어긋날 수 있어서, 주석 `:878`).
 - 에러 결과는 항상 `{ content: [{type:"text", text: message}], details: {} }`이다(`:905`). `isError`는 결과 객체 안이 아니라 별도 값으로 들고 다닌다.
@@ -139,11 +139,14 @@ afterToolCall({..., result, isError}, signal)  → 결과 덮어쓰기, throw �
 ### 7.4 잘린 응답 (`:264-270`, `:478-503`)
 `stopReason === "length"`이면 도구를 하나도 실행하지 않고 전부 에러 결과로 돌려준다. 주석에 따르면 스트리밍 중 인자를 잘린 JSON도 가능한 만큼 복구하는(salvage) 파서로 마무리하므로, 잘린 인자가 파싱도 검증도 통과하는데 내용이 불완전할 수 있기 때문이다. 에러 문구는 "다시 완전한 인자로 호출하라"고 AI에게 안내한다. 이때 `terminate`는 `false`이므로 AI가 다시 시도할 기회를 얻는다(`코드 확인`).
 
-### 7.5 중단(abort) 시 (`:575`, `:613`, `:641`)
-- 순차: 각 도구 직후 `signal.aborted`이면 `break`한다. 남은 도구에는 결과 메시지가 만들어지지 않는다.
-- 병렬: 준비 중 `aborted`이면 `break`한다. 이미 모아 둔 도구는 실행 함수가 `"Operation aborted"`를 돌려준다(`:620-628`). `break` 이후의 도구 호출은 결과가 없다.
-- 그 결과 assistant 메시지의 `toolCall` 개수보다 `toolResult`가 적은 대화 기록이 생길 수 있다. 일부 provider는 이런 기록을 거부하므로(`추론`, 실행 안 함), 이후 처리(03의 `Agent`, coding-agent)가 어떻게 메우는지 확인이 필요하다(`미확인`).
+### 7.5 중단(abort) 시 (`agent-loop.ts:547-590`, `:596-660`, `:716-723`, `:747-753`)
+> **[2026-11-17 갱신]** 이전 SHA(`3874b3e98`)에서 `break`로 남은 도구 호출의 결과를 건너뛰던 동작은 `4438c58ba "fix(agent): answer every tool call when a batch is aborted"`(#9986)로 고쳐졌다. 아래는 `4afe78de` 기준이다.
+- 순차·병렬 루프 모두 `signal.aborted`를 보고 `break`하던 코드가 없어졌다(`git diff 3874b3e98..4afe78de -- packages/agent/src/agent-loop.ts`로 삭제 확인). 중단돼도 모든 도구 호출을 `prepareToolCall`까지 돌린다.
+- `prepareToolCall`이 중단 신호를 맨 앞에서 보고 `immediate` 결과(`"Operation aborted"`, `isError: true`)를 돌려준다(`:716-723`). 그래서 호출마다 `toolResult` 메시지가 하나씩 만들어진다. 병렬 경로에서 이미 준비된 호출은 실행 함수 안에서 한 번 더 확인한다(`:623-631`).
+- 결과: assistant 메시지의 `toolCall` 개수와 `toolResult` 개수가 중단 때도 맞는다(`코드 확인`, 실행은 안 함). 이전 문서의 "알려진 구멍 ①(짝 불일치)"은 agent 계층에서 해소됐다.
+- `runToolCall`(도구가 다른 도구를 부를 때 쓰는 공개 함수)도 같은 규칙이다. 중단된 `signal`이면 훅 전에 에러 결과로 돌려준다(주석 `:807-812`).
 - 이 경로는 `signal`이 `aborted`일 때만 해당한다. `stopReason`이 `aborted`로 오는 경우는 §5 #7에서 이미 종료되므로 도구까지 오지 않는다. 도구 실행 중에 중단된 경우에만 해당한다.
+- 새로 생긴 값: 도구 실행 시간 `durationMs`. `executePreparedToolCall`이 `performance.now()`로 재서 `AgentToolCallOutcome`과 `tool_execution_end` 이벤트에 싣는다. 도구가 실행되지 않은 경우(immediate)는 없다(`:829-857`, `:911`, `:929`, `:944`).
 
 ## 8. `declareToolChanges` (`:333-375`): 01에 없던 개념
 - 문제: 도구 목록이 중간에 바뀔 수 있다(예: 확장이 도구를 켬/끔). 그래서 pi는 요청마다 도구 정보를 따로 넘기지 않고, 대화 기록의 system 메시지에 `toolsAdded`/`toolsRemoved`로 변경분을 적는다.

@@ -20,6 +20,7 @@
 | agent-skills | `aeac41d` | [overview](reports/agent-skills/overview.md) | — |
 | cc-switch | `d35726e` | [overview](reports/cc-switch/overview.md) | — |
 | claude-video (video/) | `03ceb42` | [overview](video/reports/claude-video/overview.md) | — (범위 승인 대기) |
+| ppt-master | `3af3e8e` | [overview](reports/ppt-master/overview.md), [next](reports/ppt-master/next.md) | [generate-default-pipeline](reports/ppt-master/capabilities/generate-default-pipeline.md) (ready), [svg-authoring-and-quality](reports/ppt-master/capabilities/svg-authoring-and-quality.md) (ready), [svg-to-pptx-cli](reports/ppt-master/capabilities/svg-to-pptx-cli.md) (ready), [image-file-contract](reports/ppt-master/capabilities/image-file-contract.md) (ready), [confirm-and-preview-ui](reports/ppt-master/capabilities/confirm-and-preview-ui.md) (ready) · 제외·미작성 12(범위 밖) |
 | codeburn | `9a40cc6` | [overview](reports/codeburn/overview.md) | — |
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
 | context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |

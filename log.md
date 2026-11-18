@@ -1188,3 +1188,66 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - 사용자가 feature map 핵심 8행을 5행으로 합쳐 승인(행 1~5). 제외: 부속 6~9. 서브에이전트 5명이 병렬로 `harness-sop`, `harness-contract`, `harness-families`, `skill-packaging`, `registry-schema`를 작성했다(모두 `draft`).
 - 메인 세션이 표본 6건을 원본 줄과 대조해 일치를 확인했다. 독립 검토와 재구현은 하지 않았다. 서브에이전트가 scratchpad에서 gimp·firefly-iii·jumpserver 복사본을 실행하고 wheel 2개를 빌드했으며, `repos/CLI-Anything`은 변경 없음.
 - overview를 9행(핵심 5/부속 4)으로 고치고 처음 쓴 주장 4건을 정정했다: undo/redo는 세션 파일이 아니라 메모리, 오류 JSON 형식은 하니스마다 다름, 문자열 점검 수치의 의미, `generate_meta_skill.py`의 출력은 비추적 `cli-hub-skill/SKILL.md`. 패밀리 분류는 AST 기준 7종으로 바뀌었다. 차이 목록과 U-ID는 `next.md`.
+
+## [2026-11-17] ingest | ppt-master
+- `repos/ppt-master`를 clone(SHA `3af3e8e`, v6.9.0, MIT). README·SKILL.md·routing.md·generate-pptx.md·edit-native-pptx.md와 scripts 패키지 구조를 읽고 `reports/ppt-master/overview.md`에 feature map 17행(핵심 15/부속 2)·공유 계약 5건을 썼다. 구현 본문은 열지 않아 대부분 추론 수준이다.
+- `artifacts/ppt-master/repo-metadata.txt`, `reports/ppt-master/next.md`, `index.md` 행 추가. 구조도와 범위 승인은 아직이다. 기존 `artifacts/ppt-master/deepwiki/`는 후보 자료로 남겼다.
+
+## [2026-11-17] update | ppt-master 목적 확정과 구조도
+- 분석 목적을 "구조 파악·이해"로 확정했다. `svg_to_pptx/pptx_package/cli.py` `main`·`builder.py` 패키징 흐름, `attribution_guard.py`를 읽고 archify 구조도 1장(`reports/ppt-master/diagrams/structure.json`·`.html`)과 그림 해설을 overview 3절에 썼다. finalize 4개 gate 통과(자동 검사), 시각 검토는 하지 않았다.
+- 스펙 범위 승인은 아직이다.
+
+## [2026-11-17] update | ppt-master 구조도를 전체 과정·주체 구분으로 재작성
+- 사용자 질문(AI가 하는 일, Step 2·3, 편집기, 애니메이션)에 맞춰 `generate-pptx.md` Step 3~7, `live-preview.md`, `svg_editor.md`, `references/animations.md`, `scripts/docs/pptx-animations.md`를 읽고 `reports/ppt-master/diagrams/structure.json`·`.html`을 17노드(AI/스크립트/사용자/파일/외부 API 구분)로 다시 그렸다. overview 3절 해설을 교체했다. finalize 통과, visual-check 캡처 1장을 눈으로 확인.
+
+## [2026-11-17] update | ppt-master 코드 규모 정정
+- overview 2절 미탐색 항목의 "약 60,000줄"(scripts 직속 파일만 센 값)을 테스트 제외 전체 188,288줄(255개 파일)로 고쳤다.
+
+## [2026-11-17] update | pi 최신화 (3874b3e98 → 4afe78de, v1.5.2)
+- `repos/pi`를 fast-forward(1364 커밋, 4100개 파일). `git diff --name-status`로 패키지 구성 변화(protocol·client·server·session-backends 삭제, schema·env·apps 추가)와 `packages/agent/src` 4파일 diff 전체, `packages/ai` CHANGELOG·삭제·이름 변경 목록을 확인했다.
+- `reports/pi/agent/` 02(§7.5 중단 처리 재작성, §7.3 abort 확인)·00(의존 `pi-schema`)·01(`AgentToolParams`)·04(`partialJson` 제거 반영)와 03·05·06 머리 메모, `ai/` 05·01·02·03-1·03-4·04·06 머리 메모, `overview.md` §1.1 변경 표, `next.md` 재개 지점을 고쳤다. `artifacts/pi/repo-metadata.txt`, `index.md` SHA 갱신.
+- 다시 읽지 않은 것: coding-agent, chord, durable 등 변경, ai 구현 본문(CHANGELOG 기준 메모만). 구조도와 Q1~Q8, learning-guide는 이전 SHA 기준 그대로다.
+
+## [2026-11-17] update | pi ai/05-utils 코드 대조 (실행 없음)
+- `3874b3e98..4afe78de`의 `packages/ai/src/utils/` diff 18파일과 현재 `validation.ts`, `streaming-json.ts`, `json-parse.ts`, `retry.ts`, `provider-retry.ts`, `overflow.ts`, `estimate.ts`, `error-body.ts`, `string-enum.ts`를 읽고 `reports/pi/ai/05-utils.md` §1~§4, §5.1, §7, §9를 고쳤다. `pi-schema`는 README의 Coercion 절만 읽었다.
+- 확인된 변경: 검증이 `pi-schema`로 이동(350→69줄), `streaming-json.ts`·`parseToolCallArguments` 추가, 재시도·초과 패턴 확대, `CHARS_PER_TOKEN` 4→3.5, `pi-user-agent.ts`·`assistant-message-frame.ts` 삭제. §8 실험은 재실행하지 않아 이전 SHA 기준으로 표시했다.
+
+## [2026-11-17] update | pi ai/03-0-event-stream 코드 대조 (실행 없음)
+- `utils/event-stream.ts`, `api/lazy.ts`, `models.ts`의 `lazyStream` 호출부 diff를 읽고 `reports/pi/ai/03-0-event-stream.md`에 §2.2(응답 `durationMs` 측정), §8.3(`lazyStream` observer·signal·aborted 구분)을 추가하고 줄 번호를 새 SHA로 고쳤다. `push`·`end`·큐 동작은 diff가 없어 §3~§7 유지.
+
+## [2026-11-17] capability | ppt-master 기능 스펙 5개
+- 승인 범위(행 4·6·8·9·14, 공유 계약 C1~C4)의 스펙을 `reports/ppt-master/capabilities/`에 썼다: generate-default-pipeline(C1·C2), svg-authoring-and-quality(C3·C4), svg-to-pptx-cli(호출 규약과 코드 위치 안내), image-file-contract(파일 규약만), confirm-and-preview-ui. 작성은 서브에이전트 5개가 나눠 하고, 메인 세션이 고위험 R-ID를 원본 코드와 대조했다.
+- 독립 검토(읽기 전용 서브에이전트)를 6행과 4행에 돌려 불일치를 반영했다(6행: R-04·R-05·R-06·R-10·R-12·R-14와 누락 4건, 4행: R-24 workflow.log append, report.json 이름, backup 내용, `NotesFileReadError`). 8·9·14행은 메인 점검만. 스펙 사이 U-ID는 코드로 닫았다. 재구현은 하지 않았다.
+- 새로 확인한 것: `result.json`은 서버가 작성자를 구분하지 않음, `svg_to_pptx`가 `pptx_to_svg` 모듈을 import함, 노트가 없어도 내보내기는 성공함, 미리보기는 2초 폴링. 상태: 5개 모두 ready, `check.py` ERROR 0.
+
+## [2026-11-17] update | pi ai/02-models-registry 코드 대조 (실행 없음)
+- `models.ts` diff 전체와 `catalog/`(`generate.ts`, `build.ts`, `define.ts`, `reasoning.ts`, `sources/index.ts`, `providers/anthropic.ts`, `README.md` 등), `telemetry.ts`의 `observeModelRequest`, `scripts/model-data.ts` 함수 목록을 읽었다.
+- `reports/pi/ai/02-models-registry.md` §6을 `catalog/` 구조(소스 먼저 전부 수집 → provider 정의 → 공용 규칙 → finalize → 저장)로 다시 쓰고, §2.1·§4.3~§4.6·§5·§7에 `refreshModelsAuth`, `identity`, 텔레메트리 관찰자, 분류기 입력 검사, OAuth 갱신 취소 내성, `totalFromProvider`를 반영했다. §6.6·§6.8의 실행 결과는 이전 생성기 기준임을 표시했다. 나머지 provider 정의 42개와 `scripts/model-data.ts` 본문은 읽지 않았다.
+- `03-0-event-stream.md` §8.3의 `observeModelRequest` 설명을 보강했다.
+
+## [2026-11-17] update | pi ai/03-1-api-anthropic 코드 대조 (실행 없음)
+- `api/anthropic-messages.ts`(1646→1967줄) 전체 diff, `transform-messages.ts`, `simple-options.ts`, `strict-tool-limits.ts`, `utils/identity.ts` 앞부분을 읽고 `reports/pi/ai/03-1-api-anthropic.md`를 고쳤다: 머리에 현재 함수 위치, §3(출력 여유 15%), §4.2(client identity), §4.4(다른 모델 추론 블록 폐기, 오류 도구 결과 이미지 분리), §4.7(thinking 분기 재작성, effort "low"), §4.8, §5.2(`openBlocks`·`ToolCallArgumentsStream`), §6, §7을 고치고 §12(message threads, strict 한도 폴백, OpenRouter 비용 등)를 추가했다.
+- 실행하지 않았고 서버 동작은 코드 주석 기준이다. `getIdentityHeaders`, `openrouter-cost.ts`, `session-resources.ts`, `convertMessages`·`convertTools` 본문 전체는 읽지 않았다.
+
+## [2026-11-17] update | pi 소스 줄 수 집계
+- 기준 `4afe78de`에서 tracked `src` 파일을 집계하고 테스트·평가·표시된 생성 파일을 제외했다. `reports/pi/questions/q9-source-line-count.md`와 재현 스크립트 `artifacts/pi/line-count/count.py`를 추가했다.
+- `reports/pi/overview.md` 질문 목록과 `next.md`에 결과를 연결했다. 기능 동작 조사는 수행하지 않았다.
+
+## [2026-11-17] update | pi ai/04-auth 코드 대조 (실행 없음)
+- `auth/` 변경 13파일과 `env-api-keys.ts`, `lazy-oauth.ts`, `compat/extension-oauth-types.ts` diff를 읽고 `reports/pi/ai/04-auth.md`를 고쳤다. §4~§5.1(해석 순서, OAuth 갱신, 줄 번호)은 현재 코드와 일치함을 확인했다. §3.5(device_code 힌트 필드, `LoginOptions.agentName`), §5.3(환경변수 다중 지정, Qwen), §6.1(lazy-oauth, `trusted-url`, `load.ts` URL 해석), §6.2(콜백 포트 폴백), §6.3(ChatGPT 포트 충돌 시 실패)를 갱신했다. `04-01`에는 머리 메모만 추가했다.
+- 읽지 않은 것: `oauth/openrouter.ts`, `xai.ts`. 실제 로그인·토큰 교환은 실행하지 않았다.
+
+## [2026-11-17] update | pi ai/03-2-api-openai-responses 코드 대조 (실행 없음)
+- `api/openai-responses.ts`(415→455줄), `openai-responses-shared.ts`(809→891줄) 전체 diff와 `utils/transcript.ts`의 `resolveTranscriptTools`를 읽고 `reports/pi/ai/03-2-api-openai-responses.md`를 고쳤다: 머리에 새 줄 번호, §4.1(client identity, `session-id` 헤더), §4.2(compat 2개 추가), §4.3, §4.5, §4.6.1(`getResponsesToolSupport`), §4.7(`promptCacheKeyMode`), §4.8(`configuration_update` 경로), §5.1(`ToolCallArgumentsStream`), §6(Business 한도 안내).
+- 서버 동작 주장(OpenAI가 `additional_tools`·`configuration_update`를 어떻게 처리하는지)은 코드 주석 기준이며 확인하지 않았다. `transcript.ts` 본문 대부분은 읽지 않았다.
+
+## [2026-11-17] update | pi ai/03-3-api-openai-compare 코드 대조 (실행 없음)
+- `api/openai-completions.ts`(1726→1741줄) 전체 diff를 읽고 `reports/pi/ai/03-3-api-openai-compare.md`에 머리 메모(현재 함수 위치), §3.1(`promptCacheKeyMode`), §3.3(빈 `tools: []` 기본 생략, `requiresNonNullAssistantContent`, 공백 도구 결과), §4.2(`ToolCallArgumentsStream`, 추론 우선 처리), §4.4(OpenRouter 비용), §6.1(compat 2개)을 반영했다. §6.3 실행 결과와 `catalog/`의 compat 값은 재확인하지 않았다.
+
+## [2026-11-17] update | pi ai/03-4-api-openai-codex-legacy 코드 대조 (실행 없음)
+- `api/openai-codex-responses.ts`(1697→1725줄) diff 전체와 커밋 `bb1a2b354`(60분 연결 제한 복구) 등을 읽고 `reports/pi/ai/03-4-api-openai-codex-legacy.md`를 고쳤다: 머리(현재 함수 위치), §4.1(헤더 우선순위, identity), §4.4(`getResponsesToolSupport`), §5.2(WebSocket 재사용 55→45분, 연결 제한 재시도), §6.1·§6.2(zstd 타입, `sleep` 리스너), §7.3.
+- 연결 제한 복구는 커밋 메시지와 `retry.ts` 패턴이 근거이며 실행으로 확인하지 않았다.
+
+## [2026-11-17] pi | ai/01-types 코드 대조 (실행 없음)
+- `reports/pi/ai/01-types.md`: `types.ts`(925줄)·`index.ts` diff를 읽고 헤더, §2.1~2.10, §2.11 줄 번호, §3(9~10 신설) 갱신. 정의가 `providers/compat-schema.ts`·`model-schema.ts`로 이동한 점, TypeBox 제거, 새 필드(`identity`, `disableContinuation`, `argumentsError`, `totalFromProvider`, `durationMs` 등), `lazyStream`의 `aborted` 구분 반영.
+- 미확인: compat 필드별 의미 전체, `NestedToolCalls`를 채우는 곳, deferred 구현 provider.

@@ -1,5 +1,7 @@
 # ai 03-1: 통신 코드 읽기 — `api/anthropic-messages.ts` (Claude)
 
+> **[2026-11-17 갱신 메모]** `3874b3e98` → `4afe78de`(v1.5.2) diff 기준. `anthropic-messages.ts`가 바뀌었다. 새 동작(CHANGELOG, 코드 재확인 전): `sessionId`가 있고 `cacheRetention`이 `none`이 아니면 message threads(beta `message-threads-2026-08-12`)로 서버가 이전 응답에서 이어 가고 새 메시지만 보낸다(v1.5.1), baseUrl이 api.anthropic.com이면 provider와 무관하게 기본 적용(CHANGELOG의 미출시 항목), `StreamOptions.disableContinuation`으로 끌 수 있다. 비-strict 도구 스키마의 루트 `$defs`·`additionalProperties` 보존. 본문은 이전 SHA 기준이다.
+
 - **기준 commit**: `3874b3e98` / **분석일**: 2026-10-04
 - **선행 문서**: [01-types](./01-types.md), [02-models-registry](./02-models-registry.md)
 - **짝 문서**: [03-2-api-openai-responses](./03-2-api-openai-responses.md) (OpenAI 현재 경로), [03-4-api-openai-codex-legacy](./03-4-api-openai-codex-legacy.md) (OpenAI Codex, legacy)
@@ -10,6 +12,8 @@
 
 > [!NOTE]
 > **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): § 도구 변경(`nativeToolChanges`)을 새 방식(정의 값 포함, `defer_loading` 미사용)으로 고치고 beta 이름을 바꿨다. 이 파일의 다른 줄 번호는 `anthropic-messages.ts` diff가 +30/−37뿐이라 대부분 ±수 줄 안이지만 **전수 재확인은 하지 않았다**(`미확인`). 인용한 `:1142-1146` 같은 번호가 어긋나 보이면 이 diff 기준으로 본다.
+>
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de` 기준으로 `api/anthropic-messages.ts`(1646 → 1967줄, 전체 diff), `transform-messages.ts`, `simple-options.ts`, `strict-tool-limits.ts`(새), `utils/identity.ts` 앞부분을 읽고 대조했다(실행 없음, `코드 확인`). **이 문서의 `anthropic-messages.ts` 줄 번호는 대부분 이전 SHA 기준이고 +50~300줄 밀렸다.** 본문 문장 중 달라진 것은 `[2026-11-17]`로 고쳤고, 새 기능(message threads, strict 도구 한도 폴백, OpenRouter 비용, 이미지 오류 결과 분리, client identity)은 **§12**에 모았다. 현재 위치: `getAnthropicCompat` `:233`, `hashThreadPrefix` `:321`, `prepareThreadRequest` `:361`, `sendThreadRequest` `:401`, `recordThreadReply` `:445`, `AnthropicOptions` `:472`, `iterateAnthropicEvents` `:767`, `stream` `:808`, `streamSimple` `:1204`, `isOAuthToken` `:1254`, `createClient` `:1258`, `getBetaFeatures` `:1367`, `buildParams` `:1418`, `convertMessages` `:1617`, `insertThinkingLevelMessages` `:1830`, `convertTools` `:1888`, `mapStopReason` `:1941`.
 
 ## 0. 이 문서의 질문
 02에서 `Provider.stream()`이 "`model.api`에 맞는 통신 코드를 호출한다"고 했다. 그 **통신 코드 안에서 실제로 무슨 일이 일어나는가**를 Claude(`anthropic-messages`) 하나로 끝까지 따라간다.
@@ -182,7 +186,7 @@ streamSimple(model, context, options)
 
 - **`mapThinkingLevelToEffort`** (`:910-928`): `model.thinkingLevelMap[reasoning]`에 문자열이 있으면 그것을 쓰고, 없으면 `minimal`, `low`는 `"low"`, `medium`은 `"medium"`, 나머지는 `"high"`로 바꾼다.
 - **예산 방식의 기본 예산** (`simple-options.ts`): `minimal` 1024, `low` 2048, `medium` 8192, `high` 16384 토큰. `xhigh`, `max`는 `high`로 취급한다. 예산을 잡은 뒤에도 답변용으로 최소 1024토큰은 남기도록 줄인다.
-- **`buildBaseOptions`** (`simple-options.ts`): 호출자의 옵션을 `StreamOptions` 모양으로 옮기면서 `maxTokens`를 `min(요청값 또는 모델 최대값, 컨텍스트 창 - 현재 대화 추정 토큰 - 안전 여유 4096)`으로 자른다. 대화가 길수록 한 번에 받을 수 있는 출력이 줄어든다.
+- **`buildBaseOptions`** (`simple-options.ts`): 호출자의 옵션을 `StreamOptions` 모양으로 옮기면서 `maxTokens`를 컨텍스트 창에 맞춰 자른다. 대화가 길수록 한 번에 받을 수 있는 출력이 줄어든다. **[2026-11-17 변경]** 안전 여유가 고정 4096에서 `max(4096, 입력 추정치의 15%)`로 바뀌었다(`clampMaxTokensToContext`, `simple-options.ts`). 이유(주석): OpenRouter가 자기 토크나이저로 입력을 세어 `입력 + max_tokens`가 창을 넘으면 라우팅 전에 거부하는데, 산문에서 provider 집계보다 최대 12% 많게 센 사례가 있었다(#10497). 15% 여유를 두면 남는 출력이 32768 토큰 미만일 때(거의 찬 큰 창, 32k 같은 작은 창)는 고정 여유만 남기고 출력을 최대 32768로 제한한다(`MIN_OUTPUT_WITH_RATIO_MARGIN`). 같은 함수에서 `samplingParams`를 `resolveSamplingParams`로 모델의 기본값, 추론 수준별 값, 요청 값 순으로 합치고, `disableContinuation`, `identity`를 옵션에 옮긴다(`simple-options.ts`). 위의 "4096"을 쓴 그림과 문장은 이전 값이다.
 
 ### 인증 오류는 두 곳에서 난다
 - `streamSimple`이 부를 때 인증이 없으면 **동기로 throw**한다(`:935-937`, 01에서 본 "직접 호출하면 인증 누락만 동기 throw" 규칙이 이 코드다).
@@ -190,9 +194,9 @@ streamSimple(model, context, options)
 
 ## 4. 요청 만들기
 
-### 4.1 `stream`이 시작할 때 (`:573-601`)
+### 4.1 `stream`이 시작할 때 (`:573-601`, **[2026-11-17]** 현재 `:808-`)
 - `resolveTranscript(context, supportsMidConvoSystemMessages)`(`:579`, 정의는 `transcript.ts:115`): 모델이 대화 중간의 시스템 메시지를 받을 수 있으면 그대로 두고, 아니면 모든 시스템 메시지를 합쳐서 **맨 앞 한 줄**로 만든다(`collapseSystemMessages`). 01에서 본 `SystemMessage`의 중간 변경 기능이 모델에 따라 이렇게 처리된다.
-- 결과를 담을 빈 `AssistantMessage`(`output`)를 만든다(`:584-601`). `api`, `provider`, `model`, 0으로 채운 `usage`, `stopReason: "pending"`이다. 이후 응답을 받는 동안 이 객체를 계속 채워 나간다. 이벤트의 `partial`이 가리키는 것이 바로 이 `output`이다(01에서 "partial은 공유 객체"라고 한 이유).
+- 결과를 담을 빈 `AssistantMessage`(`output`)를 만든다(`:584-601`). `api`, `provider`, `model`, 0으로 채운 `usage`, `stopReason: "pending"`이다. **[2026-11-17]** 이전에는 이 객체를 만들 때 `providerThinkingLevel`도 함께 넣었지만, 지금은 `buildParams`가 돌려주는 값으로 요청을 만든 뒤 설정한다(`:901`, §12.6). 이후 응답을 받는 동안 이 객체를 계속 채워 나간다. 이벤트의 `partial`이 가리키는 것이 바로 이 `output`이다(01에서 "partial은 공유 객체"라고 한 이유).
 
 ### 4.2 클라이언트 만들기: `createClient` (`:984-1080`)
 Anthropic 공식 SDK(`@anthropic-ai/sdk`)의 객체를 만든다. **인증 방식에 따라 세 가지 경로**가 있다.
@@ -203,7 +207,9 @@ Anthropic 공식 SDK(`@anthropic-ai/sdk`)의 객체를 만든다. **인증 방�
 | OAuth | API 키에 `sk-ant-oat`가 들어 있음 (`:980-982`, `:1016-1036`) | Bearer 토큰 + **Claude Code 흉내 헤더** |
 | 일반 | 그 외 | API 키 또는 헤더로 준 인증, 또는 workload identity federation (`:1038-1079`) |
 
-**OAuth 경로의 특징**(Claude Pro/Max 구독 로그인): `user-agent: claude-cli/<버전>`, `x-app: cli` 헤더를 보내고(`:1027-1028`), 시스템 프롬프트 맨 앞에 `"You are Claude Code, Anthropic's official CLI for Claude."`를 추가하며(`:1168-1183`), 도구 이름을 Claude Code의 표준 철자(`Read`, `Write`, `Bash` 등, `:103-126`)로 바꿔 보내고 응답에서 다시 원래 이름으로 되돌린다(`fromClaudeCodeName`, `:127-134`, `:729-731`). 코드 주석은 이를 "Stealth mode: Mimic Claude Code's tool naming exactly"(`:97`)라고 적었다. 이 동작의 이유는 코드에 직접 적혀 있지 않다(`추론`: 구독 토큰이 Claude Code 형태의 요청만 받는 것으로 보이지만 확인하지 못했다).
+**OAuth 경로의 특징**(Claude Pro/Max 구독 로그인, **[2026-11-17]** 흉내 낼 Claude Code 버전이 `2.1.280` → `2.1.322`, `:109`, 이 헤더는 `:1303`): `user-agent: claude-cli/<버전>`, `x-app: cli` 헤더를 보내고(`:1027-1028`), 시스템 프롬프트 맨 앞에 `"You are Claude Code, Anthropic's official CLI for Claude."`를 추가하며(`:1168-1183`), 도구 이름을 Claude Code의 표준 철자(`Read`, `Write`, `Bash` 등, `:103-126`)로 바꿔 보내고 응답에서 다시 원래 이름으로 되돌린다(`fromClaudeCodeName`, `:127-134`, `:729-731`). 코드 주석은 이를 "Stealth mode: Mimic Claude Code's tool naming exactly"(`:97`)라고 적었다. 이 동작의 이유는 코드에 직접 적혀 있지 않다(`추론`: 구독 토큰이 Claude Code 형태의 요청만 받는 것으로 보이지만 확인하지 못했다).
+
+**[2026-11-17] client identity**: 이전에는 모든 경로가 `mergeClientHeaders`로 `getPiUserAgent()`의 `User-Agent`를 깔았다. 이 둘은 삭제됐고(`pi-user-agent.ts` 삭제), 지금은 일반·Copilot 경로가 `getIdentityHeaders(model, options.identity)`를 먼저 깔고(`utils/identity.ts:141`) **OAuth 경로는 정체성 대신 Claude Code 흉내 헤더를 쓴다**(주석 "Claude Code identity headers instead of the client identity"). `ClientIdentity`는 `userAgent`(`"detailed"`·`"short"`·`{ custom }`), `attribution`(OpenRouter 앱 제목 등), `version`이고, 기본 `detailed` 형식은 `pi/<버전> (<플랫폼>; <런타임>/<런타임 버전>; <아키텍처>)`다(`identity.ts:11`, 주석). `createClient`는 마지막 인자로 `options?.identity`를 받는다(`:873`). `getIdentityHeaders` 본문과 provider별 attribution 헤더 매핑은 읽지 않았다(`미확인`).
 
 헤더는 여러 출처를 합친다. 기본 헤더, 세션 친화 헤더, **모델의 `headers`**, 마지막으로 **호출자가 준 `options.headers`**(뒤에 오는 것이 앞을 덮어쓴다, `mergeHeaders` `:295-303`).
 
@@ -231,9 +237,11 @@ Anthropic Messages API의 요청 객체를 만든다. 순서대로 정리한다.
 **1차 변환** (`:77-156`)
 - **이미지**: 모델이 이미지를 못 받으면(`model.input`에 `"image"`가 없으면) 이미지를 `"(image omitted: model does not support images)"` 같은 문구로 바꾼다 (`:35-57`).
 - **같은 모델인지 판단**: `provider`, `api`, `model id`가 모두 같아야 같은 모델이다 (`:95-98`).
-- **추론(thinking) 블록**: 같은 모델이면 서명이 있는 블록을 그대로 둔다(다음 요청에 되돌려 보내야 하므로). 다른 모델이면 일반 글로 바꾸고, 가려진(redacted) 추론은 버린다 (`:101-117`). 가려진 추론은 암호화된 내용이라 같은 모델에서만 유효하기 때문이다.
+- **추론(thinking) 블록**: 같은 모델이면 서명이 있는 블록을 그대로 둔다(다음 요청에 되돌려 보내야 하므로). 다른 모델이면 일반 글로 바꾸고, 가려진(redacted) 추론은 버린다 (`:101-117`). 가려진 추론은 암호화된 내용이라 같은 모델에서만 유효하기 때문이다. **[2026-11-17 변경]** 지금은 **다른 모델의 추론 블록을 일반 글로 바꾸지 않고 통째로 버린다**(`transform-messages.ts:128-139`). 주석: 서명과 암호화된 추론은 만든 모델에서만 유효하고, 읽을 수 있는 추론을 글로 보내면 새 모델이 그것을 보이는 답변의 일부로 취급한다. 같은 모델이면 `redacted`이거나 서명이 있는 블록은 내용이 비어도 유지하고, 그 외 빈 블록은 버린다. 위 문장의 "일반 글로 바꾼다"는 이전 동작이다.
 - **도구 호출 ID**: 다른 모델이 만든 ID는 `normalizeToolCallId`로 바꾼다. Anthropic은 `영문, 숫자, _, -`만 허용하고 64자까지라서, 이 규칙에 맞게 바꾸고(`:1299-1301`) 대응하는 `toolResult`의 ID도 같이 바꾼다 (`:127-145`, `:83-90`). 주석에 "OpenAI Responses는 450자가 넘고 `|` 같은 문자가 들어간 ID를 만든다"고 적혀 있다(`:60-63`).
 - 다른 모델이 만든 `thoughtSignature`(Google 전용)는 지운다 (`:131-134`).
+
+**[2026-11-17] 이미지가 든 오류 도구 결과**: Anthropic(과 Bedrock의 Claude)은 오류 도구 결과에 텍스트 외 내용을 허용하지 않아서, `splitErrorToolResultImages(msg)`(`transform-messages.ts:17-38`)가 `isError`인 결과에서 이미지를 분리한다. 결과 본문은 이미지를 `"(image attached after the tool results)"`로 바꾼 텍스트만 남기고, 분리된 이미지는 같은 턴의 모든 `tool_result` 뒤에 `"Images from the error result of tool call <id> (<tool>):"` 문구와 함께 같은 user 메시지에 붙는다(`anthropic-messages.ts` `convertMessages` 안, #10794). 이미지가 없거나 오류가 아니면 `undefined`로 건드리지 않는다.
 
 **2차 변환** (`:158-234`)
 - `stopReason`이 `error`나 `aborted`인 `assistant` 메시지는 **통째로 건너뛴다**. 중간에 끊긴 불완전한 응답을 다시 보내면 서버가 오류를 낼 수 있기 때문이다 (`:195-203`).
@@ -266,19 +274,23 @@ Anthropic Messages API의 요청 객체를 만든다. 순서대로 정리한다.
 
 **도구 변경을 서버가 직접 지원하는 경우** (`nativeToolChanges`, `:1141-1149`, `:1205-1220`): 모델이 `supportsMidConvoSystemMessages`와 `supportsMidConvoToolChanges`를 모두 지원하고 처음부터 도구가 있으면, **요청 수준의 도구 목록은 처음 도구 + 자리표시자(`DEFERRED_TOOL_PLACEHOLDER`)로 고정**하고 이후 도구 변경은 대화 안의 블록으로 보낸다: 추가는 `tool_addition`에 **도구 정의를 값으로 담은** `tool_definition` 블록, 제거는 `tool_removal`(같은 이름을 다시 정의하면 제거 블록은 생략, `convertMessages` 내부). 주석에 따르면 도구 목록이 바뀌지 않으므로 앞부분 캐시가 깨지지 않는다. 도구 변경 때 캐시가 전부 무효화된 것을 측정했다는 주석도 있다(`:198-210`). **이전 commit과 달라진 점**: 이전에는 나중 도구를 `defer_loading: true`로 요청 목록에 미리 선언하고 `tool_addition`은 이름만 참조했으며(`tool_reference`), 같은 이름을 다시 정의한 대화는 이 방식을 쓸 수 없었다(`hasToolRedefinitions`). 지금은 정의를 값으로 보내므로 **재정의 제약이 없어졌고** `hasToolRedefinitions`는 `@deprecated`이다(`utils/transcript.ts`).
 
-### 4.7 추론(thinking) 설정 (`:1242-1273`)
+### 4.7 추론(thinking) 설정 (`:1242-1273`, **[2026-11-17 재작성]** 현재 `buildParams` `:1418-`의 `thinking` 분기 `:1538-1575` 근처)
 ```
-if (model.compat.supportsMidConvoEffort)                      ← Opus 5.5 같은 최신 모델
+thinkingDisabled = model.reasoning && options.thinkingEnabled === false && thinkingLevelMap.off !== null
+effortMessages   = compat.supportsMidConvoEffort && !thinkingDisabled      ← "off"이면 effort 표시를 보내지 않는다(effort는 off에서 바뀔 수 없음)
+
+if (thinkingDisabled)
+    thinking = { type: "disabled" }                  (주석: disabled와 block_binding은 함께 못 보냄. 모델 기본값이 적용)
+else if (effortMessages)                              ← Opus 5.5 같은 최신 모델
     thinking = { type: "adaptive", display, block_binding: {...} }
-    output_config = { effort: "high" }
-    (대화에 시스템 메시지로 현재/과거 effort를 끼워 넣는다. insertThinkingLevelMessages)
-else if (model.reasoning)
-    if (thinkingEnabled)
-        if (forceAdaptiveThinking)  thinking = { type: "adaptive", display }, output_config = { effort }   ← adaptive
-        else                         thinking = { type: "enabled", budget_tokens, display }               ← 예산 방식
-    else if (thinkingEnabled === false && thinkingLevelMap.off !== null)
-        thinking = { type: "disabled" }
+    output_config = { effort: "low" }                 ← 이전 SHA는 "high". 주석: 최상위 effort는 캐시된 프롬프트의 일부라 고정하고,
+                                                         조직이 effort 상한을 둘 수 있어 상한 초과 값이 든 요청이 거부되므로 가장 낮은 "low"
+    (대화에 시스템 메시지로 현재/과거 effort를 끼워 넣는다. insertThinkingLevelMessages `:1830`)
+else if (model.reasoning && thinkingEnabled)
+    if (forceAdaptiveThinking)  thinking = { type: "adaptive", display }, output_config = { effort }   ← adaptive
+    else                         thinking = { type: "enabled", budget_tokens, display }               ← 예산 방식
 ```
+- 이전 분기와의 차이: ① `disabled` 판정이 맨 앞으로 올라왔다. 이전에는 `supportsMidConvoEffort` 모델이면 항상 adaptive였고 `thinkingEnabled: false`여도 `thinking`을 끄지 못했다. 이제 `thinkingLevelMap.off`가 `null`이 아닌 mid-convo-effort 모델은 끌 수 있다. ② 실제 요청 effort는 `output_config`가 아니라 대화 속 effort 표시로 정해지고 `output_config.effort`는 `"low"`로 고정이다. ③ 이 함수는 이제 `{ params, hasPreferredStrictTools, providerThinkingLevel }`를 돌려준다(`:1421-1430`). `providerThinkingLevel`은 `effortMessages`일 때 `options.effort ?? "high"`다.
 - **adaptive**: 모델이 언제, 얼마나 생각할지 스스로 정한다. **예산 방식**: 정한 토큰 수까지 생각한다.
 - 추론을 끌 수 없는 모델(`thinkingLevelMap.off === null`)은 `disabled`를 보내지 않는다.
 - 오래된 모델에 인터리브 추론(도구 호출 사이에도 생각)을 쓰려면 베타 헤더(`interleaved-thinking-2025-05-14`)를 보낸다. adaptive 모델은 이것이 내장되어 있어 보내지 않는다 (`:1110-1117`).
@@ -290,7 +302,9 @@ Anthropic의 시험 기능은 요청의 `betas`로 켠다. 모델 설정에 `ant
 - 오래된 추론 모델이면 `interleaved-thinking-...`
 - `allowedFallbackModels`가 있으면 `server-side-fallback-...`
 - `supportsMidConvoEffort`이면 `mid-conversation-output-config-...`, `thinking-binding-controls-...`
-- `nativeToolChanges`이면 `inline-tools-2026-09-15`(`INLINE_TOOLS_BETA`, `:195`, `:1120`; 이전 이름은 `mid-conversation-tool-changes-2026-07-01`)
+- `nativeToolChanges`이면 `inline-tools-2026-09-15`(`INLINE_TOOLS_BETA`, 이전 이름은 `mid-conversation-tool-changes-2026-07-01`)
+- **[2026-11-17]** 세션이 message threads를 쓰면 `message-threads-2026-08-12`(`MESSAGE_THREADS_BETA`, §12.1)
+- `getBetaFeatures`의 시그니처가 `(model, context, options, { isOAuthToken, nativeToolChanges, messageThreads })`로 바뀌었다(`:1358-1372`). 위치는 `:1367`
 
 ## 5. 응답 해석: Anthropic 이벤트를 pi 이벤트로 바꾼다
 
@@ -417,17 +431,17 @@ event 1개 받음: type=message_stop
 | `content_block_start` (text) | `output.content`에 text 블록 추가 | `text_start` |
 | 〃 (thinking) | thinking 블록 추가 | `thinking_start` |
 | 〃 (redacted_thinking) | `redacted: true`인 thinking 블록 추가 (글은 `"[Reasoning redacted]"`) | `thinking_start` |
-| 〃 (tool_use) | toolCall 블록 추가 (인자는 우선 빈 값, JSON 조각을 모을 `partialJson` 버퍼 포함) | `toolcall_start` |
+| 〃 (tool_use) | toolCall 블록 추가 (인자는 우선 빈 값). **[2026-11-17]** 조각을 모으는 버퍼는 블록 안의 `partialJson`이 아니라 블록 밖 `openBlocks` Map의 `ToolCallArgumentsStream`에 둔다 | `toolcall_start` |
 | `content_block_delta` (text_delta) | 블록의 `text`에 덧붙임 | `text_delta` |
 | 〃 (thinking_delta) | 블록의 `thinking`에 덧붙임 | `thinking_delta` |
-| 〃 (input_json_delta) | `partialJson`에 덧붙이고, 현재까지의 JSON을 `parseStreamingJson`으로 해석해 `arguments`를 갱신 | `toolcall_delta` |
+| 〃 (input_json_delta) | **[2026-11-17]** 해당 블록의 `ToolCallArgumentsStream.append(partial_json)`가 돌려주는 부분 인자로 `arguments`를 갱신(이전: `partialJson`에 덧붙이고 `parseStreamingJson`으로 해석) | `toolcall_delta` |
 | 〃 (signature_delta) | 추론 블록의 서명에 덧붙임 | (없음) |
-| `content_block_stop` | 블록 완성. 임시 필드(`index`, `partialJson`) 제거. 도구 인자는 마지막으로 한 번 더 해석 | `text_end` / `thinking_end` / `toolcall_end` |
+| `content_block_stop` | 블록 완성. **[2026-11-17]** `openBlocks`에서 항목을 지우고, 도구 인자는 `Object.assign(block, stream.finish())`로 한 번 완전 파싱한 결과(깨졌으면 `arguments: {}`와 `argumentsError`, 05 §4.1)를 반영한다. 이전에는 블록 안의 임시 필드 `index`, `partialJson`을 지웠다 | `text_end` / `thinking_end` / `toolcall_end` |
 | `message_delta` | `stop_reason`을 `StopReason`으로 변환(§5.4). 최종 토큰 수로 `usage` 갱신, `calculateCost` 다시 호출 | (없음) |
 | (루프 종료 후) | 검사 후 `done` 또는 오류 | `done` / `error` |
 
 - **`contentIndex`는 `output.content` 배열의 위치**다(`output.content.length - 1`). Anthropic이 주는 `index`는 블록을 찾기 위한 임시 필드로 쓰고(`findIndex`) 끝나면 지운다.
-- **도구 호출 인자가 조각으로 오는 이유와 처리**: `input_json_delta`는 `{"pa`, `th":"main.ts"}`처럼 잘린 JSON을 준다. 조각을 모아 둔 문자열을 매번 `parseStreamingJson`으로 해석해서 `arguments`를 채우고, `content_block_stop`에서 최종 해석한다. 01에서 "`toolcall_end`에서 인자가 확정된다"고 한 것이 이 코드다. 해석기의 내부는 읽지 않았다(`미확인`).
+- **도구 호출 인자가 조각으로 오는 이유와 처리**: `input_json_delta`는 `{"pa`, `th":"main.ts"}`처럼 잘린 JSON을 준다. 조각을 `ToolCallArgumentsStream`에 모아 부분 인자를 채우고(증분 파서, 05 §4.1), `content_block_stop`에서 한 번 완전 파싱한다(**[2026-11-17]** 이전: 매번 `parseStreamingJson`). 위 `openBlocks`는 Anthropic의 블록 `index` → 우리 `content` 배열 위치와 스트림 객체를 잇는 Map이라, 이전처럼 매번 `blocks.findIndex`로 찾을 필요가 없고 `content`에 `index`/`partialJson` 필드가 끼지 않는다(`anthropic-messages.ts:945-950`) 01에서 "`toolcall_end`에서 인자가 확정된다"고 한 것이 이 코드다. 해석기의 내부는 읽지 않았다(`미확인`).
 - **`signature_delta`는 이벤트를 내보내지 않는다.** 추론의 서명은 사용자에게 보여 줄 내용이 아니라 다음 요청에 되돌려 보내기 위한 것이라, 블록에만 저장한다.
 - **사용량(`usage`)**: `message_start`에서 한 번, `message_delta`에서 한 번 채운다. Anthropic은 `total_tokens`를 주지 않아서 `input + output + cacheRead + cacheWrite`로 직접 계산한다. `message_delta`에서는 값이 있는 필드만 덮어써서, 프록시가 `message_delta`에서 `input_tokens`를 빼도 `message_start`의 값이 유지된다(`:828-829`). 추론 토큰은 `output_tokens_details.thinking_tokens`에서 `usage.reasoning`으로 옮긴다(01에서 본 "`reasoning`은 `output`의 부분집합").
 - **비용**: `calculateCost`는 두 번 호출한다. 응답 도중 중단돼도 입력 비용은 남도록 첫 호출을 일찍 한다(`:680-681` 주석). 응답 모델이 요청 모델과 다르고 `allowedFallbackModels`에 있으면 대체 모델의 가격으로 계산한다(`:671-679`).
@@ -463,9 +477,9 @@ message_stop                                        done (reason: "toolUse", mes
 `stream`의 안쪽 비동기 함수 전체가 `try`/`catch`로 감싸져 있다(`:603`, `:889`).
 
 - **정상 종료** (`:863-888`): 루프가 끝나면 (1) 취소되었으면 예외, (2) `stopReason`이 `pending`이면 "stream ended without a stop reason" 예외, (3) `stopReason`이 `error`/`aborted`이면 `errorMessage`로 예외, 아니면 (4) `done` 이벤트를 push하고 `end()`.
-- **`catch`** (`:889-899`): 임시 필드를 지우고, `stopReason`을 취소 신호가 있으면 `aborted`, 아니면 `error`로 정하고, `errorMessage`를 담아 **`error` 이벤트를 push한 뒤 `end()`**한다. 예외를 밖으로 던지지 않는다.
+- **`catch`** (`:889-899`, 현재 `:1168-`): **[2026-11-17]** 임시 필드를 지우는 단계는 없어졌다(블록에 임시 필드가 없으므로). `stopReason`을 취소 신호가 있으면 `aborted`, 아니면 `error`로 정하고, `errorMessage`를 담는다. 오류면 `withCauseDetail(error)`로 연결 수준 실패의 원인을 메시지에 덧붙인다(05 §5.1). **`error` 이벤트를 push한 뒤 `end()`**한다. 예외를 밖으로 던지지 않는다.
 - 그래서 01/02에서 정리한 "실패도 `stopReason`이 `error`인 `AssistantMessage`로 알린다"가 이 `catch`의 코드다. `.result()`는 reject하지 않고 이 메시지로 resolve된다.
-- **재시도**: 요청을 보내는 부분만 `retryProviderRequest`로 감싼다(`:651-658`). SDK 자체 재시도는 끈다(`maxRetries: 0`, `:649`). 즉 재시도는 응답이 시작되기 전 단계에서만 한다. 재시도 규칙(`maxRetries`, `maxRetryDelayMs`)은 `utils/provider-retry.ts`에 있고 아직 읽지 않았다(`미확인`).
+- **재시도**: 요청을 보내는 부분만 `retryProviderRequest`로 감싼 `send(body)` 함수가 있고(`:885-889`) 그 위에 §12의 두 폴백 루프가 얹혔다. SDK 자체 재시도는 끈다(`maxRetries: 0`). 재시도 규칙은 05 §2.1에서 읽었다(`noRetryStatuses` 등 변경은 그쪽). 즉 재시도는 응답이 시작되기 전 단계에서만 한다. 
 
 ## 7. `compat` 값이 이 파일에서 쓰이는 곳
 02의 Claude Opus 5.5 데이터(`data/anthropic.json`, 2026-10-04 생성)의 `compat`가 요청에 어떻게 반영되는지, 코드를 따라 정리한다. 실제로 서버에 보내 본 것은 아니다.
@@ -474,7 +488,8 @@ message_stop                                        done (reason: "toolUse", mes
 |---|---|---|
 | `supportsTemperature: false` | `buildParams` `:1196-1203` | `temperature`를 요청에 넣지 않는다. |
 | `forceAdaptiveThinking: true` | `streamSimple` `:952`, `buildParams` `:1256` | `reasoning`을 `effort`로 바꾸고 `thinking: adaptive`를 보낸다. 예산 방식을 쓰지 않는다. |
-| `supportsMidConvoEffort: true` | `stream` `:583`, `buildParams` `:1160`, `:1244-1250`, `getBetaFeatures` `:1119` | 항상 `thinking: adaptive`, `output_config.effort: "high"`를 보내고, 대화에 effort를 알리는 시스템 메시지를 끼워 넣는다(`insertThinkingLevelMessages`, `:1525-1539`). 응답의 `providerThinkingLevel`에도 기록한다. 이 경로에서는 `reasoning`이 없어도(`thinkingEnabled: false`) `thinking`이 꺼지지 않는다. `thinkingLevelMap.off`가 `null`인 것과 맞는다. |
+| `supportsMidConvoEffort: true` | `buildParams` (§4.7), `getBetaFeatures`. 줄 번호는 이전 SHA 기준이라 생략 | **[2026-11-17]** `thinking`을 끄지 않는 경우 `thinking: adaptive`, `output_config.effort: "low"`(이전 "high")를 보내고, 대화에 effort를 알리는 시스템 메시지를 끼워 넣는다(`insertThinkingLevelMessages`, `:1525-1539`). 응답의 `providerThinkingLevel`에도 기록한다. **[2026-11-17]** 이전에는 이 경로에서 `thinkingEnabled: false`여도 `thinking`이 꺼지지 않았다. 지금은 `thinkingLevelMap.off`가 `null`이 아니면 `{ type: "disabled" }`를 보내고 effort 표시도 보내지 않는다. |
+| `supportsMessageThreads` (**새로**) | `getAnthropicCompat` `:233-250` | 기본값 `model.baseUrl.includes("api.anthropic.com")`(주석: 알 수 없는 필드를 버리는 게이트웨이가 `continue`를 이전 대화 없는 요청으로 바꿔 버리는 것을 막으려고 Anthropic 엔드포인트로 제한). `compat`에 명시하면 그 값. §12.1 |
 | `supportsMidConvoSystemMessages: true` | `stream` `:579` | 대화 중간의 시스템 메시지를 합치지 않고 그대로 보낸다. |
 | `supportsMidConvoToolChanges: true` | `buildParams` `:1142-1146` | 조건이 맞으면 도구 변경을 서버 기능으로 처리한다(§4.6). |
 | `supportsStrictTools: true` | `convertTools` `:1593` | 스키마가 허용하면 `strict: true`로 보낸다. |
@@ -523,6 +538,7 @@ stream(model, context, options)
 (OpenAI Responses의 응답 이벤트가 pi 이벤트로 바뀌는 상세는 [03-2](./03-2-api-openai-responses.md) §5에서 `processResponsesStream`을 읽고 정리했다. 이 변환기는 `openai-responses.ts`와 `openai-codex-responses.ts`가 함께 쓴다.)
 
 ## 9. 읽지 않은 것 (`미확인`)
+> **[2026-11-17]** 이 절은 이전 SHA 기준이다. 이번 대조에서 `utils/provider-retry.ts`, `json-parse.ts`는 05에서 읽었다. 새로 읽지 않은 것: `getIdentityHeaders` 본문, `utils/openrouter-cost.ts`, `session-resources.ts`, `convertMessages`·`convertTools` 전체 본문(diff 부분만 읽음), `iterateAnthropicEvents`(`:767`, diff 없음).
 - `utils/provider-retry.ts`(재시도 규칙), `utils/json-parse.ts`(`parseStreamingJson`, `parseJsonWithRepair`), `utils/sanitize-unicode.ts`, `utils/estimate.ts`(`clampMaxTokensToContext`가 쓰는 토큰 추정) → 05 utils
 - `api/openai-completions.ts`: compat 자동 감지(OpenAI 호환 서버용). 이번에는 `openai-responses`로 비교했다.
 - `api/constrained-sampling.ts`(`strict` 스키마 처리), `api/github-copilot-headers.ts`
@@ -544,3 +560,45 @@ stream(model, context, options)
 - **04 인증**: `auth/*`, `env-api-keys.ts`, OAuth. 02에서 본 `getAuth`의 결과가 이 파일의 `options.apiKey`, `options.headers`가 되는 경로.
 - **05 utils**: `retry`, `json-parse`, `estimate`, `validation` 등. 이 문서에서 이름만 나온 것들.
 - **06 호출 경로 종합**
+
+---
+
+## 12. [2026-11-17 추가] `3874b3e98` → `4afe78de`에서 새로 생긴 동작
+
+모두 `anthropic-messages.ts`(현재 1967줄)와 새 `strict-tool-limits.ts`를 읽은 `코드 확인`이다. 실행하지 않았고, 서버(Anthropic)가 실제로 어떻게 응답하는지는 코드 주석과 오류 코드 목록이 근거라서 서버 쪽 동작은 `미확인`이다.
+
+### 12.1 Message threads: 서버가 대화를 기억하고 pi는 새 메시지만 보낸다
+**문제**: 도구 호출이 많은 에이전트는 턴마다 지금까지의 대화 전체를 다시 보낸다. 대화가 길수록 요청 본문이 커진다.
+**해법**(`:252-470`의 주석): 서버가 "스레드"로 대화를 들고 있고, 요청은 이전 응답에서 이어서(`continue`) 새 메시지만 보낸다. 예를 들어 이전 요청이 메시지 20개와 응답 1개를 보냈다면 다음 요청은 새로 생긴 사용자 메시지·도구 결과만 보낸다. **pi는 여전히 전체 요청을 먼저 만들고**(`buildParams`), `prepareThreadRequest`가 이전 요청과 비교해 앞부분이 안 바뀌었을 때만 뒤쪽만 잘라 보낸다.
+
+| 구성 | 위치 | 하는 일 |
+|---|---|---|
+| 켜는 조건 | `stream` `:842-847`, `getAnthropicCompat` `:233-250` | `compat.supportsMessageThreads`(기본: `baseUrl`에 `api.anthropic.com` 포함)이고 `sessionId`가 있고 `cacheRetention !== "none"`이고 `options.disableContinuation !== true`. 켜지면 `anthropic-beta`에 `message-threads-2026-08-12`를 넣는다 |
+| 세션별 상태 `threadState` | `:274` | `Map<sessionId, { prefixCount, prefixHash, replyId } \| "off">`. 최대 10,000개(`MAX_THREAD_STATE_ENTRIES`), 넘치면 가장 오래 갱신 안 된 세션을 버린다. `registerSessionResourceCleanup`으로 세션 종료 때 지운다(`session-resources.ts`는 읽지 않음) |
+| `hashThreadPrefix` | `:321-359` | 스레드 내내 같아야 하는 **설정**(provider, baseUrl, model, `system`, `tools`, `thinking`, `output_config`, `tool_choice`, `betas`, `fallbacks`)과 **지금까지의 메시지**를 직렬화해 `shortHash`한다. 메시지는 정규화한다: `cache_control`은 무시(최신 메시지로 옮겨 다니므로), 문자열 `content`는 `[{type:"text", text}]`로 통일(캐시 표시를 달 때 모양이 바뀌므로) |
+| `prepareThreadRequest` | `:361-399` | 상태가 `"off"`면 스레드 없이 보낸다. 상태가 있고 `messages.length > prefixCount`이고 앞 `prefixCount`개의 해시가 저장값과 같으면 **`continue`**: `system`·`tools`를 빼고 `messages.slice(prefixCount)`와 `thread: { type: "continue", previous_message_id: replyId }`만 보낸다. 한 응답은 한 번만 이어갈 수 있어서 상태를 바로 지운다(동시 요청이 같은 응답을 이으려는 것도 막음). 그 외에는 **`create`**(전체 + `thread: { type: "create" }`) |
+| `sendThreadRequest` | `:401-443` | 스레드 요청이 **거절되면 한 번만** 전체로 다시 보낸다. 거절 코드가 `thread_not_found`·`thread_already_continued`·`thread_continue_in_flight`·`thread_fingerprint_mismatch`(`NEW_THREAD_ERRORS`)면 새 스레드(`create`)로, `thread_unsupported_request`이거나 코드 없이 400이고 메시지에 `thread`가 들어 있으면(엔드포인트가 `thread` 필드를 모를 때) `thread` 없이 보내고 그 세션을 `"off"`로 만든다. 그 외 오류(프롬프트 초과, 모델 없음, strict 도구 한도 등)는 그대로 던진다. 폴백하면 `anthropic_thread_fallback` 진단을 `output`에 남긴다 |
+| `recordThreadReply` | `:445-470` | 응답이 **정상 종료**한 뒤(`stopReason` 검사 통과 후, `:1150`) 다음 요청이 어디서 이어질지 기록한다. `responseId`가 있고 `responseModel`이 없을 때만(대체 모델이 답한 응답은 서버가 저장하지 않으므로). 응답 메시지를 다음 요청과 똑같이 변환해 `prefixCount`·`prefixHash`·`replyId`를 저장 |
+
+- 예시(코드 구조에서 따른 것, 실행하지 않음): 1턴 `messages=[u1]` → `create`, 응답 `a1` 기록(`prefixCount=2`). 2턴 `messages=[u1,a1,u2]` → 앞 2개의 해시가 같으므로 `continue`로 `[u2]`만 전송. 사용자가 도구 목록을 바꾸면 `tools`가 해시에 들어 있어 불일치 → `create`로 새 스레드.
+- `StreamOptions.disableContinuation`(`types.ts`)은 이 경로를 끈다. `proxy.ts`가 이 필드도 서버에 넘긴다(agent 04).
+- **`cacheRetention`/`cacheSessionId` 계산이 `createClient` 앞(`stream` 상단)으로 올라왔다**(`:842-847`). 스레드 사용 여부가 이 값에 달려 있기 때문이다.
+- 모르는 것: 서버의 스레드 만료 시간(주석은 "몇 분 idle"), `thread` 필드를 SDK가 아직 타입에 포함하지 않아 `ThreadedParams = MessageCreateParamsStreaming & { thread? }`로 확장한 것(`:262`).
+
+### 12.2 `strict: "prefer"` 도구가 한도를 넘으면 한 번 거절된 뒤 비-strict로 내려간다
+- 새 파일 `api/strict-tool-limits.ts`. Claude는 strict 도구가 한도를 넘으면 400으로 거절한다. 관찰된 한도(주석): strict 도구 20개, 선택적·유니온 매개변수 합계 16개. 오류 문구 `"The compiled grammar is too large"`, `"Too many strict tools ("`, `"Schemas contains too many parameters with union types ("`(`isStrictToolLimitErrorMessage`).
+- `stream`의 `for (;;)` 루프(`:896-940`): `buildParams`는 `{ disablePreferredStrictTools }` 플래그를 받는다. 요청이 400 `invalid_request_error`이고 위 문구에 해당하고, 이 요청에 `strict: "prefer"` 도구가 있었다면(`hasPreferredStrictTools`) 플래그를 켜서 **한 번 더** 만들어 보낸다. 세션을 `markStrictToolLimitsExceeded`로 기록(최대 10,000개)해서 이후 요청은 처음부터 비-strict로 보낸다. 주석: 다시 strict로 돌아가면 도구 정의가 바뀌어 프롬프트 캐시가 깨진다. `anthropic_strict_tools_fallback` 진단을 남긴다. Bedrock도 같은 파일을 공유한다(주석).
+- `convertTools`: `disablePreferredStrictTools && prefersJsonSchemaStrictSampling(tool)`이면 `strict`를 `undefined`로 둔다(`:1897-1902`). 같은 함수에서 **비-strict 스키마도 루트의 `additionalProperties`, `$defs`, `definitions`를 유지한다**(모델이 여분 인자 허용 여부를 알고, 속성의 `$ref`가 풀리도록). 루트 `anyOf/oneOf/allOf`는 Anthropic이 400으로 거부해서 계속 뺀다(주석). CHANGELOG의 "MCP 서버 도구에서 `$defs`가 빠져 잘못된 인자가 만들어지던 문제"가 이 변경이다.
+- 이 루프는 스레드 요청의 `sendThreadRequest`를 감싼다. 즉 스레드 폴백과 strict 폴백이 같은 `for` 안에서 각자 한 번씩 동작할 수 있다. 순서는 코드상 스레드 폴백이 안쪽이다.
+
+### 12.3 도구 변경: 이름 참조가 아니라 정의를 값으로 보낸다 (이미 2026-10-06 메모에 있던 내용의 현재 코드)
+`convertMessages`는 `convertToolDefinitions` 콜백을 받아 `toolsAdded`마다 `{ type: "tool_addition", tool: { type: "tool_definition", definition } }`을 만든다. `toolsRemoved` 중 같은 턴에 다시 정의된 이름은 제거 블록을 생략한다(`:1650-1665`). 요청 수준 도구 목록은 `[초기 도구..., DEFERRED_TOOL_PLACEHOLDER]`로 고정이다(`:1531`). `hasToolRedefinitions`, `getDeclaredTools`는 이 파일의 import에서 사라졌다(`:57-60`).
+
+### 12.4 OpenRouter 청구 비용
+`message_delta`의 `usage`에 OpenRouter가 실제 청구 필드를 런타임에 추가하는데 SDK 타입에는 없다. `isOpenRouterModel(model) && event.usage`이면 `applyOpenRouterReportedCost(output.usage, ...)`로 카탈로그 추정 대신 보고된 비용을 쓴다(`:1130-1137`). `calculateCost`(02 §7)가 `totalFromProvider = false`로 표시한 값을 이것이 덮어쓰는 구조로 보이나(`추론`) `utils/openrouter-cost.ts`는 읽지 않았다.
+
+### 12.5 대화 중간 시스템 메시지 위치
+`convertMessages`는 이전에 assistant 메시지를 만나면 보류한 시스템 메시지를 바로 내보냈다. 지금은 **assistant 메시지가 실제 블록을 가질 때(`blocks.length > 0`)만** 내보낸다(`:1751`, `if (blocks.length === 0) continue;` 다음). 블록이 0개라 건너뛴 assistant 메시지 때문에 시스템 갱신이 user 메시지 앞에 붙는 문제(#11091)를 막는다.
+
+### 12.6 `providerThinkingLevel`
+이전에는 `output`을 만들 때 `model.compat?.supportsMidConvoEffort ? (options?.effort ?? "high") : undefined`로 넣었다. 지금은 `buildParams`가 `providerThinkingLevel`을 돌려주고(`effortMessages`일 때만 `activeEffort`) `stream`이 `if (built.providerThinkingLevel) output.providerThinkingLevel = ...`로 설정한다(`:901`). 위 §4.7처럼 `thinking`을 끈 요청에는 effort 표시가 없으므로 이 값도 없다.

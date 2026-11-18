@@ -4,11 +4,29 @@
 
 - **Repo URL**: `https://github.com/earendil-works/pi.git`
 - **분석 Commit SHA**: `4259686d9290c0d73ae7192b796aee3e530a9779` (구조도·Q1~Q8 기준). **`ai` 패키지 상세 분석은 최신 `3874b3e98983c70fa05fa193b675d42cfcb8b9f8`(2026-10-02) 기준** — [`ai/`](./ai/) 참고
-- **분석 일자**: `2026-09-29`
+- **분석 일자**: `2026-09-29` (2026-11-17에 `repos/pi`를 `4afe78de`, v1.5.2로 최신화하고 변경점을 §1.1에 정리)
 - **작업트리 상태**: `clean`
 - **분석 목적**: `미정 (사용자 확인 필요)`
 - **메타데이터**: [`artifacts/pi/repo-metadata.txt`](../../artifacts/pi/repo-metadata.txt)
 - **외부 baseline**: DeepWiki snapshot `artifacts/pi/deepwiki/`, commit `406a221` (2026-06-11) 기준, **HEAD보다 2069 commits 뒤처짐**. 당시 코드 기준은 [`repo-metadata.2026-06-11-deepwiki-baseline.txt`](../../artifacts/pi/repo-metadata.2026-06-11-deepwiki-baseline.txt)에 보관
+
+### 1.1 최신화 이력과 달라진 점 (2026-11-17, `3874b3e98` → `4afe78de`)
+
+- 범위: 1364 커밋, 4100개 파일 변경(추가 3051, 삭제 210, 수정 804, 이름 변경 38). 패키지 버전은 전부 `1.5.2`(`packages/*/package.json`, `코드 확인`). 변경량은 `packages/chord`(1069), `apps/p2`(1114), `packages/coding-agent`(511)가 크다.
+- 기준 SHA는 문서마다 다르다. `ai`·`agent` 문서는 각 문서 머리의 "2026-11-17 갱신 메모"에 바뀐 점과 아직 재확인하지 않은 것을 적었다. 본문 줄 번호는 이전 SHA 기준이라 어긋날 수 있다.
+
+| 항목 | 이전 기준 | 지금(`4afe78de`) | 검증 |
+|---|---|---|---|
+| 패키지 목록 | 14개(`protocol`·`client`·`server`·`session-backends` 포함) | 12개: `agent ai chord codemode coding-agent durable env evals mcp schema telemetry tui`. `protocol`·`client`·`server`는 `7472cda0d`("remove the experimental server stack")로 삭제(각 17·19·29파일). `schema`(JSON Schema 검증)와 `env`(SSH로 배포하는 원격 실행 daemon)가 새로 생겼다 | 코드 확인 |
+| 앱 | 없음 | `apps/p2`, `apps/p2-mac`(Swift), `apps/p3`("the successor of p2 on Chord v2"). 역할은 package.json·README 한 줄만 읽었고 내부는 미확인 | 추론 |
+| coding-agent 의존 | `ai`·`agent`·`tui`·`chord`·`codemode`·`mcp` + devDependency로 원격 3종 | `agent-core`·`ai`·`codemode`·`mcp`·`tui` 5개(`packages/coding-agent/package.json:44-48`). `chord`가 빠졌다 | 코드 확인 |
+| TypeBox | `ai`가 `Type`·`Static` re-export, `agent`가 `typebox` 의존 | 둘 다 TypeBox 없음. 도구 인자는 `pi-schema`로 검증하고 `Tool.parameters`는 임의의 JSON Schema 객체(v1.5.0 Breaking) | 코드 확인(`agent/package.json:27`), CHANGELOG |
+| agent 중단 처리 | 중단 시 남은 도구 호출에 `toolResult`가 없을 수 있음 | 모든 호출이 `"Operation aborted"` 결과를 받음(`4438c58ba`) | 코드 확인 |
+| agent 신규 | — | `identity`(provider attribution), 도구 실행 시간 `durationMs`, 프록시의 `ToolCallArgumentsStream` | 코드 확인 |
+| ai 신규 | — | Anthropic message threads, `disableContinuation`, 캐시 워밍 helper(`cache-warming.ts`), lazy OAuth·Bedrock 등록, Claude Fable 5.2, Microsoft-Decision-1 분류기, `catalog/` 기반 모델 카탈로그 생성(models.dev v2) | CHANGELOG 기준, 구현 코드는 미확인 |
+| ai 삭제 | — | `azure-openai-responses.*`(→ `azure.*`), `utils/pi-user-agent.ts`, `utils/assistant-message-frame.ts`, `scripts/generate-models.ts`, `bedrock-provider.{js,d.ts}` | 코드 확인 |
+
+- 이번에 **다시 읽지 않은 것**: `coding-agent`(222개 src 변경, 분석 시작 전이라 문서 없음), `chord`, `durable`, `tui`, `mcp`, `codemode`의 변경, `ai` 구현 본문(CHANGELOG와 파일 목록만 확인). 아래 §2 패키지 표와 §3 다이어그램(`structure.json` 등)은 이전 SHA 기준이라 `protocol`·`client`·`server` 노드가 남아 있다.
 
 ---
 
@@ -34,6 +52,9 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 | `mcp` | pi-mcp | standalone MCP client | X (신규) |
 | `telemetry` | pi-telemetry | vendor-neutral telemetry 계약·스키마 | X (신규) |
 | `evals` | pi-evals | (설명 없음) | X (신규) |
+
+> [!NOTE]
+> 2026-11-17 기준 `protocol`·`client`·`server`·`session-backends`는 삭제됐고 `schema`·`env`가 추가됐다(§1.1). 이 표는 이전 SHA 기준이다.
 
 > [!WARNING]
 > DeepWiki는 4개 패키지 시절 기준이다. 신규 10개 패키지(원격 세션·durable·codemode 등)는 DeepWiki로 커버되지 않으므로 local 코드로만 파악한다.
@@ -114,6 +135,7 @@ GitHub 설명: "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent
 
 다이어그램을 탐색하며 도출된 질문과 코드 기반 검증 보고서 링크입니다.
 
+- [Q9: 테스트 제외 소스 코드 줄 수](./questions/q9-source-line-count.md) - *현재 checkout의 src 기준 약 29.5만 줄, ai·agent·coding-agent는 약 11.4만 줄*
 - [Q1: 패키지 지도와 학습 순서](./questions/q1-package-map-and-learning-order.md) - *pi-ai → agent-core → coding-agent를 아래부터, chord·원격·durable은 실험 트랙이라 마지막*
 - [Q2: HarnessLens 기획서의 pi 주장 검증](./questions/q2-harnesslens-pi-claims-check.md) - *기능 주장은 대부분 사실. 단 하위 디렉터리 AGENTS.md는 자동 로드 안 됨, 차단은 RPC가 아닌 extension `tool_call`로만 가능*
 - [Q3: RPC prompt 흐름과 RPC의 정체](./questions/q3-rpc-prompt-flow.md) - *RPC는 패키지가 아닌 coding-agent의 입출력 adapter. 조립은 AgentSession/createAgentSession이 담당*

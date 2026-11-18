@@ -8,6 +8,8 @@
 
 > [!NOTE]
 > **2026-10-06 갱신** (`3874b3e98` → `28dcce2ba` diff 반영): 콜백 서버 실패 처리와 `samplingParams` 합성이 바뀌었다(아래 §7 단계 3, `samplingParams` 행, 맨 끝 부록). 이 파일의 다른 줄 번호는 diff가 작아 대체로 유효하나 전수 재확인은 하지 않았다.
+>
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de` 기준으로 `api/openai-responses.ts`(415 → 455줄)와 `openai-responses-shared.ts`(809 → 891줄)의 전체 diff를 읽고 대조했다(실행 없음, `코드 확인`). 바뀐 것: ① 도구 인자를 `ToolCallArgumentsStream`으로 모음(`partialJson`·`customInput` 임시 필드 제거, §5.1, §6) ② `configuration_update`로 추론 수준을 보내는 새 경로(§4.8) ③ 도구 변경 지원 방식 `getResponsesToolSupport`(§4.6) ④ 세션 헤더 `session_id` → `session-id`, `User-Agent` → client identity(§4.1) ⑤ `promptCacheKeyMode`(§4.7), `supportsMidConvoEffort`(§4.2) ⑥ ChatGPT Business 한도 안내(§6). **본문의 줄 번호는 이전 SHA 기준이고 +10~100줄 밀렸다.** 현재 위치: `isChatGPTSignIn` `openai-responses.ts:49`, `getCompat` `:91`, `getPromptCacheRetention` `:125`, `OpenAIResponsesOptions` `:145`, `stream` `:155`, `streamSimple` `:275`, `createClient` `:295`, `buildParams` `:340`; 공용 `getResponsesToolSupport` `:167`, `convertResponsesMessages` `:192`, `convertResponsesTools` `:439`, `processResponsesStream` `:503`, `mapStopReason` `:861`. `openai-chatgpt.ts`(§7)는 diff가 `04-auth §6.3`과 같고 이 문서의 §7 서술은 아래 부록과 함께 유효하다.
 
 ## 0. 이 문서의 위치: 왜 이것이 "현재 경로"인가
 `openai` provider(OpenAI 본사 모델)는 이 통신 코드를 쓴다(`providers/openai.ts`).
@@ -137,13 +139,13 @@ Claude의 `streamSimple`(adaptive와 예산 두 갈래)보다 단순하다. `rea
 ### 4.1 인증과 클라이언트
 - **`getClientApiKey`** (`:58-62`): `apiKey`가 있으면 그것, 없는데 `Authorization`이나 `cf-aig-authorization` 헤더가 있으면 `"unused"`(SDK에 넘길 자리 채우기), 둘 다 없으면 `"No API key for provider: ..."`를 던진다. 이 키는 04-auth에서 본 `applyAuth`의 결과다. **ChatGPT 구독 로그인이면 이 자리에 OAuth `access` 토큰이 들어온다**(04 §5.1, §7).
 - **`createClient`** (`:258-300`): `new OpenAI({ apiKey, baseURL: model.baseUrl, dangerouslyAllowBrowser: true, fetch, defaultHeaders })`. 헤더는 아래 순서로 만들고 뒤의 것이 앞을 덮어쓴다.
-  1. `User-Agent`(pi 정보), 모델의 `headers`
+  1. **[2026-11-17]** `getIdentityHeaders(model, options.identity)`(client identity: `User-Agent`와 provider별 attribution 헤더, 04/05 참고), 모델의 `headers`. 이전에는 `{ "User-Agent": getPiUserAgent(), ...model.headers }`였다(`createClient`가 인자 `identity`를 추가로 받음, `:299`, `:309`)
   2. GitHub Copilot이면 동적 헤더(`:268-275`)
-  3. 세션 ID가 있으면 세션 친화 헤더(`:277-286`): 형식이 `openrouter`이면 `x-session-id`, 아니면 `x-client-request-id`(형식이 `openai`이면 `session_id`도)
+  3. 세션 ID가 있으면 세션 친화 헤더(`:277-286`): 형식이 `openrouter`이면 `x-session-id`, 아니면 `x-client-request-id`(형식이 `openai`이면 **`session-id`**도). **[2026-11-17]** OpenAI 형식의 헤더 이름이 `session_id`에서 문서화된 `session-id`로 바뀌었다(`:317-322`, CHANGELOG #11639)
   4. 호출자의 `options.headers`(`:288-291`)
 
 ### 4.2 compat (`getCompat`, `:82-95`)
-`model.compat`에서 값을 읽고 없으면 기본값을 쓴다. 이 파일이 쓰는 값은 10개다.
+`model.compat`에서 값을 읽고 없으면 기본값을 쓴다. 이 파일이 쓰는 값은 12개다(**[2026-11-17]** `promptCacheKeyMode`, `supportsMidConvoEffort` 추가, `getCompat` `:91-105`).
 | 값 | 기본값 | 쓰이는 곳 |
 |---|---|---|
 | `supportsDeveloperRole` | `true` | (공용 변환기가 `developer`/`system` 선택, §4.5) |
@@ -155,6 +157,8 @@ Claude의 `streamSimple`(adaptive와 예산 두 갈래)보다 단순하다. `rea
 | `supportsAdditionalTools`, `supportsToolSearch` | `false` | 대화 중 도구 추가 방식 |
 | `supportsExplicitPromptCacheMode` | `false` | 캐시 옵션 형식(§4.7) |
 | `supportsMaxOutputTokens` | `true` | `max_output_tokens`를 보낼지 |
+| `promptCacheKeyMode` (**새로**) | `"auto"` | `"disabled"`이면 `prompt_cache_key`를 보내지 않음(§4.7). `"enabled"`는 호환 프록시용으로 강제 전송 의도(CHANGELOG), 이 파일에서 `"enabled"`와 `"auto"`가 어떻게 다른지는 `sendPromptCacheKey` 식이 둘을 구분하지 않아 `미확인` |
+| `supportsMidConvoEffort` (**새로**) | `false` | `true`이고 `reasoningEffort`가 있고 ChatGPT 구독 로그인이 아니면 추론 수준을 `configuration_update` 항목으로 보낸다(§4.8) |
 
 03-3 §6에서 본 `openai-completions`의 compat 자동 감지(`detectCompat`)와 달리, 이 파일은 **서버를 이름으로 구분해서 기본값을 바꾸지 않고**(세션 헤더 형식만 주소로 구분) 대부분 모델 데이터의 `compat`에 맡긴다.
 
@@ -173,13 +177,14 @@ Claude의 `streamSimple`(adaptive와 예산 두 갈래)보다 단순하다. `rea
 | `tools` | `convertResponsesTools(...)` | `:352-357` | 도구가 있을 때 (§4.6) |
 | `tool_choice` | 주어졌을 때만 | `:359-361` | |
 | `reasoning`, `include` | 아래 | `:363-379` | |
-| `samplingParams` | `resolveSamplingParams(model, 추론수준, options.samplingParams)`의 결과를 덮어씀 | `:383-386`, 함수는 `simple-options.ts:24-34` | **마지막**에 적용되어 앞의 이름 있는 필드를 덮어쓴다. 우선순위는 `model.samplingParams` < **`model.samplingParamsByThinkingLevel[실제 적용 추론수준]`** < 호출 옵션(`...` 스프레드 순서). 추론 수준은 `clampThinkingLevel`로 모델이 지원하는 값으로 맞춘 것. (이전 commit에는 추론 수준별 항목이 없었다) |
+| `samplingParams` | `resolveSamplingParams(model, 추론수준, options.samplingParams)`의 결과를 덮어씀 (**[2026-11-17]** 추론 수준은 `reasoningEffort ?? "off"`로 `buildParams` 안에서 직접 계산, `:419-422`) | 현재 `:419-422`, 이전 `:383-386`, 함수는 `simple-options.ts:24-34` | **마지막**에 적용되어 앞의 이름 있는 필드를 덮어쓴다. 우선순위는 `model.samplingParams` < **`model.samplingParamsByThinkingLevel[실제 적용 추론수준]`** < 호출 옵션(`...` 스프레드 순서). 추론 수준은 `clampThinkingLevel`로 모델이 지원하는 값으로 맞춘 것. (이전 commit에는 추론 수준별 항목이 없었다) |
 
-**추론 설정** (`:363-379`)
+**추론 설정** (`:363-379`, **[2026-11-17]** 현재 `:398-416` 근처)
 ```
 model.reasoning 이 true 이면
     reasoningEffort 또는 reasoningSummary 가 있으면
         effort = reasoningEffort 가 있으면 thinkingLevelMap[reasoningEffort] ?? reasoningEffort, 없으면 "medium"
+        [2026-11-17] configurationUpdateEffort 가 있으면 effort = "medium"로 고정 (CONFIGURATION_UPDATE_REQUEST_EFFORT, §4.8)
         reasoning = { effort, summary: reasoningSummary || "auto" }
         include = ["reasoning.encrypted_content"]          ← 암호화된 추론 내용을 받아서 다음 요청에 되돌려 보내기 위함
     아니고, provider 가 github-copilot 이 아니고 thinkingLevelMap.off 가 null 이 아니면
@@ -198,7 +203,8 @@ function isChatGPTSignIn(model, apiKey) {
 ```
 이 토큰이면 `omitUnsupportedFields`가 `true`가 되어 `prompt_cache_retention`, `prompt_cache_options`, `max_output_tokens`, `temperature`를 **요청에서 뺀다**(주석: "Sign in with ChatGPT rejects these request fields", `:328`). 즉 **같은 `openai` provider, 같은 통신 코드라도 API 키로 부를 때와 ChatGPT 로그인으로 부를 때 요청 필드가 다르다.** 구분 기준이 토큰 접두사라는 점은 코드로 확인했고, 실제 로그인 토큰이 `sk-`로 시작하지 않는지는 확인하지 못했다(`미확인`).
 
-### 4.5 대화 변환: `convertResponsesMessages` (공용 `:145-354`)
+### 4.5 대화 변환: `convertResponsesMessages` (공용 `:145-354`, **[2026-11-17]** 현재 `:192-`)
+> **[2026-11-17 변경]** ① 도구 결과 텍스트가 **공백뿐이면** 텍스트가 없는 것으로 본다(`textResult.trim().length > 0`, `convertToolResultOutput`). ② 이전 AI 답변 앞에 `configuration_update` 항목을 끼우는 경로가 생겼다(§4.8). ③ 도구 변경 표현이 바뀌었다(§4.6).
 pi의 `Message`를 Responses의 `input` 항목 배열로 바꾼다. Responses 계열(이 파일, `azure-openai-responses`, legacy Codex)이 공용으로 쓴다.
 | pi 메시지 | Responses `input` 항목 | 비고 |
 |---|---|---|
@@ -217,12 +223,34 @@ pi의 `Message`를 Responses의 `input` 항목 배열로 바꾼다. Responses �
 - 일반 도구: `{ type: "function", name, description, parameters, strict? }`. `strict`는 `supportsStrictMode`가 `true`일 때만 넣는다(`:392-394`). 이 파일의 `getCompat` 기본값은 `false`다(§4.2).
 - 문법으로 제약한 도구(`supportsOpenAIGrammarTools` 켜짐): `{ type: "custom", name, description, format: { type: "grammar", syntax, definition } }` (`:366-379`). Responses는 `name`과 `description`이 도구 객체 바로 아래에 있다. 03-3에서 본 Chat Completions는 `function: { name, ... }`로 한 겹 더 감싼다(`openai-completions.ts:1498-1507`).
 
+
+#### 4.6.1 [2026-11-17] 도구 변경을 어떻게 표현하나: `getResponsesToolSupport` (`openai-responses-shared.ts:167-175`)
+대화 도중 도구가 바뀔 때(02 §4의 시스템 메시지 `toolsAdded`/`toolsRemoved`) Responses 계열은 compat에 따라 세 가지 중 하나를 쓴다. 이전 코드는 `supportsAdditionalTools || supportsToolSearch`인지 불리언 하나만 봤다.
+| 반환값 | 조건 | 의미 |
+|---|---|---|
+| `"changes"` | `supportsMidConvoSystemMessages && supportsAdditionalTools` | **모든 도구**를 `additional_tools` 항목으로 선언한다(첫 항목은 입력 맨 앞). 요청 최상위 `tools`는 비운다(`resolveTranscriptTools`가 `requestTools: []`, `transcript.ts:257`). 이후 항목은 같은 이름의 정의를 덮어쓴다. 제거는 항목으로 못 하므로 **텍스트로 알린다** |
+| `"additions"` | 위가 아니고 `supportsToolSearch` | 합성 tool search 결과로 도구를 추가만 한다(제거 불가) |
+| `"none"` | 그 외 | 최상위 `tools`에 현재 목록만 보낸다 |
+- 근거(주석 `:156-166`, 2026-10 OpenAI·Codex·Copilot 백엔드에서 strict 스키마로 검증했다고 함, **우리는 검증하지 않음**): `additional_tools`는 누적되고 같은 이름 정의를 대체하지만 최상위 도구를 대체하거나 도구를 제거하지는 못한다. 그래서 Codex처럼 모든 도구를 `additional_tools`로 선언하고 제거는 글로 알린다.
+- 두 번째 이후 `additional_tools` 항목 앞에는 안내문(`renderIncrementalToolsNotice`)이 붙는다: "이것은 증분 도구 갱신이다. 이전에 선언한 도구는 명시적으로 사용 불가로 표시되지 않는 한 계속 쓸 수 있다…". 제거가 한 번이라도 알려지면 모델이 마지막 항목을 전체 도구 집합으로 읽는 문제와, 작은 모델(`gpt-5.6-luna`, `gpt-6-luna`)이 사라진 도구를 다시 호출하는 문제를 막으려는 것이다(주석, 2026-10 검증이라 함). 사용 불가 목록을 `Still unavailable: a, b.`로 덧붙인다.
+- 제거 알림(`renderToolRemovalNotice`): "The following tools are no longer available. Do not call them:" + 목록. 같은 메시지에서 다시 추가된 이름은 "제거 + 추가"이므로 알리지 않는다(재정의, `:283-297`).
+- `convertResponsesMessages`의 시스템 메시지 처리는 `transcriptTools.foldedSystemMessages`보다 앞의 시스템 메시지는 도구 변경을 이미 최상위 `tools`가 품고 있다고 보고 건너뛰고(`anchorsToolChanges`), 그 뒤 메시지부터 제자리에서 처리한다(`:281-297`).
+- `transcript.ts` 본문은 이 갱신에서 `resolveTranscriptTools` 앞부분만 읽었다(`미확인`).
+
 ### 4.7 프롬프트 캐시 (`:97-114`, `:334-336`)
-- `prompt_cache_key`: 세션 ID(`clampOpenAIPromptCacheKey`). 캐시 보존이 `none`이면 보내지 않는다.
+- `prompt_cache_key`: 세션 ID(`clampOpenAIPromptCacheKey`). **[2026-11-17]** 캐시 보존이 `none`이거나 `compat.promptCacheKeyMode === "disabled"`이면 보내지 않는다(`sendPromptCacheKey`, `:362`, `:369`). 키를 거부하는 엔드포인트용이다(CHANGELOG #9442).
 - 일반 모델: 보존이 `long`이고 `supportsLongCacheRetention`이며 `supportsExplicitPromptCacheMode`가 아니면 `prompt_cache_retention: "24h"`.
 - 명시 캐시 모드를 지원하는 모델(GPT-5.6 이상, `types.ts:886` 주석): 보존이 `none`이면 `prompt_cache_options: { mode: "explicit" }`, `long`이면 `{ ttl: "30m" }`.
 
-## 5. 응답 해석: `processResponsesStream` (공용 `openai-responses-shared.ts:433-777`)
+### 4.8 [2026-11-17] 추론 수준을 `configuration_update`로 보내는 경로
+**문제**: 대화 도중 추론 수준(`reasoning.effort`)을 바꾸면 요청의 앞부분이 달라져 프롬프트 캐시가 깨진다.
+**해법**(`openai-responses-shared.ts:133-143`의 주석, `openai-responses.ts:107-122`): `compat.supportsMidConvoEffort`이고 `reasoningEffort`가 있고 **ChatGPT 구독 로그인이 아니면**(구독 로그인은 `configuration_update`를 거부한다, 주석) `getConfigurationUpdateEffort`가 effort를 돌려준다(`thinkingLevelMap[effort] ?? effort`). 그러면:
+- `reasoning.effort`는 항상 `"medium"`으로 고정한다(`CONFIGURATION_UPDATE_REQUEST_EFFORT`, `:43`, `:404`). 최상위 값이 바뀌지 않으니 캐시가 유지된다.
+- `convertResponsesMessages`가 입력 안에 `{ type: "configuration_update", reasoning: { effort } }` 항목을 끼운다: **이전 AI 답변마다 그 앞에** 그 답변에 기록된 `providerThinkingLevel`로 하나(같은 모델이고 값이 있을 때만, `:402-408`), 그리고 **입력 맨 끝에** 이번 답변용 effort로 하나(`:430`). 이전 입력은 바뀌지 않는다.
+- 이번 응답의 `output.providerThinkingLevel`에도 이 effort를 기록해서(`:172-175`) 다음 요청이 "그 답변은 어떤 수준으로 만들어졌나"를 재생할 수 있게 한다. Claude 쪽 `providerThinkingLevel`(03-1 §12.6)과 같은 역할이다.
+- 주석: OpenAI 문서는 이 항목을 사용자 메시지 앞에서만 설명한다. 도구 결과 뒤에 두는 것은 `gpt-6-luna`에서 2026-10에 받아들여지고 다음 답변에 적용되는 것을 확인했다고 한다. 우리가 확인한 것은 아니다(`미확인`).
+
+## 5. 응답 해석: `processResponsesStream` (공용 `openai-responses-shared.ts:433-777`, **[2026-11-17]** 현재 `:503-`)
 
 ### 5.1 이벤트 변환 표
 SDK가 준 `ResponseStreamEvent`를 하나씩 받아서 `output`을 채우고 `stream.push`한다(`:599-758`).
@@ -233,16 +261,16 @@ SDK가 준 `ResponseStreamEvent`를 하나씩 받아서 `output`을 채우고 `s
 | `response.reasoning_summary_text.delta`, `response.reasoning_text.delta` | thinking에 덧붙임 | `thinking_delta` |
 | `response.reasoning_summary_part.done` | thinking에 `"\n\n"` 추가 (요약 문단 구분) | `thinking_delta` |
 | `response.output_text.delta`, `response.refusal.delta` | text에 덧붙임 (거절 문구도 글로 취급) | `text_delta` |
-| `response.function_call_arguments.delta` | 인자 JSON 조각을 모으고 `parseStreamingJson`으로 해석해 `arguments` 갱신 | `toolcall_delta` |
-| `response.function_call_arguments.done` | 최종 인자로 교체. 앞서 모은 것과 접두사가 같으면 **남은 조각이 있을 때만** `delta`로 push | `toolcall_delta` (남은 조각이 있을 때) |
-| `response.custom_tool_call_input.delta/done` | 문법으로 제한된 도구의 입력을 모음 | `toolcall_delta` |
-| `response.output_item.done` | 블록 완성. 추론은 요약 글과 서명(원본 항목 JSON), 글은 서명(`textSignature`), 도구 호출은 인자 확정하고 임시 필드 제거 | `thinking_end` / `text_end` / `toolcall_end` |
+| `response.function_call_arguments.delta` | 인자 JSON 조각을 **그 슬롯의 `ToolCallArgumentsStream`**에 `append`하고 돌려준 부분 인자로 `arguments` 갱신 (**[2026-11-17]** 이전: `partialJson` 이어붙임 + `parseStreamingJson`) | `toolcall_delta` |
+| `response.function_call_arguments.done` | 최종 인자로 교체. **[2026-11-17]** `ToolCallArgumentsStream.replace(event.arguments)`가 앞서 모은 텍스트로 시작하면 남은 조각을 `delta`로, 아니면 처음부터 다시 시작한다. 남은 조각이 있을 때만 push | `toolcall_delta` (남은 조각이 있을 때) |
+| `response.custom_tool_call_input.delta/done` | 문법으로 제한된 도구의 입력을 모음. **[2026-11-17]** 상태는 슬롯의 `{ kind: "custom", property, buffer, unsent }`(`customInput`/`appendCustomInput`/`closeCustomInput`, `:833-`)로 옮겼고, 첫 delta에는 `item.input`의 초기 입력(`unsent`)을 함께 보낸다 | `toolcall_delta` |
+| `response.output_item.done` | 블록 완성. 추론은 요약 글과 서명(원본 항목 JSON), 글은 서명(`textSignature`), 도구 호출은 인자 확정 (**[2026-11-17]** `Object.assign(block, stream.finish())`로 한 번 완전 파싱, 깨졌으면 `argumentsError`. 임시 필드는 처음부터 블록에 없고 `unfinishedToolCalls`에서만 뺀다) | `thinking_end` / `text_end` / `toolcall_end` |
 | `response.completed`, `response.incomplete` | 사용량 계산, 종료 사유 변환 (§5.3) | (없음) |
 | `error`, `response.failed` | 예외를 던짐 | |
 
 - OpenAI는 블록 번호를 **`output_index`**(응답 항목 순번)로 주고, 이 함수는 `outputSlots`라는 표(`output_index` → 블록)로 관리한다(`:441`, `:464-533`). `contentIndex`는 Claude, completions와 같이 `output.content` 배열 위치다.
 - **Claude, completions와 달리 블록이 끝나는 즉시 `*_end`를 낸다**(`response.output_item.done`마다). 03-3 §4.2에서 본 completions는 스트림이 끝난 뒤 한꺼번에 낸다.
-- `thinkingSignature`에는 **추론 항목 원본을 JSON 문자열로** 저장한다(`:692`). 요청에 되돌릴 때 §4.5에서 그대로 `JSON.parse`해서 쓴다. Azure 같은 서버는 `output_item.done`에 `encrypted_content`를 빼고 `response.completed`에만 담는 경우가 있어서, 종료 때 빠진 서명을 채우는 코드가 있다(`backfillReasoningSignatures`, `:534-551`, 이슈 #6409).
+- `thinkingSignature`에는 **추론 항목 원본을 JSON 문자열로** 저장한다(`:692`). 요청에 되돌릴 때 §4.5에서 그대로 `JSON.parse`해서 쓴다. Azure 같은 서버는 `output_item.done`에 `encrypted_content`를 빼고 `response.completed`에만 담는 경우가 있어서, 종료 때 빠진 서명을 채우는 코드가 있다(`backfillReasoningSignatures`, 이전 `:534-551`, 현재 `:610-`, 이슈 #6409).
 
 ### 5.2 실험: 가짜 이벤트로 변환 과정 확인 (`실행 확인`)
 `:433-809`를 줄 범위 그대로 복사하고(`parseStreamingJson`만 `partial-json`이 설치되어 있지 않아 간단히 대체, `calculateCost`와 `AssistantMessageEventStream`은 실제 파일을 사용) 서버가 보낸 것처럼 만든 이벤트 15개를 넣었다. 스크립트는 `artifacts/pi/ai-demos/responses-stream-demo.ts`, 출력은 `responses-stream-demo.2026-10-05.log`다. 입력 이벤트는 형식을 보이려는 예시이고 실제 서버 응답이 아니다.
@@ -282,8 +310,9 @@ SDK가 준 `ResponseStreamEvent`를 하나씩 받아서 `output`을 채우고 `s
 - 종료 이벤트가 하나도 없이 스트림이 끝나면 "OpenAI Responses stream ended before a terminal response event"로 실패한다(`:760-762`).
 
 ## 6. 오류 처리
-- 큰 틀은 03-1과 같다(`:214-232`): `catch`에서 임시 필드를 지우고(`index`, `partialJson`, `customInput`), 취소 신호가 있으면 `aborted`, 아니면 `error`로 정하고, `errorMessage`를 담아 `error` 이벤트를 push한 뒤 `end()`한다. 예외를 밖으로 던지지 않는다.
+- 큰 틀은 03-1과 같다(`:214-232`): `catch`(**[2026-11-17]** 임시 필드를 지우는 단계는 없어졌다. 블록에 임시 필드가 없으므로)에서 취소 신호가 있으면 `aborted`, 아니면 `error`로 정하고, `errorMessage`를 담아 `error` 이벤트를 push한 뒤 `end()`한다. 예외를 밖으로 던지지 않는다.
 - 오류 문구: `formatProviderError(normalizeProviderError(error), "<provider> API error")`. provider가 `openai`이면 이름을 `OpenAI`로 쓴다(`:222-225`). 두 함수(`utils/error-body.ts`)는 읽지 않았다(`미확인`).
+- **[2026-11-17] ChatGPT Business 워크스페이스 한도**: 오류 문구에 `subscription_sharing_workplace_individual_usage_limit_exceeded`가 있으면 "You've reached your ChatGPT workspace's usage limit. Ask your workspace admin to increase it at admin.openai.com → Workspace → Usage limits."를 덧붙인다(`CHATGPT_WORKSPACE_LIMIT_HINT`, `:40-41`, `:259-266`). 05 §2.2의 재시도 불가 패턴과 짝이다.
 - **ChatGPT 구독 한도 안내** (`:226-229`): 오류 문구에 `subscription_sharing_usage_limit_exceeded`가 들어 있으면 "Check your ChatGPT usage: https://chatgpt.com/settings/usage"를 덧붙인다(`CHATGPT_USAGE_URL`, `:34`). 구독 로그인으로 쓰다가 한도가 찼을 때의 처리다. `CHANGELOG.md`에도 "Subscription usage-limit errors are not retried and link to the ChatGPT usage page; temporary usage errors are retried"라고 적혀 있다. 재시도 규칙은 `utils/provider-retry.ts`에 있고 아직 읽지 않았다(`미확인`).
 
 ## 7. ChatGPT 구독 로그인: `auth/oauth/openai-chatgpt.ts` (현재 경로의 로그인)
