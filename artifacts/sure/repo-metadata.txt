@@ -1,0 +1,9 @@
+repo_dir=repos/sure
+name=sure
+date=2026-11-17
+commit=1cd94e66182e276d9cd5ceab9c4ad8e6646cac1a
+commit_date=2026-11-16T17:21:30-08:00
+origin=https://github.com/we-promise/sure
+worktree=clean
+license=AGPL-3.0 (LICENSE, repo root); mobile/assets/icons/lucide/LICENSE (별도, 아이콘)
+note=Maybe Finance(archived) 커뮤니티 fork. tracked files 8214

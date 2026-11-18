@@ -1118,6 +1118,9 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 ## [2026-11-18] update | archify 커스텀 후보 기록
 - `visualization/reports/archify/next.md` 5.7 추가: 후보 A(explainer 본문 링크 확장), B(`@steps` 칸 구조화: 입력·참조·출력·처리·다음), C(지시문 재작성)와 손볼 곳·미확인. 사용자는 B를 후보로 두기로 했고 구현은 fork clone 이후.
 
+## [2026-11-18] capability | sure wave 1 draft 3개
+- `reports/sure/capabilities/account-balances.md`(R-01~R-52), `transactions.md`(R-01~R-75), `investments-securities.md`(R-01~R-69) 작성. 독립 검토자 3명이 전 R-ID를 대조해 불일치·누락을 찾았고(reverse opening anchor 날짜의 `end_balance` 어긋남, API `update`·`destroy` 쓰기 권한 부재, Yahoo 접미사·EODHD XKOS의 USD 오염 등) 작성자가 반영했다. 메인이 표본을 원본에서 확인하고 2.4 기록을 채웠다. provider-import-adapter U-01을 account-balances R-22·R-23·R-27로 해소. 미결정이 남아 모두 `draft`. `next.md`·`index.md` 갱신.
+
 ## [2026-11-18] query | explainer 페이지 간 링크 현황 확인
 - 설치본 `archify validate explainer`로 상대 `.html` 링크는 `explainer/inline-target` 오류, `https://` 절대 URL은 통과함을 확인(실행). `next.md` 5.7 후보 A에 사용처(`skills-analize/.../security-audit`의 상세 9페이지)와 확인 결과 추가.
 
@@ -1143,8 +1146,20 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 ## [2026-11-18] update | archify fork 변경 기록과 AI 반영 경로 확인
 - fork `fork/CHANGES.md` 추가(C1 `page:` 링크, C2 `@steps` 라벨 행, P1 삭제 목록, 쓰는 법·파일·확인·한계), `fork/FORK.md`에서 링크. 확인: `SKILL.md` 24행은 explainer 문법을 `references/explainer-authoring.md`로 위임하므로 SKILL.md는 고치지 않음. `skills-analize/EXPLAINER-PROMPT.md`는 설치본(`~/.agents/skills/archify`)의 문서(5행)와 CLI(230행)를 쓰고, 설치본에는 변경이 없어 `page:`를 거부함. 설치본 갱신 또는 프롬프트 경로 변경은 사용자 결정 대기.
 
+## [2026-11-18] update | sure wave 2 스펙 5개 작성과 독립 검토
+- `reports/sure/capabilities/`에 `transfer-matching`(R-36), `imports`(R-64), `transaction-classification`(약 70), `budgets`(R-38), `recurring-transactions`(R-65) 추가, 모두 `draft`. 작성자 5명 병렬 → 독립 검토자 5명 → 작성자 반영 → 메인 표본 점검(원본 직접 확인) → 2.4 검토 기록. `check.py` ERROR 0.
+- 검토에서 나온 중요 오류: 부재·전칭 주장(rake task·`FinancialDataReset` 호출처 누락), 실패 시 claim 범위, `publish` 재게시 방지 오류, 가격 변동 감지 귀결 범위, 시간대 주장(U-ID로 격하). `transactions` R-10의 "확정된 이체" 문구를 `pending` 포함으로 정정.
+- overview feature map 행 3·8·10·11·13을 `draft`로 바꾸고 진입점 보강. 사용자 결정: `Loan` 상환·이자 엔진은 별도 스펙 없이 참고용.
+
+
 ## [2026-11-18] update | archify fork push·설치와 my-skills 추적 해제
 - fork `custom`에 commit 2개(`bf29d3d6`, `1e3721b0`) push. 설치 방법 1(GitHub branch `--list`로 인식 확인)과 3(`fork/link-install.ps1`)을 마련하고 3을 적용해 `~/.agents/skills/archify`를 fork로 연결(백업 없음). `my-skills` `bc8df82` push(`upstream-review`에서 archify 제거와 이유 기록). `EXPLAINER-PROMPT.md` 수정은 사용자 결정 대기. `next.md` 5.7 기록.
 
 ## [2026-11-18] update | skills-analize EXPLAINER-PROMPT.md를 fork 기능에 맞춤
 - `skills-analize/EXPLAINER-PROMPT.md`(commit 안 함): 5행에 fork 설치본 설명과 `inline-target` 오류 시 확인법, `@steps` 라벨 행 규칙, 상세·개요 사이 `page:` 링크(같은 폴더만), 렌더 후 링크 확인 one-liner(통과·`MISSING` 두 경우 실행 확인), 색인은 다른 폴더 페이지의 입구로 역할 축소. 참조 문서 `explainer-authoring.md`에는 fork가 두 기능을 이미 반영(82행, 241행)했고 `SKILL.md`는 그 문서를 읽으라고만 안내해 그대로 둠.
+
+## [2026-11-18] update | sure wave 3 스펙 3개 작성과 독립 검토
+- `reports/sure/capabilities/`에 `goals`(R-40), `reports-insights`(R-64), `ai-assistant-tools`(R-113, 도구 49개) 추가, 모두 `draft`. 작성자 3명 병렬 → 독립 검토자 3명 → 작성자 반영 → 메인 표본 점검 → 2.4 기록. `check.py` ERROR 0.
+- 검토에서 나온 중요 오류: Plan 읽기 전용 주장, pledge 대조 우회 경로(Kraken), 숨김 위젯 복원 순서, 빈 응답 오류 조건, 도메인 R-ID 링크 오류(`account-balances` R-15). 이 스펙들이 `budgets` U-01(`IncomeStatement` 계약)과 U-02(`Goal.backing_within`)를 닫아 `budgets.md`를 정정(기타 투자 합이 항상 0).
+- overview feature map 행 12·14·15를 `draft`로. 사용자 결정: 가족 데이터 export·import(Sure NDJSON)는 제외. 승인 범위 14개 전부 작성 완료, 통합 검토가 남음.
+
