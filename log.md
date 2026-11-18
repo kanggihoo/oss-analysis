@@ -1114,3 +1114,37 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 
 ## [2026-11-17] capability | sure wave 0 공유 계약 3개 draft
 - `reports/sure/capabilities/money-currency-rules.md`(R-01~R-42), `sync-pipeline.md`(R-01~R-34), `provider-import-adapter.md`(R-01~R-74) 작성. 독립 검토자 3명이 전 R-ID를 대조해 구현을 막는 불일치를 찾았고(`stale` 덮어쓰기, 삭제된 syncable 분기, 3단 취소, "뉴욕 오늘" 미구현, `CreditCard` 분기 없음 등) 작성자가 반영했다. 메인이 표본을 원본에서 확인하고 2.4 기록을 채웠다. 미결정이 남아(U-01~U-03 / U-01~U-06 / U-01) 모두 `draft`. `reports/sure/next.md` 작성, `index.md` 갱신.
+
+## [2026-11-18] update | archify 커스텀 후보 기록
+- `visualization/reports/archify/next.md` 5.7 추가: 후보 A(explainer 본문 링크 확장), B(`@steps` 칸 구조화: 입력·참조·출력·처리·다음), C(지시문 재작성)와 손볼 곳·미확인. 사용자는 B를 후보로 두기로 했고 구현은 fork clone 이후.
+
+## [2026-11-18] query | explainer 페이지 간 링크 현황 확인
+- 설치본 `archify validate explainer`로 상대 `.html` 링크는 `explainer/inline-target` 오류, `https://` 절대 URL은 통과함을 확인(실행). `next.md` 5.7 후보 A에 사용처(`skills-analize/.../security-audit`의 상세 9페이지)와 확인 결과 추가.
+
+## [2026-11-18] update | archify fork clone 확인
+- `C:\Users\SSAFY\Desktop\archify`(origin=fork)를 확인: HEAD `44781293`, 분석 기준 `a7ed6fd`보다 4 commit 앞서며 변경은 docs·journal·website·llms.txt뿐이라 스킬 본체·explainer·viewer·schemas는 동일. `upstream` remote와 `custom` branch는 아직 없음, `node_modules` 미설치. `next.md` 5.3에 기록.
+
+## [2026-11-18] update | archify fork 개발 환경 준비와 후보 A 읽기
+- `C:\Users\SSAFY\Desktop\archify`: `custom` branch 생성, `upstream`(tt-a1i/archify) remote 추가·fetch(upstream/main과 `44781293` 동일), `npm ci --ignore-scripts`(devDependencies 17개), `npm run test:core` 19개 통과(90초, 기준선).
+- 후보 A 읽기: `check.mjs`는 상대 href를 막지 않고 `inline.mjs`의 `referenceFor`가 유일한 관문. `next.md` 5.7에 기록. 구현은 하지 않음.
+
+## [2026-11-18] update | archify 후보 A 구현 (fork custom branch)
+- `C:\Users\SSAFY\Desktop\archify`의 `custom` branch에 `[라벨](page:파일명.html)` 링크 종류 추가(`inline.mjs`, `explainer-authoring.md`, `test/explainer-inline.test.mjs`). 단위 6개·explainer 관련 63개 통과, 샘플로 `validate`·`finalize` 통과(`check:pass`). browser-check·전체 테스트는 미실행, fork에 commit 전. `next.md` 5.7 기록.
+
+## [2026-11-18] update | archify 후보 A를 security-audit 원고 10개에 적용해 확인
+- fork clone `work/security-audit/`에서 `page:` 링크 67곳으로 바꿔 10개 페이지 finalize 통과, 개요 browser-check 통과, 링크 대상 모두 존재. 클릭 이동은 사람 확인 대기. `next.md` 5.7 기록.
+
+## [2026-11-18] update | archify 후보 B 구현 (@steps 라벨 행)
+- fork `custom` branch: `**입력** … · **참조** …` 형태의 step detail을 라벨 행으로 렌더(`step-fields.mjs` 신규, `render.mjs`, `reader.css`, `explainer-authoring.md`, 테스트 신규). 테스트 71개 통과, `work/security-audit/candidate.archify.md` 원고 수정 없이 렌더·browser-check 통과. `next.md` 5.7 기록.
+
+## [2026-11-18] update | archify fork 정리와 운영 지침
+- fork `custom` branch에서 `journal/`·`integrations/`·`.agents/`·`community/`와 의존 테스트·스크립트 3개(추적 파일 127개)를 `git rm`으로 삭제(commit 전). `fork/prune.list`·`fork/prune.mjs`·`fork/FORK.md`(upstream 병합과 conflict 처리 지침) 추가. `.github/`는 CI 테스트 6개가 의존해 남김. 테스트 통과(`test:generated`, explainer 71, `test:core` 19), `test:full`은 중단. `next.md` 5.7 기록.
+
+## [2026-11-18] update | archify fork 변경 기록과 AI 반영 경로 확인
+- fork `fork/CHANGES.md` 추가(C1 `page:` 링크, C2 `@steps` 라벨 행, P1 삭제 목록, 쓰는 법·파일·확인·한계), `fork/FORK.md`에서 링크. 확인: `SKILL.md` 24행은 explainer 문법을 `references/explainer-authoring.md`로 위임하므로 SKILL.md는 고치지 않음. `skills-analize/EXPLAINER-PROMPT.md`는 설치본(`~/.agents/skills/archify`)의 문서(5행)와 CLI(230행)를 쓰고, 설치본에는 변경이 없어 `page:`를 거부함. 설치본 갱신 또는 프롬프트 경로 변경은 사용자 결정 대기.
+
+## [2026-11-18] update | archify fork push·설치와 my-skills 추적 해제
+- fork `custom`에 commit 2개(`bf29d3d6`, `1e3721b0`) push. 설치 방법 1(GitHub branch `--list`로 인식 확인)과 3(`fork/link-install.ps1`)을 마련하고 3을 적용해 `~/.agents/skills/archify`를 fork로 연결(백업 없음). `my-skills` `bc8df82` push(`upstream-review`에서 archify 제거와 이유 기록). `EXPLAINER-PROMPT.md` 수정은 사용자 결정 대기. `next.md` 5.7 기록.
+
+## [2026-11-18] update | skills-analize EXPLAINER-PROMPT.md를 fork 기능에 맞춤
+- `skills-analize/EXPLAINER-PROMPT.md`(commit 안 함): 5행에 fork 설치본 설명과 `inline-target` 오류 시 확인법, `@steps` 라벨 행 규칙, 상세·개요 사이 `page:` 링크(같은 폴더만), 렌더 후 링크 확인 one-liner(통과·`MISSING` 두 경우 실행 확인), 색인은 다른 폴더 페이지의 입구로 역할 축소. 참조 문서 `explainer-authoring.md`에는 fork가 두 기능을 이미 반영(82행, 241행)했고 `SKILL.md`는 그 문서를 읽으라고만 안내해 그대로 둠.
