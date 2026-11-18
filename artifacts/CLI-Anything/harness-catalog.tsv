@@ -1,0 +1,70 @@
+dir	package	registry_category	backend_tags(heuristic)	entry_point	description
+3MF	threemf	graphics	-	cli-anything-3mf	Mesh geometry editor for 3D printing files — detect and resize cylindrical holes, repair m
+QGIS	qgis	scientific	subprocess	cli-anything-qgis	Geospatial project authoring, layout export, and processing via PyQGIS and qgis_process
+adguardhome	adguardhome	network	http	cli-anything-adguardhome	DNS ad-blocking and network infrastructure management via AdGuardHome REST API
+anygen	anygen	generation	http	cli-anything-anygen	Generate docs, slides, websites and more via AnyGen cloud API
+audacity	audacity	audio	subprocess	cli-anything-audacity	Audio editing and processing via sox
+blender	blender	3d	subprocess	cli-anything-blender	3D modeling, animation, and rendering via blender --background --python
+browser	browser	web	subprocess+mcp	cli-anything-browser	Browser automation via DOMShell MCP server. Maps Chrome's Accessibility Tree to a virtual 
+calibre	calibre	office	subprocess	cli-anything-calibre	E-book library management — list, search, metadata editing, format conversion via calibred
+cc-switch	ccswitch	devops	http+mcp+sqlite	cli-anything-ccswitch	Manage AI coding tool configurations - inspect providers, skills, MCP servers, usage stats
+chromadb	chromadb	database	http	cli-anything-chromadb	Vector database operations — collections, documents, semantic search via ChromaDB HTTP API
+cloudanalyzer	cloudanalyzer	graphics	subprocess	cli-anything-cloudanalyzer	Point cloud and trajectory QA: Chamfer/AUC/F1, ATE/RPE/drift, ground segmentation metrics,
+cloudcompare	cloudcompare	graphics	subprocess	cli-anything-cloudcompare	3D point cloud and mesh processing: load/save, color ops, normal estimation, Delaunay mesh
+comfyui	comfyui	ai	http	cli-anything-comfyui	AI image generation workflow management via ComfyUI REST API
+dify-workflow	dify_workflow	ai	subprocess	cli-anything-dify-workflow	CLI-Anything wrapper for the Dify workflow DSL editor covering create, inspect, validate, 
+drawio	drawio	diagrams	subprocess	cli-anything-drawio	Diagram creation and export via draw.io CLI
+eez-studio	eez_studio	automation	subprocess	cli-anything-eez-studio	EEZ Studio project, LVGL UI, and SCPI command automation via native .eez-project JSON and 
+eth2-quickstart	eth2_quickstart	devops	subprocess	cli-anything-eth2-quickstart	Hardened Ethereum node deployment and operations via the eth2-quickstart automation script
+exa	exa	search	-	cli-anything-exa	AI-powered web search and content extraction via the Exa API
+firefly-iii	firefly_iii	finance	http	cli-anything-firefly-iii	Personal finance management via the Firefly III REST API
+freecad	freecad	3d	subprocess+http	cli-anything-freecad	Parametric 3D CAD modeling via FreeCAD CLI (258 commands: Part, Sketcher, PartDesign, Asse
+gimp	gimp	image	subprocess	cli-anything-gimp	Raster image processing via gimp -i -b (batch mode)
+godot	godot	gamedev	subprocess	cli-anything-godot	Game engine project management, scene editing, export and GDScript execution via Godot 4 h
+inkscape	inkscape	image	subprocess	cli-anything-inkscape	SVG vector graphics with export via inkscape --export-filename
+intelwatch	intelwatch	osint	subprocess	cli-anything-intelwatch	Competitive intelligence, M&A due diligence, and OSINT directly from your terminal.
+iterm2	iterm2_ctl	devops	subprocess+ws	cli-anything-iterm2	Control a running iTerm2 instance — manage windows, tabs, split panes, send text, read out
+joplin	joplin	knowledge	subprocess	cli-anything-joplin	Note-taking and to-do automation — manage notebooks, notes, to-dos, tags, attachments, sea
+jumpserver	jumpserver	devops	http	cli-anything-jumpserver	Bastion host management — manage assets, users, permissions, sessions, accounts, and audit
+kdenlive	kdenlive	video	subprocess	cli-anything-kdenlive	Video editing and rendering via melt
+krita	krita	image	subprocess	cli-anything-krita	Digital painting and raster image editing via Krita CLI export pipeline
+libreoffice	libreoffice	office	subprocess	cli-anything-libreoffice	Create and manipulate ODF documents, export to PDF/DOCX/XLSX/PPTX via headless mode
+live2d	live2d	graphics	-	cli-anything-live2d	Inspect, validate, edit, lint, diff, batch-manage, and deploy Live2D Cubism models (.model
+lldb	lldb	debugging	subprocess	cli-anything-lldb	Stateful native debugging via LLDB with JSON CLI workflows and a stdio Debug Adapter Proto
+macrocli	macrocli	automation	subprocess	cli-anything-macrocli	Layered macro runtime that converts GUI workflows into parameterized, agent-callable macro
+mailchimp	mailchimp	web	http	cli-anything-mailchimp	Mailchimp Marketing API v3.0 — manage audiences, campaigns, reports, automations, ecommerc
+mermaid	mermaid	diagrams	http	cli-anything-mermaid	Mermaid Live Editor state files and renderer URLs
+minimax	minimax	ai	http+ws	cli-anything-minimax	Chat and TTS via MiniMax AI API — MiniMax-M3 and MiniMax-M2.7 chat models and speech-2.x T
+mubu	mubu	office	-	cli-anything-mubu	Knowledge management and outlining via local Mubu desktop data
+musescore	musescore	music	subprocess	cli-anything-musescore	CLI for music notation — transpose, export PDF/audio/MIDI, extract parts, manage instrumen
+n8n	n8n	automation	subprocess+http+mcp+sqlite	cli-anything-n8n	Workflow automation via n8n REST API — 55+ commands
+notebooklm	notebooklm	ai	subprocess	cli-anything-notebooklm	Experimental NotebookLM harness scaffold wrapping the installed notebooklm CLI for noteboo
+novita	novita	ai	http	cli-anything-novita	Access AI models via Novita's OpenAI-compatible API (DeepSeek, GLM, MiniMax)
+nsight-graphics	nsight_graphics	graphics	subprocess	cli-anything-nsight-graphics	Windows-first Nsight Graphics CLI for Graphics/OpenGL capture, GPU Trace summary, Generate
+nslogger	nslogger	devops	subprocess+ws	cli-anything-nslogger	Capture, parse, filter, export, and mirror NSLogger iOS/macOS logs from the CLI
+obs-studio	obs_studio	streaming	-	cli-anything-obs-studio	Create and manage streaming/recording scenes via command line
+obsidian	obsidian	knowledge	http	cli-anything-obsidian	Knowledge management and note-taking — manage notes, search vault, execute commands via Ob
+ollama	ollama	ai	http	cli-anything-ollama	Local LLM inference and model management via Ollama REST API
+openrefine	openrefine	database	subprocess+http	cli-anything-openrefine	Agent-native CLI for OpenRefine import, operation-history cleaning, row inspection, export
+openscreen	openscreen	video	subprocess	cli-anything-openscreen	Screen recording editor — zoom, speed ramps, trim, crop, annotations, backgrounds, and pol
+pm2	pm2	devops	subprocess	cli-anything-pm2	Node.js process management — list, start, stop, restart, logs, and metrics via PM2 CLI
+quietshrink	quietshrink	video	subprocess	cli-anything-quietshrink	Compress macOS screen recordings on Apple Silicon — 70-90% smaller files at visually lossl
+rekordbox	rekordbox	?	subprocess	?	
+renderdoc	renderdoc	graphics	-	cli-anything-renderdoc	GPU frame capture analysis: pipeline state, shader export, texture inspection, draw call b
+rms	rms	network	http	cli-anything-rms	Device management and monitoring via Teltonika RMS REST API
+safari	safari	web	subprocess+mcp	cli-anything-safari	Native macOS Safari browser automation via safari-mcp — 84 tools for navigation, DOM, form
+sbox	sbox	gamedev	subprocess	cli-anything-sbox	Game engine project management for s&box (Source 2): scenes, prefabs, materials, sounds, c
+seaclip	seaclip	project-management	http+sqlite	cli-anything-seaclip	Kanban board, 6-agent AI pipeline, and issue management via SeaClip-Lite FastAPI + SQLite
+shotcut	shotcut	video	subprocess	cli-anything-shotcut	Video editing and rendering via melt/ffmpeg
+siyuan	siyuan	knowledge-management	subprocess+http	cli-anything-siyuan	Knowledge management and note-taking via SiYuan HTTP API — manage notebooks, documents, bl
+sketch		design	-	sketch-cli	Generate Sketch design files (.sketch) from JSON design specifications via sketch-construc
+slay_the_spire_ii	slay_the_spire_ii	game	http	cli-anything-sts2	Control the real Slay the Spire 2 game via local STS2_Bridge HTTP API
+tigris	tigris	storage	subprocess	cli-anything-tigris	Object storage management — buckets, objects, presigned URLs, snapshots, IAM, scoped acces
+unimol_tools	unimol_tools	science	-	cli-anything-unimol-tools	Molecular property prediction — train and predict with 5 task types (classification, regre
+unrealinsights	unrealinsights	debugging	subprocess	cli-anything-unrealinsights	Windows-first Unreal trace capture, background session control, engine-matched UnrealInsig
+videocaptioner	videocaptioner	video	subprocess	cli-anything-videocaptioner	AI-powered video captioning — transcribe speech, optimize/translate subtitles, burn styled
+wavetone	wavetone	audio	subprocess	cli-anything-wavetone	Prepare WaveTone 2.61 audio transcription manifests, probe audio files, and launch the rea
+web-yu-pri	web_yu_pri	web	-	cli-anything-web-yu-pri	Japan Post Web Yu-pri browser workflow automation for login, inspection, screenshots, dry-
+wiremock	wiremock	testing	http	cli-anything-wiremock	HTTP mock server management — create stubs, inspect requests, record traffic, and manage s
+zoom	zoom	communication	subprocess+http	cli-anything-zoom	Meeting management via Zoom REST API (OAuth2)
+zotero	zotero	office	subprocess+http+sqlite	cli-anything-zotero	CLI & MCP server for Zotero 7/8 — 52 MCP tools + 70+ CLI commands for search, import, PDF,

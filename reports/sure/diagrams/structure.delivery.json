@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "016d248e-0b5e-4b29-86fd-2f8b589db977",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\structure.json",
+  "output": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\structure.html",
+  "specification": {
+    "sha256": "4702be359d2fc9b6d51f9967fddc3370d1c1a0b45ac1f4bba541514d0b9214eb",
+    "bytes": 8221
+  },
+  "artifact": {
+    "sha256": "7c252af00c826d742419fa1df07673164f7110157c017775ccf7399df8555c4b",
+    "bytes": 872331
+  }
+}

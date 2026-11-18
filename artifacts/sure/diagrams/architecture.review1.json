@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Sure 기술 구성: web·worker·DB·Redis와 외부 서비스",
+    "locale": "ko",
+    "output": "reports/sure/diagrams/architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/we-promise/sure",
+      "provider": "github",
+      "revision": "1cd94e66182e276d9cd5ceab9c4ad8e6646cac1a"
+    }
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "사용자", "sublabel": "브라우저(Hotwire UI)", "pos": [370, 40], "size": [125, 64],
+      "sources": [{ "path": "Gemfile", "line": 26, "end_line": 27, "label": "stimulus-rails, turbo-rails" }] },
+    { "id": "web", "type": "backend", "label": "web", "sublabel": "Rails :3000", "pos": [370, 190], "size": [125, 64],
+      "sources": [{ "path": "compose.example.yml", "line": 99, "end_line": 122, "label": "web 서비스" }] },
+    { "id": "db", "type": "database", "label": "PostgreSQL 16", "sublabel": "pgvector는 AI 구성", "pos": [370, 340], "size": [125, 64],
+      "sources": [{ "path": "compose.example.yml", "line": 143, "end_line": 156, "label": "db 서비스" }, { "path": "compose.example.ai.yml", "line": 138, "end_line": 140, "label": "VECTOR_STORE_PROVIDER" }] },
+    { "id": "worker", "type": "backend", "label": "worker", "sublabel": "Sidekiq + cron", "pos": [370, 490], "size": [125, 64],
+      "sources": [{ "path": "compose.example.yml", "line": 124, "end_line": 141, "label": "worker 서비스" }, { "path": "config/sidekiq.yml", "line": 1, "end_line": 15, "label": "큐와 ai capsule" }, { "path": "config/schedule.yml", "line": 7, "end_line": 12, "label": "cron 작업" }] },
+    { "id": "redis", "type": "database", "label": "Redis", "sublabel": "큐·캐시·cable", "pos": [580, 340], "size": [125, 64],
+      "sources": [{ "path": "compose.example.yml", "line": 224, "end_line": 235, "label": "redis 서비스" }, { "path": "config/environments/production.rb", "line": 73, "label": "cache_store" }, { "path": "config/environments/production.rb", "line": 113, "label": "queue_adapter" }] },
+    { "id": "storage", "type": "database", "label": "app-storage", "sublabel": "업로드 파일(Disk)", "pos": [160, 340], "size": [125, 64],
+      "sources": [{ "path": "compose.example.yml", "line": 237, "end_line": 240, "label": "volumes" }, { "path": "config/storage.yml", "line": 1, "end_line": 3, "label": "Disk 서비스" }] },
+    { "id": "aggregator", "type": "cloud", "label": "연동 aggregator", "sublabel": "Plaid 등 약 40종", "pos": [160, 640], "size": [125, 64],
+      "sources": [{ "path": "app/models/plaid_item.rb", "line": 1 }] },
+    { "id": "llm", "type": "cloud", "label": "LLM provider", "sublabel": "OpenAI·Anthropic·ollama", "pos": [370, 640], "size": [125, 64],
+      "sources": [{ "path": "compose.example.ai.yml", "line": 111, "end_line": 113, "label": "OPENAI_URI_BASE" }, { "path": "app/models/provider/openai.rb", "line": 1 }, { "path": "app/models/provider/anthropic.rb", "line": 1 }] },
+    { "id": "price", "type": "cloud", "label": "시세 provider", "sublabel": "Yahoo·EODHD", "pos": [580, 640], "size": [125, 64],
+      "sources": [{ "path": "app/models/provider/yahoo_finance.rb", "line": 1 }, { "path": "app/models/provider/eodhd.rb", "line": 1 }] },
+    { "id": "direct", "type": "external", "label": "직접 만들 연동", "sublabel": "키움·업비트·한국 시세", "tag": "직접 구현", "pos": [790, 640], "size": [125, 64],
+      "sources": [{ "path": "app/models/provider/registry.rb", "line": 6, "label": "provider 개념 등록부" }] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Docker Compose (sure_net)", "wraps": ["web", "db", "worker", "redis", "storage"] }
+  ],
+  "connections": [
+    { "id": "user-to-web", "from": "user", "to": "web", "label": "HTTPS·CSV 업로드", "variant": "emphasis" },
+    { "id": "web-to-db", "from": "web", "to": "db", "label": "SQL" },
+    { "id": "worker-to-db", "from": "worker", "to": "db", "label": "SQL" },
+    { "id": "web-to-redis", "from": "web", "to": "redis", "label": "enqueue·캐시·cable", "fromSide": "right", "toSide": "top" },
+    { "id": "redis-to-worker", "from": "redis", "to": "worker", "label": "job 소비", "variant": "dashed", "fromSide": "bottom", "toSide": "right" },
+    { "id": "web-to-storage", "from": "web", "to": "storage", "label": "파일", "variant": "dashed", "fromSide": "left", "toSide": "top" },
+    { "id": "worker-to-storage", "from": "worker", "to": "storage", "label": "파일", "variant": "dashed", "fromSide": "left", "toSide": "bottom" },
+    { "id": "worker-to-aggregator", "from": "worker", "to": "aggregator", "label": "동기화", "fromSide": "bottom", "toSide": "top" },
+    { "id": "worker-to-llm", "from": "worker", "to": "llm", "label": "분류·채팅", "fromSide": "bottom", "toSide": "top" },
+    { "id": "worker-to-price", "from": "worker", "to": "price", "label": "시세·환율", "fromSide": "bottom", "toSide": "top" },
+    { "id": "worker-to-direct", "from": "worker", "to": "direct", "label": "직접 구현 연동", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "직접 구현할 것", "items": ["키움·업비트 API 클라이언트와 한국 시세 provider는 worker 안의 provider 코드로 들어가 외부 API를 부른다", "KB국민 CSV는 web의 Import 화면으로 올리므로 별도 서비스가 필요 없다"] },
+    { "dot": "emerald", "title": "worker가 하는 일", "items": ["Sidekiq 큐 5개와 AI 전용 capsule을 쓴다", "sidekiq-cron이 시간·15분 단위 동기화, 매일 새벽 정리·반복 거래 생성·인사이트 생성, 매월 부동산 시세 갱신을 돌린다"] },
+    { "dot": "slate", "title": "이 그림의 범위", "items": ["MCP 서버, 모바일 앱, macOS 앱, 외부 assistant는 요청에 따라 제외했다", "선택 구성인 backup·backup-offsite(rclone), Stripe(managed 모드), Helm chart, 관측(Sentry·Langfuse)은 그리지 않았다", "배치는 compose.example.yml 기준이고 운영 환경은 다를 수 있다"] }
+  ]
+}

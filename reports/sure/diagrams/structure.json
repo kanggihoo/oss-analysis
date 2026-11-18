@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Sure 구조: 연동·가져오기에서 Entry, 계산, AI 도구까지",
+    "locale": "ko",
+    "output": "reports/sure/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/we-promise/sure",
+      "provider": "github",
+      "revision": "1cd94e66182e276d9cd5ceab9c4ad8e6646cac1a"
+    }
+  },
+  "components": [
+    { "id": "conn", "type": "external", "label": "직접 만들 연동", "sublabel": "KB·키움·업비트", "tag": "직접 구현", "pos": [40, 190], "size": [125, 64],
+      "sources": [{ "path": "app/models/provider/registry.rb", "line": 6, "label": "provider 개념 등록부" }] },
+    { "id": "sync", "type": "backend", "label": "Sync 파이프라인", "sublabel": "Item→Importer→Syncer", "pos": [245, 190], "size": [125, 64],
+      "sources": [{ "path": "app/models/sync.rb", "line": 179, "label": "Sync#perform" }, { "path": "app/models/account/syncer.rb", "line": 8 }, { "path": "app/models/family/syncer.rb", "line": 8 }] },
+    { "id": "adapter", "type": "backend", "label": "Import 어댑터", "sublabel": "중복·보류·잠금 보호", "pos": [450, 190], "size": [125, 64],
+      "sources": [{ "path": "app/models/account/provider_import_adapter.rb", "line": 39, "label": "import_transaction" }, { "path": "app/models/account/provider_import_adapter.rb", "line": 698, "label": "import_trade" }, { "path": "app/models/account/provider_import_adapter.rb", "line": 420, "label": "update_balance" }] },
+    { "id": "entry", "type": "database", "label": "Entry", "sublabel": "Transaction·Trade·Valuation", "pos": [655, 177], "size": [125, 90],
+      "sources": [{ "path": "app/models/entry.rb", "line": 33, "label": "delegated_type" }] },
+    { "id": "report", "type": "backend", "label": "집계·순자산", "sublabel": "IncomeStatement·BalanceSheet", "pos": [860, 190], "size": [125, 64],
+      "sources": [{ "path": "app/models/income_statement.rb", "line": 3 }, { "path": "app/models/balance_sheet.rb", "line": 1 }] },
+    { "id": "budget", "type": "backend", "label": "예산", "sublabel": "배정·이월", "pos": [1065, 190], "size": [125, 64],
+      "sources": [{ "path": "app/models/budget.rb", "line": 1 }] },
+    { "id": "users", "type": "external", "label": "사용자", "sublabel": "웹 UI·수동 입력", "pos": [655, 40], "size": [125, 64],
+      "sources": [{ "path": "app/controllers/transactions_controller.rb", "line": 121, "label": "create" }] },
+    { "id": "assistant", "type": "backend", "label": "AI 어시스턴트", "sublabel": "도구 49개", "pos": [860, 40], "size": [125, 64],
+      "sources": [{ "path": "app/models/assistant.rb", "line": 17, "end_line": 46, "label": "도구 목록" }, { "path": "app/models/assistant.rb", "line": 94, "end_line": 110, "label": "노출 조건" }] },
+    { "id": "insights", "type": "backend", "label": "인사이트", "sublabel": "생성기 9종", "pos": [1065, 40], "size": [125, 64],
+      "sources": [{ "path": "app/jobs/generate_insights_job.rb", "line": 10 }, { "path": "app/models/insight.rb", "line": 1 }] },
+    { "id": "post", "type": "backend", "label": "후처리 3종", "sublabel": "이체·분류 규칙·정기 거래", "pos": [245, 340], "size": [125, 64],
+      "sources": [{ "path": "app/models/account/syncer.rb", "line": 16, "end_line": 18, "label": "이체 자동 매칭" }, { "path": "app/models/family/sync_complete_event.rb", "line": 40, "end_line": 45, "label": "정기 거래 식별" }, { "path": "app/models/rule/runner.rb", "line": 37, "label": "규칙 실행" }] },
+    { "id": "csv", "type": "external", "label": "CSV 파일", "sublabel": "KB국민 은행·카드", "tag": "직접 변환", "pos": [450, 340], "size": [125, 64],
+      "sources": [{ "path": "app/models/import.rb", "line": 37, "label": "허용 MIME" }] },
+    { "id": "import", "type": "backend", "label": "Import", "sublabel": "13종, 업로드→게시", "pos": [655, 340], "size": [125, 64],
+      "sources": [{ "path": "app/models/import.rb", "line": 42, "label": "TYPES" }, { "path": "app/models/import.rb", "line": 246, "label": "publish_later" }, { "path": "app/models/import.rb", "line": 635, "label": "import!" }] },
+    { "id": "balance", "type": "backend", "label": "Balance 계산", "sublabel": "정방향·역방향", "pos": [860, 340], "size": [125, 64],
+      "sources": [{ "path": "app/models/balance/materializer.rb", "line": 16 }, { "path": "app/models/balance/reverse_calculator.rb", "line": 1 }, { "path": "app/models/balance/forward_calculator.rb", "line": 1 }] },
+    { "id": "goals", "type": "backend", "label": "목표·Plan", "sublabel": "pledge 대조", "pos": [1065, 340], "size": [125, 64],
+      "sources": [{ "path": "app/models/goal.rb", "line": 1 }] },
+    { "id": "secs", "type": "cloud", "label": "종목·환율 시세", "sublabel": "Yahoo·EODHD", "pos": [860, 490], "size": [125, 64],
+      "sources": [{ "path": "app/models/security/resolver.rb", "line": 1 }, { "path": "app/models/exchange_rate.rb", "line": 1 }, { "path": "app/models/provider/yahoo_finance.rb", "line": 1 }] },
+    { "id": "krprice", "type": "external", "label": "한국 시세", "sublabel": "provider", "tag": "직접 구현", "pos": [1065, 490], "size": [125, 64],
+      "sources": [{ "path": "app/models/provider/registry.rb", "line": 6, "label": "securities 개념" }] }
+  ],
+  "connections": [
+    { "id": "conn-to-sync", "from": "conn", "to": "sync", "label": "구현", "variant": "emphasis" },
+    { "id": "sync-to-adapter", "from": "sync", "to": "adapter", "label": "정규화" },
+    { "id": "adapter-to-entry", "from": "adapter", "to": "entry", "label": "저장" },
+    { "id": "users-to-entry", "from": "users", "to": "entry", "label": "수동 입력", "fromSide": "bottom", "toSide": "top" },
+    { "id": "csv-to-import", "from": "csv", "to": "import", "label": "업로드", "variant": "emphasis" },
+    { "id": "import-to-entry", "from": "import", "to": "entry", "label": "게시: Entry 생성", "fromSide": "top", "toSide": "bottom" },
+    { "id": "sync-to-post", "from": "sync", "to": "post", "label": "post-sync", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "id": "entry-to-report", "from": "entry", "to": "report", "label": "집계" },
+    { "id": "entry-to-balance", "from": "entry", "to": "balance", "label": "재계산", "fromSide": "right", "toSide": "left" },
+    { "id": "balance-to-report", "from": "balance", "to": "report", "label": "잔액 시계열", "fromSide": "top", "toSide": "bottom" },
+    { "id": "report-to-budget", "from": "report", "to": "budget", "label": "집계" },
+    { "id": "budget-to-goals", "from": "budget", "to": "goals", "label": "목표 예약액 차감", "fromSide": "bottom", "toSide": "top" },
+    { "id": "budget-to-insights", "from": "budget", "to": "insights", "label": "생성기 입력", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "assistant-to-report", "from": "assistant", "to": "report", "label": "도구 호출", "fromSide": "bottom", "toSide": "top" },
+    { "id": "secs-to-balance", "from": "secs", "to": "balance", "label": "시세·환율", "fromSide": "top", "toSide": "bottom" },
+    { "id": "krprice-to-secs", "from": "krprice", "to": "secs", "label": "시세", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "amber", "title": "직접 구현할 것", "items": ["KB국민 CSV 변환(CP949, 입금·출금 두 열)과 키움·업비트 API 클라이언트는 provider 구현으로 Sync 파이프라인에 연결한다", "한국 종목 시세 provider는 securities 개념의 인터페이스를 구현한다"] },
+    { "dot": "emerald", "title": "그대로 쓰는 것", "items": ["어댑터 이후의 중복 판정, 이체 매칭, 분류 규칙, 잔액 계산, 예산, 인사이트는 출처와 무관하게 동작한다"] },
+    { "dot": "slate", "title": "이 그림의 범위", "items": ["연동 provider 약 40종, 공개 API, MCP, 인증, 클라이언트, 운영·배포는 승인 범위 밖이라 넣지 않았다", "assistant 도구는 거래·예산·목표·규칙도 직접 호출한다. 선은 대표 경로 하나만 그렸다"] }
+  ]
+}

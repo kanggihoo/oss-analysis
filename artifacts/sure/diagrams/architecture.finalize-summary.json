@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\architecture.json",
+    "sha256": "ca78060f449816b440920c9775662e62ee9882a3f56e822762a47bb3c19ed5a9",
+    "bytes": 6156
+  },
+  "artifact": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\architecture.html",
+    "sha256": "95dba0b01da327010939c2f99618a47af36d1cb6d2bb67581aa3ead91d3a690a",
+    "bytes": 858894
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\architecture.finalize.json",
+    "summaryReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\architecture.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\reports\\sure\\diagrams\\architecture.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-18T06:35:18.577Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 14931,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  },
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "worker-to-price",
+            "from": "worker",
+            "to": "price",
+            "label": "시세·환율",
+            "collectionIndex": 9,
+            "artifactIndex": 10
+          },
+          "right": {
+            "id": "worker-to-direct",
+            "from": "worker",
+            "to": "direct",
+            "label": "직접 구현 연동",
+            "collectionIndex": 10,
+            "artifactIndex": 11
+          },
+          "point": [
+            642.5,
+            616
+          ],
+          "sharedNode": "worker"
+        }
+      ],
+      "detours": [],
+      "truncated": false
+    },
+    "hints": [
+      "worker → price and worker → direct cross next to worker: move node price or direct so the two reach worker from different sides (for example one level with it, one directly above or below it)."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

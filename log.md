@@ -1163,11 +1163,28 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - 검토에서 나온 중요 오류: Plan 읽기 전용 주장, pledge 대조 우회 경로(Kraken), 숨김 위젯 복원 순서, 빈 응답 오류 조건, 도메인 R-ID 링크 오류(`account-balances` R-15). 이 스펙들이 `budgets` U-01(`IncomeStatement` 계약)과 U-02(`Goal.backing_within`)를 닫아 `budgets.md`를 정정(기타 투자 합이 항상 0).
 - overview feature map 행 12·14·15를 `draft`로. 사용자 결정: 가족 데이터 export·import(Sure NDJSON)는 제외. 승인 범위 14개 전부 작성 완료, 통합 검토가 남음.
 
+## [2026-11-18] update | sure 구조도(archify) 작성
+- `reports/sure/diagrams/structure.json`·`structure.html` 추가(아키텍처 1장, 컴포넌트 16개). `finalize`(validate·deliver·check·browser-check) 통과, 1440×900 light 캡처 직접 확인. 영수증·캡처는 `artifacts/sure/diagrams/`. overview 3절에 링크와 그림 해설 작성.
+
+## [2026-11-18] update | sure 기술 구성도(archify) 작성
+- `reports/sure/diagrams/architecture.json`·`architecture.html` 추가(컴포넌트 10개, Docker Compose 경계 1개). 근거는 `compose.example.yml`·`compose.example.ai.yml`·`config/sidekiq.yml`·`config/schedule.yml`. `finalize` 통과, 레이아웃 보정 1회 후 교차 1곳 남음(시각 검토 확인). 사용자 요청으로 MCP·모바일·macOS 앱 제외. overview 3절에 해설 추가.
+
+
 ## [2026-11-18] update | video/ 주제 폴더 신설, claude-video·hyperframes 이동
 - `video/`(GUIDE.md, repos.lock.tsv)를 만들고 `claude-video`, `hyperframes`의 `reports/`·`artifacts/`·`repos/`를 `video/` 아래로 옮겼다(`git mv`, clone은 `mv`). `.gitignore`에 `/video/repos/` 추가.
 - `index.md` 두 행과 `handoff.md`의 경로를 `video/...`로 고치고 행 이름을 `<repo> (video/)`로 바꿨다. 이 파일의 이전 항목에 적힌 옛 경로(`reports/hyperframes/` 등)는 기록이라 그대로 둔다.
 - 후보로 `rea-video`, `capsule-cinema`를 GUIDE에 올렸다. 둘 다 README만 읽었고 clone·분석은 하지 않았다.
 
+## [2026-11-18] ingest | CLI-Anything feature map
+- `repos/CLI-Anything`(HKUDS, `34f5195`, Apache-2.0)를 clone하고 `cli-anything-plugin/HARNESS.md`, `skill_generator.py`, `sync_root_skills.py`, `skills/README.md`, `registry.json` 3종, `cli-hub` 명령 등록부, gimp 하니스를 읽었다. 목적은 공통 형식·하니스 패밀리·skill 패키징 이해(개별 구현은 제외).
+- `reports/CLI-Anything/overview.md`(feature map 12행, 핵심 8/부속 4, 공유 계약 2), `next.md`, `artifacts/CLI-Anything/repo-metadata.txt`, `harness-catalog.tsv`(69개 하니스 분류, 백엔드 방식은 문자열 휴리스틱) 추가. 구조도와 범위 승인은 아직.
+- 문서와 구현 차이 3건을 overview 2절에 기록: `cli_anything/__init__.py` 금지 규칙 위반 8개, gimp의 Pillow 경로, `--json`·REPL 규칙 일부 미준수.
+
 ## [2026-11-18] ingest | rea-video, capsule-cinema clone
 - `video/repos/`에 `rea-video`(`538eb3a`), `capsule-cinema`(`7dc9161`)를 clone했다(둘 다 main, 2026-11-17, worktree clean, Apache-2.0 `LICENSE` 파일 확인).
 - `video/artifacts/<repo>/repo-metadata.txt`, `video/repos.lock.tsv` 행, `video/GUIDE.md` 상태를 갱신했다. overview·feature map은 아직 쓰지 않았다(분석 목적 미정).
+
+## [2026-11-18] capability | CLI-Anything 기능 스펙 5개(draft)
+- 사용자가 feature map 핵심 8행을 5행으로 합쳐 승인(행 1~5). 제외: 부속 6~9. 서브에이전트 5명이 병렬로 `harness-sop`, `harness-contract`, `harness-families`, `skill-packaging`, `registry-schema`를 작성했다(모두 `draft`).
+- 메인 세션이 표본 6건을 원본 줄과 대조해 일치를 확인했다. 독립 검토와 재구현은 하지 않았다. 서브에이전트가 scratchpad에서 gimp·firefly-iii·jumpserver 복사본을 실행하고 wheel 2개를 빌드했으며, `repos/CLI-Anything`은 변경 없음.
+- overview를 9행(핵심 5/부속 4)으로 고치고 처음 쓴 주장 4건을 정정했다: undo/redo는 세션 파일이 아니라 메모리, 오류 JSON 형식은 하니스마다 다름, 문자열 점검 수치의 의미, `generate_meta_skill.py`의 출력은 비추적 `cli-hub-skill/SKILL.md`. 패밀리 분류는 AST 기준 7종으로 바뀌었다. 차이 목록과 U-ID는 `next.md`.

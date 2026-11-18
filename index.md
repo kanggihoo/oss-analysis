@@ -35,6 +35,7 @@
 | searxng | `0ce72dd` | [overview](reports/searxng/overview.md) | — |
 | skills-manager | `7a22192` | [overview](reports/skills-manager/overview.md) | [skill-source-metadata](reports/skills-manager/capabilities/skill-source-metadata.md) (ready), [skill-install-external](reports/skills-manager/capabilities/skill-install-external.md) (ready), [skill-update-check](reports/skills-manager/capabilities/skill-update-check.md) (ready), [skill-source-diff](reports/skills-manager/capabilities/skill-source-diff.md) (ready), [skill-update-apply](reports/skills-manager/capabilities/skill-update-apply.md) (ready) |
 | teamai-cli | `a44493f` | [overview](reports/teamai-cli/overview.md) | — |
+| CLI-Anything | `34f5195` | [overview](reports/CLI-Anything/overview.md), [next](reports/CLI-Anything/next.md) | [harness-sop](reports/CLI-Anything/capabilities/harness-sop.md), [harness-contract](reports/CLI-Anything/capabilities/harness-contract.md), [harness-families](reports/CLI-Anything/capabilities/harness-families.md), [skill-packaging](reports/CLI-Anything/capabilities/skill-packaging.md), [registry-schema](reports/CLI-Anything/capabilities/registry-schema.md) (모두 draft) |
 | Understand-Anything | `b05cc3b` | [overview](reports/Understand-Anything/overview.md) | — |
 | herdr-bar (herdr-plugin/) | `261de9b` | [overview](herdr-plugin/reports/herdr-bar/overview.md) | — |
 | herdr-projects (herdr-plugin/) | `8258d96` | [overview](herdr-plugin/reports/herdr-projects/overview.md) | — |

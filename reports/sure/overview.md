@@ -126,7 +126,75 @@ Sure는 개인 재무·자산 관리 앱이다. 은행·카드·투자·암호�
 
 ## 3. 핵심 아키텍처 feature map (archify Diagrams)
 
-미작성. 목적이 정해진 뒤 필요하면 그린다.
+두 그림 모두 archify `architecture` 타입입니다. 모듈 구조도는 기능 사이의 데이터 흐름(승인된 14개 스펙 범위)이고, 기술 구성도는 컨테이너·DB·외부 서비스 배치입니다. 실행 흐름도는 그리지 않았습니다.
+
+| 다이어그램 | 원본 JSON | 시각화 HTML | 설명 |
+|---|---|---|---|
+| 전체 모듈 구조도 | [structure.json](./diagrams/structure.json) | [structure.html](./diagrams/structure.html) | 연동·가져오기에서 Entry, 계산, AI 도구까지. 직접 구현할 지점 표시 |
+| 기술 구성도 | [architecture.json](./diagrams/architecture.json) | [architecture.html](./diagrams/architecture.html) | web·worker·DB·Redis·저장소 배치와 외부 서비스. 직접 구현할 연동 위치 표시 |
+
+검증(두 그림 공통): 산출물 검증(`validate`)·`deliver`·`check`·`browser-check`는 `finalize`로 통과했고, 캡처를 만들어 1440×900 light 화면을 직접 봤습니다. 캡처의 한글 글자는 헤드리스 렌더링 폰트 때문에 깨져 보여서, 한글 라벨이 실제로 읽히는지는 브라우저에서 확인하지 못했습니다. 영수증과 캡처는 `artifacts/sure/diagrams/`에 있습니다.
+
+### 그림 해설
+
+**읽는 순서**
+1. 가운데 `Entry`를 먼저 봅니다. 모든 입력이 여기로 모이고 모든 계산이 여기서 나갑니다.
+2. 왼쪽 위에서 오른쪽으로: 직접 만들 연동 → Sync 파이프라인 → Import 어댑터 → Entry.
+3. 아래쪽: CSV 파일 → Import → Entry(게시). 위쪽: 사용자 수동 입력 → Entry.
+4. Entry 오른쪽: 집계·순자산 → 예산 → 목표·Plan, 인사이트, 그리고 위쪽 AI 어시스턴트.
+5. 아래 오른쪽: 종목·환율 시세와 한국 시세 provider가 Balance 계산에 들어갑니다.
+
+**구조도: 모듈별 역할**
+| 모듈 | 맡은 일 | 주고받는 것 | 근거 (`파일:심볼`) | 검증 수준 |
+|---|---|---|---|---|
+| 직접 만들 연동 | KB·키움·업비트 데이터를 가져오는 provider. 원본에는 없다 | Sync 파이프라인에 가져온 계정·거래를 넘긴다 | `app/models/provider/registry.rb:6` `CONCEPTS` | 코드 확인(등록부), 연동 자체는 신규 구현 |
+| Sync 파이프라인 | Item → Importer → Processor → Syncer 순서로 가져오고 상태를 관리한다. 끝나면 post-sync를 부른다 | 입력 provider 데이터, 출력 정규화 호출과 post-sync | `app/models/sync.rb:179` `Sync#perform`, `app/models/account/syncer.rb:8`, `app/models/family/syncer.rb:8` | 코드 확인 |
+| Import 어댑터 | 가져온 거래·체결·잔액을 중복·보류·수동 수정 보호 규칙으로 Entry에 쓴다 | 입력 `import_transaction`·`import_trade`·`update_balance`, 출력 Entry | `app/models/account/provider_import_adapter.rb:39,698,420` | 코드 확인 |
+| Entry | 거래·매매·평가(Valuation)의 공통 레코드. 음수 금액이 입금이다 | 입력은 어댑터·Import·수동 입력, 출력은 집계·잔액 계산 | `app/models/entry.rb:33` `delegated_type` | 코드 확인 |
+| Import | 파일 가져오기 13종. 업로드, 매핑, 정리, 게시 단계가 있다 | 입력 CSV 등 파일, 출력 Entry 생성 | `app/models/import.rb:42` `TYPES`, `:246` `publish_later`, `:635` `import!` | 코드 확인 |
+| 후처리 3종 | sync 뒤에 이체 자동 매칭, 분류 규칙 실행, 정기 거래 식별을 한다 | 입력 새로 들어온 Entry, 출력 이체 연결·카테고리·정기 거래 기록 | `app/models/account/syncer.rb:16-18`, `app/models/family/sync_complete_event.rb:40-45`, `app/models/rule/runner.rb:37` | 코드 확인(호출 지점), 규칙 실행 트리거는 스펙 참조 |
+| Balance 계산 | 연동 계정은 역방향, 수동 계정은 정방향으로 일별 잔액을 만든다 | 입력 Entry·시세·환율, 출력 일별 잔액 | `app/models/balance/materializer.rb:16`, `reverse_calculator.rb:1`, `forward_calculator.rb:1` | 코드 확인 |
+| 집계·순자산 | 기간별 지출·소득(`IncomeStatement`)과 순자산(`BalanceSheet`)을 계산한다 | 입력 Entry·잔액, 출력 집계값 | `app/models/income_statement.rb:3`, `app/models/balance_sheet.rb:1` | 코드 확인 |
+| 예산 | 월별 배정, 부모-자식 합 규칙, 이월을 계산한다 | 입력 집계, 출력 남은 금액·상태 | `app/models/budget.rb:1` | 코드 확인 |
+| 목표·Plan | 저축 목표, pledge와 거래 자동 대조. 예산의 free cash에서 목표 예약액을 뺀다. preview 기능 | 입력 예산·거래·계정, 출력 진행률·예약액 | `app/models/goal.rb:1` | 코드 확인 |
+| 인사이트 | 생성기 9종이 집계·예산·목표·정기 거래를 읽어 알림을 만든다 | 출력 `Insight` 행 | `app/jobs/generate_insights_job.rb:10`, `app/models/insight.rb:1` | 코드 확인 |
+| AI 어시스턴트 | 채팅에서 도구 49개를 호출해 조회·쓰기를 한다 | 입력 대화, 출력 도구 결과·메시지 | `app/models/assistant.rb:17-46,94-110` | 코드 확인 |
+| 종목·환율 시세 | 종목 시세와 환율을 provider에서 받아 저장한다. Yahoo와 EODHD | 출력 시세·환율 | `app/models/security/resolver.rb:1`, `app/models/exchange_rate.rb:1`, `app/models/provider/yahoo_finance.rb:1` | 코드 확인 |
+| 한국 시세 provider | 한국 종목 시세. 원본에는 없고 securities 개념을 구현해 꽂는다 | 출력 시세 | `app/models/provider/registry.rb:6` | 코드 확인(등록부), 구현은 신규 |
+
+### 그림 해설: 기술 구성도
+
+**읽는 순서**
+1. 위의 사용자 → `web`. 브라우저(Hotwire UI)가 HTTPS로 접속하고 CSV 업로드도 여기로 들어옵니다.
+2. `web`과 `worker`가 가운데 `PostgreSQL`에 SQL로 접근합니다. 오른쪽 `Redis`는 `web`이 job을 넣고(enqueue) 캐시·ActionCable을 쓰며, `worker`가 job을 꺼내 갑니다.
+3. 왼쪽 `app-storage`는 `web`과 `worker`가 같이 마운트하는 업로드 파일 볼륨입니다.
+4. 아래쪽은 `worker`가 부르는 외부 서비스입니다. 연동 aggregator, LLM provider, 시세 provider, 그리고 직접 만들 연동.
+
+**기술 구성도: 구성 요소별 역할**
+| 구성 요소 | 맡은 일 | 주고받는 것 | 근거 (`파일:줄`) | 검증 수준 |
+|---|---|---|---|---|
+| web | Rails 웹. 포트 3000 | 입력 브라우저 요청, DB 질의, job enqueue | `compose.example.yml:99-122` | 코드 확인(compose 예시) |
+| worker | `bundle exec sidekiq`. 큐 5개와 AI 전용 capsule, sidekiq-cron 스케줄 | Redis에서 job을 받고 DB·외부 API 호출 | `compose.example.yml:124-141`, `config/sidekiq.yml:1-15`, `config/schedule.yml:7-12` | 코드 확인 |
+| PostgreSQL 16 | 모든 데이터. AI 구성에서는 pgvector로 벡터 검색 | SQL | `compose.example.yml:143-156`, `compose.example.ai.yml:138-140` | 코드 확인 |
+| Redis | Sidekiq 큐, 캐시, ActionCable | job, 캐시, cable | `compose.example.yml:224-235`, `config/environments/production.rb:73,113` | 코드 확인 |
+| app-storage | 업로드 파일(Disk 서비스) | 파일 | `compose.example.yml:237-240`, `config/storage.yml:1-3` | 코드 확인 |
+| 연동 aggregator | Plaid 등 해외 aggregator. 승인 범위 밖 | 동기화 | `app/models/plaid_item.rb:1` | 코드 확인(파일), 범위 밖 |
+| LLM provider | OpenAI, Anthropic, OpenAI 호환 endpoint(ollama 포함) | 분류·채팅 요청 | `compose.example.ai.yml:111-113`, `app/models/provider/openai.rb:1`, `anthropic.rb:1` | 코드 확인 |
+| 시세 provider | 종목·환율 시세. Yahoo, EODHD | 시세 | `app/models/provider/yahoo_finance.rb:1`, `eodhd.rb:1` | 코드 확인 |
+| 직접 만들 연동 | 키움·업비트 API와 한국 시세. worker 안의 provider 코드로 들어간다 | 외부 API 호출 | `app/models/provider/registry.rb:6` | 코드 확인(등록부), 구현은 신규 |
+
+**미확인 영역(기술 구성도)**
+- MCP 서버, 모바일 앱, macOS 앱, 외부 assistant는 요청에 따라 제외했습니다.
+- 선택 구성인 backup·backup-offsite(rclone), Stripe(managed 모드), Helm chart, 관측(Sentry·Langfuse)은 그리지 않았습니다.
+- 배치는 `compose.example.yml` 기준이며 운영 환경은 다를 수 있습니다. web 프로세스가 Puma인지 등 컨테이너 내부 구성은 확인하지 않았습니다.
+- 맨 아래 연결선이 `worker` 바닥에서 갈라지는 부분에 교차가 1곳 남았습니다(자동 검증은 통과, 시각 검토에서 확인).
+
+**미확인 영역**
+- 연동 provider 약 40종, 공개 API v1, MCP 서버, 인증·접근 제어, 클라이언트, 운영·배포는 승인 범위 밖이라 그림에 넣지 않았습니다.
+- AI 어시스턴트 도구는 거래·예산·목표·규칙도 직접 호출하지만 선은 집계 호출 하나만 그렸습니다.
+- 인사이트의 입력은 예산 화살표로 대표했고, 실제로는 집계·목표·정기 거래도 읽습니다.
+- 후처리가 Entry에 쓰는 방향과 분류 규칙이 수동 입력에서도 실행되는 경로는 선으로 그리지 않았고 각 스펙 참조입니다.
+- 각 화살표의 조건·실패 처리는 해당 `capabilities/*.md` 스펙이 정본입니다. 이 그림은 요약입니다.
 
 ---
 

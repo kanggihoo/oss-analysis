@@ -1,0 +1,8 @@
+repo_dir=repos/CLI-Anything
+name=CLI-Anything
+date=2026-11-18
+commit=34f519533bc175d2fe287ab8316b0dd99bb9cc43
+commit_date=2026-09-22T10:01:28+08:00
+origin=https://github.com/HKUDS/CLI-Anything
+worktree=clean
+clone=shallow (--depth 50)
