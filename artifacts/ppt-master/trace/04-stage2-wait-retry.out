@@ -1,0 +1,6 @@
+[15:43:13] [INFO] confirm_ui: log: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\confirm_ui\server.log
+[15:43:15] [INFO] confirm_ui: started confirm UI in background: http://127.0.0.1:5050 (pid=27072)
+[15:43:15] [INFO] confirm_ui: recovered confirm UI for wait-only at http://127.0.0.1:5050; the browser polling should resume
+[15:43:15] [INFO] confirm_ui: waiting for browser confirmation stage=final...
+[15:43:19] [ERROR] confirm_ui: confirm server is no longer running before stage=final was confirmed
+EXIT=1

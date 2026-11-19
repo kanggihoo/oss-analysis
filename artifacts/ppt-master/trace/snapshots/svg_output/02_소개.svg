@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="edge-bar" data-pptx-bounds="0 0 48 720">
+    <rect x="0" y="0" width="48" height="720" fill="#17305A"/>
+  </g>
+  <g id="header" data-pptx-bounds="128 64 1088 128">
+    <text x="128" y="118" font-size="42" font-weight="bold" fill="#17305A">4년차 백엔드 개발자,<tspan x="128" dy="52">느린 API를 측정으로 찾아 고칩니다</tspan></text>
+  </g>
+  <g id="stack" data-pptx-bounds="128 280 512 152">
+    <use data-icon="tabler-outline/code" x="128" y="288" width="40" height="40" fill="#17305A" stroke-width="2"/>
+    <text x="184" y="316" font-size="18" fill="#566176">주 스택</text>
+    <text x="128" y="372" font-size="24" font-weight="bold" fill="#1B2330">Python · FastAPI · PostgreSQL<tspan x="128" dy="36">Redis · AWS</tspan></text>
+  </g>
+  <g id="interest" data-pptx-bounds="704 280 512 152">
+    <use data-icon="tabler-outline/gauge" x="704" y="288" width="40" height="40" fill="#17305A" stroke-width="2"/>
+    <text x="760" y="316" font-size="18" fill="#566176">관심 분야</text>
+    <text x="704" y="372" font-size="24" font-weight="bold" fill="#1B2330">성능 개선 · 관측성(observability)<tspan x="704" dy="36">배포 자동화</tspan></text>
+  </g>
+  <g id="footnote" data-pptx-bounds="128 624 1088 32">
+    <text x="128" y="646" font-size="16" fill="#566176">출처: 검증용 가상 샘플 포트폴리오</text>
+  </g>
+</svg>

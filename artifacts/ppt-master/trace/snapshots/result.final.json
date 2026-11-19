@@ -1,0 +1,69 @@
+{
+  "primary_language": "ko-KR",
+  "canvas": "ppt169",
+  "audience": "백엔드 채용 담당자와 면접관",
+  "communication_intent": "4년차 백엔드 개발자의 문제 해결 방식을 프로젝트 근거와 함께 소개하고 면접 기회를 얻는다",
+  "audience_outcome": "두 프로젝트의 문제, 조치, 수치 결과를 이해하고 면접에서 더 물어볼 질문을 갖는다",
+  "core_message": "측정으로 병목을 찾아 수치로 개선하는 백엔드 개발자",
+  "delivery_context": "화면 공유 면접 발표 약 5분이 주이고, 사후 PDF로 읽는 것이 보조",
+  "artifact_afterlife": "지원서 첨부 자료",
+  "content_divergence": "",
+  "delivery_purpose": "balanced",
+  "page_count": "7",
+  "mode": "custom",
+  "mode_behavior": "Use pyramid as the only basis. Every page title states a finding in a full sentence, for example 'p95 latency fell from 1.8 s to 0.4 s'. Each project gets a problem and cause page, then an action and result page, so the interviewer reads the answer before the process. Keep the closing page to one sentence of direction and contact lines.",
+  "visual_style": "custom",
+  "visual_style_behavior": "Use swiss-minimal as the only basis: a modular grid, square corners, single-weight rules, near-white field, and one oversized numeral or color column per page that zones the layout. The accent color marks only the 'after' number. No gradients, no shadows, no decorative badges.",
+  "color": {
+    "name": "Calm navy",
+    "palette": {
+      "background": "#FFFFFF",
+      "secondary_bg": "#F3F5F8",
+      "primary": "#17305A",
+      "accent": "#E58A00",
+      "secondary_accent": "#5A7FB0",
+      "body_text": "#1B2330"
+    }
+  },
+  "icons": "tabler-outline",
+  "typography": {
+    "name": "Malgun Gothic + Arial",
+    "heading": {
+      "css": "sans-serif",
+      "english": "Arial",
+      "primary": "Malgun Gothic",
+      "sample_primary": "",
+      "sample_english": ""
+    },
+    "body": {
+      "css": "sans-serif",
+      "english": "Arial",
+      "primary": "Malgun Gothic",
+      "sample_primary": "",
+      "sample_english": ""
+    },
+    "body_size": 24,
+    "sizes": {
+      "title": 42,
+      "subtitle": 32,
+      "annotation": 18
+    },
+    "note": "",
+    "body_size_unit": "px"
+  },
+  "image_usage": [
+    "none"
+  ],
+  "image_notes": "No images are planned. The source has no pictures, and every claim is carried by numbers, before/after comparisons and native shapes. Use icons only as small labels.",
+  "proactive_speaker_notes": true,
+  "proactive_custom_animations": false,
+  "proactive_narration_audio": false,
+  "generation_mode": "continuous",
+  "refine_spec": false,
+  "design_spec_depth": "brief",
+  "stage": "final",
+  "status": "confirmed",
+  "stage1_sha256": "70fb16fa5cab19459101d48b21f79f4b8bc3efdcb777946e33a1ce4235555f2f",
+  "selection_sha256": "5624f593c3e3f25ccba87a518272fb6781559ac2b7382ba93baa73e01733b48d",
+  "confirmed_at": "2026-11-19T15:48:04"
+}

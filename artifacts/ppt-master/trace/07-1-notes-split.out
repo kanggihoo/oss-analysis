@@ -1,0 +1,21 @@
+PPT Master - Speaker Notes Splitting Tool
+==================================================
+  Project path: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119
+  Output directory: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\notes
+
+  Found 7 SVG file(s)
+  Found 7 notes section(s)
+
+[OK] SVG files and notes have one-to-one correspondence
+
+  Generated: 01_표지.md
+  Generated: 02_소개.md
+  Generated: 03_주문api_문제원인.md
+  Generated: 04_주문api_조치결과.md
+  Generated: 05_배포자동화.md
+  Generated: 06_기술역량.md
+  Generated: 07_맺음.md
+
+[Done] Successfully generated 7/7 file(s)
+
+[Done] Notes splitting complete

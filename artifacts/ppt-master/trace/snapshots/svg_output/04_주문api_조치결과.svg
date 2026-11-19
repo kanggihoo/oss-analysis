@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="header" data-pptx-bounds="64 64 1152 128">
+    <text x="64" y="116" font-size="42" font-weight="bold" fill="#17305A">쿼리·인덱스·cache 조치로 p95가<tspan x="64" dy="52">1.8초에서 0.4초로 줄었습니다</tspan></text>
+  </g>
+  <g id="result-hook" data-pptx-bounds="64 224 352 384">
+    <rect x="64" y="224" width="352" height="384" fill="#17305A"/>
+    <text x="96" y="264" font-size="18" font-weight="bold" fill="#F3F5F8">결과 · p95 응답 시간</text>
+    <text x="96" y="318" font-size="32" font-weight="bold" fill="#5A7FB0">개선 전 1.8초</text>
+    <line x1="96" y1="340" x2="384" y2="340" stroke="#5A7FB0" stroke-width="2"/>
+    <text x="96" y="380" font-size="18" fill="#F3F5F8">개선 후</text>
+    <text x="96" y="470" font-size="96" font-weight="bold" fill="#E58A00">0.4초</text>
+    <text x="96" y="530" font-size="18" fill="#F3F5F8">DB CPU 사용률</text>
+    <text x="96" y="566" font-size="24" fill="#FFFFFF">70% → <tspan font-weight="bold" fill="#E58A00">35%</tspan></text>
+  </g>
+  <g id="actions" data-pptx-bounds="448 224 768 330">
+    <text x="448" y="244" font-size="18" fill="#566176">조치 세 가지</text>
+    <text x="448" y="316" font-size="32" font-weight="bold" fill="#17305A">1</text>
+    <text x="496" y="316" font-size="24" font-weight="bold" fill="#1B2330">selectinload로 쿼리 수 감소</text>
+    <line x1="448" y1="348" x2="1216" y2="348" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="448" y="412" font-size="32" font-weight="bold" fill="#17305A">2</text>
+    <text x="496" y="412" font-size="24" font-weight="bold" fill="#1B2330">복합 인덱스 추가</text>
+    <line x1="448" y1="444" x2="1216" y2="444" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="448" y="508" font-size="32" font-weight="bold" fill="#17305A">3</text>
+    <text x="496" y="508" font-size="24" font-weight="bold" fill="#1B2330">Redis 상품 cache 도입</text>
+  </g>
+  <g id="footnote" data-pptx-bounds="64 624 1152 32">
+    <text x="64" y="646" font-size="16" fill="#566176">출처: 검증용 가상 샘플 포트폴리오 · 주문 API 응답 속도 개선 (2025)</text>
+  </g>
+</svg>

@@ -1,0 +1,536 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "77c9ff4a531cabe92ecab0a3d8ffb3ad366b26b8dfb74fdb366da2efed040e92",
+    "file_count": 7,
+    "files": [
+      {
+        "file": "01_표지.svg",
+        "sha256": "6baee91c3bbf0d10fb8a33e1f584133e478aecf8a309250071892d10ff8698f1"
+      },
+      {
+        "file": "02_소개.svg",
+        "sha256": "7471f9deab7a4e4cc57b3f2d48370764bea1a48f1aebadc65c6a848a5f686aa2"
+      },
+      {
+        "file": "03_주문api_문제원인.svg",
+        "sha256": "5d38476f5a62e113cb57a21cead2ad1e5ce14da173f96015241e554c37c3a43e"
+      },
+      {
+        "file": "04_주문api_조치결과.svg",
+        "sha256": "7fe216dbb0ada16b11b981de652a16a7f4334c2b1e609aa685d415f1c466c409"
+      },
+      {
+        "file": "05_배포자동화.svg",
+        "sha256": "5b68d31f207ce76fa672eedd5e2e3feb992f34cd883ba349b52f92c5f032e2c0"
+      },
+      {
+        "file": "06_기술역량.svg",
+        "sha256": "6c732969656bc3d9d48de0a903ed3b9fe3cf0023f325c69d1227e67f7b18cf4e"
+      },
+      {
+        "file": "07_맺음.svg",
+        "sha256": "e1bd92209c590fb6944a2402a532b6d0ee18e77213d7df6d17838a312f0a0664"
+      }
+    ]
+  },
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "warnings": 0,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 0,
+      "issues": []
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {},
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 7,
+    "totals": {
+      "text_elements": 88,
+      "image_placements": 0,
+      "icons": 7,
+      "svg_geometry_elements": 35,
+      "preset_shapes": 0,
+      "page_frame_elements": 7,
+      "marker_uses": 0,
+      "inline_emphasis_runs": 2,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 3,
+      "presets": 0,
+      "charts": 0,
+      "tables": 1,
+      "formulas": 0,
+      "inline_emphasis_runs": 2,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": 4,
+    "geometry_elements": {
+      "circle": 0,
+      "ellipse": 0,
+      "line": 17,
+      "path": 0,
+      "polygon": 0,
+      "polyline": 0,
+      "rect": 18
+    },
+    "preset_names": {},
+    "native_objects": {
+      "chart": 0,
+      "formula_block": 0,
+      "formula_inline": 0,
+      "other": 0,
+      "table": 1
+    },
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "01_표지.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\01_표지.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 8,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 8,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "6baee91c3bbf0d10fb8a33e1f584133e478aecf8a309250071892d10ff8698f1"
+    },
+    {
+      "file": "02_소개.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\02_소개.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 6,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 2,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 0,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 6,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "7471f9deab7a4e4cc57b3f2d48370764bea1a48f1aebadc65c6a848a5f686aa2"
+    },
+    {
+      "file": "03_주문api_문제원인.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\03_주문api_문제원인.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 14,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 14,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "5d38476f5a62e113cb57a21cead2ad1e5ce14da173f96015241e554c37c3a43e"
+    },
+    {
+      "file": "04_주문api_조치결과.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\04_주문api_조치결과.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 15,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 15,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "7fe216dbb0ada16b11b981de652a16a7f4334c2b1e609aa685d415f1c466c409"
+    },
+    {
+      "file": "05_배포자동화.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\05_배포자동화.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 3,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 5
+      },
+      "passed": true,
+      "source_sha256": "5b68d31f207ce76fa672eedd5e2e3feb992f34cd883ba349b52f92c5f032e2c0"
+    },
+    {
+      "file": "06_기술역량.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\06_기술역량.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 1,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 1
+      },
+      "passed": true,
+      "source_sha256": "6c732969656bc3d9d48de0a903ed3b9fe3cf0023f325c69d1227e67f7b18cf4e"
+    },
+    {
+      "file": "07_맺음.svg",
+      "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\svg_output\\07_맺음.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 5,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 2,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 1,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Malgun Gothic, Arial, sans-serif"
+        ],
+        "text_elements": 5,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "e1bd92209c590fb6944a2402a532b6d0ee18e77213d7df6d17838a312f0a0664"
+    }
+  ]
+}

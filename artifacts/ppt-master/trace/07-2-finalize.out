@@ -1,0 +1,18 @@
+
+[DIR] Project: portfolio_demo_20261119
+[FILE] 7 SVG file(s)
+[1/3] Expanding icons + local use references...
+[OK] 02_소개.svg (2 icons)
+[OK] 05_배포자동화.svg (3 icons)
+[OK] 07_맺음.svg (2 icons)
+      7 icon(s) embedded
+      No local use references
+[2/3] Aligning + embedding images...
+      No images
+[3/3] Flattening text...
+      7 file(s) processed
+
+[OK] Done!
+
+Next steps:
+  python3 scripts/svg_to_pptx.py "C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119"

@@ -1,0 +1,14 @@
+.
+./README.md
+./analysis
+./exports
+./icons
+./images
+./live_preview
+./notes
+./sources
+./svg_final
+./svg_output
+./templates
+./validation
+./validation/workflow.log

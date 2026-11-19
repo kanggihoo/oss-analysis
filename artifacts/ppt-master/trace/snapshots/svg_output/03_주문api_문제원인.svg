@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="header" data-pptx-bounds="64 64 1152 128">
+    <text x="64" y="116" font-size="42" font-weight="bold" fill="#17305A">피크 시간 주문 조회 p95가 1.8초까지<tspan x="64" dy="52">느려진 원인은 세 가지였습니다</tspan></text>
+  </g>
+  <g id="problem-hook" data-pptx-bounds="64 224 352 384">
+    <rect x="64" y="224" width="352" height="384" fill="#17305A"/>
+    <text x="96" y="264" font-size="18" font-weight="bold" fill="#F3F5F8">문제</text>
+    <text x="96" y="296" font-size="18" fill="#FFFFFF">피크 시간대 주문 조회 API의<tspan x="96" dy="26">p95 응답 시간</tspan></text>
+    <text x="96" y="450" font-size="96" font-weight="bold" fill="#E58A00">1.8초</text>
+  </g>
+  <g id="causes" data-pptx-bounds="448 224 768 232">
+    <text x="448" y="244" font-size="18" fill="#566176">원인 세 가지</text>
+    <text x="448" y="300" font-size="32" font-weight="bold" fill="#17305A">1</text>
+    <text x="496" y="300" font-size="24" font-weight="bold" fill="#1B2330">N+1 쿼리</text>
+    <line x1="448" y1="324" x2="1216" y2="324" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="448" y="372" font-size="32" font-weight="bold" fill="#17305A">2</text>
+    <text x="496" y="372" font-size="24" font-weight="bold" fill="#1B2330">인덱스 누락</text>
+    <line x1="448" y1="396" x2="1216" y2="396" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="448" y="444" font-size="32" font-weight="bold" fill="#17305A">3</text>
+    <text x="496" y="444" font-size="24" font-weight="bold" fill="#1B2330">동일 상품 정보 반복 조회</text>
+  </g>
+  <g id="role" data-pptx-bounds="448 488 768 120">
+    <line x1="448" y1="492" x2="1216" y2="492" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="448" y="520" font-size="18" fill="#566176">내 역할</text>
+    <text x="448" y="560" font-size="24" fill="#1B2330">원인 분석, 쿼리·인덱스 수정, cache 설계<tspan x="448" dy="36">(3인 팀 중 담당)</tspan></text>
+  </g>
+  <g id="footnote" data-pptx-bounds="64 624 1152 32">
+    <text x="64" y="646" font-size="16" fill="#566176">출처: 검증용 가상 샘플 포트폴리오 · 주문 API 응답 속도 개선 (2025)</text>
+  </g>
+</svg>

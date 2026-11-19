@@ -1,0 +1,7 @@
+[15:16:01] [INFO] confirm_ui: log: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\confirm_ui\server.log
+[15:16:03] [INFO] confirm_ui: started confirm UI in background: http://127.0.0.1:5050 (pid=51488)
+[15:16:03] [INFO] confirm_ui: recovered confirm UI for wait-only at http://127.0.0.1:5050; the browser polling should resume
+[15:16:03] [INFO] confirm_ui: waiting for browser confirmation stage=stage1...
+[15:23:32] [INFO] confirm_ui: confirmation stage=stage1 received: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\confirm_ui\result.json
+[15:23:32] [INFO] confirm_ui: [NEXT] Stage 1 is intermediate: install the selected roots (if any), author fresh Stage 2, then wait for final confirmation.
+EXIT=0

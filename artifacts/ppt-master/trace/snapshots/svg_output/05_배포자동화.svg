@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="header" data-pptx-bounds="64 64 1152 128">
+    <text x="64" y="116" font-size="42" font-weight="bold" fill="#17305A">수동 배포 40분을 8분으로 줄이고<tspan x="64" dy="52">월 배포를 4회에서 22회로 늘렸습니다</tspan></text>
+  </g>
+  <g id="problem" data-pptx-bounds="64 224 320 384">
+    <use data-icon="tabler-outline/server" x="64" y="228" width="40" height="40" fill="#17305A" stroke-width="2"/>
+    <text x="116" y="256" font-size="18" fill="#566176">문제</text>
+    <text x="64" y="324" font-size="24" font-weight="bold" fill="#1B2330">수동 배포 40분</text>
+    <text x="64" y="372" font-size="24" fill="#1B2330">실패 시 원복 절차는<tspan x="64" dy="36">문서에만 존재</tspan></text>
+    <line x1="64" y1="476" x2="384" y2="476" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="64" y="504" font-size="18" fill="#566176">내 역할</text>
+    <text x="64" y="548" font-size="24" fill="#1B2330">파이프라인 설계와 구현<tspan x="64" dy="36">(단독)</tspan></text>
+  </g>
+  <g id="action" data-pptx-bounds="416 224 400 384">
+    <use data-icon="tabler-outline/git-branch" x="416" y="228" width="40" height="40" fill="#17305A" stroke-width="2"/>
+    <text x="468" y="256" font-size="18" fill="#566176">조치</text>
+    <text x="416" y="324" font-size="32" font-weight="bold" fill="#17305A">1</text>
+    <text x="464" y="324" font-size="24" font-weight="bold" fill="#1B2330">GitHub Actions로<tspan x="464" dy="36">test → build → deploy 구성</tspan></text>
+    <line x1="416" y1="384" x2="816" y2="384" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="416" y="436" font-size="32" font-weight="bold" fill="#17305A">2</text>
+    <text x="464" y="436" font-size="24" font-weight="bold" fill="#1B2330">blue/green 전환</text>
+    <line x1="416" y1="468" x2="816" y2="468" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="416" y="520" font-size="32" font-weight="bold" fill="#17305A">3</text>
+    <text x="464" y="520" font-size="24" font-weight="bold" fill="#1B2330">실패 시 자동 rollback</text>
+  </g>
+  <g id="result-hook" data-pptx-bounds="848 224 368 384">
+    <rect x="848" y="224" width="368" height="384" fill="#17305A"/>
+    <use data-icon="tabler-outline/rocket" x="880" y="244" width="40" height="40" fill="#FFFFFF" stroke-width="2"/>
+    <text x="932" y="272" font-size="18" font-weight="bold" fill="#F3F5F8">결과</text>
+    <text x="880" y="324" font-size="18" fill="#F3F5F8">배포 시간</text>
+    <text x="880" y="362" font-size="32" font-weight="bold" fill="#5A7FB0">40분 →</text>
+    <text x="880" y="448" font-size="96" font-weight="bold" fill="#E58A00">8분</text>
+    <line x1="880" y1="490" x2="1184" y2="490" stroke="#5A7FB0" stroke-width="2"/>
+    <text x="880" y="524" font-size="18" fill="#F3F5F8">월 평균 배포 횟수</text>
+    <text x="880" y="574" font-size="32" font-weight="bold" fill="#5A7FB0">4회 → <tspan fill="#E58A00">22회</tspan></text>
+  </g>
+  <g id="footnote" data-pptx-bounds="64 624 1152 32">
+    <text x="64" y="646" font-size="16" fill="#566176">출처: 검증용 가상 샘플 포트폴리오 · 배포 파이프라인 자동화 (2024)</text>
+  </g>
+</svg>

@@ -1,0 +1,190 @@
+{
+  "schema": "ppt-master.pptx-postflight-report.v1",
+  "status": "passed",
+  "output": {
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\exports\\portfolio_demo_20261119_170127.pptx",
+    "bytes": 42694
+  },
+  "source": {
+    "svg_slide_count": 7,
+    "layout_definition_count": 0,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "digest": "77c9ff4a531cabe92ecab0a3d8ffb3ad366b26b8dfb74fdb366da2efed040e92",
+      "file_count": 7,
+      "files": [
+        {
+          "file": "01_표지.svg",
+          "sha256": "6baee91c3bbf0d10fb8a33e1f584133e478aecf8a309250071892d10ff8698f1"
+        },
+        {
+          "file": "02_소개.svg",
+          "sha256": "7471f9deab7a4e4cc57b3f2d48370764bea1a48f1aebadc65c6a848a5f686aa2"
+        },
+        {
+          "file": "03_주문api_문제원인.svg",
+          "sha256": "5d38476f5a62e113cb57a21cead2ad1e5ce14da173f96015241e554c37c3a43e"
+        },
+        {
+          "file": "04_주문api_조치결과.svg",
+          "sha256": "7fe216dbb0ada16b11b981de652a16a7f4334c2b1e609aa685d415f1c466c409"
+        },
+        {
+          "file": "05_배포자동화.svg",
+          "sha256": "5b68d31f207ce76fa672eedd5e2e3feb992f34cd883ba349b52f92c5f032e2c0"
+        },
+        {
+          "file": "06_기술역량.svg",
+          "sha256": "6c732969656bc3d9d48de0a903ed3b9fe3cf0023f325c69d1227e67f7b18cf4e"
+        },
+        {
+          "file": "07_맺음.svg",
+          "sha256": "e1bd92209c590fb6944a2402a532b6d0ee18e77213d7df6d17838a312f0a0664"
+        }
+      ]
+    },
+    "authoring_roundtrip": null
+  },
+  "package": {
+    "zip_integrity": "passed",
+    "corrupt_member": null,
+    "slides": 7,
+    "notes": 7,
+    "masters": 1,
+    "layouts": 1
+  },
+  "checks": {
+    "zip_integrity": "passed",
+    "slide_count": "passed",
+    "internal_relationships": "enforced-at-build",
+    "structured_package": "not-applicable",
+    "transitions": "enforced-at-build",
+    "animations": "enforced-at-build",
+    "project_svg_contract": "enforced-at-build",
+    "compatibility_normalization": "not-applicable",
+    "authoring_roundtrip": "not-applicable",
+    "quality_gate": "passed",
+    "quality_warnings": "passed",
+    "template_tokens": "passed",
+    "external_images": "passed",
+    "font_portability": "passed"
+  },
+  "quality": {
+    "status": "loaded",
+    "path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\validation\\svg_quality_report.json",
+    "schema": "ppt-master.svg-quality-report.v1",
+    "stage": "final",
+    "source_match": "passed",
+    "source_fingerprint": {
+      "algorithm": "sha256",
+      "digest": "77c9ff4a531cabe92ecab0a3d8ffb3ad366b26b8dfb74fdb366da2efed040e92",
+      "file_count": 7,
+      "files": [
+        {
+          "file": "01_표지.svg",
+          "sha256": "6baee91c3bbf0d10fb8a33e1f584133e478aecf8a309250071892d10ff8698f1"
+        },
+        {
+          "file": "02_소개.svg",
+          "sha256": "7471f9deab7a4e4cc57b3f2d48370764bea1a48f1aebadc65c6a848a5f686aa2"
+        },
+        {
+          "file": "03_주문api_문제원인.svg",
+          "sha256": "5d38476f5a62e113cb57a21cead2ad1e5ce14da173f96015241e554c37c3a43e"
+        },
+        {
+          "file": "04_주문api_조치결과.svg",
+          "sha256": "7fe216dbb0ada16b11b981de652a16a7f4334c2b1e609aa685d415f1c466c409"
+        },
+        {
+          "file": "05_배포자동화.svg",
+          "sha256": "5b68d31f207ce76fa672eedd5e2e3feb992f34cd883ba349b52f92c5f032e2c0"
+        },
+        {
+          "file": "06_기술역량.svg",
+          "sha256": "6c732969656bc3d9d48de0a903ed3b9fe3cf0023f325c69d1227e67f7b18cf4e"
+        },
+        {
+          "file": "07_맺음.svg",
+          "sha256": "e1bd92209c590fb6944a2402a532b6d0ee18e77213d7df6d17838a312f0a0664"
+        }
+      ]
+    },
+    "summary": {
+      "total": 7,
+      "passed": 7,
+      "warnings": 0,
+      "errors": 0
+    },
+    "categories": {
+      "blocking": {
+        "count": 0,
+        "issues": []
+      },
+      "introduced": {
+        "count": 0,
+        "issues": []
+      },
+      "inherited": {
+        "count": 0,
+        "issues": []
+      },
+      "source-import": {
+        "count": 0,
+        "summary": {
+          "warning_count": 0,
+          "by_code": {}
+        }
+      }
+    }
+  },
+  "resources": {
+    "unresolved_template_tokens": [],
+    "fonts": {
+      "stacks": [
+        "Malgun Gothic, Arial, sans-serif"
+      ],
+      "generic_only_stacks": [],
+      "unsafe_exported_faces": []
+    },
+    "images": {
+      "data_uri": 0,
+      "local": 0,
+      "external": 0,
+      "external_references": []
+    }
+  },
+  "export_policy": {
+    "project_svg_contract": "strict",
+    "dangerous_normalization_count": 0
+  },
+  "deck_motion": {
+    "transition": {
+      "effect": "fade",
+      "effect_options": {},
+      "duration": 0.4,
+      "auto_advance": null,
+      "sound": null
+    },
+    "animation": {
+      "effect": "none",
+      "effect_request": null,
+      "duration": 0.4,
+      "stagger": 0.5,
+      "trigger": "after-previous"
+    },
+    "cli_overrides": {
+      "transition": false,
+      "transition_duration": false,
+      "auto_advance": false,
+      "transition_sound": false,
+      "animation": false,
+      "animation_duration": false,
+      "animation_stagger": false,
+      "animation_trigger": false
+    },
+    "narration_timings": false
+  },
+  "backup_path": "C:\\Users\\SSAFY\\Desktop\\oss-analysis\\repos\\ppt-master\\projects\\portfolio_demo_20261119\\backup\\20261119_170127\\svg_output",
+  "conversion_trace_path": null
+}

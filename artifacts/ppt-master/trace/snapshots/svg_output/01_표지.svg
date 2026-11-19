@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="cover">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="cover-hook" data-pptx-bounds="0 0 416 720">
+    <rect x="0" y="0" width="416" height="720" fill="#17305A"/>
+    <text x="64" y="268" font-size="18" fill="#FFFFFF">주문 조회 API p95 응답 시간</text>
+    <text x="64" y="312" font-size="18" fill="#F3F5F8">개선 전</text>
+    <text x="64" y="410" font-size="96" font-weight="bold" fill="#5A7FB0">1.8초</text>
+    <line x1="64" y1="440" x2="352" y2="440" stroke="#5A7FB0" stroke-width="2"/>
+    <text x="64" y="484" font-size="18" fill="#F3F5F8">개선 후</text>
+    <text x="64" y="582" font-size="96" font-weight="bold" fill="#E58A00">0.4초</text>
+  </g>
+  <g id="cover-title" data-pptx-bounds="480 148 736 304">
+    <rect x="480" y="152" width="96" height="6" fill="#E58A00"/>
+    <text x="480" y="250" font-size="72" font-weight="bold" fill="#17305A">측정으로 병목을<tspan x="480" dy="86">찾아 수치로</tspan><tspan x="480" dy="86">개선합니다</tspan></text>
+  </g>
+  <g id="cover-subtitle" data-pptx-bounds="480 488 736 52">
+    <text x="480" y="520" font-size="32" fill="#1B2330">백엔드 개발자 김도윤 · 경력 4년</text>
+  </g>
+  <g id="cover-footnote" data-pptx-bounds="480 624 736 32">
+    <text x="480" y="646" font-size="16" fill="#566176">검증용 가상 샘플</text>
+  </g>
+</svg>

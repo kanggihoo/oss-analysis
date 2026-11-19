@@ -1,0 +1,44 @@
+
+[SCAN] Checking 5 authored SVG page(s) for the early gate...
+
+[OK] 01_표지.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 02_소개.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 03_주문api_문제원인.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 04_주문api_조치결과.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 05_배포자동화.svg - Passed
+   viewBox: 0 0 1280 720
+
+================================================================================
+[SUMMARY] Check Summary
+================================================================================
+
+Total files: 5
+  [OK] Fully passed: 5 (100%)
+  [WARN] With warnings: 0 (0%)
+  [ERROR] With errors: 0 (0%)
+
+Provenance categories:
+  blocking: 0          hard findings; gate also requires exit 0
+  introduced: 0        advisory; new or changed
+  inherited: 0         informational; prototype-identical
+  source-import: 0     informational; source-conversion loss
+
+[CARRIERS] Actual-use receipt (informational; not a quota)
+  Pages: 5 | text: 63 | images: 0 | icons: 5
+  Geometry: SVG elements 22 | native presets 0 | page-frame elements 5 | marker uses 0
+  Effects: inline emphasis 2 (pages 2) | gradients 0 (pages 0) | filters 0 (pages 0) | text effects 0 (pages 0)
+  Native objects: charts 0 | tables 0 | formulas 0
+  Presets: (none)
+  Relationship pages: 4 (§IX names order / link / parent / membership) | pages carrying a preset or connector: 0
+
+[OK] spec_lock anchor comparison: no additional contextual colors/fonts or out-of-band font sizes
+
+[REPORT] JSON quality report exported: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\validation\svg_quality_early_report.json

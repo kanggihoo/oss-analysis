@@ -1,0 +1,17 @@
+[CALIBRATION] roles: 7 | source: spec_lock.md
+role | family | size | CJK ≈chars/100px | Latin ≈chars/100px | CAPS ≈chars/100px | DIGITS ≈chars/100px | CITE ≈chars/100px | longest planned line (px, slide, text)
+--- | --- | --- | --- | --- | --- | --- | --- | ---
+body | Malgun Gothic, Arial, sans-serif | 24 | 3.9 | 8.1 | 7.5 | 7.1 | 7.5 | 800.1px, P03, 내 역할 "원인 분석, 쿼리·인덱스 수정, cache 설계 (3인 팀 …
+title | Malgun Gothic, Arial, sans-serif | 42 | 2.2 | 4.6 | 4.3 | 4.1 | 4.3 | 1424.6px, P05, 수동 배포 40분을 8분으로 줄이고 월 배포를 4회에서 22회로 늘렸습…
+subtitle | Malgun Gothic, Arial, sans-serif | 32 | 2.9 | 6.1 | 5.6 | 5.4 | 5.6 | 1465.3px, P05, 자동 배포 파이프라인으로 배포 시간은 40분에서 8분이 되고 월 배포 …
+annotation | Malgun Gothic, Arial, sans-serif | 18 | 5.2 | 10.8 | 10.0 | 9.5 | 10.0 | -
+cover_title | Malgun Gothic, Arial, sans-serif | 72 | 1.3 | 2.7 | 2.5 | 2.4 | 2.5 | -
+display | Malgun Gothic, Arial, sans-serif | 96 | 1.0 | 2.0 | 1.9 | 1.8 | 1.9 | -
+footnote | Malgun Gothic, Arial, sans-serif | 16 | 5.9 | 12.1 | 11.2 | 10.7 | 11.3 | -
+[NOTE] role display (96px, at least twice body) has no display_family and uses body_family; declare display_family if it is display type
+[NOTE] every role is measured at normal weight; recalibrate a role realized as bold deck-wide with --role NAME:FAMILY:SIZE:bold: bold widens Latin and digits about 7%, while the bundled advance table gives CJK one width for both weights
+[NOTE] mixed line width ≈ (CJK chars ÷ CJK rate + other chars ÷ Latin rate) × 100; spaces and punctuation count as Latin, digits use the DIGITS rate.
+[NOTE] the longest planned line is the §IX wording; a line rewritten while authoring (an expanded title, a longer label) is re-estimated with the rates — the outline column does not cover it.
+[NOTE] rates ignore letter-spacing and average a mixed-case sample: a tracked role (a kicker with letter-spacing) or a display-size line (a cover title) is sized per string with measure --letter-spacing, not from the table.
+[NOTE] measure and wrap take one --weight for the whole string: a line with a bold run (an inline emphasis lead) is measured piecewise per weight and summed, or the bold clause takes its own line.
+[NOTE] rates are sample averages measured with the checker's estimator (headroom included); the checker measures each real line glyph by glyph, so capital-heavy words (WebGPU, GDP), digits (1935, 83.2%) and wide letters run wider than the Latin rate — use the CAPS rate for acronyms and uppercase, the DIGITS rate for numbers, the CITE rate for source lines (dataset ids, years, brackets), and keep about 5% below any bounds width.

@@ -1,0 +1,109 @@
+{
+  "stage": "stage2",
+  "selection_sha256": "5624f593c3e3f25ccba87a518272fb6781559ac2b7382ba93baa73e01733b48d",
+  "lang": "en",
+  "recommend": {
+    "delivery_purpose": "balanced",
+    "mode": "custom",
+    "visual_style": "custom",
+    "image_strategy": "custom",
+    "image_usage": ["none"],
+    "generation_mode": "continuous"
+  },
+  "page_count": { "value": "7" },
+  "image_notes": { "value": "No images are planned. The source has no pictures, and every claim is carried by numbers, before/after comparisons and native shapes. Use icons only as small labels." },
+  "proactive_speaker_notes": { "value": true },
+  "proactive_custom_animations": { "value": false },
+  "proactive_narration_audio": { "value": false },
+  "refine_spec": { "value": false },
+  "design_spec_depth": { "value": "brief" },
+  "design_directions": {
+    "selected": 0,
+    "candidates": [
+      {
+        "id": "evidence-first",
+        "name": "Evidence first",
+        "note": "Each page opens with the conclusion and proves it with one large before/after number on a strict grid.",
+        "mode": "custom",
+        "mode_behavior": "Use pyramid as the only basis. Every page title states a finding in a full sentence, for example 'p95 latency fell from 1.8 s to 0.4 s'. Each project gets a problem and cause page, then an action and result page, so the interviewer reads the answer before the process. Keep the closing page to one sentence of direction and contact lines.",
+        "visual_style": "custom",
+        "visual_style_behavior": "Use swiss-minimal as the only basis: a modular grid, square corners, single-weight rules, near-white field, and one oversized numeral or color column per page that zones the layout. The accent color marks only the 'after' number. No gradients, no shadows, no decorative badges.",
+        "icons": "tabler-outline",
+        "color": { "name": "Calm navy", "palette": {
+          "background": "#FFFFFF", "secondary_bg": "#F3F5F8",
+          "primary": "#17305A", "accent": "#E58A00",
+          "secondary_accent": "#5A7FB0", "body_text": "#1B2330"
+        } },
+        "typography": {
+          "name": "Malgun Gothic + Arial",
+          "heading": { "primary": "Malgun Gothic", "english": "Arial", "css": "sans-serif" },
+          "body": { "primary": "Malgun Gothic", "english": "Arial", "css": "sans-serif" },
+          "body_size": 24
+        },
+        "image_strategy": {
+          "name": "Grid diagrams",
+          "rendering": "custom",
+          "visual": "Flat geometric diagrams on a visible grid with a single accent block",
+          "mood": "Rigorous and considered, like a technical report appendix",
+          "behavior": "Use minimalist-swiss as the only basis: uniform stroke weight, flat fills, no depth, color as conceptual zone. Applies only if images are later added."
+        }
+      },
+      {
+        "id": "case-study-editorial",
+        "name": "Case study editorial",
+        "note": "Each project reads like a short magazine case: situation, turn, result, with serif headings and hairline rules.",
+        "mode": "custom",
+        "mode_behavior": "Use narrative as the only basis. Frame each project as a small story: the situation, the moment the numbers looked wrong, the fix, the result. Titles read as beats that advance the story. Keep the facts exactly as sourced and do not add drama beyond what the source states.",
+        "visual_style": "custom",
+        "visual_style_behavior": "Use editorial as the only basis: a serif heading against a sans body, kicker above each title, hairline column rules, one pull quote or hero number per project page. Mostly monochrome text on a warm light field with a restrained accent on rules and key figures.",
+        "icons": "phosphor-duotone",
+        "color": { "name": "Warm paper", "palette": {
+          "background": "#FBF8F3", "secondary_bg": "#EFE8DC",
+          "primary": "#2E4A3D", "accent": "#B4532A",
+          "secondary_accent": "#7C8C70", "body_text": "#26221D"
+        } },
+        "typography": {
+          "name": "Batang + Georgia headings, Malgun Gothic + Arial body",
+          "heading": { "primary": "Batang", "english": "Georgia", "css": "serif" },
+          "body": { "primary": "Malgun Gothic", "english": "Arial", "css": "sans-serif" },
+          "body_size": 24
+        },
+        "image_strategy": {
+          "name": "Magazine diagrams",
+          "rendering": "custom",
+          "visual": "Thin-rule editorial diagrams with one dominant focal area",
+          "mood": "Refined and premium-restrained, like a finance magazine explainer",
+          "behavior": "Use editorial as the only basis: refined rules, clean filled shapes, optional faint paper grain, no shadows. Applies only if images are later added."
+        }
+      },
+      {
+        "id": "friendly-showcase",
+        "name": "Friendly showcase",
+        "note": "Short punchy titles, big rounded number cards and a confident blue cover for a warmer first impression.",
+        "mode": "custom",
+        "mode_behavior": "Use showcase as the only basis. Each page makes one thing primary: a big number, a short phrase, or one card. Titles are short phrases, not sentences. Pace the deck with bold pages for the two results and a quiet page for the skills table, and keep the supporting cause and action text small but readable.",
+        "visual_style": "custom",
+        "visual_style_behavior": "Use soft-rounded as the only basis: a coherent radius family, pill tags, rounded cards as the main container, a soft color field bleeding off one edge on the cover and chapter pages, same-hue tints behind cards and the accent on key figures.",
+        "icons": "tabler-filled",
+        "color": { "name": "Bright blue", "palette": {
+          "background": "#FFFFFF", "secondary_bg": "#EDF3FF",
+          "primary": "#2B58E8", "accent": "#FF8440",
+          "secondary_accent": "#7AA0F5", "body_text": "#1A2233"
+        } },
+        "typography": {
+          "name": "Malgun Gothic + Arial, larger headings",
+          "heading": { "primary": "Malgun Gothic", "english": "Arial", "css": "sans-serif" },
+          "body": { "primary": "Malgun Gothic", "english": "Arial", "css": "sans-serif" },
+          "body_size": 24
+        },
+        "image_strategy": {
+          "name": "Flat blocks",
+          "rendering": "custom",
+          "visual": "Bold flat geometric blocks with confident color zones",
+          "mood": "Designed and approachable, like a modern product launch page",
+          "behavior": "Use flat as the only basis: simplified silhouettes, solid fills, depth only through overlap and color contrast. Applies only if images are later added."
+        }
+      }
+    ]
+  }
+}

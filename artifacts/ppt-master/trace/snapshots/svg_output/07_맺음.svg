@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="ending">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="closing-title" data-pptx-bounds="64 148 704 304">
+    <rect x="64" y="152" width="96" height="6" fill="#E58A00"/>
+    <text x="64" y="250" font-size="72" font-weight="bold" fill="#17305A">데이터 기반으로<tspan x="64" dy="86">병목을 찾는</tspan><tspan x="64" dy="86">백엔드 엔지니어</tspan></text>
+  </g>
+  <g id="contact" data-pptx-bounds="832 0 448 720">
+    <rect x="832" y="0" width="448" height="720" fill="#17305A"/>
+    <use data-icon="tabler-outline/mail" x="880" y="292" width="40" height="40" fill="#FFFFFF" stroke-width="2"/>
+    <text x="936" y="320" font-size="18" fill="#F3F5F8">이메일</text>
+    <text x="880" y="372" font-size="24" fill="#FFFFFF">example@example.com (샘플)</text>
+    <line x1="880" y1="420" x2="1232" y2="420" stroke="#5A7FB0" stroke-width="2"/>
+    <use data-icon="tabler-outline/code" x="880" y="452" width="40" height="40" fill="#FFFFFF" stroke-width="2"/>
+    <text x="936" y="480" font-size="18" fill="#F3F5F8">GitHub</text>
+    <text x="880" y="532" font-size="24" fill="#FFFFFF">github.com/example (샘플)</text>
+  </g>
+</svg>

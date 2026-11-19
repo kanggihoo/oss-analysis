@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Malgun Gothic, Arial, sans-serif" data-pptx-page-role="content">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="header" data-pptx-bounds="64 64 1152 128">
+    <text x="64" y="116" font-size="42" font-weight="bold" fill="#17305A">Python·PostgreSQL은 상,<tspan x="64" dy="52">Redis·AWS·관측성은 중 수준입니다</tspan></text>
+  </g>
+  <g id="skills-table" data-pptx-bounds="64 224 1152 328" data-pptx-replace-with="table" data-pptx-fallback-sha256="314de2e5f168767ea024821b37bc51063add25074b4cf11657ac7146b656a4c3">
+    <metadata type="application/json">
+      {
+        "schema": "ppt-master.semantic-table.v2",
+        "name": "skills-table",
+        "x": 64,
+        "y": 224,
+        "width": 1152,
+        "height": 328,
+        "strict_grid": true,
+        "column_widths": [320, 160, 672],
+        "row_heights": [48, 56, 56, 56, 56, 56],
+        "style": {
+          "font_family": "Malgun Gothic",
+          "font_size": 24,
+          "header_font_size": 18,
+          "header_fill": "#17305A",
+          "header_text": "#FFFFFF",
+          "body_fill": "#FFFFFF",
+          "body_text": "#1B2330",
+          "band_row": true,
+          "band_fill": "#F3F5F8",
+          "padding": {"left": 16, "right": 16, "top": 6, "bottom": 6},
+          "valign": "middle"
+        },
+        "defaults": {
+          "cell": {
+            "borders": {
+              "left": {"style": "none"},
+              "right": {"style": "none"},
+              "top": {"style": "solid", "color": "#D3D9E2", "width": 1},
+              "bottom": {"style": "solid", "color": "#D3D9E2", "width": 1}
+            }
+          }
+        },
+        "columns": [
+          {"text": "영역", "bold": true, "align": "l"},
+          {"text": "수준", "bold": true, "align": "ctr"},
+          {"text": "근거", "bold": true, "align": "l"}
+        ],
+        "rows": [
+          [
+            {"text": "Python / FastAPI", "bold": true},
+            {"text": "상", "bold": true, "align": "ctr", "color": "#17305A"},
+            {"text": "사내 API 12개 설계·운영"}
+          ],
+          [
+            {"text": "PostgreSQL", "bold": true, "fill": "#F3F5F8"},
+            {"text": "상", "bold": true, "align": "ctr", "color": "#17305A", "fill": "#F3F5F8"},
+            {"text": "쿼리 튜닝, 인덱스 설계", "fill": "#F3F5F8"}
+          ],
+          [
+            {"text": "Redis", "bold": true},
+            {"text": "중", "align": "ctr"},
+            {"text": "cache, 분산 lock 적용"}
+          ],
+          [
+            {"text": "AWS (ECS, RDS)", "bold": true, "fill": "#F3F5F8"},
+            {"text": "중", "align": "ctr", "fill": "#F3F5F8"},
+            {"text": "서비스 배포와 모니터링 구성", "fill": "#F3F5F8"}
+          ],
+          [
+            {"text": "관측성", "bold": true},
+            {"text": "중", "align": "ctr"},
+            {"text": "Prometheus·Grafana 대시보드 구성"}
+          ]
+        ]
+      }
+    </metadata>
+    <rect x="64" y="224" width="1152" height="48" fill="#17305A"/>
+    <text x="80" y="254" font-size="18" font-weight="bold" fill="#FFFFFF">영역</text>
+    <text x="464" y="254" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">수준</text>
+    <text x="560" y="254" font-size="18" font-weight="bold" fill="#FFFFFF">근거</text>
+    <rect x="64" y="328" width="1152" height="56" fill="#F3F5F8"/>
+    <rect x="64" y="440" width="1152" height="56" fill="#F3F5F8"/>
+    <line x1="64" y1="328" x2="1216" y2="328" stroke="#D3D9E2" stroke-width="1"/>
+    <line x1="64" y1="384" x2="1216" y2="384" stroke="#D3D9E2" stroke-width="1"/>
+    <line x1="64" y1="440" x2="1216" y2="440" stroke="#D3D9E2" stroke-width="1"/>
+    <line x1="64" y1="496" x2="1216" y2="496" stroke="#D3D9E2" stroke-width="1"/>
+    <line x1="64" y1="552" x2="1216" y2="552" stroke="#D3D9E2" stroke-width="1"/>
+    <text x="80" y="308" font-size="24" font-weight="bold" fill="#1B2330">Python / FastAPI</text>
+    <text x="464" y="308" font-size="24" font-weight="bold" fill="#17305A" text-anchor="middle">상</text>
+    <text x="560" y="308" font-size="24" fill="#1B2330">사내 API 12개 설계·운영</text>
+    <text x="80" y="364" font-size="24" font-weight="bold" fill="#1B2330">PostgreSQL</text>
+    <text x="464" y="364" font-size="24" font-weight="bold" fill="#17305A" text-anchor="middle">상</text>
+    <text x="560" y="364" font-size="24" fill="#1B2330">쿼리 튜닝, 인덱스 설계</text>
+    <text x="80" y="420" font-size="24" font-weight="bold" fill="#1B2330">Redis</text>
+    <text x="464" y="420" font-size="24" fill="#1B2330" text-anchor="middle">중</text>
+    <text x="560" y="420" font-size="24" fill="#1B2330">cache, 분산 lock 적용</text>
+    <text x="80" y="476" font-size="24" font-weight="bold" fill="#1B2330">AWS (ECS, RDS)</text>
+    <text x="464" y="476" font-size="24" fill="#1B2330" text-anchor="middle">중</text>
+    <text x="560" y="476" font-size="24" fill="#1B2330">서비스 배포와 모니터링 구성</text>
+    <text x="80" y="532" font-size="24" font-weight="bold" fill="#1B2330">관측성</text>
+    <text x="464" y="532" font-size="24" fill="#1B2330" text-anchor="middle">중</text>
+    <text x="560" y="532" font-size="24" fill="#1B2330">Prometheus·Grafana 대시보드 구성</text>
+  </g>
+  <g id="footnote" data-pptx-bounds="64 624 1152 32">
+    <text x="64" y="646" font-size="16" fill="#566176">출처: 검증용 가상 샘플 포트폴리오 · 기술 역량</text>
+  </g>
+</svg>

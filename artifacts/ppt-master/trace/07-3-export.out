@@ -1,0 +1,49 @@
+PPT Master - SVG to native DrawingML PPTX Tool
+==================================================
+  Project path: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119
+  SVG directory: svg_output
+  Output file: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\exports\portfolio_demo_20261119_170127.pptx
+
+  Detected canvas format: PPT 16:9
+  Slide dimensions: 1280 x 720 px
+  SVG file count: 7
+  Mode: Native DrawingML shapes (directly editable)
+  Native table/chart objects: Chart/Table replacement disabled
+  PPTX structure: flat
+  Image optimization: Enabled (preferred cap 2560 px, unchanged bytes preserved, JPEG q85 when re-encoded)
+  Transition effect: Fade
+  Speaker notes: 7 page(s)
+
+  Lowered positional <tspan> using preserve text flow
+  Converted 4 elements, skipped 0, promoted 1 background
+  [Slide 1/7] 01_표지.svg (Native) +notes
+  Expanded 2 <use data-icon="..."/> placeholder(s)
+  Lowered positional <tspan> using preserve text flow
+  Converted 5 elements, skipped 0, promoted 1 background
+  [Slide 2/7] 02_소개.svg (Native) +notes
+  Lowered positional <tspan> using preserve text flow
+  Converted 5 elements, skipped 0, promoted 1 background
+  [Slide 3/7] 03_주문api_문제원인.svg (Native) +notes
+  Lowered positional <tspan> using preserve text flow
+  Converted 4 elements, skipped 0, promoted 1 background
+  [Slide 4/7] 04_주문api_조치결과.svg (Native) +notes
+  Expanded 3 <use data-icon="..."/> placeholder(s)
+  Lowered positional <tspan> using preserve text flow
+  Converted 5 elements, skipped 0, promoted 1 background
+  [Slide 5/7] 05_배포자동화.svg (Native) +notes
+  Lowered positional <tspan> using preserve text flow
+  Converted 3 elements, skipped 0, promoted 1 background
+  [Slide 6/7] 06_기술역량.svg (Native) +notes
+  Expanded 2 <use data-icon="..."/> placeholder(s)
+  Lowered positional <tspan> using preserve text flow
+  Converted 2 elements, skipped 0, promoted 1 background
+  [Slide 7/7] 07_맺음.svg (Native) +notes
+  Flat structure: project-owned Master + Blank Layout (10 stock layout(s), 2 stock content shape(s) removed, 6 system footer hook(s) retained)
+  Flat theme: 2 theme part(s), 1 master text style(s)
+
+[Done] Saved: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\exports\portfolio_demo_20261119_170127.pptx
+  Slides: 7; unselected Layout prototype carriers: 0
+  svg_output backup: C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\backup\20261119_170127\svg_output
+  [POSTFLIGHT] status=passed quality_gate=passed slides=7 warning_categories=0
+  [PPTX] C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\exports\portfolio_demo_20261119_170127.pptx
+  [REPORT] C:\Users\SSAFY\Desktop\oss-analysis\repos\ppt-master\projects\portfolio_demo_20261119\validation\portfolio_demo_20261119_170127.report.json
