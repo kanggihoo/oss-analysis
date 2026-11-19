@@ -72,7 +72,8 @@ CLI-Anything은 GUI 앱이나 웹 서비스를 코딩 에이전트가 쓸 수 �
 
 ## 4. 질문 (Questions)
 
-아직 없음.
+- [q1-cli-hub](./questions/q1-cli-hub.md): `cli-hub`는 무엇이고 README 설치 흐름은 실제와 같은가 (코드 확인 + 실행 확인)
+- [q2-hub-catalog](./questions/q2-hub-catalog.md): `cli-hub list`의 103개(harness 79 + public 24)는 각각 무엇을 지원하는가 (registry 확인, 개별 CLI 동작은 미확인)
 
 ### 범위 승인 기록
 

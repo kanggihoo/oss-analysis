@@ -16,6 +16,7 @@ updated: 2026-11-18
 - [x] 2026-11-18 사용자 승인: 행 1~5. 처음 제안한 8행을 5행으로 합침
 - [x] 기능 스펙 5개 작성(모두 `draft`): [harness-sop](./capabilities/harness-sop.md), [harness-contract](./capabilities/harness-contract.md), [harness-families](./capabilities/harness-families.md), [skill-packaging](./capabilities/skill-packaging.md), [registry-schema](./capabilities/registry-schema.md). 서브에이전트 5명이 병렬로 작성
 - [x] 메인 세션 표본 점검 6건 일치: `session.py:129-144` undo 미저장, `gimp_cli.py:439-446` `canvas dpi`에 `snapshot` 없음, `export.py:67-84` Pillow fallback, `generate_meta_skill.py:12` 출력 경로, obs-studio 검색 0건, `repl_skin.py:131-156` skill id 규칙
+- [x] 2026-11-19 질문 2건: [q1-cli-hub](./questions/q1-cli-hub.md), [q2-hub-catalog](./questions/q2-hub-catalog.md). `artifacts/CLI-Anything/hub-catalog.tsv`(103행). venv에서 `mermaid`만 설치·실행
 - [ ] 구조도(archify) 미작성, 독립 검토와 재구현 미수행, `validate_root_skills.py` 실행 안 함(권한 분류기가 거부, 우회하지 않음)
 - 서브에이전트가 scratchpad에서 한 실행: gimp·firefly-iii·jumpserver 복사본 실행과 godot·gimp wheel 빌드(contract), `generate_meta_skill.py` 실행(registry-schema). `repos/CLI-Anything`은 변경 없음(`git status` 0줄)
 
