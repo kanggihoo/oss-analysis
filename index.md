@@ -1,6 +1,6 @@
 # Index
 
-> Last updated: 2026-11-18
+> Last updated: 2026-11-19
 > 레포에 관한 분석은 모두 `reports/<repo>/`에 있다. 형식은 [SCHEMA.md](SCHEMA.md), 절차는 [OSS_ANALYSIS_WORKFLOW.md](OSS_ANALYSIS_WORKFLOW.md).
 
 ## 분석한 레포
@@ -22,7 +22,7 @@
 | claude-video (video/) | `03ceb42` | [overview](video/reports/claude-video/overview.md) | — (범위 승인 대기) |
 | rea-video (video/) | `538eb3a` | [overview](video/reports/rea-video/overview.md), [next](video/reports/rea-video/next.md) | — (목적 미정, 범위 승인 전) |
 | gcalcli | `405639c` | [overview](reports/gcalcli/overview.md), [next](reports/gcalcli/next.md) | [config-resolution](reports/gcalcli/capabilities/config-resolution.md) (draft), [oauth-auth](reports/gcalcli/capabilities/oauth-auth.md) (draft), [calendar-selection](reports/gcalcli/capabilities/calendar-selection.md) (draft), [event-query](reports/gcalcli/capabilities/event-query.md) (draft), [input-parsing](reports/gcalcli/capabilities/input-parsing.md) (draft), [event-create](reports/gcalcli/capabilities/event-create.md) (draft), [output-rendering](reports/gcalcli/capabilities/output-rendering.md) (draft), [event-modify](reports/gcalcli/capabilities/event-modify.md) (draft), [agenda-tsv-roundtrip](reports/gcalcli/capabilities/agenda-tsv-roundtrip.md) (draft) · 제외·미작성 2(ICS 가져오기, 리마인드) |
-| ppt-master | `3af3e8e` | [overview](reports/ppt-master/overview.md), [next](reports/ppt-master/next.md) | [generate-default-pipeline](reports/ppt-master/capabilities/generate-default-pipeline.md) (ready), [svg-authoring-and-quality](reports/ppt-master/capabilities/svg-authoring-and-quality.md) (ready), [svg-to-pptx-cli](reports/ppt-master/capabilities/svg-to-pptx-cli.md) (ready), [image-file-contract](reports/ppt-master/capabilities/image-file-contract.md) (ready), [confirm-and-preview-ui](reports/ppt-master/capabilities/confirm-and-preview-ui.md) (ready) · 제외·미작성 12(범위 밖) |
+| ppt-master | `3af3e8e` | [overview](reports/ppt-master/overview.md), [next](reports/ppt-master/next.md) | [generate-default-pipeline](reports/ppt-master/capabilities/generate-default-pipeline.md) (ready), [svg-authoring-and-quality](reports/ppt-master/capabilities/svg-authoring-and-quality.md) (ready), [svg-to-pptx-cli](reports/ppt-master/capabilities/svg-to-pptx-cli.md) (ready), [image-file-contract](reports/ppt-master/capabilities/image-file-contract.md) (ready), [confirm-and-preview-ui](reports/ppt-master/capabilities/confirm-and-preview-ui.md) (ready), [template-candidate-selection](reports/ppt-master/capabilities/template-candidate-selection.md) (ready) · 제외·미작성 11(범위 밖, 행 10은 일부만 작성) |
 | codeburn | `9a40cc6` | [overview](reports/codeburn/overview.md) | — |
 | codenotch | `414ceaf` | [overview](reports/codenotch/overview.md) | — |
 | context-mode | `f8d4639` | [overview](reports/context-mode/overview.md) | — |

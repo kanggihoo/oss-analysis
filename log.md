@@ -1275,3 +1275,25 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - 독립 검토(읽기 전용 서브에이전트)는 `input-parsing`, `calendar-selection`, `event-query`에 했다. 반증된 R-ID 없음, 누락·인용 줄 오차는 스펙에 반영했다. 나머지 6개는 메인 점검만(각 스펙 2.4). 재구현은 하지 않았다.
 - 스펙 작업 중 feature map 정정: camelCase 옵션은 변환이 아니라 무시, `--noauth_local_server`(밑줄), 인증은 캐시 미스 시에만, 행 5의 `_tsv`·`_json`을 행 9로 이동, edit에는 `allday`·`default_reminders` 옵션이 없음 등. 원본 이상 동작 목록은 `reports/gcalcli/next.md` 2.1절.
 - 일부 서브에이전트가 `/tmp` 임시 venv에서 스텁 API로 원본을 실행해 확인했다(`repos/gcalcli`는 변경 없음). 남은 미결정은 대부분 Google API·외부 라이브러리 동작이라 설치·실행 허용이 필요하다.
+
+## [2026-11-19] capability | ppt-master template-candidate-selection (ready)
+- 사용자 질문("Step 3에서 AI가 Stage 1 후보를 골라 담는가")을 `generate-pptx.md` Step 3·4, `routing.md` §7, `confirm-surface.md`, `confirm_ui.md`, `confirm_ui/server.py`(`_read_template_options_input`·`_build_template_library`·`_build_template_options`·`_resolve_template_confirmation`·`confirm`), `app.js` 템플릿 선택부, `apply_template.py`, `register_template.py`, index 4개로 조사해 `reports/ppt-master/capabilities/template-candidate-selection.md`를 썼다. 결론: agent는 `template_options`(`default_mode`, 지정 root)만 넣고, 후보 목록은 서버가 index 4개를 읽어 전부 만든다. 추천·정렬·필터는 없다.
+- 임시 프로젝트(scratchpad)에서 server 모듈을 Flask test client로 호출하고 `apply_template.py`, `register_template.py --dry-run`, `server.py --wait-only`를 실행해 확인했다. 확정 서버 프로세스는 띄우지 않았고 `repos/ppt-master`는 변경 없음. 독립 검토 없이 메인 점검만 했다.
+- `overview.md` 행 10(템플릿 시스템)의 상태를 일부 작성으로 갱신하고 `index.md` ppt-master 기능 스펙 칸에 추가했다.
+
+## [2026-11-19] capability | artex-global 도구·skill 전체 목록(Q4)
+- 사용자 요청("artex-global에서 사용하는 도구·skill 전부 정리")으로 `Dockerfile`, `agent/toolcatalog.go`, `agent/tools*.go`, `traffic/traffic.go`, `server/orchestration.go`·`platform_tools.go`·`finding_retests.go`·`customtool.go`, `db/db.go`·`schema.sql`, `skills/` 3개와 보조 script 머리말을 읽었다. 실행 없음.
+- 새 문서 `ai-pentest/reports/artex-global/questions/q4-tool-skill-catalog.md`: 이미지 CLI, SDK 기본 도구, 도메인 도구, host 도구(트래픽·작업 관리 14·재검증 2·플랫폼 7·custom), skill 3개(`api-recon`만 기본 노출), MCP 2개(기본 비활성)를 종류별로 정리했다. `overview.md` 4절에 링크를 추가했다.
+
+## [2026-11-19] ingest | CLI-Anything cli-hub와 지원 CLI 103개 목록(Q1·Q2)
+- 사용자 질문("cli-anything-hub가 뭔가, 지원 CLI 103개 정리")으로 `cli-hub/cli_hub/`의 `registry.py`, `installer.py`, `cli.py`, `analytics.py`, `registry.json`, `public_registry.json`을 읽었다. scratchpad venv에 `cli-anything-hub 0.4.1`을 설치하고 `cli-hub list`·`info`·`install mermaid`와 `cli-anything-mermaid --json project new`를 실행했다. 원격 registry 캐시와 로컬 두 JSON은 차이 0이었다. `repos/CLI-Anything`은 변경 없음(`34f5195`).
+- 새 문서 `reports/CLI-Anything/questions/q1-cli-hub.md`(hub 동작, install은 `install_cmd`로 pip이 GitHub 하위 폴더를 설치, 기본 활성 통계 전송), `q2-hub-catalog.md`(103개를 7분류, 필요한 것·유형 표). `artifacts/CLI-Anything/hub-catalog.tsv` 추가. `overview.md` 4절과 `next.md` 갱신.
+- 정정: README 표(약 40개)는 현재 목록(103개)보다 오래됐다. registry `meta.updated`는 2026-06-19/2026-08-20으로 HEAD(2026-09-22)보다 오래됨. 첫 실행에서 `CLI_HUB_NO_ANALYTICS`를 설정하지 않아 통계가 전송됐을 수 있다.
+- 같은 날 추가: 사용자 질문("SVG는 AI가 직접 만들 수 있는데 inkscape가 왜 필요한가")으로 `inkscape` harness의 `core/`와 `utils/inkscape_backend.py`를 읽고 `q2-hub-catalog.md` 5.1절에 반영했다. SVG 편집은 Python이 XML을 직접 고치고 Inkscape 프로그램은 export에만 호출한다. blender·freecad 데모는 README 주장으로 미확인.
+
+## [2026-11-19] ingest | ppt-master default 파이프라인 실행 trace (포트폴리오 샘플, Step 1~7)
+- 사용자 요청("동작을 처음부터 끝까지 순차 검증")으로 `repos/ppt-master`(`3af3e8e`, venv `.venv`)에서 Generate Default 경로를 실제로 한 번 끝까지 실행했다. 소스는 가상 포트폴리오 `artifacts/ppt-master/trace/input/portfolio.md`(5개 절, 7슬라이드). 실행 주체는 분석 세션의 agent라서 "스펙만으로 재현되는가"는 검증하지 않았다.
+- 새 trace 문서(`artifacts/ppt-master/trace/`): `01-03-intake-and-init.md`, `04a-stage1.md`, `04b-stage2.md`, `04c-design-spec-and-lock.md`, `06-07-executor-and-export.md`. 산출물 사본은 `trace/snapshots/`(design_spec, spec_lock, result.final.json, svg_output 7개, notes, `.pptx`, 보고서).
+- 결과: `exports/portfolio_demo_20261119_170127.pptx` 7장(`[POSTFLIGHT] status=passed`). `python-pptx`로 열어 슬라이드 7개, notes 7개, 네이티브 텍스트 shape 확인. 렌더링 육안 확인과 PowerPoint 실제 열기는 하지 않았다.
+- 정정과 발견: Stage 1·2 확인 서버(`--daemon`)가 세 번 사라졌다(원인 미확인, 기본 idle 900초 포함). `--wait-only`가 같은 포트로 복구하고, 마지막은 PowerShell `Start-Process`로 분리해 정상 확정했다. `--timeout 0` 사용. agent가 서버에 HTTP를 보내지 않고 `recommendations.stage2.json`을 쓰면 서버가 요청 때 읽는 구조임을 로그로 확인했다(`04b`).
+- 이 run에서 하지 않은 것: Step 5(이미지 출처 `none`), 템플릿 모드(`free_design`), `--native-charts-and-tables`(표는 shape로 변환됨), `preset-shape-vocabulary.md` 읽기(필수 core였는데 누락), 페이지별 `modules:` 한 줄(P01, P06만), 5장 뒤 lock 재읽기. 자세한 목록은 `06-07-executor-and-export.md` 2절·4절.
