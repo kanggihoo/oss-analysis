@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "c64864e2-bc1b-4fa6-b4d8-6cd158879ac4",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.json",
+  "output": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.html",
+  "specification": {
+    "sha256": "c14a5002f624236613c0aa160107f202d6fb0878600f29e87b0301b72a670c9f",
+    "bytes": 11003
+  },
+  "artifact": {
+    "sha256": "23e07b6f042f6514b1b30bd9752c29de05d8b163d7f0027bf1d67907ff94485a",
+    "bytes": 876404
+  }
+}

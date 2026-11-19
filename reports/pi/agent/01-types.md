@@ -42,7 +42,7 @@ ai의 `Tool<TParameters>`(이름, 설명, 매개변수 스키마로 이루어진
 | 필드 | 뜻 |
 |---|---|
 | `label` | 화면에 보일 사람용 이름 (`:466`) |
-| `execute(toolCallId, params, signal?, onUpdate?)` | 실제 실행. `params`는 스키마 타입(`Static<TParameters>`)으로 검증이 끝난 값 |
+| `execute(toolCallId, params, signal?, onUpdate?)` | 실제 실행. `params`는 스키마 타입(`AgentToolParams<TParameters>`, 일반 스키마는 pi-schema의 `Static<TParameters>`, `AgentTool<any>`는 `any`)으로 검증이 끝난 값. 2026-11-17 기준 `AgentTool<TParameters extends object>`이고 TypeBox의 `TSchema`에 묶이지 않는다(`types.ts:465-500`, `코드 확인`) |
 | `prepareArguments?` | 스키마 검증 전에 인자를 보정하는 호환용 함수. 스키마에 맞는 객체를 돌려줘야 한다 (`:471`) |
 | `outputSchema?` | 성공 결과의 `structuredContent` 모양(JSON Schema) (`:476`) |
 | `executionMode?` | 이 도구만 `"sequential"`/`"parallel"` 지정 (`:496`) |

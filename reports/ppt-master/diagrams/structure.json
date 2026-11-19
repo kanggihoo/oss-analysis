@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "ppt-master 전체 과정: 누가 하는가 (AI · 스크립트 · 사용자)",
+    "locale": "ko",
+    "output": "reports/ppt-master/diagrams/structure.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/hugohe3/ppt-master",
+      "revision": "3af3e8ef774c4d67ee57e1306d9256d08c9ee1bf"
+    },
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "frontend": {
+          "label": "AI(agent)가 판단·작성"
+        },
+        "backend": {
+          "label": "스크립트(결정적)"
+        },
+        "database": {
+          "label": "파일·산출물"
+        },
+        "cloud": {
+          "label": "외부 API"
+        },
+        "external": {
+          "label": "사용자"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "user",
+      "type": "external",
+      "label": "사용자",
+      "sublabel": "요청·소스·확정",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 128
+        }
+      ]
+    },
+    {
+      "id": "confirm",
+      "type": "backend",
+      "label": "confirm_ui",
+      "sublabel": "확인 화면 서버",
+      "pos": [
+        250,
+        40
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/confirm_ui/server.py",
+          "line": 2804
+        },
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 133,
+          "end_line": 140
+        }
+      ]
+    },
+    {
+      "id": "strat",
+      "type": "frontend",
+      "label": "Strategist",
+      "sublabel": "구성·디자인 판단",
+      "pos": [
+        460,
+        40
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 91
+        }
+      ]
+    },
+    {
+      "id": "spec",
+      "type": "database",
+      "label": "design_spec · lock",
+      "sublabel": "spec 파일 2개",
+      "pos": [
+        670,
+        40
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 156,
+          "end_line": 170
+        }
+      ]
+    },
+    {
+      "id": "exec",
+      "type": "frontend",
+      "label": "Executor",
+      "sublabel": "페이지별 SVG 작성",
+      "pos": [
+        880,
+        40
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 220
+        }
+      ]
+    },
+    {
+      "id": "svgout",
+      "type": "database",
+      "label": "svg_output/",
+      "sublabel": "정지 SVG 페이지",
+      "pos": [
+        1090,
+        40
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 247
+        }
+      ]
+    },
+    {
+      "id": "s2m",
+      "type": "backend",
+      "label": "source_to_md",
+      "sublabel": "문서 → Markdown",
+      "pos": [
+        40,
+        190
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/source_to_md.py",
+          "line": 581
+        }
+      ]
+    },
+    {
+      "id": "pm",
+      "type": "backend",
+      "label": "project_manager",
+      "sublabel": "init · import",
+      "pos": [
+        250,
+        190
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/project_management/cli.py",
+          "line": 1292,
+          "end_line": 1314
+        }
+      ]
+    },
+    {
+      "id": "proj",
+      "type": "database",
+      "label": "프로젝트 디렉터리",
+      "sublabel": "sources · images",
+      "pos": [
+        460,
+        190
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/project_management/cli.py",
+          "line": 288
+        }
+      ]
+    },
+    {
+      "id": "img",
+      "type": "cloud",
+      "label": "이미지 생성·검색",
+      "sublabel": "외부 API 호출",
+      "pos": [
+        670,
+        190
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/image_gen.py",
+          "line": 1275
+        },
+        {
+          "path": "skills/ppt-master/workflows/generate-pptx.md",
+          "line": 183
+        }
+      ]
+    },
+    {
+      "id": "editor",
+      "type": "backend",
+      "label": "svg_editor",
+      "sublabel": "직접 편집·주석",
+      "pos": [
+        880,
+        190
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/svg_editor/server.py",
+          "line": 1503
+        },
+        {
+          "path": "skills/ppt-master/workflows/stages/live-preview.md",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "qc",
+      "type": "backend",
+      "label": "svg_quality_checker",
+      "sublabel": "final 품질 보고서",
+      "pos": [
+        1090,
+        190
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/svg_quality/cli.py",
+          "line": 168
+        }
+      ]
+    },
+    {
+      "id": "user2",
+      "type": "external",
+      "label": "사용자 (수정)",
+      "sublabel": "미세 수정·주석",
+      "pos": [
+        670,
+        340
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/stages/live-preview.md",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "id": "anim",
+      "type": "frontend",
+      "label": "움직임 설계",
+      "sublabel": "animations.json",
+      "pos": [
+        880,
+        340
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/workflows/stages/customize-animations.md",
+          "line": 1
+        },
+        {
+          "path": "skills/ppt-master/scripts/animation_config.py",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "id": "s2p",
+      "type": "backend",
+      "label": "svg_to_pptx",
+      "sublabel": "SVG → PPTX 변환",
+      "pos": [
+        1090,
+        340
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/svg_to_pptx/pptx_package/cli.py",
+          "line": 3160,
+          "end_line": 3170
+        },
+        {
+          "path": "skills/ppt-master/scripts/svg_to_pptx/pptx_package/builder.py",
+          "line": 6791
+        },
+        {
+          "path": "skills/ppt-master/scripts/pptx_transitions.py",
+          "line": 1290
+        }
+      ]
+    },
+    {
+      "id": "ppt",
+      "type": "external",
+      "label": "PowerPoint",
+      "sublabel": "결과 직접 편집",
+      "pos": [
+        880,
+        490
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "docs/why-ppt-master.md",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "id": "pptx",
+      "type": "database",
+      "label": "exports/*.pptx",
+      "sublabel": "네이티브 PPTX",
+      "pos": [
+        1090,
+        490
+      ],
+      "size": [
+        130,
+        60
+      ],
+      "sources": [
+        {
+          "path": "skills/ppt-master/scripts/svg_to_pptx/pptx_package/cli.py",
+          "line": 2697,
+          "end_line": 2707
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "user-confirm",
+      "from": "user",
+      "to": "confirm",
+      "label": "Stage 1·2 확정",
+      "variant": "emphasis"
+    },
+    {
+      "id": "confirm-strat",
+      "from": "confirm",
+      "to": "strat",
+      "label": "result.json"
+    },
+    {
+      "id": "user-s2m",
+      "from": "user",
+      "to": "s2m",
+      "label": "소스"
+    },
+    {
+      "id": "s2m-pm",
+      "from": "s2m",
+      "to": "pm",
+      "label": "Markdown"
+    },
+    {
+      "id": "pm-proj",
+      "from": "pm",
+      "to": "proj",
+      "label": "import"
+    },
+    {
+      "id": "proj-strat",
+      "from": "proj",
+      "to": "strat",
+      "label": "소스 읽기"
+    },
+    {
+      "id": "strat-spec",
+      "from": "strat",
+      "to": "spec",
+      "label": "spec·lock 작성",
+      "variant": "emphasis"
+    },
+    {
+      "id": "spec-exec",
+      "from": "spec",
+      "to": "exec",
+      "label": "페이지 목록"
+    },
+    {
+      "id": "spec-img",
+      "from": "spec",
+      "to": "img",
+      "label": "이미지 행",
+      "variant": "dashed"
+    },
+    {
+      "id": "img-proj",
+      "from": "img",
+      "to": "proj",
+      "label": "images/",
+      "variant": "dashed"
+    },
+    {
+      "id": "exec-svgout",
+      "from": "exec",
+      "to": "svgout",
+      "label": "SVG 작성",
+      "variant": "emphasis"
+    },
+    {
+      "id": "svgout-qc",
+      "from": "svgout",
+      "to": "qc",
+      "label": "final 검사"
+    },
+    {
+      "id": "qc-s2p",
+      "from": "qc",
+      "to": "s2p",
+      "label": "SVG + 보고서"
+    },
+    {
+      "id": "anim-s2p",
+      "from": "anim",
+      "to": "s2p",
+      "label": "animations.json",
+      "variant": "dashed"
+    },
+    {
+      "id": "s2p-pptx",
+      "from": "s2p",
+      "to": "pptx",
+      "label": "내보내기",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ppt-pptx",
+      "from": "ppt",
+      "to": "pptx",
+      "label": "직접 편집",
+      "variant": "dashed"
+    },
+    {
+      "id": "user2-editor",
+      "from": "user2",
+      "to": "editor",
+      "label": "Direct edit"
+    },
+    {
+      "id": "editor-exec",
+      "from": "editor",
+      "to": "exec",
+      "label": "주석 → AI",
+      "variant": "dashed"
+    },
+    {
+      "id": "editor-svgout",
+      "from": "editor",
+      "to": "svgout",
+      "label": "Apply changes"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "읽는 법",
+      "items": [
+        "위 줄: 확정과 계획, 아래로 갈수록 내보내기",
+        "AI 노드 3개(Strategist·Executor·움직임 설계)만 판단한다"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "움직임",
+      "items": [
+        "SVG는 정지 화면이다. 전환·애니메이션은 svg_to_pptx가 PowerPoint XML로 덧붙인다"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "넣지 않은 것",
+      "items": [
+        "finalize_svg, 내레이션, Create Template, Edit Native(pptx_to_svg)",
+        "Step 7 후처리 세부와 attribution_guard"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.json",
+    "sha256": "2bb76c1eb3ca3f3cebdb5f70a625402b7cd29b2a78d8b3824fa7b73a5a30cb71",
+    "bytes": 5936
+  },
+  "artifact": {
+    "path": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.html",
+    "sha256": "0fb8f1771c26f2908981fcc8feb3132cd5216cbf6874aaded558069f3876dc22",
+    "bytes": 857988
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.finalize.json",
+    "summaryReceipt": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.finalize-summary.json",
+    "browserCheckReceipt": "/Users/kkh/Desktop/oss-analysis/reports/ppt-master/diagrams/structure.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-02T11:08:04.190Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 12881,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  },
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "routesOverSuggestedStretch": 1
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [],
+      "detours": [
+        {
+          "relationship": {
+            "id": "agent-project",
+            "from": "agent",
+            "to": "project",
+            "label": "spec·SVG 작성",
+            "collectionIndex": 5,
+            "artifactIndex": 6
+          },
+          "bends": 2,
+          "stretch": 2,
+          "directCorridorBlockers": [
+            {
+              "id": "pm",
+              "label": "project_manager",
+              "box": [
+                250,
+                300,
+                130,
+                60
+              ]
+            }
+          ]
+        }
+      ],
+      "truncated": false
+    },
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  },
+  "layoutReviewRecommendation": {
+    "action": "inspect-leading-space",
+    "evidence": {
+      "measured": true,
+      "emptyTopPx": 150,
+      "emptyTopRatio": 0.235,
+      "occupiedTop": 150,
+      "viewBoxTop": 0,
+      "canvasHeight": 638,
+      "typicalNodeHeight": 60,
+      "reviewSuggested": true
+    },
+    "reason": "Measured content, including routes and labels, leaves a large empty area above the diagram. This is a composition suggestion, not a failed gate.",
+    "repair": "Check whether that leading space is intentional. If not, reposition the connected scene nearer the canvas origin while retaining room for its actual boundaries, labels and return routes. Preserve all meaning and user-fixed geometry, then rerun finalize. No screenshot is required."
+  }
+}

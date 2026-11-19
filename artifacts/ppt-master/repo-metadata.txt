@@ -1,0 +1,9 @@
+repo_dir=repos/ppt-master
+name=ppt-master
+date=2026-11-17
+commit=3af3e8ef774c4d67ee57e1306d9256d08c9ee1bf
+commit_date=2026-11-15T05:57:38Z
+origin=https://github.com/hugohe3/ppt-master
+branch=main
+version=6.9.0 (skills/ppt-master/SKILL.md metadata.version)
+worktree=clean

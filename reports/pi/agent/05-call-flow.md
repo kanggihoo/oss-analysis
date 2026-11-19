@@ -1,5 +1,7 @@
 # agent 05: `agent.prompt("...")` 한 번의 경로 (종합과 실행 확인)
 
+> **[2026-11-17 갱신 메모]** 아래 실행 결과는 2026-10-06 코드 기준이다. 이후 `agent` 소스가 바뀐 곳: (1) 중단 시 모든 도구 호출이 `"Operation aborted"` 결과를 받는다(`4438c58ba`). 아래 "알려진 구멍 1(F)"은 agent 계층에서 해소됐다(02 §7.5). 실험 F를 새 코드로 다시 돌려 확인하지는 않았다(`미확인`). (2) 프록시의 `partialJson` 잔존(구멍 2)은 코드에서 사라졌다(04). (3) `typebox`·`parseStreamingJson` 의존이 `pi-schema`·`ToolCallArgumentsStream`으로 바뀌어 `artifacts/pi/agent-demos/`의 shim은 그대로는 새 SHA와 맞지 않을 수 있다(`추론`).
+
 - 기준 commit: `28dcce2ba` (`packages/agent/src`는 `3874b3e98`과 같다). 분석일: 2026-10-06
 - 선행 문서: [02-agent-loop](./02-agent-loop.md), [03-agent-class](./03-agent-class.md), [04-proxy](./04-proxy.md), [ai/06-call-flow](../ai/06-call-flow.md)
 - 실행 환경: Node v26.5.0, `typebox@1.3.27`, `partial-json@0.1.7`을 `artifacts/pi/agent-demos/`에만 설치했다(`--ignore-scripts`, 사용자 허락). `repos/pi`는 변경하지 않았다.

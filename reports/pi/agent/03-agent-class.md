@@ -1,5 +1,7 @@
 # agent 03: `Agent` 클래스 (`packages/agent/src/agent.ts`)
 
+> **[2026-11-17 갱신 메모]** `agent.ts`는 `3874b3e98..4afe78de`에서 +10줄이다. 추가된 것은 `AgentOptions.identity?: ClientIdentity`와 `Agent.identity` 필드뿐이고, run 설정에 `identity: this.identity`로 넘어간다(`agent.ts:142-146`, `:235-236`, `:262`, `:488`). 값은 `agent-loop.ts`의 `DEFAULT_AGENT_IDENTITY = { attribution: PI_ATTRIBUTION }` 위에 필드별로 합쳐진다(`mergeClientIdentity`, `agent-loop.ts:41`, `:415`). 아래 본문의 줄 번호는 이전 SHA 기준이라 최대 약 +10 어긋난다. 큐·`handleRunFailure`·상태 구조는 diff에 없다(`코드 확인`).
+
 - 기준 commit: `28dcce2ba` (`packages/agent/src`는 `3874b3e98`과 같다). 분석일: 2026-10-06
 - 선행 문서: [01-types](./01-types.md), [02-agent-loop](./02-agent-loop.md)
 - 읽은 파일: `agent.ts` 613줄 전체 (이 문서의 줄 번호는 모두 이 파일)

@@ -53,16 +53,16 @@ body: { model, context, options(11개 필드) }
 | `text_delta` | `content[i].text += delta` (없거나 타입이 다르면 throw) | `:282-294` |
 | `text_end` | `textSignature = contentSignature`, 이벤트에 `content: text` 채움 | `:296-308` |
 | `thinking_*` | 같은 구조 (`thinking`, `thinkingSignature`) | `:310-340` |
-| `toolcall_start` | `content[i] = { type:"toolCall", id, name, arguments:{}, partialJson:"" }` | `:342-350` |
-| `toolcall_delta` | `partialJson += delta`, `parseStreamingJson`으로 `arguments` 재계산, 객체를 `{...content}`로 교체 | `:352-366` |
-| `toolcall_end` | `Object.assign(content, toolCall)`, `partialJson` 삭제 | `:368-381` |
+| `toolcall_start` | `content[i] = { type:"toolCall", id, name, arguments:{} }`, 인덱스별 `ToolCallArgumentsStream`을 별도 Map(`toolArguments`)에 만든다. **[2026-11-17] 이전 SHA는 `partialJson:""` 필드를 블록에 끼워 넣었다** | `proxy.ts:180`, `:333-341` |
+| `toolcall_delta` | 그 인덱스의 `ToolCallArgumentsStream.append(delta)`가 돌려준 값으로 `arguments`를 바꾸고 객체를 `{...content, arguments}`로 교체(이전 SHA: `partialJson` 이어붙이고 `parseStreamingJson`) | `proxy.ts:343-357` |
+| `toolcall_end` | `Object.assign(content, toolCall)`, `toolArguments.delete(index)` | `proxy.ts:359-370` |
 | `done` | `stopReason`, `usage`, `providerThinkingLevel` 반영 후 `message: partial` | `:383-389` |
 | `error` | `stopReason`, `errorMessage`, `usage` 반영 후 `error: partial` | `:391-398` |
 
 - 서버가 보내지 않는 값을 클라이언트가 만든다. `text_end`의 `content`(누적된 `text`), `thinking_end`의 `content`, `toolcall_*`의 `arguments`(부분 JSON 파싱)가 그렇다. 이 값들은 ai 쪽 원래 이벤트에 있었기 때문에 복원해서 모양을 맞춘다.
-- `toolcall_delta`의 `arguments`는 클라이언트가 `parseStreamingJson`(ai 유틸)으로 재계산한다. 서버가 `arguments`를 보내지 않으므로, 부분 인자는 클라이언트 쪽 파서에 달려 있다. 실패하면 `|| {}`가 된다(`:356`). `parseStreamingJson` 자체의 부분 해석은 ai/05를 참조한다(`partial-json` 미설치로 실행 확인은 하지 않았다).
+- `toolcall_delta`의 `arguments`는 클라이언트가 인덱스별 `ToolCallArgumentsStream`(pi-ai, v1.5.0 추가의 증분 파서)으로 재계산한다(`proxy.ts:345-350`, 2026-11-17 `4afe78de` 기준). 서버가 `arguments`를 보내지 않으므로 부분 인자는 클라이언트 쪽 파서에 달려 있다. 이전 SHA는 `parseStreamingJson(partialJson) || {}`였다. 파서 자체는 ai 쪽 문서(05)를 갱신할 때 확인한다(`미확인`).
 - `toolcall_delta`에서 `content`를 새 객체로 교체하는 이유는 주석 "Trigger reactivity"(`:357`)뿐이다. UI 프레임워크가 객체 참조 변화로 변경을 감지하는 용도로 보인다(`추론`).
-- `partialJson`은 `ToolCall`의 정식 필드가 아니라 `satisfies ToolCall & { partialJson }`로 끼워 넣은 임시 필드다(`:349`). `toolcall_end`에서 지운다. `toolcall_end` 없이 스트림이 끊기면 `partialJson`이 남은 채 `error` 이벤트의 `partial`로 나간다(`코드 확인`). 이 `partial`이 최종 메시지가 되므로 기록에 `partialJson` 필드가 섞일 수 있다(`추론`).
+- **[2026-11-17 변경]** `partialJson` 임시 필드는 없어졌다(`f715a15c1`). 진행 중인 인자는 `toolArguments` Map에 따로 있어 `ToolCall` 블록에 섞이지 않는다. 이전 SHA의 "`toolcall_end` 없이 끊기면 기록에 `partialJson`이 남는다"는 현재는 해당하지 않는다(`코드 확인`: `proxy.ts`에 `partialJson` 문자열 없음. 끊긴 도구 호출의 `arguments`가 어디까지 채워져 있는지는 실행하지 않아 `미확인`).
 - 방출하는 `partial`은 항상 같은 객체다(복사 없음, `:276`, `:280` 등 전부). 그래서 02 §6에서 본 루프의 `{ ...partialMessage }` 얕은 복사가 여기서 의미를 가진다. 얕은 복사라 `content` 배열은 공유되며, `toolcall_delta`가 요소를 교체(`:357`)하므로 배열 안의 객체 참조는 바뀐다.
 - 타입 불일치는 `throw`하는데(`text_delta`, `text_end`, `thinking_*`, `toolcall_delta`), `toolcall_end`만 조용히 `undefined`(`:380`)를 돌려 이벤트를 버린다. 비일관이다(`코드 확인`).
 - `default`: 알 수 없는 이벤트는 `console.warn` 후 `undefined`로 버린다. `never` 검사로 컴파일 시점에는 모든 타입이 다뤄졌음을 보장한다(`:400-404`).

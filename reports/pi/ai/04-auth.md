@@ -1,5 +1,7 @@
 # ai 04: 인증 — 키와 토큰은 어디서 와서 어떻게 요청에 붙는가
 
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de` 기준으로 `auth/` 13개 변경 파일(`resolve.ts`, `types.ts`, `oauth/{anthropic,github-copilot,kimi-coding,meta,openai-chatgpt,openai-codex,radius,load,trusted-url}.ts`)과 `env-api-keys.ts`, `compat/extension-oauth-types.ts`, 새 `lazy-oauth.ts` diff 전체를 읽고 대조했다(실행 없음, `코드 확인`). 결론: **§4~§5.1의 해석 순서와 OAuth 갱신(`resolve.ts` 줄 번호 `:102-188`, `:119`, `:161`, `:169-175`, `:140`)은 현재 코드와 일치**한다(2026-10-06 갱신이 이미 현재 구조였다). 달라진 곳은 §3(타입 필드 3개), §5.2(환경변수), §6(로그인 흐름 5곳)이고 본문에 `[2026-11-17]`로 표시했다. `auth/oauth/callback-server.ts`, `device-code.ts`, `pkce.ts`, `credential-store.ts`, `context.ts`, `helpers.ts`는 diff가 없어 그대로다. 이 갱신에서 읽지 않은 것: `auth/oauth/openrouter.ts`, `xai.ts` 본문(`lazy-oauth.ts`가 등록하는 것을 확인만 함).
+
 - **기준 commit**: `3874b3e98` / **분석일**: 2026-10-05
 - **보충 문서**: [04-01-auth-env-and-storage](./04-01-auth-env-and-storage.md) (환경변수 이름과 위치, 로그인 저장 경로)
 - **선행 문서**: [02-models-registry](./02-models-registry.md) §4.4(`applyAuth`), [03-1-api-anthropic](./03-1-api-anthropic.md) §4.2(`createClient`), [03-4-api-openai-codex-legacy](./03-4-api-openai-codex-legacy.md) §4.1
@@ -158,6 +160,7 @@ await credentials.modify("anthropic", async (current) => {
 `env(name)`(환경변수 읽기)과 `fileExists(path)`(파일 존재 확인, `~` 지원). 기본 구현은 `process.env`에서 읽되 **빈 문자열이나 공백뿐이면 `undefined`**로 본다(`context.ts:25-28`). 브라우저에서는 `process`가 없어서 `undefined`/`false`다. Node 모듈은 변수로 지정한 `import()`로 불러서 번들러가 따라가지 않게 한다(`:11-12`). 테스트에서 다른 구현을 주입할 수 있다.
 
 ### 3.5 provider별 인증 방법: `ProviderAuth` (`:166-250`)
+> **[2026-11-17]** `auth/types.ts`에 선택 필드 3개가 추가됐다. ① `AuthEvent`의 `device_code` 이벤트(와 호환 타입 `OAuthDeviceCodeInfo`)에 `openBrowserOnConfirm?`(기본 true: 사용자가 확인하면 브라우저를 열도록 제안), `copyCodeOnConfirm?`(기본 true: 확인하면 `userCode`를 클립보드에 복사, 기존 클립보드를 덮어씀). 둘 다 "클라이언트가 무시해도 되는 힌트"다(`types.ts:145-148`). 이 값을 쓰는 곳: `coding-agent`의 `login-dialog.ts:153-197`(둘 다 기본 true), `cli/auth-login.ts:189`(`!== false`일 때 브라우저 오픈). 이 갱신에서 어느 provider가 `false`를 주는지는 찾지 못했다(`grep` `ai/src`, `coding-agent/src` 범위에서 `false`로 설정하는 곳 없음). ② `LoginOptions.agentName?`(`types.ts:217`): 로그인할 때 앱이 자신을 소개하는 이름. OpenAI의 agent name hint와 Codex originator에 쓰이고 기본은 pi의 이름이다(§6.3).
 ```ts
 interface ProviderAuth { apiKey?: ApiKeyAuth; oauth?: OAuthAuth }      // 최소 하나는 필수
 ```
@@ -280,6 +283,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 - **`env-api-keys.ts`의 `getEnvApiKey`는 `compat.ts:229`(구 전역 API)에서만 쓰인다.** 새 구조에서는 각 provider가 자기 `ApiKeyAuth`를 갖는다. 다만 `providers/anthropic.ts`는 이 파일의 환경변수 이름 상수를 가져다 쓴다.
 
 ### 5.3 API 키 환경변수의 이름과 위치
+> **[2026-11-17]** `env-api-keys.ts`의 `envMap`이 한 provider에 **환경변수 여러 개**를 허용한다(`Record<string, string \| readonly string[]>`, 앞의 것이 우선). Qwen Token Plan은 plan별 변수를 먼저 보고 지역 변수를 대체로 본다: `qwen-token-plan` ← `QWEN_TOKEN_PLAN_TEAM_API_KEY`, `QWEN_TOKEN_PLAN_API_KEY` / `qwen-token-plan-cn` ← `QWEN_TOKEN_PLAN_TEAM_CN_API_KEY`, `QWEN_TOKEN_PLAN_CN_API_KEY` / `qwen-token-plan-individual` ← `QWEN_TOKEN_PLAN_INDIVIDUAL_API_KEY`, `QWEN_TOKEN_PLAN_API_KEY` / `qwen-token-plan-individual-cn`(새 provider) ← `QWEN_TOKEN_PLAN_INDIVIDUAL_CN_API_KEY`, `QWEN_TOKEN_PLAN_CN_API_KEY`(`:84-93`). 이전에는 `qwen-token-plan-individual`이 `QWEN_TOKEN_PLAN_API_KEY`를 `qwen-token-plan`과 공유했다. Azure의 id는 `azure-openai-responses` → `azure`(변수 `AZURE_OPENAI_API_KEY`는 그대로).
 환경변수 이름은 provider마다 정해져 있고(예: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY`), **pi를 실행하는 프로세스의 환경변수**(`process.env`)에 있으면 인식된다. `.env` 파일은 자동으로 읽지 않는 것으로 보인다. 자세한 표와 다른 지정 방법(`!명령`, `env` 객체)은 [04-01 §1](./04-01-auth-env-and-storage.md)에 정리했다.
 
 ## 6. 브라우저 로그인(OAuth) 흐름
@@ -291,7 +295,9 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 | `auth/oauth/callback-server.ts` | **로컬 콜백 서버**: `node:http`로 내 컴퓨터(`127.0.0.1`)에 임시 서버를 열고, 브라우저가 로그인을 마친 뒤 돌아오는 주소(`/callback`)를 받는다(`startOAuthCallbackServer`, `:50-148`). `state`가 다르면 400, 이미 처리했으면 409, 오류가 있으면 400을 응답한다. 시간 제한과 취소를 지원한다. |
 | `waitForCallbackOrManualInput` (`:155-183`) | 콜백 서버가 응답하기를 기다리는 동시에 **사용자가 주소나 코드를 직접 붙여 넣는 입력창**도 연다. 둘 중 먼저 끝나는 쪽을 쓴다. SSH 접속처럼 브라우저가 이 컴퓨터의 `127.0.0.1`에 닿지 않는 경우를 위한 것이다(주석). |
 | `auth/oauth/device-code.ts` | **디바이스 코드 로그인**(브라우저가 없는 환경): 사용자에게 코드를 보여 주고, 다른 기기에서 승인할 때까지 주기적으로 확인한다(`pollOAuthDeviceCodeFlow`). RFC 8628의 규칙(간격 기본 5초, `slow_down`이면 5초 증가)을 따른다. |
-| `auth/oauth/load.ts` | OAuth 구현을 **지연 로딩**한다. 변수로 지정한 `import()`를 써서 번들러가 Node 전용 코드(`node:http`, `node:crypto`)를 따라가지 않게 한다. Bun 단일 실행 파일에서는 `registerBundledOAuthFlowLoaders`로 미리 묶은 구현을 등록한다. |
+| `auth/oauth/load.ts` | **[2026-11-17]** 지정자를 `new URL(specifier, import.meta.url).href`로 풀어서 import한다(`:14`). 번들러가 이 파일을 인라인하면(Chord worker base) 변수 import가 남아 번들 위치 기준으로 풀리던 문제를 막는다(주석). OAuth 구현을 **지연 로딩**한다. 변수로 지정한 `import()`를 써서 번들러가 Node 전용 코드(`node:http`, `node:crypto`)를 따라가지 않게 한다. Bun 단일 실행 파일에서는 `registerBundledOAuthFlowLoaders`로 미리 묶은 구현을 등록한다. |
+| `lazy-oauth.ts` (**새로**, `registerLazyOAuthFlows()`) | **리터럴 동적 import**로 9개 flow(`anthropic`, `openaiCodex`, `openaiChatGPT`, `githubCopilot`, `openrouter`, `kimiCoding`, `meta`, `xai`, `radius`)의 로더를 `registerBundledOAuthFlowLoaders`에 등록한다. `esbuild splitting`이나 Chord worker base처럼 동적 import에서 chunk를 나누는 Node 번들이 각 flow를 번들 안의 chunk로 첫 사용 때 불러오게 한다. 없으면 변수 지정자 import를 번들러가 못 따라가 pi-ai 자신의 파일에서 불러온다(주석). 브라우저 번들은 import하면 안 된다(Node 전용 flow) |
+| `auth/oauth/trusted-url.ts` (**새로**) | `trustedHttpUrl(value)`: 문자열이고 URL로 파싱되며 프로토콜이 `http:`/`https:`일 때만 `url.href`(정규화됨)를 돌려주고 아니면 `null`. 서버가 준 URL을 플랫폼 URL 핸들러로 여는데 그러면 `file:`이나 커스텀 프로토콜도 실행될 수 있어서이고, 정규화가 제어 문자를 퍼센트 인코딩하므로 터미널 하이퍼링크에도 넣을 수 있다(주석). 이전에는 `github-copilot.ts`, `kimi-coding.ts`, `meta.ts`가 각자 같은 검사를 복사해 갖고 있었다. 지금은 이 셋과 `radius.ts`(인증 엔드포인트와 `verification_uri` 둘 다 검사하도록 **추가됨**)가 공유한다. `meta.ts`는 `verification_uri_complete`를 먼저, 없으면 `verification_uri`를 쓰고 `action_url`도 검사한다(`meta.ts:78`, `:159`) |
 | `lazyOAuth` (`auth/helpers.ts:40-59`) | `OAuthAuth`를 감싸서 `login`/`refresh`/`toAuth`가 **처음 불릴 때** 구현을 불러온다. provider 정의(`providers/anthropic.ts`)는 로그인 코드를 import하지 않고 `lazyOAuth({ load: loadAnthropicOAuth })`만 둔다. |
 
 ### 6.2 Claude Pro/Max 로그인: `auth/oauth/anthropic.ts`
@@ -300,7 +306,10 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 **브라우저 로그인** (`loginAnthropic`, `:138-189`)
 ```
 1. PKCE verifier/challenge 생성                                         (:139)
-2. 로컬 콜백 서버 시작 (127.0.0.1:53692 /callback). 실패해도 계속 진행     (:140-148)
+2. 로컬 콜백 서버 시작 (127.0.0.1:53692 /callback). [2026-11-17] 이 포트가 막히면
+   포트 0(빈 포트)으로 다시 시도하고, 그것도 실패하면 서버 없이 계속 진행      (:142-157)
+   리다이렉트 주소는 서버가 준 redirectUri(호스트 표기는 localhost)를 쓴다. 서버가 없을 때만 고정
+   REDIRECT_URI(http://localhost:53692/callback)를 쓴다                    (:157)
 3. 로그인 주소를 사용자에게 알림 (auth_url 이벤트)                        (:151-166)
      https://claude.ai/oauth/authorize?client_id=...&code_challenge=...&state=...&scope=...
 4. 브라우저 콜백 또는 붙여 넣기 중 먼저 오는 것을 기다림                    (:168-171)
@@ -311,6 +320,8 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 6. { type: "oauth", refresh, access, expires } 를 돌려줌                (:130-135)
      expires = 지금 + expires_in*1000 - 5분
 ```
+> **[2026-11-17]** 53692를 우선 쓰는 이유(주석): 컨테이너나 SSH에서 포트를 포워딩할 수 있게 하려는 것이고, Anthropic이 어떤 loopback 포트든 받아 주므로 이 포트를 못 열 때만 빈 포트로 내려간다(#10571). 3단계의 `redirect_uri`, 4단계의 안내 문구 `placeholder`, 5단계 토큰 교환의 `redirect_uri`가 모두 이 `redirectUri` 변수로 바뀌었다(`:164`, `:179`, `:194`). `startOAuthCallbackServer`가 이미 `redirectHost` 옵션과 `redirectUri` 결과를 갖고 있었는지는 `callback-server.ts`에 diff가 없다는 것으로 확인했다.
+
 **갱신** (`refreshAnthropicToken`, `:231-267`): 같은 토큰 주소에 `{ grant_type: "refresh_token", client_id, refresh_token }`를 POST하고 새 토큰 쌍을 받는다. `expires`도 같은 방식으로 5분 줄여 계산한다.
 
 ### 6.3 ChatGPT 구독 로그인(Codex): `auth/oauth/openai-codex.ts`
@@ -325,7 +336,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 | `expires` | `now + expires_in - 5분` | `now + expires_in` (여유 없음, 갱신 여유는 `resolve.ts`의 5분이 담당) |
 | `toAuth` | `{ apiKey: access }` | `{ apiKey: access }` |
 
-현재 `openai` provider의 구독 로그인은 `auth/oauth/openai-chatgpt.ts`다("Sign in with ChatGPT"). 로그인마다 동적으로 클라이언트를 등록하는 방식(`DYNAMIC_CLIENT_ID`), 토큰 주소 `auth.openai.com/api/accounts/oauth/token`, 3분 여유(`EXPIRY_MARGIN_MS`)가 Codex 흐름과 다르다. `toAuth`는 `{ apiKey: credential.access }`로 같고, 이 토큰은 `api.openai.com`으로 직접 보내진다(파일 머리말). 이 파일은 이후 거의 다 읽어서 [03-2 §7](./03-2-api-openai-responses.md)에 로그인 흐름(발급된 `clientId` 저장, 3분 마진, 콜백 서버 직접 구현 등)을 정리했다.
+**[2026-11-17]** `openai-codex.ts`의 `login(interaction, options)`가 `options?.agentName`을 `createAuthorizationFlow(agentName)`에 넘긴다(`:359-364`, `:413`, `:431`). 현재 `openai` provider의 구독 로그인은 `auth/oauth/openai-chatgpt.ts`다("Sign in with ChatGPT"). **[2026-11-17 변경]** 이 흐름은 콜백 서버를 못 열면 **붙여 넣기로 조용히 넘어가지 않고 실패한다**: `EADDRINUSE`이면 "Port <포트> is in use, probably by an unfinished login in another pi session or by the Codex CLI" 오류를 던진다(`openai-chatgpt.ts:241-249`). 이유(주석): 서버가 없으면 브라우저의 콜백이 그 포트를 쥔 다른 로그인(다른 pi 세션이나 Codex CLI)에 닿아 `state mismatch`로 거부된다. 그래서 `callback`이 항상 있다고 가정하고 `callback?.` 분기가 사라졌다. 인증 URL의 `agent_name_hint`는 `options?.agentName ?? AGENT_NAME_HINT`이고 기본값은 `"Pi"`다(`:17`). 로그인마다 동적으로 클라이언트를 등록하는 방식(`DYNAMIC_CLIENT_ID`), 토큰 주소 `auth.openai.com/api/accounts/oauth/token`, 3분 여유(`EXPIRY_MARGIN_MS`)가 Codex 흐름과 다르다. `toAuth`는 `{ apiKey: credential.access }`로 같고, 이 토큰은 `api.openai.com`으로 직접 보내진다(파일 머리말). 이 파일은 이후 거의 다 읽어서 [03-2 §7](./03-2-api-openai-responses.md)에 로그인 흐름(발급된 `clientId` 저장, 3분 마진, 콜백 서버 직접 구현 등)을 정리했다.
 
 ### 6.4 로그인이 저장되는 경로 (`models.ts:756-811`)
 `models.login(providerId, type, interaction)`:
@@ -395,6 +406,7 @@ return provider.auth.apiKey ? resolveApiKey(..., undefined, ...) : undefined;   
 6. **브라우저 로그인은 두 갈래를 항상 연다.** 콜백 서버가 막히는 환경(SSH 등)을 위해 붙여 넣기 입력창을 같이 열고 먼저 끝나는 쪽을 쓴다.
 
 ## 10. 읽지 않은 것 (`미확인`)
+> **[2026-11-17]** 아래는 이전 SHA 기준. 이번 대조에서 새로 읽지 않은 것: `auth/oauth/openrouter.ts`, `xai.ts`, `trusted-url`을 쓰는 각 flow의 나머지 본문, 실제 브라우저 로그인과 토큰 교환은 여전히 실행하지 않았다(`미확인`).
 - 실제 로그인 흐름 실행, 토큰 교환 응답의 모양, 구독 로그인 토큰의 접두사
 - `auth/oauth/github-copilot.ts`(507줄), `kimi-coding.ts`, `meta.ts`, `xai.ts`, `openrouter.ts`, `radius.ts` (`openai-chatgpt.ts`는 03-2 §7에서 읽음)
 - `coding-agent`의 `AuthStorage`(`auth-storage.ts` 506줄), `runtime-credentials.ts`, `resolve-config-value.ts`

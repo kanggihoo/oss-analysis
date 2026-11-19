@@ -1,5 +1,9 @@
 # ai 02: `Models` 레지스트리와 `Provider` — 모델 목록과 호출 입구
 
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de` 기준으로 `models.ts` diff 전체, `catalog/`(`generate.ts`, `build.ts`, `define.ts`, `reasoning.ts`, `sources/index.ts`, `providers/anthropic.ts`, `families/anthropic.ts` 앞부분, `README.md`), `scripts/model-data.ts`의 함수 목록을 읽고 대조했다(실행 없음, `코드 확인`). 바뀐 것: ① **§6 전체**: `scripts/generate-models.ts`(3680줄)가 삭제되고 `catalog/`로 재구성됐다. §6을 새 구조로 다시 썼다. ② `models.ts`: provider 갱신 방식(`refreshModelsAuth`), 요청 정체성(`identity`), 텔레메트리 관찰자, 분류기 입력 검사가 추가됐다(§2.1, §4.3~§4.6, §5). ③ `calculateCost`가 `totalFromProvider = false`를 쓴다(§7). 본문의 `models.ts` **줄 번호는 이전 SHA 기준**이고, 각 절의 새 번호를 `[2026-11-17]`로 병기했다. `createProvider`의 구성 부분(§3, `:1063-1260`)은 `dispatch`에 `signal`이 전달되는 것 외에 diff가 없다.
+
+> **[2026-11-17 갱신 메모]** `3874b3e98` → `4afe78de`(v1.5.2) diff 기준. 모델 카탈로그 생성이 `scripts/generate-models.ts`에서 `packages/ai/catalog/`(`build.ts`, `define.ts`, `generate.ts`, `families/`, `providers/`, `sources/`, `reasoning.ts`)로 옮겨졌다. models.dev **v2** 카탈로그를 쓰고 provider별 규칙은 provider당 TypeScript 정의 하나로 나뉜다(v1.5.0 Changed). `generate-models.ts`는 삭제됐다(`git diff --name-status`, `코드 확인`). §6의 스크립트 설명(줄 번호 포함)과 `npm run hydrate-model-data` 경로는 새 구조에서 다시 확인해야 한다(`미확인`). `providers/azure.ts`·`azure.models.ts`가 `azure-openai-responses.*`를 대체했다.
+
 - **기준 commit**: `3874b3e98` (2026-10-02, worktree clean) / **분석일**: 2026-10-04
 - **선행 문서**: [00-role](./00-role.md), [01-types](./01-types.md)
 - **읽은 파일**: `src/models.ts`(1256줄 전체), `src/providers/anthropic.ts`(90줄), `openai-codex.ts`(20줄), `openai.ts`(23줄), `groq.ts`(15줄), `all.ts`(190줄 중 60~190), `models-store.ts`(46줄), `model-catalog.ts`(81줄), `api/lazy.ts`(앞 80줄), `scripts/model-data.ts`(앞부분). 줄 번호는 모두 이 commit 기준이다.
@@ -73,7 +77,7 @@ Provider 안:  auth (키 찾는 법) + models (Model 목록) + api (통신 코�
 
 ## 2. `Provider`: 서비스 하나를 다루는 단위
 
-### 2.1 인터페이스의 주요 항목 (`models.ts:144-233`)
+### 2.1 인터페이스의 주요 항목 (`models.ts:144-233`, **[2026-11-17]** 현재 `:158-250` 근처)
 | 항목 | 역할 |
 |---|---|
 | `id`, `name`, `baseUrl`, `headers` | 식별자와 기본 주소, 기본 헤더 |
@@ -81,9 +85,12 @@ Provider 안:  auth (키 찾는 법) + models (Model 목록) + api (통신 코�
 | `getModels()` | 지금 아는 chat 모델 목록. 동기 함수이고 예외를 던지면 안 된다. |
 | `getAllModels?()` | chat, image, classifier 모델 전체 |
 | `refreshModels?()` | 동적 provider만: 저장된 목록을 복원하고 네트워크에서 새 목록을 가져온다. |
+| `refreshModelsAuth?` | **[2026-11-17 추가]** `"credential"`(기본) 또는 `"configured"`. 갱신의 네트워크 단계가 무엇을 필요로 하는지다. `"configured"`는 provider가 아닌 곳이 제공하는 카탈로그(예: pi.dev)용으로, provider가 "설정돼 있을 때만" 단계를 돌리되 OAuth는 갱신하지 않고 `context.credential`은 `undefined`다(`models.ts:197-204`, 주석). |
 | `filterModels?()` | 인증 정보에 따라 쓸 수 있는 모델을 거른다. |
 | `stream()`, `streamSimple()` | 정규화된 `TranscriptContext`를 받아 스트림을 돌려준다. |
 | `fetchDeferred?`, `cancelDeferred?`, `generateImages?`, `classify?` | 선택 기능 |
+
+`refreshModels`가 받는 `RefreshModelsContext`에는 **`baseUrl`**이 추가됐다(`:99-103`, 래퍼가 provider 바깥에서 적용한 설정 덮어쓰기까지 포함한 등록된 provider의 base URL, `:569`에서 `provider.baseUrl`을 채움).
 
 `stream`이 `TranscriptContext`를 받는다는 점이 중요하다. `Models`가 호출자의 `Context`를 먼저 정규화한 뒤에 provider로 넘긴다(주석, `models.ts:201`).
 
@@ -119,7 +126,7 @@ export const anthropicMessagesApi = (): ProviderStreams =>
 ```
 `anthropicMessagesApi()`는 통신 코드를 바로 읽지 않고, 첫 호출 때 `import()`로 불러온다(`api/lazy.ts`의 `lazyApi`, 주석: "The module loads on first stream call"). 내장 provider 42개를 등록해도 쓰지 않는 회사의 SDK는 불러오지 않는다. 이유는 코드에 직접 적혀 있지 않다. 번들 크기와 시작 시간 때문으로 보이며 이는 `추론`이다.
 
-## 3. `createProvider()`: 부품으로 `Provider`를 만든다 (`models.ts:1034-1175`)
+## 3. `createProvider()`: 부품으로 `Provider`를 만든다 (`models.ts:1034-1175`, **[2026-11-17]** 현재 `createProvider` `:1108-`, `CreateProviderOptions` `:1063-`. 본문은 `dispatch`가 `signal`을 `lazyStream`에 넘기는 것 외에 diff 없음)
 부품을 넘기면 호출 가능한 `Provider` 객체를 만들어 주는 함수다. 내장 provider와 사용자 정의 provider(`models.json`)가 모두 이 함수를 쓴다(`:1027` 주석). 아래에서 입력, 내부 동작, 반환값으로 나누어 설명한다.
 
 ### 3.1 입력: `CreateProviderOptions` (`:989-1024`)
@@ -190,17 +197,17 @@ Provider {
 ### 4.1 모델 조회 (동기)
 | 함수 | 동작 | 위치 |
 |---|---|---|
-| `getProviders()`, `getProvider(id)` | 등록된 provider 조회 | `:416-422` |
-| `getModels(provider?)` | 알려진 chat 모델 목록. provider의 `getModels()`가 예외를 던지면 빈 목록으로 처리한다. | `:424-444` |
-| `getModel(provider, id)` | `getModels(provider)`에서 `id`가 같은 모델을 찾는다. 없으면 `undefined`. | `:472-474` |
-| `getModelsOfType`, `getAllModels` | image, classifier까지 | `:446-478` |
+| `getProviders()`, `getProvider(id)` | 등록된 provider 조회 | `:416-422` (현재 `:442-448`) |
+| `getModels(provider?)` | 알려진 chat 모델 목록. provider의 `getModels()`가 예외를 던지면 빈 목록으로 처리한다. | `:424-444` (현재 `:450-`) |
+| `getModel(provider, id)` | `getModels(provider)`에서 `id`가 같은 모델을 찾는다. 없으면 `undefined`. | `:472-474` (현재 `:498`) |
+| `getModelsOfType`, `getAllModels` | image, classifier까지 | `:446-478` (현재 `:472`, `:494`) |
 
-`getModel`은 네트워크 없이 메모리에서 찾는다. 반환 타입이 `Model<Api> | undefined`이므로, 특정 api로 좁히려면 `hasApi(model, "anthropic-messages")` 가드를 쓴다(`:1189`).
+`getModel`은 네트워크 없이 메모리에서 찾는다. 반환 타입이 `Model<Api> | undefined`이므로, 특정 api로 좁히려면 `hasApi(model, "anthropic-messages")` 가드를 쓴다(`:1189`, 현재 `:1275`).
 
-### 4.2 "쓸 수 있는 모델": `getAvailable()` (`:696-706`)
+### 4.2 "쓸 수 있는 모델": `getAvailable()` (`:696-706`, 현재 `:743`)
 `getModels()`는 전체 목록이고, `getAvailable()`은 **인증이 설정된 provider의 모델만** 돌려준다. 각 provider의 인증이 완전한지 `checkAuth`로 확인하고(OAuth 갱신은 하지 않는다), 통과한 provider의 `getModels()`에 `filterModels`를 적용한다. 모델 선택 화면에서 "내가 키가 있는 모델만" 보여 줄 때 쓰는 용도로 보인다(`추론`).
 
-### 4.3 호출 입구: `stream*`, `complete*` (`:871-910`)
+### 4.3 호출 입구: `stream*`, `complete*` (`:871-910`, **[2026-11-17]** 현재 `stream` `:929`, `streamSimple` `:958`)
 `models.stream(...)`을 부르면 `Models` 안에서 일어나는 일을 순서대로 적은 것이다. 번호는 아래 코드의 ①~⑤와 같다.
 
 | 번호 | 하는 일 | 쉬운 설명 |
@@ -227,30 +234,34 @@ complete(...) { return this.stream(...).result(); }
 ```
 `streamSimple`/`completeSimple`도 같은 모양이고 `provider.streamSimple`을 부른다.
 
-### 4.4 `applyAuth`: 호출 직전에 요청을 완성한다 (`:837-869`)
+**[2026-11-17 변경]** `lazyStream`에 인자가 둘 더 들어간다(`models.ts:929-948`, `:958-972`). `observeModelRequest(model, options, false)`(관찰자)와 `options?.signal`이다. 위 ②의 `lazyStream`이 이제 취소 신호를 알아서, 준비 단계가 취소로 끝나면 `error`가 아니라 `aborted`로 보고한다(03-0 §8.3). `observeModelRequest`(`telemetry.ts:121-`)는 요청 하나를 텔레메트리 span으로 감싼다: 첫 이벤트에서 `pi.ai.first_chunk` 이벤트와 첫 청크 시간 히스토그램, `text_end`·`thinking_end`·`toolcall_end`마다 `pi.ai.block` 이벤트(글자 수 포함), 최종 메시지에서 `stop`·토큰·비용·`response.id`를 span 속성에 기록하고 `pi.ai.request.duration`·`pi.ai.tokens`·`pi.ai.cost`를 센다. `options.telemetry`가 없으면 아무것도 하지 않는 기본 객체를 쓴다(`NOOP_TELEMETRY_*`). `streamDeferred`는 같은 함수에 `poll = true`를 줘서 `pi.ai.poll` span을 만들고, 대기·지연 상태(`pending`, `deferred`)의 토큰·비용은 세지 않는다(`telemetry.ts:195-203`). `models.ts`는 스키마 `AI_TELEMETRY_SCHEMA`도 export한다(`:73`). 이 span들이 어디로 가는지(`pi-telemetry`)는 읽지 않았다(`미확인`).
+
+### 4.4 `applyAuth`: 호출 직전에 요청을 완성한다 (`:837-869`, **[2026-11-17]** 현재 `:884-926`)
 ```
 1. provider가 등록돼 있는지 확인 (없으면 ModelsError "provider")
 2. getAuth(model, { apiKey, env, signal }) 로 인증 결과를 얻음
      └ 설정이 없으면 ModelsError "auth": "Provider is not configured: ..."
 3. 요청 옵션을 합침
      apiKey   : options.apiKey가 있으면 그것, 없으면 인증 결과의 apiKey
-     headers  : 인증 결과의 헤더 → options.headers로 덮어쓰기 → transformHeaders(마지막)
+     headers  : (새) getOpenCodeSessionHeaders(요청 모델, sessionId) → 인증 결과의 헤더 → options.headers로 덮어쓰기 → transformHeaders(마지막)
      env      : 인증 결과의 env + options.env
-     baseUrl  : 인증 결과가 baseUrl을 주면 모델의 baseUrl을 교체
+     baseUrl  : 인증 결과가 baseUrl을 주면 모델의 baseUrl을 교체 (이 교체를 헤더 조립보다 먼저 한다. 새 코드의 `requestModel`이 `:906`에서 먼저 만들어진다)
+     identity : (새) mergeClientIdentity(Models 생성 옵션의 identity, options.identity). 값이 있을 때만 requestOptions에 넣는다
 4. { requestModel, requestOptions } 반환
 ```
+- **[2026-11-17]** `CreateModelsOptions.identity`(`:388`)는 모든 요청의 기본 정체성이고, 요청의 `identity`가 필드 단위로 덮어쓴다(`mergeClientIdentity`, `utils/identity.ts`, 이 파일은 읽지 않았다, `미확인`). `getOpenCodeSessionHeaders`가 무엇을 만드는지도 읽지 않았다(이름상 OpenCode 계열 provider의 세션 헤더로 보이나 `추론`).
 - 호출자가 직접 준 옵션이 인증 결과보다 우선한다("Explicit request options win per-field").
-- `transformHeaders`는 `Models` 전용 옵션으로, 헤더가 모두 합쳐진 뒤 마지막에 한 번 바꿀 수 있다(`:106-109`). provider로 넘어가기 전에 제거된다(`:864`).
+- `transformHeaders`는 `Models` 전용 옵션으로, 헤더가 모두 합쳐진 뒤 마지막에 한 번 바꿀 수 있다(`:106-109`, 현재 `:122`). provider로 넘어가기 전에 제거된다(`:917`).
 - `getAuth(model)`은 모델에 `headers`가 있으면 인증 헤더와 합친다(`:746-753`).
 - 인증 실패는 예외로 호출자에게 던져지는 것이 아니라 `lazyStream` 안에서 잡혀 `error` 이벤트가 된다. `getAuth` 주석에도 "Request paths surface rejections as stream errors"라고 적혀 있다(`:299`). 앞서 정리한 "인증은 호출 직후 뒤에서 확인한다"가 이 코드다.
 
 ### 4.5 `ModelsError` 코드
 코드 안에서 확인한 값은 `"provider"`(provider 없음/미지원), `"auth"`(인증 설정 또는 저장소 실패), `"oauth"`(토큰 갱신 실패), `"stream"`(api 구현 없음), `"model_source"`(목록 갱신 실패)이다(`models.ts`의 `new ModelsError(...)`). 정의 파일 `utils/models-error.ts`는 읽지 않았다(`미확인`).
 
-### 4.6 image와 classifier 호출은 규칙이 다르다 (`:948-982`)
-`generateImages`, `classify`는 **예외를 던지지 않고** 에러가 담긴 결과 객체를 돌려준다(`imageErrorResult`, `classifierErrorResult`). chat의 "에러도 스트림 이벤트로"와 같은 철학이다.
+### 4.6 image와 classifier 호출은 규칙이 다르다 (`:948-982`, **[2026-11-17]** 현재 `generateImages` `:1021`, `classify` `:1039`)
+`generateImages`, `classify`는 **예외를 던지지 않고** 에러가 담긴 결과 객체를 돌려준다(`imageErrorResult`, `classifierErrorResult`). chat의 "에러도 스트림 이벤트로"와 같은 철학이다. **[2026-11-17]** `classify`는 모델 종류 확인(`assertClassifierModel`) 다음에 `assertClassifierInputSupported(model, context)`(`utils/model-operations.ts`)로 **입력이 이 분류기가 받을 수 있는 것인지** 먼저 검사한다(`:1046`). 이 함수의 검사 내용은 읽지 않았다(`미확인`).
 
-## 5. 모델 목록 갱신: `refresh()` (`:546-606`)
+## 5. 모델 목록 갱신: `refresh()` (`:546-606`, **[2026-11-17]** 현재 `refresh` `:573-`, `resolveNetworkRefresh` `:643`, `resolveRefreshCredential` `:655`)
 동적 provider의 목록을 최신으로 만드는 흐름이다. 정적 provider는 건너뛴다.
 
 ```
@@ -259,61 +270,71 @@ complete(...) { return this.stream(...).result(); }
  2. [오프라인] 저장소(ModelsStore)에 있던 목록을 복원해서 반영      ← 네트워크 없이도 목록을 쓸 수 있게
  3. allowNetwork가 false이면 여기서 끝
  4. 갱신용 credential 확정 (OAuth 만료 시 갱신, API 키는 resolve)
+      [2026-11-17] provider.refreshModelsAuth === "configured" 이면 credential 없이
+      "설정돼 있는지"만 확인하고 진행 (OAuth 갱신 안 함, `resolveNetworkRefresh`)
  5. [온라인] provider.refreshModels() → 서버에서 새 목록 받기
  6. publish(): 저장소에 쓰고, 메모리 목록을 교체
 ```
-- **세대(generation) 검사** (`:480-525`): `refresh`를 다시 부르거나 provider를 교체하면 이전 갱신이 진행 중이라도 취소하고, 오래된 결과는 버린다. 늦게 끝난 오래된 요청이 새 결과를 덮어쓰는 것을 막는다.
+- **[2026-11-17] OAuth 갱신의 취소 내성**: 만료된 OAuth credential을 갱신할 때 이전에는 `credentials.modify` 안에서 직접 `oauth.refresh(current, signal)`을 불렀다. 지금은 `refreshStoredOAuthCredential`(`auth/resolve.ts`)에 맡기고, 주석(`models.ts:665-667`)은 "시작된 갱신은 취소나 다른 모델 갱신에 밀려도 끝까지 가서, 회전된 refresh token이 항상 저장된다. 더 새로운 갱신은 갱신된 credential을 본다"고 설명한다. 이 함수 본문은 읽지 않았다(04-auth 재검증 대상, `미확인`).
+- **세대(generation) 검사** (`:480-525`, 현재 `refreshGenerations` 사용처 `:507-541`): `refresh`를 다시 부르거나 provider를 교체하면 이전 갱신이 진행 중이라도 취소하고, 오래된 결과는 버린다. 늦게 끝난 오래된 요청이 새 결과를 덮어쓰는 것을 막는다.
 - **저장소** (`models-store.ts`): `ModelsStore`는 `read`, `write`, `delete` 세 개뿐인 인터페이스다. 기본 구현은 메모리(`InMemoryModelsStore`). `coding-agent`가 `createModels({ credentials, modelsStore })`로 파일 기반 저장소를 넣는다(`model-runtime.ts:211`, 저장소 종류는 Q4 기록, 이 commit에서는 `미확인`). 저장하는 항목은 `models`, `lastModified`, `checkedAt`, `etag`로, HTTP 조건부 요청(`If-None-Match`)에 쓰는 값들이다(`:3-15`).
 - 개별 provider의 실패는 `errors` 맵에 담아 돌려주고 전체를 reject하지 않는다(`:582-590`, `:605`).
 
 ## 6. 모델 데이터는 어디서 오나
 
-`scripts/generate-models.ts`(3680줄)를 읽고 정리했다. 이 절을 쓸 때는 스크립트를 실행하지 않았다. 외부 네트워크 접근이 필요하고, 레포 규칙상 빌드류 명령은 요청이 있을 때만 실행하기 때문이다(나중에 한 실행은 §6.6). 모든 내용은 `코드 확인`이다.
+> **[2026-11-17 재작성]** 이 절은 이전 SHA의 `scripts/generate-models.ts`(3680줄) 기준이었다. 그 파일은 `4afe78de`에서 **삭제**됐고(`git diff --name-status`), 생성기는 `packages/ai/catalog/`로 재구성됐다(CHANGELOG v1.5.0: "models.dev의 v2 카탈로그로 생성, provider별 규칙은 `scripts/generate-models.ts`에서 `catalog/` 아래 provider당 TypeScript 정의 하나로"). 아래는 `catalog/README.md`, `generate.ts`(308줄), `build.ts`(164줄), `define.ts`(142줄), `reasoning.ts`(23줄), `sources/index.ts`(95줄), `providers/anthropic.ts`(85줄), `providers/azure.ts` 앞부분, `providers/radius.ts`, `families/anthropic.ts` 앞부분, `scripts/model-data.ts`의 함수 목록을 읽고 정리했다. 실행하지 않았다. 나머지 provider 42개 정의, `families/` 나머지, `sources/models-dev.ts`·`openrouter.ts`·`vercel-ai-gateway.ts`의 본문, `scripts/model-data.ts` 본문은 읽지 않았다(`미확인`).
 
 ### 6.1 한 줄 요약
-모델 정보(가격, 컨텍스트 크기 등)는 사람이 직접 쓰지 않는다. **빌드할 때 스크립트가 외부 사이트에서 내려받아 JSON 파일로 저장하고, 앱은 실행 중에 그 JSON만 읽는다.**
+모델 정보(가격, 컨텍스트 크기 등)는 사람이 모델마다 쓰지 않는다. **빌드할 때 생성기가 외부 사이트에서 내려받아 provider별 규칙으로 보정한 뒤 JSON 파일로 저장하고, 앱은 실행 중에 그 JSON만 읽는다.** 이 큰 줄기는 이전과 같다. 달라진 것은 규칙이 한 파일에서 provider 단위 파일로 나뉘었다는 점이다.
 
-### 6.2 전체 흐름 (Claude 모델 기준)
+### 6.2 전체 흐름 (`4afe78de` 기준)
 ```
-[빌드할 때]  npm run generate-models   (= node scripts/generate-models.ts --strict)
+[빌드할 때]  npm run generate-models   (= node catalog/generate.ts --strict)     packages/ai/package.json:72
 
- ① 외부에서 모델 정보를 내려받는다
-      models.dev/api.json  → Anthropic, OpenAI, Google 등 대부분의 provider   (generate-models.ts:1759)
-      OpenRouter, Vercel AI Gateway, NVIDIA, Radius → 각 서비스의 자체 목록    (:1300, :1350, :1280, :1329)
+ ① 모든 외부 소스를 먼저 다 받는다  (catalog/sources/index.ts:loadCatalogSources, :60-94)
+      models.dev v2   https://models.dev/experimental/v2.0/api.json     ← 대부분의 provider  (sources/models-dev.ts:6)
+      models.dev decisions  https://models.dev/models.json?type=decision
+      NVIDIA NIM /models, OpenRouter, Vercel AI Gateway, Radius 공개 목록
+      --strict 가 아니면 못 받은 소스는 빈 값으로 두고 진행, --strict 면 하나라도 실패하면 전체 중단 (:61-67)
 
- ② pi의 Model 형식으로 바꾼다
-      Claude 예시 (:1808-1832): models.dev의 anthropic 항목 중 tool_call이 true인 것만 가져와서
-        id, name, api: "anthropic-messages", baseUrl: "https://api.anthropic.com",
-        reasoning, input(text/image), cost, contextWindow, maxTokens 를 채운다.
+ ② provider마다 catalog/providers/<id>.ts 의 정의(defineProvider)를 순서대로 실행  (catalog/build.ts:buildCatalog)
+      1) models(ctx)   업스트림 항목을 pi의 Model로 바꾸고(modelsDevModels), 데이터 보정, 업스트림에 없는 모델 추가(addMissing)
+      2) compat 기본값(API별)을 각 모델 compat 아래에 합친 뒤, 공용 규칙을 적용
+           applyDeepSeekCompatRules → applyModelsDevEffort → applyOpenAiFamilyRules → applyClaudeFamilyRules → applyDeepSeekFamilyRules  (build.ts:140-146 근처)
+      3) finalize(model, ctx)   provider 고유 규칙. 공용 규칙 뒤에 돌므로 이 값이 이긴다
+      4) 빈 compat 삭제, 이미지 입력 모델에 기본 리사이즈 한도 부여(2000px, 4.5MiB, JPEG 80), finalizeAll(models, ctx)  (여러 모델에 걸친 논리)
+      같은 id가 두 번 나오면 먼저 나온 것이 이긴다(build.ts:133-135)
 
- ③ 보정한다
-      모델별 규칙으로 compat, 추론 수준 매핑(thinkingLevelMap), 프롬프트 캐시 정보 등을 채우는
-      apply...Metadata 함수들이 있다 (예: :807-1030). 외부 사이트에 없는 값을 소스 코드의 규칙으로 보충한다.
-      models.dev에 아직 없는 모델은 스크립트가 직접 추가한다
-      (예: claude-opus-5-5, claude-sonnet-5-5, 주석 "until models.dev includes it", :2775-2800).
-
- ④ 저장한다
-      src/providers/data/<provider>.json              ← 모델 값 본문 (git에서 제외)
-      src/providers/<provider>.models.ts              ← JSON을 코드에서 쓸 수 있게 감싸는 파일 (git에 포함)
-      src/models.generated.ts                         ← 모든 *.models.ts를 모은 파일 (git에 포함)
+ ③ 저장한다  (catalog/generate.ts)
+      src/providers/data/<provider>.json       ← 모델 값 본문, API별로 묶음 (git 제외)
+      src/providers/data/.manifest.json         ← 구조 해시와 파일 해시 (아래 6.3)
+      src/providers/<provider>.models.ts        ← JSON을 코드에서 쓸 수 있게 감싸는 파일 (git 포함, 자동 생성)
+      src/models.generated.ts                   ← MODELS, IMAGE_MODELS, CLASSIFIER_MODELS 를 모은 파일 (git 포함)
+      --json-output <폴더> 를 주면 pi.dev가 서빙하는 공개 카탈로그 JSON도 쓴다 (models.json, models.all.json, providers.json, providers/<id>.json, <id>.all.json)
 
 [앱 실행 중]
-      <provider>.models.ts가 JSON을 읽어서 만든 목록이 Provider의 models가 된다.
-      이때는 스크립트를 실행하지 않고, 네트워크도 쓰지 않는다.
+      <provider>.models.ts가 JSON을 읽어서 만든 목록이 Provider의 models가 된다. 스크립트도 네트워크도 쓰지 않는다.
 ```
-- `package.json`의 `"build": "npm run generate-models && npm run build:offline"`처럼 빌드 명령이 스크립트를 먼저 실행한다.
-- 그래서 앱을 쓰는 사람이 새 모델 정보를 받으려면 새로 빌드된 버전을 받아야 한다.
+- `provider.models()` 안에서 다른 provider의 결과가 필요하면 `ctx.providerModels(id)`로 복사본을 받는다(예: Azure는 OpenAI 모델에서 파생, `README.md`, `providers/azure.ts`의 `openAiModels`가 `api === "openai-responses"`인 모델을 `azure-openai-responses`로 바꾼다). 자기 자신에 의존하면 오류다(`build.ts:112`).
+- 빌드 명령은 그대로 생성기를 먼저 돌린다: `"build": "npm run generate-models && npm run build:offline"`(`package.json:76`). `build:offline`은 `check:model-data`(JSON이 맞는지 검사)와 `tsc`, `dist/providers/data`로 JSON 복사를 한다(`:77`).
+- 새 provider를 붙이는 가장 흔한 형태(README): `defineProvider({ id, models: (ctx) => modelsDevModels(ctx, "example", { api, baseUrl }), compat })`. `modelsDevModels`는 **tool 호출이 가능한 chat 모델만** 가져와 이름·입력 종류·가격(구간별 포함)·한도를 옮긴다(`define.ts:112-142`). 한도가 없으면 기본 4096.
+- 구성 요소 지도(README): `sources/`(업스트림 가져오기), `providers/<id>.ts`(provider 정의 43개, `ls`로 센 값이고 `index.ts` 제외), `families/`(`anthropic`, `deepseek`, `google`, `kimi`, `openai`: 어느 호스트에서 서빙하든 같은 모델 계열의 사실, 예: Claude의 effort 수준), `define.ts`, `build.ts`.
 
-### 6.3 파일 세 가지 구분
+**Claude 예시** (`providers/anthropic.ts`): ① `modelsDevModels(ctx, "anthropic", { api: "anthropic-messages", baseUrl: "https://api.anthropic.com", map })`로 가져오고 `map`에서 5.5 계열은 `claude55ThinkingLevels`를 합치고 `claude-opus-4-6`·`claude-sonnet-4-6`은 컨텍스트를 1,000,000으로 올린다(`:36-47` 근처). ② models.dev에 아직 없는 `claude-fable-5-2`(2026-11-09 출시, 주석)를 `addMissing`으로 직접 추가한다(`:20-33`). 이전 SHA 문서가 적은 `claude-opus-5-5`·`claude-sonnet-5-5`의 직접 추가는 지금은 없다(모델 정의 객체가 이 파일에 없고 `MODELS_55` 집합으로 thinking만 보정함, `코드 확인`: `providers/anthropic.ts` 전체를 읽음). ③ `finalize`에서 mid-conversation effort·시스템 메시지 지원 compat, `supportsStrictTools`, `promptCache = { short: 300, long: 3600 }`(직접 Anthropic에만), 이미지·요청 크기 한도를 부여한다. ④ `finalizeAll`에서 `ALLOWED_FALLBACK_MODELS`(예: `claude-opus-5` → `claude-opus-4-8`)를 가격과 함께 `compat.allowedFallbackModels`로 넣는다.
+
+### 6.3 파일 구분과 검증
 | 파일 | 내용 | git |
 |---|---|---|
-| `data/<provider>.json` | 모델 값 본문 (가격, 한도, compat 등) | 제외 (`.gitignore` 11번째 줄) |
-| `<provider>.models.ts` | JSON을 import해서 `ANTHROPIC_MODELS` 같은 객체로 만드는 코드 | 포함 |
+| `data/<provider>.json` | 모델 값 본문 (가격, 한도, compat 등), API별로 묶음 | 제외 (`.gitignore` 11번째 줄, `.model-generation-*` 임시 폴더도 제외 12번째 줄) |
+| `data/.manifest.json` | `schemaVersion`, `generatedAt`, `structureHash`, `files`(파일별 해시) | 제외(`data/` 안) |
+| `<provider>.models.ts` | JSON을 import해 `ANTHROPIC_MODELS`, `..._IMAGE_MODELS`, `..._CLASSIFIER_MODELS`로 만드는 코드 (`flatten*ModelCatalog`) | 포함 |
 | `models.generated.ts` | 모든 `*.models.ts`를 모아 `MODELS`, `IMAGE_MODELS`, `CLASSIFIER_MODELS`로 내보냄 | 포함 |
 
-`.models.ts`의 `flattenChatModelCatalog`(`model-catalog.ts:62`)가 JSON 안의 모델 중 `type === "chat"`인 것만 골라 `{ id: Model }` 객체로 만든다. 이 객체가 `providers/anthropic.ts`의 `models: Object.values(ANTHROPIC_MODELS)`로 들어간다.
+`flattenChatModelCatalog`(`src/model-catalog.ts:62`, 파일 diff 없음)가 JSON 안의 모델 중 `type === "chat"`인 것만 골라 `{ id: Model }` 객체로 만든다. 이 객체가 `providers/anthropic.ts`의 `models: Object.values(ANTHROPIC_MODELS)`로 들어간다. **[2026-11-17]** 이제 chat뿐 아니라 image·classifier 상수도 shard마다 생성된다.
 
-### 6.4 JSON의 모양: api별로 묶는다 (`generate-models.ts:3502-3515`)
+검증 함수는 `scripts/model-data.ts`에 있다: `createModelDataManifest`(매니페스트 생성), `validateModelDataDirectory`(구조와 해시 확인), `validateGeneratedModelData`(`:303`, `check:model-data`가 부름), `groupProviderModelData`(API별 묶기), `readModelDataProviderIds`. 본문은 읽지 않았다(`미확인`).
+
+### 6.4 JSON의 모양: api별로 묶는다 (`catalog/generate.ts:136-141`, `scripts/model-data.ts:318`)
 ```
 data/anthropic.json = {
   "anthropic-messages": {                     ← 통신 방식(api)별로 묶고
@@ -322,19 +343,23 @@ data/anthropic.json = {
   }
 }
 ```
-한 provider 안에 통신 방식이 여러 개인 경우(§3.2의 GitHub Copilot 등)에는 api마다 묶음이 따로 생긴다. 각 모델이 어느 `api`를 쓰는지는 이 JSON에 들어 있고, 같은 provider에서 id가 겹치면 에러를 낸다.
+이 모양은 이전 SHA 문서가 적은 그대로라고 `generate.ts`의 `groupProviderModelData(providerId, jsonAllProviders[providerId])` 호출과 매니페스트 구조로 짐작되지만, 키 형식(`chat:<id>`)이 지금도 같은지는 `groupProviderModelData` 본문을 읽지 않아 `미확인`이다. 같은 provider에서 id가 겹치면 `sortedById`가 먼저 나온 것을 남긴다(`generate.ts:92-96`).
 
-### 6.5 실행 옵션 (`:49-95`)
+### 6.5 실행 옵션 (`generate.ts:51-90`)
 | 명령 (`package.json`) | 옵션 | 하는 일 |
 |---|---|---|
 | `generate-models` | `--strict` | JSON, `.models.ts`, `models.generated.ts`를 모두 새로 만든다. |
-| `hydrate-model-data` | `--strict --data-only` | **JSON만** 다시 만든다. `.models.ts`와 `models.generated.ts`는 건드리지 않는다(`:3536-3560`의 `if (!dataOnly)`). 이 checkout처럼 JSON이 없는 상태를 채울 때 쓴다. |
-| `generate-model-catalog` | `--strict --json-only --json-output <폴더>` | 지정한 폴더에 JSON 카탈로그만 만든다. |
+| `hydrate-model-data` | `--strict --data-only` | **JSON만** 다시 만든다(`.models.ts`·`models.generated.ts`는 `if (!generatorOptions.dataOnly)`로 건드리지 않음, `generate.ts:169`). **JSON을 못 만들 때는 기존 `data/`에 있는 provider와 같은 목록을 요구한다**: `--data-only`이면 `readModelDataProviderIds`로 현재 있는 provider 목록을 읽고, 생성 결과에 없는 provider가 있으면 `Cannot hydrate missing providers`로 실패한다(`generate.ts:127-133`). |
+| `generate-model-catalog` | `--strict --json-only --json-output <폴더>` | 지정 폴더에 공개 카탈로그 JSON만 만든다(`--json-only`는 `--json-output` 필수, `--data-only`와 함께 못 씀, `generate.ts:85-87`). |
+| `check:model-data` | — | `data/`가 있고 구조가 맞는지 검사. 실패하면 "Model data is missing or stale. Run `npm run hydrate:model-data` from the repository root."(`scripts/check-model-data.ts`) |
 
-- `--strict`는 외부 목록을 하나라도 못 받으면 건너뛰지 않고 실패하게 한다(`:1294`, `:1324`, `:1339` 등의 `if (generatorOptions.strict) throw error`).
-- 저장은 임시 폴더에 먼저 만들어 검증한 뒤 교체한다. 실패하면 이전 데이터를 복원한다(`:3512-3535`, `:3620-3630`).
+- `--strict`는 외부 목록을 하나라도 못 받으면 건너뛰지 않고 실패하게 한다(`sources/index.ts:61-67`, 추가로 OpenRouter 이미지 모델이 0개면 strict에서 실패, `:90`).
+- 저장은 임시 폴더(`.model-generation-*`)에 먼저 만들어 검증한 뒤 `data/`를 교체한다. 실패하면 이전 `data/`와 `.models.ts`, `models.generated.ts`를 복원한다(`generate.ts:152-259`의 `restoreGeneratedCatalog`, `previousDataDir`).
+- **[2026-11-17] 네트워크 없이 채우는 길이 하나 더 있다**: `packages/ai/scripts/hydrate-model-catalog.ts`의 `hydrateModelCatalog(packageRoot, catalogPath, options)`는 **발행된 타입별 카탈로그(`models.all.json`)**로 `data/`를 채운다(검증만 하는 `validateOnly` 옵션 포함, 주석). 루트의 `scripts/update-model-catalog-pin.mjs`가 이것을 쓰고 `https://pi.dev/api/models/revisions/<sha256-...>?types=chat,image,classifier`에서 해시가 일치하는 바이트를 받는다. 이 경로가 언제 쓰이는지(빌드, CI, 개발자)는 읽지 않았다(`미확인`).
+- **[2026-11-17] 이미 발행된 카탈로그와의 호환 규칙**(`catalog/README.md` "Released clients"): pi.dev는 `MINIMUM_PI_VERSION`(`scripts/model-catalog-minimum-version.mjs`, 현재 `"1.2.1"`) 이상 모든 릴리스 클라이언트에 카탈로그를 서빙한다. 그래서 카탈로그 변경은 "같은 커밋의 코드"가 아니라 **최신 릴리스 코드에서도 동작해야 한다**. 새 코드 기본값 때문에 카탈로그의 값을 지우면 옛 클라이언트가 틀린 기본값을 쓸 수 있다. 확인은 `npm run diff:model-catalog -- [provider ...]`(HEAD와 작업 트리의 카탈로그 JSON 차이 출력)와 `check:model-catalog-compat`(타입 오류만, 동작 변화는 못 잡음)이다.
 
-### 6.6 실제로 실행해 본 결과 (`실행 확인`)
+### 6.6 실제로 실행해 본 결과 (`실행 확인`, 2026-10-04, **이전 SHA `3874b3e98`의 `scripts/generate-models.ts` 기준**)
+> 이 절의 실행은 삭제된 스크립트로 한 것이고 새 `catalog/generate.ts`로는 실행하지 않았다. `repos/pi/packages/ai/src/providers/data/`에는 이 실행이 만든 JSON 42개가 아직 남아 있다(gitignore 대상이라 `git pull`로 바뀌지 않음, `.manifest.json`의 `generatedAt`이 `2026-10-04T14:12:07Z`). **그 데이터는 새 SHA의 구조와 맞지 않을 수 있다**(새 SHA는 `azure` provider 등 정의가 달라졌다). `npm run check:model-data`로 맞는지 확인할 수 있으나 실행하지 않았다.
 처음에는 이 checkout에 `data/*.json`이 없었다. 사용자의 허락을 받고 `packages/ai`에서 다음을 실행했다.
 ```
 node scripts/generate-models.ts --strict --data-only        # npm run hydrate-model-data 와 같은 명령
@@ -345,16 +370,17 @@ node scripts/generate-models.ts --strict --data-only        # npm run hydrate-mo
 - 실행 로그는 `artifacts/pi/hydrate-model-data.2026-10-04.log`에 보관했다. 로그에는 provider별 모델 수가 나온다(예: github-copilot 34, openrouter 400 + 이미지 59 + 분류 13, vercel-ai-gateway 253, openai-codex 9, azure-openai-responses 44; 새 SHA에서는 provider id가 `azure`로 바뀜, 이 로그는 이전 id 기준).
 - **주의**: 이 데이터는 commit이 아니라 **실행한 시점의 외부 사이트(models.dev 등) 기준**이다. 같은 commit이라도 다른 날 실행하면 모델 수와 가격이 달라질 수 있다. 문서에 인용하는 값에는 이 시점이 붙는다.
 
-### 6.7 실행 중에 최신 모델을 받는 방법과의 차이
+### 6.7 실행 중에 최신 모델을 받는 방법과의 차이 (표는 이전 SHA 기준, 내용 유지)
 | | 빌드 때 생성 (이 절) | 실행 중 갱신 (§5 `refresh`) |
 |---|---|---|
 | 시점 | 개발자가 빌드할 때 | 앱이 실행되는 동안 |
 | 쓰는 provider | 내장 provider 대부분 | `fetchModels`를 구현한 일부 provider (`radius` 등) |
 | 결과물 | `data/*.json`, `*.models.ts` | 메모리 목록 + `ModelsStore` 저장소 |
 
-Radius는 두 방식을 모두 쓴다. 스크립트가 빌드 때 공개 목록을 받아 JSON에 넣고(`:1329`, 주석: "authenticated clients overlay it at runtime"), 실행 중에는 인증된 사용자의 목록으로 덮어쓴다.
+Radius는 두 방식을 모두 쓴다. 생성기가 빌드 때 공개 목록을 받아 JSON에 넣고(`catalog/providers/radius.ts`: `models: (ctx) => structuredClone(ctx.sources.radius)`, 주석: "The unauthenticated public catalog; authenticated clients overlay it at runtime"), 실행 중에는 인증된 사용자의 목록으로 덮어쓴다.
 
-### 6.8 실제 모델 한 건: Claude Opus 5.5 (`data/anthropic.json`, 2026-10-04 생성, `실행 확인`)
+### 6.8 실제 모델 한 건: Claude Opus 5.5 (`data/anthropic.json`, 2026-10-04 생성, `실행 확인`, **이전 생성기 결과**)
+> `4afe78de`의 생성 규칙은 `providers/anthropic.ts`와 `families/anthropic.ts`로 옮겨졌고(§6.2), 이 절의 값(특히 `compat`, `thinkingLevelMap`, `allowedFallbackModels`)은 새 규칙으로 다시 만들면 달라질 수 있다. 이 절은 "JSON 한 건이 어떤 모양인가"를 보이는 용도로만 남긴다. 아래 "스크립트가 직접 추가한 모델" 설명은 이전 SHA 기준이다(현재 `claude-opus-5-5`는 직접 추가 목록에 없음, §6.2).
 `data/anthropic.json`에는 `anthropic-messages` 묶음 하나만 있고, 그 안에 Claude 모델 16개가 있다. 그중 한 건이다.
 
 ```json
@@ -400,11 +426,11 @@ Radius는 두 방식을 모두 쓴다. 스크립트가 빌드 때 공개 목록�
 
 | 함수 | 역할 | 위치 |
 |---|---|---|
-| `calculateCost(model, usage)` | 토큰 수와 모델 가격으로 `usage.cost`를 채운다. 입력 토큰 수가 해당하는 구간별 가격(`tiers`) 중 가장 높은 구간의 가격을 요청 전체에 적용한다. Anthropic 1시간 캐시 쓰기는 입력 가격의 2배로 계산한다. 이 함수는 `Models`가 부르지 않고, 각 통신 코드(`api/*.ts`)가 응답에서 토큰 수를 받은 직후에 부른다(예: `anthropic-messages.ts:690, 859`). | `:1193-1213` |
-| `getSupportedThinkingLevels(model)` | 이 모델이 지원하는 추론 수준 목록. `reasoning`이 false면 `["off"]`. `thinkingLevelMap`에서 `null`인 수준은 제외하고, `xhigh`, `max`는 명시된 경우만 포함한다. | `:1217-1226` |
-| `clampThinkingLevel(model, level)` | 요청한 수준을 지원하지 않으면 가까운 지원 수준으로 맞춘다. 같거나 높은 쪽을 먼저 찾고, 없으면 낮은 쪽을 찾는다. | `:1228-1247` |
-| `hasApi(model, api)` | `model.api`가 맞는지 확인하며 타입을 좁힌다. | `:1189` |
-| `modelsAreEqual(a, b)` | type, id, provider가 같으면 같은 모델로 본다. | `:1253-1256` |
+| `calculateCost(model, usage)` | 토큰 수와 모델 가격으로 `usage.cost`를 채운다. 입력 토큰 수가 해당하는 구간별 가격(`tiers`) 중 가장 높은 구간의 가격을 요청 전체에 적용한다. Anthropic 1시간 캐시 쓰기는 입력 가격의 2배로 계산한다. 이 함수는 `Models`가 부르지 않고, 각 통신 코드(`api/*.ts`)가 응답에서 토큰 수를 받은 직후에 부른다(예: `anthropic-messages.ts:690, 859`). | `:1193-1213` (현재 `:1279-`). **[2026-11-17]** 계산 끝에 `usage.cost.totalFromProvider = false`를 둔다(`:1298`): 이 합계는 카탈로그 가격으로 추정한 값이지 provider가 청구한 값이 아니라는 표시다(v1.5.0 `Usage.cost.totalFromProvider`) |
+| `getSupportedThinkingLevels(model)` | 이 모델이 지원하는 추론 수준 목록. `reasoning`이 false면 `["off"]`. `thinkingLevelMap`에서 `null`인 수준은 제외하고, `xhigh`, `max`는 명시된 경우만 포함한다. | `:1217-1226` (현재 `:1304`) |
+| `clampThinkingLevel(model, level)` | 요청한 수준을 지원하지 않으면 가까운 지원 수준으로 맞춘다. 같거나 높은 쪽을 먼저 찾고, 없으면 낮은 쪽을 찾는다. | `:1228-1247` (현재 `:1315`) |
+| `hasApi(model, api)` | `model.api`가 맞는지 확인하며 타입을 좁힌다. | `:1189` (현재 `:1275`) |
+| `modelsAreEqual(a, b)` | type, id, provider가 같으면 같은 모델로 본다. | `:1253-1256` (현재 `:1340`) |
 
 `calculateCost`의 계산 규칙(Anthropic 2배 등)이 공용 `models.ts` 안에 있는 것은 눈에 띄는 점이다. 이유는 코드에 적혀 있지 않다. 비용 계산을 `Usage`를 채우는 단계 한 곳에서 처리하려는 것으로 보이며 이는 `추론`이다.
 
@@ -417,6 +443,7 @@ Radius는 두 방식을 모두 쓴다. 스크립트가 빌드 때 공개 목록�
 
 ## 9. 이전 분석(Q4)과의 대조
 - Q4의 "`createProvider` models.ts:1028", "`calculateCost` models.ts:1187", "`Models.refresh` :545"는 이 commit에서 각각 `:1034`, `:1193`, `:546`이다. 내용은 같고 줄만 이동했다.
+- **[2026-11-17]** 위 줄 번호는 이전 SHA끼리의 비교다. `4afe78de`에서 `createProvider` `:1108`, `calculateCost` `:1279`, `Models.refresh` `:573`이다.
 - Q4의 "레포 안에서 런타임 카탈로그를 쓰는 provider는 `radius.ts`뿐"은 ai 패키지 안에서는 맞다. 다만 `coding-agent`에도 `refreshModels`를 쓰는 곳이 더 있다(`remote-catalog-provider.ts`, `extensions/llama/provider.ts`).
 
 ## 10. 남은 질문 (다음 문서로)
@@ -424,4 +451,4 @@ Radius는 두 방식을 모두 쓴다. 스크립트가 빌드 때 공개 목록�
 - `streamSimple`의 `reasoning`은 provider별 설정으로 어떻게 바뀌는가? → 03
 - `openai-completions.ts`의 compat 자동 감지는 실제로 어떻게 동작하는가? → 03
 - `envApiKeyAuth`, `lazyOAuth`, `getAuth`가 돌려주는 `AuthResult`의 구조, OAuth 갱신의 락 → 04
-- 모델 JSON 한 건의 실제 모양 → 필요하면 `hydrate-model-data` 실행 후 확인(사용자 허락 필요)
+- 모델 JSON 한 건의 실제 모양 → (이전 SHA에서 확인함, §6.8). **새 생성기(`catalog/generate.ts`)로 만든 JSON의 실제 모양은 실행해야 알 수 있다**(사용자 허락 필요, 네트워크 사용)

@@ -1,5 +1,7 @@
 # ai 03-4: 통신 코드 읽기 — `api/openai-codex-responses.ts` (OpenAI Codex, legacy)
 
+> **[2026-11-17 재검증]** `3874b3e98` → `4afe78de`(v1.5.2) 기준으로 `api/openai-codex-responses.ts`(1697 → 1725줄)의 diff 전체와 관련 커밋(`bb1a2b354`, `adc5fa9f8`, `0cf65d2bf`, `90b42bca6`, `f715a15c1`, `caa6967b6`)을 읽고 대조했다(실행 없음, `코드 확인`). "OpenAI Codex (legacy)" 표시 이름은 "OpenAI Codex"로 되돌아갔다(`36142c1c7`, 파일명 `legacy`와 이 문서의 "legacy" 서술은 바꾸지 않았다). 바뀐 것: ① **헤더**: `originator`·`User-Agent` 고정 대신 client identity(§4.1) ② **WebSocket 재사용 한도 55분 → 45분**과 60분 연결 제한 복구(§5.2) ③ 도구 변경 표현 `getResponsesToolSupport`(§4.3·§4.4) ④ 임시 필드 제거(§7.3, §8) ⑤ 작은 수정(`sleep`의 리스너 정리, zstd 본문 타입). **본문 줄 번호는 이전 SHA 기준이고 +20~30줄 밀렸다.** 현재 위치: `stream` `:246`, `streamSimple` `:514`, `buildRequestBody` `:541`, `parseSSE` `:820`, `SESSION_WEBSOCKET_MAX_AGE_MS` `:890`, `buildBaseCodexHeaders` `:1663`, `buildSSEHeaders` `:1687`, `buildWebSocketHeaders` `:1708`. 요청 본문 필드(`instructions`, `store`, `parallel_tool_calls` 등)와 전송 흐름 본체는 diff에 없다.
+
 > **이 문서는 legacy 경로를 다룬다.** `CHANGELOG.md`에 "Renamed the OpenAI Codex provider to 'OpenAI Codex (legacy)'; Sign in with ChatGPT on the `openai` provider supersedes it"라고 적혀 있다. **현재 권장 경로**는 `openai` provider(`openai-responses.ts`, ChatGPT 구독 로그인은 `auth/oauth/openai-chatgpt.ts`)이고 [03-2-api-openai-responses](./03-2-api-openai-responses.md)에 있다. 이 문서의 코드는 삭제된 것이 아니라 `openai-codex` provider로 **아직 등록되어 있고**(`providers/all.ts:162`) 계속 수정되고 있다(최근 커밋 2026-09-23). 응답 변환기(`processResponsesStream`)는 현재 경로와 **공용**이므로 그 설명은 03-2 §5에 정리되어 있다.
 
 - **기준 commit**: `3874b3e98` / **분석일**: 2026-10-04
@@ -145,9 +147,9 @@ Claude의 `streamSimple`(adaptive/예산 두 갈래, 03-1 §3)보다 훨씬 단�
 이 provider는 API 키 대신 **OAuth 액세스 토큰(JWT)**을 `options.apiKey`로 받는다. 이 파일은 그 토큰에서 계정 ID를 꺼낸다.
 
 - `extractAccountId(token)` (`:1627-1638`): 토큰을 `.`으로 나눈 가운데 부분(payload)을 base64로 풀어서 `payload["https://api.openai.com/auth"].chatgpt_account_id`를 꺼낸다. 형식이 맞지 않거나 값이 없으면 "Failed to extract accountId from token" 예외를 던진다.
-- `buildBaseCodexHeaders` (`:1640-1659`): 공통 헤더. `Authorization: Bearer <토큰>`, `chatgpt-account-id`, `originator: pi`, `User-Agent`. 호출자의 `headers` 중 값이 `null`인 것은 삭제한다.
-- SSE용 (`buildSSEHeaders`, `:1661-1679`): 위에 `OpenAI-Beta: responses=experimental`, `accept: text/event-stream`, `content-type: application/json`, 세션 ID가 있으면 `session-id`와 `x-client-request-id`.
-- WebSocket용 (`buildWebSocketHeaders`, `:1681-1697`): `accept`, `content-type`, 기존 `OpenAI-Beta`를 지우고 `OpenAI-Beta: responses_websockets=2026-02-06`, `x-client-request-id`, `session-id`를 넣는다.
+- `buildBaseCodexHeaders` (`:1640-1659`, **[2026-11-17]** 현재 `:1663-`): 공통 헤더. `Authorization: Bearer <토큰>`, `chatgpt-account-id`. **[2026-11-17 변경]** 이전에는 마지막에 `originator: pi`와 `User-Agent`를 **고정으로 덮어썼다**. 지금은 `stream`이 `identityHeaders = { originator: "pi", ...getIdentityHeaders(model, options.identity) }`를 만들어(`:293`, 주석: "Codex expects an originator on every request; it is not attribution") 첫 인자 `defaultHeaders`로 넘기고, 헤더 우선순위는 **기본(identity) < 모델 `headers` < 호출자 `headers`**다(`Headers`를 기본값으로 만든 뒤 `model.headers`, `additionalHeaders`를 덮어씀, 커밋 `0cf65d2bf` "let caller headers override Codex originator and User-Agent" #10429). 그래서 호출자가 `originator`를 바꿀 수 있다. 호출자의 `headers` 중 값이 `null`인 것은 삭제한다. 로그인 쪽 originator는 `LoginOptions.agentName`(04-auth §6.3).
+- SSE용 (`buildSSEHeaders`, `:1661-1679`, 현재 `:1687-`, 인자 `defaultHeaders`가 맨 앞에 추가됨): 위에 `OpenAI-Beta: responses=experimental`, `accept: text/event-stream`, `content-type: application/json`, 세션 ID가 있으면 `session-id`와 `x-client-request-id`.
+- WebSocket용 (`buildWebSocketHeaders`, `:1681-1697`, 현재 `:1708-`, 마찬가지로 `defaultHeaders` 추가): `accept`, `content-type`, 기존 `OpenAI-Beta`를 지우고 `OpenAI-Beta: responses_websockets=2026-02-06`, `x-client-request-id`, `session-id`를 넣는다.
 
 ### 4.2 주소 (`:641-654`)
 `baseUrl`(기본 `https://chatgpt.com/backend-api`) 뒤에 `/codex/responses`를 붙인다. 이미 붙어 있으면 그대로 둔다. WebSocket 주소는 같은 주소의 `https`를 `wss`로 바꾼다.
@@ -185,7 +187,7 @@ reasoningEffort가 없고, 모델이 추론 지원이고, thinkingLevelMap.off�
 - 호출자가 준 `onPayload`로 본문을 확인하거나 통째로 바꿀 수 있다(`:278-281`).
 
 ### 4.4 이 파일이 쓰는 compat 값 (`코드 확인`)
-`supportsMidConvoSystemMessages`(`:243`, `:545`), `supportsOpenAIGrammarTools`(`:273`, `:538`), `supportsStrictMode`(`:537`), `supportsAdditionalTools`, `supportsToolSearch`(`:539-541`). 전부 모델 데이터의 `compat`에서 온다. 이 provider의 실제 모델 값은 확인하지 않았다(`data/openai-codex.json`은 있으나 이 문서에서는 열어 보지 않음).
+`supportsMidConvoSystemMessages`(`:243`, `:545`), `supportsOpenAIGrammarTools`(`:273`, `:538`), `supportsStrictMode`(`:537`), `supportsAdditionalTools`, `supportsToolSearch`(`:539-541`). **[2026-11-17]** 이 둘은 이제 `supportsMidConvoSystemMessages`와 함께 `getResponsesToolSupport({...})`에 넘겨져 `"changes"`/`"additions"`/`"none"` 중 하나가 된다(`buildRequestBody`, `:555-562`, 03-2 §4.6.1). 이전에는 `supportsAdditionalTools || supportsToolSearch` 불리언 하나였고, 커밋 `caa6967b6` "keep the prompt cache across tool changes on Responses"가 이 방식을 도입했다. 전부 모델 데이터의 `compat`에서 온다. 이 provider의 실제 모델 값은 확인하지 않았다(`data/openai-codex.json`은 있으나 이 문서에서는 열어 보지 않음).
 
 ## 5. 전송 방식: WebSocket 먼저, 안 되면 SSE
 
@@ -232,7 +234,7 @@ SSE 경로 (:376-483)
 ### 5.2 WebSocket 연결 재사용과 "이어 붙이기" (`:865-1591`)
 **연결 재사용** (`acquireWebSocket`, `:1153-1248`)
 - 세션 ID와 계정 ID가 같으면 이미 열린 연결을 재사용한다. 다른 요청이 쓰는 중(`busy`)이면 새로 연결한다.
-- 사용이 끝난 연결은 5분(`SESSION_WEBSOCKET_CACHE_TTL_MS`) 동안 유휴 상태로 두고 닫는다. 만든 지 55분(`SESSION_WEBSOCKET_MAX_AGE_MS`)이 넘으면 재사용하지 않는다.
+- 사용이 끝난 연결은 5분(`SESSION_WEBSOCKET_CACHE_TTL_MS`) 동안 유휴 상태로 두고 닫는다. 만든 지 **45분**(`SESSION_WEBSOCKET_MAX_AGE_MS = 45 * 60 * 1000`, `:890`, `:1076`)이 넘으면 재사용하지 않는다. **[2026-11-17 변경]** 이전 SHA는 55분이었다. 주석: 서버가 연결을 60분 뒤에 **응답 도중이어도** 닫고 그 응답은 사라진다. 45분에 새 연결을 열면 긴 응답에 최소 15분이 남는다(`bb1a2b354`, #12124·#12229). 이 커밋의 두 번째 수정은 오류 분류다: 이전에는 응답이 시작된 뒤(`websocketStarted`) 연결 제한 오류가 오면 부분 출력을 이미 push했으므로 재연결 없이 `stopReason: "error"`로 끝났고 `isRetryableAssistantError`가 이 문구를 몰라 에이전트 단계 재시도도 안 됐다. 지금은 `retry.ts`의 재시도 가능 패턴 `websocket.?connection.?limit.?reached`가 에러 코드와 메시지 둘 다에 맞아서(05 §2.2), 바깥 재시도가 새 WebSocket을 열고 전체 컨텍스트를 보낸다(커밋 메시지의 설명이며 우리가 실행해 확인하지는 않았다, `미확인`). 이 파일의 `isWebSocketConnectionLimitReachedError`(`:743-745`)와 응답 시작 전 재연결은 diff에 없다.
 - 세션 ID가 없으면 매 요청마다 새로 연결하고 끝나면 닫는다.
 - 연결 시도 제한 시간은 기본 15초(`DEFAULT_WEBSOCKET_CONNECT_TIMEOUT_MS`)다.
 
@@ -275,9 +277,11 @@ SSE 경로 (:376-483)
 ## 6. SSE 경로 상세 (`:376-483`)
 
 ### 6.1 zstd 압축 (`:208-231`, `:376-383`)
+> **[2026-11-17]** 압축 함수의 반환 타입이 `Uint8Array<ArrayBuffer>`가 됐고 압축 결과를 복사해서 돌려준다(`new Uint8Array(compressed)`, `:226-240`): 복사본은 일반 `ArrayBuffer`를 가지므로 모든 TypeScript lib 설정에서 `fetch`의 본문으로 허용된다(주석, 커밋 `0f4b1465a`). 압축 수준 3, `content-encoding: zstd` 등 동작은 같다.
 Node나 Bun 실행 환경에서 `node:zlib`의 `zstdCompressSync`(압축 수준 3)로 본문을 압축하고 `content-encoding: zstd` 헤더를 붙인다. 브라우저 환경이나 실패하면 압축하지 않고 JSON 그대로 보낸다. 주석은 "공식 Codex 클라이언트도 같은 엔드포인트에 압축해서 보낸다"고 적었다(`:58-59`).
 
 ### 6.2 재시도: 이 파일은 자체 구현이다 (`:385-461`)
+> **[2026-11-17]** 이 반복문의 대기 함수 `sleep`(`:182-`)이 abort 리스너를 정리하도록 바뀌었다: 대기가 끝나면 `removeEventListener`, 리스너는 `{ once: true }`(커밋 `90b42bca6`, #11725). 이전에는 백오프마다 리스너가 남아 반복 재시도에서 쌓였다. 재시도 규칙 자체는 diff에 없다.
 03-1의 Claude와 `openai-responses.ts`는 공용 `retryProviderRequest`를 쓴다. **이 파일은 그 함수를 import하지 않고** 직접 반복문(`for attempt ...`)을 쓴다.
 
 - `maxRetries` 기본값이 **0**이다(`DEFAULT_MAX_RETRIES`, `:54`, `:388`). 호출자가 `options.maxRetries`를 주지 않으면 재시도하지 않는다.
@@ -417,7 +421,7 @@ OpenAI Responses 계열(`openai`, `openai-codex`, `azure-openai-responses`)이 �
   | `in_progress`, `queued`, 없음 | `stop` | 주석: "wonky" |
 - **도구 호출이 있으면 `toolUse`로 바꾼다.** 위에서 `stop`이 되었어도 `output.content`에 `toolCall`이 하나라도 있으면 `stopReason`을 `toolUse`로 고친다(`:594-596`). Claude는 서버가 `tool_use`를 직접 알려 주지만(`mapStopReason`, 03-1 §5.4), OpenAI는 완료 상태만 알려 주므로 pi가 도구 호출 유무로 판단한다.
 - `message`의 `phase`가 `final_answer`이면 종료 사유를 `stop`으로 고정한다(`:443-447`).
-- **미완성 도구 호출 방지** (`:763-776`): `stopReason`이 `toolUse`인데 `output_item.done`이 오지 않아 임시 버퍼(`partialJson`)가 남은 도구 호출이 있으면 **예외를 던진다**. 주석은 "에이전트가 최종 메시지의 모든 도구 호출을 실행하므로, 인자가 잘렸거나 섞인 호출을 넘기지 않는다"고 적었다.
+- **미완성 도구 호출 방지** (`:763-776`, **[2026-11-17]** 공용 `openai-responses-shared.ts:819-826`): `stopReason`이 `toolUse`인데 `output_item.done`이 오지 않은 도구 호출이 있으면 **예외를 던진다**. 지금은 임시 버퍼(`partialJson`) 필드가 아니라 `unfinishedToolCalls` 집합에 남았는지로 판단한다(03-2 §5.1). 주석은 "에이전트가 최종 메시지의 모든 도구 호출을 실행하므로, 인자가 잘렸거나 섞인 호출을 넘기지 않는다"고 적었다.
 - 종료 이벤트가 하나도 없이 스트림이 끝나면 "stream ended before a terminal response event"로 실패한다(`:760-762`).
 
 ## 8. 오류 처리
