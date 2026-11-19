@@ -2,7 +2,7 @@
 
 - 작성일: 2026-10-13
 - 위치: `~/Desktop/oss-analysis/code-review/GUIDE.md`
-- 상위 규칙: `~/Desktop/oss-analysis/AGENTS.md`의 원칙(증거 기반 분석, 검증 수준 표기, reports와 wiki 분리)을 그대로 따른다. 구조와 표기 규칙은 [`../trading/GUIDE.md`](../trading/GUIDE.md)와 같고, 이 문서는 **코드 리뷰 서비스 분석 전용으로 추가하는 규칙**만 다룬다.
+- 상위 규칙: `~/Desktop/oss-analysis/AGENTS.md`의 원칙(증거 기반 분석, 검증 수준 표기)을 그대로 따른다. 구조와 표기 규칙은 [`../trading/GUIDE.md`](../trading/GUIDE.md)와 같고, 이 문서는 **코드 리뷰 서비스 분석 전용으로 추가하는 규칙**만 다룬다.
 
 ---
 
@@ -51,7 +51,6 @@ oss-analysis/
 ```
 
 - 기존 `oss-analysis/repos/`, `trading/repos/`와 섞지 않는다. 코드 리뷰 레포는 `code-review/repos/`에만 둔다.
-- 재사용 가치가 큰 결론만 상위 `oss-analysis/wiki/`로 요약해 올린다.
 - 이 작업공간에는 archify 다이어그램(`diagrams/`)을 쓰지 않아도 된다. 흐름도는 mermaid로 보고서 안에 둔다. 필요하면 `reports/<repo>/diagrams/`에 JSON/HTML을 함께 둔다.
 
 ---
@@ -455,7 +454,7 @@ reports/<repo>/
 ## 8. 진행 순서와 완료 기준
 
 ### 진행 순서
-1. **레포 하나 시작**: 2.2절로 SHA를 고정하고 `repos.lock.tsv`와 `00-overview.md` 메타데이터를 채운다. 기존 `reports/`·`wiki/`에 해당 레포 문서가 있는지 먼저 확인한다(중복 방지). 예: 상위 `reports/open-code-review`가 있으면 참고하되 코드는 다시 검증한다.
+1. **레포 하나 시작**: 2.2절로 SHA를 고정하고 `repos.lock.tsv`와 `00-overview.md` 메타데이터를 채운다. 기존 `reports/`에 해당 레포 문서가 있는지 먼저 확인한다(중복 방지). 예: 상위 `reports/open-code-review`가 있으면 참고하되 코드는 다시 검증한다.
 2. **진입점부터 추적**: 현재 디렉터리 구조를 확인하고, 이벤트 또는 CLI 입력에서 게시까지 따라간다(Q1).
 3. **문맥과 루프**: 모델 입력을 재구성하고(Q4) 문맥 확보 방식을 구분한다(Q3), 검증을 본다(Q5).
 4. **Q2, Q6~Q10**을 채운다.

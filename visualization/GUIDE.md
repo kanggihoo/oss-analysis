@@ -47,4 +47,4 @@ visualization/
 
 ## 로컬 설치본과의 관계
 
-이 작업 공간의 `.agents/skills/archify`(`~/.claude/skills/archify`가 가리킴)가 이 레포와 같은 버전인지는 `미확인`이다. 분석 근거는 항상 `repos/archify` 기준 SHA의 코드다.
+로컬에 설치된 archify 스킬(`~/.claude/skills/archify`)이 이 레포와 같은 버전인지는 `미확인`이다. 분석 근거는 항상 `repos/archify` 기준 SHA의 코드다.

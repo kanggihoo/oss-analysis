@@ -1188,3 +1188,9 @@ enum 값 의미 사전(3절)을 추가했다. 새로 확인한 사실: architect
 - 사용자가 feature map 핵심 8행을 5행으로 합쳐 승인(행 1~5). 제외: 부속 6~9. 서브에이전트 5명이 병렬로 `harness-sop`, `harness-contract`, `harness-families`, `skill-packaging`, `registry-schema`를 작성했다(모두 `draft`).
 - 메인 세션이 표본 6건을 원본 줄과 대조해 일치를 확인했다. 독립 검토와 재구현은 하지 않았다. 서브에이전트가 scratchpad에서 gimp·firefly-iii·jumpserver 복사본을 실행하고 wheel 2개를 빌드했으며, `repos/CLI-Anything`은 변경 없음.
 - overview를 9행(핵심 5/부속 4)으로 고치고 처음 쓴 주장 4건을 정정했다: undo/redo는 세션 파일이 아니라 메모리, 오류 JSON 형식은 하니스마다 다름, 문자열 점검 수치의 의미, `generate_meta_skill.py`의 출력은 비추적 `cli-hub-skill/SKILL.md`. 패밀리 분류는 AST 기준 7종으로 바뀌었다. 차이 목록과 U-ID는 `next.md`.
+
+## [2026-11-19] workflow | 지시 파일 prompt audit 반영
+- `/claude-api prompt-audit`로 AGENTS.md·workflow·스킬·주제 폴더 GUIDE를 점검했다. 모델용 문구 문제는 없었고, 저장소와 어긋난 내용 3건을 고쳤다.
+- `.agents/skills/oss-repo-spec/SKILL.md`를 `.claude/` 사본(a004b49)과 같게 맞췄다(원본 대조 점검 단계, 4장 번호, 보고 문구, 막힌 경로).
+- `trading/GUIDE.md`·`code-review/GUIDE.md`에서 삭제된 `wiki/` 언급을 뺐고, `visualization/GUIDE.md`의 삭제된 `.agents/skills/archify` 경로를 `~/.claude/skills/archify`로 바꿨다.
+- 사용자 확인: 규칙 원본은 `OSS_ANALYSIS_WORKFLOW.md`다. 8장 용어 정의 규칙이 전역 설정보다 우선한다고 160행에 적었다.

@@ -2,7 +2,7 @@
 
 - 작성일: 2026-10-09
 - 위치(예정): `~/Desktop/oss-analysis/trading/GUIDE.md`
-- 상위 규칙: `~/Desktop/oss-analysis/AGENTS.md`의 원칙(증거 기반 분석, 검증 수준 표기, reports와 wiki 분리)을 그대로 따른다. 이 문서는 **투자 분석 전용으로 추가하는 규칙**만 다룬다.
+- 상위 규칙: `~/Desktop/oss-analysis/AGENTS.md`의 원칙(증거 기반 분석, 검증 수준 표기)을 그대로 따른다. 이 문서는 **투자 분석 전용으로 추가하는 규칙**만 다룬다.
 
 ---
 
@@ -47,7 +47,6 @@ oss-analysis/
 ```
 
 - 기존 `oss-analysis/repos/`와 섞지 않는다. 투자 레포는 `trading/repos/`에만 둔다.
-- 재사용 가치가 큰 결론만 상위 `oss-analysis/wiki/`로 요약해 올린다(상위 AGENTS.md 규칙).
 
 ---
 
